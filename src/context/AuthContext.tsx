@@ -24,7 +24,11 @@ interface AuthContextType {
   loginWithVerifiedUser: (fbUser: FirebaseUser) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   consumeCredit: () => boolean;
-  addCredits: (credits: number, amount: number) => Promise<void>;
+  addCredits: (
+    credits: number,
+    amount: number,
+    extraInfo?: { bank?: string; accountNo?: string; accountName?: string; phone?: string; packageId?: string }
+  ) => Promise<void>;
   openAuthModal: () => void;
   closeAuthModal: () => void;
   openDepositModal: () => void;
@@ -167,11 +171,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return true;
   };
 
-  const addCredits = async (newCredits: number, amount: number) => {
+  const addCredits = async (
+    newCredits: number,
+    amount: number,
+    extraInfo?: { bank?: string; accountNo?: string; accountName?: string; phone?: string; packageId?: string }
+  ) => {
     if (!user) return;
     setUser((prev) => (prev ? { ...prev, credits: prev.credits + newCredits } : null));
     if (user.uid) {
-      await FirestoreService.addCredits(user.uid, newCredits, amount);
+      await FirestoreService.addCredits(user.uid, newCredits, amount, {
+        ...extraInfo,
+        phone: user.phone,
+      });
     }
   };
 

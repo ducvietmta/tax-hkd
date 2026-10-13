@@ -81,21 +81,39 @@ export const FirestoreService = {
   },
 
   // Nạp thêm credits
-  async addCredits(uid: string, credits: number, amount: number): Promise<void> {
+  async addCredits(
+    uid: string,
+    credits: number,
+    amount: number,
+    extraInfo?: { bank?: string; accountNo?: string; accountName?: string; phone?: string; packageId?: string }
+  ): Promise<void> {
     const userDocRef = doc(db, 'users', uid);
-    await updateDoc(userDocRef, {
-      credits: increment(credits),
-      updatedAt: serverTimestamp(),
-    });
+    try {
+      await updateDoc(userDocRef, {
+        credits: increment(credits),
+        updatedAt: serverTimestamp(),
+      });
+    } catch (e) {
+      console.warn('Lỗi update credits trên userDoc:', e);
+    }
 
-    // Lưu giao dịch
-    await addDoc(collection(db, 'transactions'), {
-      uid,
-      amount,
-      credits,
-      status: 'completed',
-      createdAt: serverTimestamp(),
-    });
+    // Lưu chi tiết giao dịch vào collection transactions
+    try {
+      await addDoc(collection(db, 'transactions'), {
+        uid,
+        amount,
+        credits,
+        bank: extraInfo?.bank || 'MBBank',
+        accountNo: extraInfo?.accountNo || '9594180624',
+        accountName: extraInfo?.accountName || 'TRAN DUC VIET',
+        phone: extraInfo?.phone || '',
+        packageId: extraInfo?.packageId || '',
+        status: 'completed',
+        createdAt: serverTimestamp(),
+      });
+    } catch (e) {
+      console.warn('Lỗi add transaction doc:', e);
+    }
   },
 
   // Lưu lịch sử câu hỏi vào Firestore

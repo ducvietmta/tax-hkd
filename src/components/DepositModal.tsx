@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Zap, QrCode, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import {
+  X, Check, Zap, ArrowRight, ShieldCheck, CheckCircle2,
+  Copy, Download, ArrowLeft, Building2, CreditCard
+} from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface PricingPackage {
@@ -41,17 +44,40 @@ const PACKAGES: PricingPackage[] = [
   },
 ];
 
+// Cấu hình thông tin tài khoản ngân hàng nhận tiền thật
+const BANK_CONFIG = {
+  bankId: 'MB',
+  bankName: 'MBBank (Ngân hàng TMCP Quân đội)',
+  accountNo: '9594180624',
+  accountName: 'TRAN DUC VIET',
+};
+
 export const DepositModal: React.FC = () => {
   const { isDepositModalOpen, closeDepositModal, user, addCredits } = useAuth();
   const [selectedPkg, setSelectedPkg] = useState<PricingPackage>(PACKAGES[1]);
   const [paymentStep, setPaymentStep] = useState<'select' | 'qr'>('select');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
 
   if (!isDepositModalOpen) return null;
 
   const formatVND = (num: number) =>
     new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num);
+
+  const transferPhone = user?.phone ? user.phone.replace(/\s+/g, '') : '0943219594';
+  const transferContent = `TAX ${transferPhone}`;
+
+  // Link ảnh VietQR chuẩn Napas 247 thật tự động điền số tiền và nội dung
+  const vietQrUrl = `https://img.vietqr.io/image/${BANK_CONFIG.bankId}-${BANK_CONFIG.accountNo}-compact2.png?amount=${selectedPkg.price}&addInfo=${encodeURIComponent(
+    transferContent
+  )}&accountName=${encodeURIComponent(BANK_CONFIG.accountName)}`;
+
+  const handleCopy = (text: string, fieldName: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(fieldName);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
 
   const handleStartPayment = () => {
     setPaymentStep('qr');
@@ -59,10 +85,19 @@ export const DepositModal: React.FC = () => {
 
   const handleConfirmPaid = () => {
     setIsProcessing(true);
-    setTimeout(() => {
+    setTimeout(async () => {
+      try {
+        await addCredits(selectedPkg.credits, selectedPkg.price, {
+          bank: BANK_CONFIG.bankName,
+          accountNo: BANK_CONFIG.accountNo,
+          accountName: BANK_CONFIG.accountName,
+          packageId: selectedPkg.id,
+        });
+      } catch (e) {
+        console.warn('Lỗi lưu giao dịch:', e);
+      }
       setIsProcessing(false);
       setIsSuccess(true);
-      addCredits(selectedPkg.credits, selectedPkg.price);
 
       setTimeout(() => {
         setIsSuccess(false);
@@ -78,7 +113,7 @@ export const DepositModal: React.FC = () => {
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        className="relative w-full max-w-xl overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-2xl"
+        className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-3xl bg-white border border-slate-200 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Glow Header Accent */}
@@ -88,11 +123,12 @@ export const DepositModal: React.FC = () => {
         <button
           onClick={closeDepositModal}
           className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          aria-label="Đóng"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <div className="p-7 sm:p-8">
+        <div className="p-6 sm:p-8">
           {/* Header */}
           <div className="text-center mb-6">
             <div className="mx-auto w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 mb-3">
@@ -187,58 +223,188 @@ export const DepositModal: React.FC = () => {
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
-                className="space-y-4 text-center"
+                className="space-y-5"
               >
-                {/* QR Code Box */}
-                <div className="mx-auto max-w-xs p-5 bg-slate-50 border-2 border-dashed border-emerald-300 rounded-3xl">
-                  {/* Simulated VietQR graphic */}
-                  <div className="relative mx-auto w-48 h-48 bg-white rounded-2xl p-3 shadow-inner flex flex-col items-center justify-center border border-slate-200">
-                    <QrCode className="w-36 h-36 text-slate-800" />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center text-[10px] shadow">
-                        TAX
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 text-[13px] font-bold text-slate-800">
-                    Quét mã qua app Ngân hàng / MoMo
-                  </div>
-                  <div className="text-[12px] text-emerald-700 font-bold mt-0.5">
-                    Số tiền: {formatVND(selectedPkg.price)} (+{selectedPkg.credits} lượt)
-                  </div>
-                  <div className="mt-1 text-[11px] text-slate-400">
-                    Nội dung CK: <strong className="text-slate-700 font-mono">TAX {user?.phone || '0988123456'}</strong>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
+                {/* Back to package selection */}
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                   <button
                     type="button"
                     onClick={() => setPaymentStep('select')}
-                    className="flex-1 py-3 px-4 rounded-xl border border-slate-200 text-slate-700 font-bold text-[13px] hover:bg-slate-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-[13px] font-bold text-slate-600 hover:text-emerald-600 transition-colors"
                   >
-                    Chọn gói khác
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Đổi gói khác ({selectedPkg.name})</span>
                   </button>
+                  <span className="text-[14px] font-extrabold text-emerald-700 font-mono">
+                    {formatVND(selectedPkg.price)}
+                  </span>
+                </div>
+
+                {/* Real VietQR Display */}
+                <div className="flex flex-col sm:flex-row items-center gap-6 p-5 bg-slate-50 border border-emerald-200 rounded-3xl">
+                  {/* VietQR Image */}
+                  <div className="shrink-0 bg-white p-2.5 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <img
+                      src={vietQrUrl}
+                      alt="Mã VietQR thanh toán MBBank"
+                      className="w-48 h-48 sm:w-52 sm:h-52 object-contain rounded-xl mx-auto"
+                      loading="eager"
+                    />
+                    <div className="mt-2 text-[11px] text-slate-500 font-medium flex items-center justify-center gap-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Quét bằng mọi app Ngân hàng / MoMo</span>
+                    </div>
+                  </div>
+
+                  {/* Transfer Details Card */}
+                  <div className="flex-1 w-full space-y-2.5 text-[13px]">
+                    {/* Bank Name */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Building2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <div>
+                          <div className="text-[11px] text-slate-400 font-medium">Ngân hàng</div>
+                          <div className="font-bold text-slate-900">{BANK_CONFIG.bankName}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Account Number */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <CreditCard className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <div>
+                          <div className="text-[11px] text-slate-400 font-medium">Số tài khoản</div>
+                          <div className="font-mono font-extrabold text-slate-900 text-[15px] tracking-wide">
+                            {BANK_CONFIG.accountNo}
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(BANK_CONFIG.accountNo, 'stk')}
+                        className="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[12px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        {copiedField === 'stk' ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <span>Đã chép</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Sao chép</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Account Name */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div>
+                        <div className="text-[11px] text-slate-400 font-medium">Chủ tài khoản</div>
+                        <div className="font-bold text-slate-900">{BANK_CONFIG.accountName}</div>
+                      </div>
+                    </div>
+
+                    {/* Amount */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div>
+                        <div className="text-[11px] text-slate-400 font-medium">Số tiền thanh toán</div>
+                        <div className="font-mono font-extrabold text-emerald-700 text-[15px]">
+                          {formatVND(selectedPkg.price)}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(String(selectedPkg.price), 'amount')}
+                        className="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[12px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        {copiedField === 'amount' ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <span>Đã chép</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Sao chép</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-2.5 bg-amber-50/80 rounded-xl border border-amber-200 flex items-center justify-between">
+                      <div>
+                        <div className="text-[11px] text-amber-700 font-bold">Nội dung chuyển khoản (bắt buộc)</div>
+                        <div className="font-mono font-extrabold text-slate-900 text-[14px]">
+                          {transferContent}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(transferContent, 'content')}
+                        className="px-2.5 py-1 rounded-lg bg-amber-200/70 hover:bg-amber-200 text-amber-900 text-[12px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        {copiedField === 'content' ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-700" />
+                            <span>Đã chép</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Sao chép</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Instructions */}
+                <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-[12px] text-slate-600 leading-relaxed">
+                  <strong className="text-emerald-800 font-bold block mb-1">💡 Hướng dẫn thanh toán nhanh:</strong>
+                  1. Mở ứng dụng ngân hàng hoặc MoMo/ZaloPay bất kỳ trên điện thoại.<br />
+                  2. Chọn chức năng <strong>Quét mã QR</strong> và quét mã ở trên (thông tin & số tiền được điền tự động).<br />
+                  3. Bấm xác nhận chuyển khoản trên ứng dụng ngân hàng, sau đó nhấn nút bên dưới để hoàn tất!
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-2">
+                  <a
+                    href={vietQrUrl}
+                    download={`VietQR_TAX_${selectedPkg.id}.png`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-bold text-[13px] hover:bg-slate-50 transition-colors"
+                  >
+                    <Download className="w-4 h-4 text-slate-500" />
+                    <span>Lưu ảnh QR</span>
+                  </a>
 
                   <button
                     type="button"
                     disabled={isProcessing || isSuccess}
                     onClick={handleConfirmPaid}
-                    className="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-[13px] py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/25 transition-all disabled:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    className="flex-[2] inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-[14px] py-3.5 px-5 rounded-xl shadow-lg shadow-emerald-500/25 transition-all disabled:opacity-75 focus-visible:outline-none"
                   >
                     {isProcessing ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
-                        <span>Đang xác nhận…</span>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Đang kích hoạt gói...</span>
                       </>
                     ) : isSuccess ? (
                       <>
                         <CheckCircle2 className="w-4 h-4 text-white" />
-                        <span>Thành công!</span>
+                        <span>Kích hoạt thành công (+{selectedPkg.credits} lượt)!</span>
                       </>
                     ) : (
-                      <span>Đã chuyển khoản xong</span>
+                      <>
+                        <span>Tôi đã chuyển khoản xong</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
                     )}
                   </button>
                 </div>
@@ -249,7 +415,7 @@ export const DepositModal: React.FC = () => {
           {/* Safe badge */}
           <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <span>Kích hoạt tự động ngay sau khi chuyển khoản. Hỗ trợ hoàn tiền nếu không hài lòng.</span>
+            <span>Thanh toán an toàn qua cổng VietQR Napas 247. Hỗ trợ kích hoạt tự động & lưu trữ Firestore.</span>
           </div>
         </div>
       </motion.div>
