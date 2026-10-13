@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  X, Check, Zap, ArrowRight, ShieldCheck, CheckCircle2,
-  Copy, Download, ArrowLeft, Building2, CreditCard, RefreshCw, AlertCircle
+  X, Check, Zap, ArrowRight, ShieldCheck,
+  Copy, Download, ArrowLeft, Building2, CreditCard, RefreshCw
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { CloudflareApi } from '../services/api';
@@ -58,9 +58,7 @@ export const DepositModal: React.FC = () => {
   const { isDepositModalOpen, closeDepositModal, user, refreshCredits } = useAuth();
   const [selectedPkg, setSelectedPkg] = useState<PricingPackage>(PACKAGES[1]);
   const [paymentStep, setPaymentStep] = useState<'select' | 'qr'>('select');
-  const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [checkError, setCheckError] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const initialCreditsRef = useRef<number>(user?.credits ?? 0);
@@ -80,11 +78,10 @@ export const DepositModal: React.FC = () => {
   useEffect(() => {
     if (paymentStep === 'qr') {
       initialCreditsRef.current = user?.credits ?? 0;
-      setCheckError(null);
     }
-  }, [paymentStep]);
+  }, [paymentStep, user?.credits]);
 
-  // Polling tự động kiểm tra biến động số dư SePay mỗi 2.5 giây
+  // Polling tự động kiểm tra biến động số dư SePay mỗi 2 giây
   useEffect(() => {
     let interval: any;
     if (isDepositModalOpen && paymentStep === 'qr' && !isSuccess) {
@@ -94,8 +91,6 @@ export const DepositModal: React.FC = () => {
           if (res.success && typeof res.credits === 'number') {
             if (res.credits > initialCreditsRef.current) {
               setIsSuccess(true);
-              setIsProcessing(false);
-              setCheckError(null);
               // Kích hoạt cập nhật số dư hiển thị
               await refreshCredits();
               setTimeout(() => {
@@ -108,7 +103,7 @@ export const DepositModal: React.FC = () => {
         } catch {
           // Bỏ qua lỗi mạng chập chờn
         }
-      }, 2500);
+      }, 2000);
     }
     return () => {
       if (interval) clearInterval(interval);
@@ -123,32 +118,6 @@ export const DepositModal: React.FC = () => {
 
   const handleStartPayment = () => {
     setPaymentStep('qr');
-    setCheckError(null);
-  };
-
-  // Xác nhận thủ công (khi khách bấm kiểm tra)
-  const handleCheckNow = async () => {
-    setIsProcessing(true);
-    setCheckError(null);
-    try {
-      const res = await CloudflareApi.checkPaymentStatus(transferPhone);
-      if (res.success && typeof res.credits === 'number' && res.credits > initialCreditsRef.current) {
-        setIsSuccess(true);
-        await refreshCredits();
-        setTimeout(() => {
-          setIsSuccess(false);
-          setPaymentStep('select');
-          closeDepositModal();
-        }, 1600);
-      } else {
-        // Chưa có giao dịch -> Tuyệt đối không cộng lượt, thông báo cho người dùng
-        setCheckError(`Hệ thống SePay chưa ghi nhận tiền vào MBBank cho nội dung "${transferContent}". Nếu bạn vừa chuyển khoản, vui lòng đợi 1-3 giây rồi bấm kiểm tra lại!`);
-      }
-    } catch {
-      setCheckError('Không thể kết nối đến máy chủ kiểm tra thanh toán. Vui lòng thử lại sau giây lát.');
-    } finally {
-      setIsProcessing(false);
-    }
   };
 
   if (!isDepositModalOpen) return null;
@@ -431,49 +400,44 @@ export const DepositModal: React.FC = () => {
                   Mở App Ngân hàng quét mã QR trên (thông tin và số tiền tự điền). Sau khi hoàn tất chuyển khoản, hệ thống SePay tự động phát hiện và cộng lượt hỏi ngay lập tức!
                 </div>
 
-                {/* Warning Alert if payment not found */}
-                {checkError && (
-                  <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-[12px] font-medium leading-relaxed flex items-start gap-2.5">
-                    <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                    <div>{checkError}</div>
+                {/* Real-time Listening Banner */}
+                <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200/80 shadow-sm flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="relative flex h-3 w-3 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    <div>
+                      <div className="text-[13px] font-bold text-emerald-950 flex items-center gap-2">
+                        <span>Đang tự động kiểm tra giao dịch</span>
+                        <RefreshCw className="w-3.5 h-3.5 text-emerald-600 animate-spin" />
+                      </div>
+                      <div className="text-[11px] text-emerald-700 font-medium">
+                        Khi chuyển khoản thành công, hệ thống tự động cộng lượt và đóng cửa sổ này.
+                      </div>
+                    </div>
                   </div>
-                )}
+                </div>
 
-                {/* Action Buttons */}
+                {/* Action Buttons: Lưu ảnh QR & Đóng */}
                 <div className="flex gap-3 pt-1">
                   <a
                     href={vietQrUrl}
                     download={`VietQR_TAX_${selectedPkg.id}.png`}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-3 rounded-xl border border-slate-300 text-slate-700 font-bold text-[13px] hover:bg-slate-50 transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-[13px] transition-colors shadow-sm"
                   >
                     <Download className="w-4 h-4 text-slate-500" />
-                    <span>Lưu ảnh QR</span>
+                    <span>Lưu ảnh mã VietQR</span>
                   </a>
 
                   <button
                     type="button"
-                    disabled={isProcessing || isSuccess}
-                    onClick={handleCheckNow}
-                    className="flex-[2] inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-[14px] py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/25 transition-all disabled:opacity-75 focus-visible:outline-none"
+                    onClick={closeDepositModal}
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[13px] transition-colors"
                   >
-                    {isProcessing ? (
-                      <>
-                        <RefreshCw className="w-4 h-4 animate-spin" />
-                        <span>Đang kiểm tra SePay...</span>
-                      </>
-                    ) : isSuccess ? (
-                      <>
-                        <CheckCircle2 className="w-4 h-4 text-white" />
-                        <span>Thành công (+{selectedPkg.credits} lượt)!</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Tôi đã chuyển khoản xong</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </>
-                    )}
+                    <span>Để sau / Đóng</span>
                   </button>
                 </div>
               </motion.div>
