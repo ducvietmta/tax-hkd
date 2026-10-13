@@ -167,6 +167,8 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
     selected = pick(2.5);
     usedFallback = selected.length > 0;
   }
+  // Điểm cao nhất hiện tại — dùng để gắn cho chunk chèn tay (ưu tiên lên đầu).
+  const topScore = selected[0]?.score || 0;
   // A short follow-up with annual revenue must still retrieve the year-specific threshold.
   if (asksCurrentYear && normalizedQuery.includes('doanh thu') &&
       /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) {
@@ -174,7 +176,7 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
     if (threshold) {
       const existing = selected.findIndex((item) => item.chunk.ref_id === '16.60');
       if (existing >= 0) selected.splice(existing, 1);
-      selected.unshift({ chunk: threshold.chunk, score: top + 1, viaRoute: false });
+      selected.unshift({ chunk: threshold.chunk, score: topScore + 1, viaRoute: false });
     }
   }
   // Keep the tax-ID and 2026 filing guidance together for multi-part affiliate questions.
@@ -184,7 +186,7 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
     if (guidance) {
       const existing = selected.findIndex((item) => item.chunk.ref_id === '16.96');
       if (existing >= 0) selected.splice(existing, 1);
-      selected.unshift({ chunk: guidance.chunk, score: top + 2, viaRoute: false });
+      selected.unshift({ chunk: guidance.chunk, score: topScore + 2, viaRoute: false });
     }
   }
   return {
