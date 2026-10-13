@@ -137,6 +137,7 @@ assert.ok(!wrongRetail.answer.includes('6 triệu đồng'));
 assert.equal(taxAnswerGuard.guardTaxAnswer('HKD năm 2026 doanh thu 1.2 tỷ bán tạp hóa thì nộp những thuế gì, bao nhiêu phần trăm?', currentScope, [], 'Chưa có căn cứ').reason, null);
 
 const oldScope = scope.resolveAnswerScope([], 'Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', new Date('2026-10-13T05:00:00Z'));
+assert.equal(retrieve('Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', 4, oldScope).results[0].chunk.ref_id, '16.54');
 const vagueOld = taxAnswerGuard.guardTaxAnswer('Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', oldScope, ['16.54'], 'Bạn có thể phải nộp thuế, liên hệ cơ quan thuế để biết thêm.');
 assert.equal(vagueOld.reason, 'historical_threshold');
 assert.ok(vagueOld.answer.includes('100 triệu đồng/năm'));

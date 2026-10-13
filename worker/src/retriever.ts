@@ -157,7 +157,7 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
         !/\b(youtube|adsense)\b/.test(fold(r.chunk.section)))
       .filter((r) => !asksAboutAffiliate || asksWageCalculation ||
         !['16.81', '16.82', '16.93'].includes(r.chunk.ref_id || ''))
-      .filter((r) => !historicalOnly || !['16.95', '16.96'].includes(r.chunk.ref_id || ''))
+      .filter((r) => !historicalOnly || !['16.57', '16.95', '16.96'].includes(r.chunk.ref_id || ''))
       .filter((r) => !asksCurrentYear || !oldYearsRe.test(fold(r.chunk.section)) ||
         currentYearRe.test(r.chunk.section))
       .sort((a, b2) => b2.score - a.score)
@@ -177,6 +177,15 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
   }
   // Điểm cao nhất hiện tại — dùng để gắn cho chunk chèn tay (ưu tiên lên đầu).
   const topScore = selected[0]?.score || 0;
+  // Annual revenue questions about 2022–2025 need the historical 100-million threshold,
+  // even when a broad e-commerce route scores higher.
+  if (historicalOnly && /\bdoanh thu\b/.test(normalizedQuery)) {
+    const historicalThreshold = idx.find((item) => item.chunk.ref_id === '16.54');
+    if (historicalThreshold) {
+      selected = selected.filter((item) => item.chunk.ref_id !== '16.54');
+      selected.unshift({ chunk: historicalThreshold.chunk, score: topScore + 1, viaRoute: false });
+    }
+  }
   // A multi-part question needs both classification and refund evidence, not a salary table.
   const requiredRefs = [
     ...(asksAboutAffiliate && !historicalOnly ? ['16.95'] : []),
