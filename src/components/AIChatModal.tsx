@@ -229,9 +229,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         setMessages((prev) => prev.map((m) => m.id === aiMsgId ? { ...m, contextual: true } : m));
         setIsTyping(false);
         setIsWaitingForAnswer(false);
-        if (user?.phone) {
+        if (user?.phone || user?.uid) {
           try {
-            const cacheKey = `tax_chat_history_${user.phone}`;
+            const cacheKey = `tax_chat_history_${user.phone || user.uid}`;
             const existingStr = localStorage.getItem(cacheKey);
             const list = existingStr ? JSON.parse(existingStr) : [];
             const newItem = {

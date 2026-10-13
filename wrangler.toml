@@ -1,5 +1,5 @@
 name = "tax-agent-worker"
-main = "worker/src/index.ts"
+pages_build_output_dir = "dist"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
@@ -27,3 +27,5 @@ CORS_ALLOW_ORIGIN = "*"
 INITIAL_FREE_CREDITS = 3
 VIP_PHONE = "0943219594"
 VIP_CREDITS = 1000
+SEPAY_API_KEY = "spsk_live_Gb916y8n4ubZZxS7BptB4EoMZNwD1dCF"
+SEPAY_PATTERN = "SP-LIVE-TD295786"

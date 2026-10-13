@@ -1,22 +1,36 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult } from 'firebase/auth';
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  ConfirmationResult,
+  signOut,
+  onAuthStateChanged,
+  User as FirebaseUser,
+} from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB-3k_bKLb9OLAhZmauQDIkTaxmjJs-k0Q",
-  authDomain: "tax-hkd.firebaseapp.com",
-  projectId: "tax-hkd",
-  storageBucket: "tax-hkd.firebasestorage.app",
-  messagingSenderId: "142838463167",
-  appId: "1:142838463167:web:c52215062d92cb79eb640a",
-  measurementId: "G-8KCFTBGWK3",
+  apiKey: "AIzaSyAAhaEd907jtHHCVJRUrJQ_6HuaNwC8ZnA",
+  authDomain: "tax-hkd-7a2bb.firebaseapp.com",
+  projectId: "tax-hkd-7a2bb",
+  storageBucket: "tax-hkd-7a2bb.firebasestorage.app",
+  messagingSenderId: "429004919774",
+  appId: "1:429004919774:web:0b95ff179eff1f8be5c34f",
+  measurementId: "G-VXZWX5VQJS",
 };
 
-// Initialize Firebase
+// Khởi tạo Firebase App chỉ để phục vụ Phone OTP SMS
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-export const auth = getAuth(app);
 
-// Language set to Vietnamese
+// Khởi tạo Firebase Auth (chỉ dùng xác thực số điện thoại)
+export const auth = getAuth(app);
 auth.languageCode = 'vi';
 
-export { RecaptchaVerifier, signInWithPhoneNumber };
-export type { ConfirmationResult };
+export {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  signOut,
+  onAuthStateChanged,
+};
+
+export type { FirebaseUser, ConfirmationResult };

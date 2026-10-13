@@ -14,6 +14,7 @@ import { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
 import { retrieve, buildContext, fold, analyzeAmounts } from './retriever';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
+import { buildMuseRequest } from './museRequest';
 
 export interface Env {
   DB: D1Database;
@@ -24,6 +25,8 @@ export interface Env {
   MUSE_API_KEY?: string;
   VIP_PHONE?: string;
   VIP_CREDITS?: string;
+  SEPAY_API_KEY?: string;
+  SEPAY_PATTERN?: string;
 }
 
 // CORS Helper
@@ -282,33 +285,153 @@ export default {
 
       // 6. NẠP CREDIT (POST /api/user/credits/deposit)
       if (path === '/api/user/credits/deposit' && request.method === 'POST') {
-        const body: any = await request.json();
-        const { phone, credits, amount, paymentMethod } = body;
+        return jsonResponse({ success: false, error: 'Lượt hỏi chỉ được cộng sau khi xác nhận giao dịch ngân hàng.' }, 403, corsHeaders);
+      }
 
-        if (!phone || !credits || !amount) {
-          return jsonResponse({ success: false, error: 'Dữ liệu nạp tiền không hợp lệ.' }, 400, corsHeaders);
+      // 6b. SEPAY WEBHOOK TỰ ĐỘNG CỘNG LƯỢT (POST /api/payment/webhook)
+      if (path === '/api/payment/webhook' && request.method === 'POST') {
+        const webhookKey = env.SEPAY_API_KEY;
+        if (!webhookKey || request.headers.get('Authorization') !== `Apikey ${webhookKey}`) {
+          return jsonResponse({ success: false, error: 'Invalid payment webhook credentials.' }, 401, corsHeaders);
+        }
+        let body: any = null;
+        try {
+          body = await request.json();
+        } catch {
+          return jsonResponse({ success: false, error: 'Dữ liệu JSON không hợp lệ' }, 400, corsHeaders);
+        }
+
+        const transferType = String(body.transferType || body.type || 'in').toLowerCase();
+        const transferAmount = Number(body.transferAmount || body.amount || 0);
+        const content = String(body.content || body.description || '');
+        const sepayId = String(body.id || body.referenceCode || Date.now());
+        const accountNumber = String(body.accountNumber || '').replace(/\D/g, '');
+
+        if (!/^\d+$/.test(sepayId) || accountNumber !== '9594180624') {
+          return jsonResponse({ success: false, error: 'Payment account or transaction ID does not match.' }, 400, corsHeaders);
+        }
+
+        // Bỏ qua nếu không phải tiền vào tài khoản
+        if (transferType !== 'in' || transferAmount <= 0) {
+          return jsonResponse({ success: true, message: 'Bỏ qua giao dịch không phải tiền vào' }, 200, corsHeaders);
+        }
+
+        // Trích xuất số điện thoại khách hàng từ nội dung chuyển khoản:
+        // Cú pháp chuẩn: TAX 0943219594 hoặc TAX0943219594 hoặc chứa số điện thoại VN 10 số
+        const fullText = `${content} ${body.code || ''}`;
+        const phoneMatch = fullText.match(/TAX\s*([0-9]{10})/i) ||
+                           fullText.match(/(0[35789][0-9]{8})/);
+
+        const targetPhone = phoneMatch ? phoneMatch[1] : null;
+
+        if (!targetPhone) {
+          console.warn('SePay webhook: Không tìm thấy số điện thoại hợp lệ trong nội dung:', content);
+          return jsonResponse({
+            success: false,
+            error: 'Không trích xuất được số điện thoại khách hàng',
+            content
+          }, 200, corsHeaders);
+        }
+
+        // Tính số lượt hỏi tương ứng với số tiền nạp
+        let creditsToAdd = 0;
+        let packageName = 'Gói Tuỳ Chỉnh';
+
+        if (transferAmount >= 249000) {
+          creditsToAdd = 100;
+          packageName = 'Gói Doanh Nhân (+100 lượt)';
+        } else if (transferAmount >= 99000) {
+          creditsToAdd = 30;
+          packageName = 'Gói Chuyên Nghiệp (+30 lượt)';
+        } else if (transferAmount >= 49000) {
+          creditsToAdd = 10;
+          packageName = 'Gói Cơ Bản (+10 lượt)';
+        } else {
+          creditsToAdd = Math.max(1, Math.floor(transferAmount / 5000));
+          packageName = `Gói linh hoạt (+${creditsToAdd} lượt)`;
         }
 
         if (env.DB) {
-          const txId = `tx_${Date.now()}`;
+          const txId = `sepay_${sepayId}`;
+
+          // Kiểm tra Idempotency - không cộng trùng lặp nếu SePay gửi lại
+          const existingTx = await env.DB.prepare(`SELECT id FROM transactions WHERE id = ?`).bind(txId).first();
+          if (existingTx) {
+            return jsonResponse({
+              success: true,
+              message: 'Giao dịch đã được ghi nhận trước đó',
+              transactionId: txId
+            }, 200, corsHeaders);
+          }
+
+          // Kiểm tra user trong DB
+          const existingUser: any = await env.DB.prepare(`SELECT * FROM users WHERE phone = ?`).bind(targetPhone).first();
+
+          if (existingUser) {
+            await env.DB.prepare(
+              `UPDATE users SET credits = credits + ?, updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
+            ).bind(creditsToAdd, targetPhone).run();
+          } else {
+            const newId = `usr_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+            await env.DB.prepare(
+              `INSERT INTO users (id, phone, name, credits, role, created_at, updated_at)
+               VALUES (?, ?, ?, ?, 'user', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`
+            ).bind(newId, targetPhone, `Khách hàng ${targetPhone.slice(-4)}`, creditsToAdd + 3).run();
+          }
+
+          // Ghi nhận lịch sử giao dịch vào bảng transactions
           await env.DB.prepare(
             `INSERT INTO transactions (id, user_phone, amount, credits, payment_method, status, notes)
-             VALUES (?, ?, ?, ?, ?, 'completed', 'Nạp lượt hỏi qua Cloudflare API')`
-          )
-            .bind(txId, phone, amount, credits, paymentMethod || 'qr_banking')
-            .run();
+             VALUES (?, ?, ?, ?, 'sepay_mbbank', 'completed', ?)`
+          ).bind(
+            txId,
+            targetPhone,
+            transferAmount,
+            creditsToAdd,
+            `SePay MBBank 9594180624: ${packageName} (Mã GD: ${body.referenceCode || sepayId})`
+          ).run();
 
-          await env.DB.prepare(
-            `UPDATE users SET credits = credits + ?, updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
-          )
-            .bind(credits, phone)
-            .run();
-
-          const updated: any = await env.DB.prepare(`SELECT credits FROM users WHERE phone = ?`).bind(phone).first();
-          return jsonResponse({ success: true, newCredits: updated?.credits, transactionId: txId }, 200, corsHeaders);
+          return jsonResponse({
+            success: true,
+            message: `Tự động cộng thành công ${creditsToAdd} lượt cho SĐT ${targetPhone}`,
+            phone: targetPhone,
+            creditsAdded: creditsToAdd,
+            amount: transferAmount,
+            transactionId: txId
+          }, 200, corsHeaders);
         }
 
-        return jsonResponse({ success: true, newCredits: credits }, 200, corsHeaders);
+        return jsonResponse({ success: true, message: 'D1 database not bound' }, 200, corsHeaders);
+      }
+
+      // 6c. KIỂM TRA TRẠNG THÁI GIAO DỊCH TỰ ĐỘNG (GET /api/payment/check?phone=xxx)
+      if (path === '/api/payment/check' && request.method === 'GET') {
+        const phone = url.searchParams.get('phone');
+        if (!phone) {
+          return jsonResponse({ success: false, error: 'Thiếu tham số phone' }, 400, corsHeaders);
+        }
+        if (await verifiedFirebasePhone(request) !== phone) {
+          return jsonResponse({ success: false, error: 'Access denied.' }, 403, corsHeaders);
+        }
+
+        if (env.DB) {
+          const user: any = await env.DB.prepare(`SELECT phone, credits FROM users WHERE phone = ?`).bind(phone).first();
+          const lastTx: any = await env.DB.prepare(
+            `SELECT id, amount, credits, payment_method, status, created_at
+             FROM transactions
+             WHERE user_phone = ?
+             ORDER BY created_at DESC LIMIT 1`
+          ).bind(phone).first();
+
+          return jsonResponse({
+            success: true,
+            phone,
+            credits: user?.credits ?? 0,
+            lastTransaction: lastTx || null
+          }, 200, corsHeaders);
+        }
+
+        return jsonResponse({ success: true, phone, credits: 0 }, 200, corsHeaders);
       }
 
       // 7. TƯ VẤN THUẾ AI VỚI RAG KNOWLEDGE BASE ENGINE (POST /api/chat)
@@ -348,8 +471,8 @@ export default {
         const history = normalizeConversationHistory(body.history);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = fold(message).slice(0, 400);
-        // BUMP version mỗi khi đổi prompt/KB để không trả cache của bản cũ (v12: tách instructions + khung suy luận 5 bước, 13/10/2026)
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v12|${normMsg}`));
+        // BUMP version mỗi khi đổi prompt/KB (v14: gộp khung suy luận 5 bước + model tự viết Căn cứ pháp lý, 13/10/2026)
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v14|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -391,10 +514,7 @@ export default {
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
         if (ragContextText) {
-          // SYSTEM_INSTRUCTIONS: vai trò + quy trình suy luận + quy tắc trình bày.
-          // Gửi qua tham số `instructions` riêng của Responses API để model phân biệt
-          // chỉ thị hệ thống với nội dung người dùng (trước đây nhét chung vào 1 input).
-          const SYSTEM_INSTRUCTIONS = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
+          const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 
 QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):
 1. Xác định KỲ TÍNH THUẾ (năm nào) và LOẠI THU NHẬP từ câu hỏi và lịch sử hội thoại.
@@ -403,29 +523,28 @@ QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết
 4. Nếu thiếu dữ kiện quyết định (kỳ tính thuế, loại thu nhập, doanh thu...) → DỪNG LẠI, hỏi đúng 1 câu ngắn gọn. Tuyệt đối không đoán, không suy diễn thêm, không áp quy định năm này cho năm khác.
 5. Chỉ khi đủ điều kiện mới kết luận. Trước khi chốt, TỰ KIỂM TRA: mọi con số, thuế suất, ngưỡng, thời hạn và tên văn bản trong câu trả lời đều phải xuất hiện trong phần trích lục — không bịa số, không bịa văn bản.
 
-QUY TẮC TRÌNH BÀY (tuân thủ tuyệt đối):
-1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc mã ref_id như 16.xx, không sao chép nguyên văn đoạn dài của hệ thống).
-2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp.
-3. Kết thúc câu trả lời bằng phần "Căn cứ pháp lý:" — mỗi dòng một văn bản theo dạng "Điều/Khoản, Tên văn bản số hiệu". Chỉ liệt kê văn bản có trong phần trích lục, không thêm văn bản ngoài.
-4. Viết như đang trò chuyện với một người kinh doanh: xưng "mình", gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn, ví dụ đơn giản khi hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
-5. Thuật ngữ thuế phải giải thích ngay bằng một câu dễ hiểu. Không vì thân thiện mà làm nhẹ điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
-6. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bổ sung (ví dụ "800 triệu/năm") — ghép với câu hỏi gốc để tư vấn tiếp, không coi là câu hỏi độc lập. Thông tin mới sửa thông tin cũ thì ưu tiên thông tin mới. Chuyển chủ đề thì trả lời theo chủ đề mới.`;
-
-          // Nội dung gửi cho model dưới vai trò user: trích lục RAG + lịch sử + câu hỏi.
-          const ragContextBlock = `Dưới đây là thông tin quy định thuế trích lục từ kho kiến thức đã xác minh:
+Dưới đây là thông tin quy định thuế trích lục:
 --------------------------------------------------
 ${ragContextText}
 --------------------------------------------------
-${analyzeAmounts(message)}`;
-          const historyBlock = history.length
-            ? `[LỊCH SỬ HỘI THOẠI]:\n${history.map((h) => `${h.role === 'user' ? 'Khách' : 'Chuyên viên'}: ${h.content}`).join('\n')}\n\n`
-            : '';
-          const userContent = `${ragContextBlock}\n${historyBlock}[CÂU HỎI HIỆN TẠI]: ${message}`;
+${analyzeAmounts(message)}
+QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
+1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc tới mã số ref_id như 16.xx, không sao chép nguyên văn cả đoạn văn dài của hệ thống).
+2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Không tự mở rộng sang một vấn đề người dùng không hỏi nếu vấn đề đó không ảnh hưởng kết luận. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
+3. Kết thúc câu trả lời bằng phần "Căn cứ pháp lý:" — mỗi dòng một văn bản theo dạng "Điều/Khoản, Tên văn bản số hiệu". Chỉ liệt kê văn bản có trong phần trích lục, không thêm văn bản ngoài.
+4. Không áp một ngưỡng hoặc quy định của năm 2026 cho năm khác. Nếu năm hoặc loại thu nhập chưa rõ, nói rõ điều kiện tương ứng thay vì tự đoán. Không coi ngày ban hành công văn hướng dẫn là ngày một quy định mới bắt đầu áp dụng khi nguồn không nói vậy.
+5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
+6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
+7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Khi người dùng hỏi "chỉ cần khai cuối năm?", phân biệt thông báo doanh thu, tờ khai thuế định kỳ và quyết toán thuế; nêu mẫu và hạn nếu ngữ cảnh đã có. Nếu còn thiếu dữ kiện thật sự quan trọng, hỏi tối đa một câu ở cuối. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
+8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.
+9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
           if (museKey) {
             try {
+              const museInput = buildMuseRequest(systemPrompt, history, message, !!body.stream);
+
               // --- NẾU CLIENT YÊU CẦU STREAMING (body.stream === true) ---
               if (body.stream) {
                 const museStreamRes = await Promise.race([
@@ -435,14 +554,7 @@ ${analyzeAmounts(message)}`;
                       Authorization: `Bearer ${museKey}`,
                       'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                      model: 'muse-spark-1.3-contributor',
-                      instructions: SYSTEM_INSTRUCTIONS,
-                      input: [{ role: 'user', content: [{ type: 'input_text', text: userContent }] }],
-                      reasoning: { effort: 'high', summary: 'concise' },
-                      max_output_tokens: 4000,
-                      stream: true,
-                    }),
+                    body: JSON.stringify(museInput),
                   }),
                   new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
                 ]);
@@ -534,6 +646,9 @@ ${analyzeAmounts(message)}`;
                   streamHeaders.set('Connection', 'keep-alive');
                   return new Response(readable, { status: 200, headers: streamHeaders });
                 }
+                if (!museStreamRes.ok) {
+                  console.warn('Muse stream API error:', museStreamRes.status, (await museStreamRes.text()).slice(0, 300));
+                }
               }
 
               // --- NẾU KHÔNG DÙNG STREAM: GỌI BLOCKING THƯỜNG ---
@@ -544,19 +659,7 @@ ${analyzeAmounts(message)}`;
                     Authorization: `Bearer ${museKey}`,
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify({
-                    model: 'muse-spark-1.3-contributor',
-                    instructions: SYSTEM_INSTRUCTIONS,
-                    input: [
-                      {
-                        role: 'user',
-                        content: [{ type: 'input_text', text: userContent }],
-                      },
-                    ],
-                    reasoning: { effort: 'high' },
-                    max_output_tokens: 4000,
-                    stream: false,
-                  }),
+                  body: JSON.stringify(buildMuseRequest(systemPrompt, history, message, false)),
                 }),
                 new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
               ]);
@@ -570,7 +673,7 @@ ${analyzeAmounts(message)}`;
                   source = `Muse Spark 1.3 (Meta AI) + ${source}`;
                 }
               } else {
-                console.warn('Muse API response status:', museRes.status);
+                console.warn('Muse API error:', museRes.status, (await museRes.text()).slice(0, 300));
               }
             } catch (errMuse: any) {
               console.error('Lỗi gọi Muse API:', errMuse?.message);
@@ -579,11 +682,7 @@ ${analyzeAmounts(message)}`;
 
           // ƯU TIÊN 2 (FALLBACK): Nếu Muse bận hoặc timeout, gọi Cloudflare Workers AI
           if (!aiText && env.AI) {
-            const messages = [
-              { role: 'system', content: SYSTEM_INSTRUCTIONS },
-              ...history,
-              { role: 'user', content: `${ragContextBlock}\n\n[CÂU HỎI HIỆN TẠI]: ${message}` },
-            ];
+            const messages = [{ role: 'system', content: systemPrompt }, ...history, { role: 'user', content: message }];
             const models = ['@cf/meta/llama-3.3-70b-instruct-fp8-fast', '@cf/qwen/qwen2.5-7b-instruct', '@cf/meta/llama-3.2-3b-instruct'];
             for (const model of models) {
               try {

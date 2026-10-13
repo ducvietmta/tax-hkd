@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Zap, QrCode, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import {
+  X, Check, Zap, ArrowRight, ShieldCheck,
+  Copy, Download, ArrowLeft, Building2, CreditCard, RefreshCw
+} from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { CloudflareApi } from '../services/api';
 
 interface PricingPackage {
   id: string;
@@ -41,36 +45,82 @@ const PACKAGES: PricingPackage[] = [
   },
 ];
 
+// Cấu hình tài khoản MBBank nhận tiền liên kết SePay Live
+const BANK_CONFIG = {
+  bankId: 'MB',
+  bankName: 'MBBank (Ngân hàng TMCP Quân đội)',
+  accountNo: '9594180624',
+  accountName: 'TRAN DUC VIET',
+  pattern: 'SP-LIVE-TD295786',
+};
+
 export const DepositModal: React.FC = () => {
-  const { isDepositModalOpen, closeDepositModal, user, addCredits } = useAuth();
+  const { isDepositModalOpen, closeDepositModal, user, refreshCredits } = useAuth();
   const [selectedPkg, setSelectedPkg] = useState<PricingPackage>(PACKAGES[1]);
   const [paymentStep, setPaymentStep] = useState<'select' | 'qr'>('select');
-  const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  if (!isDepositModalOpen) return null;
+  const initialCreditsRef = useRef<number>(user?.credits ?? 0);
 
   const formatVND = (num: number) =>
     new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num);
+
+  const transferPhone = user?.phone ? user.phone.replace(/\s+/g, '') : '0943219594';
+  const transferContent = `${BANK_CONFIG.pattern} TAX ${transferPhone}`;
+
+  // Link ảnh VietQR chuẩn Napas 247 tự động điền số tiền và nội dung
+  const vietQrUrl = `https://img.vietqr.io/image/${BANK_CONFIG.bankId}-${BANK_CONFIG.accountNo}-compact2.png?amount=${selectedPkg.price}&addInfo=${encodeURIComponent(
+    transferContent
+  )}&accountName=${encodeURIComponent(BANK_CONFIG.accountName)}`;
+
+  // Ghi nhận số dư ban đầu khi chuyển sang bước quét QR
+  useEffect(() => {
+    if (paymentStep === 'qr') {
+      initialCreditsRef.current = user?.credits ?? 0;
+    }
+  }, [paymentStep, user?.credits]);
+
+  // Polling tự động kiểm tra biến động số dư SePay mỗi 2 giây
+  useEffect(() => {
+    let interval: any;
+    if (isDepositModalOpen && paymentStep === 'qr' && !isSuccess) {
+      interval = setInterval(async () => {
+        try {
+          const res = await CloudflareApi.checkPaymentStatus(transferPhone);
+          if (res.success && typeof res.credits === 'number') {
+            if (res.credits > initialCreditsRef.current) {
+              setIsSuccess(true);
+              // Kích hoạt cập nhật số dư hiển thị
+              await refreshCredits();
+              setTimeout(() => {
+                setIsSuccess(false);
+                setPaymentStep('select');
+                closeDepositModal();
+              }, 2200);
+            }
+          }
+        } catch {
+          // Bỏ qua lỗi mạng chập chờn
+        }
+      }, 2000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isDepositModalOpen, paymentStep, isSuccess, transferPhone, refreshCredits, closeDepositModal]);
+
+  const handleCopy = (text: string, fieldName: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(fieldName);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
 
   const handleStartPayment = () => {
     setPaymentStep('qr');
   };
 
-  const handleConfirmPaid = () => {
-    setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-      setIsSuccess(true);
-      addCredits(selectedPkg.credits, selectedPkg.price);
-
-      setTimeout(() => {
-        setIsSuccess(false);
-        setPaymentStep('select');
-        closeDepositModal();
-      }, 1600);
-    }, 1200);
-  };
+  if (!isDepositModalOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
@@ -78,7 +128,7 @@ export const DepositModal: React.FC = () => {
         initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        className="relative w-full max-w-xl overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-2xl"
+        className="relative w-full max-w-xl max-h-[92vh] overflow-y-auto rounded-3xl bg-white border border-slate-200 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Glow Header Accent */}
@@ -88,11 +138,12 @@ export const DepositModal: React.FC = () => {
         <button
           onClick={closeDepositModal}
           className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          aria-label="Đóng"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <div className="p-7 sm:p-8">
+        <div className="p-6 sm:p-8">
           {/* Header */}
           <div className="text-center mb-6">
             <div className="mx-auto w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 mb-3">
@@ -187,59 +238,206 @@ export const DepositModal: React.FC = () => {
                 initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -10 }}
-                className="space-y-4 text-center"
+                className="space-y-4"
               >
-                {/* QR Code Box */}
-                <div className="mx-auto max-w-xs p-5 bg-slate-50 border-2 border-dashed border-emerald-300 rounded-3xl">
-                  {/* Simulated VietQR graphic */}
-                  <div className="relative mx-auto w-48 h-48 bg-white rounded-2xl p-3 shadow-inner flex flex-col items-center justify-center border border-slate-200">
-                    <QrCode className="w-36 h-36 text-slate-800" />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center text-[10px] shadow">
-                        TAX
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 text-[13px] font-bold text-slate-800">
-                    Quét mã qua app Ngân hàng / MoMo
-                  </div>
-                  <div className="text-[12px] text-emerald-700 font-bold mt-0.5">
-                    Số tiền: {formatVND(selectedPkg.price)} (+{selectedPkg.credits} lượt)
-                  </div>
-                  <div className="mt-1 text-[11px] text-slate-400">
-                    Nội dung CK: <strong className="text-slate-700 font-mono">TAX {user?.phone || '0988123456'}</strong>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
+                {/* Back to package selection */}
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                   <button
                     type="button"
                     onClick={() => setPaymentStep('select')}
-                    className="flex-1 py-3 px-4 rounded-xl border border-slate-200 text-slate-700 font-bold text-[13px] hover:bg-slate-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-[13px] font-bold text-slate-600 hover:text-emerald-600 transition-colors"
                   >
-                    Chọn gói khác
+                    <ArrowLeft className="w-4 h-4" />
+                    <span>Đổi gói khác ({selectedPkg.name})</span>
                   </button>
+                  <span className="text-[14px] font-extrabold text-emerald-700 font-mono">
+                    {formatVND(selectedPkg.price)}
+                  </span>
+                </div>
+
+                {/* Real-time Webhook Pulse Status Banner */}
+                <div className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200">
+                  <div className="flex items-center gap-2.5">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    <span className="text-[12px] font-bold text-emerald-900">
+                      Tự động kích hoạt trong 1-3 giây qua SePay MBBank
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded-full">
+                    Auto-check
+                  </span>
+                </div>
+
+                {/* Real VietQR Display */}
+                <div className="flex flex-col sm:flex-row items-center gap-5 p-4 sm:p-5 bg-slate-50 border border-emerald-200 rounded-3xl">
+                  {/* VietQR Image */}
+                  <div className="shrink-0 bg-white p-2.5 rounded-2xl border border-slate-200 shadow-sm text-center">
+                    <img
+                      src={vietQrUrl}
+                      alt="Mã VietQR thanh toán MBBank"
+                      className="w-44 h-44 sm:w-48 sm:h-48 object-contain rounded-xl mx-auto"
+                      loading="eager"
+                    />
+                    <div className="mt-1.5 text-[11px] text-slate-500 font-medium flex items-center justify-center gap-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Quét bằng mọi App Ngân hàng</span>
+                    </div>
+                  </div>
+
+                  {/* Transfer Details Card */}
+                  <div className="flex-1 w-full space-y-2 text-[13px]">
+                    {/* Bank Name */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Building2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <div>
+                          <div className="text-[11px] text-slate-400 font-medium">Ngân hàng</div>
+                          <div className="font-bold text-slate-900">{BANK_CONFIG.bankName}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Account Number */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <CreditCard className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <div>
+                          <div className="text-[11px] text-slate-400 font-medium">Số tài khoản</div>
+                          <div className="font-mono font-extrabold text-slate-900 text-[15px] tracking-wide">
+                            {BANK_CONFIG.accountNo}
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(BANK_CONFIG.accountNo, 'stk')}
+                        className="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[12px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        {copiedField === 'stk' ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <span>Đã chép</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Sao chép</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Account Name */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div>
+                        <div className="text-[11px] text-slate-400 font-medium">Chủ tài khoản</div>
+                        <div className="font-bold text-slate-900">{BANK_CONFIG.accountName}</div>
+                      </div>
+                    </div>
+
+                    {/* Amount */}
+                    <div className="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between">
+                      <div>
+                        <div className="text-[11px] text-slate-400 font-medium">Số tiền thanh toán</div>
+                        <div className="font-mono font-extrabold text-emerald-700 text-[15px]">
+                          {formatVND(selectedPkg.price)}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(String(selectedPkg.price), 'amount')}
+                        className="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[12px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        {copiedField === 'amount' ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                            <span>Đã chép</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Sao chép</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-2.5 bg-amber-50/90 rounded-xl border border-amber-200 flex items-center justify-between">
+                      <div>
+                        <div className="text-[11px] text-amber-800 font-bold">Nội dung chuyển khoản (bắt buộc)</div>
+                        <div className="font-mono font-extrabold text-slate-900 text-[14px]">
+                          {transferContent}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(transferContent, 'content')}
+                        className="px-2.5 py-1 rounded-lg bg-amber-200/70 hover:bg-amber-200 text-amber-900 text-[12px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        {copiedField === 'content' ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-700" />
+                            <span>Đã chép</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>Sao chép</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Instructions */}
+                <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-[12px] text-slate-600 leading-relaxed">
+                  <strong className="text-slate-800 font-bold block mb-0.5">💡 Cách chuyển khoản:</strong>
+                  Mở App Ngân hàng quét mã QR trên (thông tin và số tiền tự điền). Sau khi hoàn tất chuyển khoản, hệ thống SePay tự động phát hiện và cộng lượt hỏi ngay lập tức!
+                </div>
+
+                {/* Real-time Listening Banner */}
+                <div className="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200/80 shadow-sm flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="relative flex h-3 w-3 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    <div>
+                      <div className="text-[13px] font-bold text-emerald-950 flex items-center gap-2">
+                        <span>Đang tự động kiểm tra giao dịch</span>
+                        <RefreshCw className="w-3.5 h-3.5 text-emerald-600 animate-spin" />
+                      </div>
+                      <div className="text-[11px] text-emerald-700 font-medium">
+                        Khi chuyển khoản thành công, hệ thống tự động cộng lượt và đóng cửa sổ này.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons: Lưu ảnh QR & Đóng */}
+                <div className="flex gap-3 pt-1">
+                  <a
+                    href={vietQrUrl}
+                    download={`VietQR_TAX_${selectedPkg.id}.png`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-[13px] transition-colors shadow-sm"
+                  >
+                    <Download className="w-4 h-4 text-slate-500" />
+                    <span>Lưu ảnh mã VietQR</span>
+                  </a>
 
                   <button
                     type="button"
-                    disabled={isProcessing || isSuccess}
-                    onClick={handleConfirmPaid}
-                    className="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-[13px] py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/25 transition-all disabled:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    onClick={closeDepositModal}
+                    className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[13px] transition-colors"
                   >
-                    {isProcessing ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
-                        <span>Đang xác nhận…</span>
-                      </>
-                    ) : isSuccess ? (
-                      <>
-                        <CheckCircle2 className="w-4 h-4 text-white" />
-                        <span>Thành công!</span>
-                      </>
-                    ) : (
-                      <span>Đã chuyển khoản xong</span>
-                    )}
+                    <span>Để sau / Đóng</span>
                   </button>
                 </div>
               </motion.div>
@@ -247,9 +445,9 @@ export const DepositModal: React.FC = () => {
           </AnimatePresence>
 
           {/* Safe badge */}
-          <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
+          <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <span>Kích hoạt tự động ngay sau khi chuyển khoản. Hỗ trợ hoàn tiền nếu không hài lòng.</span>
+            <span>Xác thực tự động bởi SePay Gateway & Lưu trữ trên Cloudflare D1 Database.</span>
           </div>
         </div>
       </motion.div>

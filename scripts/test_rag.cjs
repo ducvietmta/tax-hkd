@@ -59,3 +59,13 @@ for (const query of [
 }
 
 console.log('RAG retrieval regression checks passed.');
+
+const affiliateQuestion = 'Trước mã số thuế của em đuôi 888, nay chuyển sang CCCD. Em làm tiếp thị liên kết TikTok từ 2025, năm nay doanh thu dưới 1 tỷ thì chỉ cần khai thuế cuối năm đúng không?';
+const affiliateResults = resultsFor(affiliateQuestion);
+assert.ok(affiliateResults.results.some(({ chunk }) => chunk.ref_id === '16.96'));
+const affiliateContext = buildContext(affiliateResults.results, affiliateQuestion).text;
+assert.match(affiliateContext, /31\/01\/2027/);
+assert.match(affiliateContext, /đuôi 888.*hoạt động kinh doanh trực tuyến của cá nhân/);
+const idGuidance = affiliateResults.results.find(({ chunk }) => chunk.ref_id === '16.96').chunk.text;
+assert.doesNotMatch(idGuidance, /đã đăng ký hộ kinh doanh|giấy phép hộ kinh doanh/);
+assert.match(affiliateContext, /06\/10\/2026/);

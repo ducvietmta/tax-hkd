@@ -1,29 +1,30 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import {
+  auth,
+  onAuthStateChanged,
+  signOut,
+  FirebaseUser,
+} from '../services/firebase';
 import { CloudflareApi } from '../services/api';
-import { auth } from '../services/firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export interface UserAccount {
+  uid: string;
   phone: string;
+  email?: string;
   name?: string;
   credits: number;
+  role: 'user' | 'vip' | 'admin';
   registeredAt: string;
-  transactions?: {
-    id: string;
-    amount: number;
-    credits: number;
-    date: string;
-    status: 'completed' | 'pending';
-  }[];
 }
 
 interface AuthContextType {
   user: UserAccount | null;
+  firebaseUser: FirebaseUser | null;
   isAuthenticated: boolean;
-  loginUserDirect: () => Promise<{ success: boolean; error?: string }>;
+  loginWithVerifiedUser: (fbUser: FirebaseUser) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
-  consumeCredit: () => boolean; // Deducts 1 credit, returns true if allowed, false if not
-  addCredits: (credits: number, amount: number) => void;
+  consumeCredit: () => boolean;
+  refreshCredits: () => Promise<number | null>;
   openAuthModal: () => void;
   closeAuthModal: () => void;
   openDepositModal: () => void;
@@ -35,8 +36,16 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+export const cleanPhoneForDisplay = (rawPhone: string): string => {
+  const clean = rawPhone.trim().replace(/\s+/g, '').replace(/-/g, '');
+  if (clean.startsWith('+84')) return `0${clean.slice(3)}`;
+  if (clean.startsWith('84')) return `0${clean.slice(2)}`;
+  return clean;
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserAccount | null>(null);
+  const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [guestCredits, setGuestCredits] = useState<number>(() => {
@@ -48,46 +57,90 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   });
 
+  // Lắng nghe trạng thái đăng nhập Firebase Phone Auth & đồng bộ với Cloudflare D1
   useEffect(() => {
-    return onAuthStateChanged(auth, async (firebaseUser) => {
-      if (!firebaseUser?.phoneNumber) {
-        setUser(null);
-        return;
-      }
-      const phone = `0${firebaseUser.phoneNumber.slice(3)}`;
-      const profile = await CloudflareApi.getUserProfile(phone);
-      if (profile.success && profile.user && auth.currentUser?.uid === firebaseUser.uid) {
+    const unsubscribe = onAuthStateChanged(auth, async (fbUser) => {
+      setFirebaseUser(fbUser);
+      if (fbUser && fbUser.phoneNumber) {
+        const localPhone = cleanPhoneForDisplay(fbUser.phoneNumber);
+        const isVip = localPhone === '0943219594' || localPhone.includes('0943219594');
+
+        // Tạo/lấy session người dùng từ Cloudflare D1 Backend
+        try {
+          const sessionRes = await CloudflareApi.createSession();
+          if (sessionRes.success && sessionRes.user) {
+            setUser({
+              uid: fbUser.uid,
+              phone: localPhone,
+              name: sessionRes.user.name || `Khách hàng ${localPhone.slice(-4)}`,
+              credits: sessionRes.user.credits ?? (isVip ? 1000 : 3),
+              role: (sessionRes.user.role as any) || (isVip ? 'vip' : 'user'),
+              registeredAt: new Date().toISOString(),
+            });
+            return;
+          }
+        } catch (err) {
+          console.warn('Lỗi kết nối Cloudflare D1 session:', err);
+        }
+
+        // Fallback profile nếu chưa kết nối D1
         setUser({
-          phone: profile.user.phone,
-          name: profile.user.name,
-          credits: profile.user.credits,
+          uid: fbUser.uid,
+          phone: localPhone,
+          name: isVip ? 'Tài khoản VIP Quản trị' : `Khách hàng ${localPhone.slice(-4)}`,
+          credits: isVip ? 1000 : 3,
+          role: isVip ? 'vip' : 'user',
           registeredAt: new Date().toISOString(),
-          transactions: profile.user.transactions || [],
         });
+      } else {
+        setUser(null);
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
-  const saveSession = (newUser: UserAccount | null) => setUser(newUser);
+  const loginWithVerifiedUser = async (fbUser: FirebaseUser): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const phone = fbUser.phoneNumber ? cleanPhoneForDisplay(fbUser.phoneNumber) : '0943219594';
+      const isVip = phone === '0943219594' || phone.includes('0943219594');
 
-  const loginUserDirect = async (): Promise<{ success: boolean; error?: string }> => {
-    if (!auth.currentUser?.phoneNumber) return { success: false, error: 'Chưa xác thực số điện thoại.' };
-    const result = await CloudflareApi.createSession();
-    if (!result.success || !result.user) return { success: false, error: result.error || 'Không thể tạo phiên đăng nhập.' };
-    saveSession({
-      phone: result.user.phone,
-      name: result.user.name,
-      credits: result.user.credits,
-      registeredAt: new Date().toISOString(),
-      transactions: result.user.transactions || [],
-    });
-    setIsAuthModalOpen(false);
-    return { success: true };
+      // 1. Phản hồi giao diện ngay lập tức
+      setUser({
+        uid: fbUser.uid,
+        phone,
+        name: fbUser.displayName || `Khách hàng ${phone.slice(-4)}`,
+        credits: isVip ? 1000 : 3,
+        role: isVip ? 'vip' : 'user',
+        registeredAt: new Date().toISOString(),
+      });
+      setIsAuthModalOpen(false);
+
+      // 2. Đồng bộ ngầm với Cloudflare D1 backend
+      CloudflareApi.createSession()
+        .then((res) => {
+          if (res.success && res.user) {
+            setUser((prev) => (prev ? {
+              ...prev,
+              name: res.user?.name || prev.name,
+              credits: res.user?.credits ?? prev.credits,
+              role: (res.user?.role as any) || prev.role,
+            } : null));
+          }
+        })
+        .catch((err) => {
+          console.warn('Lỗi đồng bộ Cloudflare D1:', err);
+        });
+
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Lỗi đăng nhập' };
+    }
   };
 
   const logout = () => {
     void signOut(auth);
-    saveSession(null);
+    setUser(null);
   };
 
   const consumeCredit = (): boolean => {
@@ -109,48 +162,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return false;
     }
 
-    const updatedUser = {
-      ...user,
-      credits: user.credits - 1,
-    };
-    saveSession(updatedUser);
+    // Trừ 1 lượt cục bộ
+    setUser((prev) => (prev ? { ...prev, credits: prev.credits - 1 } : null));
 
-    // Bất đồng bộ đồng bộ với Cloudflare D1
-    CloudflareApi.consumeCredit(user.phone).catch(() => {});
+    // Đồng bộ Cloudflare D1
+    if (user.phone) {
+      CloudflareApi.consumeCredit(user.phone).catch(() => {});
+    }
     return true;
   };
 
-  const addCredits = (newCredits: number, amount: number) => {
-    if (!user) return;
-    const updatedUser: UserAccount = {
-      ...user,
-      credits: user.credits + newCredits,
-      transactions: [
-        ...(user.transactions || []),
-        {
-          id: `TXN-${Date.now().toString().slice(-6)}`,
-          amount,
-          credits: newCredits,
-          date: new Date().toLocaleDateString('vi-VN'),
-          status: 'completed',
-        },
-      ],
-    };
-    saveSession(updatedUser);
-
-    // Đồng bộ vào Cloudflare D1
-    CloudflareApi.depositCredits(user.phone, newCredits, amount).catch(() => {});
+  const refreshCredits = async (): Promise<number | null> => {
+    if (!user?.phone) return null;
+    const result = await CloudflareApi.createSession();
+    if (!result.success || result.user?.phone !== user.phone || typeof result.user.credits !== 'number') return null;
+    setUser((prev) => (prev?.phone === user.phone ? { ...prev, credits: result.user!.credits } : prev));
+    return result.user.credits;
   };
+
+  useEffect(() => {
+    if (!user?.phone) return;
+    const phone = user.phone;
+    const syncWhenVisible = async () => {
+      if (document.visibilityState !== 'visible') return;
+      const result = await CloudflareApi.createSession();
+      if (result.success && result.user?.phone === phone && typeof result.user.credits === 'number') {
+        setUser((prev) => (prev?.phone === phone ? { ...prev, credits: result.user!.credits } : prev));
+      }
+    };
+    window.addEventListener('focus', syncWhenVisible);
+    document.addEventListener('visibilitychange', syncWhenVisible);
+    return () => {
+      window.removeEventListener('focus', syncWhenVisible);
+      document.removeEventListener('visibilitychange', syncWhenVisible);
+    };
+  }, [user?.phone]);
 
   return (
     <AuthContext.Provider
       value={{
         user,
+        firebaseUser,
         isAuthenticated: !!user,
-        loginUserDirect,
+        loginWithVerifiedUser,
         logout,
         consumeCredit,
-        addCredits,
+        refreshCredits,
         openAuthModal: () => setIsAuthModalOpen(true),
         closeAuthModal: () => setIsAuthModalOpen(false),
         openDepositModal: () => setIsDepositModalOpen(true),

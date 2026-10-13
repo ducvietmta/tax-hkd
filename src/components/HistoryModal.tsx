@@ -22,13 +22,13 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDeletingAll, setIsDeletingAll] = useState<boolean>(false);
 
-  // Tải lịch sử khi mở modal hoặc đổi user
+  // Tải lịch sử khi mở modal hoặc đổi user từ Cloudflare D1
   const fetchHistory = async () => {
-    if (!user?.phone) return;
+    if (!user) return;
     setLoading(true);
     try {
-      // 1. Đọc cache nhanh từ localStorage nếu có
-      const cacheKey = `tax_chat_history_${user.phone}`;
+      const userKey = user.phone || user.uid || 'guest';
+      const cacheKey = `tax_chat_history_${userKey}`;
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         try {
@@ -36,11 +36,13 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
         } catch {}
       }
 
-      // 2. Tải trực tiếp từ Cloudflare D1
-      const res = await CloudflareApi.getChatHistory(user.phone);
-      if (res.success && res.history) {
-        setHistory(res.history);
-        localStorage.setItem(cacheKey, JSON.stringify(res.history));
+      // Tải từ Cloudflare D1
+      if (user.phone) {
+        const res = await CloudflareApi.getChatHistory(user.phone);
+        if (res.success && res.history) {
+          setHistory(res.history);
+          localStorage.setItem(cacheKey, JSON.stringify(res.history));
+        }
       }
     } catch {
       // Giữ cache cũ
@@ -51,14 +53,14 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
 
   useEffect(() => {
     if (isOpen) {
-      if (isAuthenticated && user?.phone) {
+      if (isAuthenticated && user) {
         fetchHistory();
       } else {
         setHistory([]);
       }
       setSelectedItem(null);
     }
-  }, [isOpen, isAuthenticated, user?.phone]);
+  }, [isOpen, isAuthenticated, user]);
 
   const handleCopy = (id: string, text: string) => {
     navigator.clipboard.writeText(text);

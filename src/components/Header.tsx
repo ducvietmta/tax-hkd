@@ -116,22 +116,22 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
                 {/* Account button */}
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[12px] font-bold px-3 py-1.5 rounded-xl transition-all"
+                  className="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[12px] font-bold px-3 py-1.5 rounded-xl transition-all max-w-[140px]"
                 >
-                  <User className="w-3.5 h-3.5 text-slate-600" />
-                  <span>{user.phone.slice(0, 4)}...{user.phone.slice(-3)}</span>
+                  <User className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                  <span className="truncate">{user.name || user.email?.split('@')[0] || user.phone || 'Tài khoản'}</span>
                 </button>
               </div>
 
               {/* Dropdown Menu */}
               {userDropdownOpen && (
                 <div
-                  className="absolute right-0 mt-2 w-60 rounded-2xl bg-white border border-slate-200 shadow-xl p-3 z-50 text-[13px] animate-in fade-in"
+                  className="absolute right-0 mt-2 w-64 rounded-2xl bg-white border border-slate-200 shadow-xl p-3 z-50 text-[13px] animate-in fade-in"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="pb-2.5 mb-2 border-b border-slate-100">
                     <div className="text-[11px] font-semibold text-slate-400 uppercase">Tài khoản</div>
-                    <div className="font-bold text-slate-800 font-mono">{user.phone}</div>
+                    <div className="font-bold text-slate-800 truncate">{user.email || user.phone}</div>
                     <div className="text-[12px] text-emerald-700 font-semibold mt-0.5">
                       Số dư: {user.credits} lượt hỏi AI
                     </div>
