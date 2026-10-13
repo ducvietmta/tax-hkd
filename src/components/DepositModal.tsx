@@ -55,7 +55,7 @@ const BANK_CONFIG = {
 };
 
 export const DepositModal: React.FC = () => {
-  const { isDepositModalOpen, closeDepositModal, user, addCredits } = useAuth();
+  const { isDepositModalOpen, closeDepositModal, user, refreshCredits } = useAuth();
   const [selectedPkg, setSelectedPkg] = useState<PricingPackage>(PACKAGES[1]);
   const [paymentStep, setPaymentStep] = useState<'select' | 'qr'>('select');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -82,7 +82,7 @@ export const DepositModal: React.FC = () => {
       initialCreditsRef.current = user?.credits ?? 0;
       setCheckError(null);
     }
-  }, [paymentStep, user?.credits]);
+  }, [paymentStep]);
 
   // Polling tự động kiểm tra biến động số dư SePay mỗi 2.5 giây
   useEffect(() => {
@@ -97,7 +97,7 @@ export const DepositModal: React.FC = () => {
               setIsProcessing(false);
               setCheckError(null);
               // Kích hoạt cập nhật số dư hiển thị
-              await addCredits(res.credits - initialCreditsRef.current, selectedPkg.price);
+              await refreshCredits();
               setTimeout(() => {
                 setIsSuccess(false);
                 setPaymentStep('select');
@@ -113,7 +113,7 @@ export const DepositModal: React.FC = () => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isDepositModalOpen, paymentStep, isSuccess, transferPhone, selectedPkg.price, addCredits, closeDepositModal]);
+  }, [isDepositModalOpen, paymentStep, isSuccess, transferPhone, refreshCredits, closeDepositModal]);
 
   const handleCopy = (text: string, fieldName: string) => {
     navigator.clipboard.writeText(text);
@@ -134,7 +134,7 @@ export const DepositModal: React.FC = () => {
       const res = await CloudflareApi.checkPaymentStatus(transferPhone);
       if (res.success && typeof res.credits === 'number' && res.credits > initialCreditsRef.current) {
         setIsSuccess(true);
-        await addCredits(res.credits - initialCreditsRef.current, selectedPkg.price);
+        await refreshCredits();
         setTimeout(() => {
           setIsSuccess(false);
           setPaymentStep('select');
@@ -142,7 +142,7 @@ export const DepositModal: React.FC = () => {
         }, 1600);
       } else {
         // Chưa có giao dịch -> Tuyệt đối không cộng lượt, thông báo cho người dùng
-        setCheckError(`Hệ thống SePay chưa ghi nhận tiền vào MBBank cho nội dung "TAX ${transferPhone}". Nếu bạn vừa chuyển khoản, vui lòng đợi 1-3 giây rồi bấm kiểm tra lại!`);
+        setCheckError(`Hệ thống SePay chưa ghi nhận tiền vào MBBank cho nội dung "${transferContent}". Nếu bạn vừa chuyển khoản, vui lòng đợi 1-3 giây rồi bấm kiểm tra lại!`);
       }
     } catch {
       setCheckError('Không thể kết nối đến máy chủ kiểm tra thanh toán. Vui lòng thử lại sau giây lát.');

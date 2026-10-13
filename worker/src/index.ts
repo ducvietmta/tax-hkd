@@ -284,37 +284,15 @@ export default {
 
       // 6. NẠP CREDIT (POST /api/user/credits/deposit)
       if (path === '/api/user/credits/deposit' && request.method === 'POST') {
-        const body: any = await request.json();
-        const { phone, credits, amount, paymentMethod } = body;
-
-        if (!phone || !credits || !amount) {
-          return jsonResponse({ success: false, error: 'Dữ liệu nạp tiền không hợp lệ.' }, 400, corsHeaders);
-        }
-
-        if (env.DB) {
-          const txId = `tx_${Date.now()}`;
-          await env.DB.prepare(
-            `INSERT INTO transactions (id, user_phone, amount, credits, payment_method, status, notes)
-             VALUES (?, ?, ?, ?, ?, 'completed', 'Nạp lượt hỏi qua Cloudflare API')`
-          )
-            .bind(txId, phone, amount, credits, paymentMethod || 'qr_banking')
-            .run();
-
-          await env.DB.prepare(
-            `UPDATE users SET credits = credits + ?, updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
-          )
-            .bind(credits, phone)
-            .run();
-
-          const updated: any = await env.DB.prepare(`SELECT credits FROM users WHERE phone = ?`).bind(phone).first();
-          return jsonResponse({ success: true, newCredits: updated?.credits, transactionId: txId }, 200, corsHeaders);
-        }
-
-        return jsonResponse({ success: true, newCredits: credits }, 200, corsHeaders);
+        return jsonResponse({ success: false, error: 'Lượt hỏi chỉ được cộng sau khi xác nhận giao dịch ngân hàng.' }, 403, corsHeaders);
       }
 
       // 6b. SEPAY WEBHOOK TỰ ĐỘNG CỘNG LƯỢT (POST /api/payment/webhook)
       if (path === '/api/payment/webhook' && request.method === 'POST') {
+        const webhookKey = env.SEPAY_API_KEY;
+        if (!webhookKey || request.headers.get('Authorization') !== `Apikey ${webhookKey}`) {
+          return jsonResponse({ success: false, error: 'Invalid payment webhook credentials.' }, 401, corsHeaders);
+        }
         let body: any = null;
         try {
           body = await request.json();
@@ -326,6 +304,11 @@ export default {
         const transferAmount = Number(body.transferAmount || body.amount || 0);
         const content = String(body.content || body.description || '');
         const sepayId = String(body.id || body.referenceCode || Date.now());
+        const accountNumber = String(body.accountNumber || '').replace(/\D/g, '');
+
+        if (!/^\d+$/.test(sepayId) || accountNumber !== '9594180624') {
+          return jsonResponse({ success: false, error: 'Payment account or transaction ID does not match.' }, 400, corsHeaders);
+        }
 
         // Bỏ qua nếu không phải tiền vào tài khoản
         if (transferType !== 'in' || transferAmount <= 0) {
@@ -425,6 +408,9 @@ export default {
         const phone = url.searchParams.get('phone');
         if (!phone) {
           return jsonResponse({ success: false, error: 'Thiếu tham số phone' }, 400, corsHeaders);
+        }
+        if (await verifiedFirebasePhone(request) !== phone) {
+          return jsonResponse({ success: false, error: 'Access denied.' }, 403, corsHeaders);
         }
 
         if (env.DB) {

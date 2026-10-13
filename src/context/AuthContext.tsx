@@ -24,11 +24,7 @@ interface AuthContextType {
   loginWithVerifiedUser: (fbUser: FirebaseUser) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   consumeCredit: () => boolean;
-  addCredits: (
-    credits: number,
-    amount: number,
-    extraInfo?: { bank?: string; accountNo?: string; accountName?: string; phone?: string; packageId?: string }
-  ) => Promise<void>;
+  refreshCredits: () => Promise<number | null>;
   openAuthModal: () => void;
   closeAuthModal: () => void;
   openDepositModal: () => void;
@@ -176,19 +172,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return true;
   };
 
-  const addCredits = async (
-    newCredits: number,
-    amount: number,
-    _extraInfo?: { bank?: string; accountNo?: string; accountName?: string; phone?: string; packageId?: string }
-  ) => {
-    if (!user) return;
-    setUser((prev) => (prev ? { ...prev, credits: prev.credits + newCredits } : null));
-
-    // Lưu vào Cloudflare D1
-    if (user.phone) {
-      await CloudflareApi.depositCredits(user.phone, newCredits, amount);
-    }
+  const refreshCredits = async (): Promise<number | null> => {
+    if (!user?.phone) return null;
+    const result = await CloudflareApi.createSession();
+    if (!result.success || result.user?.phone !== user.phone || typeof result.user.credits !== 'number') return null;
+    setUser((prev) => (prev?.phone === user.phone ? { ...prev, credits: result.user!.credits } : prev));
+    return result.user.credits;
   };
+
+  useEffect(() => {
+    if (!user?.phone) return;
+    const phone = user.phone;
+    const syncWhenVisible = async () => {
+      if (document.visibilityState !== 'visible') return;
+      const result = await CloudflareApi.createSession();
+      if (result.success && result.user?.phone === phone && typeof result.user.credits === 'number') {
+        setUser((prev) => (prev?.phone === phone ? { ...prev, credits: result.user!.credits } : prev));
+      }
+    };
+    window.addEventListener('focus', syncWhenVisible);
+    document.addEventListener('visibilitychange', syncWhenVisible);
+    return () => {
+      window.removeEventListener('focus', syncWhenVisible);
+      document.removeEventListener('visibilitychange', syncWhenVisible);
+    };
+  }, [user?.phone]);
 
   return (
     <AuthContext.Provider
@@ -199,7 +207,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loginWithVerifiedUser,
         logout,
         consumeCredit,
-        addCredits,
+        refreshCredits,
         openAuthModal: () => setIsAuthModalOpen(true),
         closeAuthModal: () => setIsAuthModalOpen(false),
         openDepositModal: () => setIsDepositModalOpen(true),

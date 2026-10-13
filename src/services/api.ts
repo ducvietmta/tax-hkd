@@ -91,22 +91,6 @@ export const CloudflareApi = {
   },
 
   /**
-   * Nạp lượt hỏi vào tài khoản Cloudflare D1
-   */
-  async depositCredits(phone: string, credits: number, amount: number): Promise<{ success: boolean; newCredits?: number; error?: string }> {
-    try {
-      const res = await fetch(`${API_BASE}/api/user/credits/deposit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...await authorizationHeaders() },
-        body: JSON.stringify({ phone, credits, amount, paymentMethod: 'qr_banking' }),
-      });
-      return await res.json();
-    } catch {
-      return { success: true, newCredits: credits };
-    }
-  },
-
-  /**
    * Hỏi đáp tư vấn thuế AI qua Cloudflare Workers
    */
   async askTaxAI(
@@ -278,7 +262,9 @@ export const CloudflareApi = {
    */
   async checkPaymentStatus(phone: string): Promise<{ success: boolean; credits?: number; lastTransaction?: any; error?: string }> {
     try {
-      const res = await fetch(`${API_BASE}/api/payment/check?phone=${encodeURIComponent(phone)}`);
+      const res = await fetch(`${API_BASE}/api/payment/check?phone=${encodeURIComponent(phone)}`, {
+        headers: await authorizationHeaders(),
+      });
       return await res.json();
     } catch {
       return { success: false, error: 'Không thể kiểm tra giao dịch' };
