@@ -8591,14 +8591,14 @@ INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES
   https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-mua-hang-tu-ca-nhan-kinh-doanh-co-doanh-thu-duoi-500-trieu-dong-nam-khong-hoa-don-co-duoc-phep-lap-bang-ke-mua-hang-119260312204259799.htm
   https://xaydungchinhsach.chinhphu.vn/quy-dinh-moi-ve-thue-va-hoa-don-dien-tu-trong-thuong-mai-dien-tu-va-ban-hang-da-kenh-119260717133903995.htm
 - Lưu ý cập nhật ngưỡng 500 triệu trong bài tháng 4 thành 1 tỷ theo NĐ 141/2026.');
-INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/16-kien-thuc-da-xac-minh-v5.1.md#1027', 'KB/16-kien-thuc-da-xac-minh-v5.1.md', '16.20. Affiliate/TikTok/Shopee: không dùng một mức 7% hoặc 10% cho mọi trường hợp', '16.20', 'VERIFIED_CONDITIONAL', '16 — KIẾN THỨC ĐÃ XÁC MINH V5.1 (lớp canonical cho AI)
-## 16.20. Affiliate/TikTok/Shopee: không dùng một mức 7% hoặc 10% cho mọi trường hợp
-- **LEGAL_STATUS:** `VERIFIED_CONDITIONAL`.
-- Theo giải đáp Cục Thuế 23/07/2026:
-  - nếu cá nhân **không đăng ký kinh doanh/đăng ký thuế** cho hoạt động affiliate trong tình huống được hỏi, khoản hoa hồng có tính chất tiền lương, tiền công và sàn có trách nhiệm khấu trừ/nộp thay theo quy định;
+INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/16-kien-thuc-da-xac-minh-v5.1.md#1027', 'KB/16-kien-thuc-da-xac-minh-v5.1.md', '16.20. Affiliate: phân loại theo nền tảng — ưu tiên CV 7403 cho affiliate trên TMĐT', '16.20', 'VERIFIED_CONDITIONAL', '16 — KIẾN THỨC ĐÃ XÁC MINH V5.1 (lớp canonical cho AI)
+## 16.20. Affiliate: phân loại theo nền tảng — ưu tiên CV 7403 cho affiliate trên TMĐT
+- **LEGAL_STATUS:** `VERIFIED_CONDITIONAL` — chốt đúng chỉ khi xác định được affiliate diễn ra **trên hay ngoài nền tảng TMĐT**.
+- **Quy tắc ưu tiên (cập nhật 12/10/2026):** tiếp thị liên kết **trên nền tảng TMĐT** (TikTok Shop, Shopee...) áp dụng **Công văn 7403/CT-TMĐT (06/10/2026)** — xem **16.95**: là **thu nhập từ kinh doanh** (không phải tiền công), thuế suất TNCN **5% trên doanh thu**, chủ quản nền tảng có chức năng đặt hàng + thanh toán phải khấu trừ/khai thay/nộp thay theo Điều 43 NĐ 252/2026/NĐ-CP. CV 7403 không đặt điều kiện "đã đăng ký hay chưa" cho phân loại này; hệ quả là người làm affiliate phải đăng ký thuế, kê khai, nộp thuế theo NĐ 68/2026/NĐ-CP và NĐ 141/2026/NĐ-CP.
+- Decision tree dưới đây (theo giải đáp Cục Thuế 23/07/2026 + CV 1241/CTCBA-TTHT 2024) **chỉ còn áp dụng cho affiliate ngoài nền tảng TMĐT** hoặc các tình huống phát sinh trước 06/10/2026:
+  - nếu cá nhân **không đăng ký kinh doanh/đăng ký thuế** cho hoạt động affiliate trong tình huống được hỏi, khoản hoa hồng có tính chất tiền lương, tiền công và bên chi trả có trách nhiệm khấu trừ/nộp thay theo quy định;
   - nếu đã đăng ký kinh doanh/đăng ký thuế đúng hoạt động, tiền hoa hồng là **doanh thu kinh doanh**; cách khai/nộp tiếp theo phụ thuộc tổng doanh thu và phương pháp TNCN.
 - Không được lấy bài cộng đồng “affiliate mặc định 7%” hay “booking mặc định 10%” làm đáp án. Phải phân biệt hoa hồng tiếp thị liên kết, quảng cáo số/KOL booking, creator revenue, bán hàng của chính mình và các nguồn khác.
-- **Bổ sung 09/10/2026 (CV 7403/CT-TMĐT):** tiếp thị liên kết **trên nền tảng TMĐT** áp dụng thuế suất TNCN **5%** (điểm đ khoản 3 Điều 7 Luật 109/2025/QH15); chủ quản nền tảng có chức năng đặt hàng + thanh toán (VD TikTok Shop) phải khấu trừ/khai thay/nộp thay theo Điều 43 NĐ 252/2026/NĐ-CP — chi tiết xem **16.95**.
 - Nguồn:
   https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm
   https://xaydungchinhsach.chinhphu.vn/cach-ke-khai-thue-xuat-hoa-don-voi-ho-kinh-doanh-tiep-thi-lien-ket-119260407163142252.htm');
@@ -9229,13 +9229,14 @@ INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES
   - NĐ 141/2026/NĐ-CP nâng ngưỡng lên 1 tỷ (toàn văn): https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm');
 INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/16D-da-nguon-pham-vi-nguong.md#1090', 'KB/16D-da-nguon-pham-vi-nguong.md', '16.73. Affiliate: căn cứ pháp lý của decision tree phân loại (bổ sung 16.20)', '16.73', 'VERIFIED_CONDITIONAL', '16D — Đa nguồn thu nhập & phạm vi tính ngưỡng 1 tỷ (VERIFIED 2026-10-06)
 ## 16.73. Affiliate: căn cứ pháp lý của decision tree phân loại (bổ sung 16.20)
-- **LEGAL_STATUS:** `VERIFIED_CONDITIONAL` — chốt đúng chỉ khi xác định được tình trạng đăng ký kinh doanh/đăng ký thuế của cá nhân đối với hoạt động affiliate.
+- **LEGAL_STATUS:** `VERIFIED_CONDITIONAL` — chốt đúng chỉ khi xác định được tình trạng đăng ký kinh doanh/đăng ký thuế của cá nhân đối với hoạt động affiliate **và hoạt động diễn ra ngoài nền tảng TMĐT**.
+- **Cập nhật 12/10/2026 — phạm vi áp dụng:** với tiếp thị liên kết **trên nền tảng TMĐT** (TikTok Shop, Shopee...), **CV 7403/CT-TMĐT (06/10/2026)** được ưu tiên — xem **16.95**: phân loại là **thu nhập từ kinh doanh** (không phải tiền công), thuế suất TNCN **5% trên doanh thu**, nền tảng khấu trừ/khai thay/nộp thay. Decision tree dưới đây (nhánh "chưa đăng ký → tiền công") giữ lại cho affiliate **ngoài nền tảng TMĐT** và các tình huống phát sinh trước 06/10/2026.
 - Decision tree tại 16.20 được củng cố thêm bằng các căn cứ sau:
   - **Chưa đăng ký kinh doanh/đăng ký thuế** cho hoạt động affiliate: khoản hoa hồng có tính chất **tiền lương, tiền công**. Căn cứ: Công văn 1241/CTCBA-TTHT năm 2024 (và Công văn 1232/CTCBA-TTHT) — cá nhân làm tiếp thị liên kết trên sàn TMĐT, dù không đăng ký hộ kinh doanh hay cá nhân kinh doanh, vẫn thuộc diện nộp thuế TNCN theo dạng tiền lương, tiền công; phân loại này đã được Cục Thuế xác nhận lại trong giải đáp ngày 23/07/2026 (xem 16.20).
   - Cơ chế khấu trừ: tổ chức/cá nhân trả thu nhập **khấu trừ 10%** trên tổng thu nhập trước khi thanh toán khi chi trả từ **2 triệu đồng/lần trở lên** đối với trường hợp không ký hợp đồng lao động hoặc hợp đồng dưới 3 tháng (điểm i khoản 1 Điều 25 Thông tư 111/2013/TT-BTC). Cuối năm cá nhân quyết toán theo biểu lũy tiến nếu thuộc diện.
   - **Đã đăng ký kinh doanh/đăng ký thuế đúng hoạt động**: tiền hoa hồng là **doanh thu kinh doanh**, xếp vào nhóm cung cấp dịch vụ; cách khai/nộp tiếp theo phụ thuộc tổng doanh thu và phương pháp TNCN (xem 16.20, 16.53).
 - **Cấm dùng một mức cho mọi case:** không chốt "affiliate mặc định 7%", "booking mặc định 10%", hay "khấu trừ 10% là xong nghĩa vụ" khi chưa phân loại đúng và chưa xét tổng doanh thu năm.
-- CROSS_REFERENCE: 16.20 (decision tree), 16.29 (affiliate trong nhóm kinh doanh thông thường khi xét ngưỡng), 16.35 (tổng hợp đa kênh).
+- CROSS_REFERENCE: 16.20 (decision tree), 16.95 (ưu tiên cho affiliate trên nền tảng TMĐT), 16.29 (affiliate trong nhóm kinh doanh thông thường khi xét ngưỡng), 16.35 (tổng hợp đa kênh).
 - Nguồn:
   - https://esos.vn/blogs/news/thu-nhap-tu-lam-tiep-thi-lien-ket-co-phai-dong-thu-nhap-ca-nhan-khong (trích Công văn 1241/CTCBA-TTHT 2024)
   - https://thuvienphapluat.vn/ma-so-thue/phap-luat-thue/lam-tiep-thi-lien-ket-affiliate-co-phai-dong-thu-nhap-ca-nhan-khong-co-may-truong-hop-dong-thu-694004-185525.html
