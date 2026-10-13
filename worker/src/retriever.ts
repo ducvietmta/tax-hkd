@@ -123,14 +123,35 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
     return { chunk: d.chunk, score: s, viaRoute };
   });
 
+  const normalizedQuery = fold(query);
+  const asksAboutSales = /\b(ban hang|ban tren|doanh thu ban)\b/.test(normalizedQuery);
+  const asksAboutAffiliate = /\b(affiliate|tiep thi lien ket|hoa hong|koc|kol)\b/.test(normalizedQuery);
+  const asksCurrentYear = /\b2026\b/.test(normalizedQuery);
   const results = scored
     .filter((r) => r.score >= 8)
+    .filter((r) => !asksAboutSales || asksAboutAffiliate ||
+      !/affiliate|tiep thi lien ket/.test(fold(r.chunk.section)))
+    .filter((r) => /\b(youtube|adsense)\b/.test(normalizedQuery) ||
+      !/\b(youtube|adsense)\b/.test(fold(r.chunk.section)))
+    .filter((r) => !asksCurrentYear || !/\b2021\b|\b2022\b|\b2023\b|\b2024\b|\b2025\b/.test(fold(r.chunk.section)) ||
+      /2026/.test(r.chunk.section))
     .sort((a, b2) => b2.score - a.score)
     .slice(0, limit);
   // Cắt các kết quả quá yếu so với kết quả đầu (giảm nhiễu)
   const top = results[0]?.score || 0;
+  const selected = results.filter((r, i) => i === 0 || r.viaRoute || r.score >= top * 0.35);
+  // A short follow-up with annual revenue must still retrieve the year-specific threshold.
+  if (asksCurrentYear && normalizedQuery.includes('doanh thu') &&
+      /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) {
+    const threshold = idx.find((item) => item.chunk.ref_id === '16.60');
+    if (threshold) {
+      const existing = selected.findIndex((item) => item.chunk.ref_id === '16.60');
+      if (existing >= 0) selected.splice(existing, 1);
+      selected.unshift({ chunk: threshold.chunk, score: top + 1, viaRoute: false });
+    }
+  }
   return {
-    results: results.filter((r, i) => i === 0 || r.viaRoute || r.score >= top * 0.35),
+    results: selected.slice(0, limit),
     routeId: route?.id || null,
   };
 }
@@ -141,10 +162,12 @@ export function snippet(chunk: RagChunk, query: string, budget = 2200): string {
   if (text.length <= budget) return text;
   const lines = text.split('\n');
   const qset = new Set(termsOf(expandQuery(query)).filter((t) => !t.includes('_')));
+  const requestedYears = Array.from(query.matchAll(/\b(?:19|20)\d{2}\b/g), (match) => match[0]);
   const scored = lines.map((l, i) => {
     const lt = new Set(termsOf(l));
     let s = i === 0 ? 100 : 0; // luôn giữ tiêu đề
     if (/LEGAL_STATUS|Căn cứ|Nguồn:/i.test(l)) s += 1;
+    if (chunk.ref_id === '16.60' && requestedYears.some((year) => new RegExp(`^\\s*-\\s*\\*\\*${year}:`).test(l))) s += 80;
     for (const t of qset) if (lt.has(t)) s += 2;
     return { l, i, s, n: l.length };
   });
