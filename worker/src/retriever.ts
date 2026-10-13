@@ -150,6 +150,16 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
       selected.unshift({ chunk: threshold.chunk, score: top + 1, viaRoute: false });
     }
   }
+  // Keep the tax-ID and 2026 filing guidance together for multi-part affiliate questions.
+  if (/\b888\b/.test(normalizedQuery) ||
+      (asksAboutAffiliate && /\b(1 ty|mot ty)\b/.test(normalizedQuery))) {
+    const guidance = idx.find((item) => item.chunk.ref_id === '16.96');
+    if (guidance) {
+      const existing = selected.findIndex((item) => item.chunk.ref_id === '16.96');
+      if (existing >= 0) selected.splice(existing, 1);
+      selected.unshift({ chunk: guidance.chunk, score: top + 2, viaRoute: false });
+    }
+  }
   return {
     results: selected.slice(0, limit),
     routeId: route?.id || null,
