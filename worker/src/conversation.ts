@@ -20,5 +20,12 @@ export function buildConversationRetrievalQuery(history: ConversationTurn[], mes
   const relevantTurns = userTurns.length > 4
     ? [userTurns[0], ...userTurns.slice(-4)]
     : userTurns;
-  return [...relevantTurns, message].join(' ').slice(0, 2400);
+  const base = [...relevantTurns, message].join(' ').slice(0, 2400);
+  // Mặc định xét theo năm hiện tại khi câu hỏi không nêu năm (kể cả "năm ngoái/năm nay"):
+  // giúp bộ lọc năm trong retrieve() ưu tiên chunk của năm hiện hành thay vì lẫn quy định năm cũ.
+  const hasYear = /\b(19|20)\d{2}\b/.test(base) || /(n\u0103m|nam)\s+(ngo\u00e1i|ngoai|tr\u01b0\u1edbc|truoc|nay)/i.test(base);
+  if (!hasYear) {
+    return `${base} ${new Date().getFullYear()}`;
+  }
+  return base;
 }

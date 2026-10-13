@@ -471,8 +471,8 @@ export default {
         const history = normalizeConversationHistory(body.history);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = fold(message).slice(0, 400);
-        // BUMP version mỗi khi đổi prompt/KB (v14: gộp khung suy luận 5 bước + model tự viết Căn cứ pháp lý, 13/10/2026)
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v14|${normMsg}`));
+        // BUMP version mỗi khi đổi prompt/KB (v15: năm mặc định + chống trả lời vòng vo, 13/10/2026)
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v15|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -514,13 +514,15 @@ export default {
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
         if (ragContextText) {
+          const todayISO = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
+Hôm nay là ${todayISO}. NĂM MẶC ĐỊNH: nếu câu hỏi không nêu rõ năm, trả lời theo quy định đang áp dụng tại thời điểm này — không tự thêm quy định của các năm cũ (ví dụ 2025) trừ khi người dùng hỏi về năm đó hoặc cần so sánh.
 
 QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):
 1. Xác định KỲ TÍNH THUẾ (năm nào) và LOẠI THU NHẬP từ câu hỏi và lịch sử hội thoại.
 2. Từ mỗi đoạn trích lục, liệt kê ĐIỀU KIỆN ÁP DỤNG: đối tượng, ngưỡng doanh thu, thời gian hiệu lực.
 3. Đối chiếu từng điều kiện với dữ kiện người dùng đã cung cấp.
-4. Nếu thiếu dữ kiện quyết định (kỳ tính thuế, loại thu nhập, doanh thu...) → DỪNG LẠI, hỏi đúng 1 câu ngắn gọn. Tuyệt đối không đoán, không suy diễn thêm, không áp quy định năm này cho năm khác.
+4. Ưu tiên TRẢ LỜI CỤ THỂ thay vì hỏi lại: dùng dữ kiện đã có để đưa kết luận có điều kiện rõ ràng ("nếu... thì..."). Chỉ hỏi thêm khi thiếu dữ kiện mà không có nó thì không thể đưa ra hướng xử lý hữu ích nào. Không trả lời chung chung, vòng vo, né tránh kết luận. Tuyệt đối không đoán, không suy diễn thêm, không áp quy định năm này cho năm khác.
 5. Chỉ khi đủ điều kiện mới kết luận. Trước khi chốt, TỰ KIỂM TRA: mọi con số, thuế suất, ngưỡng, thời hạn và tên văn bản trong câu trả lời đều phải xuất hiện trong phần trích lục — không bịa số, không bịa văn bản.
 
 Dưới đây là thông tin quy định thuế trích lục:
