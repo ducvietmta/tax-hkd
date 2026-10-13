@@ -21,8 +21,11 @@ function loadModule(relativePath, dependencies = {}) {
 }
 
 const engine = loadModule('worker/src/ragEngine.ts');
+const conversation = loadModule('worker/src/conversation.ts');
+const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation });
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
+  './answerScope': scope,
 });
 
 function resultsFor(query) {

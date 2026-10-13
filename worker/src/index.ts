@@ -12,7 +12,8 @@
 
 import { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
-import { retrieve, buildContext, fold, analyzeAmounts } from './retriever';
+import { retrieve, buildContext, analyzeAmounts } from './retriever';
+import { resolveAnswerScope, scopeInstructions } from './answerScope';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
 
@@ -469,10 +470,11 @@ export default {
 
         // --- CACHE câu trả lời (câu hỏi giống nhau, không kèm file/lịch sử) ---
         const history = normalizeConversationHistory(body.history);
+        const answerScope = resolveAnswerScope(history, message);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
-        const normMsg = fold(message).slice(0, 400);
-        // BUMP version mỗi khi đổi prompt/KB (v16: siết RAG — bigram giữ stopword, fallback ngưỡng, năm động, ưu tiên dòng điều kiện, 13/10/2026)
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v16|${normMsg}`));
+        const normMsg = message.trim().normalize('NFC');
+        // Invalidate old answers; relative periods must also expire when the local date changes.
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v17|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -493,13 +495,14 @@ export default {
         }
 
         // --- BƯỚC 1: HYBRID RETRIEVAL (BM25 + route boost) ---
-        const retrievalQuery = buildConversationRetrievalQuery(history, message);
-        const { results, routeId, usedFallback } = retrieve(retrievalQuery, 4);
+        const retrievalQuery = buildConversationRetrievalQuery(history, message, answerScope.years);
+        const { results, routeId, usedFallback } = retrieve(retrievalQuery, 4, answerScope);
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
-        const { text: ragContextText, citations: legalCitations } = buildContext(results, retrievalQuery);
+        const { text: ragContextText, citations: legalCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
         const retrievalTrace = {
           method: routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25',
+          period: { years: answerScope.years, source: answerScope.periodSource },
           evidence: relevantChunks.map((chunk) => ({
             title: (chunk.text.match(/^##\s*(?:16\.\d+\.\s*)?(.+)$/m)?.[1] || chunk.section)
               .replace(/[*`]/g, '').slice(0, 150),
@@ -514,9 +517,8 @@ export default {
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
         if (ragContextText) {
-          const todayISO = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
-Hôm nay là ${todayISO}. NĂM MẶC ĐỊNH: nếu câu hỏi không nêu rõ năm, trả lời theo quy định đang áp dụng tại thời điểm này — không tự thêm quy định của các năm cũ (ví dụ 2025) trừ khi người dùng hỏi về năm đó hoặc cần so sánh.
+${scopeInstructions(answerScope)}
 ${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}
 
 QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):
@@ -535,7 +537,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc tới mã số ref_id như 16.xx, không sao chép nguyên văn cả đoạn văn dài của hệ thống).
 2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Không tự mở rộng sang một vấn đề người dùng không hỏi nếu vấn đề đó không ảnh hưởng kết luận. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
 3. Kết thúc câu trả lời bằng phần "Căn cứ pháp lý:" — mỗi dòng một văn bản theo dạng "Điều/Khoản, Tên văn bản số hiệu". Chỉ liệt kê văn bản có trong phần trích lục, không thêm văn bản ngoài.
-4. Không áp một ngưỡng hoặc quy định của năm 2026 cho năm khác. Nếu năm hoặc loại thu nhập chưa rõ, nói rõ điều kiện tương ứng thay vì tự đoán. Không coi ngày ban hành công văn hướng dẫn là ngày một quy định mới bắt đầu áp dụng khi nguồn không nói vậy.
+4. Tuân thủ PHẠM VI CÂU TRẢ LỜI: khi chưa biết kỳ thuế, không tự đặt năm, không tự so sánh các năm, không đưa ví dụ có năm cụ thể. Chỉ hỏi "Khoản thu nhập này thuộc năm nào?" nếu cần. Không coi ngày ban hành công văn hướng dẫn là ngày một quy định mới bắt đầu áp dụng khi nguồn không nói vậy.
 5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
 6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
 7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Khi người dùng hỏi "chỉ cần khai cuối năm?", phân biệt thông báo doanh thu, tờ khai thuế định kỳ và quyết toán thuế; nêu mẫu và hạn nếu ngữ cảnh đã có. Nếu còn thiếu dữ kiện thật sự quan trọng, hỏi tối đa một câu ở cuối. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.

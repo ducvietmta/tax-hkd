@@ -7,6 +7,7 @@
  * - Cắt snippet theo câu hỏi để prompt gọn, LLM không bị nhiễu bởi chunk dài
  */
 import { CANONICAL_CHUNKS, RagChunk, matchRoute } from './ragEngine';
+import { resolveAnswerScope, type AnswerScope } from './answerScope';
 
 export function fold(s: string): string {
   return s
@@ -106,11 +107,11 @@ export interface Retrieved {
   viaRoute: boolean;
 }
 
-export function retrieve(query: string, limit = 4): { results: Retrieved[]; routeId: string | null; usedFallback: boolean } {
+export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveAnswerScope([], query)): { results: Retrieved[]; routeId: string | null; usedFallback: boolean } {
   build();
   const idx = INDEX!;
-  const qTerms = termsOf(expandQuery(query));
-  const route = matchRoute(query);
+  const qTerms = termsOf(expandQuery(`${query} ${scope.years.join(' ')}`));
+  const route = matchRoute(`${query} ${scope.years.join(' ')}`);
   const routeRefs = new Set(route?.refs || []);
   const N = idx.length;
   const k1 = 1.4;
@@ -137,8 +138,12 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
   const asksAboutAffiliate = /\b(affiliate|tiep thi lien ket|hoa hong|koc|kol)\b/.test(normalizedQuery);
   // Năm hiện tại lấy động — tự lăn theo thời gian, không hardcode 2026.
   // oldYears = 5 năm trước năm hiện tại (ý nghĩa cũ của 2021–2025 khi năm hiện tại là 2026).
-  const currentYear = new Date().getFullYear();
-  const asksCurrentYear = new RegExp(`\\b${currentYear}\\b`).test(normalizedQuery);
+  const currentYear = Number(scope.today.slice(0, 4));
+  const asksCurrentYear = scope.years.includes(currentYear);
+  const historicalOnly = scope.years.length > 0 && scope.years.every(year => year < 2026);
+  const asksRefund = /\b(hoan thue|nop thua|lay lai tien thue)\b/.test(normalizedQuery) ||
+    (/\bthue\b/.test(normalizedQuery) && /\b(hoan lai|hoan tien|lay lai)\b/.test(normalizedQuery));
+  const asksWageCalculation = /\b(bieu thue|bac thue|giam tru|tinh thue luong|thue luong bao nhieu)\b/.test(normalizedQuery);
   const oldYearsRe = new RegExp(`\\b(${Array.from({ length: 5 }, (_, i) => currentYear - 5 + i).join('|')})\\b`);
   const currentYearRe = new RegExp(`\\b${currentYear}\\b`);
 
@@ -150,6 +155,9 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
         !/affiliate|tiep thi lien ket/.test(fold(r.chunk.section)))
       .filter((r) => /\b(youtube|adsense)\b/.test(normalizedQuery) ||
         !/\b(youtube|adsense)\b/.test(fold(r.chunk.section)))
+      .filter((r) => !asksAboutAffiliate || asksWageCalculation ||
+        !['16.81', '16.82', '16.93'].includes(r.chunk.ref_id || ''))
+      .filter((r) => !historicalOnly || !['16.95', '16.96'].includes(r.chunk.ref_id || ''))
       .filter((r) => !asksCurrentYear || !oldYearsRe.test(fold(r.chunk.section)) ||
         currentYearRe.test(r.chunk.section))
       .sort((a, b2) => b2.score - a.score)
@@ -169,6 +177,18 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
   }
   // Điểm cao nhất hiện tại — dùng để gắn cho chunk chèn tay (ưu tiên lên đầu).
   const topScore = selected[0]?.score || 0;
+  // A multi-part question needs both classification and refund evidence, not a salary table.
+  const requiredRefs = [
+    ...(asksAboutAffiliate && !historicalOnly ? ['16.95'] : []),
+    ...(asksRefund ? ['16.51'] : []),
+  ];
+  for (const ref of requiredRefs.reverse()) {
+    const evidence = idx.find(item => item.chunk.ref_id === ref);
+    if (!evidence) continue;
+    const existing = selected.findIndex(item => item.chunk.ref_id === ref);
+    if (existing >= 0) selected.splice(existing, 1);
+    selected.unshift({ chunk: evidence.chunk, score: topScore + 1, viaRoute: false });
+  }
   // A short follow-up with annual revenue must still retrieve the year-specific threshold.
   if (asksCurrentYear && normalizedQuery.includes('doanh thu') &&
       /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) {
@@ -180,8 +200,8 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
     }
   }
   // Keep the tax-ID and 2026 filing guidance together for multi-part affiliate questions.
-  if (/\b888\b/.test(normalizedQuery) ||
-      (asksAboutAffiliate && /\b(1 ty|mot ty)\b/.test(normalizedQuery))) {
+  if (!historicalOnly && (/\b888\b/.test(normalizedQuery) ||
+      (asksAboutAffiliate && /\b(1 ty|mot ty)\b/.test(normalizedQuery)))) {
     const guidance = idx.find((item) => item.chunk.ref_id === '16.96');
     if (guidance) {
       const existing = selected.findIndex((item) => item.chunk.ref_id === '16.96');
@@ -217,9 +237,18 @@ export function snippet(chunk: RagChunk, query: string, budget = 2200): string {
   const picked = new Set<number>();
   let used = 0;
   for (const x of [...scored].sort((a, b) => b.s - a.s)) {
-    if (used + x.n > budget) continue;
-    picked.add(x.i);
-    used += x.n;
+    // Include the governing bullet with a child bullet; never detach an exception from its scope.
+    const required = [x.i];
+    if (/^\s{2,}-/.test(x.l)) {
+      for (let parent = x.i - 1; parent >= 0; parent--) {
+        if (/^-/.test(lines[parent])) { required.push(parent); break; }
+      }
+    }
+    const missing = required.filter(i => !picked.has(i));
+    const cost = missing.reduce((sum, i) => sum + lines[i].length + 1, 0);
+    if (used + cost > budget) continue;
+    missing.forEach(i => picked.add(i));
+    used += cost;
   }
   return lines.filter((_, i) => picked.has(i)).join('\n');
 }
@@ -307,14 +336,14 @@ export function cleanAndDeduplicateCitations(list: string[]): string[] {
   return results.slice(0, 4);
 }
 
-export function buildContext(results: Retrieved[], query: string, totalBudget = 6500): { text: string; citations: string[] } {
+export function buildContext(results: Retrieved[], query: string, totalBudget = 6500, scope: AnswerScope = resolveAnswerScope([], query)): { text: string; citations: string[] } {
   let text = '';
   const rawCitations: string[] = [];
 
   for (const r of results) {
     const per = Math.max(1200, Math.floor(totalBudget / results.length));
     // Dọn sạch tiêu đề thô 16.xx khỏi snippet để LLM không bị dính vào câu trả lời
-    const rawSnippet = snippet(r.chunk, query, per);
+    const rawSnippet = snippet(r.chunk, `${query} ${scope.years.join(' ')}`, per);
     const cleanedSnippet = rawSnippet
       .replace(/^##?\s*16\.\d+.*?\n/gim, '')
       .replace(/^##?\s*\d+\.\d+.*?\n/gim, '')
@@ -324,7 +353,8 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
     const conditionNote = r.chunk.tier === 'VERIFIED_CONDITIONAL'
       ? ' — chỉ áp dụng khi đã xác minh đầy đủ điều kiện trong đoạn này'
       : '';
-    const part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}]\n${cleanedSnippet.replace(/\b16\.\d+\b/g, '')}\n`;
+    const periodNote = scope.years.length ? '' : ' — chưa xác định kỳ thuế của người hỏi; các năm trong tài liệu không phải năm của người hỏi';
+    const part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}${periodNote}]\n${cleanedSnippet.replace(/\b16\.\d+\b/g, '')}\n`;
     if (text.length + part.length > totalBudget + 800) break;
     text += part;
 
@@ -333,7 +363,7 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
     rawCitations.push(...extracted);
   }
 
-  const explicitYears = Array.from(query.matchAll(/\b(?:19|20)\d{2}\b/g), (match) => Number(match[0]));
+  const explicitYears = scope.years;
   const latestRequestedYear = explicitYears.length ? Math.max(...explicitYears) : null;
   const citations = cleanAndDeduplicateCitations(rawCitations).filter((citation) => {
     if (latestRequestedYear === null) return true;
