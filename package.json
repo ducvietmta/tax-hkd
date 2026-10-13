@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build --configLoader runner",
     "test:rag": "node scripts/test_rag.cjs",
+    "test:muse": "node scripts/test_muse_request.cjs",
     "preview": "vite preview",
     "d1:migrate": "wrangler d1 execute tax_db --remote --file=./d1/schema.sql",
     "d1:migrate:local": "wrangler d1 execute tax_db --local --file=./d1/schema.sql",

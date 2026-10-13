@@ -14,6 +14,7 @@ import { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
 import { retrieve, buildContext, fold, analyzeAmounts } from './retriever';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
+import { buildMuseRequest } from './museRequest';
 
 export interface Env {
   DB: D1Database;
@@ -470,7 +471,7 @@ export default {
         const history = normalizeConversationHistory(body.history);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = fold(message).slice(0, 400);
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v12|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v13|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -526,14 +527,14 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
 6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
 7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Khi người dùng hỏi "chỉ cần khai cuối năm?", phân biệt thông báo doanh thu, tờ khai thuế định kỳ và quyết toán thuế; nêu mẫu và hạn nếu ngữ cảnh đã có. Nếu còn thiếu dữ kiện thật sự quan trọng, hỏi tối đa một câu ở cuối. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
-8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.`;
+8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.
+9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
           if (museKey) {
             try {
-              // Ghép ngữ cảnh đàm thoại cho input của Muse
-              const musePrompt = `${systemPrompt}\n\n[LỊCH SỬ HỘI THOẠI]:\n${history.map((h) => `${h.role === 'user' ? 'Khách' : 'Chuyên viên'}: ${h.content}`).join('\n')}\n\n[CÂU HỎI HIỆN TẠI]: ${message}`;
+              const museInput = buildMuseRequest(systemPrompt, history, message, !!body.stream);
 
               // --- NẾU CLIENT YÊU CẦU STREAMING (body.stream === true) ---
               if (body.stream) {
@@ -544,12 +545,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                       Authorization: `Bearer ${museKey}`,
                       'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                      model: 'muse-spark-1.3-contributor',
-                      input: [{ role: 'user', content: [{ type: 'input_text', text: musePrompt }] }],
-                      reasoning: { effort: 'high', summary: 'concise' },
-                      stream: true,
-                    }),
+                    body: JSON.stringify(museInput),
                   }),
                   new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
                 ]);
@@ -651,17 +647,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                     Authorization: `Bearer ${museKey}`,
                     'Content-Type': 'application/json',
                   },
-                  body: JSON.stringify({
-                    model: 'muse-spark-1.3-contributor',
-                    input: [
-                      {
-                        role: 'user',
-                        content: [{ type: 'input_text', text: musePrompt }],
-                      },
-                    ],
-                    reasoning: { effort: 'high' },
-                    stream: false,
-                  }),
+                  body: JSON.stringify(buildMuseRequest(systemPrompt, history, message, false)),
                 }),
                 new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
               ]);
