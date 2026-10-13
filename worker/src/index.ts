@@ -165,6 +165,135 @@ export default {
         return jsonResponse(spec, 200, corsHeaders);
       }
 
+      // 0b. MODEL CONTEXT PROTOCOL (MCP) HTTP ENDPOINT CHO CHATGPT & MCP CLIENTS (GET / POST /mcp & /api/mcp)
+      if (path === '/mcp' || path === '/api/mcp') {
+        if (request.method === 'GET') {
+          return jsonResponse({
+            status: 'ok',
+            name: 'tax-qa-mcp',
+            version: '1.0.0',
+            description: 'Model Context Protocol (MCP) Server for Vietnam Tax Regulations 2026',
+            transport: 'streamable-http',
+            tools: ['ask_tax_ai']
+          }, 200, corsHeaders);
+        }
+
+        if (request.method === 'POST') {
+          const r: any = await request.json().catch(() => ({}));
+          const rid = r.id;
+          const method = r.method;
+          const params = r.params || {};
+
+          if (method === 'initialize') {
+            return jsonResponse({
+              jsonrpc: '2.0',
+              id: rid,
+              result: {
+                protocolVersion: params?.protocolVersion || '2024-11-05',
+                capabilities: { tools: { listChanged: false } },
+                serverInfo: { name: 'tax-qa-mcp', version: '1.0.0' }
+              }
+            }, 200, corsHeaders);
+          }
+
+          if (method === 'notifications/initialized' || method === 'initialized') {
+            return new Response(null, { status: 204, headers: corsHeaders });
+          }
+
+          if (method === 'ping') {
+            return jsonResponse({ jsonrpc: '2.0', id: rid, result: {} }, 200, corsHeaders);
+          }
+
+          if (method === 'tools/list') {
+            return jsonResponse({
+              jsonrpc: '2.0',
+              id: rid,
+              result: {
+                tools: [
+                  {
+                    name: 'ask_tax_ai',
+                    description: 'Tư vấn và hỏi đáp luật thuế Hộ kinh doanh & TMĐT (TikTok Shop, Shopee...) tại Việt Nam theo quy định năm 2026. Trả về phân tích chi tiết, số thuế phải nộp, thuế suất và căn cứ pháp lý đối soát.',
+                    inputSchema: {
+                      type: 'object',
+                      properties: {
+                        question: {
+                          type: 'string',
+                          description: 'Nội dung câu hỏi về thuế (ví dụ: Bán hàng trên TikTok Shop doanh thu 600 triệu/năm nộp những thuế gì và bao nhiêu %?)'
+                        }
+                      },
+                      required: ['question']
+                    }
+                  }
+                ]
+              }
+            }, 200, corsHeaders);
+          }
+
+          if (method === 'tools/call') {
+            const toolName = params?.name;
+            const toolArgs = params?.arguments || {};
+            const question = (toolArgs.question || toolArgs.message || '').trim();
+
+            if (!question) {
+              return jsonResponse({
+                jsonrpc: '2.0',
+                id: rid,
+                result: {
+                  content: [{ type: 'text', text: 'Vui lòng cung cấp nội dung câu hỏi về thuế.' }],
+                  isError: true
+                }
+              }, 200, corsHeaders);
+            }
+
+            try {
+              const chatRes = await this.fetch(
+                new Request('https://internal/api/chat', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ message: question, history: toolArgs.history || [] })
+                }),
+                env,
+                ctx
+              );
+
+              const chatData: any = await chatRes.json();
+              const text = [
+                chatData.response || 'Không tìm thấy câu trả lời phù hợp.',
+                '',
+                '----------------------------------------',
+                '📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:',
+                `• Căn cứ trích dẫn: ${(chatData.citations || []).join(', ') || 'Đang cập nhật'}`,
+                `• Nguồn: ${chatData.source || 'RAG Knowledge Engine'}`
+              ].join('\n');
+
+              return jsonResponse({
+                jsonrpc: '2.0',
+                id: rid,
+                result: {
+                  content: [{ type: 'text', text }],
+                  isError: false
+                }
+              }, 200, corsHeaders);
+            } catch (callErr: any) {
+              return jsonResponse({
+                jsonrpc: '2.0',
+                id: rid,
+                result: {
+                  content: [{ type: 'text', text: `Lỗi xử lý câu hỏi: ${callErr.message}` }],
+                  isError: true
+                }
+              }, 200, corsHeaders);
+            }
+          }
+
+          return jsonResponse({
+            jsonrpc: '2.0',
+            id: rid,
+            error: { code: -32601, message: `Method '${method}' not found` }
+          }, 200, corsHeaders);
+        }
+      }
+
       // Only a signed Firebase Phone Auth ID token may create a session.
       if (path === '/api/auth/session' && request.method === 'POST') {
         const phone = await verifiedFirebasePhone(request);

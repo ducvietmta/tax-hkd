@@ -1,0 +1,23 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Trợ Lý Thuế 2026",
+  "name_for_model": "tax_advisor_2026",
+  "description_for_human": "Tra cứu và tư vấn luật thuế Hộ kinh doanh & TMĐT (TikTok Shop, Shopee) năm 2026.",
+  "description_for_model": "Plugin tra cứu và tư vấn luật thuế Hộ kinh doanh, cá nhân kinh doanh, bán hàng sàn TMĐT tại Việt Nam theo luật thuế năm 2026.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://tax-hkd.pages.dev/openapi.json"
+  },
+  "capabilities": {
+    "mcp": {
+      "transport": "http",
+      "url": "https://tax-hkd.pages.dev/mcp"
+    }
+  },
+  "logo_url": "https://tax-hkd.pages.dev/favicon.svg",
+  "contact_email": "support@tax-hkd.pages.dev",
+  "legal_info_url": "https://tax-hkd.pages.dev"
+}
