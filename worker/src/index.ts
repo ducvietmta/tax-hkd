@@ -637,6 +637,9 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                   streamHeaders.set('Connection', 'keep-alive');
                   return new Response(readable, { status: 200, headers: streamHeaders });
                 }
+                if (!museStreamRes.ok) {
+                  console.warn('Muse stream API error:', museStreamRes.status, (await museStreamRes.text()).slice(0, 300));
+                }
               }
 
               // --- NẾU KHÔNG DÙNG STREAM: GỌI BLOCKING THƯỜNG ---
@@ -661,7 +664,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                   source = `Muse Spark 1.3 (Meta AI) + ${source}`;
                 }
               } else {
-                console.warn('Muse API response status:', museRes.status);
+                console.warn('Muse API error:', museRes.status, (await museRes.text()).slice(0, 300));
               }
             } catch (errMuse: any) {
               console.error('Lỗi gọi Muse API:', errMuse?.message);
