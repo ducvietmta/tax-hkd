@@ -13,7 +13,8 @@
 import { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
 import { retrieve, buildContext, analyzeAmounts } from './retriever';
-import { resolveAnswerScope, scopeInstructions, intentInstructions } from './answerScope';
+import { resolveAnswerScope, scopeInstructions, intentInstructions, isOutOfScope } from './answerScope';
+import { matchPendingTopics } from './pendingTopics';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
 
@@ -46,6 +47,18 @@ function jsonResponse(data: any, status = 200, corsHeaders?: Headers): Response 
   headers.set('Content-Type', 'application/json; charset=utf-8');
   return new Response(JSON.stringify(data), { status, headers });
 }
+
+const FALLBACK_EXTRA_RULES = `BẠN LÀ BẢN DỰ PHÒNG — độ tin cậy thấp hơn bản chính. Tuân thủ tuyệt đối:
+a) KIỂM TRA NĂM: nếu câu hỏi nêu năm cụ thể (VD 2024, 2025), CHỈ dùng quy định của năm đó.
+   Ngưỡng 1 tỷ chỉ áp dụng từ 01/01/2026; giai đoạn 2022–2025 ngưỡng miễn là 100 triệu/năm (TT 40/2021).
+   Tuyệt đối không áp ngưỡng 1 tỷ cho năm trước 2026.
+b) HKD/CNKD tính thuế GTGT và TNCN TRỰC TIẾP trên DOANH THU theo tỷ lệ % — KHÔNG được trừ
+   bất kỳ chi phí nào. Không bao giờ tư vấn "chi phí được trừ" cho HKD/CNKD.
+c) Nếu trích lục không có căn cứ rõ ràng cho câu hỏi, trả lời đúng câu:
+   "Mình chưa đủ căn cứ chắc chắn cho câu hỏi này, bạn thử lại sau nhé."
+   và kết thúc bằng "Căn cứ pháp lý:\nKhông áp dụng". Không đoán, không suy diễn.
+
+`;
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -257,14 +270,18 @@ export default {
               );
 
               const chatData: any = await chatRes.json();
-              const text = [
-                chatData.response || 'Không tìm thấy câu trả lời phù hợp.',
-                '',
-                '----------------------------------------',
-                '📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:',
-                `• Căn cứ trích dẫn: ${(chatData.citations || []).join(', ') || 'Đang cập nhật'}`,
-                `• Nguồn: ${chatData.source || 'RAG Knowledge Engine'}`
-              ].join('\n');
+              const hasCitations = Array.isArray(chatData.citations) && chatData.citations.length > 0;
+              const textParts = [chatData.response || 'Không tìm thấy câu trả lời phù hợp.'];
+              if (chatData.source !== 'out_of_scope' && hasCitations) {
+                textParts.push(
+                  '',
+                  '----------------------------------------',
+                  '📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:',
+                  `• Căn cứ trích dẫn: ${chatData.citations.join(', ')}`,
+                  `• Nguồn: ${chatData.source || 'RAG Knowledge Engine'}`
+                );
+              }
+              const text = textParts.join('\n');
 
               return jsonResponse({
                 jsonrpc: '2.0',
@@ -643,6 +660,33 @@ export default {
           return jsonResponse({ success: false, error: 'Nội dung câu hỏi không được để trống.' }, 400, corsHeaders);
         }
 
+        const history = normalizeConversationHistory(body.history);
+
+        // --- BƯỚC 0: KIỂM TRA PHẠM VI HỎI ĐÁP (MỤC 1) ---
+        if (isOutOfScope(message, history)) {
+          const outOfScopeResponse = {
+            success: true,
+            response: 'Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng',
+            source: 'out_of_scope',
+            citations: [],
+            legal_citations: [],
+          };
+          if (path === '/api/chatgpt/tax-qa') {
+            return jsonResponse(
+              {
+                success: true,
+                answer: outOfScopeResponse.response,
+                legal_citations: [],
+                evidence: [],
+                source: 'out_of_scope',
+              },
+              200,
+              corsHeaders
+            );
+          }
+          return jsonResponse(outOfScopeResponse, 200, corsHeaders);
+        }
+
         // --- GIỚI HẠN TỐC ĐỘ (best-effort theo IP, chống spam khách vãng lai) ---
         const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
         if (!phone) {
@@ -658,12 +702,11 @@ export default {
         }
 
         // --- CACHE câu trả lời (câu hỏi giống nhau, không kèm file/lịch sử) ---
-        const history = normalizeConversationHistory(body.history);
         const answerScope = resolveAnswerScope(history, message);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = message.trim().normalize('NFC');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v18|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v21|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -689,9 +732,11 @@ export default {
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
         const { text: ragContextText, citations: legalCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
+        const matchedPendingTopics = matchPendingTopics(message);
         const retrievalTrace = {
           method: routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25',
           period: { years: answerScope.years, source: answerScope.periodSource },
+          pendingTopics: matchedPendingTopics.map((t) => t.id),
           evidence: relevantChunks.map((chunk) => ({
             title: (chunk.text.match(/^##\s*(?:16\.\d+\.\s*)?(.+)$/m)?.[1] || chunk.section)
               .replace(/[*`]/g, '').slice(0, 150),
@@ -706,10 +751,13 @@ export default {
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
         if (ragContextText) {
+          const pendingDisclaimerPrompt = matchedPendingTopics.length > 0
+            ? matchedPendingTopics.map((t) => `\nCHỦ ĐỀ CHƯA XÁC MINH: ${t.disclaimer} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.`).join('\n') + '\n'
+            : '';
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 ${scopeInstructions(answerScope)}
 ${intentInstructions(message)}
-${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}
+${pendingDisclaimerPrompt}${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}
 
 QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):
 1. Xác định KỲ TÍNH THUẾ (năm nào) và LOẠI THU NHẬP từ câu hỏi và lịch sử hội thoại.
@@ -732,7 +780,9 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
 7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Khi người dùng hỏi "chỉ cần khai cuối năm?", phân biệt thông báo doanh thu, tờ khai thuế định kỳ và quyết toán thuế; nêu mẫu và hạn nếu ngữ cảnh đã có. Nếu còn thiếu dữ kiện thật sự quan trọng, hỏi tối đa một câu ở cuối. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
 8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.
-9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.`;
+9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.
+10. Nếu câu hỏi không liên quan đến thuế/hóa đơn/kê khai/doanh thu của HKD & cá nhân kinh doanh, CHỈ trả lời đúng mẫu: "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng". Không sáng tạo thêm.
+11. Khi người dùng hỏi "bao nhiêu %" / "bao nhiêu phần trăm", bắt buộc nêu con số % cụ thể từ trích lục và tính ra số tiền ví dụ. Không được nói chung chung "theo tỷ lệ của ngành".`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
@@ -877,12 +927,13 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 
           // ƯU TIÊN 2 (FALLBACK): Nếu Muse bận hoặc timeout, gọi Cloudflare Workers AI
           if (!aiText && env.AI) {
-            const messages = [{ role: 'system', content: systemPrompt }, ...history, { role: 'user', content: message }];
+            const fallbackSystemPrompt = `${FALLBACK_EXTRA_RULES}${systemPrompt}`;
+            const messages = [{ role: 'system', content: fallbackSystemPrompt }, ...history, { role: 'user', content: message }];
             const models = ['@cf/meta/llama-3.3-70b-instruct-fp8-fast', '@cf/qwen/qwen2.5-7b-instruct', '@cf/meta/llama-3.2-3b-instruct'];
             for (const model of models) {
               try {
                 const aiResult: any = await Promise.race([
-                  env.AI.run(model, { messages, max_tokens: 450, temperature: 0.2 }),
+                  env.AI.run(model, { messages, max_tokens: 1500, temperature: 0.2 }),
                   new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 20000)),
                 ]);
                 const out = (aiResult?.response || '').trim();
@@ -912,6 +963,18 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
         // Dọn dẹp nếu model vẫn sinh ra thẻ suy luận sót lại
         aiText = aiText.replace(/(?:<thinking>|\[SUY_LUAN\])[\s\S]*?(?:<\/thinking>|\[\/SUY_LUAN\])/i, '').trim();
 
+        // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
+        let logD1Prefix = '';
+        if (answerScope.years.some((y) => y < 2026)) {
+          const normAi = aiText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+          const mentions1B = normAi.includes('1 ty') || aiText.includes('1 tỷ');
+          const mentions100M = normAi.includes('100 trieu') || aiText.includes('100 triệu');
+          if (mentions1B && !mentions100M) {
+            console.warn(`[POST_CHECK_WARN] Năm < 2026 nhưng phản hồi nhắc 1 tỷ mà không nhắc 100 triệu: "${message}"`);
+            logD1Prefix = '[WARN_THRESHOLD_MISMATCH] ';
+          }
+        }
+
         // --- BƯỚC 3: GHI LOG VÀO CLOUDFLARE D1 ---
         if (env.DB && phone) {
           ctx.waitUntil(
@@ -919,7 +982,13 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
               `INSERT INTO chat_logs (id, user_phone, message, response, credits_used, source)
                VALUES (?, ?, ?, ?, 1, ?)`
             )
-              .bind(`chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`, phone, message, aiText, source)
+              .bind(
+                `chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+                phone,
+                message,
+                logD1Prefix ? `${logD1Prefix}${aiText}` : aiText,
+                logD1Prefix ? `${logD1Prefix}${source}` : source
+              )
               .run()
               .catch((e: any) => console.error('log error', e?.message))
           );
