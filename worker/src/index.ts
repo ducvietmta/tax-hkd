@@ -348,7 +348,8 @@ export default {
         const history = normalizeConversationHistory(body.history);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = fold(message).slice(0, 400);
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v11|${normMsg}`));
+        // BUMP version mỗi khi đổi prompt/KB để không trả cache của bản cũ (v12: tách instructions + khung suy luận 5 bước, 13/10/2026)
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v12|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -390,29 +391,41 @@ export default {
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
         if (ragContextText) {
-          const systemPrompt = `Bạn hỗ trợ tra cứu thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam. Xác định năm/kỳ áp dụng trước khi kết luận.
-Dưới đây là thông tin quy định thuế trích lục:
+          // SYSTEM_INSTRUCTIONS: vai trò + quy trình suy luận + quy tắc trình bày.
+          // Gửi qua tham số `instructions` riêng của Responses API để model phân biệt
+          // chỉ thị hệ thống với nội dung người dùng (trước đây nhét chung vào 1 input).
+          const SYSTEM_INSTRUCTIONS = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
+
+QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):
+1. Xác định KỲ TÍNH THUẾ (năm nào) và LOẠI THU NHẬP từ câu hỏi và lịch sử hội thoại.
+2. Từ mỗi đoạn trích lục, liệt kê ĐIỀU KIỆN ÁP DỤNG: đối tượng, ngưỡng doanh thu, thời gian hiệu lực.
+3. Đối chiếu từng điều kiện với dữ kiện người dùng đã cung cấp.
+4. Nếu thiếu dữ kiện quyết định (kỳ tính thuế, loại thu nhập, doanh thu...) → DỪNG LẠI, hỏi đúng 1 câu ngắn gọn. Tuyệt đối không đoán, không suy diễn thêm, không áp quy định năm này cho năm khác.
+5. Chỉ khi đủ điều kiện mới kết luận. Trước khi chốt, TỰ KIỂM TRA: mọi con số, thuế suất, ngưỡng, thời hạn và tên văn bản trong câu trả lời đều phải xuất hiện trong phần trích lục — không bịa số, không bịa văn bản.
+
+QUY TẮC TRÌNH BÀY (tuân thủ tuyệt đối):
+1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc mã ref_id như 16.xx, không sao chép nguyên văn đoạn dài của hệ thống).
+2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp.
+3. Kết thúc câu trả lời bằng phần "Căn cứ pháp lý:" — mỗi dòng một văn bản theo dạng "Điều/Khoản, Tên văn bản số hiệu". Chỉ liệt kê văn bản có trong phần trích lục, không thêm văn bản ngoài.
+4. Viết như đang trò chuyện với một người kinh doanh: xưng "mình", gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn, ví dụ đơn giản khi hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
+5. Thuật ngữ thuế phải giải thích ngay bằng một câu dễ hiểu. Không vì thân thiện mà làm nhẹ điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
+6. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bổ sung (ví dụ "800 triệu/năm") — ghép với câu hỏi gốc để tư vấn tiếp, không coi là câu hỏi độc lập. Thông tin mới sửa thông tin cũ thì ưu tiên thông tin mới. Chuyển chủ đề thì trả lời theo chủ đề mới.`;
+
+          // Nội dung gửi cho model dưới vai trò user: trích lục RAG + lịch sử + câu hỏi.
+          const ragContextBlock = `Dưới đây là thông tin quy định thuế trích lục từ kho kiến thức đã xác minh:
 --------------------------------------------------
 ${ragContextText}
 --------------------------------------------------
-${analyzeAmounts(message)}
-QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
-1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc tới mã số ref_id như 16.xx, không sao chép nguyên văn cả đoạn văn dài của hệ thống).
-2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Chỉ kết luận khi ngữ cảnh đủ điều kiện; nếu thiếu dữ kiện quyết định thì hỏi ngắn gọn trước khi tính thuế.
-3. Không tự tạo dòng "Căn cứ" hoặc thêm tên văn bản ngoài ngữ cảnh. Giao diện sẽ hiển thị riêng những trích dẫn được truy xuất.
-4. Không áp một ngưỡng hoặc quy định của năm 2026 cho năm khác. Nếu thiếu kỳ tính thuế, loại thu nhập hoặc dữ kiện quyết định, hãy hỏi lại thay vì đoán.
-5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
-6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
-7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Nếu chưa đủ dữ kiện, nói rõ điều gì còn thiếu và hỏi một câu ngắn gọn. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
-8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.`;
+${analyzeAmounts(message)}`;
+          const historyBlock = history.length
+            ? `[LỊCH SỬ HỘI THOẠI]:\n${history.map((h) => `${h.role === 'user' ? 'Khách' : 'Chuyên viên'}: ${h.content}`).join('\n')}\n\n`
+            : '';
+          const userContent = `${ragContextBlock}\n${historyBlock}[CÂU HỎI HIỆN TẠI]: ${message}`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
           if (museKey) {
             try {
-              // Ghép ngữ cảnh đàm thoại cho input của Muse
-              const musePrompt = `${systemPrompt}\n\n[LỊCH SỬ HỘI THOẠI]:\n${history.map((h) => `${h.role === 'user' ? 'Khách' : 'Chuyên viên'}: ${h.content}`).join('\n')}\n\n[CÂU HỎI HIỆN TẠI]: ${message}`;
-
               // --- NẾU CLIENT YÊU CẦU STREAMING (body.stream === true) ---
               if (body.stream) {
                 const museStreamRes = await Promise.race([
@@ -424,8 +437,10 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                     },
                     body: JSON.stringify({
                       model: 'muse-spark-1.3-contributor',
-                      input: [{ role: 'user', content: [{ type: 'input_text', text: musePrompt }] }],
+                      instructions: SYSTEM_INSTRUCTIONS,
+                      input: [{ role: 'user', content: [{ type: 'input_text', text: userContent }] }],
                       reasoning: { effort: 'high', summary: 'concise' },
+                      max_output_tokens: 4000,
                       stream: true,
                     }),
                   }),
@@ -531,13 +546,15 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                   },
                   body: JSON.stringify({
                     model: 'muse-spark-1.3-contributor',
+                    instructions: SYSTEM_INSTRUCTIONS,
                     input: [
                       {
                         role: 'user',
-                        content: [{ type: 'input_text', text: musePrompt }],
+                        content: [{ type: 'input_text', text: userContent }],
                       },
                     ],
                     reasoning: { effort: 'high' },
+                    max_output_tokens: 4000,
                     stream: false,
                   }),
                 }),
@@ -562,7 +579,11 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 
           // ƯU TIÊN 2 (FALLBACK): Nếu Muse bận hoặc timeout, gọi Cloudflare Workers AI
           if (!aiText && env.AI) {
-            const messages = [{ role: 'system', content: systemPrompt }, ...history, { role: 'user', content: message }];
+            const messages = [
+              { role: 'system', content: SYSTEM_INSTRUCTIONS },
+              ...history,
+              { role: 'user', content: `${ragContextBlock}\n\n[CÂU HỎI HIỆN TẠI]: ${message}` },
+            ];
             const models = ['@cf/meta/llama-3.3-70b-instruct-fp8-fast', '@cf/qwen/qwen2.5-7b-instruct', '@cf/meta/llama-3.2-3b-instruct'];
             for (const model of models) {
               try {
