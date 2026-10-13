@@ -471,8 +471,8 @@ export default {
         const history = normalizeConversationHistory(body.history);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = fold(message).slice(0, 400);
-        // BUMP version mỗi khi đổi prompt/KB (v15: năm mặc định + chống trả lời vòng vo, 13/10/2026)
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v15|${normMsg}`));
+        // BUMP version mỗi khi đổi prompt/KB (v16: siết RAG — bigram giữ stopword, fallback ngưỡng, năm động, ưu tiên dòng điều kiện, 13/10/2026)
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v16|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -494,7 +494,7 @@ export default {
 
         // --- BƯỚC 1: HYBRID RETRIEVAL (BM25 + route boost) ---
         const retrievalQuery = buildConversationRetrievalQuery(history, message);
-        const { results, routeId } = retrieve(retrievalQuery, 4);
+        const { results, routeId, usedFallback } = retrieve(retrievalQuery, 4);
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
         const { text: ragContextText, citations: legalCitations } = buildContext(results, retrievalQuery);
@@ -517,6 +517,7 @@ export default {
           const todayISO = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 Hôm nay là ${todayISO}. NĂM MẶC ĐỊNH: nếu câu hỏi không nêu rõ năm, trả lời theo quy định đang áp dụng tại thời điểm này — không tự thêm quy định của các năm cũ (ví dụ 2025) trừ khi người dùng hỏi về năm đó hoặc cần so sánh.
+${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}
 
 QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):
 1. Xác định KỲ TÍNH THUẾ (năm nào) và LOẠI THU NHẬP từ câu hỏi và lịch sử hội thoại.

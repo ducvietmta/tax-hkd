@@ -44,6 +44,9 @@ const SYNONYMS: Record<string, string[]> = {
   'khau tru': ['nop thay', 'khai thay'],
   'ke toan': ['so sach', 'so ke toan'],
   'thue khoan': ['ke khai', 'ty le'],
+  // Tên cũ dân vẫn dùng -> tên chính thức trong văn bản (từ 2017 "thuế môn bài" đổi thành "lệ phí môn bài")
+  'mon bai': ['le phi mon bai'],
+  'thue mon bai': ['le phi mon bai'],
 };
 
 interface IndexedChunk {
@@ -57,13 +60,19 @@ let DF: Map<string, number> = new Map();
 let AVG_LEN = 1;
 
 function termsOf(text: string): string[] {
-  const toks = fold(text)
+  const allToks = fold(text)
     .split(' ')
-    .filter((t) => t.length > 0 && !STOP.has(t));
+    .filter((t) => t.length > 0);
+  const toks = allToks.filter((t) => !STOP.has(t));
   const out: string[] = [];
-  for (let i = 0; i < toks.length; i++) {
-    out.push(toks[i]);
-    if (i + 1 < toks.length) out.push(toks[i] + '_' + toks[i + 1]);
+  for (const t of toks) out.push(t);
+  // Ghép bigram TRÊN token đầy đủ (kể cả stopword): giữ được "ban_hang", "cho_thue", "nam_nay".
+  // Bỏ bigram toàn stopword để tránh nhiễu ("la_cua", "va_nhung"...).
+  for (let i = 0; i + 1 < allToks.length; i++) {
+    const a = allToks[i];
+    const b = allToks[i + 1];
+    if (STOP.has(a) && STOP.has(b)) continue;
+    out.push(a + '_' + b);
   }
   return out;
 }
@@ -97,7 +106,7 @@ export interface Retrieved {
   viaRoute: boolean;
 }
 
-export function retrieve(query: string, limit = 4): { results: Retrieved[]; routeId: string | null } {
+export function retrieve(query: string, limit = 4): { results: Retrieved[]; routeId: string | null; usedFallback: boolean } {
   build();
   const idx = INDEX!;
   const qTerms = termsOf(expandQuery(query));
@@ -126,20 +135,38 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
   const normalizedQuery = fold(query);
   const asksAboutSales = /\b(ban hang|ban tren|doanh thu ban)\b/.test(normalizedQuery);
   const asksAboutAffiliate = /\b(affiliate|tiep thi lien ket|hoa hong|koc|kol)\b/.test(normalizedQuery);
-  const asksCurrentYear = /\b2026\b/.test(normalizedQuery);
-  const results = scored
-    .filter((r) => r.score >= 8)
-    .filter((r) => !asksAboutSales || asksAboutAffiliate ||
-      !/affiliate|tiep thi lien ket/.test(fold(r.chunk.section)))
-    .filter((r) => /\b(youtube|adsense)\b/.test(normalizedQuery) ||
-      !/\b(youtube|adsense)\b/.test(fold(r.chunk.section)))
-    .filter((r) => !asksCurrentYear || !/\b2021\b|\b2022\b|\b2023\b|\b2024\b|\b2025\b/.test(fold(r.chunk.section)) ||
-      /2026/.test(r.chunk.section))
-    .sort((a, b2) => b2.score - a.score)
-    .slice(0, limit);
-  // Cắt các kết quả quá yếu so với kết quả đầu (giảm nhiễu)
-  const top = results[0]?.score || 0;
-  const selected = results.filter((r, i) => i === 0 || r.viaRoute || r.score >= top * 0.35);
+  // Năm hiện tại lấy động — tự lăn theo thời gian, không hardcode 2026.
+  // oldYears = 5 năm trước năm hiện tại (ý nghĩa cũ của 2021–2025 khi năm hiện tại là 2026).
+  const currentYear = new Date().getFullYear();
+  const asksCurrentYear = new RegExp(`\\b${currentYear}\\b`).test(normalizedQuery);
+  const oldYearsRe = new RegExp(`\\b(${Array.from({ length: 5 }, (_, i) => currentYear - 5 + i).join('|')})\\b`);
+  const currentYearRe = new RegExp(`\\b${currentYear}\\b`);
+
+  // Gom chuỗi lọc thành hàm để có thể thử lại với ngưỡng thấp hơn (fallback).
+  const pick = (minScore: number): Retrieved[] => {
+    const results = scored
+      .filter((r) => r.score >= minScore)
+      .filter((r) => !asksAboutSales || asksAboutAffiliate ||
+        !/affiliate|tiep thi lien ket/.test(fold(r.chunk.section)))
+      .filter((r) => /\b(youtube|adsense)\b/.test(normalizedQuery) ||
+        !/\b(youtube|adsense)\b/.test(fold(r.chunk.section)))
+      .filter((r) => !asksCurrentYear || !oldYearsRe.test(fold(r.chunk.section)) ||
+        currentYearRe.test(r.chunk.section))
+      .sort((a, b2) => b2.score - a.score)
+      .slice(0, limit);
+    // Cắt các kết quả quá yếu so với kết quả đầu (giảm nhiễu)
+    const top = results[0]?.score || 0;
+    return results.filter((r, i) => i === 0 || r.viaRoute || r.score >= top * 0.35);
+  };
+
+  let selected = pick(8);
+  let usedFallback = false;
+  if (selected.length === 0) {
+    // Ngưỡng 8 là ước lượng tay — câu hỏi diễn đạt lạ có thể rớt sạch dù KB có bài.
+    // Nới ngưỡng thay vì trả "không tìm thấy", và đánh dấu để prompt thận trọng hơn.
+    selected = pick(2.5);
+    usedFallback = selected.length > 0;
+  }
   // A short follow-up with annual revenue must still retrieve the year-specific threshold.
   if (asksCurrentYear && normalizedQuery.includes('doanh thu') &&
       /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) {
@@ -163,6 +190,7 @@ export function retrieve(query: string, limit = 4): { results: Retrieved[]; rout
   return {
     results: selected.slice(0, limit),
     routeId: route?.id || null,
+    usedFallback,
   };
 }
 
@@ -177,6 +205,9 @@ export function snippet(chunk: RagChunk, query: string, budget = 2200): string {
     const lt = new Set(termsOf(l));
     let s = i === 0 ? 100 : 0; // luôn giữ tiêu đề
     if (/LEGAL_STATUS|Căn cứ|Nguồn:/i.test(l)) s += 1;
+    // Ưu tiên dòng nêu điều kiện / ngoại lệ / lưu ý — thường là chỗ quyết định đúng-sai,
+    // dễ bị loại khi chỉ chấm theo từ khóa câu hỏi (tương đương ~3 từ khóa khớp).
+    if (/\b(ngoai tru|khong ap dung|dieu kien|truong hop|chi ap dung|mien|giam|luu y|chu y)\b/.test(fold(l))) s += 6;
     if (chunk.ref_id === '16.60' && requestedYears.some((year) => new RegExp(`^\\s*-\\s*\\*\\*${year}:`).test(l))) s += 80;
     for (const t of qset) if (lt.has(t)) s += 2;
     return { l, i, s, n: l.length };
