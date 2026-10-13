@@ -17,6 +17,7 @@ import { resolveAnswerScope, scopeInstructions, intentInstructions, isOutOfScope
 import { matchPendingTopics } from './pendingTopics';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
+import { guardTaxAnswer } from './taxAnswerGuard';
 
 export interface Env {
   DB: D1Database;
@@ -705,7 +706,7 @@ export default {
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = message.trim().normalize('NFC');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v22|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v23|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -962,6 +963,15 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 
         // Dọn dẹp nếu model vẫn sinh ra thẻ suy luận sót lại
         aiText = aiText.replace(/(?:<thinking>|\[SUY_LUAN\])[\s\S]*?(?:<\/thinking>|\[\/SUY_LUAN\])/i, '').trim();
+
+        if (llmOk) {
+          const guarded = guardTaxAnswer(message, answerScope, relevantChunks.map((chunk) => chunk.ref_id || ''), aiText);
+          if (guarded.reason) {
+            console.warn(`[ANSWER_GUARD] ${guarded.reason}: "${message}"`);
+            aiText = guarded.answer;
+            source = `verified-answer-guard (${guarded.reason}) + ${source}`;
+          }
+        }
 
         // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
         let logD1Prefix = '';

@@ -27,6 +27,7 @@ const engine = loadModule('worker/src/ragEngine.ts');
 const conversation = loadModule('worker/src/conversation.ts');
 const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation });
 const pendingTopics = loadModule('worker/src/pendingTopics.ts');
+const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts');
 const { retrieve, buildContext } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
   './answerScope': scope,
@@ -126,5 +127,20 @@ assert.ok(chunk1677.text.includes('1%'), '16.77 có tỷ lệ GTGT 1%');
 assert.ok(chunk1677.text.includes('0,5%'), '16.77 có tỷ lệ TNCN 0.5%');
 
 console.log('  ✅ Mục 5 PASSED: Chunk 16.77 luôn được force-add lên đầu khi hỏi bao nhiêu % / thuế suất ngành nghề.');
+
+// Chặn câu trả lời sai đã quan sát trên fallback thật, không chỉ kiểm tra chunk được chọn.
+const currentScope = scope.resolveAnswerScope([], 'HKD năm 2026 doanh thu 1.2 tỷ bán tạp hóa thì nộp những thuế gì, bao nhiêu phần trăm?', new Date('2026-10-13T05:00:00Z'));
+const wrongRetail = taxAnswerGuard.guardTaxAnswer('HKD năm 2026 doanh thu 1.2 tỷ bán tạp hóa thì nộp những thuế gì, bao nhiêu phần trăm?', currentScope, ['16.77'], 'GTGT 12 triệu, TNCN = 1,2 tỷ × 0,5% = 6 triệu.');
+assert.equal(wrongRetail.reason, 'retail_rate_calculation');
+assert.ok(wrongRetail.answer.includes('1 triệu đồng'));
+assert.ok(!wrongRetail.answer.includes('6 triệu đồng'));
+assert.equal(taxAnswerGuard.guardTaxAnswer('HKD năm 2026 doanh thu 1.2 tỷ bán tạp hóa thì nộp những thuế gì, bao nhiêu phần trăm?', currentScope, [], 'Chưa có căn cứ').reason, null);
+
+const oldScope = scope.resolveAnswerScope([], 'Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', new Date('2026-10-13T05:00:00Z'));
+const vagueOld = taxAnswerGuard.guardTaxAnswer('Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', oldScope, ['16.54'], 'Bạn có thể phải nộp thuế, liên hệ cơ quan thuế để biết thêm.');
+assert.equal(vagueOld.reason, 'historical_threshold');
+assert.ok(vagueOld.answer.includes('100 triệu đồng/năm'));
+assert.ok(vagueOld.answer.includes('Không dùng ngưỡng 1 tỷ của năm 2026 để xét ngược năm 2024.'));
+assert.equal(taxAnswerGuard.guardTaxAnswer('Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', oldScope, ['16.54'], 'Năm 2024 ngưỡng là 100 triệu đồng/năm.').reason, null);
 
 console.log('\n🎉 TOÀN BỘ 5 MỤC ĐÃ ĐƯỢC KIỂM THỬ THÀNH CÔNG VÀ CHÍNH XÁC!');
