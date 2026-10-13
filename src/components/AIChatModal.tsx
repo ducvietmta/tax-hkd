@@ -9,6 +9,7 @@ import { CloudflareApi, type ChatHistoryItem } from '../services/api';
 import { selectConversationHistory } from '../services/conversation';
 import { useAuth } from '../context/AuthContext';
 import { RetrievalTrace, type RetrievalTraceData } from './RetrievalTrace';
+import { FirestoreService } from '../services/firestoreService';
 
 interface AIChatModalProps {
   isOpen: boolean;
@@ -229,9 +230,17 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         setMessages((prev) => prev.map((m) => m.id === aiMsgId ? { ...m, contextual: true } : m));
         setIsTyping(false);
         setIsWaitingForAnswer(false);
-        if (user?.phone) {
+        if (user?.uid && user?.email) {
           try {
-            const cacheKey = `tax_chat_history_${user.phone}`;
+            FirestoreService.saveChatLog(
+              user.uid,
+              user.email,
+              text,
+              cfRes.response || '',
+              cfRes.source || 'Tax HKD AI Engine 2026'
+            ).catch(() => {});
+
+            const cacheKey = `tax_chat_history_${user.uid}`;
             const existingStr = localStorage.getItem(cacheKey);
             const list = existingStr ? JSON.parse(existingStr) : [];
             const newItem = {
