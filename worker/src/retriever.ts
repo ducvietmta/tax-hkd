@@ -211,6 +211,18 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
       selected.unshift({ chunk: guidance.chunk, score: topScore + 2, viaRoute: false });
     }
   }
+  // MỤC 5: Ép bảng tỷ lệ % thuế (chunk 16.77) khi hỏi "bao nhiêu %" / "bao nhiêu phần trăm" và có ngành nghề
+  const asksPercentageRate = /bao nhieu\s*(phan tram|%)/.test(normalizedQuery) ||
+    (/\b(thue suat|ty le)\b/.test(normalizedQuery) && /\b(bao nhieu|may %)\b/.test(normalizedQuery));
+  const mentionsSector = /\b(hang hoa|tap hoa|dich vu|an uong|van tai|xay dung|phan phoi|cat toc|spa|nha hang|quan an|ca phe)\b/.test(normalizedQuery);
+  if (asksPercentageRate && mentionsSector) {
+    const rateChunk = idx.find((item) => item.chunk.ref_id === '16.77');
+    if (rateChunk) {
+      const existing = selected.findIndex((item) => item.chunk.ref_id === '16.77');
+      if (existing >= 0) selected.splice(existing, 1);
+      selected.unshift({ chunk: rateChunk.chunk, score: topScore + 1, viaRoute: false });
+    }
+  }
   return {
     results: selected.slice(0, limit),
     routeId: route?.id || null,
@@ -233,6 +245,7 @@ export function snippet(chunk: RagChunk, query: string, budget = 2200): string {
     // dễ bị loại khi chỉ chấm theo từ khóa câu hỏi (tương đương ~3 từ khóa khớp).
     if (/\b(ngoai tru|khong ap dung|dieu kien|truong hop|chi ap dung|mien|giam|luu y|chu y)\b/.test(fold(l))) s += 6;
     if (chunk.ref_id === '16.60' && requestedYears.some((year) => new RegExp(`^\\s*-\\s*\\*\\*${year}:`).test(l))) s += 80;
+    if (chunk.ref_id === '16.77' && (/^\s*\|/.test(l) || /Bảng tỷ lệ/i.test(l))) s += 50;
     for (const t of qset) if (lt.has(t)) s += 2;
     return { l, i, s, n: l.length };
   });
