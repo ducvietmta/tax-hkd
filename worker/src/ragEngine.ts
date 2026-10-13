@@ -1,7 +1,7 @@
 /**
  * RAG KNOWLEDGE BASE ENGINE (Compiled for Cloudflare Workers Edge)
- * Generated at: 2026-10-13T15:41:28.821Z
- * Chunks: 93 verified | Routes: 52
+ * Generated at: 2026-10-13T18:32:13.173Z
+ * Chunks: 94 verified | Routes: 52
  */
 
 export interface RagChunk {
@@ -1001,7 +1001,8 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "le phi mon bai"
     ],
     "refs": [
-      "16.97"
+      "16.97",
+      "16.98"
     ],
     "expand": [
       "lệ phí môn bài hộ kinh doanh theo bậc doanh thu",
@@ -1755,7 +1756,15 @@ export const CANONICAL_CHUNKS: RagChunk[] = [
     "section": "16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh",
     "ref_id": "16.97",
     "tier": "VERIFIED",
-    "text": "## 16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh\n- **LEGAL_STATUS:** VERIFIED — phân biệt rõ kỳ áp dụng trước và từ năm 2026.\n- **Từ 01/01/2026:** Chấm dứt việc thu, nộp lệ phí môn bài theo khoản 7 Điều 10 Nghị quyết 198/2025/QH15. Khoản 4 Điều 6 Nghị định 362/2025/NĐ-CP bãi bỏ Nghị định 139/2016/NĐ-CP và Nghị định 22/2020/NĐ-CP. Người nộp thuế không phải nộp lệ phí môn bài hoặc hồ sơ khai lệ phí môn bài cho năm 2026 và các năm tiếp theo. Ví dụ: hộ kinh doanh doanh thu 400 triệu đồng/năm trong năm 2026 không phải nộp lệ phí môn bài cho năm 2026; số phải nộp là 0 đồng, không áp biểu mức cũ. Công văn 645/CT-CS ngày 23/01/2026 của Cục Thuế xác nhận cách áp dụng này.\n- **Nghĩa vụ các năm 2025 trở về trước:** Cơ quan thuế vẫn rà soát, thu đủ số lệ phí môn bài đã phát sinh cho các năm đó; việc bãi bỏ từ 2026 không xóa khoản nợ cũ (Công văn 645/CT-CS).\n- **Biểu mức lịch sử CHỈ cho năm 2025 trở về trước** (khoản 2 Điều 4 Nghị định 139/2016/NĐ-CP):\n  - Doanh thu trên 500 triệu đồng/năm: 1.000.000 đồng/năm.\n  - Doanh thu trên 300 đến 500 triệu đồng/năm: 500.000 đồng/năm (ví dụ doanh thu 400 triệu của năm 2025, nếu không thuộc diện miễn).\n  - Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.\n  - Doanh thu từ 100 triệu đồng/năm trở xuống: miễn lệ phí môn bài.\n- **Miễn, thời hạn theo quy định cũ (chỉ xét nghĩa vụ năm 2025 trở về trước):** Miễn năm đầu ra hoạt động sản xuất, kinh doanh đối với cá nhân, nhóm cá nhân, hộ gia đình mới ra kinh doanh; doanh thu năm từ 100 triệu đồng trở xuống được miễn. Hạn nộp hằng năm chậm nhất là ngày 30 tháng 01 theo khoản 4 Điều 10 Nghị định 126/2020/NĐ-CP. Không dùng thời hạn này để yêu cầu nộp lệ phí môn bài cho năm 2026 trở đi.\n- **Căn cứ pháp lý hiện hành:** khoản 7 Điều 10 Nghị quyết 198/2025/QH15; khoản 4 Điều 6 Nghị định 362/2025/NĐ-CP; Công văn 645/CT-CS. Biểu mức lịch sử: Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP, sửa đổi bởi Nghị định 22/2020/NĐ-CP."
+    "text": "## 16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh\n- **LEGAL_STATUS:** VERIFIED — phân biệt rõ kỳ áp dụng trước và từ năm 2026.\n- **Từ 01/01/2026:** Chấm dứt việc thu, nộp lệ phí môn bài theo khoản 7 Điều 10 Nghị quyết 198/2025/QH15. Khoản 4 Điều 6 Nghị định 362/2025/NĐ-CP bãi bỏ Nghị định 139/2016/NĐ-CP và Nghị định 22/2020/NĐ-CP. Người nộp thuế không phải nộp lệ phí môn bài hoặc hồ sơ khai lệ phí môn bài cho năm 2026 và các năm tiếp theo. Ví dụ: hộ kinh doanh doanh thu 400 triệu đồng/năm trong năm 2026 không phải nộp lệ phí môn bài cho năm 2026; số phải nộp là 0 đồng, không áp biểu mức cũ. Công văn 645/CT-CS ngày 23/01/2026 của Cục Thuế xác nhận cách áp dụng này.\n- **Nghĩa vụ các năm 2025 trở về trước:** Cơ quan thuế vẫn rà soát, thu đủ số lệ phí môn bài đã phát sinh cho các năm đó; việc bãi bỏ từ 2026 không xóa khoản nợ cũ (Công văn 645/CT-CS).\n- **Biểu mức lịch sử CHỈ cho năm 2025 trở về trước** (khoản 2 Điều 4 Nghị định 139/2016/NĐ-CP):\n  - Doanh thu trên 500 triệu đồng/năm: 1.000.000 đồng/năm.\n  - Doanh thu trên 300 đến 500 triệu đồng/năm: 500.000 đồng/năm (ví dụ doanh thu 400 triệu của năm 2025, nếu không thuộc diện miễn).\n  - Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.\n  - Doanh thu từ 100 triệu đồng/năm trở xuống: miễn lệ phí môn bài.\n- **Miễn, thời hạn theo quy định cũ (chỉ xét nghĩa vụ năm 2025 trở về trước):** Miễn năm đầu ra hoạt động sản xuất, kinh doanh đối với cá nhân, nhóm cá nhân, hộ gia đình mới ra kinh doanh; doanh thu năm từ 100 triệu đồng trở xuống được miễn. Hạn nộp hằng năm chậm nhất là ngày 30 tháng 01 theo khoản 4 Điều 10 Nghị định 126/2020/NĐ-CP. Không dùng thời hạn này để yêu cầu nộp lệ phí môn bài cho năm 2026 trở đi.\n- **Căn cứ pháp lý hiện hành:** khoản 7 Điều 10 Nghị quyết 198/2025/QH15; khoản 4 Điều 6 Nghị định 362/2025/NĐ-CP; Công văn 645/CT-CS. Biểu mức lịch sử: Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP, sửa đổi bởi Nghị định 22/2020/NĐ-CP.\n- Mức lệ phí môn bài phải nộp từ năm 2026 trở đi là 0 đồng (bao nhiêu tiền cũng là 0 đồng)."
+  },
+  {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#bieu-muc-le-phi-mon-bai-lich-su",
+    "file": "KB/16F-thue-tncn-ca-nhan-mo-rong.md",
+    "section": "16.98. Biểu mức lệ phí môn bài cho năm 2025 trở về trước (Nghị định 139/2016/NĐ-CP)",
+    "ref_id": "16.98",
+    "tier": "VERIFIED",
+    "text": "## 16.98. Biểu mức lệ phí môn bài cho năm 2025 trở về trước (Nghị định 139/2016/NĐ-CP)\n- **LEGAL_STATUS:** VERIFIED — Nghị định 139/2016/NĐ-CP (sửa đổi bởi Nghị định 22/2020/NĐ-CP), áp dụng cho các năm 2025 trở về trước.\n- **Bảng mức lệ phí môn bài (bao nhiêu tiền) cho năm 2025 trở về trước theo 3 bậc doanh thu:**\n  - Bậc 1: Doanh thu trên 500 triệu đồng/năm: 1.000.000 đồng/năm.\n  - Bậc 2: Doanh thu trên 300 đến 500 triệu đồng/năm: 500.000 đồng/năm (ví dụ: doanh thu 400 triệu/năm nộp 500.000 đồng/năm).\n  - Bậc 3: Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.\n  - Doanh thu từ 100 triệu đồng/năm trở xuống: Miễn lệ phí môn bài.\n- **Điều kiện miễn và thời hạn nộp (năm 2025 trở về trước):**\n  - Miễn lệ phí môn bài năm đầu ra hoạt động kinh doanh (từ 01/01 đến 31/12).\n  - Thời hạn nộp hằng năm chậm nhất là ngày 30 tháng 01.\n- **Lưu ý kỳ tính thuế:** Quy định và biểu mức 3 bậc này chỉ áp dụng cho nghĩa vụ thuế của năm 2025 trở về trước. Từ năm 2026 trở đi đã chấm dứt thu lệ phí môn bài theo Nghị quyết 198/2025/QH15.\n- **Căn cứ pháp lý:** Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP; Nghị định 22/2020/NĐ-CP; Nghị định 126/2020/NĐ-CP."
   }
 ];
 

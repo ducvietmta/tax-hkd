@@ -50,7 +50,7 @@ INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywor
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('SECURITIES_CAPITAL', 'SECURITIES_CAPITAL', '["chứng khoán","cổ phiếu","cổ tức","chuyển nhượng vốn","đầu tư vốn","lợi tức"]', NULL, '["16.89"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('INHERIT_GIFT_PRIZE', 'INHERIT_GIFT_PRIZE', '["thừa kế","quà tặng","trúng thưởng","bản quyền","trúng số","tài sản số","vàng miếng"]', NULL, '["16.90"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('RENTAL_RATE_MIXED', 'RENTAL_RATE_MIXED', '["cho thuê"]', NULL, '["16.91","16.92","16.77"]', 85);
-INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('LE_PHI_MON_BAI', 'LE_PHI_MON_BAI', '["môn bài","thuế môn bài","lệ phí môn bài","mon bai","thue mon bai","le phi mon bai"]', NULL, '["16.97"]', 90);
+INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('LE_PHI_MON_BAI', 'LE_PHI_MON_BAI', '["môn bài","thuế môn bài","lệ phí môn bài","mon bai","thue mon bai","le phi mon bai"]', NULL, '["16.97","16.98"]', 90);
 
 -- Nạp chunks tri thức
 INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/00-van-ban-xuong-song.md#0', 'KB/00-van-ban-xuong-song.md', 'intro', NULL, 'CONTROL', '# Văn bản xương sống tra cứu thuế HKD (cập nhật 27/09/2026)
@@ -10088,4 +10088,17 @@ INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES
   - Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.
   - Doanh thu từ 100 triệu đồng/năm trở xuống: miễn lệ phí môn bài.
 - **Miễn, thời hạn theo quy định cũ (chỉ xét nghĩa vụ năm 2025 trở về trước):** Miễn năm đầu ra hoạt động sản xuất, kinh doanh đối với cá nhân, nhóm cá nhân, hộ gia đình mới ra kinh doanh; doanh thu năm từ 100 triệu đồng trở xuống được miễn. Hạn nộp hằng năm chậm nhất là ngày 30 tháng 01 theo khoản 4 Điều 10 Nghị định 126/2020/NĐ-CP. Không dùng thời hạn này để yêu cầu nộp lệ phí môn bài cho năm 2026 trở đi.
-- **Căn cứ pháp lý hiện hành:** khoản 7 Điều 10 Nghị quyết 198/2025/QH15; khoản 4 Điều 6 Nghị định 362/2025/NĐ-CP; Công văn 645/CT-CS. Biểu mức lịch sử: Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP, sửa đổi bởi Nghị định 22/2020/NĐ-CP.');
+- **Căn cứ pháp lý hiện hành:** khoản 7 Điều 10 Nghị quyết 198/2025/QH15; khoản 4 Điều 6 Nghị định 362/2025/NĐ-CP; Công văn 645/CT-CS. Biểu mức lịch sử: Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP, sửa đổi bởi Nghị định 22/2020/NĐ-CP.
+- Mức lệ phí môn bài phải nộp từ năm 2026 trở đi là 0 đồng (bao nhiêu tiền cũng là 0 đồng).');
+INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/16F-thue-tncn-ca-nhan-mo-rong.md#bieu-muc-le-phi-mon-bai-lich-su', 'KB/16F-thue-tncn-ca-nhan-mo-rong.md', '16.98. Biểu mức lệ phí môn bài cho năm 2025 trở về trước (Nghị định 139/2016/NĐ-CP)', '16.98', 'VERIFIED', '## 16.98. Biểu mức lệ phí môn bài cho năm 2025 trở về trước (Nghị định 139/2016/NĐ-CP)
+- **LEGAL_STATUS:** VERIFIED — Nghị định 139/2016/NĐ-CP (sửa đổi bởi Nghị định 22/2020/NĐ-CP), áp dụng cho các năm 2025 trở về trước.
+- **Bảng mức lệ phí môn bài (bao nhiêu tiền) cho năm 2025 trở về trước theo 3 bậc doanh thu:**
+  - Bậc 1: Doanh thu trên 500 triệu đồng/năm: 1.000.000 đồng/năm.
+  - Bậc 2: Doanh thu trên 300 đến 500 triệu đồng/năm: 500.000 đồng/năm (ví dụ: doanh thu 400 triệu/năm nộp 500.000 đồng/năm).
+  - Bậc 3: Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.
+  - Doanh thu từ 100 triệu đồng/năm trở xuống: Miễn lệ phí môn bài.
+- **Điều kiện miễn và thời hạn nộp (năm 2025 trở về trước):**
+  - Miễn lệ phí môn bài năm đầu ra hoạt động kinh doanh (từ 01/01 đến 31/12).
+  - Thời hạn nộp hằng năm chậm nhất là ngày 30 tháng 01.
+- **Lưu ý kỳ tính thuế:** Quy định và biểu mức 3 bậc này chỉ áp dụng cho nghĩa vụ thuế của năm 2025 trở về trước. Từ năm 2026 trở đi đã chấm dứt thu lệ phí môn bài theo Nghị quyết 198/2025/QH15.
+- **Căn cứ pháp lý:** Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP; Nghị định 22/2020/NĐ-CP; Nghị định 126/2020/NĐ-CP.');

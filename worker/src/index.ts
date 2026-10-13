@@ -13,7 +13,7 @@
 import { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
 import { retrieve, buildContext, analyzeAmounts } from './retriever';
-import { resolveAnswerScope, scopeInstructions, intentInstructions, isOutOfScope } from './answerScope';
+import { resolveAnswerScope, scopeInstructions, intentInstructions, isOutOfScope, OUT_OF_SCOPE_RESPONSE } from './answerScope';
 import { matchPendingTopics } from './pendingTopics';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
@@ -270,10 +270,12 @@ export default {
               );
 
               const chatData: any = await chatRes.json();
+              const isOOS = chatData.source === 'out_of_scope';
               const hasCitations = Array.isArray(chatData.citations) && chatData.citations.length > 0;
-              const textParts = [chatData.response || 'Không tìm thấy câu trả lời phù hợp.'];
-              if (chatData.source !== 'out_of_scope' && hasCitations) {
-                textParts.push(
+              const parts = [chatData.response || 'Không tìm thấy câu trả lời phù hợp.'];
+              // Chỉ gắn footer đối soát khi có citations thật — không bịa căn cứ cho câu ngoài phạm vi
+              if (!isOOS && hasCitations) {
+                parts.push(
                   '',
                   '----------------------------------------',
                   '📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:',
@@ -281,7 +283,7 @@ export default {
                   `• Nguồn: ${chatData.source || 'RAG Knowledge Engine'}`
                 );
               }
-              const text = textParts.join('\n');
+              const text = parts.join('\n');
 
               return jsonResponse({
                 jsonrpc: '2.0',
@@ -732,11 +734,15 @@ export default {
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
         const { text: ragContextText, citations: legalCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
-        const matchedPendingTopics = matchPendingTopics(message);
+        // Guard chủ đề PENDING: chèn disclaimer vào prompt, không để model chốt cứng
+        const pendingTopics = matchPendingTopics(message);
+        const pendingNotice = pendingTopics.length
+          ? `CHỦ ĐỀ CHƯA XÁC MINH: ${pendingTopics.map((t) => t.disclaimer).join(' ')} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.\n`
+          : '';
         const retrievalTrace = {
           method: routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25',
           period: { years: answerScope.years, source: answerScope.periodSource },
-          pendingTopics: matchedPendingTopics.map((t) => t.id),
+          pendingTopics: pendingTopics.map((t) => t.id),
           evidence: relevantChunks.map((chunk) => ({
             title: (chunk.text.match(/^##\s*(?:16\.\d+\.\s*)?(.+)$/m)?.[1] || chunk.section)
               .replace(/[*`]/g, '').slice(0, 150),
@@ -751,14 +757,10 @@ export default {
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
         if (ragContextText) {
-          const pendingDisclaimerPrompt = matchedPendingTopics.length > 0
-            ? matchedPendingTopics.map((t) => `\nCHỦ ĐỀ CHƯA XÁC MINH: ${t.disclaimer} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.`).join('\n') + '\n'
-            : '';
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 ${scopeInstructions(answerScope)}
 ${intentInstructions(message)}
-${pendingDisclaimerPrompt}${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}
-
+${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}\n${pendingNotice}
 QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):
 1. Xác định KỲ TÍNH THUẾ (năm nào) và LOẠI THU NHẬP từ câu hỏi và lịch sử hội thoại.
 2. Từ mỗi đoạn trích lục, liệt kê ĐIỀU KIỆN ÁP DỤNG: đối tượng, ngưỡng doanh thu, thời gian hiệu lực.
@@ -776,14 +778,13 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Không tự mở rộng sang một vấn đề người dùng không hỏi nếu vấn đề đó không ảnh hưởng kết luận. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
 3. Kết thúc câu trả lời bằng phần "Căn cứ pháp lý:" — mỗi dòng một văn bản theo dạng "Điều/Khoản, Tên văn bản số hiệu". Chỉ liệt kê văn bản có trong phần trích lục, không thêm văn bản ngoài.
 4. Tuân thủ PHẠM VI CÂU TRẢ LỜI: câu hỏi không nêu năm được xét theo năm hiện tại. Không tự so sánh các năm hay hỏi lại năm đó. Không coi ngày ban hành công văn hướng dẫn là ngày một quy định mới bắt đầu áp dụng khi nguồn không nói vậy.
-5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
+5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ. Khi người dùng hỏi "bao nhiêu %" / "bao nhiêu phần trăm", bắt buộc nêu con số % cụ thể từ trích lục và tính ra số tiền ví dụ — không được nói chung chung "theo tỷ lệ của ngành".
 6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
 7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Khi người dùng hỏi "chỉ cần khai cuối năm?", phân biệt thông báo doanh thu, tờ khai thuế định kỳ và quyết toán thuế; nêu mẫu và hạn nếu ngữ cảnh đã có. Nếu còn thiếu dữ kiện thật sự quan trọng, hỏi tối đa một câu ở cuối. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
 8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.
 9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.
-10. Nếu câu hỏi không liên quan đến thuế/hóa đơn/kê khai/doanh thu của HKD & cá nhân kinh doanh, CHỈ trả lời đúng mẫu: "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng". Không sáng tạo thêm.
-11. Khi người dùng hỏi "bao nhiêu %" / "bao nhiêu phần trăm", bắt buộc nêu con số % cụ thể từ trích lục và tính ra số tiền ví dụ. Không được nói chung chung "theo tỷ lệ của ngành".
-12. Lệ phí môn bài: từ 01/01/2026 đã chấm dứt thu, nộp và không cần khai cho năm 2026 trở đi. Bảng mức của Nghị định 139/2016/NĐ-CP chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước; tuyệt đối không áp cho năm hiện tại.`;
+10. Nếu câu hỏi không liên quan đến thuế, hóa đơn, kê khai hay doanh thu của Hộ kinh doanh & cá nhân kinh doanh, CHỈ trả lời đúng nguyên văn: "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh." + xuống dòng "Căn cứ pháp lý:\nKhông áp dụng". Không sáng tạo thêm, không liệt kê văn bản.
+11. Lệ phí môn bài: từ 01/01/2026 đã chấm dứt thu, nộp và không cần khai cho năm 2026 trở đi. Bảng mức của Nghị định 139/2016/NĐ-CP chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước; tuyệt đối không áp cho năm hiện tại.`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
@@ -928,8 +929,12 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 
           // ƯU TIÊN 2 (FALLBACK): Nếu Muse bận hoặc timeout, gọi Cloudflare Workers AI
           if (!aiText && env.AI) {
-            const fallbackSystemPrompt = `${FALLBACK_EXTRA_RULES}${systemPrompt}`;
-            const messages = [{ role: 'system', content: fallbackSystemPrompt }, ...history, { role: 'user', content: message }];
+            const FALLBACK_EXTRA_RULES = `BẠN LÀ BẢN DỰ PHÒNG — độ tin cậy thấp hơn bản chính. Tuân thủ tuyệt đối:
+a) KIỂM TRA NĂM: nếu câu hỏi nêu năm cụ thể (VD 2024, 2025), CHỈ dùng quy định của năm đó. Ngưỡng 1 tỷ chỉ áp dụng từ 01/01/2026; giai đoạn 2022–2025 ngưỡng miễn là 100 triệu/năm (TT 40/2021). Tuyệt đối không áp ngưỡng 1 tỷ cho năm trước 2026.
+b) HKD/CNKD tính thuế GTGT và TNCN TRỰC TIẾP trên DOANH THU theo tỷ lệ % — KHÔNG được trừ bất kỳ chi phí nào. Không bao giờ tư vấn "chi phí được trừ" cho HKD/CNKD.
+c) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình chưa đủ căn cứ chắc chắn cho câu hỏi này, bạn thử lại sau nhé." + "Căn cứ pháp lý:\nKhông áp dụng". Không đoán, không suy diễn.`;
+            const fallbackSystem = FALLBACK_EXTRA_RULES + '\n\n' + systemPrompt;
+            const messages = [{ role: 'system', content: fallbackSystem }, ...history, { role: 'user', content: message }];
             const models = ['@cf/meta/llama-3.3-70b-instruct-fp8-fast', '@cf/qwen/qwen2.5-7b-instruct', '@cf/meta/llama-3.2-3b-instruct'];
             for (const model of models) {
               try {
@@ -945,6 +950,14 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                 }
               } catch (e: any) {
                 console.error(`Lỗi fallback model ${model}:`, e?.message);
+              }
+            }
+            // Post-check bằng code: cảnh báo khi fallback có dấu hiệu áp sai ngưỡng năm
+            if (aiText) {
+              const hasOldYear = answerScope.years.some((y) => y < 2026);
+              const f = aiText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+              if (hasOldYear && /1\s*t(y|i)/.test(f) && !/100\s*trieu/.test(f)) {
+                console.warn('[fallback-year-risk]', JSON.stringify(message).slice(0, 120));
               }
             }
           }

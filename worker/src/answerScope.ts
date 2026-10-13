@@ -65,43 +65,34 @@ export function intentInstructions(message: string): string {
   return `TRỌNG TÂM CÂU HỎI NÀY: trả lời trực tiếp theo kỳ đang xét. (1) Nếu 30 triệu là TOÀN BỘ doanh thu kinh doanh trong năm và đúng là khoản thu kinh doanh trên sàn, đối chiếu ngay với ngưỡng năm đó trong trích lục: khoản thuế đã nộp thừa có thể đề nghị hoàn sau khi kiểm tra chứng từ và số sàn nộp thay. Nếu 30 triệu chỉ là hoa hồng một kênh thì phải cộng các doanh thu kinh doanh khác để xét ngưỡng. Đừng kết luận chắc chắn được hoàn chỉ từ 30 triệu. (2) Lương công ty không cộng vào doanh thu kinh doanh; chỉ khi chứng từ/quan hệ chi trả xác định hoa hồng là tiền công thì xét cùng thu nhập lương khi quyết toán. Tỷ lệ khấu trừ 10% chưa đủ xác định loại thu nhập. Hỏi về chứng từ khấu trừ hoặc bản chất khoản chi trả nếu còn thiếu; không hỏi lại năm đang mặc định.`;
 }
 
-const TAX_KEYWORDS: string[] = [
-  'thue', 'hoa don', 'ke khai', 'doanh thu', 'mon bai', 'le phi', 'gtgt', 'tncn',
-  'san', 'tmdt', 'thuong mai dien tu', 'ma so thue', 'mst', '888', 'quyet toan',
-  'khau tru', 'nop thay', 'khai thay', 'affiliate', 'cho thue', 'ho kinh doanh',
-  'ca nhan kinh doanh', 'hkd', 'cnkd', 'dang ky thue', 'bao cao thue', 'mien thue',
-  'giam thue', 'hoan thue', 'phat', 'vi pham', 'an dinh thue', 'thong bao doanh thu'
+// ==== PHẦN THÊM MỚI ====
+const TAX_KEYWORDS = [
+  'thue', 'hoa don', 'ke khai', 'doanh thu', 'mon bai', 'le phi',
+  'gtgt', 'tncn', 'san ', ' tmdt', 'thuong mai dien tu',
+  'ma so thue', 'mst', '888', 'quyet toan', 'khau tru',
+  'nop thay', 'khai thay', 'affiliate', 'cho thue',
+  'ho kinh doanh', 'ca nhan kinh doanh', 'hkd', 'cnkd',
+  'dang ky thue', 'bao cao thue', 'mien thue', 'giam thue',
+  'hoan thue', 'vi pham', ' an dinh thue',
+  'thong bao doanh thu', 'to khai',
 ];
 
-/**
- * Kiểm tra xem câu hỏi có nằm ngoài phạm vi tư vấn thuế của hệ thống hay không.
- */
-export function isOutOfScope(message: string, history?: ConversationTurn[]): boolean {
-  const normMsg = normalize(message);
-
-  // Nếu message chứa bất kỳ keyword thuế nào -> trong phạm vi
-  const hasTaxKeyword = TAX_KEYWORDS.some((kw) => {
-    if (kw.length <= 4) {
-      return new RegExp(`\\b${kw}\\b`).test(normMsg);
-    }
-    return normMsg.includes(kw);
-  });
-
-  if (hasTaxKeyword) return false;
-
-  // Nếu là follow-up ngữ cảnh của câu trong phạm vi -> trong phạm vi
-  if (history && history.length > 0 && isContextualFollowUp(message)) {
-    const userTurns = history.filter((turn) => turn.role === 'user');
-    for (const turn of userTurns.slice().reverse()) {
-      const normTurn = normalize(turn.content);
-      const turnHasTax = TAX_KEYWORDS.some((kw) =>
-        kw.length <= 4 ? new RegExp(`\\b${kw}\\b`).test(normTurn) : normTurn.includes(kw)
-      );
-      if (turnHasTax) return false;
+/** true nếu câu hỏi không liên quan thuế/HKD — dùng để từ chối sớm, không gọi LLM. */
+export function isOutOfScope(message: string, history: ConversationTurn[] = []): boolean {
+  const f = ' ' + normalize(message) + ' ';
+  if (TAX_KEYWORDS.some((k) => f.includes(k))) return false;
+  if (isContextualFollowUp(message)) {
+    for (const turn of history.filter((t) => t.role === 'user').slice().reverse()) {
+      const tf = ' ' + normalize(turn.content) + ' ';
+      if (TAX_KEYWORDS.some((k) => tf.includes(k))) return false;
       if (!isContextualFollowUp(turn.content)) break;
     }
   }
-
   return true;
 }
+
+export const OUT_OF_SCOPE_RESPONSE =
+  'Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. ' +
+  'Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử ' +
+  'hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng';
 
