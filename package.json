@@ -1,0 +1,41 @@
+{
+  "name": "tiklive-agency",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build --configLoader runner",
+    "test:rag": "node scripts/test_rag.cjs",
+    "preview": "vite preview",
+    "d1:migrate": "wrangler d1 execute tax_db --remote --file=./d1/schema.sql",
+    "d1:migrate:local": "wrangler d1 execute tax_db --local --file=./d1/schema.sql",
+    "d1:seed": "wrangler d1 execute tax_db --remote --file=./d1/seed.sql",
+    "d1:seed:local": "wrangler d1 execute tax_db --local --file=./d1/seed.sql",
+    "worker:deploy": "wrangler deploy",
+    "pages:deploy": "npm run build && npx wrangler pages deploy dist --project-name=tax-hkd",
+    "firebase:deploy": "npm run build && firebase deploy --only hosting",
+    "deploy:all": "npm run build && npx wrangler deploy && npx wrangler pages deploy dist --project-name=tax-hkd"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "firebase": "^13.0.0",
+    "framer-motion": "^12.4.7",
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.6",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "firebase-tools": "^15.33.0",
+    "tailwindcss": "^4.0.6",
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0",
+    "wrangler": "^4.149.0"
+  }
+}

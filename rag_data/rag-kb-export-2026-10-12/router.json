@@ -1,0 +1,204 @@
+{
+ "kb_version": "5.2-expansion",
+ "valid_as_of": "2026-10-06",
+ "routing_order": [
+  "legal_period",
+  "intent",
+  "revenue_time_state",
+  "tax_status",
+  "threshold_state",
+  "procedural_state",
+  "query_expansion",
+  "canonical_retrieval"
+ ],
+ "global_rules": {
+  "historical_gate": "Do not apply 2026 thresholds/forms to 2022-2025 unless comparing periods.",
+  "threshold_operators": [
+   "<",
+   "=",
+   ">",
+   "<=",
+   ">="
+  ],
+  "case_evidence_is_not_law": true,
+  "canonical_first_retrieval": true,
+  "case_evidence_requires_canonical_confirmation": true,
+  "software_display_is_not_liability": true,
+  "historical_partial_year_requires_method_classification": true,
+  "query_map_priority_order": "descending",
+  "max_direct_query_map_refs": 3,
+  "threshold_resolution": {
+   "_note": "2026-09-28 V6 audit: REMOVED hardcoded legal numbers from routing layer. Router only declares WHICH threshold a question needs; VALUES live in the canonical knowledge layer (16-kien-thuc-da-xac-minh-v5.1.md) + citation_validity.md.",
+   "policy": "Router must never carry threshold/rate/form/fine/deadline values. Retrieval resolves threshold_type -> {value, effective_from, effective_to, source, verified_at} from canonical store.",
+   "removed_snapshot": {
+    "basic_revenue_vnd": 1000000000,
+    "tncn_method_switch_vnd": 3000000000,
+    "monthly_filing_vnd": 50000000000
+   }
+  },
+  "personal_vs_hkd_collision": "Câu hỏi về thu nhập cá nhân (lương, tiền công, quyết toán TNCN, chuyển nhượng BĐS/chứng khoán/vốn của cá nhân, thừa kế/quà tặng/trúng thưởng, cho thuê BĐS của cá nhân không kinh doanh, xác định cư trú) PHẢI định tuyến sang intent TNCN_CA_NHAN. CẤM áp logic ngưỡng/doanh thu/phương pháp tính thuế của hộ kinh doanh (các canonical ngưỡng HKD) cho các câu hỏi này — ngưỡng HKD chỉ áp dụng khi chủ thể là hộ/cá nhân KINH DOANH. Dấu hiệu intent TNCN_CA_NHAN: có từ khóa lương, tiền công, quyết toán TNCN, chuyển nhượng nhà/đất/cổ phiếu, thừa kế, cho thuê nhà — và KHÔNG có từ khóa hộ kinh doanh/đăng ký kinh doanh/bán hàng/sàn TMĐT khấu trừ. Trường hợp vừa có lương vừa có hoạt động HKD: tách hai intent, xử lý song song, không gộp ngưỡng."
+ },
+ "intents": {
+  "KE_KHAI_NOP_THUE": {
+   "required_slots": [
+    "legal_period",
+    "business_start_status",
+    "cumulative_revenue_by_period",
+    "threshold_state",
+    "prior_filing_state"
+   ],
+   "conditional_slots": [
+    "tncn_method",
+    "annual_revenue_band"
+   ],
+   "canonical_refs": [
+    "16.51",
+    "16.53",
+    "16.59"
+   ]
+  },
+  "SO_SACH_KE_TOAN": {
+   "required_slots": [
+    "legal_period",
+    "tax_status_or_method"
+   ],
+   "canonical_refs": [
+    "16.52",
+    "16.56"
+   ]
+  },
+  "HOA_DON_DIEN_TU": {
+   "required_slots": [
+    "legal_period",
+    "current_year_revenue",
+    "threshold_state",
+    "activity_type"
+   ],
+   "conditional_slots": [
+    "prior_year_revenue",
+    "new_business",
+    "voluntary_einvoice_status"
+   ],
+   "canonical_refs": [
+    "16.38",
+    "16.41",
+    "16.58"
+   ]
+  },
+  "TINH_THUE": {
+   "required_slots": [
+    "legal_period",
+    "revenue_components",
+    "activity_classification",
+    "tax_method"
+   ],
+   "canonical_refs": [
+    "00A",
+    "16.37",
+    "16.39",
+    "16.50",
+    "16.56",
+    "16.57"
+   ]
+  },
+  "TMĐT_SAN": {
+   "required_slots": [
+    "legal_period",
+    "platform_payment_function",
+    "withholding_status",
+    "offline_revenue"
+   ],
+   "canonical_refs": [
+    "16.35",
+    "16.42",
+    "16.48",
+    "16.57"
+   ]
+  },
+  "LICH_SU": {
+   "required_slots": [
+    "legal_period",
+    "business_full_year_or_partial",
+    "historical_method_if_partial"
+   ],
+   "canonical_refs": [
+    "16.54",
+    "16.55"
+   ]
+  },
+  "FORM_SOFTWARE": {
+   "required_slots": [
+    "legal_period",
+    "form_or_app",
+    "form_period",
+    "displayed_calculation"
+   ],
+   "conditional_slots": [
+    "form_type",
+    "acceptance_state"
+   ],
+   "canonical_refs": [
+    "16.55",
+    "16.24",
+    "16.51"
+   ]
+  },
+  "TNCN_CA_NHAN": {
+   "required_slots": [
+    "legal_period",
+    "income_type",
+    "residency_status"
+   ],
+   "conditional_slots": [
+    "registration_status_for_service_income",
+    "property_count_and_scope",
+    "dependent_count"
+   ],
+   "canonical_refs": [
+    "16.81",
+    "16.82",
+    "16.83",
+    "16.84",
+    "16.85",
+    "16.86",
+    "16.87",
+    "16.88",
+    "16.89",
+    "16.90",
+    "16.91",
+    "16.92",
+    "16.93"
+   ],
+   "scope_note": "Thu nhập cá nhân KHÔNG qua hộ kinh doanh: tiền lương/tiền công, chuyển nhượng BĐS/chứng khoán/vốn của cá nhân, thừa kế/quà tặng/trúng thưởng, cho thuê BĐS của cá nhân, cư trú/không cư trú."
+  }
+ },
+ "query_expansion_file": "00D-query-map-v5.1.json",
+ "retrieval_stages": [
+  {
+   "stage": 0,
+   "include": [
+    "00B-bo-dinh-tuyen-tinh-huong.md",
+    "00D-bo-mo-rong-truy-van-rag.md"
+   ],
+   "mandatory": true
+  },
+  {
+   "stage": 1,
+   "include_classes": [
+    "CANONICAL_INDEX",
+    "GLOBAL_REASONING_GUARDRAIL",
+    "CANONICAL"
+   ],
+   "mandatory": true
+  },
+  {
+   "stage": 2,
+   "include_classes": [
+    "CASE_EVIDENCE",
+    "LESSONS_LEARNED"
+   ],
+   "mandatory": false,
+   "legal_conclusion_allowed": false
+  }
+ ]
+}

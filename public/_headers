@@ -1,0 +1,24 @@
+# ====================================================================
+# CLOUDFLARE PAGES SECURITY HEADERS & CDN CACHE CONFIGURATION
+# ====================================================================
+
+# Global security headers for all routes
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# HTML no-cache to ensure users get the latest app version immediately
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Static assets caching on Cloudflare CDN Edge
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# API CORS & no-cache headers
+/api/*
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate

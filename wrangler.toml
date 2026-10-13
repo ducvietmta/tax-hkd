@@ -1,0 +1,29 @@
+name = "tax-agent-worker"
+main = "worker/src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# 1. CLOUDFLARE D1 DATABASE BINDING
+[[d1_databases]]
+binding = "DB"
+database_name = "tax_db"
+database_id = "540ddea4-8da6-4957-bd5b-3959483d269f"
+
+# 2. CLOUDFLARE R2 OBJECT STORAGE BINDING (Kích hoạt sau khi bật R2 trên Dashboard)
+# [[r2_buckets]]
+# binding = "STORAGE_BUCKET"
+# bucket_name = "tax-documents-bucket"
+# preview_bucket_name = "tax-documents-bucket-preview"
+
+# 3. CLOUDFLARE WORKERS AI (TÙY CHỌN CHẠY MODEL LLM TRỰC TIẾP TRÊN CLOUDFLARE EDGE)
+[ai]
+binding = "AI"
+
+# 4. BIẾN MÔI TRƯỜNG & SECRETS
+[vars]
+ENVIRONMENT = "production"
+APP_NAME = "Hệ thống Tư vấn Thuế TMĐT & HKD 2026"
+CORS_ALLOW_ORIGIN = "*"
+INITIAL_FREE_CREDITS = 3
+VIP_PHONE = "0943219594"
+VIP_CREDITS = 1000
