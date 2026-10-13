@@ -23,7 +23,9 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
   const historicalRevenue = q.match(/doanh thu\s+(\d+(?:[.,]\d+)?)\s*(trieu|ty)\b/);
   if (historical && asksLateFiling && historicalRevenue && refs.includes('16.54')) {
     const revenue = Number(historicalRevenue[1].replace(',', '.')) * (historicalRevenue[2] === 'ty' ? 1000 : 1);
-    if (revenue > 100 && (!a.includes('100 trieu') || /nguong 1 ty/.test(a))) {
+    // Even an answer mentioning "100 triệu" can invert the comparison (300 < 100).
+    // For this narrow late-filing case, use the verified threshold deterministically.
+    if (revenue > 100) {
       const year = scope.years[0];
       return {
         answer: `Nếu ${revenueText(revenue)} là doanh thu kinh doanh của bạn trong năm ${year}, khoản này vượt ngưỡng 100 triệu đồng/năm áp dụng cho kỳ ${year}. Bạn cần rà lại doanh thu và số đã nộp, kê khai bổ sung kỳ còn thiếu với cơ quan thuế; số thuế GTGT và TNCN cụ thể phụ thuộc loại hoạt động và hồ sơ thực tế. Không dùng ngưỡng 1 tỷ của năm 2026 để xét ngược năm ${year}.\n\nCăn cứ pháp lý:\nThông tư 40/2021/TT-BTC (quy định áp dụng cho kỳ ${year})`,

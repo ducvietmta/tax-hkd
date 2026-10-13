@@ -142,6 +142,8 @@ const vagueOld = taxAnswerGuard.guardTaxAnswer('Năm 2024 tôi bán online doanh
 assert.equal(vagueOld.reason, 'historical_threshold');
 assert.ok(vagueOld.answer.includes('100 triệu đồng/năm'));
 assert.ok(vagueOld.answer.includes('Không dùng ngưỡng 1 tỷ của năm 2026 để xét ngược năm 2024.'));
-assert.equal(taxAnswerGuard.guardTaxAnswer('Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', oldScope, ['16.54'], 'Năm 2024 ngưỡng là 100 triệu đồng/năm.').reason, null);
+const invertedOld = taxAnswerGuard.guardTaxAnswer('Năm 2024 tôi bán online doanh thu 300 triệu mà chưa kê khai, giờ phải làm sao?', oldScope, ['16.54'], 'Doanh thu 300 triệu dưới 100 triệu nên không phải nộp thuế.');
+assert.equal(invertedOld.reason, 'historical_threshold');
+assert.ok(!invertedOld.answer.includes('300 triệu dưới 100 triệu'));
 
 console.log('\n🎉 TOÀN BỘ 5 MỤC ĐÃ ĐƯỢC KIỂM THỬ THÀNH CÔNG VÀ CHÍNH XÁC!');
