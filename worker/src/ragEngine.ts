@@ -1,7 +1,7 @@
 /**
  * RAG KNOWLEDGE BASE ENGINE (Compiled for Cloudflare Workers Edge)
- * Generated at: 2026-10-13T10:07:25.563Z
- * Chunks: 92 verified | Routes: 51
+ * Generated at: 2026-10-13T15:16:11.565Z
+ * Chunks: 93 verified | Routes: 52
  */
 
 export interface RagChunk {
@@ -987,6 +987,26 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "mixed threshold PENDING"
     ],
     "priority": 85
+  },
+  {
+    "id": "LE_PHI_MON_BAI",
+    "any": [
+      "môn bài",
+      "thuế môn bài",
+      "lệ phí môn bài",
+      "mon bai",
+      "thue mon bai",
+      "le phi mon bai"
+    ],
+    "refs": [
+      "16.97"
+    ],
+    "expand": [
+      "lệ phí môn bài hộ kinh doanh theo bậc doanh thu",
+      "Nghị định 139/2016/NĐ-CP",
+      "Nghị định 22/2020/NĐ-CP"
+    ],
+    "priority": 90
   }
 ];
 
@@ -1726,6 +1746,14 @@ export const CANONICAL_CHUNKS: RagChunk[] = [
     "ref_id": "16.96",
     "tier": "VERIFIED",
     "text": "## 16.96. Mã thuế đuôi 888, CCCD và nghĩa vụ affiliate TikTok năm 2026 dưới 1 tỷ\n- Đúng: mã số thuế 13 số đuôi 888 được Cổng thuế TMĐT cấp cho hoạt động kinh doanh trực tuyến của cá nhân. Từ 01/07/2025, số định danh cá nhân/CCCD được dùng thay mã số thuế; việc chuyển sang CCCD không làm thay đổi bản chất hoạt động kinh doanh. Nếu người hỏi chỉ hỏi đây có phải mã thuế cá nhân kinh doanh hay không, trả lời đúng ý này, không mở rộng sang thủ tục đăng ký khác.\n- Nếu hoa hồng TikTok Shop năm 2026 là doanh thu từ hoạt động kinh doanh và TỔNG doanh thu kinh doanh cả năm từ mọi kênh thuộc cùng nhóm kinh doanh từ 1 tỷ đồng trở xuống, cá nhân không phải nộp thuế GTGT và TNCN cho hoạt động đó. Vẫn phải thông báo doanh thu thực tế năm 2026 theo mẫu 01/TKN-CNKD chậm nhất ngày 31/01/2027. Đây là thông báo doanh thu, không phải quyết toán TNCN cuối năm. Nếu sàn đã khấu trừ, khai, nộp thuế thay cho giao dịch, không khai nộp trùng giao dịch đó; đối chiếu số đã khấu trừ và xử lý khoản nộp thừa theo quy định.\n- Năm 2025 xét RIÊNG: mốc 1 tỷ năm 2026 không áp ngược. Thu nhập kinh doanh năm 2025 dùng ngưỡng 100 triệu đồng/năm; nếu khoản hoa hồng được xử lý là tiền công theo quan hệ chi trả thực tế thì áp quy định tiền lương/tiền công của năm 2025, không dùng ngưỡng doanh thu kinh doanh. Kỳ thuế năm 2025 vẫn phải xem theo hồ sơ chi trả và quy định áp dụng cho năm đó.\n- Không lấy ngày 06/10/2026 ban hành Công văn 7403/CT-TMĐT làm mốc pháp luật đổi từ tiền công sang kinh doanh. Công văn hướng dẫn cách phân loại, không tự đặt ngày hiệu lực mới.\n- Cách trả lời: trả lời thẳng cả hai vế; chỉ nêu điều kiện thật sự ảnh hưởng kết luận là tổng doanh thu kinh doanh 2026 và khoản sàn đã khấu trừ. Không bắt người hỏi kiểm tra eTax chỉ để giải thích ý nghĩa mã 888.\n- Nguồn: Báo Điện tử Chính phủ, bài \"Khai nộp thuế đối với hoạt động môi giới trực tuyến\" (11/06/2025); Nghị định 141/2026/NĐ-CP; Thông tư 50/2026/TT-BTC; giải đáp Cục Thuế về thông báo doanh thu và sàn khấu trừ nộp thay (2026)."
+  },
+  {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#le-phi-mon-bai-hkd",
+    "file": "KB/16F-thue-tncn-ca-nhan-mo-rong.md",
+    "section": "16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh",
+    "ref_id": "16.97",
+    "tier": "VERIFIED",
+    "text": "## 16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh\n- **LEGAL_STATUS:** VERIFIED — Nghị định 139/2016/NĐ-CP (sửa đổi, bổ sung bởi Nghị định 22/2020/NĐ-CP), Nghị định 126/2020/NĐ-CP.\n- **Biểu mức thu lệ phí môn bài (Khoản 2 Điều 4 Nghị định 139/2016/NĐ-CP):**\n  - Doanh thu trên 500 triệu đồng/năm: 1.000.000 đồng/năm.\n  - Doanh thu trên 300 đến 500 triệu đồng/năm: 500.000 đồng/năm (ví dụ: doanh thu 400 triệu/năm nộp 500.000 đồng/năm).\n  - Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.\n  - Doanh thu từ 100 triệu đồng/năm trở xuống: Miễn lệ phí môn bài.\n- **Quy định miễn lệ phí môn bài (Điều 3 Nghị định 139/2016/NĐ-CP, sửa đổi bởi Khoản 1 Điều 1 Nghị định 22/2020/NĐ-CP):**\n  - Miễn trong năm đầu tiên ra hoạt động sản xuất, kinh doanh (từ ngày 01 tháng 01 đến ngày 31 tháng 12) đối với cá nhân, nhóm cá nhân, hộ gia đình mới ra hoạt động sản xuất, kinh doanh.\n  - Cá nhân, hộ kinh doanh có doanh thu hàng năm từ 100 triệu đồng trở xuống được miễn lệ phí môn bài.\n  - Cá nhân, nhóm cá nhân, hộ gia đình hoạt động sản xuất, kinh doanh không thường xuyên; không có địa điểm cố định theo quy định (như hoạt động kinh doanh lưu động, TMĐT không địa điểm cố định theo CV 311/TCT-CS).\n- **Thời hạn nộp lệ phí môn bài (Khoản 4 Điều 10 Nghị định 126/2020/NĐ-CP, Điều 5 Nghị định 139/2016/NĐ-CP):**\n  - Thời hạn nộp lệ phí môn bài hàng năm chậm nhất là ngày 30 tháng 01.\n  - Đối với cá nhân, hộ gia đình mới thành lập (được miễn lệ phí môn bài năm đầu), thời hạn nộp cho năm tiếp theo chậm nhất là ngày 30 tháng 01 của năm liền kề sau năm thành lập.\n- **Căn cứ pháp lý:** Điều 3, Điều 4, Điều 5 Nghị định 139/2016/NĐ-CP; Khoản 1, Khoản 2 Điều 1 Nghị định 22/2020/NĐ-CP; Khoản 4 Điều 10 Nghị định 126/2020/NĐ-CP."
   }
 ];
 

@@ -1,976 +1,996 @@
 {
- "kb_version": "5.2",
- "valid_as_of": "2026-10-06",
- "role": "QUERY_EXPANSION_ONLY_NOT_LEGAL_SOURCE",
- "routes": [
-  {
-   "id": "HISTORICAL_YEAR_THRESHOLD",
-   "any": [
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "refs": [
-    "16.54"
-   ],
-   "expand": [
-    "TT40 historical threshold",
-    "annualization if applicable"
-   ],
-   "priority": 80
-  },
-  {
-   "id": "HISTORICAL_PARTIAL_YEAR",
-   "any": [
-    "không đủ 12 tháng",
-    "không trọn năm",
-    "mở giữa năm"
-   ],
-   "context_any": [
-    "2021",
-    "2022",
-    "2023",
-    "2024",
-    "2025"
-   ],
-   "refs": [
-    "16.54",
-    "16.60"
-   ],
-   "expand": [
-    "TT40 historical partial-year annualization if applicable"
-   ],
-   "priority": 90
-  },
-  {
-   "id": "SOFTWARE_CALC",
-   "any": [
-    "htkk",
-    "etax",
-    "phần mềm",
-    "nhảy thuế",
-    "tự tính",
-    "ô thuế"
-   ],
-   "refs": [
-    "16.55"
-   ],
-   "expand": [
-    "displayed calculation",
-    "legal liability"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "ONE_BILLION",
-   "any": [
-    "1 tỷ",
-    "1,0 tỷ",
-    "1.000.000.000",
-    "chạm mốc",
-    "vượt 1 tỷ"
-   ],
-   "refs": [
-    "16.53",
-    "16.41",
-    "16.72"
-   ],
-   "expand": [
-    "threshold operator",
-    "crossing quarter"
-   ],
-   "priority": 20
-  },
-  {
-   "id": "MISSING_DUPLICATE_PERIOD",
-   "any": [
-    "quên khai",
-    "gộp quý",
-    "nộp trùng",
-    "treo nợ",
-    "tháng 1,2,3",
-    "quý 2",
-    "quý II"
-   ],
-   "refs": [
-    "16.59"
-   ],
-   "expand": [
-    "period integrity",
-    "procedural state"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "BOOKS",
-   "any": [
-    "s1a",
-    "s2a",
-    "s2b",
-    "s2c",
-    "s2d",
-    "s2e",
-    "vở thường",
-    "excel",
-    "sổ doanh thu"
-   ],
-   "refs": [
-    "16.52",
-    "16.71"
-   ],
-   "expand": [
-    "book by tax method"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "VOLUNTARY_EINVOICE",
-   "any": [
-    "tự nguyện",
-    "dưới 1 tỷ",
-    "khách công ty cần hóa đơn"
-   ],
-   "refs": [
-    "16.58"
-   ],
-   "expand": [
-    "voluntary e-invoice separate from tax status"
-   ],
-   "context_any": [
-    "hóa đơn"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "NO_INPUT_INVOICE",
-   "any": [
-    "không có hóa đơn đầu vào",
-    "không có đầu vào",
-    "hàng mua ngoài chợ"
-   ],
-   "refs": [
-    "16.58",
-    "16.19"
-   ],
-   "expand": [
-    "output invoice",
-    "input evidence"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "COD_SHIP",
-   "any": [
-    "cod",
-    "ship thu hộ",
-    "phí ship",
-    "vận chuyển thu hộ"
-   ],
-   "refs": [
-    "16.22"
-   ],
-   "expand": [
-    "collection on behalf",
-    "gross revenue"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "PLATFORM_FEE",
-   "any": [
-    "phí sàn",
-    "sàn trừ phí",
-    "còn chuyển về",
-    "doanh thu net"
-   ],
-   "refs": [
-    "16.32"
-   ],
-   "expand": [
-    "gross vs net",
-    "platform fee cost"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "RETURNS",
-   "any": [
-    "hoàn hàng",
-    "trả lại hàng",
-    "đơn hoàn"
-   ],
-   "refs": [
-    "16.18",
-    "16.32"
-   ],
-   "expand": [
-    "returned goods",
-    "invoice adjustment"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "VOUCHER",
-   "any": [
-    "voucher",
-    "mã giảm giá",
-    "trợ giá"
-   ],
-   "refs": [
-    "16.32"
-   ],
-   "expand": [
-    "who bears discount"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "NONBUSINESS_CASH",
-   "any": [
-    "tự chuyển",
-    "tiền vay",
-    "vay ngân hàng",
-    "chuyển nhầm"
-   ],
-   "refs": [
-    "16.33"
-   ],
-   "expand": [
-    "cash flow not revenue"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "BONUS_EINVOICE",
-   "any": [
-    "thưởng doanh số",
-    "thưởng hãng",
-    "hỗ trợ hãng",
-    "tiền thưởng"
-   ],
-   "context_any": [
-    "hđđt",
-    "hóa đơn"
-   ],
-   "refs": [
-    "16.47",
-    "16.41"
-   ],
-   "expand": [
-    "bonus HĐĐT threshold uncertainty",
-    "current-year invoice threshold"
-   ],
-   "priority": 95
-  },
-  {
-   "id": "BONUS",
-   "any": [
-    "thưởng doanh số",
-    "hỗ trợ hãng",
-    "tiền thưởng",
-    "thưởng hãng"
-   ],
-   "refs": [
-    "16.34",
-    "16.47",
-    "16.49"
-   ],
-   "expand": [
-    "business other revenue",
-    "bonus classification"
-   ],
-   "priority": 70
-  },
-  {
-   "id": "MIX_BDS",
-   "any": [
-    "cho thuê nhà",
-    "cho thuê bất động sản",
-    "bđs"
-   ],
-   "refs": [
-    "16.29"
-   ],
-   "expand": [
-    "separate business and real estate"
-   ],
-   "context_any": [
-    "bán",
-    "kinh doanh",
-    "hàng"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "PLATFORM_WITHHELD",
-   "any": [
-    "sàn đã khấu trừ",
-    "sàn nộp thay",
-    "sàn đã trừ",
-    "nộp thay",
-    "khấu trừ trên sàn"
-   ],
-   "refs": [
-    "16.35",
-    "16.48",
-    "16.72"
-   ],
-   "expand": [
-    "withholding not removal of revenue"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "PLATFORM_OVER3B",
-   "any": [
-    "4 tỷ",
-    "trên 3 tỷ",
-    ">3 tỷ",
-    "17%"
-   ],
-   "refs": [
-    "16.57"
-   ],
-   "expand": [
-    "annual income-method settlement",
-    "credit withheld tax"
-   ],
-   "context_any": [
-    "sàn",
-    "shopee",
-    "tiktok"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "METHOD_3B",
-   "any": [
-    "3 tỷ",
-    "17%",
-    "lợi nhuận",
-    "thu nhập tính thuế"
-   ],
-   "refs": [
-    "16.56"
-   ],
-   "expand": [
-    "method boundary",
-    "method transition"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "COSTS",
-   "any": [
-    "giá vốn",
-    "chi phí",
-    "phí quảng cáo"
-   ],
-   "refs": [
-    "16.56",
-    "16.57"
-   ],
-   "expand": [
-    "ratio method vs income method"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "NQ204",
-   "any": [
-    "0,8%",
-    "0.8%",
-    "nq204",
-    "giảm 20%",
-    "giảm vat",
-    "giảm gtgt"
-   ],
-   "refs": [
-    "16.50"
-   ],
-   "expand": [
-    "VAT rate reduction"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "NQ43",
-   "any": [
-    "nq43",
-    "giảm 30%",
-    "30% tncn"
-   ],
-   "refs": [
-    "16.39"
-   ],
-   "expand": [
-    "whole tax year reduction"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "REVENUE_TIME",
-   "any": [
-    "xuất hóa đơn tháng",
-    "giao hàng tháng",
-    "thời điểm doanh thu"
-   ],
-   "refs": [
-    "16.30"
-   ],
-   "expand": [
-    "revenue timing vs invoice timing"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "DEPOSIT",
-   "any": [
-    "đặt cọc",
-    "tạm ứng"
-   ],
-   "refs": [
-    "16.43",
-    "16.30"
-   ],
-   "expand": [
-    "deposit vs advance"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "ASSET_SALE",
-   "any": [
-    "thanh lý",
-    "bán máy cũ",
-    "bán xe",
-    "tài sản"
-   ],
-   "refs": [
-    "16.36",
-    "16.38"
-   ],
-   "expand": [
-    "asset classification",
-    "registered-right asset exception"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "AFFILIATE",
-   "any": [
-    "affiliate",
-    "tiếp thị liên kết",
-    "7403"
-   ],
-   "refs": [
-    "16.20",
-    "16.73",
-    "16.37",
-    "16.95"
-   ],
-   "expand": [
-    "affiliate classification"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "EFILE_ACCEPT",
-   "any": [
-    "không tiếp nhận",
-    "đã ghi nhận",
-    "email tiếp nhận"
-   ],
-   "refs": [
-    "16.24"
-   ],
-   "expand": [
-    "electronic filing acceptance"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "TAX_REG_DEADLINE",
-   "any": [
-    "đăng ký thuế lần đầu",
-    "thời hạn đăng ký thuế",
-    "03-đkt",
-    "03đkt",
-    "mã số thuế lần đầu",
-    "10 ngày làm việc",
-    "đăng ký thuế cho hoạt động kinh doanh"
-   ],
-   "refs": [
-    "16.64",
-    "16.65"
-   ],
-   "expand": [
-    "tax registration deadline NĐ 252"
-   ],
-   "priority": 80
-  },
-  {
-   "id": "LATE_TAX_REG_PENALTY",
-   "any": [
-    "chậm đăng ký thuế",
-    "quá hạn đăng ký thuế",
-    "phạt chậm đăng ký",
-    "đăng ký thuế muộn",
-    "đăng ký muộn từ tháng"
-   ],
-   "refs": [
-    "16.66",
-    "16.65"
-   ],
-   "expand": [
-    "late tax registration penalty Điều 10 NĐ 125"
-   ],
-   "priority": 80
-  },
-  {
-   "id": "WRONG_REG_INFO",
-   "any": [
-    "khai sai hồ sơ đăng ký",
-    "sai thông tin đăng ký thuế",
-    "sai ngày bắt đầu kinh doanh",
-    "khai sai chỉ tiêu"
-   ],
-   "refs": [
-    "16.67"
-   ],
-   "expand": [
-    "Điều 12 NĐ 125 wrong declaration"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "UNDERDECLARED_TAX",
-   "any": [
-    "khai thiếu thuế",
-    "khai sai làm thiếu thuế",
-    "phạt 20%",
-    "truy thu thuế"
-   ],
-   "refs": [
-    "16.68"
-   ],
-   "expand": [
-    "Điều 16 NĐ 125 20 percent"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "NO_INVOICE_PENALTY",
-   "any": [
-    "không lập hóa đơn",
-    "không xuất hóa đơn",
-    "phạt không xuất hóa đơn",
-    "số lượng hóa đơn",
-    "quên xuất hóa đơn"
-   ],
-   "refs": [
-    "16.69",
-    "16.38"
-   ],
-   "expand": [
-    "Điều 24 NĐ 125 per-invoice penalty"
-   ],
-   "priority": 80,
-   "not": [
-    "chưa đăng ký"
-   ]
-  },
-  {
-   "id": "TAX_ASSESSMENT",
-   "any": [
-    "ấn định thuế",
-    "bị ấn định",
-    "đầu vào cao hơn đầu ra",
-    "đầu vào lớn hơn đầu ra"
-   ],
-   "refs": [
-    "16.70"
-   ],
-   "expand": [
-    "Điều 24 Luật 108 ấn định cases"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "YOUTUBE_REVENUE",
-   "any": [
-    "youtube",
-    "adsense",
-    "doanh thu youtube",
-    "làm video",
-    "thu nhập youtube"
-   ],
-   "refs": [
-    "16.74"
-   ],
-   "expand": [
-    "youtube revenue as business income"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "SPOUSE_TWO_HKD",
-   "any": [
-    "vợ chồng",
-    "hai hộ kinh doanh",
-    "2 hộ kinh doanh",
-    "mỗi người một hộ",
-    "chồng vợ"
-   ],
-   "refs": [
-    "16.75",
-    "16.8",
-    "16.7"
-   ],
-   "expand": [
-    "threshold per individual business person"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "THUE_SUAT_NGANH",
-   "any": [
-    "tỷ lệ gtgt",
-    "tỷ lệ tncn",
-    "bao nhiêu %",
-    "bao nhiêu phần trăm",
-    "tỷ lệ theo ngành",
-    "tỷ lệ % trên doanh thu",
-    "mỗi ngành",
-    "doanh thu gộp",
-    "cho thuê"
-   ],
-   "refs": [
-    "16.77"
-   ],
-   "expand": [
-    "industry tax rate table NĐ 68"
-   ],
-   "priority": 75,
-   "not": [
-    "2022",
-    "2023",
-    "2024",
-    "2025",
-    "hóa đơn",
-    "hđt",
-    "ngưỡng"
-   ]
-  },
-  {
-   "id": "GIAM30_THUTUC",
-   "any": [
-    "mẫu giảm 30",
-    "hồ sơ giảm 30",
-    "thủ tục giảm 30",
-    "kê khai giảm 30",
-    "làm sao để được giảm 30",
-    "điền tờ khai",
-    "tờ khai giảm 30"
-   ],
-   "refs": [
-    "16.78"
-   ],
-   "expand": [
-    "NQ43 procedure pending"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "NGUONG_HDDT_PHAMVI",
-   "any": [
-    "tính vào ngưỡng",
-    "cộng vào ngưỡng",
-    "ngưỡng hđt",
-    "ngưỡng hóa đơn"
-   ],
-   "refs": [
-    "16.79"
-   ],
-   "expand": [
-    "e-invoice threshold composition"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "HOAN_THUE",
-   "any": [
-    "hoàn thuế",
-    "nộp thừa",
-    "tiền thuế nộp thừa",
-    "đề nghị hoàn",
-    "lấy lại tiền thuế"
-   ],
-   "refs": [
-    "16.51"
-   ],
-   "expand": [
-    "tax refund overpayment"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "PLATFORM_MECHANISM",
-   "any": [
-    "hàng trả lại",
-    "trả hàng",
-    "đơn bị hủy",
-    "đơn hủy",
-    "sàn bù trừ",
-    "bù trừ thuế",
-    "sàn cấn trừ",
-    "cấn trừ thuế sàn",
-    "nđ 117",
-    "nđ 252",
-    "khấu trừ theo từng giao dịch"
-   ],
-   "refs": [
-    "16.42"
-   ],
-   "expand": [
-    "platform return offset mechanism"
-   ],
-   "priority": 70
-  },
-  {
-   "id": "EINVOICE_REG_STATUS",
-   "any": [
-    "đã đăng ký hđt",
-    "đã đăng ký hóa đơn",
-    "chưa đăng ký hđt",
-    "chưa đăng ký hóa đơn",
-    "đăng ký hđt",
-    "đăng ký hóa đơn điện tử"
-   ],
-   "not": [
-    "thủ tục",
-    "đăng ký ở đâu",
-    "ở đâu đăng ký"
-   ],
-   "refs": [
-    "16.58",
-    "16.41"
-   ],
-   "expand": [
-    "einvoice registration status slot"
-   ],
-   "priority": 90
-  },
-  {
-   "id": "HAS_INPUT_INVOICE",
-   "any": [
-    "có hóa đơn đầu vào",
-    "hóa đơn đầu vào"
-   ],
-   "not": [
-    "không có hóa đơn đầu vào",
-    "không có đầu vào"
-   ],
-   "refs": [
-    "16.58"
-   ],
-   "expand": [
-    "input invoice separation principle"
-   ],
-   "priority": 60
-  },
-  {
-   "id": "WAGE_TAX_TABLE",
-   "any": [
-    "lương",
-    "tiền công",
-    "biểu thuế",
-    "lũy tiến",
-    "giảm trừ",
-    "gia cảnh",
-    "người phụ thuộc",
-    "thu nhập tính thuế"
-   ],
-   "refs": [
-    "16.81",
-    "16.82"
-   ],
-   "expand": [
-    "5-bracket progressive table 2026",
-    "15.5m/6.2m deductions"
-   ],
-   "priority": 80,
-   "not": [
-    "hộ kinh doanh"
-   ]
-  },
-  {
-   "id": "WAGE_WITHHOLD_10PCT",
-   "any": [
-    "khấu trừ 10%",
-    "khấu trừ thuế tncn",
-    "vãng lai",
-    "không ký hợp đồng",
-    "hợp đồng dưới 3 tháng",
-    "cam kết",
-    "tt111",
-    "thông tư 111",
-    "5 triệu",
-    "ngưỡng 5 triệu"
-   ],
-   "refs": [
-    "16.83",
-    "16.85"
-   ],
-   "expand": [
-    "5m per payment threshold from 01/07/2026"
-   ],
-   "priority": 80
-  },
-  {
-   "id": "WAGE_SETTLEMENT",
-   "any": [
-    "quyết toán",
-    "ủy quyền quyết toán",
-    "hoàn thuế",
-    "08/UQ",
-    "05/QTT",
-    "hoàn"
-   ],
-   "refs": [
-    "16.85",
-    "16.86",
-    "16.93"
-   ],
-   "expand": [
-    "authorization conditions",
-    "15m casual income rule"
-   ],
-   "priority": 80
-  },
-  {
-   "id": "FREELANCER_WAGE_CLASS",
-   "any": [
-    "freelancer",
-    "contractor",
-    "thù lao",
-    "không đăng ký kinh doanh",
-    "làm cho công ty nước ngoài"
-   ],
-   "refs": [
-    "16.84"
-   ],
-   "expand": [
-    "service fee without business registration = wage income"
-   ],
-   "priority": 85,
-   "not": [
-    "đã đăng ký"
-   ]
-  },
-  {
-   "id": "RESIDENCY_183",
-   "any": [
-    "cư trú",
-    "183 ngày",
-    "không cư trú",
-    "thu nhập từ nước ngoài",
-    "thu nhập ở nước ngoài",
-    "hiệp định",
-    "tránh đánh thuế hai lần",
-    "song thuế",
-    "singapore"
-   ],
-   "refs": [
-    "16.87",
-    "16.94"
-   ],
-   "expand": [
-    "residency criteria worldwide scope"
-   ],
-   "priority": 75
-  },
-  {
-   "id": "REAL_ESTATE_TRANSFER_TAX",
-   "any": [
-    "chuyển nhượng nhà",
-    "bán nhà",
-    "nhà duy nhất",
-    "sang tên",
-    "chuyển nhượng đất",
-    "nhà đất"
-   ],
-   "refs": [
-    "16.88"
-   ],
-   "expand": [
-    "2% transfer tax",
-    "sole house exemption ND253"
-   ],
-   "priority": 80,
-   "not": [
-    "cho thuê"
-   ]
-  },
-  {
-   "id": "SECURITIES_CAPITAL",
-   "any": [
-    "chứng khoán",
-    "cổ phiếu",
-    "cổ tức",
-    "chuyển nhượng vốn",
-    "đầu tư vốn",
-    "lợi tức"
-   ],
-   "refs": [
-    "16.89"
-   ],
-   "expand": [
-    "0.1% securities",
-    "20% capital gain",
-    "5% dividends"
-   ],
-   "priority": 80
-  },
-  {
-   "id": "INHERIT_GIFT_PRIZE",
-   "any": [
-    "thừa kế",
-    "quà tặng",
-    "trúng thưởng",
-    "bản quyền",
-    "trúng số",
-    "tài sản số",
-    "vàng miếng"
-   ],
-   "refs": [
-    "16.90"
-   ],
-   "expand": [
-    "20m threshold",
-    "10%/5%/0.1% rates"
-   ],
-   "priority": 80
-  },
-  {
-   "id": "RENTAL_RATE_MIXED",
-   "any": [
-    "cho thuê"
-   ],
-   "refs": [
-    "16.91",
-    "16.92",
-    "16.77"
-   ],
-   "expand": [
-    "rental PIT formula",
-    "mixed threshold PENDING"
-   ],
-   "priority": 85
-  }
- ],
- "route_priority_order": "descending",
- "max_direct_refs": 3,
- "specific_routes_before_generic_threshold": true
+  "kb_version": "5.2",
+  "valid_as_of": "2026-10-06",
+  "role": "QUERY_EXPANSION_ONLY_NOT_LEGAL_SOURCE",
+  "routes": [
+    {
+      "id": "HISTORICAL_YEAR_THRESHOLD",
+      "any": [
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "refs": [
+        "16.54"
+      ],
+      "expand": [
+        "TT40 historical threshold",
+        "annualization if applicable"
+      ],
+      "priority": 80
+    },
+    {
+      "id": "HISTORICAL_PARTIAL_YEAR",
+      "any": [
+        "không đủ 12 tháng",
+        "không trọn năm",
+        "mở giữa năm"
+      ],
+      "context_any": [
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "refs": [
+        "16.54",
+        "16.60"
+      ],
+      "expand": [
+        "TT40 historical partial-year annualization if applicable"
+      ],
+      "priority": 90
+    },
+    {
+      "id": "SOFTWARE_CALC",
+      "any": [
+        "htkk",
+        "etax",
+        "phần mềm",
+        "nhảy thuế",
+        "tự tính",
+        "ô thuế"
+      ],
+      "refs": [
+        "16.55"
+      ],
+      "expand": [
+        "displayed calculation",
+        "legal liability"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "ONE_BILLION",
+      "any": [
+        "1 tỷ",
+        "1,0 tỷ",
+        "1.000.000.000",
+        "chạm mốc",
+        "vượt 1 tỷ"
+      ],
+      "refs": [
+        "16.53",
+        "16.41",
+        "16.72"
+      ],
+      "expand": [
+        "threshold operator",
+        "crossing quarter"
+      ],
+      "priority": 20
+    },
+    {
+      "id": "MISSING_DUPLICATE_PERIOD",
+      "any": [
+        "quên khai",
+        "gộp quý",
+        "nộp trùng",
+        "treo nợ",
+        "tháng 1,2,3",
+        "quý 2",
+        "quý II"
+      ],
+      "refs": [
+        "16.59"
+      ],
+      "expand": [
+        "period integrity",
+        "procedural state"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "BOOKS",
+      "any": [
+        "s1a",
+        "s2a",
+        "s2b",
+        "s2c",
+        "s2d",
+        "s2e",
+        "vở thường",
+        "excel",
+        "sổ doanh thu"
+      ],
+      "refs": [
+        "16.52",
+        "16.71"
+      ],
+      "expand": [
+        "book by tax method"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "VOLUNTARY_EINVOICE",
+      "any": [
+        "tự nguyện",
+        "dưới 1 tỷ",
+        "khách công ty cần hóa đơn"
+      ],
+      "refs": [
+        "16.58"
+      ],
+      "expand": [
+        "voluntary e-invoice separate from tax status"
+      ],
+      "context_any": [
+        "hóa đơn"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "NO_INPUT_INVOICE",
+      "any": [
+        "không có hóa đơn đầu vào",
+        "không có đầu vào",
+        "hàng mua ngoài chợ"
+      ],
+      "refs": [
+        "16.58",
+        "16.19"
+      ],
+      "expand": [
+        "output invoice",
+        "input evidence"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "COD_SHIP",
+      "any": [
+        "cod",
+        "ship thu hộ",
+        "phí ship",
+        "vận chuyển thu hộ"
+      ],
+      "refs": [
+        "16.22"
+      ],
+      "expand": [
+        "collection on behalf",
+        "gross revenue"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "PLATFORM_FEE",
+      "any": [
+        "phí sàn",
+        "sàn trừ phí",
+        "còn chuyển về",
+        "doanh thu net"
+      ],
+      "refs": [
+        "16.32"
+      ],
+      "expand": [
+        "gross vs net",
+        "platform fee cost"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "RETURNS",
+      "any": [
+        "hoàn hàng",
+        "trả lại hàng",
+        "đơn hoàn"
+      ],
+      "refs": [
+        "16.18",
+        "16.32"
+      ],
+      "expand": [
+        "returned goods",
+        "invoice adjustment"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "VOUCHER",
+      "any": [
+        "voucher",
+        "mã giảm giá",
+        "trợ giá"
+      ],
+      "refs": [
+        "16.32"
+      ],
+      "expand": [
+        "who bears discount"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "NONBUSINESS_CASH",
+      "any": [
+        "tự chuyển",
+        "tiền vay",
+        "vay ngân hàng",
+        "chuyển nhầm"
+      ],
+      "refs": [
+        "16.33"
+      ],
+      "expand": [
+        "cash flow not revenue"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "BONUS_EINVOICE",
+      "any": [
+        "thưởng doanh số",
+        "thưởng hãng",
+        "hỗ trợ hãng",
+        "tiền thưởng"
+      ],
+      "context_any": [
+        "hđđt",
+        "hóa đơn"
+      ],
+      "refs": [
+        "16.47",
+        "16.41"
+      ],
+      "expand": [
+        "bonus HĐĐT threshold uncertainty",
+        "current-year invoice threshold"
+      ],
+      "priority": 95
+    },
+    {
+      "id": "BONUS",
+      "any": [
+        "thưởng doanh số",
+        "hỗ trợ hãng",
+        "tiền thưởng",
+        "thưởng hãng"
+      ],
+      "refs": [
+        "16.34",
+        "16.47",
+        "16.49"
+      ],
+      "expand": [
+        "business other revenue",
+        "bonus classification"
+      ],
+      "priority": 70
+    },
+    {
+      "id": "MIX_BDS",
+      "any": [
+        "cho thuê nhà",
+        "cho thuê bất động sản",
+        "bđs"
+      ],
+      "refs": [
+        "16.29"
+      ],
+      "expand": [
+        "separate business and real estate"
+      ],
+      "context_any": [
+        "bán",
+        "kinh doanh",
+        "hàng"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "PLATFORM_WITHHELD",
+      "any": [
+        "sàn đã khấu trừ",
+        "sàn nộp thay",
+        "sàn đã trừ",
+        "nộp thay",
+        "khấu trừ trên sàn"
+      ],
+      "refs": [
+        "16.35",
+        "16.48",
+        "16.72"
+      ],
+      "expand": [
+        "withholding not removal of revenue"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "PLATFORM_OVER3B",
+      "any": [
+        "4 tỷ",
+        "trên 3 tỷ",
+        ">3 tỷ",
+        "17%"
+      ],
+      "refs": [
+        "16.57"
+      ],
+      "expand": [
+        "annual income-method settlement",
+        "credit withheld tax"
+      ],
+      "context_any": [
+        "sàn",
+        "shopee",
+        "tiktok"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "METHOD_3B",
+      "any": [
+        "3 tỷ",
+        "17%",
+        "lợi nhuận",
+        "thu nhập tính thuế"
+      ],
+      "refs": [
+        "16.56"
+      ],
+      "expand": [
+        "method boundary",
+        "method transition"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "COSTS",
+      "any": [
+        "giá vốn",
+        "chi phí",
+        "phí quảng cáo"
+      ],
+      "refs": [
+        "16.56",
+        "16.57"
+      ],
+      "expand": [
+        "ratio method vs income method"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "NQ204",
+      "any": [
+        "0,8%",
+        "0.8%",
+        "nq204",
+        "giảm 20%",
+        "giảm vat",
+        "giảm gtgt"
+      ],
+      "refs": [
+        "16.50"
+      ],
+      "expand": [
+        "VAT rate reduction"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "NQ43",
+      "any": [
+        "nq43",
+        "giảm 30%",
+        "30% tncn"
+      ],
+      "refs": [
+        "16.39"
+      ],
+      "expand": [
+        "whole tax year reduction"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "REVENUE_TIME",
+      "any": [
+        "xuất hóa đơn tháng",
+        "giao hàng tháng",
+        "thời điểm doanh thu"
+      ],
+      "refs": [
+        "16.30"
+      ],
+      "expand": [
+        "revenue timing vs invoice timing"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "DEPOSIT",
+      "any": [
+        "đặt cọc",
+        "tạm ứng"
+      ],
+      "refs": [
+        "16.43",
+        "16.30"
+      ],
+      "expand": [
+        "deposit vs advance"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "ASSET_SALE",
+      "any": [
+        "thanh lý",
+        "bán máy cũ",
+        "bán xe",
+        "tài sản"
+      ],
+      "refs": [
+        "16.36",
+        "16.38"
+      ],
+      "expand": [
+        "asset classification",
+        "registered-right asset exception"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "AFFILIATE",
+      "any": [
+        "affiliate",
+        "tiếp thị liên kết",
+        "7403"
+      ],
+      "refs": [
+        "16.20",
+        "16.73",
+        "16.37",
+        "16.95"
+      ],
+      "expand": [
+        "affiliate classification"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "EFILE_ACCEPT",
+      "any": [
+        "không tiếp nhận",
+        "đã ghi nhận",
+        "email tiếp nhận"
+      ],
+      "refs": [
+        "16.24"
+      ],
+      "expand": [
+        "electronic filing acceptance"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "TAX_REG_DEADLINE",
+      "any": [
+        "đăng ký thuế lần đầu",
+        "thời hạn đăng ký thuế",
+        "03-đkt",
+        "03đkt",
+        "mã số thuế lần đầu",
+        "10 ngày làm việc",
+        "đăng ký thuế cho hoạt động kinh doanh"
+      ],
+      "refs": [
+        "16.64",
+        "16.65"
+      ],
+      "expand": [
+        "tax registration deadline NĐ 252"
+      ],
+      "priority": 80
+    },
+    {
+      "id": "LATE_TAX_REG_PENALTY",
+      "any": [
+        "chậm đăng ký thuế",
+        "quá hạn đăng ký thuế",
+        "phạt chậm đăng ký",
+        "đăng ký thuế muộn",
+        "đăng ký muộn từ tháng"
+      ],
+      "refs": [
+        "16.66",
+        "16.65"
+      ],
+      "expand": [
+        "late tax registration penalty Điều 10 NĐ 125"
+      ],
+      "priority": 80
+    },
+    {
+      "id": "WRONG_REG_INFO",
+      "any": [
+        "khai sai hồ sơ đăng ký",
+        "sai thông tin đăng ký thuế",
+        "sai ngày bắt đầu kinh doanh",
+        "khai sai chỉ tiêu"
+      ],
+      "refs": [
+        "16.67"
+      ],
+      "expand": [
+        "Điều 12 NĐ 125 wrong declaration"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "UNDERDECLARED_TAX",
+      "any": [
+        "khai thiếu thuế",
+        "khai sai làm thiếu thuế",
+        "phạt 20%",
+        "truy thu thuế"
+      ],
+      "refs": [
+        "16.68"
+      ],
+      "expand": [
+        "Điều 16 NĐ 125 20 percent"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "NO_INVOICE_PENALTY",
+      "any": [
+        "không lập hóa đơn",
+        "không xuất hóa đơn",
+        "phạt không xuất hóa đơn",
+        "số lượng hóa đơn",
+        "quên xuất hóa đơn"
+      ],
+      "refs": [
+        "16.69",
+        "16.38"
+      ],
+      "expand": [
+        "Điều 24 NĐ 125 per-invoice penalty"
+      ],
+      "priority": 80,
+      "not": [
+        "chưa đăng ký"
+      ]
+    },
+    {
+      "id": "TAX_ASSESSMENT",
+      "any": [
+        "ấn định thuế",
+        "bị ấn định",
+        "đầu vào cao hơn đầu ra",
+        "đầu vào lớn hơn đầu ra"
+      ],
+      "refs": [
+        "16.70"
+      ],
+      "expand": [
+        "Điều 24 Luật 108 ấn định cases"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "YOUTUBE_REVENUE",
+      "any": [
+        "youtube",
+        "adsense",
+        "doanh thu youtube",
+        "làm video",
+        "thu nhập youtube"
+      ],
+      "refs": [
+        "16.74"
+      ],
+      "expand": [
+        "youtube revenue as business income"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "SPOUSE_TWO_HKD",
+      "any": [
+        "vợ chồng",
+        "hai hộ kinh doanh",
+        "2 hộ kinh doanh",
+        "mỗi người một hộ",
+        "chồng vợ"
+      ],
+      "refs": [
+        "16.75",
+        "16.8",
+        "16.7"
+      ],
+      "expand": [
+        "threshold per individual business person"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "THUE_SUAT_NGANH",
+      "any": [
+        "tỷ lệ gtgt",
+        "tỷ lệ tncn",
+        "bao nhiêu %",
+        "bao nhiêu phần trăm",
+        "tỷ lệ theo ngành",
+        "tỷ lệ % trên doanh thu",
+        "mỗi ngành",
+        "doanh thu gộp",
+        "cho thuê"
+      ],
+      "refs": [
+        "16.77"
+      ],
+      "expand": [
+        "industry tax rate table NĐ 68"
+      ],
+      "priority": 75,
+      "not": [
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "hóa đơn",
+        "hđt",
+        "ngưỡng"
+      ]
+    },
+    {
+      "id": "GIAM30_THUTUC",
+      "any": [
+        "mẫu giảm 30",
+        "hồ sơ giảm 30",
+        "thủ tục giảm 30",
+        "kê khai giảm 30",
+        "làm sao để được giảm 30",
+        "điền tờ khai",
+        "tờ khai giảm 30"
+      ],
+      "refs": [
+        "16.78"
+      ],
+      "expand": [
+        "NQ43 procedure pending"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "NGUONG_HDDT_PHAMVI",
+      "any": [
+        "tính vào ngưỡng",
+        "cộng vào ngưỡng",
+        "ngưỡng hđt",
+        "ngưỡng hóa đơn"
+      ],
+      "refs": [
+        "16.79"
+      ],
+      "expand": [
+        "e-invoice threshold composition"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "HOAN_THUE",
+      "any": [
+        "hoàn thuế",
+        "nộp thừa",
+        "tiền thuế nộp thừa",
+        "đề nghị hoàn",
+        "lấy lại tiền thuế"
+      ],
+      "refs": [
+        "16.51"
+      ],
+      "expand": [
+        "tax refund overpayment"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "PLATFORM_MECHANISM",
+      "any": [
+        "hàng trả lại",
+        "trả hàng",
+        "đơn bị hủy",
+        "đơn hủy",
+        "sàn bù trừ",
+        "bù trừ thuế",
+        "sàn cấn trừ",
+        "cấn trừ thuế sàn",
+        "nđ 117",
+        "nđ 252",
+        "khấu trừ theo từng giao dịch"
+      ],
+      "refs": [
+        "16.42"
+      ],
+      "expand": [
+        "platform return offset mechanism"
+      ],
+      "priority": 70
+    },
+    {
+      "id": "EINVOICE_REG_STATUS",
+      "any": [
+        "đã đăng ký hđt",
+        "đã đăng ký hóa đơn",
+        "chưa đăng ký hđt",
+        "chưa đăng ký hóa đơn",
+        "đăng ký hđt",
+        "đăng ký hóa đơn điện tử"
+      ],
+      "not": [
+        "thủ tục",
+        "đăng ký ở đâu",
+        "ở đâu đăng ký"
+      ],
+      "refs": [
+        "16.58",
+        "16.41"
+      ],
+      "expand": [
+        "einvoice registration status slot"
+      ],
+      "priority": 90
+    },
+    {
+      "id": "HAS_INPUT_INVOICE",
+      "any": [
+        "có hóa đơn đầu vào",
+        "hóa đơn đầu vào"
+      ],
+      "not": [
+        "không có hóa đơn đầu vào",
+        "không có đầu vào"
+      ],
+      "refs": [
+        "16.58"
+      ],
+      "expand": [
+        "input invoice separation principle"
+      ],
+      "priority": 60
+    },
+    {
+      "id": "WAGE_TAX_TABLE",
+      "any": [
+        "lương",
+        "tiền công",
+        "biểu thuế",
+        "lũy tiến",
+        "giảm trừ",
+        "gia cảnh",
+        "người phụ thuộc",
+        "thu nhập tính thuế"
+      ],
+      "refs": [
+        "16.81",
+        "16.82"
+      ],
+      "expand": [
+        "5-bracket progressive table 2026",
+        "15.5m/6.2m deductions"
+      ],
+      "priority": 80,
+      "not": [
+        "hộ kinh doanh"
+      ]
+    },
+    {
+      "id": "WAGE_WITHHOLD_10PCT",
+      "any": [
+        "khấu trừ 10%",
+        "khấu trừ thuế tncn",
+        "vãng lai",
+        "không ký hợp đồng",
+        "hợp đồng dưới 3 tháng",
+        "cam kết",
+        "tt111",
+        "thông tư 111",
+        "5 triệu",
+        "ngưỡng 5 triệu"
+      ],
+      "refs": [
+        "16.83",
+        "16.85"
+      ],
+      "expand": [
+        "5m per payment threshold from 01/07/2026"
+      ],
+      "priority": 80
+    },
+    {
+      "id": "WAGE_SETTLEMENT",
+      "any": [
+        "quyết toán",
+        "ủy quyền quyết toán",
+        "hoàn thuế",
+        "08/UQ",
+        "05/QTT",
+        "hoàn"
+      ],
+      "refs": [
+        "16.85",
+        "16.86",
+        "16.93"
+      ],
+      "expand": [
+        "authorization conditions",
+        "15m casual income rule"
+      ],
+      "priority": 80
+    },
+    {
+      "id": "FREELANCER_WAGE_CLASS",
+      "any": [
+        "freelancer",
+        "contractor",
+        "thù lao",
+        "không đăng ký kinh doanh",
+        "làm cho công ty nước ngoài"
+      ],
+      "refs": [
+        "16.84"
+      ],
+      "expand": [
+        "service fee without business registration = wage income"
+      ],
+      "priority": 85,
+      "not": [
+        "đã đăng ký"
+      ]
+    },
+    {
+      "id": "RESIDENCY_183",
+      "any": [
+        "cư trú",
+        "183 ngày",
+        "không cư trú",
+        "thu nhập từ nước ngoài",
+        "thu nhập ở nước ngoài",
+        "hiệp định",
+        "tránh đánh thuế hai lần",
+        "song thuế",
+        "singapore"
+      ],
+      "refs": [
+        "16.87",
+        "16.94"
+      ],
+      "expand": [
+        "residency criteria worldwide scope"
+      ],
+      "priority": 75
+    },
+    {
+      "id": "REAL_ESTATE_TRANSFER_TAX",
+      "any": [
+        "chuyển nhượng nhà",
+        "bán nhà",
+        "nhà duy nhất",
+        "sang tên",
+        "chuyển nhượng đất",
+        "nhà đất"
+      ],
+      "refs": [
+        "16.88"
+      ],
+      "expand": [
+        "2% transfer tax",
+        "sole house exemption ND253"
+      ],
+      "priority": 80,
+      "not": [
+        "cho thuê"
+      ]
+    },
+    {
+      "id": "SECURITIES_CAPITAL",
+      "any": [
+        "chứng khoán",
+        "cổ phiếu",
+        "cổ tức",
+        "chuyển nhượng vốn",
+        "đầu tư vốn",
+        "lợi tức"
+      ],
+      "refs": [
+        "16.89"
+      ],
+      "expand": [
+        "0.1% securities",
+        "20% capital gain",
+        "5% dividends"
+      ],
+      "priority": 80
+    },
+    {
+      "id": "INHERIT_GIFT_PRIZE",
+      "any": [
+        "thừa kế",
+        "quà tặng",
+        "trúng thưởng",
+        "bản quyền",
+        "trúng số",
+        "tài sản số",
+        "vàng miếng"
+      ],
+      "refs": [
+        "16.90"
+      ],
+      "expand": [
+        "20m threshold",
+        "10%/5%/0.1% rates"
+      ],
+      "priority": 80
+    },
+    {
+      "id": "RENTAL_RATE_MIXED",
+      "any": [
+        "cho thuê"
+      ],
+      "refs": [
+        "16.91",
+        "16.92",
+        "16.77"
+      ],
+      "expand": [
+        "rental PIT formula",
+        "mixed threshold PENDING"
+      ],
+      "priority": 85
+    },
+    {
+      "id": "LE_PHI_MON_BAI",
+      "any": [
+        "môn bài",
+        "thuế môn bài",
+        "lệ phí môn bài",
+        "mon bai",
+        "thue mon bai",
+        "le phi mon bai"
+      ],
+      "refs": [
+        "16.97"
+      ],
+      "expand": [
+        "lệ phí môn bài hộ kinh doanh theo bậc doanh thu",
+        "Nghị định 139/2016/NĐ-CP",
+        "Nghị định 22/2020/NĐ-CP"
+      ],
+      "priority": 90
+    }
+  ],
+  "route_priority_order": "descending",
+  "max_direct_refs": 3,
+  "specific_routes_before_generic_threshold": true
 }

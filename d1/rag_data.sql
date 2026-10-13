@@ -50,6 +50,7 @@ INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywor
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('SECURITIES_CAPITAL', 'SECURITIES_CAPITAL', '["chứng khoán","cổ phiếu","cổ tức","chuyển nhượng vốn","đầu tư vốn","lợi tức"]', NULL, '["16.89"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('INHERIT_GIFT_PRIZE', 'INHERIT_GIFT_PRIZE', '["thừa kế","quà tặng","trúng thưởng","bản quyền","trúng số","tài sản số","vàng miếng"]', NULL, '["16.90"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('RENTAL_RATE_MIXED', 'RENTAL_RATE_MIXED', '["cho thuê"]', NULL, '["16.91","16.92","16.77"]', 85);
+INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('LE_PHI_MON_BAI', 'LE_PHI_MON_BAI', '["môn bài","thuế môn bài","lệ phí môn bài","mon bai","thue mon bai","le phi mon bai"]', NULL, '["16.97"]', 90);
 
 -- Nạp chunks tri thức
 INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/00-van-ban-xuong-song.md#0', 'KB/00-van-ban-xuong-song.md', 'intro', NULL, 'CONTROL', '# Văn bản xương sống tra cứu thuế HKD (cập nhật 27/09/2026)
@@ -10077,3 +10078,18 @@ INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES
 - Không lấy ngày 06/10/2026 ban hành Công văn 7403/CT-TMĐT làm mốc pháp luật đổi từ tiền công sang kinh doanh. Công văn hướng dẫn cách phân loại, không tự đặt ngày hiệu lực mới.
 - Cách trả lời: trả lời thẳng cả hai vế; chỉ nêu điều kiện thật sự ảnh hưởng kết luận là tổng doanh thu kinh doanh 2026 và khoản sàn đã khấu trừ. Không bắt người hỏi kiểm tra eTax chỉ để giải thích ý nghĩa mã 888.
 - Nguồn: Báo Điện tử Chính phủ, bài "Khai nộp thuế đối với hoạt động môi giới trực tuyến" (11/06/2025); Nghị định 141/2026/NĐ-CP; Thông tư 50/2026/TT-BTC; giải đáp Cục Thuế về thông báo doanh thu và sàn khấu trừ nộp thay (2026).');
+INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/16F-thue-tncn-ca-nhan-mo-rong.md#le-phi-mon-bai-hkd', 'KB/16F-thue-tncn-ca-nhan-mo-rong.md', '16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh', '16.97', 'VERIFIED', '## 16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh
+- **LEGAL_STATUS:** VERIFIED — Nghị định 139/2016/NĐ-CP (sửa đổi, bổ sung bởi Nghị định 22/2020/NĐ-CP), Nghị định 126/2020/NĐ-CP.
+- **Biểu mức thu lệ phí môn bài (Khoản 2 Điều 4 Nghị định 139/2016/NĐ-CP):**
+  - Doanh thu trên 500 triệu đồng/năm: 1.000.000 đồng/năm.
+  - Doanh thu trên 300 đến 500 triệu đồng/năm: 500.000 đồng/năm (ví dụ: doanh thu 400 triệu/năm nộp 500.000 đồng/năm).
+  - Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.
+  - Doanh thu từ 100 triệu đồng/năm trở xuống: Miễn lệ phí môn bài.
+- **Quy định miễn lệ phí môn bài (Điều 3 Nghị định 139/2016/NĐ-CP, sửa đổi bởi Khoản 1 Điều 1 Nghị định 22/2020/NĐ-CP):**
+  - Miễn trong năm đầu tiên ra hoạt động sản xuất, kinh doanh (từ ngày 01 tháng 01 đến ngày 31 tháng 12) đối với cá nhân, nhóm cá nhân, hộ gia đình mới ra hoạt động sản xuất, kinh doanh.
+  - Cá nhân, hộ kinh doanh có doanh thu hàng năm từ 100 triệu đồng trở xuống được miễn lệ phí môn bài.
+  - Cá nhân, nhóm cá nhân, hộ gia đình hoạt động sản xuất, kinh doanh không thường xuyên; không có địa điểm cố định theo quy định (như hoạt động kinh doanh lưu động, TMĐT không địa điểm cố định theo CV 311/TCT-CS).
+- **Thời hạn nộp lệ phí môn bài (Khoản 4 Điều 10 Nghị định 126/2020/NĐ-CP, Điều 5 Nghị định 139/2016/NĐ-CP):**
+  - Thời hạn nộp lệ phí môn bài hàng năm chậm nhất là ngày 30 tháng 01.
+  - Đối với cá nhân, hộ gia đình mới thành lập (được miễn lệ phí môn bài năm đầu), thời hạn nộp cho năm tiếp theo chậm nhất là ngày 30 tháng 01 của năm liền kề sau năm thành lập.
+- **Căn cứ pháp lý:** Điều 3, Điều 4, Điều 5 Nghị định 139/2016/NĐ-CP; Khoản 1, Khoản 2 Điều 1 Nghị định 22/2020/NĐ-CP; Khoản 4 Điều 10 Nghị định 126/2020/NĐ-CP.');
