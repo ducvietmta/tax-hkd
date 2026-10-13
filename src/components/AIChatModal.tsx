@@ -5,7 +5,8 @@ import {
   FileText, Sparkles, BookOpen, Bot, HelpCircle,
   Copy, Check, ArrowUpRight
 } from 'lucide-react';
-import { CloudflareApi } from '../services/api';
+import { CloudflareApi, type ChatHistoryItem } from '../services/api';
+import { selectConversationHistory } from '../services/conversation';
 import { useAuth } from '../context/AuthContext';
 import { RetrievalTrace, type RetrievalTraceData } from './RetrievalTrace';
 
@@ -13,6 +14,7 @@ interface AIChatModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialQuery?: string;
+  resumeTurn?: ChatHistoryItem | null;
 }
 
 interface Message {
@@ -29,6 +31,20 @@ interface Message {
     name: string;
     url?: string;
   };
+  contextual?: boolean;
+}
+
+const WELCOME_MESSAGE: Message = {
+  id: 'm1',
+  sender: 'ai',
+  text: 'Chào bạn! Mình có thể giúp bạn tìm hiểu về thuế hộ kinh doanh, bán hàng trên sàn và hóa đơn. Bạn cứ hỏi theo trường hợp của mình nhé.',
+  source: 'Hệ thống tra cứu thuế',
+  timestamp: 'Vừa xong',
+};
+
+function keepConversation(messages: Message[]): Message[] {
+  const turns = messages.filter((message) => message.id !== 'm1');
+  return turns.length <= 40 ? turns : [...turns.slice(0, 2), ...turns.slice(-38)];
 }
 
 const QUICK_PROMPTS = [
@@ -38,17 +54,10 @@ const QUICK_PROMPTS = [
   'Kê khai hóa đơn điện tử máy tính tiền thế nào?',
 ];
 
-export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initialQuery }) => {
+export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initialQuery, resumeTurn }) => {
   const { user, isAuthenticated, consumeCredit, openDepositModal, openAuthModal, guestCredits } = useAuth();
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 'm1',
-      sender: 'ai',
-      text: 'Xin chào! Tôi là Trợ lý AI Pháp lý Thuế Hộ kinh doanh & Cá nhân kinh doanh, sẵn sàng giải đáp mọi thắc mắc về thuế sàn TMĐT, cho thuê tài sản, hóa đơn điện tử theo quy định mới nhất 2026.',
-      source: 'Hệ thống tra cứu thuế',
-      timestamp: 'Vừa xong',
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
+  const [loadedStorageKey, setLoadedStorageKey] = useState<string | null>(null);
   const [inputVal, setInputVal] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false);
@@ -57,12 +66,65 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
   const [pendingReasoningSummary, setPendingReasoningSummary] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const handledInitialRef = useRef<string | null>(null);
+  const storageKey = `tax_active_chat_${user?.phone || 'guest'}`;
 
   useEffect(() => {
-    if (initialQuery && initialQuery.trim()) {
+    // Keep an in-progress guest conversation when the user signs in to continue it.
+    if (loadedStorageKey === 'tax_active_chat_guest' && user?.phone && isOpen && messages.some((message) => message.contextual)) {
+      setLoadedStorageKey(storageKey);
+      return;
+    }
+    try {
+      const saved = localStorage.getItem(storageKey);
+      const parsed: unknown = saved ? JSON.parse(saved) : [];
+      const turns = Array.isArray(parsed) ? parsed.filter((item): item is Message =>
+        item && (item.sender === 'user' || item.sender === 'ai') &&
+        typeof item.id === 'string' && typeof item.text === 'string' && item.id !== 'm1'
+      ) : [];
+      const restored = keepConversation(turns);
+      setMessages([WELCOME_MESSAGE, ...restored]);
+    } catch {
+      setMessages([WELCOME_MESSAGE]);
+    }
+    setLoadedStorageKey(storageKey);
+  }, [storageKey]);
+
+  useEffect(() => {
+    if (loadedStorageKey !== storageKey) return;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(keepConversation(messages)));
+    } catch {}
+  }, [messages, loadedStorageKey, storageKey]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      handledInitialRef.current = null;
+      return;
+    }
+    if (loadedStorageKey !== storageKey) return;
+    const initialId = resumeTurn ? `resume:${resumeTurn.id}` : initialQuery?.trim() ? `query:${initialQuery}` : null;
+    if (!initialId || handledInitialRef.current === initialId) return;
+    handledInitialRef.current = initialId;
+    if (resumeTurn) {
+      setMessages([WELCOME_MESSAGE, {
+        id: `history-user-${resumeTurn.id}`,
+        sender: 'user',
+        text: resumeTurn.message,
+        timestamp: 'Lịch sử',
+        contextual: true,
+      }, {
+        id: `history-ai-${resumeTurn.id}`,
+        sender: 'ai',
+        text: resumeTurn.response,
+        source: resumeTurn.source,
+        timestamp: 'Lịch sử',
+        contextual: true,
+      }]);
+    } else if (initialQuery && initialQuery.trim()) {
       handleUserSend(initialQuery);
     }
-  }, [initialQuery, isOpen]);
+  }, [initialQuery, isOpen, resumeTurn, loadedStorageKey]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -89,6 +151,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
       sender: 'user',
       text,
       timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
+      contextual: true,
     };
 
     setMessages((prev) => [...prev, userMsg]);
@@ -107,10 +170,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     let reasoningSummary = '';
     let requestError = 'Không thể tra cứu căn cứ lúc này. Vui lòng thử lại sau.';
     try {
-      const history = messages
-        .filter((m) => m.text && (m.sender === 'user' || m.sender === 'ai'))
-        .slice(-4)
-        .map((m) => ({ role: (m.sender === 'user' ? 'user' : 'assistant') as 'user' | 'assistant', content: m.text }));
+      const history = selectConversationHistory(messages);
 
       const cfRes = await CloudflareApi.askTaxAIStream(
         text,
@@ -166,6 +226,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
       );
 
       if (cfRes.success && hasCreatedAiMsg) {
+        setMessages((prev) => prev.map((m) => m.id === aiMsgId ? { ...m, contextual: true } : m));
         setIsTyping(false);
         setIsWaitingForAnswer(false);
         if (user?.phone) {
@@ -192,7 +253,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     }
     if (hasCreatedAiMsg) {
       setMessages((prev) => prev.map((m) => m.id === aiMsgId
-        ? { ...m, text: `${m.text}\n\n[Câu trả lời bị gián đoạn: ${requestError}]` }
+        ? { ...m, text: `${m.text}\n\n[Câu trả lời bị gián đoạn: ${requestError}]`, contextual: false }
         : m));
     } else {
       setMessages((prev) => [...prev, {
@@ -305,6 +366,16 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
 
           {/* Quick prompt suggestions strip */}
           <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200/80 overflow-x-auto no-scrollbar flex items-center gap-2 text-[12px] shrink-0">
+            {messages.some((message) => message.contextual) && (
+              <button
+                type="button"
+                onClick={() => { setMessages([WELCOME_MESSAGE]); setInputVal(''); }}
+                disabled={isTyping}
+                className="whitespace-nowrap px-3 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold disabled:opacity-50"
+              >
+                Cuộc trò chuyện mới
+              </button>
+            )}
             <span className="text-slate-400 font-semibold whitespace-nowrap flex items-center gap-1 text-[11px] uppercase tracking-wider pl-1">
               <HelpCircle className="w-3.5 h-3.5 text-emerald-600" /> Gợi ý:
             </span>

@@ -10,7 +10,7 @@ import { useAuth } from '../context/AuthContext';
 interface HistoryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectQuery?: (query: string) => void;
+  onSelectQuery?: (turn: ChatHistoryItem) => void;
 }
 
 export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onSelectQuery }) => {
@@ -344,12 +344,12 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
                           <div className="pt-3 border-t border-slate-100 flex justify-end">
                             <button
                               onClick={() => {
-                                onSelectQuery(selectedItem.message);
+                                onSelectQuery(selectedItem);
                                 onClose();
                               }}
                               className="inline-flex items-center gap-1.5 text-[12.5px] font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3.5 py-2 rounded-xl transition-colors"
                             >
-                              <span>Tra cứu lại câu này</span>
+                              <span>Tư vấn tiếp từ câu này</span>
                               <ExternalLink className="w-3.5 h-3.5" />
                             </button>
                           </div>

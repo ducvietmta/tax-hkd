@@ -13,6 +13,7 @@
 import { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
 import { retrieve, buildContext, fold, analyzeAmounts } from './retriever';
+import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 
 export interface Env {
   DB: D1Database;
@@ -344,12 +345,7 @@ export default {
         }
 
         // --- CACHE câu trả lời (câu hỏi giống nhau, không kèm file/lịch sử) ---
-        const history: { role: string; content: string }[] = Array.isArray(body.history)
-          ? body.history
-              .filter((h: any) => h && (h.role === 'user' || h.role === 'assistant') && typeof h.content === 'string')
-              .slice(-4)
-              .map((h: any) => ({ role: h.role, content: String(h.content).slice(0, 600) }))
-          : [];
+        const history = normalizeConversationHistory(body.history);
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = fold(message).slice(0, 400);
         const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v11|${normMsg}`));
@@ -373,9 +369,7 @@ export default {
         }
 
         // --- BƯỚC 1: HYBRID RETRIEVAL (BM25 + route boost) ---
-        const retrievalQuery = history.length
-          ? `${history.filter((h) => h.role === 'user').slice(-1)[0]?.content || ''} ${message}`
-          : message;
+        const retrievalQuery = buildConversationRetrievalQuery(history, message);
         const { results, routeId } = retrieve(retrievalQuery, 4);
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
@@ -409,7 +403,8 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 4. Không áp một ngưỡng hoặc quy định của năm 2026 cho năm khác. Nếu thiếu kỳ tính thuế, loại thu nhập hoặc dữ kiện quyết định, hãy hỏi lại thay vì đoán.
 5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
 6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
-7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Nếu chưa đủ dữ kiện, nói rõ điều gì còn thiếu và hỏi một câu ngắn gọn. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.`;
+7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Nếu chưa đủ dữ kiện, nói rõ điều gì còn thiếu và hỏi một câu ngắn gọn. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
+8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;

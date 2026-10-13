@@ -12,6 +12,7 @@ import { useAuth } from '../context/AuthContext';
 interface HeroProps {
   onOpenConsultation: () => void;
   onOpenAIChat: (query?: string) => void;
+  onContinueAIChat: (message: string, response: string) => void;
 }
 
 interface TaxResult {
@@ -22,6 +23,7 @@ interface TaxResult {
   retrieval?: RetrievalTraceData;
   reasoningSummary?: string;
   fresh: boolean;
+  successful?: boolean;
 }
 
 const DEFAULT_RESULT: TaxResult = {
@@ -83,7 +85,7 @@ const FLOATING = [
   { icon: Receipt, label: 'Hóa đơn điện tử', value: 'e-Invoice', pos: 'right-[3%] top-[62%]', rot: '-4deg', delay: '2.1s', color: 'from-indigo-400 to-violet-500' },
 ];
 
-export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -168,6 +170,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
       );
 
       if (cfRes.success && streamedAnswer) {
+        setCurrentResult((prev) => ({ ...prev, successful: true }));
         setIsSearching(false);
         setIsStreaming(false);
 
@@ -447,6 +450,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation }) => {
 
           <div className="pt-3 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2 text-[12px]">
             <span className="text-slate-500">Thông tin mang tính tham khảo theo quy định pháp luật hiện hành</span>
+            {currentResult.successful && (
+              <button
+                onClick={() => onContinueAIChat(currentResult.query, currentResult.answer)}
+                className="text-emerald-700 hover:text-emerald-800 font-bold"
+              >
+                Hỏi tiếp về câu này →
+              </button>
+            )}
             <button
               onClick={onOpenConsultation}
               className="group text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1"
