@@ -1,0 +1,56 @@
+Bạn hỗ trợ tra cứu thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam. Xác định năm/kỳ áp dụng trước khi kết luận.
+Dưới đây là thông tin quy định thuế trích lục:
+--------------------------------------------------
+
+[Tri thức liên quan: KB/16F-thue-tncn-ca-nhan-mo-rong.md]
+- Đúng: mã số thuế 13 số đuôi 888 được Cổng thuế TMĐT cấp cho hoạt động kinh doanh trực tuyến của cá nhân. Từ 01/07/2025, số định danh cá nhân/CCCD được dùng thay mã số thuế; việc chuyển sang CCCD không làm thay đổi bản chất hoạt động kinh doanh. Nếu người hỏi chỉ hỏi đây có phải mã thuế cá nhân kinh doanh hay không, trả lời đúng ý này, không mở rộng sang thủ tục đăng ký khác.
+- Nếu hoa hồng TikTok Shop năm 2026 là doanh thu từ hoạt động kinh doanh và TỔNG doanh thu kinh doanh cả năm từ mọi kênh thuộc cùng nhóm kinh doanh từ 1 tỷ đồng trở xuống, cá nhân không phải nộp thuế GTGT và TNCN cho hoạt động đó. Vẫn phải thông báo doanh thu thực tế năm 2026 theo mẫu 01/TKN-CNKD chậm nhất ngày 31/01/2027. Đây là thông báo doanh thu, không phải quyết toán TNCN cuối năm. Nếu sàn đã khấu trừ, khai, nộp thuế thay cho giao dịch, không khai nộp trùng giao dịch đó; đối chiếu số đã khấu trừ và xử lý khoản nộp thừa theo quy định.
+- Năm 2025 xét RIÊNG: mốc 1 tỷ năm 2026 không áp ngược. Thu nhập kinh doanh năm 2025 dùng ngưỡng 100 triệu đồng/năm; nếu khoản hoa hồng được xử lý là tiền công theo quan hệ chi trả thực tế thì áp quy định tiền lương/tiền công của năm 2025, không dùng ngưỡng doanh thu kinh doanh. Kỳ thuế năm 2025 vẫn phải xem theo hồ sơ chi trả và quy định áp dụng cho năm đó.
+- Nguồn: Báo Điện tử Chính phủ, bài "Khai nộp thuế đối với hoạt động môi giới trực tuyến" (11/06/2025); Nghị định 141/2026/NĐ-CP; Thông tư 50/2026/TT-BTC; giải đáp Cục Thuế về thông báo doanh thu và sàn khấu trừ nộp thay (2026).
+
+[Tri thức liên quan: KB/16-kien-thuc-da-xac-minh-v5.1.md]
+16 — KIẾN THỨC ĐÃ XÁC MINH V5.1 (lớp canonical cho AI)
+- Sau khi NĐ 141/2026 nâng ngưỡng cơ bản lên 1 tỷ:
+  - **Trên 1 tỷ đến đúng 3 tỷ đồng/năm:** cá nhân kinh doanh được lựa chọn TNCN theo `thuế suất × doanh thu tính thuế` hoặc theo `thu nhập tính thuế × 15%`.
+  - **Trên 3 tỷ đến 50 tỷ:** bắt buộc phương pháp thu nhập tính thuế, thuế suất **17%**.
+  - **Trên 50 tỷ:** phương pháp thu nhập tính thuế, thuế suất **20%**.
+- `DT = 3 tỷ` chưa phải nhánh `>3 tỷ`; không tự chuyển sang 17%.
+- **Chuyển phương pháp giữa các năm:** nếu đầu năm/đang trong năm thuộc dải được lựa chọn và đang áp dụng phương pháp tỷ lệ trên doanh thu, nhưng **hết năm** xác định doanh thu thực tế >3 tỷ, thì chuyển sang phương pháp thu nhập tính thuế **từ năm tiếp theo**; không hồi tố cả năm đang chạy sang 17% chỉ vì cuối năm vượt.
+- **Chi phí:** phương pháp tỷ lệ trên doanh thu không lấy giá vốn/chi phí thông thường để giảm doanh thu tính thuế. Phương pháp thu nhập tính thuế mới xét `doanh thu - chi phí được trừ` theo Điều 6 NĐ 68/2026.
+- Nguồn:
+  - Phương pháp TNCN: https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm
+  - Vượt 3 tỷ cuối năm, chuyển từ năm sau: https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-du-kien-dau-nam-doanh-thu-duoi-3-ty-dong-cuoi-nam-vuot-3-ty-dong-ap-dung-phuong-phap-tinh-thue-tncn-nao-119260722111045417.htm
+
+[Tri thức liên quan: KB/16-kien-thuc-da-xac-minh-v5.1.md — chỉ áp dụng khi đã xác minh đầy đủ điều kiện trong đoạn này]
+16 — KIẾN THỨC ĐÃ XÁC MINH V5.1 (lớp canonical cho AI)
+- Với kỳ **2022–2025**, quy tắc chung theo TT 40/2021/TT-BTC là hộ/cá nhân kinh doanh có doanh thu trong năm dương lịch **từ 100 triệu đồng trở xuống** thuộc trường hợp không phải nộp GTGT và TNCN từ kinh doanh. Không lấy ngưỡng 1 tỷ của năm 2026 trả lời ngược.
+- **Nếu không trọn năm:** không được tự áp một công thức cho mọi trường hợp. TT 40 bản gốc (khoản 3 Điều 7, áp dụng 01/08/2021–31/12/2021) quy định việc quy đổi doanh thu tương ứng 12 tháng đối với **hộ khoán kinh doanh không trọn năm**; doanh thu thực tế dùng tính số thuế là doanh thu của số tháng thực tế kinh doanh. Ví dụ chính thức trong TT 40: bắt đầu kinh doanh, 9 tháng dự kiến 90 triệu (10 triệu/tháng) → quy đổi 12 tháng = 120 triệu nên thuộc diện phải nộp thuế trên doanh thu thực tế 90 triệu. **Lưu ý thời gian:** từ 01/01/2022, TT 100/2021/TT-BTC đã sửa khoản 3 Điều 7 TT 40 — hộ khoán mới ra kinh doanh trong năm xét theo doanh thu kinh doanh thực tế trong năm so với 100 triệu, không quy đổi 12 tháng nữa. Chi tiết tại .
+- Hoạt động **cho thuê tài sản** không đủ 12 tháng cũng có quy tắc 12 tháng riêng trong TT 40 bản gốc (điểm c khoản 1 Điều 9); từ 01/01/2022, TT 100/2021 sửa điểm này: xét theo doanh thu cho thuê thực tế phát sinh trong năm so với 100 triệu (trường hợp trả trước nhiều năm thì phân bổ theo năm dương lịch).
+
+[Tri thức liên quan: KB/16D-da-nguon-pham-vi-nguong.md — chỉ áp dụng khi đã xác minh đầy đủ điều kiện trong đoạn này]
+16D — Đa nguồn thu nhập & phạm vi tính ngưỡng 1 tỷ (VERIFIED 2026-10-06)
+- **Cập nhật 12/10/2026 — phạm vi áp dụng:** với tiếp thị liên kết **trên nền tảng TMĐT** (TikTok Shop, Shopee...), **CV 7403/CT-TMĐT (06/10/2026)** được ưu tiên — xem ****: phân loại là **thu nhập từ kinh doanh** (không phải tiền công), thuế suất TNCN **5% trên doanh thu**, nền tảng khấu trừ/khai thay/nộp thay. Ngày 06/10/2026 chỉ là ngày ban hành công văn hướng dẫn, không phải mốc pháp luật đổi cách phân loại thu nhập. Decision tree dưới đây dùng để xét quan hệ thực tế với bên chi trả, nhất là affiliate ngoài nền tảng TMĐT hoặc thu nhập của năm trước.
+  - Cơ chế khấu trừ: tổ chức/cá nhân trả thu nhập **khấu trừ 10%** trên tổng thu nhập trước khi thanh toán khi chi trả từ **2 triệu đồng/lần trở lên** đối với trường hợp không ký hợp đồng lao động hoặc hợp đồng dưới 3 tháng (điểm i khoản 1 Điều 25 Thông tư 111/2013/TT-BTC). Cuối năm cá nhân quyết toán theo biểu lũy tiến nếu thuộc diện.
+  - **Đã đăng ký kinh doanh/đăng ký thuế đúng hoạt động**: tiền hoa hồng là **doanh thu kinh doanh**, xếp vào nhóm cung cấp dịch vụ; cách khai/nộp tiếp theo phụ thuộc tổng doanh thu và phương pháp TNCN (xem , ).
+- Nguồn:
+  - https://thuvienphapluat.vn/ma-so-thue/phap-luat-thue/lam-tiep-thi-lien-ket-affiliate-co-phai-dong-thu-nhap-ca-nhan-khong-co-may-truong-hop-dong-thu-694004-185525.html
+
+--------------------------------------------------
+QUY ĐỔI ĐƠN VỊ (chưa xác định kỳ tính thuế hoặc tính chất doanh thu):
+- Số "1 ty" = 1 tỷ đồng.
+Chỉ kết luận nghĩa vụ thuế sau khi xác định năm/kỳ, loại thu nhập và căn cứ phù hợp.
+
+QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
+1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc tới mã số ref_id như 16.xx, không sao chép nguyên văn cả đoạn văn dài của hệ thống).
+2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Không tự mở rộng sang một vấn đề người dùng không hỏi nếu vấn đề đó không ảnh hưởng kết luận. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
+3. Không tự tạo dòng "Căn cứ" hoặc thêm tên văn bản ngoài ngữ cảnh. Giao diện sẽ hiển thị riêng những trích dẫn được truy xuất.
+4. Không áp một ngưỡng hoặc quy định của năm 2026 cho năm khác. Nếu năm hoặc loại thu nhập chưa rõ, nói rõ điều kiện tương ứng thay vì tự đoán. Không coi ngày ban hành công văn hướng dẫn là ngày một quy định mới bắt đầu áp dụng khi nguồn không nói vậy.
+5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
+6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
+7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Khi người dùng hỏi "chỉ cần khai cuối năm?", phân biệt thông báo doanh thu, tờ khai thuế định kỳ và quyết toán thuế; nêu mẫu và hạn nếu ngữ cảnh đã có. Nếu còn thiếu dữ kiện thật sự quan trọng, hỏi tối đa một câu ở cuối. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.
+8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.
+
+[LỊCH SỬ HỘI THOẠI]:
+
+
+[CÂU HỎI HIỆN TẠI]: trước mst của e là 888 sau đó chuyển thành cccd thì đó là mst cá nhân kd phải ko, e làm ttlk tiktok từ 2025 nên năm nay (doanh thu dưới 1 tỷ) chỉ cần khai thuế cuối năm đúng ko

@@ -13,10 +13,10 @@
     "d1:migrate:local": "wrangler d1 execute tax_db --local --file=./d1/schema.sql",
     "d1:seed": "wrangler d1 execute tax_db --remote --file=./d1/seed.sql",
     "d1:seed:local": "wrangler d1 execute tax_db --local --file=./d1/seed.sql",
-    "worker:deploy": "wrangler deploy",
+    "worker:deploy": "wrangler deploy --config worker/wrangler.toml",
     "pages:deploy": "npm run build && npx wrangler pages deploy dist --project-name=tax-hkd",
     "firebase:deploy": "npm run build && firebase deploy --only hosting",
-    "deploy:all": "npm run build && npx wrangler deploy && npx wrangler pages deploy dist --project-name=tax-hkd"
+    "deploy:all": "npm run build && npm run worker:deploy && npx wrangler pages deploy dist --project-name=tax-hkd"
   },
   "dependencies": {
     "clsx": "^2.1.1",

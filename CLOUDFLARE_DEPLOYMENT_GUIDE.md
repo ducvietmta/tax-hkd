@@ -68,7 +68,7 @@ npx wrangler r2 bucket create tax-documents-bucket
 
 Chạy lệnh deploy Worker API lên mạng lưới toàn cầu Cloudflare Edge:
 ```bash
-npx wrangler deploy
+npm run worker:deploy
 ```
 Lệnh sẽ trả về domain Worker của bạn (ví dụ: `https://tax-agent-worker.<tên-subdomain>.workers.dev`).
 
@@ -93,7 +93,7 @@ Lệnh sẽ trả về domain Worker của bạn (ví dụ: `https://tax-agent-w
 npm run build
 
 # Deploy thư mục dist lên Cloudflare Pages
-npx wrangler pages deploy dist --project-name=tax-app
+npx wrangler pages deploy dist --project-name=tax-hkd --branch=main
 ```
 
 ### Lựa chọn 2: Kết nối tự động qua GitHub/GitLab trên Cloudflare Dashboard
