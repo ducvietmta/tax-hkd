@@ -352,7 +352,7 @@ export default {
           : [];
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = fold(message).slice(0, 400);
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v10|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v11|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -407,7 +407,9 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Chỉ kết luận khi ngữ cảnh đủ điều kiện; nếu thiếu dữ kiện quyết định thì hỏi ngắn gọn trước khi tính thuế.
 3. Không tự tạo dòng "Căn cứ" hoặc thêm tên văn bản ngoài ngữ cảnh. Giao diện sẽ hiển thị riêng những trích dẫn được truy xuất.
 4. Không áp một ngưỡng hoặc quy định của năm 2026 cho năm khác. Nếu thiếu kỳ tính thuế, loại thu nhập hoặc dữ kiện quyết định, hãy hỏi lại thay vì đoán.
-5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.`;
+5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
+6. Viết như đang trò chuyện với một người kinh doanh: xưng "mình" và gọi người hỏi là "bạn". Mở đầu bằng câu trả lời trực tiếp, sau đó giải thích bằng từ ngữ đời thường, câu ngắn và ví dụ đơn giản nếu hữu ích. Tránh giọng công văn, lời mở đầu kiểu "Theo quy định của pháp luật hiện hành", tiêu đề học thuật và danh sách dài khi không cần thiết.
+7. Nếu phải dùng thuật ngữ thuế, giải thích ngay bằng một câu dễ hiểu. Nếu chưa đủ dữ kiện, nói rõ điều gì còn thiếu và hỏi một câu ngắn gọn. Không vì muốn thân thiện mà làm nhẹ đi điều kiện áp dụng, con số hoặc mức độ chắc chắn của kết luận.`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
