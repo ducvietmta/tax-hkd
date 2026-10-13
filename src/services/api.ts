@@ -272,4 +272,16 @@ export const CloudflareApi = {
       return { success: false, error: 'Không thể xóa lịch sử' };
     }
   },
+
+  /**
+   * Kiểm tra tự động số dư và giao dịch thanh toán từ SePay
+   */
+  async checkPaymentStatus(phone: string): Promise<{ success: boolean; credits?: number; lastTransaction?: any; error?: string }> {
+    try {
+      const res = await fetch(`${API_BASE}/api/payment/check?phone=${encodeURIComponent(phone)}`);
+      return await res.json();
+    } catch {
+      return { success: false, error: 'Không thể kiểm tra giao dịch' };
+    }
+  },
 };
