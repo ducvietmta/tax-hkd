@@ -190,8 +190,10 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
     selected.unshift({ chunk: evidence.chunk, score: topScore + 1, viaRoute: false });
   }
   // A short follow-up with annual revenue must still retrieve the year-specific threshold.
-  if (asksCurrentYear && normalizedQuery.includes('doanh thu') &&
-      /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) {
+  if (asksCurrentYear && (
+      (normalizedQuery.includes('doanh thu') && /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) ||
+      (asksRefund && asksAboutAffiliate && /\b\d+\s*(trieu|ty)\b/.test(normalizedQuery))
+    )) {
     const threshold = idx.find((item) => item.chunk.ref_id === '16.60');
     if (threshold) {
       const existing = selected.findIndex((item) => item.chunk.ref_id === '16.60');
