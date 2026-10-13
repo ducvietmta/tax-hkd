@@ -58,8 +58,6 @@ export const AuthModal: React.FC = () => {
     }
   };
 
-  if (!isAuthModalOpen) return null;
-
   // Chuẩn hóa định dạng SĐT quốc tế cho Firebase (+84...)
   const formatPhoneForFirebase = (raw: string): string => {
     const cleaned = raw.trim().replace(/\s+/g, '').replace(/-/g, '');
@@ -136,22 +134,6 @@ export const AuthModal: React.FC = () => {
     return message || 'Đã có lỗi xảy ra. Vui lòng thử lại.';
   };
 
-  // Pre-warm reCAPTCHA khi mở modal để gửi SMS nhanh hơn
-  useEffect(() => {
-    if (isAuthModalOpen && step === 'phone') {
-      const timer = setTimeout(() => {
-        if (!recaptchaVerifierRef.current) {
-          try {
-            createFreshRecaptchaVerifier();
-          } catch (e) {
-            console.warn('Pre-warm recaptcha error:', e);
-          }
-        }
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isAuthModalOpen, step]);
-
   // Bước 1: Gửi OTP qua Firebase
   const handleSendOtp = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -167,10 +149,7 @@ export const AuthModal: React.FC = () => {
     setIsLoading(true);
 
     try {
-      let appVerifier = recaptchaVerifierRef.current;
-      if (!appVerifier) {
-        appVerifier = createFreshRecaptchaVerifier();
-      }
+      const appVerifier = createFreshRecaptchaVerifier();
       const formattedPhone = formatPhoneForFirebase(phone);
 
       const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
@@ -232,6 +211,8 @@ export const AuthModal: React.FC = () => {
     if (countdown > 0 || isLoading) return;
     await handleSendOtp();
   };
+
+  if (!isAuthModalOpen) return null;
 
   return (
     <AnimatePresence>
