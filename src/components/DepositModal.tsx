@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Check, Zap, ArrowRight, ShieldCheck, CheckCircle2,
-  Copy, Download, ArrowLeft, Building2, CreditCard, RefreshCw
+  Copy, Download, ArrowLeft, Building2, CreditCard, RefreshCw, AlertCircle
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { CloudflareApi } from '../services/api';
@@ -45,12 +45,13 @@ const PACKAGES: PricingPackage[] = [
   },
 ];
 
-// Cấu hình tài khoản MBBank nhận tiền liên kết SePay
+// Cấu hình tài khoản MBBank nhận tiền liên kết SePay Live
 const BANK_CONFIG = {
   bankId: 'MB',
   bankName: 'MBBank (Ngân hàng TMCP Quân đội)',
   accountNo: '9594180624',
   accountName: 'TRAN DUC VIET',
+  pattern: 'SP-LIVE-TD295786',
 };
 
 export const DepositModal: React.FC = () => {
@@ -59,6 +60,7 @@ export const DepositModal: React.FC = () => {
   const [paymentStep, setPaymentStep] = useState<'select' | 'qr'>('select');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [checkError, setCheckError] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const initialCreditsRef = useRef<number>(user?.credits ?? 0);
@@ -67,7 +69,7 @@ export const DepositModal: React.FC = () => {
     new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num);
 
   const transferPhone = user?.phone ? user.phone.replace(/\s+/g, '') : '0943219594';
-  const transferContent = `TAX ${transferPhone}`;
+  const transferContent = `${BANK_CONFIG.pattern} TAX ${transferPhone}`;
 
   // Link ảnh VietQR chuẩn Napas 247 tự động điền số tiền và nội dung
   const vietQrUrl = `https://img.vietqr.io/image/${BANK_CONFIG.bankId}-${BANK_CONFIG.accountNo}-compact2.png?amount=${selectedPkg.price}&addInfo=${encodeURIComponent(
@@ -78,6 +80,7 @@ export const DepositModal: React.FC = () => {
   useEffect(() => {
     if (paymentStep === 'qr') {
       initialCreditsRef.current = user?.credits ?? 0;
+      setCheckError(null);
     }
   }, [paymentStep, user?.credits]);
 
@@ -92,6 +95,7 @@ export const DepositModal: React.FC = () => {
             if (res.credits > initialCreditsRef.current) {
               setIsSuccess(true);
               setIsProcessing(false);
+              setCheckError(null);
               // Kích hoạt cập nhật số dư hiển thị
               await addCredits(res.credits - initialCreditsRef.current, selectedPkg.price);
               setTimeout(() => {
@@ -119,11 +123,13 @@ export const DepositModal: React.FC = () => {
 
   const handleStartPayment = () => {
     setPaymentStep('qr');
+    setCheckError(null);
   };
 
-  // Xác nhận thủ công (nếu khách muốn kiểm tra ngay)
+  // Xác nhận thủ công (khi khách bấm kiểm tra)
   const handleCheckNow = async () => {
     setIsProcessing(true);
+    setCheckError(null);
     try {
       const res = await CloudflareApi.checkPaymentStatus(transferPhone);
       if (res.success && typeof res.credits === 'number' && res.credits > initialCreditsRef.current) {
@@ -135,28 +141,11 @@ export const DepositModal: React.FC = () => {
           closeDepositModal();
         }, 1600);
       } else {
-        // Cộng trực tiếp nếu khách đã chuyển tiền
-        await addCredits(selectedPkg.credits, selectedPkg.price, {
-          bank: BANK_CONFIG.bankName,
-          accountNo: BANK_CONFIG.accountNo,
-          accountName: BANK_CONFIG.accountName,
-          packageId: selectedPkg.id,
-        });
-        setIsSuccess(true);
-        setTimeout(() => {
-          setIsSuccess(false);
-          setPaymentStep('select');
-          closeDepositModal();
-        }, 1600);
+        // Chưa có giao dịch -> Tuyệt đối không cộng lượt, thông báo cho người dùng
+        setCheckError(`Hệ thống SePay chưa ghi nhận tiền vào MBBank cho nội dung "TAX ${transferPhone}". Nếu bạn vừa chuyển khoản, vui lòng đợi 1-3 giây rồi bấm kiểm tra lại!`);
       }
     } catch {
-      await addCredits(selectedPkg.credits, selectedPkg.price);
-      setIsSuccess(true);
-      setTimeout(() => {
-        setIsSuccess(false);
-        setPaymentStep('select');
-        closeDepositModal();
-      }, 1600);
+      setCheckError('Không thể kết nối đến máy chủ kiểm tra thanh toán. Vui lòng thử lại sau giây lát.');
     } finally {
       setIsProcessing(false);
     }
@@ -441,6 +430,14 @@ export const DepositModal: React.FC = () => {
                   <strong className="text-slate-800 font-bold block mb-0.5">💡 Cách chuyển khoản:</strong>
                   Mở App Ngân hàng quét mã QR trên (thông tin và số tiền tự điền). Sau khi hoàn tất chuyển khoản, hệ thống SePay tự động phát hiện và cộng lượt hỏi ngay lập tức!
                 </div>
+
+                {/* Warning Alert if payment not found */}
+                {checkError && (
+                  <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-[12px] font-medium leading-relaxed flex items-start gap-2.5">
+                    <AlertCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                    <div>{checkError}</div>
+                  </div>
+                )}
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-1">
