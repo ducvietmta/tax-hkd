@@ -18,6 +18,7 @@ import { matchPendingTopics } from './pendingTopics';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
 import { guardTaxAnswer } from './taxAnswerGuard';
+import { extractTaxFactsFromQuery, calculateTax } from './taxEngine';
 
 export interface Env {
   DB: D1Database;
@@ -708,7 +709,7 @@ export default {
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = message.trim().normalize('NFC');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v25|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v26|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -757,6 +758,15 @@ export default {
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
         if (ragContextText) {
+          const taxFacts = extractTaxFactsFromQuery(message, answerScope.years[0] || 2026);
+          let taxEngineHint = '';
+          if (taxFacts && taxFacts.grossRevenueVnd > 0) {
+            const calc = calculateTax(taxFacts);
+            if (calc.status === 'ANSWERED') {
+              taxEngineHint = `\nBẢNG TÍNH THUẾ CHUẨN XÁC ĐỊNH BỞI TAX ENGINE (BẮT BUỘC DÙNG CÁC CON SỐ NÀY, KHÔNG TỰ TÍNH LẠI):\n${calc.explanation}\n`;
+            }
+          }
+
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 ${scopeInstructions(answerScope)}
 ${intentInstructions(message)}
@@ -772,7 +782,7 @@ Dưới đây là thông tin quy định thuế trích lục:
 --------------------------------------------------
 ${ragContextText}
 --------------------------------------------------
-${analyzeAmounts(message)}
+${analyzeAmounts(message)}${taxEngineHint}
 QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc tới mã số ref_id như 16.xx, không sao chép nguyên văn cả đoạn văn dài của hệ thống).
 2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Không tự mở rộng sang một vấn đề người dùng không hỏi nếu vấn đề đó không ảnh hưởng kết luận. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
@@ -784,7 +794,11 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.
 9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.
 10. Nếu câu hỏi không liên quan đến thuế, hóa đơn, kê khai hay doanh thu của Hộ kinh doanh & cá nhân kinh doanh, CHỈ trả lời đúng nguyên văn: "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh." + xuống dòng "Căn cứ pháp lý:\nKhông áp dụng". Không sáng tạo thêm, không liệt kê văn bản.
-11. Lệ phí môn bài: từ 01/01/2026 đã chấm dứt thu, nộp và không cần khai cho năm 2026 trở đi. Bảng mức của Nghị định 139/2016/NĐ-CP chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước; tuyệt đối không áp cho năm hiện tại.`;
+11. Lệ phí môn bài: từ 01/01/2026 đã chấm dứt thu, nộp và không cần khai cho năm 2026 trở đi. Bảng mức của Nghị định 139/2016/NĐ-CP chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước; tuyệt đối không áp cho năm hiện tại.
+12. Nghị quyết 43/2026/QH16 (Giảm 30% thuế TNCN kỳ 2026–2027): Áp dụng giảm 30% số thuế TNCN phải nộp đối với thu nhập từ kinh doanh của cá nhân cư trú có doanh thu năm không quá 10 tỷ đồng. Khi tính số thuế năm 2026, PHẢI nêu rõ 3 tầng: (1) Thuế GTGT tính trên toàn bộ doanh thu (không trừ 1 tỷ, nộp 100%, không giảm theo NQ43); (2) Thuế TNCN trước ưu đãi (tính trên phần doanh thu vượt 1 tỷ đồng); (3) Mức giảm 30% TNCN theo NQ 43/2026/QH16 và số thuế TNCN thực nộp sau giảm (70%). Tuyệt đối không giảm 30% cho thuế GTGT, không áp cho tiền lương/tiền công, không áp cho cá nhân không cư trú, và không hồi tố cho năm 2025.
+13. Mã số thuế 888 & Định danh CCCD: Theo Thông tư 86/2024/TT-BTC, từ 01/07/2025 số định danh cá nhân (CCCD 12 số) được sử dụng thay thế cho mã số thuế khi thông tin đã đồng bộ. HKD mở thêm kênh hoặc có MST cũ đuôi 888 KHÔNG bắt buộc phải nộp hồ sơ xin cấp mã 888 mới riêng cho từng kênh bán hàng.
+14. Tiếp thị liên kết (Affiliate): Không được mặc định ấn định thuế suất 5% TNCN cho mọi trường hợp. Phải phân biệt dịch vụ quảng cáo số (HKD), hoa hồng môi giới đại lý hay tiền lương tiền công khấu trừ 10%. Nếu chưa rõ thực tế, nêu điều kiện hoặc yêu cầu làm rõ, không chốt số thuế bừa bãi.
+15. Đơn hoàn và chi phí sàn: Đơn hoàn hủy thực tế chỉ trừ khỏi doanh thu nếu chưa được trừ trong doanh thu gộp ban đầu (không trừ trùng). Phí sàn là chi phí kinh doanh, đối với phương pháp tính thuế theo tỷ lệ doanh thu thì không được trừ phí sàn khỏi doanh thu chịu thuế.`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
@@ -932,7 +946,8 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
             const FALLBACK_EXTRA_RULES = `BẠN LÀ BẢN DỰ PHÒNG — độ tin cậy thấp hơn bản chính. Tuân thủ tuyệt đối:
 a) KIỂM TRA NĂM: nếu câu hỏi nêu năm cụ thể (VD 2024, 2025), CHỈ dùng quy định của năm đó. Ngưỡng 1 tỷ chỉ áp dụng từ 01/01/2026; giai đoạn 2022–2025 ngưỡng miễn là 100 triệu/năm (TT 40/2021). Tuyệt đối không áp ngưỡng 1 tỷ cho năm trước 2026.
 b) HKD/CNKD tính thuế GTGT và TNCN TRỰC TIẾP trên DOANH THU theo tỷ lệ % — KHÔNG được trừ bất kỳ chi phí nào. Không bao giờ tư vấn "chi phí được trừ" cho HKD/CNKD.
-c) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình chưa đủ căn cứ chắc chắn cho câu hỏi này, bạn thử lại sau nhé." + "Căn cứ pháp lý:\nKhông áp dụng". Không đoán, không suy diễn.`;
+c) TUÂN THỦ TAX ENGINE & NQ43: Nếu trong prompt có BẢNG TÍNH THUẾ CHUẨN TỪ TAX ENGINE, BẮT BUỘC chép đúng y nguyên các con số đó (thuế GTGT, thuế TNCN trước giảm, giảm 30% theo NQ 43/2026/QH16, thuế TNCN sau giảm, tổng số thuế phải nộp). TUYỆT ĐỐI không tự nhân chia lại số khác.
+d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình chưa đủ căn cứ chắc chắn cho câu hỏi này, bạn thử lại sau nhé." + "Căn cứ pháp lý:\nKhông áp dụng". Không đoán, không suy diễn.`;
             const fallbackSystem = FALLBACK_EXTRA_RULES + '\n\n' + systemPrompt;
             const messages = [{ role: 'system', content: fallbackSystem }, ...history, { role: 'user', content: message }];
             const models = ['@cf/meta/llama-3.3-70b-instruct-fp8-fast', '@cf/qwen/qwen2.5-7b-instruct', '@cf/meta/llama-3.2-3b-instruct'];

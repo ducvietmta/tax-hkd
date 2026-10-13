@@ -1,7 +1,7 @@
 /**
  * RAG KNOWLEDGE BASE ENGINE (Compiled for Cloudflare Workers Edge)
- * Generated at: 2026-10-13T18:32:13.173Z
- * Chunks: 94 verified | Routes: 52
+ * Generated at: 2026-10-13T18:52:44.009Z
+ * Chunks: 95 verified | Routes: 53
  */
 
 export interface RagChunk {
@@ -24,6 +24,29 @@ export interface QueryRoute {
 }
 
 export const QUERY_ROUTES: QueryRoute[] = [
+  {
+    "id": "ORDER_RETURNS_AND_PLATFORM_FEE",
+    "any": [
+      "đơn hoàn",
+      "hủy hoàn",
+      "hoàn hàng",
+      "đơn hủy",
+      "hàng hoàn",
+      "phí sàn",
+      "thu hộ",
+      "tiền ship"
+    ],
+    "refs": [
+      "16.32",
+      "16.42",
+      "16.72"
+    ],
+    "expand": [
+      "net revenue after returns",
+      "platform fee not deductible for direct method"
+    ],
+    "priority": 85
+  },
   {
     "id": "HISTORICAL_YEAR_THRESHOLD",
     "any": [
@@ -93,15 +116,18 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "vượt 1 tỷ"
     ],
     "refs": [
+      "16.44",
+      "16.99",
       "16.53",
       "16.41",
-      "16.72"
+      "16.72",
+      "16.77"
     ],
     "expand": [
       "threshold operator",
       "crossing quarter"
     ],
-    "priority": 20
+    "priority": 70
   },
   {
     "id": "MISSING_DUPLICATE_PERIOD",
@@ -418,17 +444,21 @@ export const QUERY_ROUTES: QueryRoute[] = [
   {
     "id": "NQ43",
     "any": [
-      "nq43",
       "giảm 30%",
-      "30% tncn"
+      "30% tncn",
+      "nq43",
+      "nghị quyết 43",
+      "ưu đãi thuế 2026",
+      "giảm thuế tncn"
     ],
     "refs": [
-      "16.39"
+      "16.39",
+      "16.99"
     ],
     "expand": [
       "whole tax year reduction"
     ],
-    "priority": 60
+    "priority": 85
   },
   {
     "id": "REVENUE_TIME",
@@ -678,10 +708,7 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "2022",
       "2023",
       "2024",
-      "2025",
-      "hóa đơn",
-      "hđt",
-      "ngưỡng"
+      "2025"
     ]
   },
   {
@@ -857,7 +884,7 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "hoàn thuế",
       "08/UQ",
       "05/QTT",
-      "hoàn"
+      "hoàn thuế tncn"
     ],
     "refs": [
       "16.85",
@@ -1765,6 +1792,14 @@ export const CANONICAL_CHUNKS: RagChunk[] = [
     "ref_id": "16.98",
     "tier": "VERIFIED",
     "text": "## 16.98. Biểu mức lệ phí môn bài cho năm 2025 trở về trước (Nghị định 139/2016/NĐ-CP)\n- **LEGAL_STATUS:** VERIFIED — Nghị định 139/2016/NĐ-CP (sửa đổi bởi Nghị định 22/2020/NĐ-CP), áp dụng cho các năm 2025 trở về trước.\n- **Bảng mức lệ phí môn bài (bao nhiêu tiền) cho năm 2025 trở về trước theo 3 bậc doanh thu:**\n  - Bậc 1: Doanh thu trên 500 triệu đồng/năm: 1.000.000 đồng/năm.\n  - Bậc 2: Doanh thu trên 300 đến 500 triệu đồng/năm: 500.000 đồng/năm (ví dụ: doanh thu 400 triệu/năm nộp 500.000 đồng/năm).\n  - Bậc 3: Doanh thu trên 100 đến 300 triệu đồng/năm: 300.000 đồng/năm.\n  - Doanh thu từ 100 triệu đồng/năm trở xuống: Miễn lệ phí môn bài.\n- **Điều kiện miễn và thời hạn nộp (năm 2025 trở về trước):**\n  - Miễn lệ phí môn bài năm đầu ra hoạt động kinh doanh (từ 01/01 đến 31/12).\n  - Thời hạn nộp hằng năm chậm nhất là ngày 30 tháng 01.\n- **Lưu ý kỳ tính thuế:** Quy định và biểu mức 3 bậc này chỉ áp dụng cho nghĩa vụ thuế của năm 2025 trở về trước. Từ năm 2026 trở đi đã chấm dứt thu lệ phí môn bài theo Nghị quyết 198/2025/QH15.\n- **Căn cứ pháp lý:** Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP; Nghị định 22/2020/NĐ-CP; Nghị định 126/2020/NĐ-CP."
+  },
+  {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#giam-30-phan-tram-tncn-nq43",
+    "file": "KB/16F-thue-tncn-ca-nhan-mo-rong.md",
+    "section": "16.99. Chính sách giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 và 3 tầng tính thuế năm 2026",
+    "ref_id": "16.99",
+    "tier": "VERIFIED",
+    "text": "## 16.99. Chính sách giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 và 3 tầng tính thuế năm 2026\n- **LEGAL_STATUS:** VERIFIED — áp dụng cho kỳ tính thuế năm 2026 và năm 2027 (Điều 1, Điều 2 Nghị quyết 43/2026/QH16 ngày 24/08/2026).\n- **Phạm vi áp dụng giảm 30% TNCN (Khoản 1 Điều 1 NQ 43/2026/QH16):** Giảm 30% số thuế thu nhập cá nhân phải nộp đối với thu nhập từ hoạt động sản xuất, kinh doanh của cá nhân cư trú có doanh thu năm không quá 10 tỷ đồng trong kỳ tính thuế năm 2026 và 2027.\n- **Nguyên tắc 3 tầng tính thuế năm 2026 (Tax Engine Pipeline):**\n  1. \tax_base (Doanh thu tính thuế): Thuế GTGT tính trên TOÀN BỘ doanh thu chịu thuế (không trừ 1 tỷ đồng). Thuế TNCN tính trên phần doanh thu VƯỢT 1 TỶ ĐỒNG/năm (Điều 7 khoản 3 Luật 109/2025/QH15 và Nghị định 141/2026/NĐ-CP).\n  2. \tax_before_relief (Thuế trước ưu đãi): Thuế GTGT = Doanh thu × tỷ lệ GTGT ngành. Thuế TNCN trước giảm = (Doanh thu − 1 tỷ) × tỷ lệ TNCN ngành.\n  3. \tax_after_relief (Thuế sau ưu đãi): Thuế GTGT nộp 100% (không áp dụng giảm NQ43 cho GTGT). Thuế TNCN được giảm 30% theo NQ 43/2026/QH16: Số thuế TNCN sau giảm = 70% số thuế TNCN trước giảm.\n- **Ví dụ chuẩn năm 2026:**\n  - Ví dụ E01 / T06 / T21 / T40 / T41: Cá nhân cư trú bán hàng hóa doanh thu 1,01 tỷ đồng (VAT 1%, TNCN 0,5%):\n    + Thuế GTGT: 1.010.000.000 × 1% = 10.100.000 đồng.\n    + Doanh thu tính thuế TNCN: 1.010.000.000 − 1.000.000.000 = 10.000.000 đồng.\n    + Thuế TNCN trước giảm: 10.000.000 × 0,5% = 50.000 đồng.\n    + Giảm 30% thuế TNCN theo NQ 43/2026/QH16: 50.000 × 30% = 15.000 đồng.\n    + Thuế TNCN sau giảm (thực nộp): 50.000 − 15.000 = 35.000 đồng.\n    + Tổng số thuế phải nộp: 10.100.000 + 35.000 = 10.135.000 đồng.\n  - Ví dụ E02 / T27: Dịch vụ sửa máy tính/dịch vụ khác doanh thu 1,5 tỷ đồng (VAT 5%, TNCN 2%):\n    + Thuế GTGT: 1.500.000.000 × 5% = 75.000.000 đồng.\n    + Doanh thu tính thuế TNCN: 1.500.000.000 − 1.000.000.000 = 500.000.000 đồng.\n    + Thuế TNCN trước giảm: 500.000.000 × 2% = 10.000.000 đồng.\n    + Giảm 30% thuế TNCN theo NQ 43/2026/QH16: 10.000.000 × 30% = 3.000.000 đồng.\n    + Thuế TNCN sau giảm (thực nộp): 10.000.000 − 3.000.000 = 7.000.000 đồng.\n    + Tổng số thuế phải nộp: 75.000.000 + 7.000.000 = 82.000.000 đồng.\n  - Ví dụ E03 / T11 / T22: Năm 2025 bán hàng 300 triệu (ngưỡng 100 triệu Thông tư 40/2021/TT-BTC):\n    + Thuế GTGT: 300.000.000 × 1% = 3.000.000 đồng.\n    + Thuế TNCN: 300.000.000 × 0,5% = 1.500.000 đồng. NQ43 KHÔNG hồi tố cho 2025.\n  - Ví dụ T26: Doanh thu đúng 1 tỷ thì không nộp thuế; vượt 1 đồng (1.000.000.001đ) thì VAT tính 1%, TNCN phần vượt 1đ × 0,5% = 0,005đ làm tròn xuống 0 đồng (không phải nộp).\n- **Lưu ý loại trừ quan trọng:** NQ 43/2026/QH16 KHÔNG áp dụng cho thuế GTGT; KHÔNG áp dụng cho tiền lương, tiền công; KHÔNG áp dụng cho cá nhân không cư trú; KHÔNG áp dụng khi doanh thu năm vượt quá 10 tỷ đồng.\n- **Căn cứ pháp lý:** Khoản 1 Điều 1 Nghị quyết 43/2026/QH16; Điểm b Khoản 2 Điều 12 Luật Thuế GTGT 48/2024/QH15; Khoản 3 Điều 7 Luật Thuế TNCN 109/2025/QH15; Nghị định 141/2026/NĐ-CP; Khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP; Thông tư 40/2021/TT-BTC."
   }
 ];
 

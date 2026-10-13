@@ -1,8 +1,9 @@
 -- Nạp dữ liệu query map
+INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('ORDER_RETURNS_AND_PLATFORM_FEE', 'ORDER_RETURNS_AND_PLATFORM_FEE', '["đơn hoàn","hủy hoàn","hoàn hàng","đơn hủy","hàng hoàn","phí sàn","thu hộ","tiền ship"]', NULL, '["16.32","16.42","16.72"]', 85);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('HISTORICAL_YEAR_THRESHOLD', 'HISTORICAL_YEAR_THRESHOLD', '["2022","2023","2024","2025"]', NULL, '["16.54"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('HISTORICAL_PARTIAL_YEAR', 'HISTORICAL_PARTIAL_YEAR', '["không đủ 12 tháng","không trọn năm","mở giữa năm"]', '["2021","2022","2023","2024","2025"]', '["16.54","16.60"]', 90);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('SOFTWARE_CALC', 'SOFTWARE_CALC', '["htkk","etax","phần mềm","nhảy thuế","tự tính","ô thuế"]', NULL, '["16.55"]', 60);
-INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('ONE_BILLION', 'ONE_BILLION', '["1 tỷ","1,0 tỷ","1.000.000.000","chạm mốc","vượt 1 tỷ"]', NULL, '["16.53","16.41","16.72"]', 20);
+INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('ONE_BILLION', 'ONE_BILLION', '["1 tỷ","1,0 tỷ","1.000.000.000","chạm mốc","vượt 1 tỷ"]', NULL, '["16.44","16.99","16.53","16.41","16.72","16.77"]', 70);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('MISSING_DUPLICATE_PERIOD', 'MISSING_DUPLICATE_PERIOD', '["quên khai","gộp quý","nộp trùng","treo nợ","tháng 1,2,3","quý 2","quý II"]', NULL, '["16.59"]', 60);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('BOOKS', 'BOOKS', '["s1a","s2a","s2b","s2c","s2d","s2e","vở thường","excel","sổ doanh thu"]', NULL, '["16.52","16.71"]', 60);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('VOLUNTARY_EINVOICE', 'VOLUNTARY_EINVOICE', '["tự nguyện","dưới 1 tỷ","khách công ty cần hóa đơn"]', '["hóa đơn"]', '["16.58"]', 60);
@@ -20,7 +21,7 @@ INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywor
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('METHOD_3B', 'METHOD_3B', '["3 tỷ","17%","lợi nhuận","thu nhập tính thuế"]', NULL, '["16.56"]', 60);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('COSTS', 'COSTS', '["giá vốn","chi phí","phí quảng cáo"]', NULL, '["16.56","16.57"]', 60);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('NQ204', 'NQ204', '["0,8%","0.8%","nq204","giảm 20%","giảm vat","giảm gtgt"]', NULL, '["16.50"]', 60);
-INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('NQ43', 'NQ43', '["nq43","giảm 30%","30% tncn"]', NULL, '["16.39"]', 60);
+INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('NQ43', 'NQ43', '["giảm 30%","30% tncn","nq43","nghị quyết 43","ưu đãi thuế 2026","giảm thuế tncn"]', NULL, '["16.39","16.99"]', 85);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('REVENUE_TIME', 'REVENUE_TIME', '["xuất hóa đơn tháng","giao hàng tháng","thời điểm doanh thu"]', NULL, '["16.30"]', 60);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('DEPOSIT', 'DEPOSIT', '["đặt cọc","tạm ứng"]', NULL, '["16.43","16.30"]', 60);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('ASSET_SALE', 'ASSET_SALE', '["thanh lý","bán máy cũ","bán xe","tài sản"]', NULL, '["16.36","16.38"]', 60);
@@ -43,7 +44,7 @@ INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywor
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('HAS_INPUT_INVOICE', 'HAS_INPUT_INVOICE', '["có hóa đơn đầu vào","hóa đơn đầu vào"]', NULL, '["16.58"]', 60);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('WAGE_TAX_TABLE', 'WAGE_TAX_TABLE', '["lương","tiền công","biểu thuế","lũy tiến","giảm trừ","gia cảnh","người phụ thuộc","thu nhập tính thuế"]', NULL, '["16.81","16.82"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('WAGE_WITHHOLD_10PCT', 'WAGE_WITHHOLD_10PCT', '["khấu trừ 10%","khấu trừ thuế tncn","vãng lai","không ký hợp đồng","hợp đồng dưới 3 tháng","cam kết","tt111","thông tư 111","5 triệu","ngưỡng 5 triệu"]', NULL, '["16.83","16.85"]', 80);
-INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('WAGE_SETTLEMENT', 'WAGE_SETTLEMENT', '["quyết toán","ủy quyền quyết toán","hoàn thuế","08/UQ","05/QTT","hoàn"]', NULL, '["16.85","16.86","16.93"]', 80);
+INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('WAGE_SETTLEMENT', 'WAGE_SETTLEMENT', '["quyết toán","ủy quyền quyết toán","hoàn thuế","08/UQ","05/QTT","hoàn thuế tncn"]', NULL, '["16.85","16.86","16.93"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('FREELANCER_WAGE_CLASS', 'FREELANCER_WAGE_CLASS', '["freelancer","contractor","thù lao","không đăng ký kinh doanh","làm cho công ty nước ngoài"]', NULL, '["16.84"]', 85);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('RESIDENCY_183', 'RESIDENCY_183', '["cư trú","183 ngày","không cư trú","thu nhập từ nước ngoài","thu nhập ở nước ngoài","hiệp định","tránh đánh thuế hai lần","song thuế","singapore"]', NULL, '["16.87","16.94"]', 75);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('REAL_ESTATE_TRANSFER_TAX', 'REAL_ESTATE_TRANSFER_TAX', '["chuyển nhượng nhà","bán nhà","nhà duy nhất","sang tên","chuyển nhượng đất","nhà đất"]', NULL, '["16.88"]', 80);
@@ -10102,3 +10103,31 @@ INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES
   - Thời hạn nộp hằng năm chậm nhất là ngày 30 tháng 01.
 - **Lưu ý kỳ tính thuế:** Quy định và biểu mức 3 bậc này chỉ áp dụng cho nghĩa vụ thuế của năm 2025 trở về trước. Từ năm 2026 trở đi đã chấm dứt thu lệ phí môn bài theo Nghị quyết 198/2025/QH15.
 - **Căn cứ pháp lý:** Điều 3, Điều 4 Nghị định 139/2016/NĐ-CP; Nghị định 22/2020/NĐ-CP; Nghị định 126/2020/NĐ-CP.');
+INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/16F-thue-tncn-ca-nhan-mo-rong.md#giam-30-phan-tram-tncn-nq43', 'KB/16F-thue-tncn-ca-nhan-mo-rong.md', '16.99. Chính sách giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 và 3 tầng tính thuế năm 2026', '16.99', 'VERIFIED', '## 16.99. Chính sách giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 và 3 tầng tính thuế năm 2026
+- **LEGAL_STATUS:** VERIFIED — áp dụng cho kỳ tính thuế năm 2026 và năm 2027 (Điều 1, Điều 2 Nghị quyết 43/2026/QH16 ngày 24/08/2026).
+- **Phạm vi áp dụng giảm 30% TNCN (Khoản 1 Điều 1 NQ 43/2026/QH16):** Giảm 30% số thuế thu nhập cá nhân phải nộp đối với thu nhập từ hoạt động sản xuất, kinh doanh của cá nhân cư trú có doanh thu năm không quá 10 tỷ đồng trong kỳ tính thuế năm 2026 và 2027.
+- **Nguyên tắc 3 tầng tính thuế năm 2026 (Tax Engine Pipeline):**
+  1. 	ax_base (Doanh thu tính thuế): Thuế GTGT tính trên TOÀN BỘ doanh thu chịu thuế (không trừ 1 tỷ đồng). Thuế TNCN tính trên phần doanh thu VƯỢT 1 TỶ ĐỒNG/năm (Điều 7 khoản 3 Luật 109/2025/QH15 và Nghị định 141/2026/NĐ-CP).
+  2. 	ax_before_relief (Thuế trước ưu đãi): Thuế GTGT = Doanh thu × tỷ lệ GTGT ngành. Thuế TNCN trước giảm = (Doanh thu − 1 tỷ) × tỷ lệ TNCN ngành.
+  3. 	ax_after_relief (Thuế sau ưu đãi): Thuế GTGT nộp 100% (không áp dụng giảm NQ43 cho GTGT). Thuế TNCN được giảm 30% theo NQ 43/2026/QH16: Số thuế TNCN sau giảm = 70% số thuế TNCN trước giảm.
+- **Ví dụ chuẩn năm 2026:**
+  - Ví dụ E01 / T06 / T21 / T40 / T41: Cá nhân cư trú bán hàng hóa doanh thu 1,01 tỷ đồng (VAT 1%, TNCN 0,5%):
+    + Thuế GTGT: 1.010.000.000 × 1% = 10.100.000 đồng.
+    + Doanh thu tính thuế TNCN: 1.010.000.000 − 1.000.000.000 = 10.000.000 đồng.
+    + Thuế TNCN trước giảm: 10.000.000 × 0,5% = 50.000 đồng.
+    + Giảm 30% thuế TNCN theo NQ 43/2026/QH16: 50.000 × 30% = 15.000 đồng.
+    + Thuế TNCN sau giảm (thực nộp): 50.000 − 15.000 = 35.000 đồng.
+    + Tổng số thuế phải nộp: 10.100.000 + 35.000 = 10.135.000 đồng.
+  - Ví dụ E02 / T27: Dịch vụ sửa máy tính/dịch vụ khác doanh thu 1,5 tỷ đồng (VAT 5%, TNCN 2%):
+    + Thuế GTGT: 1.500.000.000 × 5% = 75.000.000 đồng.
+    + Doanh thu tính thuế TNCN: 1.500.000.000 − 1.000.000.000 = 500.000.000 đồng.
+    + Thuế TNCN trước giảm: 500.000.000 × 2% = 10.000.000 đồng.
+    + Giảm 30% thuế TNCN theo NQ 43/2026/QH16: 10.000.000 × 30% = 3.000.000 đồng.
+    + Thuế TNCN sau giảm (thực nộp): 10.000.000 − 3.000.000 = 7.000.000 đồng.
+    + Tổng số thuế phải nộp: 75.000.000 + 7.000.000 = 82.000.000 đồng.
+  - Ví dụ E03 / T11 / T22: Năm 2025 bán hàng 300 triệu (ngưỡng 100 triệu Thông tư 40/2021/TT-BTC):
+    + Thuế GTGT: 300.000.000 × 1% = 3.000.000 đồng.
+    + Thuế TNCN: 300.000.000 × 0,5% = 1.500.000 đồng. NQ43 KHÔNG hồi tố cho 2025.
+  - Ví dụ T26: Doanh thu đúng 1 tỷ thì không nộp thuế; vượt 1 đồng (1.000.000.001đ) thì VAT tính 1%, TNCN phần vượt 1đ × 0,5% = 0,005đ làm tròn xuống 0 đồng (không phải nộp).
+- **Lưu ý loại trừ quan trọng:** NQ 43/2026/QH16 KHÔNG áp dụng cho thuế GTGT; KHÔNG áp dụng cho tiền lương, tiền công; KHÔNG áp dụng cho cá nhân không cư trú; KHÔNG áp dụng khi doanh thu năm vượt quá 10 tỷ đồng.
+- **Căn cứ pháp lý:** Khoản 1 Điều 1 Nghị quyết 43/2026/QH16; Điểm b Khoản 2 Điều 12 Luật Thuế GTGT 48/2024/QH15; Khoản 3 Điều 7 Luật Thuế TNCN 109/2025/QH15; Nghị định 141/2026/NĐ-CP; Khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP; Thông tư 40/2021/TT-BTC.');

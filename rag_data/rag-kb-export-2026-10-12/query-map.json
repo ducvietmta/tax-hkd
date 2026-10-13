@@ -4,6 +4,29 @@
   "role": "QUERY_EXPANSION_ONLY_NOT_LEGAL_SOURCE",
   "routes": [
     {
+      "id": "ORDER_RETURNS_AND_PLATFORM_FEE",
+      "any": [
+        "đơn hoàn",
+        "hủy hoàn",
+        "hoàn hàng",
+        "đơn hủy",
+        "hàng hoàn",
+        "phí sàn",
+        "thu hộ",
+        "tiền ship"
+      ],
+      "refs": [
+        "16.32",
+        "16.42",
+        "16.72"
+      ],
+      "expand": [
+        "net revenue after returns",
+        "platform fee not deductible for direct method"
+      ],
+      "priority": 85
+    },
+    {
       "id": "HISTORICAL_YEAR_THRESHOLD",
       "any": [
         "2022",
@@ -72,15 +95,18 @@
         "vượt 1 tỷ"
       ],
       "refs": [
+        "16.44",
+        "16.99",
         "16.53",
         "16.41",
-        "16.72"
+        "16.72",
+        "16.77"
       ],
       "expand": [
         "threshold operator",
         "crossing quarter"
       ],
-      "priority": 20
+      "priority": 70
     },
     {
       "id": "MISSING_DUPLICATE_PERIOD",
@@ -397,17 +423,21 @@
     {
       "id": "NQ43",
       "any": [
-        "nq43",
         "giảm 30%",
-        "30% tncn"
+        "30% tncn",
+        "nq43",
+        "nghị quyết 43",
+        "ưu đãi thuế 2026",
+        "giảm thuế tncn"
       ],
       "refs": [
-        "16.39"
+        "16.39",
+        "16.99"
       ],
       "expand": [
         "whole tax year reduction"
       ],
-      "priority": 60
+      "priority": 85
     },
     {
       "id": "REVENUE_TIME",
@@ -657,10 +687,7 @@
         "2022",
         "2023",
         "2024",
-        "2025",
-        "hóa đơn",
-        "hđt",
-        "ngưỡng"
+        "2025"
       ]
     },
     {
@@ -836,7 +863,7 @@
         "hoàn thuế",
         "08/UQ",
         "05/QTT",
-        "hoàn"
+        "hoàn thuế tncn"
       ],
       "refs": [
         "16.85",

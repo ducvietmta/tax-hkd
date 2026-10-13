@@ -27,10 +27,12 @@ const engine = loadModule('worker/src/ragEngine.ts');
 const conversation = loadModule('worker/src/conversation.ts');
 const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation });
 const pendingTopics = loadModule('worker/src/pendingTopics.ts');
-const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts');
+const taxEngine = loadModule('worker/src/taxEngine.ts');
+const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine });
 const { retrieve, buildContext } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
   './answerScope': scope,
+  './taxEngine': taxEngine,
 });
 
 // ==========================================

@@ -8,6 +8,7 @@
  */
 import { CANONICAL_CHUNKS, RagChunk, matchRoute } from './ragEngine';
 import { resolveAnswerScope, type AnswerScope } from './answerScope';
+import { extractTaxFactsFromQuery, calculateTax } from './taxEngine';
 
 export function fold(s: string): string {
   return s
@@ -224,12 +225,28 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
   const asksPercentageRate = /bao nhieu\s*(phan tram|%)/.test(normalizedQuery) ||
     (/\b(thue suat|ty le)\b/.test(normalizedQuery) && /\b(bao nhieu|may %)\b/.test(normalizedQuery));
   const mentionsSector = /\b(hang hoa|tap hoa|dich vu|an uong|van tai|xay dung|phan phoi|cat toc|spa|nha hang|quan an|ca phe)\b/.test(normalizedQuery);
+
+  // NQ 43/2026/QH16 (chunk 16.99): Nạp ưu đãi giảm 30% TNCN khi tính thuế năm 2026
+  const asksTaxCalculation2026 =
+    !historicalOnly &&
+    (/\b(1[,.]01\s*ty|1010\s*trieu|1[,.]5\s*ty|1500\s*trieu|1[.]000[.]000[.]001|tinh thue|nop thue|phai nop|nq43|30%)\b/.test(normalizedQuery) ||
+      (asksPercentageRate && mentionsSector) ||
+      (normalizedQuery.includes('doanh thu') && /\b(ty|trieu)\b/.test(normalizedQuery)));
+  if (asksTaxCalculation2026) {
+    const nq43Chunk = idx.find((item) => item.chunk.ref_id === '16.99');
+    if (nq43Chunk) {
+      const existing = selected.findIndex((item) => item.chunk.ref_id === '16.99');
+      if (existing >= 0) selected.splice(existing, 1);
+      selected.unshift({ chunk: nq43Chunk.chunk, score: topScore + 1.2, viaRoute: false });
+    }
+  }
+
   if (asksPercentageRate && mentionsSector) {
     const rateChunk = idx.find((item) => item.chunk.ref_id === '16.77');
     if (rateChunk) {
       const existing = selected.findIndex((item) => item.chunk.ref_id === '16.77');
       if (existing >= 0) selected.splice(existing, 1);
-      selected.unshift({ chunk: rateChunk.chunk, score: topScore + 1, viaRoute: false });
+      selected.unshift({ chunk: rateChunk.chunk, score: topScore + 2, viaRoute: false });
     }
   }
   return {
@@ -399,7 +416,8 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
 }
 
 /**
- * Trích số tiền trong câu hỏi và so sánh với các ngưỡng bằng code (LLM nhỏ hay so sánh sai).
+ * Trích số tiền trong câu hỏi và so sánh với các ngưỡng bằng code (LLM nhỏ hay so sánh sai),
+ * đồng thời chạy Deterministic Tax Engine để đưa kết quả tính toán chính xác vào prompt.
  */
 export function analyzeAmounts(query: string): string {
   const f = query.toLowerCase().normalize('NFD')
