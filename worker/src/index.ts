@@ -52,8 +52,7 @@ const FALLBACK_EXTRA_RULES = `BẠN LÀ BẢN DỰ PHÒNG — độ tin cậy th
 a) KIỂM TRA NĂM: nếu câu hỏi nêu năm cụ thể (VD 2024, 2025), CHỈ dùng quy định của năm đó.
    Ngưỡng 1 tỷ chỉ áp dụng từ 01/01/2026; giai đoạn 2022–2025 ngưỡng miễn là 100 triệu/năm (TT 40/2021).
    Tuyệt đối không áp ngưỡng 1 tỷ cho năm trước 2026.
-b) HKD/CNKD tính thuế GTGT và TNCN TRỰC TIẾP trên DOANH THU theo tỷ lệ % — KHÔNG được trừ
-   bất kỳ chi phí nào. Không bao giờ tư vấn "chi phí được trừ" cho HKD/CNKD.
+b) Với phương pháp tính thuế TRỰC TIẾP trên DOANH THU theo tỷ lệ %, không trừ chi phí quảng cáo, phí sàn hay chi phí khác khỏi doanh thu tính thuế. Riêng thuế TNCN từ 2026 có phương pháp tính trên thu nhập (doanh thu trừ chi phí hợp lệ) khi đủ điều kiện và lựa chọn áp dụng; không đánh đồng hai phương pháp. Chỉ nêu phương pháp và điều kiện có trong trích lục.
 c) Nếu trích lục không có căn cứ rõ ràng cho câu hỏi, trả lời đúng câu:
    "Mình chưa đủ căn cứ chắc chắn cho câu hỏi này, bạn thử lại sau nhé."
    và kết thúc bằng "Căn cứ pháp lý:\nKhông áp dụng". Không đoán, không suy diễn.
@@ -706,7 +705,7 @@ export default {
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = message.trim().normalize('NFC');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v21|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v22|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -782,7 +781,8 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 8. Đọc lịch sử hội thoại như một cuộc tư vấn liên tục. Câu hiện tại có thể chỉ là dữ kiện bạn vừa yêu cầu bổ sung (ví dụ "800 triệu/năm"). Khi đó, ghép dữ kiện mới với câu hỏi gốc và các câu trả lời trước để tư vấn tiếp, không coi nó là câu hỏi độc lập. Nếu thông tin mới sửa thông tin cũ, ưu tiên thông tin mới. Nếu người dùng chuyển sang chủ đề khác, trả lời theo chủ đề mới.
 9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.
 10. Nếu câu hỏi không liên quan đến thuế/hóa đơn/kê khai/doanh thu của HKD & cá nhân kinh doanh, CHỈ trả lời đúng mẫu: "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng". Không sáng tạo thêm.
-11. Khi người dùng hỏi "bao nhiêu %" / "bao nhiêu phần trăm", bắt buộc nêu con số % cụ thể từ trích lục và tính ra số tiền ví dụ. Không được nói chung chung "theo tỷ lệ của ngành".`;
+11. Khi người dùng hỏi "bao nhiêu %" / "bao nhiêu phần trăm", bắt buộc nêu con số % cụ thể từ trích lục và tính ra số tiền ví dụ. Không được nói chung chung "theo tỷ lệ của ngành".
+12. Lệ phí môn bài: từ 01/01/2026 đã chấm dứt thu, nộp và không cần khai cho năm 2026 trở đi. Bảng mức của Nghị định 139/2016/NĐ-CP chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước; tuyệt đối không áp cho năm hiện tại.`;
 
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;

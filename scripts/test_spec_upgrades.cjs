@@ -83,6 +83,9 @@ assert.ok(chunk1697Found2, 'Phải tìm thấy chunk 16.97 khi hỏi "thuế mô
 
 const chunk1697 = resMonBai1.results.find((r) => r.chunk.ref_id === '16.97').chunk;
 assert.ok(chunk1697.text.includes('Nghị định 139/2016/NĐ-CP'), 'Chunk 16.97 phải có căn cứ NĐ 139/2016');
+assert.ok(chunk1697.text.includes('Nghị quyết 198/2025/QH15'), 'Chunk 16.97 phải có căn cứ chấm dứt lệ phí môn bài từ 2026');
+assert.ok(chunk1697.text.includes('năm 2026 không phải nộp lệ phí môn bài'), 'Doanh thu 400 triệu trong năm 2026 phải nộp 0 đồng');
+assert.ok(chunk1697.text.includes('chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước') || chunk1697.text.includes('CHỈ cho năm 2025 trở về trước'), 'Biểu mức cũ phải được giới hạn cho năm 2025 trở về trước');
 assert.ok(chunk1697.text.includes('500.000 đồng/năm'), 'Chunk 16.97 phải có mức 500.000 đồng cho bậc 300 - 500 triệu');
 assert.ok(chunk1697.text.includes('1.000.000 đồng/năm'), 'Chunk 16.97 phải có mức 1.000.000 đồng');
 assert.ok(chunk1697.text.includes('300.000 đồng/năm'), 'Chunk 16.97 phải có mức 300.000 đồng');

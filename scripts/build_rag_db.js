@@ -128,6 +128,8 @@ export interface QueryRoute {
   id: string;
   any: string[];
   context_any?: string[];
+  expand?: string[];
+  not?: string[];
   refs: string[];
   priority: number;
 }
