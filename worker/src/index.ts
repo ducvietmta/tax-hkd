@@ -520,7 +520,7 @@ ${ragContextText}
 ${analyzeAmounts(message)}
 QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc tới mã số ref_id như 16.xx, không sao chép nguyên văn cả đoạn văn dài của hệ thống).
-2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
+2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Không tự mở rộng sang một vấn đề người dùng không hỏi nếu vấn đề đó không ảnh hưởng kết luận. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
 3. Không tự tạo dòng "Căn cứ" hoặc thêm tên văn bản ngoài ngữ cảnh. Giao diện sẽ hiển thị riêng những trích dẫn được truy xuất.
 4. Không áp một ngưỡng hoặc quy định của năm 2026 cho năm khác. Nếu năm hoặc loại thu nhập chưa rõ, nói rõ điều kiện tương ứng thay vì tự đoán. Không coi ngày ban hành công văn hướng dẫn là ngày một quy định mới bắt đầu áp dụng khi nguồn không nói vậy.
 5. Trong câu trả lời, giải thích ngắn gọn vì sao kết luận áp dụng cho dữ kiện người dùng đưa ra; nêu điều kiện còn thiếu nếu có. Chỉ dựa trên ngữ cảnh đã truy xuất và không trình bày nội dung suy luận nội bộ.
