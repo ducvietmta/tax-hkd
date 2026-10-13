@@ -4448,7 +4448,7 @@ INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES
 
 - **Bổ sung link (3 bài 08/2026):** https://facebook.com/groups/ketoanhkd/permalink/1756482382345886/ · https://facebook.com/groups/ketoanhkd/permalink/1754996745827783/ · https://facebook.com/groups/ketoanhkd/permalink/1747953713198753/
   - Bao gồm: giấy đề nghị đăng ký doanh nghiệp (từng loại hình); danh sách cổ đông/thành viên sáng lập; thông báo lập/thay đổi/chấm dứt địa điểm kinh doanh; thông báo sử dụng/thay đổi/thôi áp dụng con dấu; thông báo bổ sung/cập nhật thông tin đăng ký thuế (theo Thông tư 90/2026/TT-BTC); giấy đề nghị ĐK HKD và bản kê khai thông tin đăng ký thuế; thông báo đăng ký hoạt động cho thuê tài sản của cá nhân.
-  - Lưu ý: một bài (link gốc chưa xác định được) ghi "Thông tư 12/2026/TT-BTC" — thông tin không thống nhất với các bài còn lại (121/2026/TT-BTC); cần đối chiếu văn bản chính thức.');
+  - Đính chính 13/10/2026 (đã đối chiếu bản gốc PDF): bài ghi "Thông tư 12/2026/TT-BTC" là ghi nhầm số hiệu — TT 12/2026/TT-BTC thực chất là thông tư về giám định chi phí khám chữa bệnh BHYT, không liên quan. Văn bản đúng là **Thông tư 121/2026/TT-BTC** (ban hành 21/08/2026, sửa đổi biểu mẫu đăng ký doanh nghiệp và hộ kinh doanh).');
 INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/08-chinh-sach-moi.md#432', 'KB/08-chinh-sach-moi.md', '8.18. Hộ kinh doanh mong thủ tục đơn giản hơn là mong giảm thuế', NULL, 'CASE_EVIDENCE', '08 — Chính sách mới
 ## 8.18. Hộ kinh doanh mong thủ tục đơn giản hơn là mong giảm thuế
 - **Ngày đăng:** 10/08/2026 · **Tương tác:** 43 reacts, 5 comments
