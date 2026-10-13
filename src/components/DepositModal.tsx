@@ -415,7 +415,7 @@ export const DepositModal: React.FC = () => {
           {/* Safe badge */}
           <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <span>Thanh toán an toàn qua cổng VietQR Napas 247. Hỗ trợ kích hoạt tự động & lưu trữ Firestore.</span>
+            <span>Thanh toán an toàn qua cổng VietQR Napas 247. Kích hoạt tự động & lưu trữ Cloudflare D1 Database.</span>
           </div>
         </div>
       </motion.div>

@@ -257,7 +257,7 @@ export const AuthModal: React.FC = () => {
               <div className="mb-5 flex items-center gap-3 p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-emerald-900">
                 <Sparkles className="w-5 h-5 text-emerald-600 shrink-0" />
                 <div className="text-[12px] font-medium leading-relaxed">
-                  Xác thực trực tiếp bằng <strong className="font-extrabold text-emerald-700">Firebase Phone OTP</strong>. Tặng ngay 3 lượt hỏi AI tư vấn thuế, lưu trữ an toàn trên Cloud Firestore!
+                  Xác thực trực tiếp bằng <strong className="font-extrabold text-emerald-700">Firebase Phone OTP</strong>. Tặng ngay 3 lượt hỏi AI tư vấn thuế, lưu trữ an toàn trên Cloudflare D1 Database!
                 </div>
               </div>
             )}
@@ -403,7 +403,7 @@ export const AuthModal: React.FC = () => {
             {/* Privacy Footer */}
             <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Xác thực bởi Google Firebase Auth & đồng bộ Cloud Firestore.</span>
+              <span>Xác thực bởi Google Firebase Auth & đồng bộ Cloudflare D1 Database.</span>
             </div>
           </div>
         </motion.div>

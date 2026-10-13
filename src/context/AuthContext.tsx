@@ -5,7 +5,7 @@ import {
   signOut,
   FirebaseUser,
 } from '../services/firebase';
-import { FirestoreService, FirestoreUserProfile } from '../services/firestoreService';
+import { CloudflareApi } from '../services/api';
 
 export interface UserAccount {
   uid: string;
@@ -61,38 +61,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   });
 
-  // Lắng nghe trạng thái đăng nhập Firebase Phone Auth
+  // Lắng nghe trạng thái đăng nhập Firebase Phone Auth & đồng bộ với Cloudflare D1
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (fbUser) => {
       setFirebaseUser(fbUser);
       if (fbUser && fbUser.phoneNumber) {
+        const localPhone = cleanPhoneForDisplay(fbUser.phoneNumber);
+        const isVip = localPhone === '0943219594' || localPhone.includes('0943219594');
+
+        // Tạo/lấy session người dùng từ Cloudflare D1 Backend
         try {
-          const localPhone = cleanPhoneForDisplay(fbUser.phoneNumber);
-          const profile: FirestoreUserProfile = await FirestoreService.getUserProfile(
-            fbUser.uid,
-            localPhone,
-            fbUser.displayName || undefined
-          );
-          setUser({
-            uid: fbUser.uid,
-            phone: localPhone,
-            name: profile.name || fbUser.displayName || `Khách hàng ${localPhone.slice(-4)}`,
-            credits: profile.credits,
-            role: profile.role,
-            registeredAt: new Date().toISOString(),
-          });
+          const sessionRes = await CloudflareApi.createSession();
+          if (sessionRes.success && sessionRes.user) {
+            setUser({
+              uid: fbUser.uid,
+              phone: localPhone,
+              name: sessionRes.user.name || `Khách hàng ${localPhone.slice(-4)}`,
+              credits: sessionRes.user.credits ?? (isVip ? 1000 : 3),
+              role: (sessionRes.user.role as any) || (isVip ? 'vip' : 'user'),
+              registeredAt: new Date().toISOString(),
+            });
+            return;
+          }
         } catch (err) {
-          console.warn('Lỗi tải Firestore user profile:', err);
-          const localPhone = cleanPhoneForDisplay(fbUser.phoneNumber);
-          setUser({
-            uid: fbUser.uid,
-            phone: localPhone,
-            name: `Khách hàng ${localPhone.slice(-4)}`,
-            credits: localPhone === '0943219594' ? 1000 : 3,
-            role: localPhone === '0943219594' ? 'vip' : 'user',
-            registeredAt: new Date().toISOString(),
-          });
+          console.warn('Lỗi kết nối Cloudflare D1 session:', err);
         }
+
+        // Fallback profile nếu chưa kết nối D1
+        setUser({
+          uid: fbUser.uid,
+          phone: localPhone,
+          name: isVip ? 'Tài khoản VIP Quản trị' : `Khách hàng ${localPhone.slice(-4)}`,
+          credits: isVip ? 1000 : 3,
+          role: isVip ? 'vip' : 'user',
+          registeredAt: new Date().toISOString(),
+        });
       } else {
         setUser(null);
       }
@@ -106,7 +109,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const phone = fbUser.phoneNumber ? cleanPhoneForDisplay(fbUser.phoneNumber) : '0943219594';
       const isVip = phone === '0943219594' || phone.includes('0943219594');
 
-      // 1. Cập nhật state người dùng ngay lập tức (phản hồi 0ms)
+      // 1. Phản hồi giao diện ngay lập tức
       setUser({
         uid: fbUser.uid,
         phone,
@@ -117,18 +120,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
       setIsAuthModalOpen(false);
 
-      // 2. Đồng bộ Firestore ngầm trong background (không chặn trải nghiệm người dùng)
-      FirestoreService.getUserProfile(fbUser.uid, phone, fbUser.displayName || undefined)
-        .then((profile) => {
-          setUser((prev) => (prev ? {
-            ...prev,
-            name: profile.name || prev.name,
-            credits: profile.credits,
-            role: profile.role,
-          } : null));
+      // 2. Đồng bộ ngầm với Cloudflare D1 backend
+      CloudflareApi.createSession()
+        .then((res) => {
+          if (res.success && res.user) {
+            setUser((prev) => (prev ? {
+              ...prev,
+              name: res.user?.name || prev.name,
+              credits: res.user?.credits ?? prev.credits,
+              role: (res.user?.role as any) || prev.role,
+            } : null));
+          }
         })
         .catch((err) => {
-          console.warn('Lỗi đồng bộ Firestore:', err);
+          console.warn('Lỗi đồng bộ Cloudflare D1:', err);
         });
 
       return { success: true };
@@ -161,12 +166,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return false;
     }
 
-    // Trừ 1 lượt
+    // Trừ 1 lượt cục bộ
     setUser((prev) => (prev ? { ...prev, credits: prev.credits - 1 } : null));
 
-    // Đồng bộ Firestore
-    if (user.uid) {
-      FirestoreService.consumeCredit(user.uid).catch(() => {});
+    // Đồng bộ Cloudflare D1
+    if (user.phone) {
+      CloudflareApi.consumeCredit(user.phone).catch(() => {});
     }
     return true;
   };
@@ -174,15 +179,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const addCredits = async (
     newCredits: number,
     amount: number,
-    extraInfo?: { bank?: string; accountNo?: string; accountName?: string; phone?: string; packageId?: string }
+    _extraInfo?: { bank?: string; accountNo?: string; accountName?: string; phone?: string; packageId?: string }
   ) => {
     if (!user) return;
     setUser((prev) => (prev ? { ...prev, credits: prev.credits + newCredits } : null));
-    if (user.uid) {
-      await FirestoreService.addCredits(user.uid, newCredits, amount, {
-        ...extraInfo,
-        phone: user.phone,
-      });
+
+    // Lưu vào Cloudflare D1
+    if (user.phone) {
+      await CloudflareApi.depositCredits(user.phone, newCredits, amount);
     }
   };
 

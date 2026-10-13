@@ -8,23 +8,6 @@ import {
   onAuthStateChanged,
   User as FirebaseUser,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  collection,
-  query,
-  where,
-  orderBy,
-  limit,
-  getDocs,
-  addDoc,
-  deleteDoc,
-  serverTimestamp,
-  increment,
-} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAAhaEd907jtHHCVJRUrJQ_6HuaNwC8ZnA",
@@ -36,13 +19,11 @@ const firebaseConfig = {
   measurementId: "G-VXZWX5VQJS",
 };
 
-// Khởi tạo Firebase App
+// Khởi tạo Firebase App chỉ để phục vụ Phone OTP SMS
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-// Khởi tạo Firebase Auth & Firestore
+// Khởi tạo Firebase Auth (chỉ dùng xác thực số điện thoại)
 export const auth = getAuth(app);
-export const db = getFirestore(app);
-
 auth.languageCode = 'vi';
 
 export {
@@ -50,20 +31,6 @@ export {
   signInWithPhoneNumber,
   signOut,
   onAuthStateChanged,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  collection,
-  query,
-  where,
-  orderBy,
-  limit,
-  getDocs,
-  addDoc,
-  deleteDoc,
-  serverTimestamp,
-  increment,
 };
 
 export type { FirebaseUser, ConfirmationResult };

@@ -9,7 +9,11 @@ import { auth } from './firebase';
  * - CDN: Cloudflare Global Edge
  */
 
-const API_BASE = ((import.meta as any).env?.VITE_API_URL as string) || 'https://tax-agent-worker.ducviet-mta.workers.dev';
+const API_BASE =
+  ((import.meta as any).env?.VITE_API_URL as string) ||
+  (typeof window !== 'undefined' && window.location.hostname.includes('pages.dev')
+    ? ''
+    : 'https://tax-agent-worker.ducviet-mta.workers.dev');
 
 export interface ChatHistoryItem {
   id: string;

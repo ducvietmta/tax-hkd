@@ -1,4 +1,4 @@
-const PROJECT_ID = 'tax-hkd';
+const PROJECT_ID = 'tax-hkd-7a2bb';
 const JWK_URL = 'https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com';
 
 interface FirebaseClaims {

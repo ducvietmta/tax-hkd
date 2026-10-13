@@ -6,7 +6,6 @@ import {
 } from 'lucide-react';
 import { CloudflareApi, ChatHistoryItem } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { FirestoreService } from '../services/firestoreService';
 
 interface HistoryModalProps {
   isOpen: boolean;
@@ -23,12 +22,12 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDeletingAll, setIsDeletingAll] = useState<boolean>(false);
 
-  // Tải lịch sử khi mở modal hoặc đổi user
+  // Tải lịch sử khi mở modal hoặc đổi user từ Cloudflare D1
   const fetchHistory = async () => {
     if (!user) return;
     setLoading(true);
     try {
-      const userKey = user.uid || user.email || user.phone || 'guest';
+      const userKey = user.phone || user.uid || 'guest';
       const cacheKey = `tax_chat_history_${userKey}`;
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
@@ -37,24 +36,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
         } catch {}
       }
 
-      // Tải từ Firebase Firestore
-      if (user.uid) {
-        const firestoreLogs = await FirestoreService.getChatLogs(user.uid, 50);
-        if (firestoreLogs.length > 0) {
-          const mappedItems: ChatHistoryItem[] = firestoreLogs.map((log) => ({
-            id: log.id || `chat_${Date.now()}`,
-            message: log.message,
-            response: log.response,
-            source: log.source,
-            created_at: log.createdAt?.toDate ? log.createdAt.toDate().toISOString() : new Date().toISOString(),
-          }));
-          setHistory(mappedItems);
-          localStorage.setItem(cacheKey, JSON.stringify(mappedItems));
-          return;
-        }
-      }
-
-      // Fallback Cloudflare D1 nếu có số phone
+      // Tải từ Cloudflare D1
       if (user.phone) {
         const res = await CloudflareApi.getChatHistory(user.phone);
         if (res.success && res.history) {
