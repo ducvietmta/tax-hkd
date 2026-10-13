@@ -64,3 +64,44 @@ export function intentInstructions(message: string): string {
   if (!/\btiktok\b/.test(f) || !/\bhoa hong\b/.test(f) || !/\b10\s*%/.test(f)) return '';
   return `TRỌNG TÂM CÂU HỎI NÀY: trả lời trực tiếp theo kỳ đang xét. (1) Nếu 30 triệu là TOÀN BỘ doanh thu kinh doanh trong năm và đúng là khoản thu kinh doanh trên sàn, đối chiếu ngay với ngưỡng năm đó trong trích lục: khoản thuế đã nộp thừa có thể đề nghị hoàn sau khi kiểm tra chứng từ và số sàn nộp thay. Nếu 30 triệu chỉ là hoa hồng một kênh thì phải cộng các doanh thu kinh doanh khác để xét ngưỡng. Đừng kết luận chắc chắn được hoàn chỉ từ 30 triệu. (2) Lương công ty không cộng vào doanh thu kinh doanh; chỉ khi chứng từ/quan hệ chi trả xác định hoa hồng là tiền công thì xét cùng thu nhập lương khi quyết toán. Tỷ lệ khấu trừ 10% chưa đủ xác định loại thu nhập. Hỏi về chứng từ khấu trừ hoặc bản chất khoản chi trả nếu còn thiếu; không hỏi lại năm đang mặc định.`;
 }
+
+const TAX_KEYWORDS: string[] = [
+  'thue', 'hoa don', 'ke khai', 'doanh thu', 'mon bai', 'le phi', 'gtgt', 'tncn',
+  'san', 'tmdt', 'thuong mai dien tu', 'ma so thue', 'mst', '888', 'quyet toan',
+  'khau tru', 'nop thay', 'khai thay', 'affiliate', 'cho thue', 'ho kinh doanh',
+  'ca nhan kinh doanh', 'hkd', 'cnkd', 'dang ky thue', 'bao cao thue', 'mien thue',
+  'giam thue', 'hoan thue', 'phat', 'vi pham', 'an dinh thue', 'thong bao doanh thu'
+];
+
+/**
+ * Kiểm tra xem câu hỏi có nằm ngoài phạm vi tư vấn thuế của hệ thống hay không.
+ */
+export function isOutOfScope(message: string, history?: ConversationTurn[]): boolean {
+  const normMsg = normalize(message);
+
+  // Nếu message chứa bất kỳ keyword thuế nào -> trong phạm vi
+  const hasTaxKeyword = TAX_KEYWORDS.some((kw) => {
+    if (kw.length <= 4) {
+      return new RegExp(`\\b${kw}\\b`).test(normMsg);
+    }
+    return normMsg.includes(kw);
+  });
+
+  if (hasTaxKeyword) return false;
+
+  // Nếu là follow-up ngữ cảnh của câu trong phạm vi -> trong phạm vi
+  if (history && history.length > 0 && isContextualFollowUp(message)) {
+    const userTurns = history.filter((turn) => turn.role === 'user');
+    for (const turn of userTurns.slice().reverse()) {
+      const normTurn = normalize(turn.content);
+      const turnHasTax = TAX_KEYWORDS.some((kw) =>
+        kw.length <= 4 ? new RegExp(`\\b${kw}\\b`).test(normTurn) : normTurn.includes(kw)
+      );
+      if (turnHasTax) return false;
+      if (!isContextualFollowUp(turn.content)) break;
+    }
+  }
+
+  return true;
+}
+

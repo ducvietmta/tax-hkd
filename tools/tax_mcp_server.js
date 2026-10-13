@@ -75,10 +75,12 @@ async function handleToolCall(name, args) {
     throw new Error(`API trả về lỗi: ${data.error}`);
   }
 
-  const answer = data.response || 'Không có câu trả lời.';
-  const citations = Array.isArray(data.citations) && data.citations.length > 0
-    ? data.citations.join(', ')
-    : 'Không có trích dẫn cụ thể';
+  const answer = data.response || data.answer || 'Không có câu trả lời.';
+  const hasCitations = Array.isArray(data.citations) && data.citations.length > 0;
+  if (data.source === 'out_of_scope' || !hasCitations) {
+    return answer;
+  }
+  const citations = data.citations.join(', ');
   const source = data.source || 'RAG Knowledge Engine';
   const evidenceList = Array.isArray(data.retrieval?.evidence)
     ? data.retrieval.evidence.map(e => `• ${e.title} (Điều kiện: ${e.conditional ? 'Có điều kiện' : 'Áp dụng chung'})`).join('\n')
