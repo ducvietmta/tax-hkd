@@ -106,6 +106,65 @@ export default {
         );
       }
 
+      // 0. OPENAPI SPECIFICATION DÀNH CHO CHATGPT CUSTOM GPTS (GET /openapi.json)
+      if (path === '/openapi.json' || path === '/.well-known/openapi.json') {
+        const spec = {
+          openapi: '3.1.0',
+          info: {
+            title: 'Trợ Lý Thuế TMĐT & Hộ Kinh Doanh Việt Nam 2026',
+            description: 'API hỗ trợ tra cứu chính sách thuế, thuế suất, phương pháp tính thuế và thủ tục khai thuế cho Hộ kinh doanh, Cá nhân kinh doanh, bán hàng trên các sàn TMĐT (TikTok Shop, Shopee, Lazada...) tại Việt Nam theo quy định năm 2026.',
+            version: '1.0.0'
+          },
+          servers: [{ url: 'https://tax-hkd.pages.dev', description: 'Cloudflare Edge Production Server' }],
+          paths: {
+            '/api/chatgpt/tax-qa': {
+              post: {
+                operationId: 'askTaxAdvisor',
+                summary: 'Hỏi đáp và tra cứu luật thuế HKD & TMĐT',
+                description: 'Gửi câu hỏi về thuế để nhận phân tích chi tiết kèm trích lục văn bản pháp luật căn cứ (Nghị định 141/2026, Nghị định 252/2026, Thông tư 40/2021...).',
+                requestBody: {
+                  required: true,
+                  content: {
+                    'application/json': {
+                      schema: {
+                        type: 'object',
+                        properties: {
+                          question: {
+                            type: 'string',
+                            description: 'Câu hỏi về thuế của người dùng (ví dụ: Bán hàng trên TikTok Shop doanh thu 600 triệu/năm nộp những thuế gì và bao nhiêu %?)'
+                          }
+                        },
+                        required: ['question']
+                      }
+                    }
+                  }
+                },
+                responses: {
+                  '200': {
+                    description: 'Kết quả tư vấn thuế kèm căn cứ đối soát',
+                    content: {
+                      'application/json': {
+                        schema: {
+                          type: 'object',
+                          properties: {
+                            success: { type: 'boolean' },
+                            answer: { type: 'string', description: 'Nội dung câu trả lời tư vấn thuế chi tiết' },
+                            legal_citations: { type: 'array', items: { type: 'string' }, description: 'Danh sách văn bản luật căn cứ' },
+                            evidence: { type: 'array', items: { type: 'string' }, description: 'Trích lục quy định đối chiếu' },
+                            source: { type: 'string' }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        return jsonResponse(spec, 200, corsHeaders);
+      }
+
       // Only a signed Firebase Phone Auth ID token may create a session.
       if (path === '/api/auth/session' && request.method === 'POST') {
         const phone = await verifiedFirebasePhone(request);
@@ -435,10 +494,11 @@ export default {
         return jsonResponse({ success: true, phone, credits: 0 }, 200, corsHeaders);
       }
 
-      // 7. TƯ VẤN THUẾ AI VỚI RAG KNOWLEDGE BASE ENGINE (POST /api/chat)
-      if (path === '/api/chat' && request.method === 'POST') {
-        const body: any = await request.json();
-        const { message, phone, fileKey } = body;
+      // 7. TƯ VẤN THUẾ AI VỚI RAG KNOWLEDGE BASE ENGINE (POST /api/chat & POST /api/chatgpt/tax-qa)
+      if ((path === '/api/chat' || path === '/api/chatgpt/tax-qa') && request.method === 'POST') {
+        const body: any = await request.json().catch(() => ({}));
+        const message = (body.message || body.question || '').trim();
+        const { phone, fileKey } = body;
         if (phone && await verifiedFirebasePhone(request) !== phone) {
           return jsonResponse({ success: false, error: 'Access denied.' }, 403, corsHeaders);
         }
@@ -450,7 +510,7 @@ export default {
           }, 422, corsHeaders);
         }
 
-        if (!message || !message.trim()) {
+        if (!message) {
           return jsonResponse({ success: false, error: 'Nội dung câu hỏi không được để trống.' }, 400, corsHeaders);
         }
 
@@ -781,6 +841,20 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
               cacheKey,
               new Response(JSON.stringify(payload), { headers: { 'Cache-Control': 'max-age=86400', 'Content-Type': 'application/json' } })
             )
+          );
+        }
+
+        if (path === '/api/chatgpt/tax-qa') {
+          return jsonResponse(
+            {
+              success: true,
+              answer: aiText,
+              legal_citations: legalCitations,
+              evidence: (retrievalTrace.evidence || []).map((e: any) => e.title),
+              source,
+            },
+            200,
+            corsHeaders
           );
         }
 
