@@ -136,6 +136,22 @@ export const AuthModal: React.FC = () => {
     return message || 'Đã có lỗi xảy ra. Vui lòng thử lại.';
   };
 
+  // Pre-warm reCAPTCHA khi mở modal để gửi SMS nhanh hơn
+  useEffect(() => {
+    if (isAuthModalOpen && step === 'phone') {
+      const timer = setTimeout(() => {
+        if (!recaptchaVerifierRef.current) {
+          try {
+            createFreshRecaptchaVerifier();
+          } catch (e) {
+            console.warn('Pre-warm recaptcha error:', e);
+          }
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthModalOpen, step]);
+
   // Bước 1: Gửi OTP qua Firebase
   const handleSendOtp = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -151,7 +167,10 @@ export const AuthModal: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const appVerifier = createFreshRecaptchaVerifier();
+      let appVerifier = recaptchaVerifierRef.current;
+      if (!appVerifier) {
+        appVerifier = createFreshRecaptchaVerifier();
+      }
       const formattedPhone = formatPhoneForFirebase(phone);
 
       const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
@@ -167,27 +186,14 @@ export const AuthModal: React.FC = () => {
     }
   };
 
-  // Bước 2: Xác minh mã OTP 6 số
-  const handleVerifyOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Hàm xác minh mã OTP tức thì
+  const verifyOtpCode = async (code: string) => {
+    if (isLoading || !confirmationResult) return;
     setError('');
-
-    const cleanOtp = otp.trim();
-    if (cleanOtp.length < 6) {
-      setError('Vui lòng nhập đủ 6 chữ số mã OTP.');
-      return;
-    }
-
-    if (!confirmationResult) {
-      setError('Phiên xác thực đã hết hạn. Vui lòng nhấn gửi lại mã.');
-      setStep('phone');
-      return;
-    }
-
     setIsLoading(true);
 
     try {
-      const credential = await confirmationResult.confirm(cleanOtp);
+      const credential = await confirmationResult.confirm(code);
       if (credential.user) {
         await loginWithVerifiedUser(credential.user);
         closeAuthModal();
@@ -199,6 +205,26 @@ export const AuthModal: React.FC = () => {
       setError(mapFirebaseError(err));
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Bước 2: Xác minh mã OTP 6 số (gọi từ form submit)
+  const handleVerifyOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanOtp = otp.trim();
+    if (cleanOtp.length < 6) {
+      setError('Vui lòng nhập đủ 6 chữ số mã OTP.');
+      return;
+    }
+    await verifyOtpCode(cleanOtp);
+  };
+
+  // Tự động kiểm tra ngay khi nhập đủ 6 số
+  const handleOtpInput = (val: string) => {
+    const digits = val.replace(/\D/g, '').slice(0, 6);
+    setOtp(digits);
+    if (digits.length === 6) {
+      void verifyOtpCode(digits);
     }
   };
 
@@ -351,7 +377,7 @@ export const AuthModal: React.FC = () => {
                       required
                       autoFocus
                       value={otp}
-                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                      onChange={(e) => handleOtpInput(e.target.value)}
                       placeholder="------"
                       className="w-full tracking-[0.4em] text-center bg-slate-50 border border-slate-300 rounded-xl pl-11 pr-4 py-3 text-[20px] text-slate-900 font-extrabold focus:bg-white focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all font-mono"
                     />

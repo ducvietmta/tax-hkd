@@ -100,31 +100,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const loginWithVerifiedUser = async (fbUser: FirebaseUser): Promise<{ success: boolean; error?: string }> => {
     try {
       const phone = fbUser.phoneNumber ? cleanPhoneForDisplay(fbUser.phoneNumber) : '0943219594';
-      let profile: FirestoreUserProfile;
-      try {
-        profile = await FirestoreService.getUserProfile(fbUser.uid, phone, fbUser.displayName || undefined);
-      } catch (err) {
-        console.warn('Lỗi Firestore:', err);
-        const isVip = phone === '0943219594' || phone.includes('0943219594');
-        profile = {
-          uid: fbUser.uid,
-          phone,
-          name: fbUser.displayName || `Khách hàng ${phone.slice(-4)}`,
-          credits: isVip ? 1000 : 3,
-          role: isVip ? 'vip' : 'user',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-      }
+      const isVip = phone === '0943219594' || phone.includes('0943219594');
+
+      // 1. Cập nhật state người dùng ngay lập tức (phản hồi 0ms)
       setUser({
         uid: fbUser.uid,
         phone,
-        name: profile.name || fbUser.displayName || `Khách hàng ${phone.slice(-4)}`,
-        credits: profile.credits,
-        role: profile.role,
+        name: fbUser.displayName || `Khách hàng ${phone.slice(-4)}`,
+        credits: isVip ? 1000 : 3,
+        role: isVip ? 'vip' : 'user',
         registeredAt: new Date().toISOString(),
       });
       setIsAuthModalOpen(false);
+
+      // 2. Đồng bộ Firestore ngầm trong background (không chặn trải nghiệm người dùng)
+      FirestoreService.getUserProfile(fbUser.uid, phone, fbUser.displayName || undefined)
+        .then((profile) => {
+          setUser((prev) => (prev ? {
+            ...prev,
+            name: profile.name || prev.name,
+            credits: profile.credits,
+            role: profile.role,
+          } : null));
+        })
+        .catch((err) => {
+          console.warn('Lỗi đồng bộ Firestore:', err);
+        });
+
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err.message || 'Lỗi đăng nhập' };
