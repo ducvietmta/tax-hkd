@@ -315,9 +315,12 @@ export default {
 
               const isOOS = chatData.source === 'out_of_scope';
               const hasCitations = Array.isArray(chatData.citations) && chatData.citations.length > 0;
+              // Model đã tuyên bố không có căn cứ → không gắn footer dù retrieval có trả chunks
+              const noLegalGround = /căn cứ pháp lý:\s*không áp dụng/i.test(chatData.response || '') ||
+                /can cu phap ly:\s*khong ap dung/i.test(chatData.response || '');
               const parts = [chatData.response || 'Không tìm thấy câu trả lời phù hợp.'];
               // Chỉ gắn footer đối soát khi có citations thật — không bịa căn cứ cho câu ngoài phạm vi
-              if (!isOOS && hasCitations) {
+              if (!isOOS && !noLegalGround && hasCitations) {
                 parts.push(
                   '',
                   '----------------------------------------',
