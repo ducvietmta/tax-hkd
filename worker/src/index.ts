@@ -251,6 +251,15 @@ export default {
                         question: {
                           type: 'string',
                           description: 'Nội dung câu hỏi về thuế (ví dụ: Bán hàng trên TikTok Shop doanh thu 600 triệu/năm nộp những thuế gì và bao nhiêu %?)'
+                        },
+                        history: {
+                          type: 'array',
+                          description: 'Lịch sử hội thoại nếu muốn câu trả lời theo ngữ cảnh giống web; bỏ trống để hỏi độc lập.',
+                          items: {
+                            type: 'object',
+                            properties: { role: { type: 'string', enum: ['user', 'assistant'] }, content: { type: 'string' } },
+                            required: ['role', 'content']
+                          }
                         }
                       },
                       required: ['question']
@@ -314,29 +323,17 @@ export default {
                 }, 200, corsHeaders);
               }
 
-              const isOOS = chatData.source === 'out_of_scope';
-              const hasCitations = Array.isArray(chatData.citations) && chatData.citations.length > 0;
-              // Model đã tuyên bố không có căn cứ → không gắn footer dù retrieval có trả chunks
-              const noLegalGround = /căn cứ pháp lý:\s*không áp dụng/i.test(chatData.response || '') ||
-                /can cu phap ly:\s*khong ap dung/i.test(chatData.response || '');
-              const parts = [chatData.response || 'Không tìm thấy câu trả lời phù hợp.'];
-              // Chỉ gắn footer đối soát khi có citations thật — không bịa căn cứ cho câu ngoài phạm vi
-              if (!isOOS && !noLegalGround && hasCitations) {
-                parts.push(
-                  '',
-                  '----------------------------------------',
-                  '📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:',
-                  `• Căn cứ trích dẫn: ${chatData.citations.join(', ')}`,
-                  `• Nguồn: ${chatData.source || 'RAG Knowledge Engine'}`
-                );
-              }
-              const text = parts.join('\n');
-
               return jsonResponse({
                 jsonrpc: '2.0',
                 id: rid,
                 result: {
-                  content: [{ type: 'text', text }],
+                  content: [{ type: 'text', text: chatData.response || 'Không tìm thấy câu trả lời phù hợp.' }],
+                  structuredContent: {
+                    answer: chatData.response,
+                    citations: chatData.citations || [],
+                    source: chatData.source,
+                    retrieval: chatData.retrieval || null,
+                  },
                   isError: false
                 }
               }, 200, corsHeaders);
@@ -743,6 +740,49 @@ export default {
 
         const history = normalizeConversationHistory(body.history);
 
+        // Both transports return the same finalized answer; SSE only changes delivery.
+        const respondWithAnswer = (payload: any, remainingCredits: number, cached = false): Response => {
+          const answerPayload = {
+            ...payload,
+            remainingCredits,
+            timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
+            ...(cached ? { cached: true } : {}),
+          };
+          if (path === '/api/chatgpt/tax-qa') {
+            return jsonResponse({
+              success: true,
+              answer: payload.response,
+              legal_citations: payload.citations || [],
+              evidence: (payload.retrieval?.evidence || []).map((e: any) => e.title),
+              source: payload.source,
+            }, 200, corsHeaders);
+          }
+          if (!body.stream) return jsonResponse(answerPayload, 200, corsHeaders);
+          const { readable, writable } = new TransformStream();
+          const writer = writable.getWriter();
+          const encoder = new TextEncoder();
+          ctx.waitUntil((async () => {
+            try {
+              await writer.write(encoder.encode(`data: ${JSON.stringify({
+                type: 'meta', source: payload.source, citations: payload.citations || [],
+                retrieval: payload.retrieval, remainingCredits,
+              })}\n\n`));
+              const answer = payload.response || '';
+              for (let i = 0; i < answer.length; i += 120) {
+                await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'delta', delta: answer.slice(i, i + 120) })}\n\n`));
+              }
+              await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'done', fullText: answer, remainingCredits })}\n\n`));
+              await writer.write(encoder.encode('data: [DONE]\n\n'));
+            } finally {
+              await writer.close();
+            }
+          })());
+          const headers = new Headers(corsHeaders);
+          headers.set('Content-Type', 'text/event-stream; charset=utf-8');
+          headers.set('Cache-Control', 'no-cache, no-transform');
+          return new Response(readable, { status: 200, headers });
+        };
+
         // --- BƯỚC 0: KIỂM TRA PHẠM VI HỎI ĐÁP (MỤC 1) ---
         if (isOutOfScope(message, history)) {
           const outOfScopeResponse = {
@@ -752,20 +792,7 @@ export default {
             citations: [],
             legal_citations: [],
           };
-          if (path === '/api/chatgpt/tax-qa') {
-            return jsonResponse(
-              {
-                success: true,
-                answer: outOfScopeResponse.response,
-                legal_citations: [],
-                evidence: [],
-                source: 'out_of_scope',
-              },
-              200,
-              corsHeaders
-            );
-          }
-          return jsonResponse(outOfScopeResponse, 200, corsHeaders);
+          return respondWithAnswer(outOfScopeResponse, 99);
         }
 
         // --- KIỂM TRA LƯỢT HỎI TRONG CLOUDFLARE D1 (TẦNG WORKER) ---
@@ -843,20 +870,32 @@ export default {
               .run()
               .catch((e: any) => console.error('[CLEANUP_90D_ERR]', e?.message))
           );
+          ctx.waitUntil(
+            env.DB.prepare(`DELETE FROM answer_cache WHERE created_at < datetime('now', '-7 days')`)
+              .run()
+              .catch((e: any) => console.error('[ANSWER_CACHE_CLEANUP_ERR]', e?.message))
+          );
         }
 
-        // --- CACHE câu trả lời (câu hỏi giống nhau, không kèm file/lịch sử) ---
+        // Cache by the complete conversation context so both transports converge.
         const answerScope = resolveAnswerScope(history, message);
-        const cacheable = !fileKey && history.length === 0 && !body.stream;
-        const normMsg = message.trim().normalize('NFC');
+        const cacheable = !fileKey;
+        const normMsg = message.trim().normalize('NFC').replace(/\s+/g, ' ');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v31|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v33|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
-          const hit = await caches.default.match(cacheKey);
-          if (hit) {
-            const cached: any = await hit.json();
+          let cached: any = null;
+          if (env.DB) {
+            const row = await env.DB.prepare('SELECT payload FROM answer_cache WHERE cache_key = ?')
+              .bind(hash).first() as { payload: string } | null;
+            if (row?.payload) cached = JSON.parse(row.payload);
+          } else {
+            const hit = await caches.default.match(cacheKey);
+            if (hit) cached = await hit.json();
+          }
+          if (cached) {
             const remainingCredits = await deductCreditOnce();
             if (env.DB && activePhone) {
               ctx.waitUntil(
@@ -868,7 +907,7 @@ export default {
                   .catch(() => {})
               );
             }
-            return jsonResponse({ ...cached, cached: true, remainingCredits }, 200, corsHeaders);
+            return respondWithAnswer(cached, remainingCredits, true);
           }
         }
 
@@ -943,117 +982,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           const museKey = env.MUSE_API_KEY;
           if (museKey) {
             try {
-              const museInput = buildMuseRequest(systemPrompt, history, message, !!body.stream);
-
-              // --- NẾU CLIENT YÊU CẦU STREAMING (body.stream === true) ---
-              if (body.stream) {
-                const museStreamRes = await Promise.race([
-                  fetch('https://api.meta.ai/v1/responses', {
-                    method: 'POST',
-                    headers: {
-                      Authorization: `Bearer ${museKey}`,
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(museInput),
-                  }),
-                  new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
-                ]);
-
-                if (museStreamRes.ok && museStreamRes.body) {
-                  const { readable, writable } = new TransformStream();
-                  const writer = writable.getWriter();
-                  const encoder = new TextEncoder();
-                  const reader = museStreamRes.body.getReader();
-                  const decoder = new TextDecoder();
-
-                  ctx.waitUntil(
-                    (async () => {
-                      let fullGeneratedText = '';
-                      let fullReasoningSummary = '';
-                      try {
-                        // Gửi metadata ban đầu (citations, sources, remainingCredits)
-                        const remainingCredits = await deductCreditOnce();
-                        const metaEvent = `data: ${JSON.stringify({
-                          type: 'meta',
-                          source: `Muse Spark 1.3 (Meta AI - High Reasoning) + ${source}`,
-                          citations: legalCitations,
-                          retrieval: retrievalTrace,
-                          remainingCredits,
-                        })}\n\n`;
-                        await writer.write(encoder.encode(metaEvent));
-                        await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'status', status: 'generating' })}\n\n`));
-
-                        let buffer = '';
-                        while (true) {
-                          const { done, value } = await reader.read();
-                          if (done) break;
-                          buffer += decoder.decode(value, { stream: true });
-                          const lines = buffer.split('\n');
-                          buffer = lines.pop() || '';
-                          for (const rawLine of lines) {
-                            const line = rawLine.trim();
-                            if (line.startsWith('data: ')) {
-                              const raw = line.slice(6).trim();
-                              if (raw === '[DONE]') continue;
-                              try {
-                                const parsed = JSON.parse(raw);
-                                if (parsed.type === 'response.output_item.added' && parsed.item?.type === 'reasoning') {
-                                  const thinkEvent = `data: ${JSON.stringify({ type: 'thinking', status: 'in_progress' })}\n\n`;
-                                  await writer.write(encoder.encode(thinkEvent));
-                                } else if (parsed.type === 'response.reasoning_summary_text.delta' && typeof parsed.delta === 'string') {
-                                  fullReasoningSummary += parsed.delta;
-                                  await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'reasoning_summary', delta: parsed.delta })}\n\n`));
-                                } else if (parsed.type === 'response.output_item.done' && parsed.item?.type === 'reasoning' && !fullReasoningSummary) {
-                                  const summary = (parsed.item.summary || [])
-                                    .map((part: { text?: string }) => part.text || '')
-                                    .join('');
-                                  if (summary) {
-                                    fullReasoningSummary = summary;
-                                    await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'reasoning_summary', delta: summary })}\n\n`));
-                                  }
-                                } else if (parsed.type === 'response.output_text.delta' && typeof parsed.delta === 'string') {
-                                  fullGeneratedText += parsed.delta;
-                                  const textEvent = `data: ${JSON.stringify({ type: 'delta', delta: parsed.delta })}\n\n`;
-                                  await writer.write(encoder.encode(textEvent));
-                                }
-                              } catch {}
-                            }
-                          }
-                        }
-
-                        // Gửi sự kiện kết thúc kèm remainingCredits
-                        await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'done', fullText: fullGeneratedText, remainingCredits })}\n\n`));
-                        await writer.write(encoder.encode('data: [DONE]\n\n'));
-
-                        // Ghi log vào D1 ở background
-                        if (env.DB && activePhone && fullGeneratedText) {
-                          await env.DB.prepare(
-                            `INSERT INTO chat_logs (id, user_phone, message, response, credits_used, source) VALUES (?, ?, ?, ?, 1, ?)`
-                          )
-                            .bind(`chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`, activePhone, message, fullGeneratedText, `Muse Spark 1.3 (Stream)`)
-                            .run()
-                            .catch(() => {});
-                        }
-                      } catch (errStream: any) {
-                        console.error('Stream error:', errStream?.message);
-                      } finally {
-                        await writer.close();
-                      }
-                    })()
-                  );
-
-                  const streamHeaders = new Headers(corsHeaders);
-                  streamHeaders.set('Content-Type', 'text/event-stream; charset=utf-8');
-                  streamHeaders.set('Cache-Control', 'no-cache, no-transform');
-                  streamHeaders.set('Connection', 'keep-alive');
-                  return new Response(readable, { status: 200, headers: streamHeaders });
-                }
-                if (!museStreamRes.ok) {
-                  console.warn('Muse stream API error:', museStreamRes.status, (await museStreamRes.text()).slice(0, 300));
-                }
-              }
-
-              // --- NẾU KHÔNG DÙNG STREAM: GỌI BLOCKING THƯỜNG ---
+              // Generate once through the same model request for every transport.
               const museRes = await Promise.race([
                 fetch('https://api.meta.ai/v1/responses', {
                   method: 'POST',
@@ -1117,6 +1046,32 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           }
         }
 
+        let canonicalPayload: any = {
+          success: true,
+          response: aiText,
+          source,
+          citations: legalCitations,
+          retrieval: retrievalTrace,
+          matchedRefs: matchedRoute?.refs || [],
+        };
+        if (cacheable && llmOk) {
+          if (env.DB) {
+            // The first completed answer wins even when web and MCP ask concurrently.
+            await env.DB.prepare('INSERT OR IGNORE INTO answer_cache (cache_key, payload) VALUES (?, ?)')
+              .bind(hash, JSON.stringify(canonicalPayload)).run();
+            const row = await env.DB.prepare('SELECT payload FROM answer_cache WHERE cache_key = ?')
+              .bind(hash).first() as { payload: string } | null;
+            if (!row?.payload) throw new Error('Answer cache did not retain the canonical result');
+            canonicalPayload = JSON.parse(row.payload);
+          } else {
+            await caches.default.put(cacheKey, new Response(JSON.stringify(canonicalPayload), {
+              headers: { 'Cache-Control': 'max-age=86400', 'Content-Type': 'application/json' },
+            }));
+          }
+        }
+        aiText = canonicalPayload.response;
+        source = canonicalPayload.source;
+
         // --- BƯỚC 3: GHI LOG VÀO CLOUDFLARE D1 ---
         if (env.DB && activePhone) {
           ctx.waitUntil(
@@ -1136,72 +1091,8 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           );
         }
 
-        // Nếu client yêu cầu Stream mà không dùng được Muse Stream trực tiếp, stream fallback qua SSE
-        if (body.stream) {
-          const remainingCredits = await deductCreditOnce();
-          const { readable, writable } = new TransformStream();
-          const writer = writable.getWriter();
-          const encoder = new TextEncoder();
-          ctx.waitUntil(
-            (async () => {
-              try {
-                await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'meta', source, citations: legalCitations, retrieval: retrievalTrace, remainingCredits })}\n\n`));
-                const words = aiText.split(' ');
-                for (let i = 0; i < words.length; i += 3) {
-                  const chunk = words.slice(i, i + 3).join(' ') + (i + 3 < words.length ? ' ' : '');
-                  await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'delta', delta: chunk })}\n\n`));
-                  await new Promise((r) => setTimeout(r, 25));
-                }
-                await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'done', fullText: aiText, remainingCredits })}\n\n`));
-                await writer.write(encoder.encode('data: [DONE]\n\n'));
-              } finally {
-                await writer.close();
-              }
-            })()
-          );
-          const streamHeaders = new Headers(corsHeaders);
-          streamHeaders.set('Content-Type', 'text/event-stream; charset=utf-8');
-          streamHeaders.set('Cache-Control', 'no-cache, no-transform');
-          streamHeaders.set('Connection', 'keep-alive');
-          return new Response(readable, { status: 200, headers: streamHeaders });
-        }
-
         const remainingCredits = await deductCreditOnce();
-        const payload = {
-          success: true,
-          response: aiText,
-          source,
-          citations: legalCitations,
-          retrieval: retrievalTrace,
-          matchedRefs: matchedRoute?.refs || [],
-          remainingCredits,
-          timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
-        };
-
-        if (cacheable && llmOk) {
-          ctx.waitUntil(
-            caches.default.put(
-              cacheKey,
-              new Response(JSON.stringify(payload), { headers: { 'Cache-Control': 'max-age=86400', 'Content-Type': 'application/json' } })
-            )
-          );
-        }
-
-        if (path === '/api/chatgpt/tax-qa') {
-          return jsonResponse(
-            {
-              success: true,
-              answer: aiText,
-              legal_citations: legalCitations,
-              evidence: (retrievalTrace.evidence || []).map((e: any) => e.title),
-              source,
-            },
-            200,
-            corsHeaders
-          );
-        }
-
-        return jsonResponse(payload, 200, corsHeaders);
+        return respondWithAnswer(canonicalPayload, remainingCredits);
       }
 
       // 8. ĐẶT LỊCH TƯ VẤN (POST /api/consultations)

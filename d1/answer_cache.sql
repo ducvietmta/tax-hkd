@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS answer_cache (
+    cache_key TEXT PRIMARY KEY,
+    payload TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

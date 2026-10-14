@@ -72,6 +72,13 @@ CREATE TABLE IF NOT EXISTS chat_logs (
 CREATE INDEX IF NOT EXISTS idx_chat_logs_phone ON chat_logs(user_phone);
 CREATE INDEX IF NOT EXISTS idx_chat_logs_created_at ON chat_logs(created_at);
 
+-- Câu trả lời chuẩn dùng chung cho web và MCP theo câu hỏi/ngày/phiên bản luật.
+CREATE TABLE IF NOT EXISTS answer_cache (
+    cache_key TEXT PRIMARY KEY,
+    payload TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- 6. BẢNG QUẢN LÝ TÀI LIỆU & ẢNH HOÁ ĐƠN (FILES - LIÊN KẾT R2)
 CREATE TABLE IF NOT EXISTS files (
     id TEXT PRIMARY KEY,
