@@ -221,6 +221,18 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
       selected.unshift({ chunk: guidance.chunk, score: topScore + 2, viaRoute: false });
     }
   }
+
+  // BỔ SUNG 4: Thủ tục đăng ký mã 888 theo CV 311/TCT-DNNCN-2025
+  const asks888Registration =
+    /dang ky.*888|888.*(nhu the nao|cach|huong dan|thu tuc|lam sao)|(da co mst 10 so|co can dang ky 888)/.test(normalizedQuery);
+  if (asks888Registration) {
+    const regChunk = idx.find((item) => item.chunk.ref_id === '16.100');
+    if (regChunk) {
+      const existing = selected.findIndex((item) => item.chunk.ref_id === '16.100');
+      if (existing >= 0) selected.splice(existing, 1);
+      selected.unshift({ chunk: regChunk.chunk, score: topScore + 3, viaRoute: false });
+    }
+  }
   // MỤC 5: Ép bảng tỷ lệ % thuế (chunk 16.77) khi hỏi "bao nhiêu %" / "bao nhiêu phần trăm" và có ngành nghề
   const asksPercentageRate = /bao nhieu\s*(phan tram|%)/.test(normalizedQuery) ||
     (/\b(thue suat|ty le)\b/.test(normalizedQuery) && /\b(bao nhieu|may %)\b/.test(normalizedQuery));

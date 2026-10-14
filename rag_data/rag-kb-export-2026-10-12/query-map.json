@@ -1016,6 +1016,34 @@
         "Nghị định 22/2020/NĐ-CP"
       ],
       "priority": 90
+    },
+    {
+      "id": "DANG_KY_MST_888",
+      "any": [
+        "đăng ký 888",
+        "đăng ký mã 888",
+        "dang ky ma 888",
+        "dang ky 888",
+        "888 như thế nào",
+        "888 nhu the nao",
+        "cách đăng ký 888",
+        "hướng dẫn đăng ký 888",
+        "thủ tục đăng ký 888",
+        "đăng ký mã số thuế 888",
+        "đã có mst 10 số",
+        "da co mst 10 so",
+        "có cần đăng ký 888",
+        "co can dang ky 888"
+      ],
+      "refs": [
+        "16.100",
+        "16.96"
+      ],
+      "expand": [
+        "thủ tục đăng ký mã 888 từng bước Cổng thuế TMĐT",
+        "CV 311/TCT-DNNCN-2025"
+      ],
+      "priority": 95
     }
   ],
   "route_priority_order": "descending",

@@ -1,7 +1,7 @@
 /**
  * RAG KNOWLEDGE BASE ENGINE (Compiled for Cloudflare Workers Edge)
- * Generated at: 2026-10-13T18:52:44.009Z
- * Chunks: 95 verified | Routes: 53
+ * Generated at: 2026-10-14T02:29:34.853Z
+ * Chunks: 96 verified | Routes: 54
  */
 
 export interface RagChunk {
@@ -1037,6 +1037,34 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "Nghị định 22/2020/NĐ-CP"
     ],
     "priority": 90
+  },
+  {
+    "id": "DANG_KY_MST_888",
+    "any": [
+      "đăng ký 888",
+      "đăng ký mã 888",
+      "dang ky ma 888",
+      "dang ky 888",
+      "888 như thế nào",
+      "888 nhu the nao",
+      "cách đăng ký 888",
+      "hướng dẫn đăng ký 888",
+      "thủ tục đăng ký 888",
+      "đăng ký mã số thuế 888",
+      "đã có mst 10 số",
+      "da co mst 10 so",
+      "có cần đăng ký 888",
+      "co can dang ky 888"
+    ],
+    "refs": [
+      "16.100",
+      "16.96"
+    ],
+    "expand": [
+      "thủ tục đăng ký mã 888 từng bước Cổng thuế TMĐT",
+      "CV 311/TCT-DNNCN-2025"
+    ],
+    "priority": 95
   }
 ];
 
@@ -1800,6 +1828,14 @@ export const CANONICAL_CHUNKS: RagChunk[] = [
     "ref_id": "16.99",
     "tier": "VERIFIED",
     "text": "## 16.99. Chính sách giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 và 3 tầng tính thuế năm 2026\n- **LEGAL_STATUS:** VERIFIED — áp dụng cho kỳ tính thuế năm 2026 và năm 2027 (Điều 1, Điều 2 Nghị quyết 43/2026/QH16 ngày 24/08/2026).\n- **Phạm vi áp dụng giảm 30% TNCN (Khoản 1 Điều 1 NQ 43/2026/QH16):** Giảm 30% số thuế thu nhập cá nhân phải nộp đối với thu nhập từ hoạt động sản xuất, kinh doanh của cá nhân cư trú có doanh thu năm không quá 10 tỷ đồng trong kỳ tính thuế năm 2026 và 2027.\n- **Nguyên tắc 3 tầng tính thuế năm 2026 (Tax Engine Pipeline):**\n  1. \tax_base (Doanh thu tính thuế): Thuế GTGT tính trên TOÀN BỘ doanh thu chịu thuế (không trừ 1 tỷ đồng). Thuế TNCN tính trên phần doanh thu VƯỢT 1 TỶ ĐỒNG/năm (Điều 7 khoản 3 Luật 109/2025/QH15 và Nghị định 141/2026/NĐ-CP).\n  2. \tax_before_relief (Thuế trước ưu đãi): Thuế GTGT = Doanh thu × tỷ lệ GTGT ngành. Thuế TNCN trước giảm = (Doanh thu − 1 tỷ) × tỷ lệ TNCN ngành.\n  3. \tax_after_relief (Thuế sau ưu đãi): Thuế GTGT nộp 100% (không áp dụng giảm NQ43 cho GTGT). Thuế TNCN được giảm 30% theo NQ 43/2026/QH16: Số thuế TNCN sau giảm = 70% số thuế TNCN trước giảm.\n- **Ví dụ chuẩn năm 2026:**\n  - Ví dụ E01 / T06 / T21 / T40 / T41: Cá nhân cư trú bán hàng hóa doanh thu 1,01 tỷ đồng (VAT 1%, TNCN 0,5%):\n    + Thuế GTGT: 1.010.000.000 × 1% = 10.100.000 đồng.\n    + Doanh thu tính thuế TNCN: 1.010.000.000 − 1.000.000.000 = 10.000.000 đồng.\n    + Thuế TNCN trước giảm: 10.000.000 × 0,5% = 50.000 đồng.\n    + Giảm 30% thuế TNCN theo NQ 43/2026/QH16: 50.000 × 30% = 15.000 đồng.\n    + Thuế TNCN sau giảm (thực nộp): 50.000 − 15.000 = 35.000 đồng.\n    + Tổng số thuế phải nộp: 10.100.000 + 35.000 = 10.135.000 đồng.\n  - Ví dụ E02 / T27: Dịch vụ sửa máy tính/dịch vụ khác doanh thu 1,5 tỷ đồng (VAT 5%, TNCN 2%):\n    + Thuế GTGT: 1.500.000.000 × 5% = 75.000.000 đồng.\n    + Doanh thu tính thuế TNCN: 1.500.000.000 − 1.000.000.000 = 500.000.000 đồng.\n    + Thuế TNCN trước giảm: 500.000.000 × 2% = 10.000.000 đồng.\n    + Giảm 30% thuế TNCN theo NQ 43/2026/QH16: 10.000.000 × 30% = 3.000.000 đồng.\n    + Thuế TNCN sau giảm (thực nộp): 10.000.000 − 3.000.000 = 7.000.000 đồng.\n    + Tổng số thuế phải nộp: 75.000.000 + 7.000.000 = 82.000.000 đồng.\n  - Ví dụ E03 / T11 / T22: Năm 2025 bán hàng 300 triệu (ngưỡng 100 triệu Thông tư 40/2021/TT-BTC):\n    + Thuế GTGT: 300.000.000 × 1% = 3.000.000 đồng.\n    + Thuế TNCN: 300.000.000 × 0,5% = 1.500.000 đồng. NQ43 KHÔNG hồi tố cho 2025.\n  - Ví dụ T26: Doanh thu đúng 1 tỷ thì không nộp thuế; vượt 1 đồng (1.000.000.001đ) thì VAT tính 1%, TNCN phần vượt 1đ × 0,5% = 0,005đ làm tròn xuống 0 đồng (không phải nộp).\n- **Lưu ý loại trừ quan trọng:** NQ 43/2026/QH16 KHÔNG áp dụng cho thuế GTGT; KHÔNG áp dụng cho tiền lương, tiền công; KHÔNG áp dụng cho cá nhân không cư trú; KHÔNG áp dụng khi doanh thu năm vượt quá 10 tỷ đồng.\n- **Căn cứ pháp lý:** Khoản 1 Điều 1 Nghị quyết 43/2026/QH16; Điểm b Khoản 2 Điều 12 Luật Thuế GTGT 48/2024/QH15; Khoản 3 Điều 7 Luật Thuế TNCN 109/2025/QH15; Nghị định 141/2026/NĐ-CP; Khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP; Thông tư 40/2021/TT-BTC."
+  },
+  {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#dang-ky-mst-888-cv-311-2025",
+    "file": "KB/16F-thue-tncn-ca-nhan-mo-rong.md",
+    "section": "16.100. Thủ tục đăng ký mã số thuế 888 trên Cổng thông tin điện tử TMĐT (Công văn 311/TCT-DNNCN-2025)",
+    "ref_id": "16.100",
+    "tier": "VERIFIED",
+    "text": "## 16.100. Thủ tục đăng ký mã số thuế 888 trên Cổng thông tin điện tử TMĐT (Công văn 311/TCT-DNNCN-2025)\n- **Đối tượng:** Cá nhân kinh doanh, hộ kinh doanh có hoạt động kinh doanh thương mại điện tử (TMĐT), kinh doanh trên nền tảng số, tiếp thị liên kết (affiliate marketing).\n- **Trường hợp đã có MST 10 số:** Cá nhân đã có mã số thuế 10 số (hoặc đã kích hoạt định danh cá nhân/CCCD làm MST) thì KHÔNG phải xin cấp mã số thuế mới. Khi thực hiện đăng ký thông tin hoạt động kinh doanh TMĐT, hệ thống Cổng thuế điện tử sẽ tự động liên kết với MST 10 số hiện có và cấp mã số thuế 13 số có đuôi 888 (mã phân loại hoạt động TMĐT).\n- **Các bước đăng ký trên Cổng thuế TMĐT (canhantmdt.gdt.gov.vn):**\n  1. Bước 1: Truy cập Cổng thông tin điện tử dành cho cá nhân kinh doanh TMĐT của Tổng cục Thuế tại địa chỉ canhantmdt.gdt.gov.vn.\n  2. Bước 2: Đăng nhập bằng tài khoản Thuế điện tử (eTax Mobile) hoặc tài khoản Định danh điện tử Quốc gia (VNeID mức độ 2).\n  3. Bước 3: Vào mục \"Đăng ký thuế\", chọn \"Kê khai bổ sung thông tin hoạt động TMĐT\".\n  4. Bước 4: Kiểm tra thông tin định danh do hệ thống tự động điền từ CSDL Quốc gia về dân cư, sau đó điền thông tin hoạt động TMĐT (tên nền tảng/sàn như TikTok Shop, Shopee; link gian hàng; tài khoản ngân hàng nhận doanh thu; địa chỉ kinh doanh).\n  5. Bước 5: Kiểm tra lại tờ khai, bấm \"Hoàn thành kê khai\", nhập mã OTP gửi về số điện thoại hoặc xác thực qua VNeID để nộp hồ sơ.\n  6. Bước 6: Nhận kết quả cấp mã phân loại 13 số đuôi 888 hiển thị trực tiếp trên hệ thống và gửi thông báo qua eTax Mobile/email đăng ký.\n- **Căn cứ pháp lý:**\nCông văn 311/TCT-DNNCN-2025\nThông tư 105/2020/TT-BTC\nCổng thông tin điện tử dành cho cá nhân kinh doanh TMĐT (canhantmdt.gdt.gov.vn)"
   }
 ];
 

@@ -52,6 +52,7 @@ INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywor
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('INHERIT_GIFT_PRIZE', 'INHERIT_GIFT_PRIZE', '["thừa kế","quà tặng","trúng thưởng","bản quyền","trúng số","tài sản số","vàng miếng"]', NULL, '["16.90"]', 80);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('RENTAL_RATE_MIXED', 'RENTAL_RATE_MIXED', '["cho thuê"]', NULL, '["16.91","16.92","16.77"]', 85);
 INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('LE_PHI_MON_BAI', 'LE_PHI_MON_BAI', '["môn bài","thuế môn bài","lệ phí môn bài","mon bai","thue mon bai","le phi mon bai"]', NULL, '["16.97","16.98"]', 90);
+INSERT OR REPLACE INTO rag_query_map (id, route_id, any_keywords, context_keywords, refs, priority) VALUES ('DANG_KY_MST_888', 'DANG_KY_MST_888', '["đăng ký 888","đăng ký mã 888","dang ky ma 888","dang ky 888","888 như thế nào","888 nhu the nao","cách đăng ký 888","hướng dẫn đăng ký 888","thủ tục đăng ký 888","đăng ký mã số thuế 888","đã có mst 10 số","da co mst 10 so","có cần đăng ký 888","co can dang ky 888"]', NULL, '["16.100","16.96"]', 95);
 
 -- Nạp chunks tri thức
 INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/00-van-ban-xuong-song.md#0', 'KB/00-van-ban-xuong-song.md', 'intro', NULL, 'CONTROL', '# Văn bản xương sống tra cứu thuế HKD (cập nhật 27/09/2026)
@@ -10131,3 +10132,17 @@ INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES
   - Ví dụ T26: Doanh thu đúng 1 tỷ thì không nộp thuế; vượt 1 đồng (1.000.000.001đ) thì VAT tính 1%, TNCN phần vượt 1đ × 0,5% = 0,005đ làm tròn xuống 0 đồng (không phải nộp).
 - **Lưu ý loại trừ quan trọng:** NQ 43/2026/QH16 KHÔNG áp dụng cho thuế GTGT; KHÔNG áp dụng cho tiền lương, tiền công; KHÔNG áp dụng cho cá nhân không cư trú; KHÔNG áp dụng khi doanh thu năm vượt quá 10 tỷ đồng.
 - **Căn cứ pháp lý:** Khoản 1 Điều 1 Nghị quyết 43/2026/QH16; Điểm b Khoản 2 Điều 12 Luật Thuế GTGT 48/2024/QH15; Khoản 3 Điều 7 Luật Thuế TNCN 109/2025/QH15; Nghị định 141/2026/NĐ-CP; Khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP; Thông tư 40/2021/TT-BTC.');
+INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/16F-thue-tncn-ca-nhan-mo-rong.md#dang-ky-mst-888-cv-311-2025', 'KB/16F-thue-tncn-ca-nhan-mo-rong.md', '16.100. Thủ tục đăng ký mã số thuế 888 trên Cổng thông tin điện tử TMĐT (Công văn 311/TCT-DNNCN-2025)', '16.100', 'VERIFIED', '## 16.100. Thủ tục đăng ký mã số thuế 888 trên Cổng thông tin điện tử TMĐT (Công văn 311/TCT-DNNCN-2025)
+- **Đối tượng:** Cá nhân kinh doanh, hộ kinh doanh có hoạt động kinh doanh thương mại điện tử (TMĐT), kinh doanh trên nền tảng số, tiếp thị liên kết (affiliate marketing).
+- **Trường hợp đã có MST 10 số:** Cá nhân đã có mã số thuế 10 số (hoặc đã kích hoạt định danh cá nhân/CCCD làm MST) thì KHÔNG phải xin cấp mã số thuế mới. Khi thực hiện đăng ký thông tin hoạt động kinh doanh TMĐT, hệ thống Cổng thuế điện tử sẽ tự động liên kết với MST 10 số hiện có và cấp mã số thuế 13 số có đuôi 888 (mã phân loại hoạt động TMĐT).
+- **Các bước đăng ký trên Cổng thuế TMĐT (canhantmdt.gdt.gov.vn):**
+  1. Bước 1: Truy cập Cổng thông tin điện tử dành cho cá nhân kinh doanh TMĐT của Tổng cục Thuế tại địa chỉ canhantmdt.gdt.gov.vn.
+  2. Bước 2: Đăng nhập bằng tài khoản Thuế điện tử (eTax Mobile) hoặc tài khoản Định danh điện tử Quốc gia (VNeID mức độ 2).
+  3. Bước 3: Vào mục "Đăng ký thuế", chọn "Kê khai bổ sung thông tin hoạt động TMĐT".
+  4. Bước 4: Kiểm tra thông tin định danh do hệ thống tự động điền từ CSDL Quốc gia về dân cư, sau đó điền thông tin hoạt động TMĐT (tên nền tảng/sàn như TikTok Shop, Shopee; link gian hàng; tài khoản ngân hàng nhận doanh thu; địa chỉ kinh doanh).
+  5. Bước 5: Kiểm tra lại tờ khai, bấm "Hoàn thành kê khai", nhập mã OTP gửi về số điện thoại hoặc xác thực qua VNeID để nộp hồ sơ.
+  6. Bước 6: Nhận kết quả cấp mã phân loại 13 số đuôi 888 hiển thị trực tiếp trên hệ thống và gửi thông báo qua eTax Mobile/email đăng ký.
+- **Căn cứ pháp lý:**
+Công văn 311/TCT-DNNCN-2025
+Thông tư 105/2020/TT-BTC
+Cổng thông tin điện tử dành cho cá nhân kinh doanh TMĐT (canhantmdt.gdt.gov.vn)');
