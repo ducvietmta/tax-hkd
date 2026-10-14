@@ -18,7 +18,7 @@ import { matchPendingTopics } from './pendingTopics';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
 import { guardTaxAnswer } from './taxAnswerGuard';
-import { extractTaxFactsFromQuery, calculateTax } from './taxEngine';
+import { answerVerifiedBusinessTax } from './businessTaxAnswer';
 
 export interface Env {
   DB: D1Database;
@@ -849,7 +849,7 @@ export default {
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = message.trim().normalize('NFC');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v28|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v29|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -876,7 +876,9 @@ export default {
         const { results, routeId, usedFallback } = retrieve(retrievalQuery, 4, answerScope);
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
-        const { text: ragContextText, citations: legalCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
+        const { text: ragContextText, citations: retrievedCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
+        const verifiedTaxAnswer = answerVerifiedBusinessTax(message, answerScope);
+        const legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
         // Guard chủ đề PENDING: chèn disclaimer vào prompt, không để model chốt cứng
         const pendingTopics = matchPendingTopics(message);
         const pendingNotice = pendingTopics.length
@@ -885,6 +887,7 @@ export default {
         const retrievalTrace = {
           method: routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25',
           period: { years: answerScope.years, source: answerScope.periodSource },
+          ruleIds: verifiedTaxAnswer?.ruleIds || [],
           pendingTopics: pendingTopics.map((t) => t.id),
           evidence: relevantChunks.map((chunk) => ({
             title: (chunk.text.match(/^##\s*(?:16\.\d+\.\s*)?(.+)$/m)?.[1] || chunk.section)
@@ -893,22 +896,14 @@ export default {
           })),
         };
 
-        let aiText = '';
-        let source = relevantChunks.length === 0
+        let aiText = verifiedTaxAnswer?.response || '';
+        let source = verifiedTaxAnswer ? 'Tax Engine (verified rules)'
+          : relevantChunks.length === 0
           ? 'Chưa tìm thấy căn cứ'
           : routeId ? `RAG Hybrid (${routeId})` : 'RAG Hybrid (BM25)';
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) ---
-        if (ragContextText) {
-          const taxFacts = extractTaxFactsFromQuery(message, answerScope.years[0] || 2026);
-          let taxEngineHint = '';
-          if (taxFacts && taxFacts.grossRevenueVnd > 0) {
-            const calc = calculateTax(taxFacts);
-            if (calc.status === 'ANSWERED') {
-              taxEngineHint = `\nBẢNG TÍNH THUẾ CHUẨN XÁC ĐỊNH BỞI TAX ENGINE (BẮT BUỘC DÙNG CÁC CON SỐ NÀY, KHÔNG TỰ TÍNH LẠI):\n${calc.explanation}\n`;
-            }
-          }
-
+        if (!aiText && ragContextText) {
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 ${scopeInstructions(answerScope)}
 ${intentInstructions(message)}
@@ -924,7 +919,7 @@ Dưới đây là thông tin quy định thuế trích lục:
 --------------------------------------------------
 ${ragContextText}
 --------------------------------------------------
-${analyzeAmounts(message)}${taxEngineHint}
+${analyzeAmounts(message)}
 QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 1. TUYỆT ĐỐI KHÔNG đưa nội dung phân tích thô, mã mục hay tiêu đề chú thích của hệ thống RAG vào câu trả lời (không nhắc tới mã số ref_id như 16.xx, không sao chép nguyên văn cả đoạn văn dài của hệ thống).
 2. Trả lời rõ ràng theo đúng dữ kiện người dùng cung cấp. Với câu hỏi nhiều ý, trả lời trực tiếp từng ý trước. Không tự mở rộng sang một vấn đề người dùng không hỏi nếu vấn đề đó không ảnh hưởng kết luận. Nếu thiếu một dữ kiện, nêu kết luận có điều kiện rõ ràng bằng chính dữ kiện đó; chỉ hỏi thêm khi không thể đưa ra hướng xử lý hữu ích.
@@ -1086,7 +1081,9 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           }
         }
 
-        const guarded = guardTaxAnswer(message, answerScope, relevantChunks.map((chunk) => chunk.ref_id || ''), aiText || '');
+        const guarded = verifiedTaxAnswer
+          ? { answer: aiText, reason: null }
+          : guardTaxAnswer(message, answerScope, relevantChunks.map((chunk) => chunk.ref_id || ''), aiText || '');
         if (guarded.reason) {
           console.warn(`[ANSWER_GUARD] ${guarded.reason}: "${message}"`);
           aiText = guarded.answer;

@@ -89,7 +89,7 @@ async function testWorkerPaths() {
     return Response.json({ output: [{ type: 'message', content: [{ text: 'Câu trả lời giả lập để kiểm tra đường truyền.' }] }] });
   };
   const request = (stream, message = question) => new Request('https://test.local/api/chat', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message, stream }),
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Internal-Caller': 'mcp' }, body: JSON.stringify({ message, stream }),
   });
   try {
     for (const stream of [false, true]) {
@@ -103,17 +103,27 @@ async function testWorkerPaths() {
       assert.match(captured[captured.length - 1].instructions, /hiểu là năm hiện tại/);
       assert.equal(captured[captured.length - 1].input.slice(-1)[0].content[0].text, question);
     }
-    const fallback = await worker.fetch(request(false), { AI: { run: async (_model, input) => {
-      assert.match(input.messages[0].content, /hiểu là năm hiện tại/);
-      return { response: 'Câu trả lời giả lập từ mô hình dự phòng.' };
-    } } }, ctx);
+    const repairQuestion = 'Năm 2026 tôi sửa chữa doanh thu 1,5 tỷ, thuế TNCN sau giảm bao nhiêu?';
+    const museCallsBeforeVerified = captured.length;
+    for (const stream of [false, true]) {
+      const response = await worker.fetch(request(stream, repairQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+      assert.equal(response.status, 200);
+      const body = await response.text();
+      assert.match(body, /7\.000\.000 đồng/);
+      assert.match(body, /Tax Engine \(verified rules\)/);
+      assert.equal(captured.length, museCallsBeforeVerified, 'Verified tax amount must bypass model generation');
+    }
+    const fallback = await worker.fetch(request(false), {}, ctx);
     assert.equal(fallback.status, 200);
-    assert.match((await fallback.json()).response, /giả lập/);
+    assert.match((await fallback.json()).response, /chưa thể tổng hợp câu trả lời/);
     await Promise.all(pending);
-    console.log('Worker integration checks passed: Muse stream, non-stream and AI fallback share the same scope.');
+    console.log('Worker integration checks passed: Muse stream, non-stream and provider-unavailable fallback share the same scope.');
   } finally {
     global.fetch = originalFetch;
     global.caches = originalCaches;
   }
 }
-testWorkerPaths().catch(error => { console.error(error); process.exitCode = 1; });
+const keepAlive = setInterval(() => {}, 1000);
+testWorkerPaths()
+  .catch(error => { console.error(error); process.exitCode = 1; })
+  .finally(() => clearInterval(keepAlive));

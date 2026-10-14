@@ -84,6 +84,20 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
     effectiveRevenue = Math.max(0, effectiveRevenue - facts.returnsVnd);
   }
 
+  if (taxYear > 2027) {
+    return {
+      taxYear, grossRevenueVnd: facts.grossRevenueVnd, effectiveRevenueVnd: effectiveRevenue,
+      taxableVatRevenueVnd: 0, vatRate: 0, vatDueVnd: 0,
+      pitDeductionVnd: 0, taxablePitRevenueVnd: 0, pitRate: 0,
+      pitBeforeReliefVnd: 0, pitReliefVnd: 0, pitReliefRule: null,
+      pitAfterReliefVnd: 0, totalTaxPayableVnd: 0,
+      status: 'NEEDS_LEGAL_REVIEW',
+      statusReason: 'Chưa có bộ quy tắc đã xác minh cho kỳ tính thuế sau năm 2027.',
+      explanation: 'Nghị quyết 43/2026/QH16 chỉ quy định giảm thuế cho kỳ tính thuế năm 2026 và 2027; không tự áp dụng cho năm sau.',
+      citations: ['Khoản 1 Điều 1 và khoản 1 Điều 2 Nghị quyết 43/2026/QH16'],
+    };
+  }
+
   const isResident = facts.isResident !== false; // Mặc định cư trú trừ khi chỉ định rõ là không cư trú
 
   // ==========================================
