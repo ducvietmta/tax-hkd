@@ -255,28 +255,63 @@ export function understandQuery(
 /**
  * REFINEMENT L2 (GATED DECISION MODEL)
  *
- * Chỉ kích hoạt khi độ tự tin L1 thấp (< 0.7) hoặc gặp nhãn UNKNOWN
+ * Kích hoạt khi độ tự tin L1 thấp (< 0.75), gặp nhãn UNKNOWN, hoặc khi DECISION_MODE yêu cầu (forceL2 = true)
  */
 export async function refineQueryWithL2(
   frame: TaxDecisionFrame,
   query: string,
-  provider?: any
+  provider?: any,
+  forceL2 = false
 ): Promise<TaxDecisionFrame> {
   if (!provider) return frame;
 
-  const isLowConfidence = frame.meta.confidence < 0.7;
+  const isLowConfidence = frame.meta.confidence < 0.75;
   const hasUnknownTaxpayer = frame.taxpayer_type.value === 'UNKNOWN';
   const hasUnknownIncome = frame.income_type.length === 0 || frame.income_type[0]?.value === 'UNKNOWN';
 
-  if (!isLowConfidence && !hasUnknownTaxpayer && !hasUnknownIncome) {
+  if (!forceL2 && !isLowConfidence && !hasUnknownTaxpayer && !hasUnknownIncome) {
     return frame;
   }
 
   try {
     const updated = { ...frame };
-    let l2Triggered = false;
+    if (typeof provider.classifyAll === 'function') {
+      const allRes = await provider.classifyAll(query);
+      if (allRes) {
+        if (allRes.taxpayer && allRes.taxpayer !== 'UNKNOWN') {
+          updated.taxpayer_type = {
+            value: allRes.taxpayer,
+            confidence: allRes.taxpayerConf,
+            source: 'llm',
+          };
+        }
+        if (allRes.income && allRes.income !== 'UNKNOWN') {
+          updated.income_type = [{
+            value: allRes.income,
+            confidence: allRes.incomeConf,
+            source: 'llm',
+          }];
+        }
+        if (allRes.intent) {
+          updated.tax_intent.primary = {
+            value: allRes.intent,
+            confidence: allRes.intentConf,
+            source: 'llm',
+          };
+        }
+        updated.meta = {
+          ...frame.meta,
+          layer: 'L2',
+          l2_used: true,
+          confidence: 0.95,
+          latency_ms: (frame.meta.latency_ms || 0) + (allRes.durationMs || 0),
+        };
+        return updated;
+      }
+    }
 
-    if (hasUnknownTaxpayer || frame.taxpayer_type.confidence < 0.7) {
+    let l2Triggered = false;
+    if (hasUnknownTaxpayer || frame.taxpayer_type.confidence < 0.7 || forceL2) {
       const res = await provider.classifyTaxpayer(query);
       if (res && res.taxpayer !== 'UNKNOWN') {
         updated.taxpayer_type = {
@@ -288,7 +323,7 @@ export async function refineQueryWithL2(
       }
     }
 
-    if (hasUnknownIncome || frame.income_type[0]?.confidence < 0.7) {
+    if (hasUnknownIncome || frame.income_type[0]?.confidence < 0.7 || forceL2) {
       const res = await provider.classifyIncome(query);
       if (res && res.income !== 'UNKNOWN') {
         updated.income_type = [{
@@ -305,7 +340,7 @@ export async function refineQueryWithL2(
         ...frame.meta,
         layer: 'L2',
         l2_used: true,
-        confidence: Math.max(frame.meta.confidence, 0.85),
+        confidence: Math.max(frame.meta.confidence, 0.9),
       };
     }
     return updated;

@@ -141,6 +141,19 @@ export default {
         }
       }
 
+      if (path === '/api/test-quyet') {
+        try {
+          const key = env.FPT_AI_KEY;
+          if (!key) return jsonResponse({ success: false, error: 'FPT_AI_KEY missing' }, 200, corsHeaders);
+          const provider = new QuyetDecisionProvider(key);
+          const start = Date.now();
+          const res = await provider.classifyAll('Em bán hàng trên TikTok Shop doanh thu 1.5 tỷ nộp bao nhiêu?');
+          return jsonResponse({ success: true, duration: Date.now() - start, res }, 200, corsHeaders);
+        } catch (e: any) {
+          return jsonResponse({ success: false, error: e.message, stack: e.stack }, 200, corsHeaders);
+        }
+      }
+
       if (path === '/' || path === '/api/health') {
         return jsonResponse(
           {
@@ -148,7 +161,10 @@ export default {
             service: 'Cloudflare Workers API',
             platform: 'Cloudflare Edge (Pages + Workers + D1 + R2)',
             aiModel: 'Muse Spark 1.3 (Meta AI)',
+            decisionModel: 'Quyet-1.0-Large (FPT Cloud AI)',
             hasMuse: !!env.MUSE_API_KEY,
+            hasQuyet: !!env.FPT_AI_KEY,
+            decisionMode: env.DECISION_MODE || 'active',
             timestamp: new Date().toISOString(),
           },
           200,
@@ -772,6 +788,7 @@ export default {
               answer: payload.response,
               legal_citations: payload.citations || [],
               evidence: (payload.retrieval?.evidence || []).map((e: any) => e.title),
+              decision: payload.retrieval?.decision,
               source: payload.source,
             }, 200, corsHeaders);
           }
@@ -949,12 +966,12 @@ export default {
           ? `CHỦ ĐỀ CHƯA XÁC MINH: ${pendingTopics.map((t) => t.disclaimer).join(' ')} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.\n`
           : '';
         // --- BƯỚC 1.5: DECISION FRAME (L1 DETERMINISTIC + GATED L2 QUYET) ---
-        const decisionMode = env.DECISION_MODE || 'shadow';
+        const decisionMode = env.DECISION_MODE || 'active';
         let decisionFrame = decisionMode !== 'off' ? understandQuery(message, answerScope, history) : null;
         if (decisionFrame && env.FPT_AI_KEY) {
           try {
             const quyetProvider = new QuyetDecisionProvider(env.FPT_AI_KEY);
-            decisionFrame = await refineQueryWithL2(decisionFrame, message, quyetProvider);
+            decisionFrame = await refineQueryWithL2(decisionFrame, message, quyetProvider, decisionMode === 'active');
           } catch (e) {
             console.error('[L2_REFINEMENT_ERR]', e);
           }
@@ -967,8 +984,10 @@ export default {
           pendingTopics: pendingTopics.map((t) => t.id),
           decision: decisionFrame ? {
             layer: decisionFrame.meta.layer,
+            model: decisionFrame.meta.l2_used ? 'Quyet-1.0-Large (FPT Cloud AI)' : 'L1 Deterministic Rules',
             taxpayer: decisionFrame.taxpayer_type.value,
             intent: decisionFrame.tax_intent.primary.value,
+            income: decisionFrame.income_type[0]?.value,
             revenueVnd: decisionFrame.facts.revenue_vnd,
             confidence: Math.round(decisionFrame.meta.confidence * 100) / 100,
           } : undefined,
@@ -979,11 +998,12 @@ export default {
           })),
         };
 
+        const decisionPrefix = decisionFrame?.meta?.l2_used ? 'Quyet-1.0-Large + ' : '';
         let aiText = verifiedTaxAnswer?.response || '';
-        let source = verifiedTaxAnswer ? 'Tax Engine (verified rules)'
+        let source = verifiedTaxAnswer ? `${decisionPrefix}Tax Engine (verified rules)`
           : relevantChunks.length === 0
           ? 'Chưa tìm thấy căn cứ'
-          : routeId ? `RAG Hybrid (${routeId})` : 'RAG Hybrid (BM25)';
+          : routeId ? `${decisionPrefix}RAG Hybrid (${routeId})` : `${decisionPrefix}RAG Hybrid (BM25)`;
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) ---
         if (!aiText && ragContextText) {

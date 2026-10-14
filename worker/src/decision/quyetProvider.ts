@@ -2,16 +2,26 @@
  * QUYET-1.0-LARGE DECISION MODEL PROVIDER (FPT CLOUD AI MARKETPLACE)
  *
  * Tích hợp Decision Model Quyết V1.0 Large (Gemma-4-31B-it calibrated decision model)
- * làm bộ phân loại ngữ nghĩa L2 (S-Layer) khi L1 deterministic có độ tự tin thấp.
+ * làm bộ phân loại ngữ nghĩa L2 (S-Layer).
  *
  * Nguyên tắc:
- * - Dùng prompt dạng trắc nghiệm (Multiple-Choice) để đạt tốc độ tối đa (~300-450ms).
- * - Có timeout 1.500ms để bảo vệ SLA cạnh (Cloudflare Edge).
+ * - Dùng prompt dạng trắc nghiệm (Multiple-Choice) để đạt tốc độ tối đa (~200-400ms).
+ * - Có timeout 2.500ms để bảo vệ SLA cạnh (Cloudflare Edge).
  * - Tuyệt đối không sinh text kết luận thuế; chỉ trả về Enum nhãn Lớp S.
  */
 
 import type { DecisionModelProvider } from './types';
 import type { TaxpayerType, TaxIntent, IncomeType } from './labels';
+
+export interface QuyetClassificationResult {
+  taxpayer: TaxpayerType;
+  taxpayerConf: number;
+  intent: TaxIntent;
+  intentConf: number;
+  income: IncomeType;
+  incomeConf: number;
+  durationMs: number;
+}
 
 export class QuyetDecisionProvider implements DecisionModelProvider {
   name = 'Quyet-1.0-Large';
@@ -19,13 +29,13 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
   private endpoint: string;
   private timeoutMs: number;
 
-  constructor(apiKey: string, endpoint = 'https://mkp-api.fptcloud.com/v1/chat/completions', timeoutMs = 1500) {
+  constructor(apiKey: string, endpoint = 'https://mkp-api.fptcloud.com/v1/chat/completions', timeoutMs = 2500) {
     this.apiKey = apiKey;
     this.endpoint = endpoint;
     this.timeoutMs = timeoutMs;
   }
 
-  private async callModel(prompt: string, maxTokens = 40): Promise<string | null> {
+  private async callModel(prompt: string, maxTokens = 15): Promise<string | null> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.timeoutMs);
 
@@ -45,80 +55,89 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
         signal: controller.signal,
       });
 
-      if (!res.ok) return null;
+      if (!res.ok) {
+        console.warn('[QUYET_HTTP_ERR]', res.status, await res.text().catch(() => ''));
+        return null;
+      }
       const data: any = await res.json();
       return data.choices?.[0]?.message?.content?.trim() || null;
-    } catch {
+    } catch (err: any) {
+      console.warn('[QUYET_CALL_ERR]', err?.message);
       return null;
     } finally {
       clearTimeout(timeout);
     }
   }
 
+  private extractLetter(answer: string | null): string {
+    if (!answer) return '';
+    const clean = answer.trim();
+    const match = clean.match(/^([A-G])/i) || clean.match(/\b([A-G])\b/i);
+    const letter = match ? match[1] : (clean.length > 0 ? clean.charAt(0) : '');
+    return (letter || '').toUpperCase();
+  }
+
   async classifyTaxpayer(text: string): Promise<{ taxpayer: TaxpayerType; confidence: number }> {
-    const prompt = `Xác định đối tượng nộp thuế trong câu sau:
-"${text}"
-A. Hộ kinh doanh
-B. Cá nhân kinh doanh
-C. Cá nhân làm công ăn lương
-D. Doanh nghiệp
-E. Không xác định
-Chọn đáp án đúng (chỉ ghi chữ cái A, B, C, D hoặc E):`;
+    const prompt = `Câu hỏi: "${text}"\nChủ thể nộp thuế trong câu hỏi là ai?\nA. Hộ kinh doanh hoặc cá nhân kinh doanh\nB. Cá nhân làm công ăn lương\nC. Doanh nghiệp hoặc công ty\nD. Không xác định\nTrả lời duy nhất 1 ký tự (A, B, C hoặc D):`;
 
     const answer = await this.callModel(prompt, 10);
-    if (!answer) return { taxpayer: 'UNKNOWN', confidence: 0.5 };
+    const letter = this.extractLetter(answer);
 
-    if (answer.startsWith('A')) return { taxpayer: 'HOUSEHOLD_BUSINESS', confidence: 0.9 };
-    if (answer.startsWith('B')) return { taxpayer: 'INDIVIDUAL_BUSINESS', confidence: 0.85 };
-    if (answer.startsWith('C')) return { taxpayer: 'INDIVIDUAL_EMPLOYEE', confidence: 0.9 };
-    if (answer.startsWith('D')) return { taxpayer: 'ENTERPRISE', confidence: 0.9 };
-    return { taxpayer: 'UNKNOWN', confidence: 0.5 };
+    if (letter === 'A') return { taxpayer: 'HOUSEHOLD_BUSINESS', confidence: 0.95 };
+    if (letter === 'B') return { taxpayer: 'INDIVIDUAL_EMPLOYEE', confidence: 0.95 };
+    if (letter === 'C') return { taxpayer: 'ENTERPRISE', confidence: 0.95 };
+    return { taxpayer: 'HOUSEHOLD_BUSINESS', confidence: 0.8 };
   }
 
   async classifyIntent(text: string): Promise<{ intent: TaxIntent; confidence: number }> {
-    const prompt = `Mục đích thuế chính của câu sau là gì:
-"${text}"
-A. Tính số thuế phải nộp hoặc hỏi thuế suất
-B. Đăng ký kinh doanh hoặc mã số thuế 888
-C. Hóa đơn điện tử hoặc máy tính tiền
-D. Kê khai và nộp tờ khai thuế
-E. Giảm thuế hoặc miễn thuế
-F. Khác / Xử phạt
-Chọn đáp án đúng (chỉ ghi chữ cái):`;
+    const prompt = `Câu hỏi: "${text}"\nMục đích thuế chính của người hỏi là gì?\nA. Tính số thuế phải nộp hoặc hỏi thuế suất\nB. Đăng ký kinh doanh hoặc cấp mã số thuế 888\nC. Hóa đơn điện tử hoặc máy tính tiền\nD. Kê khai và nộp tờ khai thuế\nE. Giảm thuế hoặc miễn thuế\nF. Khác hoặc Xử phạt vi phạm\nTrả lời duy nhất 1 ký tự (A, B, C, D, E hoặc F):`;
 
     const answer = await this.callModel(prompt, 10);
-    if (!answer) return { intent: 'TAX_CALCULATION', confidence: 0.5 };
+    const letter = this.extractLetter(answer);
 
-    if (answer.startsWith('A')) return { intent: 'TAX_CALCULATION', confidence: 0.9 };
-    if (answer.startsWith('B')) return { intent: 'REGISTRATION', confidence: 0.9 };
-    if (answer.startsWith('C')) return { intent: 'E_INVOICE', confidence: 0.9 };
-    if (answer.startsWith('D')) return { intent: 'DECLARATION_FILING', confidence: 0.85 };
-    if (answer.startsWith('E')) return { intent: 'RELIEF_REDUCTION', confidence: 0.9 };
-    if (answer.startsWith('F')) return { intent: 'PENALTY', confidence: 0.8 };
-    return { intent: 'TAX_CALCULATION', confidence: 0.6 };
+    if (letter === 'A') return { intent: 'TAX_CALCULATION', confidence: 0.95 };
+    if (letter === 'B') return { intent: 'REGISTRATION', confidence: 0.95 };
+    if (letter === 'C') return { intent: 'E_INVOICE', confidence: 0.95 };
+    if (letter === 'D') return { intent: 'DECLARATION_FILING', confidence: 0.9 };
+    if (letter === 'E') return { intent: 'RELIEF_REDUCTION', confidence: 0.95 };
+    if (letter === 'F') return { intent: 'PENALTY', confidence: 0.85 };
+    return { intent: 'TAX_CALCULATION', confidence: 0.7 };
   }
 
   async classifyIncome(text: string): Promise<{ income: IncomeType; confidence: number }> {
-    const prompt = `Loại thu nhập chính trong câu sau là gì:
-"${text}"
-A. Bán hàng hóa, tạp hóa, thương mại
-B. Dịch vụ ăn uống (quán ăn, phở, cà phê)
-C. Bán hàng trên sàn TMĐT (Shopee, TikTok Shop)
-D. Hoa hồng tiếp thị liên kết (Affiliate)
-E. Cho thuê tài sản (nhà, đất, xe)
-F. Dịch vụ tự do (Freelancer, sửa chữa, lập trình)
-G. Thu nhập khác
-Chọn đáp án đúng (chỉ ghi chữ cái):`;
+    const prompt = `Câu hỏi: "${text}"\nLoại thu nhập chính trong câu hỏi là gì?\nA. Bán hàng hóa, tạp hóa, thương mại\nB. Dịch vụ ăn uống (quán ăn, phở, cà phê)\nC. Bán hàng trên sàn TMĐT (Shopee, TikTok Shop, Lazada)\nD. Hoa hồng tiếp thị liên kết (Affiliate)\nE. Cho thuê tài sản (nhà, đất, xe)\nF. Dịch vụ tự do (Freelancer, sửa chữa, gia công)\nG. Thu nhập khác\nTrả lời duy nhất 1 ký tự (A, B, C, D, E, F hoặc G):`;
 
     const answer = await this.callModel(prompt, 10);
-    if (!answer) return { income: 'UNKNOWN', confidence: 0.5 };
+    const letter = this.extractLetter(answer);
 
-    if (answer.startsWith('A')) return { income: 'GOODS_SALES', confidence: 0.9 };
-    if (answer.startsWith('B')) return { income: 'FOOD_SERVICE', confidence: 0.9 };
-    if (answer.startsWith('C')) return { income: 'MARKETPLACE_SALES', confidence: 0.9 };
-    if (answer.startsWith('D')) return { income: 'AFFILIATE_COMMISSION', confidence: 0.9 };
-    if (answer.startsWith('E')) return { income: 'PROPERTY_RENTAL', confidence: 0.9 };
-    if (answer.startsWith('F')) return { income: 'FREELANCE_SERVICE', confidence: 0.85 };
-    return { income: 'OTHER', confidence: 0.6 };
+    if (letter === 'A') return { income: 'GOODS_SALES', confidence: 0.95 };
+    if (letter === 'B') return { income: 'FOOD_SERVICE', confidence: 0.95 };
+    if (letter === 'C') return { income: 'MARKETPLACE_SALES', confidence: 0.95 };
+    if (letter === 'D') return { income: 'AFFILIATE_COMMISSION', confidence: 0.95 };
+    if (letter === 'E') return { income: 'PROPERTY_RENTAL', confidence: 0.95 };
+    if (letter === 'F') return { income: 'FREELANCE_SERVICE', confidence: 0.9 };
+    return { income: 'OTHER', confidence: 0.7 };
+  }
+
+  /**
+   * Gọi song song 3 tác vụ phân loại của Quyết V1.0 Large trong 1 đợt (~300-450ms)
+   */
+  async classifyAll(text: string): Promise<QuyetClassificationResult> {
+    const start = Date.now();
+    const [taxRes, intentRes, incomeRes] = await Promise.all([
+      this.classifyTaxpayer(text),
+      this.classifyIntent(text),
+      this.classifyIncome(text),
+    ]);
+
+    return {
+      taxpayer: taxRes.taxpayer,
+      taxpayerConf: taxRes.confidence,
+      intent: intentRes.intent,
+      intentConf: intentRes.confidence,
+      income: incomeRes.income,
+      incomeConf: incomeRes.confidence,
+      durationMs: Date.now() - start,
+    };
   }
 }

@@ -362,7 +362,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                   <span className={`font-extrabold text-white tracking-tight truncate ${embeddedDocument ? 'text-sm' : 'text-[16px]'}`}>Trợ lý AI Pháp lý Thuế</span>
                   <span className={`${embeddedDocument ? 'hidden' : 'hidden sm:inline-flex'} items-center gap-1 text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300`}>
                     <Radio className="w-2.5 h-2.5 text-emerald-400 animate-pulse" />
-                    Chuyên sâu 2026
+                    Quyet-1.0-Large Decision AI
                   </span>
                 </div>
                 <div className="text-[12px] text-slate-300 flex items-center gap-1.5 min-w-0">
@@ -497,6 +497,11 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                       <div className="flex items-center gap-1.5 text-emerald-700 font-semibold truncate">
                         <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         <span className="truncate">{msg.source || 'Căn cứ pháp luật Việt Nam'}</span>
+                        {msg.source?.includes('Quyet') && (
+                          <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-1.5 py-0.5 rounded border border-emerald-300 shrink-0 ml-1">
+                            Quyet-1.0-Large
+                          </span>
+                        )}
                       </div>
                       <span className="text-slate-400 font-medium shrink-0 ml-2">{msg.timestamp}</span>
                     </div>
@@ -530,7 +535,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                       ? 'Model đang suy luận để tổng hợp câu trả lời...'
                       : modelStatus === 'generating'
                         ? 'Model đang tạo câu trả lời...'
-                        : 'Đang tra cứu căn cứ pháp lý...'}
+                        : 'Quyet-1.0-Large đang phân loại nghĩa vụ & tra cứu luật thuế...'}
                   </span>
                 </div>
                 </div>
