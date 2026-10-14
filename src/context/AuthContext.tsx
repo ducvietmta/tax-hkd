@@ -31,7 +31,7 @@ interface AuthContextType {
   closeDepositModal: () => void;
   isAuthModalOpen: boolean;
   isDepositModalOpen: boolean;
-  guestCredits: number;
+  syncCredits: (newCredits: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -48,14 +48,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
-  const [guestCredits, setGuestCredits] = useState<number>(() => {
-    try {
-      const saved = sessionStorage.getItem('tax_guest_credits');
-      return saved !== null ? parseInt(saved, 10) : 20;
-    } catch {
-      return 20;
-    }
-  });
 
   // Lắng nghe trạng thái đăng nhập Firebase Phone Auth & đồng bộ với Cloudflare D1
   useEffect(() => {
@@ -145,14 +137,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const consumeCredit = (): boolean => {
     if (!user) {
-      if (guestCredits > 0) {
-        const next = guestCredits - 1;
-        setGuestCredits(next);
-        try {
-          sessionStorage.setItem('tax_guest_credits', String(next));
-        } catch {}
-        return true;
-      }
       setIsAuthModalOpen(true);
       return false;
     }
@@ -162,14 +146,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return false;
     }
 
-    // Trừ 1 lượt cục bộ
-    setUser((prev) => (prev ? { ...prev, credits: prev.credits - 1 } : null));
-
-    // Đồng bộ Cloudflare D1
-    if (user.phone) {
-      CloudflareApi.consumeCredit(user.phone).catch(() => {});
-    }
+    // Trừ 1 lượt tạm thời trên UI; Cloudflare Worker backend sẽ trừ chính xác nguyên tử trong DB
+    setUser((prev) => (prev ? { ...prev, credits: Math.max(0, prev.credits - 1) } : null));
     return true;
+  };
+
+  const syncCredits = (newCredits: number) => {
+    setUser((prev) => (prev ? { ...prev, credits: Math.max(0, newCredits) } : null));
   };
 
   const refreshCredits = async (): Promise<number | null> => {
@@ -207,6 +190,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loginWithVerifiedUser,
         logout,
         consumeCredit,
+        syncCredits,
         refreshCredits,
         openAuthModal: () => setIsAuthModalOpen(true),
         closeAuthModal: () => setIsAuthModalOpen(false),
@@ -214,7 +198,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         closeDepositModal: () => setIsDepositModalOpen(false),
         isAuthModalOpen,
         isDepositModalOpen,
-        guestCredits,
       }}
     >
       {children}

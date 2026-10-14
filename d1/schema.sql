@@ -64,12 +64,13 @@ CREATE TABLE IF NOT EXISTS chat_logs (
     message TEXT NOT NULL,
     response TEXT NOT NULL,
     credits_used INTEGER NOT NULL DEFAULT 1,
-    source TEXT DEFAULT 'Cloudflare Workers AI',
+    source TEXT DEFAULT 'Muse Spark 1.3 (Meta AI)',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_phone) REFERENCES users(phone)
 );
 
 CREATE INDEX IF NOT EXISTS idx_chat_logs_phone ON chat_logs(user_phone);
+CREATE INDEX IF NOT EXISTS idx_chat_logs_created_at ON chat_logs(created_at);
 
 -- 6. BẢNG QUẢN LÝ TÀI LIỆU & ẢNH HOÁ ĐƠN (FILES - LIÊN KẾT R2)
 CREATE TABLE IF NOT EXISTS files (

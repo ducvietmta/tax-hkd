@@ -55,7 +55,7 @@ const QUICK_PROMPTS = [
 ];
 
 export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initialQuery, resumeTurn }) => {
-  const { user, isAuthenticated, consumeCredit, openDepositModal, openAuthModal, guestCredits } = useAuth();
+  const { user, isAuthenticated, consumeCredit, openDepositModal, openAuthModal, syncCredits } = useAuth();
   const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [loadedStorageKey, setLoadedStorageKey] = useState<string | null>(null);
   const [inputVal, setInputVal] = useState('');
@@ -67,14 +67,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const handledInitialRef = useRef<string | null>(null);
-  const storageKey = `tax_active_chat_${user?.phone || 'guest'}`;
+  const storageKey = `tax_active_chat_${user?.phone || 'anonymous'}`;
 
   useEffect(() => {
-    // Keep an in-progress guest conversation when the user signs in to continue it.
-    if (loadedStorageKey === 'tax_active_chat_guest' && user?.phone && isOpen && messages.some((message) => message.contextual)) {
-      setLoadedStorageKey(storageKey);
-      return;
-    }
     try {
       const saved = localStorage.getItem(storageKey);
       const parsed: unknown = saved ? JSON.parse(saved) : [];
@@ -141,6 +136,16 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
   const handleUserSend = async (text: string) => {
     if (!text.trim() || isTyping) return;
 
+    if (!user || !isAuthenticated) {
+      openAuthModal();
+      return;
+    }
+
+    if (user.credits <= 0) {
+      openDepositModal();
+      return;
+    }
+
     // Check credits and authentication
     if (!consumeCredit()) {
       return;
@@ -202,6 +207,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
           retrievalCitations = meta.citations || [];
           retrievalTrace = meta.retrieval;
           setPendingTrace(meta.retrieval);
+          if (typeof meta.remainingCredits === 'number') {
+            syncCredits(meta.remainingCredits);
+          }
           if (meta.source || meta.citations || meta.retrieval) {
             setMessages((prev) =>
               prev.map((m) => (m.id === aiMsgId ? {
@@ -225,6 +233,10 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         }
       );
 
+      if (typeof cfRes.remainingCredits === 'number') {
+        syncCredits(cfRes.remainingCredits);
+      }
+
       if (cfRes.success && hasCreatedAiMsg) {
         setMessages((prev) => prev.map((m) => m.id === aiMsgId ? { ...m, contextual: true } : m));
         setIsTyping(false);
@@ -246,6 +258,13 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
           } catch {}
         }
         return;
+      }
+      if (!cfRes.success) {
+        if (cfRes.requireLogin) {
+          openAuthModal();
+        } else if (cfRes.requireDeposit) {
+          openDepositModal();
+        }
       }
       requestError = cfRes.error || requestError;
     } catch {
@@ -349,8 +368,8 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                   onClick={openAuthModal}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-300 rounded-xl text-[12px] font-bold transition-all shadow-xs backdrop-blur-xs"
                 >
-                  <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Hỏi thử: {guestCredits} lượt</span>
+                  <User className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Đăng nhập để hỏi</span>
                 </button>
               )}
 
@@ -382,7 +401,13 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
             {QUICK_PROMPTS.map((prompt, idx) => (
               <button
                 key={idx}
-                onClick={() => handleUserSend(prompt)}
+                onClick={() => {
+                  if (!user || !isAuthenticated) {
+                    openAuthModal();
+                    return;
+                  }
+                  handleUserSend(prompt);
+                }}
                 disabled={isTyping}
                 className="whitespace-nowrap px-3 py-1 rounded-full bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-600 hover:text-emerald-700 font-medium transition-all shadow-2xs text-[12px] flex items-center gap-1 disabled:opacity-50"
               >
@@ -501,7 +526,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 aria-label="Nhập câu hỏi cho trợ lý AI"
                 value={inputVal}
                 onChange={(e) => setInputVal(e.target.value)}
-                placeholder="Hỏi về thuế Shopee, TikTok, cho thuê nhà, ngưỡng 1 tỷ..."
+                placeholder={user ? "Hỏi về thuế Shopee, TikTok, cho thuê nhà, ngưỡng 1 tỷ..." : "Đăng nhập số điện thoại để tra cứu và hỏi đáp thuế..."}
                 className="flex-1 bg-transparent px-2 py-2 text-[14px] text-slate-900 placeholder:text-slate-400 font-medium focus:outline-none"
               />
 

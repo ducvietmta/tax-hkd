@@ -92,7 +92,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
   const [modelStatus, setModelStatus] = useState<'searching' | 'generating' | 'thinking'>('searching');
   const [copied, setCopied] = useState(false);
   const [focused, setFocused] = useState(false);
-  const { user, isAuthenticated, consumeCredit, openAuthModal, openDepositModal } = useAuth();
+  const { user, isAuthenticated, consumeCredit, openAuthModal, openDepositModal, syncCredits } = useAuth();
   const [currentResult, setCurrentResult] = useState<TaxResult>(DEFAULT_RESULT);
 
   const placeholder = useTypingPlaceholder(PLACEHOLDERS, !searchQuery && !focused && !isSearching && !isStreaming);
@@ -107,6 +107,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
     e.preventDefault();
     const query = searchQuery.trim();
     if (!query || isSearching || isStreaming) return;
+
+    if (!user || !isAuthenticated) {
+      openAuthModal();
+      return;
+    }
+
+    if (user.credits <= 0) {
+      openDepositModal();
+      return;
+    }
 
     // Check credits and authentication
     if (!consumeCredit()) {
@@ -149,6 +159,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           }));
         },
         (meta) => {
+          if (typeof meta.remainingCredits === 'number') {
+            syncCredits(meta.remainingCredits);
+          }
           if (meta.retrieval) {
             setCurrentResult((prev) => ({ ...prev, retrieval: meta.retrieval }));
           }
@@ -168,6 +181,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           reasoningSummary: (prev.reasoningSummary || '') + delta,
         }))
       );
+
+      if (typeof cfRes.remainingCredits === 'number') {
+        syncCredits(cfRes.remainingCredits);
+      }
 
       if (cfRes.success && streamedAnswer) {
         setCurrentResult((prev) => ({ ...prev, successful: true }));
@@ -192,6 +209,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           } catch {}
         }
         return;
+      }
+      if (!cfRes.success) {
+        if (cfRes.requireLogin) {
+          openAuthModal();
+        } else if (cfRes.requireDeposit) {
+          openDepositModal();
+        }
       }
       requestError = cfRes.error || requestError;
     } catch {

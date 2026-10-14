@@ -75,6 +75,7 @@ const TAX_KEYWORDS = [
   'dang ky thue', 'bao cao thue', 'mien thue', 'giam thue',
   'hoan thue', 'vi pham', ' an dinh thue',
   'thong bao doanh thu', 'to khai',
+  'nghi dinh', 'thong tu', 'luat', 'van ban', 'dieu khoan', 'cong van', 'nd-cp', 'tt-btc',
 ];
 
 /** true nếu câu hỏi không liên quan thuế/HKD — dùng để từ chối sớm, không gọi LLM. */

@@ -118,10 +118,10 @@ export const CloudflareApi = {
     fileKey: string | undefined,
     history: { role: 'user' | 'assistant'; content: string }[] | undefined,
     onDelta: (textChunk: string) => void,
-    onMeta?: (meta: { source?: string; citations?: string[]; retrieval?: { method: string; evidence: { title: string; conditional: boolean }[] } }) => void,
+    onMeta?: (meta: { source?: string; citations?: string[]; retrieval?: { method: string; evidence: { title: string; conditional: boolean }[] }; remainingCredits?: number }) => void,
     onStatus?: (status: 'generating' | 'thinking') => void,
     onReasoningSummary?: (textChunk: string) => void
-  ): Promise<{ success: boolean; response: string; source?: string; error?: string }> {
+  ): Promise<{ success: boolean; response: string; source?: string; error?: string; requireLogin?: boolean; requireDeposit?: boolean; remainingCredits?: number }> {
     try {
       const res = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
@@ -131,7 +131,13 @@ export const CloudflareApi = {
 
       if (!res.ok) {
         const errorBody = await res.json().catch(() => null);
-        throw new Error(errorBody?.error || `Lỗi kết nối máy chủ (${res.status})`);
+        return {
+          success: false,
+          response: '',
+          error: errorBody?.error || `Lỗi kết nối máy chủ (${res.status})`,
+          requireLogin: !!errorBody?.requireLogin,
+          requireDeposit: !!errorBody?.requireDeposit,
+        };
       }
       if (!res.body) {
         throw new Error('Máy chủ không trả về nội dung.');
@@ -141,6 +147,7 @@ export const CloudflareApi = {
       const decoder = new TextDecoder();
       let fullText = '';
       let source = 'Muse Spark 1.3 (Meta AI)';
+      let remainingCredits: number | undefined;
 
       let buffer = '';
       while (true) {
@@ -158,6 +165,7 @@ export const CloudflareApi = {
               const json = JSON.parse(dataStr);
               if (json.type === 'meta') {
                 if (json.source) source = json.source;
+                if (typeof json.remainingCredits === 'number') remainingCredits = json.remainingCredits;
                 if (onMeta) onMeta(json);
               } else if (json.type === 'thinking' && json.status === 'in_progress') {
                 onStatus?.('thinking');
@@ -168,8 +176,9 @@ export const CloudflareApi = {
               } else if (json.type === 'delta' && json.delta) {
                 fullText += json.delta;
                 onDelta(json.delta);
-              } else if (json.type === 'done' && json.fullText) {
-                fullText = json.fullText;
+              } else if (json.type === 'done') {
+                if (json.fullText) fullText = json.fullText;
+                if (typeof json.remainingCredits === 'number') remainingCredits = json.remainingCredits;
               }
             } catch {}
           }
@@ -179,7 +188,7 @@ export const CloudflareApi = {
       if (!fullText.trim()) {
         throw new Error('Hệ thống chưa tạo được câu trả lời. Vui lòng thử lại.');
       }
-      return { success: true, response: fullText, source };
+      return { success: true, response: fullText, source, remainingCredits };
     } catch (err: any) {
       return { success: false, response: '', error: err.message };
     }

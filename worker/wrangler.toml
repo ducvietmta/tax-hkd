@@ -8,8 +8,8 @@ binding = "DB"
 database_name = "tax_db"
 database_id = "540ddea4-8da6-4957-bd5b-3959483d269f"
 
-[ai]
-binding = "AI"
+[triggers]
+crons = ["0 3 * * *"]
 
 [vars]
 ENVIRONMENT = "production"

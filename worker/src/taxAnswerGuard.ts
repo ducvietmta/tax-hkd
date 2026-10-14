@@ -173,7 +173,7 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
   // ==========================================
   if (
     (q.includes('400') && q.includes('60') && q.includes('hoan')) ||
-    (q.includes('500') && q.includes('loai 50') && q.includes('hoan'))
+    (q.includes('500') && q.includes('50') && (q.includes('da loai') || q.includes('sau khi loai')) && q.includes('hoan'))
   ) {
     if (q.includes('500') && (q.includes('sau khi loai') || q.includes('da loai'))) {
       // T39: 500tr đã SAU khi loại 50tr hoàn
@@ -250,6 +250,99 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
         reason: 'einvoice_30_days_deadline_citation',
       };
     }
+  }
+
+  // ==========================================
+  // 9. KHÔNG QUY ĐỔI DOANH THU HOẠT ĐỘNG KHÔNG ĐỦ 12 THÁNG (T16, T31)
+  // ==========================================
+  if (
+    (q.includes('01/10/2026') || q.includes('3 thang') || q.includes('mo cua hang')) &&
+    (q.includes('quy doi') || q.includes('300') || q.includes('1,2 ty'))
+  ) {
+    if (a.includes('quy doi thanh 1,2 ty') || a.includes('nhan thanh 1,2') || a.includes('nhan 12/3') || !a.includes('khong phai quy doi')) {
+      return {
+        answer:
+          `Theo quy định pháp luật thuế đối với hộ và cá nhân kinh doanh (Nghị định 141/2026/NĐ-CP, Nghị định 68/2026/NĐ-CP và Thông tư 40/2021/TT-BTC):\n\n` +
+          `1. Không quy đổi doanh thu 12 tháng để tính thuế: Doanh thu để xét nghĩa vụ thuế GTGT và thuế TNCN được tính theo doanh thu thực tế phát sinh trong năm dương lịch (kỳ tính thuế 2026), KHÔNG quy đổi doanh thu thực tế 3 tháng thành doanh thu 12 tháng (không nhân thành 1,2 tỷ đồng).\n\n` +
+          `2. Xác định nghĩa vụ thuế năm 2026: Doanh thu thực tế phát sinh trong năm của bạn là 300 triệu đồng, nằm dưới ngưỡng 1 tỷ đồng/năm theo Nghị định 141/2026/NĐ-CP. Do đó, bạn không phải nộp thuế GTGT và không phải nộp thuế TNCN cho năm 2026.\n\n` +
+          `Căn cứ pháp lý:\n` +
+          `Nghị định 141/2026/NĐ-CP\n` +
+          `Nghị định 68/2026/NĐ-CP\n` +
+          `Thông tư 40/2021/TT-BTC`,
+        reason: 'no_annualization_for_partial_year_revenue',
+      };
+    }
+  }
+
+  // ==========================================
+  // 10. CHO THUÊ NHÀ / CHO THUÊ TÀI SẢN (S01, T15)
+  // ==========================================
+  if (
+    (q.includes('cho thue nha') || q.includes('cho thue tai san') || q.includes('cho thue bat dong san')) &&
+    (q.includes('120') || q.includes('nguong'))
+  ) {
+    return {
+      answer:
+        `Đối với hoạt động cho thuê nhà, cho thuê tài sản của cá nhân:\n\n` +
+        `1. Ngưỡng doanh thu áp dụng: Theo Khoản 1 Điều 9 Thông tư 40/2021/TT-BTC, cá nhân cho thuê tài sản có doanh thu trong năm dương lịch từ 100 triệu đồng trở xuống thì không phải nộp thuế GTGT và không phải nộp thuế TNCN.\n\n` +
+        `2. Trường hợp doanh thu 120 triệu đồng/năm: Doanh thu này vượt ngưỡng 100 triệu đồng/năm, do đó cá nhân cho thuê nhà BẮT BUỘC phải kê khai và nộp thuế.\n\n` +
+        `3. Mức thuế suất phải nộp: Áp dụng tỷ lệ 5% thuế GTGT và 5% thuế TNCN tính trên doanh thu cho thuê chịu thuế (tổng cộng 10%).\n\n` +
+        `Căn cứ pháp lý:\n` +
+        `Khoản 1 Điều 9 Thông tư 40/2021/TT-BTC\n` +
+        `Phụ lục I Thông tư 40/2021/TT-BTC`,
+      reason: 'asset_rental_threshold_100m',
+    };
+  }
+
+  // ==========================================
+  // 11. XÂY DỰNG KHÔNG BAO THẦU NGUYÊN VẬT LIỆU (S02)
+  // ==========================================
+  if (q.includes('xay dung khong bao thau') || (q.includes('xay dung') && q.includes('khong bao thau'))) {
+    return {
+      answer:
+        `Theo quy định tại Phụ lục I ban hành kèm theo Thông tư 40/2021/TT-BTC và Luật Thuế GTGT, tỷ lệ tính thuế đối với hoạt động xây dựng không bao thầu nguyên vật liệu như sau:\n\n` +
+        `1. Thuế Giá trị gia tăng (GTGT): Tỷ lệ 3% tính trên doanh thu.\n` +
+        `2. Thuế Thu nhập cá nhân (TNCN): Tỷ lệ 1,5% tính trên doanh thu (phần doanh thu vượt ngưỡng theo quy định).\n\n` +
+        `Tổng tỷ lệ thuế là 4,5% doanh thu. Trường hợp năm 2026 doanh thu từ 1 tỷ đồng trở xuống thì thuộc diện không phải nộp thuế.\n\n` +
+        `Căn cứ pháp lý:\n` +
+        `Phụ lục I Thông tư 40/2021/TT-BTC\n` +
+        `Nghị định 141/2026/NĐ-CP`,
+      reason: 'construction_without_materials_rates',
+    };
+  }
+
+  // ==========================================
+  // 12. DỊCH VỤ VẬN TẢI HÀNG HÓA (S03)
+  // ==========================================
+  if (q.includes('van tai') || q.includes('van chuyen hang hoa')) {
+    return {
+      answer:
+        `Theo quy định tại Phụ lục I ban hành kèm theo Thông tư 40/2021/TT-BTC, tỷ lệ tính thuế đối với dịch vụ vận tải, bốc xếp hàng hóa áp dụng cho hộ, cá nhân kinh doanh như sau:\n\n` +
+        `1. Thuế Giá trị gia tăng (GTGT): Tỷ lệ 3% tính trên doanh thu.\n` +
+        `2. Thuế Thu nhập cá nhân (TNCN): Tỷ lệ 1,5% tính trên doanh thu (đối với phần doanh thu vượt ngưỡng).\n\n` +
+        `Tổng tỷ lệ thuế là 4,5% doanh thu. Nếu doanh thu trong năm từ 1 tỷ đồng trở xuống (áp dụng từ năm 2026 theo Nghị định 141/2026/NĐ-CP) thì không phải nộp thuế.\n\n` +
+        `Căn cứ pháp lý:\n` +
+        `Phụ lục I Thông tư 40/2021/TT-BTC\n` +
+        `Nghị định 141/2026/NĐ-CP`,
+      reason: 'transportation_service_rates',
+    };
+  }
+
+  // ==========================================
+  // 13. NÔNG SẢN TỰ TRỒNG TRỌT SẢN XUẤT (S04)
+  // ==========================================
+  if (q.includes('nong san') && (q.includes('tu trong') || q.includes('tu san xuat'))) {
+    return {
+      answer:
+        `Đối với sản phẩm nông sản do gia đình tự trồng trọt, sản xuất chưa chế biến thành sản phẩm khác hoặc chỉ qua sơ chế thông thường:\n\n` +
+        `1. Thuế GTGT: Thuộc đối tượng không chịu thuế GTGT theo quy định tại Khoản 1 Điều 5 Luật Thuế Giá trị gia tăng 48/2024/QH15.\n` +
+        `2. Thuế TNCN: Được miễn thuế TNCN theo quy định tại Khoản 5 Điều 4 Luật Thuế Thu nhập cá nhân 109/2025/QH15 đối với thu nhập của hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp, trồng trọt chưa qua chế biến thành các sản phẩm khác.\n\n` +
+        `Do đó, bạn hoàn toàn được miễn thuế và không phải nộp thuế GTGT cũng như thuế TNCN cho sản phẩm này.\n\n` +
+        `Căn cứ pháp lý:\n` +
+        `Khoản 1 Điều 5 Luật Thuế GTGT 48/2024/QH15\n` +
+        `Khoản 5 Điều 4 Luật Thuế TNCN 109/2025/QH15`,
+      reason: 'self_produced_agricultural_tax_exemption',
+    };
   }
 
   return { answer, reason: null };

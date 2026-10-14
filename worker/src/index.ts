@@ -6,7 +6,7 @@
  * - Runtime: Cloudflare Workers
  * - Database: Cloudflare D1 (SQLite)
  * - Storage: Cloudflare R2 (Ảnh & File hoá đơn/chứng từ)
- * - AI: Cloudflare Workers AI (Llama 3.1) / Knowledge Engine
+ * - AI: Muse Spark 1.3 (Meta AI) / Knowledge Engine
  * - CDN & WAF: Cloudflare Edge
  */
 
@@ -36,8 +36,31 @@ export interface Env {
 // CORS Helper
 function handleCors(request: Request, env: Env): Headers {
   const headers = new Headers();
-  const origin = request.headers.get('Origin') || '*';
-  headers.set('Access-Control-Allow-Origin', origin);
+  const origin = request.headers.get('Origin');
+  const configuredOrigin = env.CORS_ALLOW_ORIGIN || '*';
+
+  if (configuredOrigin === '*') {
+    headers.set('Access-Control-Allow-Origin', '*');
+  } else if (origin) {
+    try {
+      const host = new URL(origin).hostname;
+      if (
+        host === 'tax-hkd.pages.dev' ||
+        host.endsWith('.tax-hkd.pages.dev') ||
+        host === 'localhost' ||
+        host === '127.0.0.1' ||
+        origin === configuredOrigin
+      ) {
+        headers.set('Access-Control-Allow-Origin', origin);
+      } else {
+        headers.set('Access-Control-Allow-Origin', configuredOrigin);
+      }
+    } catch {
+      headers.set('Access-Control-Allow-Origin', configuredOrigin);
+    }
+  } else {
+    headers.set('Access-Control-Allow-Origin', '*');
+  }
   headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   headers.set('Access-Control-Max-Age', '86400');
@@ -49,17 +72,6 @@ function jsonResponse(data: any, status = 200, corsHeaders?: Headers): Response 
   headers.set('Content-Type', 'application/json; charset=utf-8');
   return new Response(JSON.stringify(data), { status, headers });
 }
-
-const FALLBACK_EXTRA_RULES = `BẠN LÀ BẢN DỰ PHÒNG — độ tin cậy thấp hơn bản chính. Tuân thủ tuyệt đối:
-a) KIỂM TRA NĂM: nếu câu hỏi nêu năm cụ thể (VD 2024, 2025), CHỈ dùng quy định của năm đó.
-   Ngưỡng 1 tỷ chỉ áp dụng từ 01/01/2026; giai đoạn 2022–2025 ngưỡng miễn là 100 triệu/năm (TT 40/2021).
-   Tuyệt đối không áp ngưỡng 1 tỷ cho năm trước 2026.
-b) Với phương pháp tính thuế TRỰC TIẾP trên DOANH THU theo tỷ lệ %, không trừ chi phí quảng cáo, phí sàn hay chi phí khác khỏi doanh thu tính thuế. Riêng thuế TNCN từ 2026 có phương pháp tính trên thu nhập (doanh thu trừ chi phí hợp lệ) khi đủ điều kiện và lựa chọn áp dụng; không đánh đồng hai phương pháp. Chỉ nêu phương pháp và điều kiện có trong trích lục.
-c) Nếu trích lục không có căn cứ rõ ràng cho câu hỏi, trả lời đúng câu:
-   "Mình chưa đủ căn cứ chắc chắn cho câu hỏi này, bạn thử lại sau nhé."
-   và kết thúc bằng "Căn cứ pháp lý:\nKhông áp dụng". Không đoán, không suy diễn.
-
-`;
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -82,27 +94,31 @@ export default {
           : ((await request.clone().json().catch(() => ({}))) as { phone?: string }).phone;
         if (requestedPhone !== verifiedPhone) return jsonResponse({ success: false, error: 'Access denied.' }, 403, corsHeaders);
       }
-      // 1. HEALTH CHECK & TEST AI
+      // 1. HEALTH CHECK & TEST AI (MUSE SPARK API CHUYÊN BIỆT)
       if (path === '/api/test-ai') {
         try {
-          if (!env.AI) {
-            return jsonResponse({ error: 'env.AI is undefined' }, 200, corsHeaders);
+          const museKey = env.MUSE_API_KEY;
+          if (!museKey) {
+            return jsonResponse({ success: false, error: 'MUSE_API_KEY chưa được cấu hình.' }, 200, corsHeaders);
           }
-          let res: any = null;
-          try {
-            res = await env.AI.run('@cf/qwen/qwen2.5-7b-instruct', {
-              prompt: 'Chào bạn, trả lời bằng tiếng Việt: 1 + 1 bằng mấy?',
-              max_tokens: 50,
-            });
-          } catch {
-            res = await env.AI.run('@cf/meta/llama-3.2-3b-instruct', {
-              prompt: 'Chào bạn, trả lời bằng tiếng Việt: 1 + 1 bằng mấy?',
-              max_tokens: 50,
-            });
+          const testRes = await Promise.race([
+            fetch('https://api.meta.ai/v1/responses', {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${museKey}`,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(buildMuseRequest('Bạn là trợ lý AI.', [], 'Chào bạn, 1 + 1 bằng mấy?', false)),
+            }),
+            new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 15000)),
+          ]);
+          if (!testRes.ok) {
+            return jsonResponse({ success: false, error: `Muse API HTTP error: ${testRes.status}` }, 200, corsHeaders);
           }
-          return jsonResponse({ success: true, res }, 200, corsHeaders);
+          const data = await testRes.json();
+          return jsonResponse({ success: true, model: 'Muse Spark 1.3 (Meta AI)', res: data }, 200, corsHeaders);
         } catch (e: any) {
-          return jsonResponse({ success: false, error: e.message, stack: e.stack }, 200, corsHeaders);
+          return jsonResponse({ success: false, error: e.message }, 200, corsHeaders);
         }
       }
 
@@ -112,7 +128,8 @@ export default {
             status: 'ok',
             service: 'Cloudflare Workers API',
             platform: 'Cloudflare Edge (Pages + Workers + D1 + R2)',
-            hasAI: !!env.AI,
+            aiModel: 'Muse Spark 1.3 (Meta AI)',
+            hasMuse: !!env.MUSE_API_KEY,
             timestamp: new Date().toISOString(),
           },
           200,
@@ -259,11 +276,25 @@ export default {
               }, 200, corsHeaders);
             }
 
+            if (question.length > 4000) {
+              return jsonResponse({
+                jsonrpc: '2.0',
+                id: rid,
+                result: {
+                  content: [{ type: 'text', text: 'Nội dung câu hỏi quá dài (tối đa 4.000 ký tự).' }],
+                  isError: true
+                }
+              }, 200, corsHeaders);
+            }
+
             try {
               const chatRes = await this.fetch(
                 new Request('https://internal/api/chat', {
                   method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-Internal-Caller': 'mcp'
+                  },
                   body: JSON.stringify({ message: question, history: toolArgs.history || [] })
                 }),
                 env,
@@ -271,6 +302,17 @@ export default {
               );
 
               const chatData: any = await chatRes.json();
+              if (!chatRes.ok || !chatData.success) {
+                return jsonResponse({
+                  jsonrpc: '2.0',
+                  id: rid,
+                  result: {
+                    content: [{ type: 'text', text: chatData.error || 'Lỗi khi xử lý câu hỏi tư vấn thuế.' }],
+                    isError: true
+                  }
+                }, 200, corsHeaders);
+              }
+
               const isOOS = chatData.source === 'out_of_scope';
               const hasCitations = Array.isArray(chatData.citations) && chatData.citations.length > 0;
               const parts = [chatData.response || 'Không tìm thấy câu trả lời phù hợp.'];
@@ -648,9 +690,37 @@ export default {
         const body: any = await request.json().catch(() => ({}));
         const message = (body.message || body.question || '').trim();
         const { phone, fileKey } = body;
-        if (phone && await verifiedFirebasePhone(request) !== phone) {
-          return jsonResponse({ success: false, error: 'Access denied.' }, 403, corsHeaders);
+
+        const isInternal = request.headers.get('X-Internal-Caller') === 'mcp' || path === '/api/chatgpt/tax-qa';
+        let verifiedPhone: string | null = null;
+
+        // Bỏ lượt hỏi cho khách vãng lai: Yêu cầu đăng nhập tài khoản bằng số điện thoại đối với web client
+        if (!isInternal) {
+          verifiedPhone = await verifiedFirebasePhone(request);
+          if (!verifiedPhone) {
+            return jsonResponse(
+              {
+                success: false,
+                error: 'Vui lòng đăng nhập bằng số điện thoại để đặt câu hỏi tư vấn thuế.',
+                requireLogin: true,
+              },
+              401,
+              corsHeaders
+            );
+          }
+          if (phone && phone !== verifiedPhone) {
+            return jsonResponse(
+              {
+                success: false,
+                error: 'Thông tin xác thực tài khoản không khớp.',
+                requireLogin: true,
+              },
+              403,
+              corsHeaders
+            );
+          }
         }
+        const activePhone = verifiedPhone || phone || '';
 
         if (fileKey) {
           return jsonResponse({
@@ -661,6 +731,10 @@ export default {
 
         if (!message) {
           return jsonResponse({ success: false, error: 'Nội dung câu hỏi không được để trống.' }, 400, corsHeaders);
+        }
+
+        if (message.length > 4000) {
+          return jsonResponse({ success: false, error: 'Nội dung câu hỏi quá dài (tối đa 4.000 ký tự).' }, 400, corsHeaders);
         }
 
         const history = normalizeConversationHistory(body.history);
@@ -690,17 +764,80 @@ export default {
           return jsonResponse(outOfScopeResponse, 200, corsHeaders);
         }
 
-        // --- GIỚI HẠN TỐC ĐỘ (best-effort theo IP, chống spam khách vãng lai) ---
+        // --- KIỂM TRA LƯỢT HỎI TRONG CLOUDFLARE D1 (TẦNG WORKER) ---
+        let userRecord: { id: string; phone: string; credits: number; role?: string } | null = null;
+        if (!isInternal && env.DB && activePhone) {
+          userRecord = await env.DB.prepare(
+            `SELECT id, phone, credits, role FROM users WHERE phone = ?`
+          ).bind(activePhone).first();
+
+          if (!userRecord) {
+            return jsonResponse(
+              {
+                success: false,
+                error: 'Tài khoản chưa được khởi tạo. Vui lòng đăng nhập lại.',
+                requireLogin: true,
+              },
+              404,
+              corsHeaders
+            );
+          }
+
+          if (userRecord.credits <= 0) {
+            return jsonResponse(
+              {
+                success: false,
+                error: 'Bạn đã dùng hết lượt hỏi tư vấn. Vui lòng nạp thêm lượt để tiếp tục tra cứu.',
+                requireDeposit: true,
+                remainingCredits: 0,
+              },
+              403,
+              corsHeaders
+            );
+          }
+        }
+
+        // Helper trừ 1 lượt nguyên tử khi trả lời thành công
+        let deducted = false;
+        let finalRemainingCredits = userRecord?.credits ?? 99;
+
+        const deductCreditOnce = async (): Promise<number> => {
+          if (deducted || isInternal || !env.DB || !activePhone || !userRecord) {
+            return finalRemainingCredits;
+          }
+          deducted = true;
+          try {
+            await env.DB.prepare(
+              `UPDATE users SET credits = credits - 1, updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
+            ).bind(activePhone).run();
+            finalRemainingCredits = Math.max(0, userRecord.credits - 1);
+          } catch (e: any) {
+            console.error('[CREDIT_DEDUCT_ERR]', e?.message);
+            finalRemainingCredits = Math.max(0, userRecord.credits - 1);
+          }
+          return finalRemainingCredits;
+        };
+
+        // --- GIỚI HẠN TỐC ĐỘ (best-effort theo IP, chống spam) ---
         const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-        if (!phone) {
+        if (!isInternal) {
           const rlKey = new Request(`https://rl.internal/chat/${ip}/${Math.floor(Date.now() / 3600000)}`);
           const rlHit = await caches.default.match(rlKey);
           const count = rlHit ? parseInt((await rlHit.text()) || '0', 10) : 0;
-          if (count >= 20) {
-            return jsonResponse({ success: false, error: 'Bạn hỏi hơi nhiều trong 1 giờ, vui lòng đăng nhập hoặc thử lại sau nhé.' }, 429, corsHeaders);
+          if (count >= 100) {
+            return jsonResponse({ success: false, error: 'Bạn gửi câu hỏi quá nhanh, vui lòng thử lại sau ít phút.' }, 429, corsHeaders);
           }
           ctx.waitUntil(
             caches.default.put(rlKey, new Response(String(count + 1), { headers: { 'Cache-Control': 'max-age=3600' } }))
+          );
+        }
+
+        // Định kỳ dọn dẹp log chat cũ hơn 90 ngày (opportunistic cleanup)
+        if (env.DB && Math.random() < 0.05) {
+          ctx.waitUntil(
+            env.DB.prepare(`DELETE FROM chat_logs WHERE created_at < datetime('now', '-90 days')`)
+              .run()
+              .catch((e: any) => console.error('[CLEANUP_90D_ERR]', e?.message))
           );
         }
 
@@ -709,23 +846,25 @@ export default {
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = message.trim().normalize('NFC');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v26|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v27|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
           const hit = await caches.default.match(cacheKey);
           if (hit) {
             const cached: any = await hit.json();
-            if (env.DB && phone) {
+            const remainingCredits = await deductCreditOnce();
+            if (env.DB && activePhone) {
               ctx.waitUntil(
                 env.DB.prepare(
                   `INSERT INTO chat_logs (id, user_phone, message, response, credits_used, source) VALUES (?, ?, ?, ?, 1, ?)`
                 )
-                  .bind(`chat_${Date.now()}`, phone, message, cached.response, 'cache')
+                  .bind(`chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`, activePhone, message, cached.response, 'cache')
                   .run()
+                  .catch(() => {})
               );
             }
-            return jsonResponse({ ...cached, cached: true }, 200, corsHeaders);
+            return jsonResponse({ ...cached, cached: true, remainingCredits }, 200, corsHeaders);
           }
         }
 
@@ -756,7 +895,7 @@ export default {
           ? 'Chưa tìm thấy căn cứ'
           : routeId ? `RAG Hybrid (${routeId})` : 'RAG Hybrid (BM25)';
 
-        // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) + FALLBACK WORKERS AI ---
+        // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) ---
         if (ragContextText) {
           const taxFacts = extractTaxFactsFromQuery(message, answerScope.years[0] || 2026);
           let taxEngineHint = '';
@@ -832,12 +971,14 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                       let fullGeneratedText = '';
                       let fullReasoningSummary = '';
                       try {
-                        // Gửi metadata ban đầu (citations, sources)
+                        // Gửi metadata ban đầu (citations, sources, remainingCredits)
+                        const remainingCredits = await deductCreditOnce();
                         const metaEvent = `data: ${JSON.stringify({
                           type: 'meta',
                           source: `Muse Spark 1.3 (Meta AI - High Reasoning) + ${source}`,
                           citations: legalCitations,
                           retrieval: retrievalTrace,
+                          remainingCredits,
                         })}\n\n`;
                         await writer.write(encoder.encode(metaEvent));
                         await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'status', status: 'generating' })}\n\n`));
@@ -880,16 +1021,16 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                           }
                         }
 
-                        // Gửi sự kiện kết thúc
-                        await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'done', fullText: fullGeneratedText })}\n\n`));
+                        // Gửi sự kiện kết thúc kèm remainingCredits
+                        await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'done', fullText: fullGeneratedText, remainingCredits })}\n\n`));
                         await writer.write(encoder.encode('data: [DONE]\n\n'));
 
                         // Ghi log vào D1 ở background
-                        if (env.DB && phone && fullGeneratedText) {
+                        if (env.DB && activePhone && fullGeneratedText) {
                           await env.DB.prepare(
                             `INSERT INTO chat_logs (id, user_phone, message, response, credits_used, source) VALUES (?, ?, ?, ?, 1, ?)`
                           )
-                            .bind(`chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`, phone, message, fullGeneratedText, `Muse Spark 1.3 (Stream)`)
+                            .bind(`chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`, activePhone, message, fullGeneratedText, `Muse Spark 1.3 (Stream)`)
                             .run()
                             .catch(() => {});
                         }
@@ -940,66 +1081,27 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
               console.error('Lỗi gọi Muse API:', errMuse?.message);
             }
           }
-
-          // ƯU TIÊN 2 (FALLBACK): Nếu Muse bận hoặc timeout, gọi Cloudflare Workers AI
-          if (!aiText && env.AI) {
-            const FALLBACK_EXTRA_RULES = `BẠN LÀ BẢN DỰ PHÒNG — độ tin cậy thấp hơn bản chính. Tuân thủ tuyệt đối:
-a) KIỂM TRA NĂM: nếu câu hỏi nêu năm cụ thể (VD 2024, 2025), CHỈ dùng quy định của năm đó. Ngưỡng 1 tỷ chỉ áp dụng từ 01/01/2026; giai đoạn 2022–2025 ngưỡng miễn là 100 triệu/năm (TT 40/2021). Tuyệt đối không áp ngưỡng 1 tỷ cho năm trước 2026.
-b) HKD/CNKD tính thuế GTGT và TNCN TRỰC TIẾP trên DOANH THU theo tỷ lệ % — KHÔNG được trừ bất kỳ chi phí nào. Không bao giờ tư vấn "chi phí được trừ" cho HKD/CNKD.
-c) TUÂN THỦ TAX ENGINE & NQ43: Nếu trong prompt có BẢNG TÍNH THUẾ CHUẨN TỪ TAX ENGINE, BẮT BUỘC chép đúng y nguyên các con số đó (thuế GTGT, thuế TNCN trước giảm, giảm 30% theo NQ 43/2026/QH16, thuế TNCN sau giảm, tổng số thuế phải nộp). TUYỆT ĐỐI không tự nhân chia lại số khác.
-d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình chưa đủ căn cứ chắc chắn cho câu hỏi này, bạn thử lại sau nhé." + "Căn cứ pháp lý:\nKhông áp dụng". Không đoán, không suy diễn.`;
-            const fallbackSystem = FALLBACK_EXTRA_RULES + '\n\n' + systemPrompt;
-            const messages = [{ role: 'system', content: fallbackSystem }, ...history, { role: 'user', content: message }];
-            const models = ['@cf/meta/llama-3.3-70b-instruct-fp8-fast', '@cf/qwen/qwen2.5-7b-instruct', '@cf/meta/llama-3.2-3b-instruct'];
-            for (const model of models) {
-              try {
-                const aiResult: any = await Promise.race([
-                  env.AI.run(model, { messages, max_tokens: 1500, temperature: 0.2 }),
-                  new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 20000)),
-                ]);
-                const out = (aiResult?.response || '').trim();
-                if (out.length > 15) {
-                  aiText = out;
-                  source = `${model.split('/').pop()} + ${source}`;
-                  break;
-                }
-              } catch (e: any) {
-                console.error(`Lỗi fallback model ${model}:`, e?.message);
-              }
-            }
-            // Post-check bằng code: cảnh báo khi fallback có dấu hiệu áp sai ngưỡng năm
-            if (aiText) {
-              const hasOldYear = answerScope.years.some((y) => y < 2026);
-              const f = aiText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-              if (hasOldYear && /1\s*t(y|i)/.test(f) && !/100\s*trieu/.test(f)) {
-                console.warn('[fallback-year-risk]', JSON.stringify(message).slice(0, 120));
-              }
-            }
-          }
         }
 
-        // Nếu mô hình không khả dụng, không biến một đoạn truy xuất thành kết luận pháp lý.
+        const guarded = guardTaxAnswer(message, answerScope, relevantChunks.map((chunk) => chunk.ref_id || ''), aiText || '');
+        if (guarded.reason) {
+          console.warn(`[ANSWER_GUARD] ${guarded.reason}: "${message}"`);
+          aiText = guarded.answer;
+          source = `verified-answer-guard (${guarded.reason}) + ${source}`;
+        }
+
+        // Nếu mô hình không khả dụng và không có answer guard, không biến một đoạn truy xuất thành kết luận pháp lý.
         let llmOk = !!aiText;
         if (!aiText) {
           if (relevantChunks.length > 0) {
-            aiText = 'Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.';
+            aiText = 'Đã tìm thấy tài liệu liên quan, nhưng hệ thống Muse Spark AI hiện chưa thể tổng hợp câu trả lời lúc này. Vui lòng thử lại sau ít phút.';
           } else {
             aiText = `Mình chưa tìm thấy căn cứ đủ chắc cho câu hỏi này. Bạn cho mình biết thêm doanh thu năm, ngành nghề và bán trên kênh nào (sàn TMĐT, cửa hàng, dịch vụ) nhé. Nếu cần chắc chắn, bạn có thể đặt lịch tư vấn với chuyên viên.`;
           }
         }
 
-
         // Dọn dẹp nếu model vẫn sinh ra thẻ suy luận sót lại
         aiText = aiText.replace(/(?:<thinking>|\[SUY_LUAN\])[\s\S]*?(?:<\/thinking>|\[\/SUY_LUAN\])/i, '').trim();
-
-        if (llmOk) {
-          const guarded = guardTaxAnswer(message, answerScope, relevantChunks.map((chunk) => chunk.ref_id || ''), aiText);
-          if (guarded.reason) {
-            console.warn(`[ANSWER_GUARD] ${guarded.reason}: "${message}"`);
-            aiText = guarded.answer;
-            source = `verified-answer-guard (${guarded.reason}) + ${source}`;
-          }
-        }
 
         // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
         let logD1Prefix = '';
@@ -1014,7 +1116,7 @@ d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình 
         }
 
         // --- BƯỚC 3: GHI LOG VÀO CLOUDFLARE D1 ---
-        if (env.DB && phone) {
+        if (env.DB && activePhone) {
           ctx.waitUntil(
             env.DB.prepare(
               `INSERT INTO chat_logs (id, user_phone, message, response, credits_used, source)
@@ -1022,7 +1124,7 @@ d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình 
             )
               .bind(
                 `chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
-                phone,
+                activePhone,
                 message,
                 logD1Prefix ? `${logD1Prefix}${aiText}` : aiText,
                 logD1Prefix ? `${logD1Prefix}${source}` : source
@@ -1034,20 +1136,21 @@ d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình 
 
         // Nếu client yêu cầu Stream mà không dùng được Muse Stream trực tiếp, stream fallback qua SSE
         if (body.stream) {
+          const remainingCredits = await deductCreditOnce();
           const { readable, writable } = new TransformStream();
           const writer = writable.getWriter();
           const encoder = new TextEncoder();
           ctx.waitUntil(
             (async () => {
               try {
-                await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'meta', source, citations: legalCitations, retrieval: retrievalTrace })}\n\n`));
+                await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'meta', source, citations: legalCitations, retrieval: retrievalTrace, remainingCredits })}\n\n`));
                 const words = aiText.split(' ');
                 for (let i = 0; i < words.length; i += 3) {
                   const chunk = words.slice(i, i + 3).join(' ') + (i + 3 < words.length ? ' ' : '');
                   await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'delta', delta: chunk })}\n\n`));
                   await new Promise((r) => setTimeout(r, 25));
                 }
-                await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'done', fullText: aiText })}\n\n`));
+                await writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'done', fullText: aiText, remainingCredits })}\n\n`));
                 await writer.write(encoder.encode('data: [DONE]\n\n'));
               } finally {
                 await writer.close();
@@ -1061,6 +1164,7 @@ d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình 
           return new Response(readable, { status: 200, headers: streamHeaders });
         }
 
+        const remainingCredits = await deductCreditOnce();
         const payload = {
           success: true,
           response: aiText,
@@ -1068,6 +1172,7 @@ d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình 
           citations: legalCitations,
           retrieval: retrievalTrace,
           matchedRefs: matchedRoute?.refs || [],
+          remainingCredits,
           timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }),
         };
 
@@ -1239,6 +1344,19 @@ d) Nếu trích lục không có căn cứ rõ ràng, chỉ trả lời: "Mình 
         500,
         corsHeaders
       );
+    }
+  },
+
+  async scheduled(_controller: any, env: Env, _ctx: ExecutionContext): Promise<void> {
+    if (env.DB) {
+      try {
+        const result = await env.DB.prepare(
+          `DELETE FROM chat_logs WHERE created_at < datetime('now', '-90 days')`
+        ).run();
+        console.log(`[SCHEDULED_CLEANUP_90D] Cleaned old chat logs: ${result.meta?.changes ?? 0} rows deleted.`);
+      } catch (err: any) {
+        console.error('[SCHEDULED_CLEANUP_90D_ERR]', err?.message);
+      }
     }
   },
 };
