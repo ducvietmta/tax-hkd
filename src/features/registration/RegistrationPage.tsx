@@ -23,6 +23,7 @@ import { StepRail } from './components/StepRail';
 import { StepCard } from './components/StepCard';
 import { ProgressSummary } from './components/ProgressSummary';
 import { RegFAQ } from './components/RegFAQ';
+import { AICompanion } from './components/AICompanion';
 import { PdfViewerModal } from '../../components/PdfViewerModal';
 
 interface RegistrationPageProps {
@@ -239,8 +240,19 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
             {/* Two-Column Wizard Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left Column: Step Rail */}
+              {/* Left Column: AI Companion + Step Rail */}
               <div className="lg:col-span-4 space-y-4">
+                <AICompanion
+                  currentStep={currentStep}
+                  stepIndex={currentStepIndex}
+                  totalSteps={steps.length}
+                  isQuizActive={isQuizActive}
+                  isAllDone={isAllStepsCompleted}
+                  pathName={currentPath.shortName}
+                  onOpenAIChat={onOpenAIChat}
+                  position="inline"
+                />
+
                 <StepRail
                   steps={steps}
                   currentStepId={activeStepId}
@@ -333,7 +345,19 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
         </div>
       </div>
 
-      {/* 6. Modal xem tài liệu PDF gốc dùng chung */}
+      {/* 6. Trợ lý AI đồng hành xuyên suốt (Floating Companion theo chân người dùng) */}
+      <AICompanion
+        currentStep={currentStep}
+        stepIndex={currentStepIndex}
+        totalSteps={steps.length}
+        isQuizActive={isQuizActive}
+        isAllDone={isAllStepsCompleted}
+        pathName={currentPath.shortName}
+        onOpenAIChat={onOpenAIChat}
+        position="floating"
+      />
+
+      {/* 7. Modal xem tài liệu PDF gốc dùng chung */}
       <PdfViewerModal
         docId={selectedDocId}
         onClose={() => setSelectedDocId(null)}
