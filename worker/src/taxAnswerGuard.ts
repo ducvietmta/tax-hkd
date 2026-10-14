@@ -345,5 +345,26 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
     };
   }
 
+  // ==========================================
+  // 14. CHO THUÊ NHÀ 2026 TÍNH THUẾ TNCN CỤ THỂ (BỔ SUNG 3)
+  // ==========================================
+  const asksRentalTax = /cho thue nha|thue nha/.test(q) && /bao nhieu/.test(q);
+  const rentalRevMatch = q.match(/(\d+(?:[.,]\d+)?)\s*ty/);
+  if (scope.years.length === 1 && scope.years[0] === 2026 && asksRentalTax && rentalRevMatch) {
+    const rev = Number(rentalRevMatch[1].replace(',', '.')) * 1000; // quy ve trieu
+    if (rev > 1000 && (refs.includes('16.91') || refs.includes('16.92') || refs.includes('16.77'))) {
+      const tax = (rev - 1000) * 0.05;
+      const expectedMillion = formatRevenue(tax * 1_000_000);
+      const expectedMillionFold = fold(expectedMillion);
+      const expectedVndFold = fold(formatVnd(tax * 1_000_000));
+      if (!a.includes(expectedMillionFold) && !a.includes(expectedVndFold) && !a.includes(`${tax} trieu`)) {
+        return {
+          answer: `Với ${formatRevenue(rev * 1_000_000)} tiền cho thuê nhà năm 2026 (cho thuê thông thường, không phải lưu trú): thuế TNCN = (${formatRevenue(rev * 1_000_000)} − 1 tỷ đồng) × 5% = ${expectedMillion}.\n\nCăn cứ pháp lý:\nKhoản 4 Điều 7, Luật Thuế TNCN 109/2025/QH15\nĐiều 1, Luật 09/2026/QH16\nĐiều 1 khoản 1, Nghị định 141/2026/NĐ-CP`,
+          reason: 'rental_tax_calculation',
+        };
+      }
+    }
+  }
+
   return { answer, reason: null };
 }
