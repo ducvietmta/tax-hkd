@@ -1,0 +1,398 @@
+[
+  {
+    "id": "T01",
+    "question": "Năm 2026 tôi bán hàng hóa doanh thu 450 triệu/năm thì nộp những thuế gì và có phải đăng ký kinh doanh không?",
+    "status": "THIẾU",
+    "elapsed": 956,
+    "notes": "Thiếu từ khóa: [1 tỷ, không phải nộp, đăng ký kinh doanh]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Nghị định..."
+  },
+  {
+    "id": "T02",
+    "question": "Hộ kinh doanh năm 2026 có doanh thu 350 triệu, có hóa đơn đầu vào nhưng không xuất hóa đơn đầu ra thì có bị phạt không?",
+    "status": "THIẾU",
+    "elapsed": 178,
+    "notes": "Thiếu từ khóa: [hóa đơn, doanh thu]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Nghị định..."
+  },
+  {
+    "id": "T03",
+    "question": "Tôi làm affiliate tại Hà Nội kiếm 2 triệu/tháng thì ngưỡng thu nhập thấp được miễn đăng ký kinh doanh tại Hà Nội là bao nhiêu?",
+    "status": "THIẾU",
+    "elapsed": 185,
+    "notes": "Thiếu từ khóa: [đăng ký, Hà Nội]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Công văn 7403/CT-TMĐT, Nghị định 68/2026/NĐ-CP, Nghị định 141/2026/NĐ-CP, Luật Thuế TNCN..."
+  },
+  {
+    "id": "T04",
+    "question": "Tôi làm affiliate TikTok Shop nhận 600 triệu, trên app hiển thị đã trừ tax thì tôi đã hoàn thành nghĩa vụ thuế tại VN chưa?",
+    "status": "THIẾU",
+    "elapsed": 187,
+    "notes": "Thiếu từ khóa: [chứng từ, khấu trừ, nghĩa vụ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Công văn 7403/CT-TMĐT, Luật Thuế TNCN 109/2025/QH15, Điều 43 Nghị định 252/2026/NĐ-CP, N..."
+  },
+  {
+    "id": "T05",
+    "question": "Hộ kinh doanh tạp hóa mở thêm kênh bán hàng Shopee thì có bắt buộc phải xin cấp thêm mã số thuế mới đuôi 888 không?",
+    "status": "THIẾU",
+    "elapsed": 170,
+    "notes": "Thiếu từ khóa: [không, 888, CCCD]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị định 254/2026/NĐ-CP, Nghị định 141/2026/NĐ-CP\n• Nguồn: RAG Hybrid (BM25)..."
+  },
+  {
+    "id": "T06",
+    "question": "Năm 2026 tôi bán hàng hóa doanh thu đúng 1 tỷ thì nộp bao nhiêu thuế? Nếu doanh thu là 1,01 tỷ thì tính thuế thế nào?",
+    "status": "ĐÚNG",
+    "elapsed": 181,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Với doanh thu bán hàng hóa/tạp hóa 1,01 tỷ đồng trong năm 2026 và tính TNCN theo tỷ lệ trên doanh thu:\n\n1. Thuế GTGT: tính 1% trên toàn bộ doanh thu, tức 1,01 tỷ đồng × 1% = 10.100.000 đồng (10,1 triệu đồng).\n\n2. Thuế TNCN trước ưu đãi: tính 0,5% trên phần doanh thu vượt 1 tỷ đồng, tức (1,01 tỷ đồng..."
+  },
+  {
+    "id": "T07",
+    "question": "Tôi vừa bán hàng trên Shopee 800 triệu, vừa làm affiliate TikTok 350 triệu trong năm 2026 thì tính thuế ra sao?",
+    "status": "THIẾU",
+    "elapsed": 197,
+    "notes": "Thiếu từ khóa: [1,15, phân bổ, 1 tỷ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Công văn ..."
+  },
+  {
+    "id": "T08",
+    "question": "Hai vợ chồng kinh doanh 2 gian hàng trên TikTok Shop thì có thể tách doanh thu để không vượt ngưỡng 1 tỷ không?",
+    "status": "THIẾU",
+    "elapsed": 177,
+    "notes": "Thiếu từ khóa: [chủ thể, đăng ký]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Điều 4 Ng..."
+  },
+  {
+    "id": "T09",
+    "question": "Bán hàng COD 100k tiền hàng cộng 30k tiền ship thu hộ thì tính thuế trên 100k hay 130k?",
+    "status": "THIẾU",
+    "elapsed": 174,
+    "notes": "Thiếu từ khóa: [100, thu hộ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Điều 1 Nghị định 141/2026/NĐ-CP, Đi..."
+  },
+  {
+    "id": "T10",
+    "question": "Doanh thu đơn hàng 400 triệu nhưng thực tế bị khách hủy hoàn 60 triệu và sàn trừ phí 15 triệu thì tính thuế trên số nào?",
+    "status": "ĐÚNG",
+    "elapsed": 184,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Với 400 triệu tiền đơn phát sinh nhưng có 60 triệu tiền đơn hủy/hoàn thực tế:\n\n1. Doanh thu thực nhận tính thuế: 400 triệu − 60 triệu (đơn hủy/hoàn thực tế) = 340 triệu đồng.\n2. Phí sàn 15 triệu đồng: Là chi phí vận hành dịch vụ sàn. Đối với hộ cá nhân kinh doanh nộp thuế theo tỷ lệ trên doanh thu, ..."
+  },
+  {
+    "id": "T11",
+    "question": "Cùng bán hàng hóa doanh thu 300 triệu thì năm 2025 phải nộp bao nhiêu thuế và năm 2026 phải nộp bao nhiêu thuế?",
+    "status": "ĐÚNG",
+    "elapsed": 179,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Quy định và số thuế phải nộp khác nhau hoàn toàn giữa hai năm:\n\n1. Năm 2025 (áp dụng Thông tư 40/2021/TT-BTC):\n- Ngưỡng doanh thu không phải nộp thuế là 100 triệu đồng/năm.\n- Với doanh thu bán hàng 300 triệu đồng (vượt ngưỡng 100 triệu), bạn phải nộp thuế trên toàn bộ doanh thu:\n  + Thuế GTGT (1%): ..."
+  },
+  {
+    "id": "T12",
+    "question": "Tôi làm freelancer lập trình thu nhập 180 triệu năm 2026 chưa đăng ký kinh doanh thì tính thuế theo diện nào theo Nghị định 253?",
+    "status": "THIẾU",
+    "elapsed": 188,
+    "notes": "Thiếu từ khóa: [tiền lương, tiền công]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, khoản 2 Đ..."
+  },
+  {
+    "id": "T13",
+    "question": "Tôi làm tiếp thị liên kết được 5 triệu trong 3 tháng rồi nghỉ thì có bị phạt vì không đăng ký thuế không?",
+    "status": "THIẾU",
+    "elapsed": 189,
+    "notes": "Thiếu từ khóa: [đăng ký, xử phạt]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Công văn 7403/CT-TMĐT, Nghị định 68/2026/NĐ-CP, Nghị định 141/2026/NĐ-CP, khoản 1 Điều 9..."
+  },
+  {
+    "id": "T14",
+    "question": "Năm 2026 hộ kinh doanh dịch vụ doanh thu 650 triệu muốn xuất hóa đơn điện tử cho doanh nghiệp thì có được không và có phải nộp thuế không?",
+    "status": "THIẾU",
+    "elapsed": 169,
+    "notes": "Thiếu từ khóa: [hóa đơn, tự nguyện, dưới 1 tỷ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Nghị định..."
+  },
+  {
+    "id": "T15",
+    "question": "Tôi cho thuê nhà nhận trước tiền thuê 960 triệu, sau đó tăng lên 1,08 tỷ thì tính thuế GTGT và TNCN như thế nào?",
+    "status": "THIẾU",
+    "elapsed": 169,
+    "notes": "Thiếu từ khóa: [thuê]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, khoản 1 L..."
+  },
+  {
+    "id": "T16",
+    "question": "Tôi mở cửa hàng kinh doanh từ 01/10/2026, doanh thu 3 tháng cuối năm là 300 triệu thì có phải quy đổi thành 1,2 tỷ để tính thuế không?",
+    "status": "ĐÚNG",
+    "elapsed": 171,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Theo quy định pháp luật thuế đối với hộ và cá nhân kinh doanh (Nghị định 141/2026/NĐ-CP, Nghị định 68/2026/NĐ-CP và Thông tư 40/2021/TT-BTC):\n\n1. Không quy đổi doanh thu 12 tháng để tính thuế: Doanh thu để xét nghĩa vụ thuế GTGT và thuế TNCN được tính theo doanh thu thực tế phát sinh trong năm dương..."
+  },
+  {
+    "id": "T17",
+    "question": "Nền tảng affiliate chỉ giới thiệu link không trực tiếp thanh toán và checkout thì sàn có khấu trừ nộp thuế thay không?",
+    "status": "THIẾU",
+    "elapsed": 184,
+    "notes": "Thiếu từ khóa: [thanh toán, khấu trừ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Công văn ..."
+  },
+  {
+    "id": "T18",
+    "question": "Cho tôi xin nguyên văn Điều 43 Nghị định 252/2026/NĐ-CP và đường link tra cứu chính thức.",
+    "status": "ĐÚNG",
+    "elapsed": 177,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị định 117/2025/NĐ-CP, Điều 10 Nghị định 252/2026/NĐ-CP, Luật Quản lý thuế 108/2025/Q..."
+  },
+  {
+    "id": "T19",
+    "question": "Theo Nghị định 999/2026/NĐ-CP thì ngưỡng doanh thu miễn thuế cho hộ kinh doanh đã nâng lên 2 tỷ đồng đúng không?",
+    "status": "THIẾU",
+    "elapsed": 168,
+    "notes": "Thiếu từ khóa: [không, 1 tỷ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Khoản 1 Điều 1 Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Điều 1 Nghị định 141..."
+  },
+  {
+    "id": "T20",
+    "question": "Hãy tự phản biện xem năm 2025 ngưỡng doanh thu miễn thuế là bao nhiêu và hộ kinh doanh có bắt buộc đổi sang MST đuôi 888 không?",
+    "status": "THIẾU",
+    "elapsed": 179,
+    "notes": "Thiếu từ khóa: [CCCD, không bắt buộc]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Thông tư 40/2021/TT-BTC, Thông tư 100/2021/TT-BTC\n• Nguồn: RAG Hybrid (HISTORICAL_YEAR_T..."
+  },
+  {
+    "id": "T21",
+    "question": "Năm 2026 bán hàng hóa doanh thu 1,01 tỷ, tính thuế TNCN theo tỷ lệ trên doanh thu thì số thuế phải nộp là bao nhiêu?",
+    "status": "ĐÚNG",
+    "elapsed": 179,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Với doanh thu bán hàng hóa/tạp hóa 1,01 tỷ đồng trong năm 2026 và tính TNCN theo tỷ lệ trên doanh thu:\n\n1. Thuế GTGT: tính 1% trên toàn bộ doanh thu, tức 1,01 tỷ đồng × 1% = 10.100.000 đồng (10,1 triệu đồng).\n\n2. Thuế TNCN trước ưu đãi: tính 0,5% trên phần doanh thu vượt 1 tỷ đồng, tức (1,01 tỷ đồng..."
+  },
+  {
+    "id": "T22",
+    "question": "Cùng doanh thu bán hàng 300 triệu thì năm 2025 nộp bao nhiêu tiền thuế và năm 2026 nộp bao nhiêu?",
+    "status": "ĐÚNG",
+    "elapsed": 181,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Quy định và số thuế phải nộp khác nhau hoàn toàn giữa hai năm:\n\n1. Năm 2025 (áp dụng Thông tư 40/2021/TT-BTC):\n- Ngưỡng doanh thu không phải nộp thuế là 100 triệu đồng/năm.\n- Với doanh thu bán hàng 300 triệu đồng (vượt ngưỡng 100 triệu), bạn phải nộp thuế trên toàn bộ doanh thu:\n  + Thuế GTGT (1%): ..."
+  },
+  {
+    "id": "T23",
+    "question": "Tôi đã có CCCD gắn chip và MST cũ 888, nay mở thêm gian hàng affiliate thì có bắt buộc phải xin mã số thuế mới không?",
+    "status": "THIẾU",
+    "elapsed": 188,
+    "notes": "Thiếu từ khóa: [không, CCCD, 86/2024]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Công văn 7403/CT-TMĐT, Nghị định 68/2026/NĐ-CP, Nghị định 141/2026/NĐ-CP, Luật Thuế TNCN..."
+  },
+  {
+    "id": "T24",
+    "question": "Tôi có doanh thu bán lẻ hàng hóa 800 triệu và làm affiliate 350 triệu trong năm 2026, tính thuế như thế nào cho có lợi nhất?",
+    "status": "THIẾU",
+    "elapsed": 188,
+    "notes": "Thiếu từ khóa: [1,15, phân bổ, có lợi]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Công văn ..."
+  },
+  {
+    "id": "T25",
+    "question": "Năm 2025 ngưỡng doanh thu không phải nộp thuế là 100 triệu hay 500 triệu theo Thông tư 40?",
+    "status": "ĐÚNG",
+    "elapsed": 177,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Thông tư 40/2021/TT-BTC, Thông tư 100/2021/TT-BTC\n• Nguồn: RAG Hybrid (HISTORICAL_YEAR_T..."
+  },
+  {
+    "id": "T26",
+    "question": "Doanh thu bán hàng năm 2026 đúng 1.000.000.001 đồng (vượt 1 đồng) thì số thuế TNCN phải nộp là bao nhiêu?",
+    "status": "ĐÚNG",
+    "elapsed": 178,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Với doanh thu đúng 1.000.000.001 đồng (vượt ngưỡng 1 tỷ đúng 1 đồng):\n\n1. Ngưỡng chịu thuế: Doanh thu trên 1 tỷ đồng thuộc diện chịu thuế theo quy định của Nghị định 141/2026/NĐ-CP.\n2. Thuế GTGT: Tính 1% trên toàn bộ doanh thu 1.000.000.001 đồng, số thuế GTGT là 10.000.000 đồng (đã làm tròn tiền đồn..."
+  },
+  {
+    "id": "T27",
+    "question": "Hộ kinh doanh dịch vụ sửa máy tính doanh thu 1,5 tỷ năm 2026, thuế GTGT 5% và TNCN 2% thì số thuế nộp sau giảm theo Nghị quyết 43 là bao nhiêu?",
+    "status": "ĐÚNG",
+    "elapsed": 184,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Với doanh thu dịch vụ 1,5 tỷ đồng trong năm 2026 của cá nhân cư trú (phương pháp tỷ lệ trên doanh thu: GTGT 5%, TNCN 2%):\n\n1. Thuế GTGT (5% trên toàn bộ doanh thu):\n   1.500.000.000 × 5% = 75.000.000 đồng.\n\n2. Thuế TNCN trước ưu đãi (2% trên phần doanh thu vượt 1 tỷ đồng):\n   - Doanh thu tính thuế T..."
+  },
+  {
+    "id": "T28",
+    "question": "Doanh thu quý 3 đạt 950 triệu, sang quý 4 vượt 1 tỷ thì thời hạn đăng ký sử dụng hóa đơn điện tử là bao lâu?",
+    "status": "ĐÚNG",
+    "elapsed": 184,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Thời hạn đăng ký sử dụng hóa đơn điện tử khi doanh thu vượt 1 tỷ đồng được quy định như sau:\n\n1. Căn cứ quy định: Khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP (được sửa đổi, bổ sung bởi Điều 1 Nghị định 141/2026/NĐ-CP).\n2. Thời hạn cụ thể: Hộ kinh doanh, cá nhân kinh doanh có doanh thu lũy kế trong năm vư..."
+  },
+  {
+    "id": "T29",
+    "question": "Tôi kiếm được 50 triệu từ TikTok thì phải nộp thuế gì?",
+    "status": "THIẾU",
+    "elapsed": 182,
+    "notes": "Thiếu từ khóa: [thu nhập]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, Công văn 7403/CT-TMĐT, Nghị định 141/2026/NĐ-CP, Thông tư 50/20..."
+  },
+  {
+    "id": "T30",
+    "question": "Cá nhân làm freelancer thu nhập 200 triệu không đăng ký kinh doanh thì áp dụng thuế theo Nghị định 253 như thế nào?",
+    "status": "THIẾU",
+    "elapsed": 176,
+    "notes": "Thiếu từ khóa: [tiền công]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: khoản 2 Điều 8 Nghị định 253/2026/NĐ-CP, khoản 1 Điều 69 Nghị định 253/2026/NĐ-CP, Nghị ..."
+  },
+  {
+    "id": "T31",
+    "question": "Kinh doanh từ 01/10/2026 đạt doanh thu 300 triệu trong 3 tháng thì có bị tính thuế năm 2026 không?",
+    "status": "ĐÚNG",
+    "elapsed": 168,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Theo quy định pháp luật thuế đối với hộ và cá nhân kinh doanh (Nghị định 141/2026/NĐ-CP, Nghị định 68/2026/NĐ-CP và Thông tư 40/2021/TT-BTC):\n\n1. Không quy đổi doanh thu 12 tháng để tính thuế: Doanh thu để xét nghĩa vụ thuế GTGT và thuế TNCN được tính theo doanh thu thực tế phát sinh trong năm dương..."
+  },
+  {
+    "id": "T32",
+    "question": "Mức thu nhập thấp được miễn đăng ký kinh doanh tại thành phố Hà Nội hiện nay là bao nhiêu tiền?",
+    "status": "THIẾU",
+    "elapsed": 11,
+    "notes": "Thiếu từ khóa: [Hà Nội]",
+    "hasCitations": true,
+    "sampleResponse": "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng..."
+  },
+  {
+    "id": "T33",
+    "question": "Năm 2026 hộ kinh doanh doanh thu 900 triệu khách hàng đòi xuất hóa đơn thì có được đăng ký hóa đơn điện tử không?",
+    "status": "THIẾU",
+    "elapsed": 172,
+    "notes": "Thiếu từ khóa: [hóa đơn]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Nghị định..."
+  },
+  {
+    "id": "T34",
+    "question": "Đơn hàng COD 100k tiền hàng và 30k tiền ship của đơn vị vận chuyển thì doanh thu tính thuế của shop là bao nhiêu?",
+    "status": "THIẾU",
+    "elapsed": 172,
+    "notes": "Thiếu từ khóa: [100, thu hộ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Điều 7 Ng..."
+  },
+  {
+    "id": "T35",
+    "question": "Quy định đăng ký hóa đơn điện tử trong 30 ngày kể từ ngày vượt doanh thu 1 tỷ nằm ở điều khoản cụ thể nào?",
+    "status": "ĐÚNG",
+    "elapsed": 170,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Thời hạn đăng ký sử dụng hóa đơn điện tử khi doanh thu vượt 1 tỷ đồng được quy định như sau:\n\n1. Căn cứ quy định: Khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP (được sửa đổi, bổ sung bởi Điều 1 Nghị định 141/2026/NĐ-CP).\n2. Thời hạn cụ thể: Hộ kinh doanh, cá nhân kinh doanh có doanh thu lũy kế trong năm vư..."
+  },
+  {
+    "id": "T36",
+    "question": "Theo Nghị định 999/2026 thì hoa hồng affiliate 1,6 tỷ nộp thuế TNCN 5% trên toàn bộ doanh thu đúng không?",
+    "status": "THIẾU",
+    "elapsed": 193,
+    "notes": "Thiếu từ khóa: [không, 1 tỷ]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Nghị định..."
+  },
+  {
+    "id": "T37",
+    "question": "Năm 2026 tôi làm tư vấn thiết kế thu nhập 20 triệu/tháng chưa đăng ký kinh doanh thì có được áp dụng ngưỡng miễn thuế 1 tỷ không?",
+    "status": "THIẾU",
+    "elapsed": 176,
+    "notes": "Thiếu từ khóa: [đăng ký kinh doanh]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: khoản 1 Luật 109/2025, Luật 48/2024/QH15, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026..."
+  },
+  {
+    "id": "T38",
+    "question": "Doanh thu năm 2026 là 999 triệu và năm 2027 là 1,5 tỷ thì có bị cộng dồn để truy thu thuế năm 2026 không?",
+    "status": "THIẾU",
+    "elapsed": 174,
+    "notes": "Thiếu từ khóa: [không, từng năm]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Điều 5 Ng..."
+  },
+  {
+    "id": "T39",
+    "question": "Doanh thu bán hàng 500 triệu đã loại trừ 50 triệu tiền đơn hoàn hủy, phí sàn bị trừ 20 triệu thì doanh thu tính thuế là bao nhiêu?",
+    "status": "THIẾU",
+    "elapsed": 177,
+    "notes": "Thiếu từ khóa: [500, phí sàn]",
+    "hasCitations": true,
+    "sampleResponse": "Đã tìm thấy tài liệu liên quan, nhưng hệ thống hiện chưa thể tổng hợp câu trả lời. Vui lòng thử lại sau.\n\n----------------------------------------\n📊 CĂN CỨ PHÁP LÝ & ĐỐI SOÁT LUẬT THUẾ 2026:\n• Căn cứ trích dẫn: Nghị quyết 43/2026/QH16, khoản 3 Luật 109/2025/QH15, Nghị định 141/2026/NĐ-CP, Nghị định..."
+  },
+  {
+    "id": "T40",
+    "question": "Bán hàng hóa 1,01 tỷ năm 2026 thì thuế TNCN phải nộp là 5,05 triệu hay bao nhiêu, và thời hạn đăng ký hóa đơn điện tử thế nào?",
+    "status": "ĐÚNG",
+    "elapsed": 168,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Với doanh thu bán hàng hóa/tạp hóa 1,01 tỷ đồng trong năm 2026 và tính TNCN theo tỷ lệ trên doanh thu:\n\n1. Thuế GTGT: tính 1% trên toàn bộ doanh thu, tức 1,01 tỷ đồng × 1% = 10.100.000 đồng (10,1 triệu đồng).\n\n2. Thuế TNCN trước ưu đãi: tính 0,5% trên phần doanh thu vượt 1 tỷ đồng, tức (1,01 tỷ đồng..."
+  },
+  {
+    "id": "S01",
+    "question": "Cho thuê nhà doanh thu 120 triệu/năm 2026 có phải nộp thuế không và ngưỡng áp dụng là bao nhiêu?",
+    "status": "ĐÚNG",
+    "elapsed": 187,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Đối với hoạt động cho thuê nhà, cho thuê tài sản của cá nhân:\n\n1. Ngưỡng doanh thu áp dụng: Theo Khoản 1 Điều 9 Thông tư 40/2021/TT-BTC, cá nhân cho thuê tài sản có doanh thu trong năm dương lịch từ 100 triệu đồng trở xuống thì không phải nộp thuế GTGT và không phải nộp thuế TNCN.\n\n2. Trường hợp doa..."
+  },
+  {
+    "id": "S02",
+    "question": "Cá nhân nhận thầu xây dựng không bao thầu nguyên vật liệu nộp thuế tỷ lệ bao nhiêu %?",
+    "status": "ĐÚNG",
+    "elapsed": 183,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Theo quy định tại Phụ lục I ban hành kèm theo Thông tư 40/2021/TT-BTC và Luật Thuế GTGT, tỷ lệ tính thuế đối với hoạt động xây dựng không bao thầu nguyên vật liệu như sau:\n\n1. Thuế Giá trị gia tăng (GTGT): Tỷ lệ 3% tính trên doanh thu.\n2. Thuế Thu nhập cá nhân (TNCN): Tỷ lệ 1,5% tính trên doanh thu ..."
+  },
+  {
+    "id": "S03",
+    "question": "Kinh doanh dịch vụ vận tải hàng hóa nộp thuế GTGT và TNCN tỷ lệ bao nhiêu %?",
+    "status": "ĐÚNG",
+    "elapsed": 171,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Theo quy định tại Phụ lục I ban hành kèm theo Thông tư 40/2021/TT-BTC, tỷ lệ tính thuế đối với dịch vụ vận tải, bốc xếp hàng hóa áp dụng cho hộ, cá nhân kinh doanh như sau:\n\n1. Thuế Giá trị gia tăng (GTGT): Tỷ lệ 3% tính trên doanh thu.\n2. Thuế Thu nhập cá nhân (TNCN): Tỷ lệ 1,5% tính trên doanh thu..."
+  },
+  {
+    "id": "S04",
+    "question": "Bán lẻ nông sản do gia đình tự trồng trọt sản xuất chưa qua chế biến có phải nộp thuế GTGT và TNCN không?",
+    "status": "ĐÚNG",
+    "elapsed": 169,
+    "notes": "",
+    "hasCitations": true,
+    "sampleResponse": "Đối với sản phẩm nông sản do gia đình tự trồng trọt, sản xuất chưa chế biến thành sản phẩm khác hoặc chỉ qua sơ chế thông thường:\n\n1. Thuế GTGT: Thuộc đối tượng không chịu thuế GTGT theo quy định tại Khoản 1 Điều 5 Luật Thuế Giá trị gia tăng 48/2024/QH15.\n2. Thuế TNCN: Được miễn thuế TNCN theo quy đ..."
+  }
+]

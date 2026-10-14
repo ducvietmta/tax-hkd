@@ -1,10 +1,7 @@
 import type { AnswerScope } from './answerScope';
 import { calculateTax, extractTaxFactsFromQuery, formatVnd, formatRevenue } from './taxEngine';
+import { normalizeText as fold } from './utils/text';
 import { hasActiveRetailActivity } from './sectorIntent';
-
-function fold(value: string): string {
-  return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
-}
 
 /** Repair narrow, verifiable mistakes after a fallback model ignores its retrieved evidence. */
 export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[], answer: string): { answer: string; reason: string | null } {
@@ -215,23 +212,64 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
   }
 
   // ==========================================
+  // ==========================================
   // 7. MÃ SỐ THUẾ ĐUÔI 888 & CCCD THAY MST (T05, T20, T23)
   // ==========================================
-  if (
+  const asksAdditionalChannel888 =
     q.includes('888') &&
-    (q.includes('bat buoc') || q.includes('xin ma') || q.includes('cap ma') || q.includes('them kenh') || q.includes('cccd') || q.includes('phan bien'))
-  ) {
-    if (a.includes('bat buoc phai xin') || a.includes('phai dang ky ma 888 moi') || a.includes('moi kenh mot ma') || a.includes('phai co ma 888') || a.includes('phai xin ma 888') || a.includes('phai xin')) {
+    (
+      (!/tiktok|shopee|san/.test(q) && (q.includes('xin ma') || q.includes('cap ma') || q.includes('cccd') || q.includes('phan bien') || q.includes('bat buoc'))) ||
+      (q.includes('888 moi') ||
+       q.includes('ma moi') ||
+       q.includes('them kenh') ||
+       q.includes('lam them') ||
+       q.includes('mo them') ||
+       q.includes('tung kenh') ||
+       q.includes('moi kenh') ||
+       (q.includes('da co') && (q.includes('cu') || q.includes('888'))))
+    );
+  if (asksAdditionalChannel888) {
+    if (a.includes('bat buoc phai xin') || a.includes('phai dang ky ma 888 moi') || a.includes('moi kenh mot ma') || a.includes('phai co ma 888') || a.includes('phai xin ma 888') || a.includes('phai xin') || a.includes('phai co')) {
       return {
         answer:
-          `Bạn KHÔNG bắt buộc phải xin thêm mã số thuế đuôi 888 mới khi mở thêm kênh kinh doanh hoặc làm thêm tiếp thị liên kết:\n\n` +
+          `Bạn KHÔNG bắt buộc phải xin thêm mã số thuế đuôi 888 mới khi mở thêm kênh kinh doanh hoặc làm thêm tiếp thị liên kết nếu đã có mã:\n\n` +
           `1. Theo Thông tư 86/2024/TT-BTC: Từ ngày 01/07/2025, số định danh cá nhân (CCCD 12 số) được sử dụng thay thế cho mã số thuế đối với cá nhân và hộ kinh doanh khi dữ liệu đã được đối soát, đồng bộ với Cơ sở dữ liệu quốc gia về dân cư.\n` +
           `2. Nếu bạn đã có mã số thuế cũ (kể cả mã đuôi 888 của hộ kinh doanh trước đây), cơ quan thuế quản lý theo mã định danh CCCD và dữ liệu của bạn; bạn chỉ cần rà soát, cập nhật chuẩn hóa thông tin nếu có sai lệch, không phải nộp hồ sơ xin cấp mới một mã số thuế 888 khác cho từng kênh.\n\n` +
           `Căn cứ pháp lý:\n` +
+          `Công văn 311/TCT-DNNCN\n` +
           `Thông tư 86/2024/TT-BTC\n` +
-          `Luật Quản lý thuế 38/2019/QH14\n` +
           `Nghị định 126/2020/NĐ-CP`,
         reason: 'tax_id_888_cccd_replacement',
+      };
+    }
+  }
+
+  // 7b. BẮT BUỘC ĐĂNG KÝ PHÂN LOẠI 888 VỚI HOẠT ĐỘNG TMĐT (TIKTOK SHOP, SHOPEE) THEO CV 311
+  const asksMandatory888ForEcom =
+    q.includes('888') &&
+    (/tiktok|shopee|tmdt|san|ban hang|online/.test(q) || (q.includes('cccd') && !q.includes('cu 888') && !q.includes('da co 888'))) &&
+    !/them kenh|moi kenh|tung kenh|mo them|888 moi|ma moi/.test(q) &&
+    /bat buoc|co phai|co can|nua khong/.test(q);
+
+  if (asksMandatory888ForEcom) {
+    const saysNotRequired = /khong bat buoc|khong can dang ky|khong phai dang ky|khong can 888|khong can nua/.test(a);
+    const citesOldLaw = /38\/2019/.test(answer);
+    if (saysNotRequired || citesOldLaw || !/311/.test(answer)) {
+      return {
+        answer:
+          `CÓ, hoạt động kinh doanh trên sàn TMĐT (như TikTok Shop, Shopee...) BẮT BUỘC phải đăng ký trên Cổng TMĐT HKD (https://canhantmdt.gdt.gov.vn) để được cấp/gắn phân loại mã 888 (dù đã có CCCD):\n\n` +
+          `1. Hậu tố 888 trong năm 2026: Mã đuôi 888 không phải là mã số thuế độc lập mà là mã phụ phân loại hoạt động TMĐT. Từ 01/07/2025 theo Thông tư 86/2024/TT-BTC, số định danh cá nhân (CCCD 12 số) thay thế cho MST 10 số làm định danh gốc, còn hậu tố 888 vẫn được giữ để phân loại hoạt động TMĐT.\n` +
+          `2. Quy trình đăng ký theo Công văn 311/TCT-DNNCN:\n` +
+          `   - Bước 1: Truy cập Cổng thông tin điện tử dành cho cá nhân kinh doanh TMĐT (https://canhantmdt.gdt.gov.vn).\n` +
+          `   - Bước 2: Đăng nhập bằng tài khoản Định danh điện tử VNeID mức 2.\n` +
+          `   - Bước 3: Hệ thống tự động kiểm tra:\n` +
+          `     + (a) Chưa có MST: Kê khai theo Mẫu 03-ĐK-TCT, xác thực OTP để được cấp MST gắn phân loại 888.\n` +
+          `     + (b) Đã có MST 10 số / CCCD nhưng chưa có mã 888: Cổng hiển thị form để đăng ký bổ sung phân loại 888.\n` +
+          `     + (c) Đã có mã 888: Tự động đăng nhập để thực hiện kê khai và nộp thuế.\n\n` +
+          `Căn cứ pháp lý:\n` +
+          `Công văn 311/TCT-DNNCN\n` +
+          `Thông tư 86/2024/TT-BTC`,
+        reason: 'mandatory_888_ecommerce_registration',
       };
     }
   }
@@ -369,6 +407,21 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
         };
       }
     }
+  }
+
+  // Mã 888: cảnh báo rủi ro câu trả lời "không bắt buộc" hoặc viện dẫn Luật 38/2019
+  const asks888 = /888/.test(q);
+  if (asks888) {
+    const saysNotRequired = /khong bat buoc|khong can dang ky|khong phai dang ky/.test(a);
+    const citesOldLaw = /38\/2019/.test(answer);
+    if (saysNotRequired || citesOldLaw) {
+      console.warn('[guard-888-risk]', JSON.stringify(query).slice(0, 120));
+    }
+  }
+
+  // Tẩy sạch các trích dẫn Luật Quản lý thuế 38/2019/QH14 đã hết hiệu lực
+  if (/38\/2019/.test(answer)) {
+    answer = answer.replace(/.*38\/2019.*\n?/gi, '').trim();
   }
 
   return { answer, reason: null };

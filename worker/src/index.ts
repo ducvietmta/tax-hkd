@@ -104,6 +104,9 @@ export default {
           if (!museKey) {
             return jsonResponse({ success: false, error: 'MUSE_API_KEY chưa được cấu hình.' }, 200, corsHeaders);
           }
+          const testBody: any = request.method === 'POST' ? await request.json().catch(() => ({})) : {};
+          const testInstructions = testBody.instructions || 'Bạn là trợ lý AI.';
+          const testMessage = testBody.message || 'Chào bạn, 1 + 1 bằng mấy?';
           const testRes = await Promise.race([
             fetch('https://api.meta.ai/v1/responses', {
               method: 'POST',
@@ -111,12 +114,13 @@ export default {
                 Authorization: `Bearer ${museKey}`,
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(buildMuseRequest('Bạn là trợ lý AI.', [], 'Chào bạn, 1 + 1 bằng mấy?', false)),
+              body: JSON.stringify(buildMuseRequest(testInstructions, [], testMessage, false)),
             }),
-            new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 15000)),
+            new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
           ]);
           if (!testRes.ok) {
-            return jsonResponse({ success: false, error: `Muse API HTTP error: ${testRes.status}` }, 200, corsHeaders);
+            const errBody = await testRes.text();
+            return jsonResponse({ success: false, status: testRes.status, error: errBody }, 200, corsHeaders);
           }
           const data = await testRes.json();
           return jsonResponse({ success: true, model: 'Muse Spark 1.3 (Meta AI)', res: data }, 200, corsHeaders);
@@ -841,9 +845,10 @@ export default {
           deducted = true;
           try {
             await env.DB.prepare(
-              `UPDATE users SET credits = credits - 1, updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
+              `UPDATE users SET credits = credits - 1, updated_at = CURRENT_TIMESTAMP WHERE phone = ? AND credits > 0`
             ).bind(activePhone).run();
-            finalRemainingCredits = Math.max(0, userRecord.credits - 1);
+            const fresh = await env.DB.prepare(`SELECT credits FROM users WHERE phone = ?`).bind(activePhone).first<{ credits: number }>();
+            finalRemainingCredits = fresh ? fresh.credits : Math.max(0, userRecord.credits - 1);
           } catch (e: any) {
             console.error('[CREDIT_DEDUCT_ERR]', e?.message);
             finalRemainingCredits = Math.max(0, userRecord.credits - 1);
@@ -884,7 +889,7 @@ export default {
         const cacheable = !fileKey;
         const normMsg = message.trim().normalize('NFC').replace(/\s+/g, ' ');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v34|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v35|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -977,7 +982,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 10. Nếu câu hỏi không liên quan đến thuế, hóa đơn, kê khai hay doanh thu của Hộ kinh doanh & cá nhân kinh doanh, CHỈ trả lời đúng nguyên văn: "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh." + xuống dòng "Căn cứ pháp lý:\nKhông áp dụng". Không sáng tạo thêm, không liệt kê văn bản.
 11. Lệ phí môn bài: từ 01/01/2026 đã chấm dứt thu, nộp và không cần khai cho năm 2026 trở đi. Bảng mức của Nghị định 139/2016/NĐ-CP chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước; tuyệt đối không áp cho năm hiện tại.
 12. Nghị quyết 43/2026/QH16 (Giảm 30% thuế TNCN kỳ 2026–2027): Áp dụng giảm 30% số thuế TNCN phải nộp đối với thu nhập từ kinh doanh của cá nhân cư trú có doanh thu năm không quá 10 tỷ đồng. Khi tính số thuế năm 2026, phân biệt: (1) Thuế GTGT tính trên toàn bộ doanh thu, không trừ 1 tỷ và không giảm theo NQ43; nếu người dùng đã giả định hàng hóa đủ điều kiện giảm GTGT theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP thì phải tính ngay mức tỷ lệ × 80%; (2) Doanh thu trên 1 tỷ đến đúng 3 tỷ có thể chọn phương pháp TNCN theo doanh thu hoặc thu nhập; doanh thu trên 3 tỷ đến 50 tỷ bắt buộc tính theo thu nhập tính thuế × 17%, tuyệt đối không dùng 0,5% trên doanh thu; (3) Sau đó mới xét giảm 30% TNCN theo NQ43. Không áp NQ43 cho GTGT, tiền lương, cá nhân không cư trú hoặc năm 2025. Giữ đúng ngành người dùng khẳng định; cụm "không bán lẻ" là phủ định, không phải dữ kiện ngành bán lẻ.
-13. Mã số thuế 888 & Định danh CCCD: Theo Thông tư 86/2024/TT-BTC, từ 01/07/2025 số định danh cá nhân (CCCD 12 số) được sử dụng thay thế cho mã số thuế khi thông tin đã đồng bộ. HKD mở thêm kênh hoặc có MST cũ đuôi 888 KHÔNG bắt buộc phải nộp hồ sơ xin cấp mã 888 mới riêng cho từng kênh bán hàng.
+13. Mã số thuế 888 & Định danh CCCD: Khi trả lời về mã 888: LUÔN trích dẫn Công văn 311/TCT-DNNCN và Thông tư 86/2024/TT-BTC. Hậu tố 888 VẪN ĐƯỢC SỬ DỤNG trong năm 2026 để phân loại hoạt động TMĐT và kinh doanh trên nền tảng số (từ 01/07/2025, CCCD thay thế 10 số đầu làm định danh gốc, còn hậu tố 888 vẫn giữ để phân loại). Hộ/cá nhân kinh doanh trên sàn TMĐT (Shopee, TikTok Shop...), mạng xã hội BẮT BUỘC phải đăng ký trên Cổng TMĐT HKD (https://canhantmdt.gdt.gov.vn) để được cấp/gắn phân loại 888. TUYỆT ĐỐI KHÔNG trả lời "không bắt buộc đăng ký 888". Chỉ khi người dùng đã có mã 888 cũ thì mới không phải xin thêm mã 888 mới cho từng kênh bán lẻ. Nêu rõ 3 bước đăng ký theo CV 311: B1 truy cập canhantmdt.gdt.gov.vn, B2 đăng nhập VNeID mức 2, B3 hệ thống kiểm tra và hướng dẫn cấp/bổ sung 888. TUYỆT ĐỐI KHÔNG trích dẫn Luật Quản lý thuế 38/2019/QH14 (đã hết hiệu lực, thay bằng Luật 108/2025/QH15).
 14. Tiếp thị liên kết (Affiliate): Không được mặc định ấn định thuế suất 5% TNCN cho mọi trường hợp. Phải phân biệt dịch vụ quảng cáo số (HKD), hoa hồng môi giới đại lý hay tiền lương tiền công khấu trừ 10%. Nếu chưa rõ thực tế, nêu điều kiện hoặc yêu cầu làm rõ, không chốt số thuế bừa bãi.
 15. Đơn hoàn và chi phí sàn: Đơn hoàn hủy thực tế chỉ trừ khỏi doanh thu nếu chưa được trừ trong doanh thu gộp ban đầu (không trừ trùng). Phí sàn là chi phí kinh doanh, đối với phương pháp tính thuế theo tỷ lệ doanh thu thì không được trừ phí sàn khỏi doanh thu chịu thuế.`;
 
@@ -1015,6 +1020,29 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
             }
           } else {
             console.warn('[MODEL_UNCONFIGURED]', JSON.stringify({ routeId, refs: relevantChunks.map(c => c.ref_id) }));
+          }
+
+          // ƯU TIÊN 2 (DỰ PHÒNG TỰ ĐỘNG): Fallback sang Cloudflare Workers AI khi Muse Spark lỗi hoặc không khả dụng
+          if (!aiText && env.AI && ragContextText) {
+            try {
+              console.warn('[LLM_FALLBACK] Kích hoạt Cloudflare Workers AI làm dự phòng...');
+              const fbRes: any = await env.AI.run('@cf/meta/llama-3.3-70b-instruct', {
+                messages: [
+                  { role: 'system', content: systemPrompt },
+                  ...history.map((h: any) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: h.content })),
+                  { role: 'user', content: message },
+                ],
+                temperature: 0.1,
+                max_tokens: 1500,
+              });
+              const fbText = fbRes?.response?.trim();
+              if (fbText && fbText.length > 20) {
+                aiText = fbText;
+                source = `Workers AI Llama 3.3 (Fallback) + ${source}`;
+              }
+            } catch (errAi: any) {
+              console.error('[LLM_FALLBACK_ERR] Lỗi Workers AI fallback:', errAi?.message);
+            }
           }
         }
 

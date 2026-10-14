@@ -525,6 +525,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 type="text"
                 aria-label="Nhập câu hỏi cho trợ lý AI"
                 value={inputVal}
+                maxLength={2000}
                 onChange={(e) => setInputVal(e.target.value)}
                 placeholder={user ? "Hỏi về thuế Shopee, TikTok, cho thuê nhà, ngưỡng 1 tỷ..." : "Đăng nhập số điện thoại để tra cứu và hỏi đáp thuế..."}
                 className="flex-1 bg-transparent px-2 py-2 text-[14px] text-slate-900 placeholder:text-slate-400 font-medium focus:outline-none"

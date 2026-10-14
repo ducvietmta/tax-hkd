@@ -23,9 +23,9 @@ binding = "AI"
 [vars]
 ENVIRONMENT = "production"
 APP_NAME = "Hệ thống Tư vấn Thuế TMĐT & HKD 2026"
-CORS_ALLOW_ORIGIN = "*"
+CORS_ALLOW_ORIGIN = "https://tax-hkd.pages.dev"
 INITIAL_FREE_CREDITS = 3
 VIP_PHONE = "0943219594"
 VIP_CREDITS = 1000
-SEPAY_API_KEY = "spsk_live_Gb916y8n4ubZZxS7BptB4EoMZNwD1dCF"
+# SEPAY_API_KEY được bảo mật qua 'wrangler secret put SEPAY_API_KEY', không lưu trong file cấu hình git
 SEPAY_PATTERN = "SP-LIVE-TD295786"

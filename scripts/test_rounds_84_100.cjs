@@ -16,7 +16,8 @@ function load(file, deps = {}) {
 }
 
 const conversation = load('worker/src/conversation.ts');
-const scope = load('worker/src/answerScope.ts', { './conversation': conversation });
+const textUtils = load('worker/src/utils/text.ts');
+const scope = load('worker/src/answerScope.ts', { './conversation': conversation, './utils/text': textUtils });
 const engine = load('worker/src/taxEngine.ts');
 const priority = load('worker/src/priorityTaxAnswer.ts', { './taxEngine': engine });
 const validation = load('worker/src/answerValidation.ts');

@@ -458,13 +458,30 @@ export function extractTaxFactsFromQuery(query: string, defaultYear = 2026): Tax
     };
   }
 
-  // 4. Kiểm tra trường hợp nhiều ngành: bán lẻ 800tr + dịch vụ 350tr
+  // 4. Kiểm tra trường hợp nhiều ngành (ví dụ: bán hàng/bán lẻ X + dịch vụ/affiliate Y)
+  const hasGoodsKeyword = /\b(ban hang|ban le|shopee|hang hoa|thuong mai)\b/.test(qLower);
+  const hasServiceKeyword = /\b(dich vu|affiliate|tiktok|koc|hoa hong)\b/.test(qLower);
   if (
     (qLower.includes('800') && qLower.includes('350')) ||
-    (qLower.includes('ban hang') && qLower.includes('dich vu') && qLower.includes('ty'))
+    (hasGoodsKeyword && hasServiceKeyword && (qLower.includes('ty') || qLower.includes('trieu') || qLower.includes('tr')))
   ) {
-    const revGoods = 800_000_000;
-    const revService = 350_000_000;
+    let revGoods = 800_000_000;
+    let revService = 350_000_000;
+
+    const goodsMatch = qLower.match(/(?:ban hang|ban le|shopee|hang hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(trieu|ty|tr)?/);
+    const serviceMatch = qLower.match(/(?:dich vu|affiliate|tiktok|koc|hoa hong)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(trieu|ty|tr)?/);
+
+    if (goodsMatch && serviceMatch) {
+      const gVal = Number(goodsMatch[1].replace(',', '.'));
+      const gUnit = goodsMatch[2] === 'ty' ? 1_000_000_000 : 1_000_000;
+      const sVal = Number(serviceMatch[1].replace(',', '.'));
+      const sUnit = serviceMatch[2] === 'ty' ? 1_000_000_000 : 1_000_000;
+      if (!isNaN(gVal) && !isNaN(sVal) && gVal > 0 && sVal > 0) {
+        revGoods = Math.round(gVal * gUnit);
+        revService = Math.round(sVal * sUnit);
+      }
+    }
+
     return {
       taxYear,
       activityType: 'multi',

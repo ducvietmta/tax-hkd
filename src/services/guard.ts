@@ -5,7 +5,7 @@
 
 import { resolveAnswerScope, scopeInstructions, intentInstructions } from '../../worker/src/answerScope';
 
-export const MAX_QUESTION_LENGTH = 300;
+export const MAX_QUESTION_LENGTH = 2000;
 
 export const MSG_OFF_TOPIC =
   'Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.';

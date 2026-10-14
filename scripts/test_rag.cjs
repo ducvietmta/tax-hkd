@@ -22,12 +22,14 @@ function loadModule(relativePath, dependencies = {}) {
 
 const engine = loadModule('worker/src/ragEngine.ts');
 const conversation = loadModule('worker/src/conversation.ts');
-const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation });
+const textUtils = loadModule('worker/src/utils/text.ts');
+const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation, './utils/text': textUtils });
 const taxEngine = loadModule('worker/src/taxEngine.ts');
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
   './answerScope': scope,
   './taxEngine': taxEngine,
+  './utils/text': textUtils,
 });
 
 function resultsFor(query) {
@@ -70,7 +72,7 @@ const affiliateResults = resultsFor(affiliateQuestion);
 assert.ok(affiliateResults.results.some(({ chunk }) => chunk.ref_id === '16.96'));
 const affiliateContext = buildContext(affiliateResults.results, affiliateQuestion).text;
 assert.match(affiliateContext, /31\/01\/2027/);
-assert.match(affiliateContext, /đuôi 888.*hoạt động kinh doanh trực tuyến của cá nhân/);
+assert.match(affiliateContext, /888.*(hoạt động kinh doanh trực tuyến của cá nhân|phân loại hoạt động TMĐT)/);
 const idGuidance = affiliateResults.results.find(({ chunk }) => chunk.ref_id === '16.96').chunk.text;
 assert.doesNotMatch(idGuidance, /đã đăng ký hộ kinh doanh|giấy phép hộ kinh doanh/);
 assert.match(affiliateContext, /06\/10\/2026/);

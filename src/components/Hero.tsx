@@ -97,11 +97,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
 
   const placeholder = useTypingPlaceholder(PLACEHOLDERS, !searchQuery && !focused && !isSearching && !isStreaming);
 
-  // 3D tilt cho thẻ kết quả
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rotX = useSpring(useTransform(my, [-0.5, 0.5], [2.5, -2.5]), { stiffness: 140, damping: 18 });
   const rotY = useSpring(useTransform(mx, [-0.5, 0.5], [-2.5, 2.5]), { stiffness: 140, damping: 18 });
+
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+
+  React.useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 180)}px`;
+    }
+  }, [searchQuery]);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -319,17 +327,30 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
         >
           <div className="flex items-center gap-3 bg-white rounded-[1.1rem] pl-4 pr-2 py-2">
             <Search className="w-5 h-5 text-emerald-600 flex-shrink-0" aria-hidden="true" />
-            <input
-              type="text"
+            <textarea
+              ref={textareaRef}
               aria-label="Nhập câu hỏi tra cứu thuế"
               value={searchQuery}
-              maxLength={300}
+              maxLength={2000}
+              rows={1}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={placeholder || 'Nhập câu hỏi về thuế...'}
-              className="w-full bg-transparent text-slate-900 placeholder-slate-400 text-[15px] sm:text-[17px] focus:outline-none font-medium py-3"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSearch(e);
+                }
+              }}
+              placeholder={placeholder || 'Nhập câu hỏi về thuế (hỗ trợ nhập văn bản dài, nhiều kênh doanh thu)...'}
+              className="w-full bg-transparent text-slate-900 placeholder-slate-400 text-[15px] sm:text-[17px] focus:outline-none font-medium py-3 resize-none overflow-y-auto leading-relaxed"
+              style={{ minHeight: '48px', maxHeight: '180px' }}
             />
+            {searchQuery.length > 200 && (
+              <span className="text-[11px] text-slate-400 font-medium whitespace-nowrap self-end pb-3 hidden sm:inline-block">
+                {searchQuery.length}/2000
+              </span>
+            )}
             <motion.button
               type="submit"
               disabled={isSearching}

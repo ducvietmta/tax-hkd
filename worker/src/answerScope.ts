@@ -1,13 +1,10 @@
 import { isContextualFollowUp, type ConversationTurn } from './conversation';
+import { normalizeText as normalize } from './utils/text';
 
 export interface AnswerScope {
   today: string;
   years: number[];
   periodSource: 'current_message' | 'user_history' | 'current_default';
-}
-
-function normalize(text: string): string {
-  return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 }
 
 /** Document identifiers, publication dates and AI suggestions are not the user's tax period. */

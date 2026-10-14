@@ -19,12 +19,13 @@ function load(relativePath, dependencies = {}) {
 }
 
 const conversation = load('worker/src/conversation.ts');
-const scope = load('worker/src/answerScope.ts', { './conversation': conversation });
+const textUtils = load('worker/src/utils/text.ts');
+const sectorIntent = load('worker/src/sectorIntent.ts', { './utils/text': textUtils });
+const scope = load('worker/src/answerScope.ts', { './conversation': conversation, './utils/text': textUtils });
 const taxEngine = load('worker/src/taxEngine.ts');
-const sectorIntent = load('worker/src/sectorIntent.ts');
-const business = load('worker/src/businessTaxAnswer.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
-const guard = load('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
 const relief = load('worker/src/reliefEligibilityAnswer.ts');
+const business = load('worker/src/businessTaxAnswer.ts', { './taxEngine': taxEngine, './utils/text': textUtils, './sectorIntent': sectorIntent });
+const guard = load('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './utils/text': textUtils, './sectorIntent': sectorIntent });
 const now = new Date('2026-10-14T05:00:00Z');
 const answer = question => business.answerVerifiedBusinessTax(question, scope.resolveAnswerScope([], question, now));
 
@@ -39,7 +40,6 @@ assert.match(nq43BoundaryAnswer.response, /không phải ngưỡng 1 tỷ/);
 assert.equal(guard.guardTaxAnswer(nq43BoundaryQuestion, nq43BoundaryScope, ['16.99'], 'Câu trả lời giả lập').reason, null);
 const oneBillionQuestion = 'Doanh thu bán hàng năm 2026 vượt ngưỡng 1 tỷ đúng 1 đồng, tính thuế?';
 assert.equal(guard.guardTaxAnswer(oneBillionQuestion, scope.resolveAnswerScope([], oneBillionQuestion, now), ['16.99'], '').reason, 'one_dong_threshold_rounding');
-
 const vatReliefQuestion = 'Tôi cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026, thuế GTGT theo tỷ lệ 5%. Nghị quyết 204/2025/QH15 có thể giảm mức tỷ lệ GTGT của tôi xuống 4% hay không? Cần xác định điều kiện gì? Nghị quyết 43/2026/QH16 có giảm GTGT không? Không đổi thành ngành bán lẻ.';
 const vatReliefAnswer = answer(vatReliefQuestion);
 assert.ok(vatReliefAnswer, 'Exact MCP question should use a verified answer');

@@ -30,17 +30,19 @@ console.log('🧪 BẮT ĐẦU TEST SUITE 42 CA (ATAI-PATCH-40-2026-10) VÀ META
 console.log('================================================================\n');
 
 // 1. TẢI MODULES
+const textUtils = loadModule('worker/src/utils/text.ts');
+const sectorIntent = loadModule('worker/src/sectorIntent.ts', { './utils/text': textUtils });
 const engine = loadModule('worker/src/ragEngine.ts');
 const conversation = loadModule('worker/src/conversation.ts');
-const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation });
+const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation, './utils/text': textUtils });
 const pendingTopics = loadModule('worker/src/pendingTopics.ts');
 const taxEngine = loadModule('worker/src/taxEngine.ts');
-const sectorIntent = loadModule('worker/src/sectorIntent.ts');
-const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
+const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './utils/text': textUtils, './sectorIntent': sectorIntent });
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
   './answerScope': scope,
   './taxEngine': taxEngine,
+  './utils/text': textUtils,
 });
 
 const resultsReport = [];

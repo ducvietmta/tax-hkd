@@ -11,10 +11,13 @@ database_id = "540ddea4-8da6-4957-bd5b-3959483d269f"
 [triggers]
 crons = ["0 3 * * *"]
 
+[ai]
+binding = "AI"
+
 [vars]
 ENVIRONMENT = "production"
 APP_NAME = "Hệ thống Tư vấn Thuế TMĐT & HKD 2026"
-CORS_ALLOW_ORIGIN = "*"
+CORS_ALLOW_ORIGIN = "https://tax-hkd.pages.dev"
 INITIAL_FREE_CREDITS = 3
 VIP_PHONE = "0943219594"
 VIP_CREDITS = 1000

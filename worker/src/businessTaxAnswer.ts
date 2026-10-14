@@ -1,5 +1,6 @@
 import type { AnswerScope } from './answerScope';
 import { calculateTax, formatVnd, formatRevenue, type TaxFacts } from './taxEngine';
+import { normalizeText as fold } from './utils/text';
 import { hasActiveRetailActivity } from './sectorIntent';
 
 export interface VerifiedBusinessAnswer {
@@ -7,10 +8,6 @@ export interface VerifiedBusinessAnswer {
   citations: string[];
   ruleIds: string[];
   facts: TaxFacts;
-}
-
-function fold(text: string): string {
-  return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 }
 
 function moneyToVnd(numberText: string, unit: string): number {

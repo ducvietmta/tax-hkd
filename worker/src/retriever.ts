@@ -9,17 +9,7 @@
 import { CANONICAL_CHUNKS, RagChunk, matchRoute } from './ragEngine';
 import { resolveAnswerScope, type AnswerScope } from './answerScope';
 import { extractTaxFactsFromQuery, calculateTax } from './taxEngine';
-
-export function fold(s: string): string {
-  return s
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd')
-    .replace(/[^a-z0-9%\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
+import { foldText as fold } from './utils/text';
 
 const STOP = new Set(
   ('la va cua cho co khong nhung cac mot nhu the nao bao nhieu thi duoc bi ma khi nay do de toi minh ban hay ' +

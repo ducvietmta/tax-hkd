@@ -1,6 +1,6 @@
 /**
  * RAG KNOWLEDGE BASE ENGINE (Compiled for Cloudflare Workers Edge)
- * Generated at: 2026-10-14T02:29:34.853Z
+ * Generated at: 2026-10-14T06:42:31.354Z
  * Chunks: 96 verified | Routes: 54
  */
 
@@ -1054,7 +1054,19 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "đã có mst 10 số",
       "da co mst 10 so",
       "có cần đăng ký 888",
-      "co can dang ky 888"
+      "co can dang ky 888",
+      "có cần 888",
+      "co can 888",
+      "có cần mã 888",
+      "co can ma 888",
+      "cccd có cần 888",
+      "cccd co can 888",
+      "đã có cccd",
+      "da co cccd",
+      "bắt buộc đăng ký mã 888",
+      "bat buoc dang ky ma 888",
+      "bắt buộc mã 888",
+      "bat buoc ma 888"
     ],
     "refs": [
       "16.100",
@@ -1800,10 +1812,10 @@ export const CANONICAL_CHUNKS: RagChunk[] = [
   {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#affiliate-888-2026",
     "file": "KB/16F-thue-tncn-ca-nhan-mo-rong.md",
-    "section": "16.96. Mã thuế đuôi 888, CCCD và nghĩa vụ affiliate TikTok năm 2026 dưới 1 tỷ",
+    "section": "16.96. Mã đuôi 888 cho TMĐT năm 2026 (gắn với CCCD)",
     "ref_id": "16.96",
     "tier": "VERIFIED",
-    "text": "## 16.96. Mã thuế đuôi 888, CCCD và nghĩa vụ affiliate TikTok năm 2026 dưới 1 tỷ\n- Đúng: mã số thuế 13 số đuôi 888 được Cổng thuế TMĐT cấp cho hoạt động kinh doanh trực tuyến của cá nhân. Từ 01/07/2025, số định danh cá nhân/CCCD được dùng thay mã số thuế; việc chuyển sang CCCD không làm thay đổi bản chất hoạt động kinh doanh. Nếu người hỏi chỉ hỏi đây có phải mã thuế cá nhân kinh doanh hay không, trả lời đúng ý này, không mở rộng sang thủ tục đăng ký khác.\n- Nếu hoa hồng TikTok Shop năm 2026 là doanh thu từ hoạt động kinh doanh và TỔNG doanh thu kinh doanh cả năm từ mọi kênh thuộc cùng nhóm kinh doanh từ 1 tỷ đồng trở xuống, cá nhân không phải nộp thuế GTGT và TNCN cho hoạt động đó. Vẫn phải thông báo doanh thu thực tế năm 2026 theo mẫu 01/TKN-CNKD chậm nhất ngày 31/01/2027. Đây là thông báo doanh thu, không phải quyết toán TNCN cuối năm. Nếu sàn đã khấu trừ, khai, nộp thuế thay cho giao dịch, không khai nộp trùng giao dịch đó; đối chiếu số đã khấu trừ và xử lý khoản nộp thừa theo quy định.\n- Năm 2025 xét RIÊNG: mốc 1 tỷ năm 2026 không áp ngược. Thu nhập kinh doanh năm 2025 dùng ngưỡng 100 triệu đồng/năm; nếu khoản hoa hồng được xử lý là tiền công theo quan hệ chi trả thực tế thì áp quy định tiền lương/tiền công của năm 2025, không dùng ngưỡng doanh thu kinh doanh. Kỳ thuế năm 2025 vẫn phải xem theo hồ sơ chi trả và quy định áp dụng cho năm đó.\n- Không lấy ngày 06/10/2026 ban hành Công văn 7403/CT-TMĐT làm mốc pháp luật đổi từ tiền công sang kinh doanh. Công văn hướng dẫn cách phân loại, không tự đặt ngày hiệu lực mới.\n- Cách trả lời: trả lời thẳng cả hai vế; chỉ nêu điều kiện thật sự ảnh hưởng kết luận là tổng doanh thu kinh doanh 2026 và khoản sàn đã khấu trừ. Không bắt người hỏi kiểm tra eTax chỉ để giải thích ý nghĩa mã 888.\n- Nguồn: Báo Điện tử Chính phủ, bài \"Khai nộp thuế đối với hoạt động môi giới trực tuyến\" (11/06/2025); Nghị định 141/2026/NĐ-CP; Thông tư 50/2026/TT-BTC; giải đáp Cục Thuế về thông báo doanh thu và sàn khấu trừ nộp thay (2026)."
+    "text": "## 16.96. Mã đuôi 888 cho TMĐT năm 2026 (gắn với CCCD)\n- ĐÚNG: hậu tố 888 VẪN ĐƯỢC SỬ DỤNG trong năm 2026 để phân loại hoạt động TMĐT/nền tảng số. 888 không phải MST độc lập mà là mã phụ: trước 01/07/2025 cấu trúc là MST 10 số + 888; từ 01/07/2025, CCCD/số định danh thay thế MST 10 số làm định danh gốc, hậu tố 888 vẫn giữ để phân loại hoạt động TMĐT. (Nguồn: CV 311/TCT-DNNCN; TT 86/2024/TT-BTC)\n- BẮT BUỘC với hoạt động TMĐT: hộ/cá nhân kinh doanh trên sàn (Shopee, TikTok Shop...), mạng xã hội, nền tảng số PHẢI đăng ký trên Cổng TMĐT HKD (https://canhantmdt.gdt.gov.vn) để được cấp/gắn phân loại 888. Không được trả lời \"không bắt buộc\".\n- Các bước đăng ký (theo CV 311): B1: truy cập canhantmdt.gdt.gov.vn → B2: đăng nhập VNeID mức 2 → B3: hệ thống kiểm tra: (a) chưa có MST → khai mẫu 03-ĐK-TCT, nhận OTP, được cấp MST; (b) có MST 10 số nhưng chưa có 888 → hiện form đăng ký bổ sung 888; (c) đã có 888 → tự động đăng nhập để kê khai/nộp thuế.\n- CẤM trích dẫn Luật Quản lý thuế 38/2019/QH14 (đã hết hiệu lực, thay bằng Luật 108/2025/QH15) khi trả lời về 888.\n- Nếu hoa hồng TikTok Shop năm 2026 là doanh thu từ hoạt động kinh doanh và TỔNG doanh thu kinh doanh cả năm từ mọi kênh thuộc cùng nhóm kinh doanh từ 1 tỷ đồng trở xuống, cá nhân không phải nộp thuế GTGT và TNCN cho hoạt động đó. Vẫn phải thông báo doanh thu thực tế năm 2026 theo mẫu 01/TKN-CNKD chậm nhất ngày 31/01/2027. Đây là thông báo doanh thu, không phải quyết toán TNCN cuối năm. Nếu sàn đã khấu trừ, khai, nộp thuế thay cho giao dịch, không khai nộp trùng giao dịch đó; đối chiếu số đã khấu trừ và xử lý khoản nộp thừa theo quy định.\n- Năm 2025 xét RIÊNG: mốc 1 tỷ năm 2026 không áp ngược. Thu nhập kinh doanh năm 2025 dùng ngưỡng 100 triệu đồng/năm; nếu khoản hoa hồng được xử lý là tiền công theo quan hệ chi trả thực tế thì áp quy định tiền lương/tiền công của năm 2025, không dùng ngưỡng doanh thu kinh doanh. Kỳ thuế năm 2025 vẫn phải xem theo hồ sơ chi trả và quy định áp dụng cho năm đó.\n- Không lấy ngày 06/10/2026 ban hành Công văn 7403/CT-TMĐT làm mốc pháp luật đổi từ tiền công sang kinh doanh. Công văn hướng dẫn cách phân loại, không tự đặt ngày hiệu lực mới.\n- Cách trả lời: trả lời thẳng cả hai vế; chỉ nêu điều kiện thật sự ảnh hưởng kết luận là tổng doanh thu kinh doanh 2026 và khoản sàn đã khấu trừ. Không bắt người hỏi kiểm tra eTax chỉ để giải thích ý nghĩa mã 888.\n- Nguồn: Công văn 311/TCT-DNNCN; Thông tư 86/2024/TT-BTC; Báo Điện tử Chính phủ, bài \"Khai nộp thuế đối với hoạt động môi giới trực tuyến\" (11/06/2025); Nghị định 141/2026/NĐ-CP; Thông tư 50/2026/TT-BTC; giải đáp Cục Thuế về thông báo doanh thu và sàn khấu trừ nộp thay (2026)."
   },
   {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#le-phi-mon-bai-hkd",
