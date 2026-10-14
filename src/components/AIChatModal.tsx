@@ -15,6 +15,7 @@ interface AIChatModalProps {
   onClose: () => void;
   initialQuery?: string;
   resumeTurn?: ChatHistoryItem | null;
+  embeddedDocument?: { id: string; code: string; title: string };
 }
 
 interface Message {
@@ -54,7 +55,7 @@ const QUICK_PROMPTS = [
   'Kê khai hóa đơn điện tử máy tính tiền thế nào?',
 ];
 
-export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initialQuery, resumeTurn }) => {
+export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initialQuery, resumeTurn, embeddedDocument }) => {
   const { user, isAuthenticated, consumeCredit, openDepositModal, openAuthModal, syncCredits } = useAuth();
   const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [loadedStorageKey, setLoadedStorageKey] = useState<string | null>(null);
@@ -67,7 +68,13 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const handledInitialRef = useRef<string | null>(null);
-  const storageKey = `tax_active_chat_${user?.phone || 'anonymous'}`;
+  const pendingAuthQuestionRef = useRef<string | null>(null);
+  const storageKey = embeddedDocument
+    ? `tax_document_chat_${user?.phone || 'anonymous'}_${embeddedDocument.id}`
+    : `tax_active_chat_${user?.phone || 'anonymous'}`;
+  const welcomeMessage = embeddedDocument
+    ? { ...WELCOME_MESSAGE, text: `Đang trao đổi về ${embeddedDocument.code}. Bạn có thể hỏi chi tiết và đối chiếu câu trả lời với PDF bên cạnh.` }
+    : WELCOME_MESSAGE;
 
   useEffect(() => {
     try {
@@ -78,9 +85,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         typeof item.id === 'string' && typeof item.text === 'string' && item.id !== 'm1'
       ) : [];
       const restored = keepConversation(turns);
-      setMessages([WELCOME_MESSAGE, ...restored]);
+      setMessages([welcomeMessage, ...restored]);
     } catch {
-      setMessages([WELCOME_MESSAGE]);
+      setMessages([welcomeMessage]);
     }
     setLoadedStorageKey(storageKey);
   }, [storageKey]);
@@ -100,9 +107,17 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     if (loadedStorageKey !== storageKey) return;
     const initialId = resumeTurn ? `resume:${resumeTurn.id}` : initialQuery?.trim() ? `query:${initialQuery}` : null;
     if (!initialId || handledInitialRef.current === initialId) return;
+    if (embeddedDocument && messages.some((message) => message.contextual)) {
+      handledInitialRef.current = initialId;
+      return;
+    }
+    if (embeddedDocument && initialQuery && !isAuthenticated) {
+      setInputVal(initialQuery);
+      return;
+    }
     handledInitialRef.current = initialId;
     if (resumeTurn) {
-      setMessages([WELCOME_MESSAGE, {
+      setMessages([welcomeMessage, {
         id: `history-user-${resumeTurn.id}`,
         sender: 'user',
         text: resumeTurn.message,
@@ -117,9 +132,11 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         contextual: true,
       }]);
     } else if (initialQuery && initialQuery.trim()) {
-      handleUserSend(initialQuery);
+      const question = pendingAuthQuestionRef.current || initialQuery;
+      pendingAuthQuestionRef.current = null;
+      handleUserSend(question);
     }
-  }, [initialQuery, isOpen, resumeTurn, loadedStorageKey]);
+  }, [initialQuery, isOpen, resumeTurn, loadedStorageKey, isAuthenticated, embeddedDocument, messages]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -137,6 +154,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     if (!text.trim() || isTyping) return;
 
     if (!user || !isAuthenticated) {
+      if (embeddedDocument) pendingAuthQuestionRef.current = text;
       openAuthModal();
       return;
     }
@@ -312,22 +330,24 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/60 backdrop-blur-md">
+      <div className={embeddedDocument ? 'h-full min-h-0 w-full flex' : 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-900/60 backdrop-blur-md'}>
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-3xl h-[680px] max-h-[92vh] bg-white rounded-3xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden"
+          className={embeddedDocument
+            ? 'relative w-full h-full min-h-0 bg-white flex flex-col overflow-hidden'
+            : 'relative w-full max-w-3xl h-[680px] max-h-[92vh] bg-white rounded-3xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden'}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header cao cấp */}
-          <div className="relative px-5 sm:px-6 py-4 bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white border-b border-emerald-500/20 flex items-center justify-between shrink-0 shadow-sm">
+          <div className={`relative bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white border-b border-emerald-500/20 flex items-center justify-between shrink-0 shadow-sm ${embeddedDocument ? 'px-3 py-3 gap-2' : 'px-5 sm:px-6 py-4'}`}>
             {/* Ambient glow phía sau header */}
             <div className="absolute -top-12 -left-12 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="flex items-center gap-3.5 relative z-10">
-              <div className="relative">
+            <div className="flex items-center gap-3.5 relative z-10 min-w-0 flex-1">
+              <div className={`relative ${embeddedDocument ? 'hidden' : ''}`}>
                 <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-cyan-400 p-[2px] shadow-lg shadow-emerald-500/20">
                   <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-emerald-400 animate-pulse" />
@@ -337,18 +357,20 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
                 </span>
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-[16px] text-white tracking-tight">Trợ lý AI Pháp lý Thuế</span>
-                  <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
+                  <span className={`font-extrabold text-white tracking-tight truncate ${embeddedDocument ? 'text-sm' : 'text-[16px]'}`}>Trợ lý AI Pháp lý Thuế</span>
+                  <span className={`${embeddedDocument ? 'hidden' : 'hidden sm:inline-flex'} items-center gap-1 text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300`}>
                     <Radio className="w-2.5 h-2.5 text-emerald-400 animate-pulse" />
                     Chuyên sâu 2026
                   </span>
                 </div>
-                <div className="text-[12px] text-slate-300 flex items-center gap-1.5">
-                  <span>Tư vấn HKD & Cá nhân kinh doanh</span>
-                  <span className="text-slate-500">·</span>
-                  <span className="text-emerald-400/90 font-medium">Nghị định 141/2026/NĐ-CP</span>
+                <div className="text-[12px] text-slate-300 flex items-center gap-1.5 min-w-0">
+                  {embeddedDocument ? (
+                    <span className="text-emerald-300 font-medium truncate" title={embeddedDocument.title}>{embeddedDocument.code}</span>
+                  ) : (
+                    <><span>Tư vấn HKD & Cá nhân kinh doanh</span><span className="text-slate-500">·</span><span className="text-emerald-400/90 font-medium">Nghị định 141/2026/NĐ-CP</span></>
+                  )}
                 </div>
               </div>
             </div>
@@ -360,8 +382,8 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-300 rounded-xl text-[12px] font-bold transition-all shadow-xs backdrop-blur-xs"
                 >
                   <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>{user.credits} lượt hỏi</span>
-                  <PlusCircle className="w-3.5 h-3.5 text-emerald-400 ml-0.5" />
+                  <span>{embeddedDocument ? user.credits : `${user.credits} lượt hỏi`}</span>
+                  {!embeddedDocument && <PlusCircle className="w-3.5 h-3.5 text-emerald-400 ml-0.5" />}
                 </button>
               ) : (
                 <button
@@ -369,14 +391,14 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-300 rounded-xl text-[12px] font-bold transition-all shadow-xs backdrop-blur-xs"
                 >
                   <User className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Đăng nhập để hỏi</span>
+                  <span className={embeddedDocument ? 'sr-only' : ''}>Đăng nhập để hỏi</span>
                 </button>
               )}
 
               <button
                 onClick={onClose}
                 className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
-                aria-label="Đóng cửa sổ"
+                aria-label={embeddedDocument ? 'Quay lại PDF' : 'Đóng cửa sổ'}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -388,7 +410,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
             {messages.some((message) => message.contextual) && (
               <button
                 type="button"
-                onClick={() => { setMessages([WELCOME_MESSAGE]); setInputVal(''); }}
+                onClick={() => { setMessages([welcomeMessage]); setInputVal(''); }}
                 disabled={isTyping}
                 className="whitespace-nowrap px-3 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold disabled:opacity-50"
               >
@@ -396,9 +418,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
               </button>
             )}
             <span className="text-slate-400 font-semibold whitespace-nowrap flex items-center gap-1 text-[11px] uppercase tracking-wider pl-1">
-              <HelpCircle className="w-3.5 h-3.5 text-emerald-600" /> Gợi ý:
+              {embeddedDocument ? <><BookOpen className="w-3.5 h-3.5 text-emerald-600" /> Hỏi về {embeddedDocument.code}</> : <><HelpCircle className="w-3.5 h-3.5 text-emerald-600" /> Gợi ý:</>}
             </span>
-            {QUICK_PROMPTS.map((prompt, idx) => (
+            {!embeddedDocument && QUICK_PROMPTS.map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => {
@@ -527,7 +549,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 value={inputVal}
                 maxLength={2000}
                 onChange={(e) => setInputVal(e.target.value)}
-                placeholder={user ? "Hỏi về thuế Shopee, TikTok, cho thuê nhà, ngưỡng 1 tỷ..." : "Đăng nhập số điện thoại để tra cứu và hỏi đáp thuế..."}
+                placeholder={embeddedDocument ? `Hỏi về ${embeddedDocument.code}...` : user ? "Hỏi về thuế Shopee, TikTok, cho thuê nhà, ngưỡng 1 tỷ..." : "Đăng nhập số điện thoại để tra cứu và hỏi đáp thuế..."}
                 className="flex-1 bg-transparent px-2 py-2 text-[14px] text-slate-900 placeholder:text-slate-400 font-medium focus:outline-none"
               />
 

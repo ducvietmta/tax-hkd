@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { TechShowcase } from './components/TechShowcase';
@@ -15,7 +15,10 @@ import { AuroraBackground } from './components/AuroraBackground';
 import { Reveal } from './components/Reveal';
 import { HistoryModal } from './components/HistoryModal';
 import { AuthProvider } from './context/AuthContext';
+import { useHashRoute } from './features/registration/hooks/useHashRoute';
 import type { ChatHistoryItem } from './services/api';
+
+const RegistrationPage = lazy(() => import('./features/registration/RegistrationPage'));
 
 function MainApp() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -23,6 +26,7 @@ function MainApp() {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [initialAIChatQuery, setInitialAIChatQuery] = useState('');
   const [resumeTurn, setResumeTurn] = useState<ChatHistoryItem | null>(null);
+  const { isRegRoute } = useHashRoute();
 
   const handleOpenAIChat = (query?: string) => {
     setResumeTurn(null);
@@ -47,34 +51,53 @@ function MainApp() {
       />
 
       <main className="flex-grow">
-        <Hero
-          onOpenConsultation={() => setIsConsultationOpen(true)}
-          onOpenAIChat={handleOpenAIChat}
-          onContinueAIChat={(message, response) => handleContinueChat({
-            id: `hero-${Date.now()}`,
-            message,
-            response,
-            created_at: new Date().toISOString(),
-          })}
-        />
+        {isRegRoute ? (
+          <Suspense
+            fallback={
+              <div className="min-h-screen pt-32 flex items-center justify-center text-sm font-semibold text-slate-500">
+                Đang mở hướng dẫn đăng ký kinh doanh…
+              </div>
+            }
+          >
+            <RegistrationPage
+              onOpenAIChat={handleOpenAIChat}
+              onOpenConsultation={() => setIsConsultationOpen(true)}
+            />
+          </Suspense>
+        ) : (
+          <>
+            <Hero
+              onOpenConsultation={() => setIsConsultationOpen(true)}
+              onOpenAIChat={handleOpenAIChat}
+              onContinueAIChat={(message, response) =>
+                handleContinueChat({
+                  id: `hero-${Date.now()}`,
+                  message,
+                  response,
+                  created_at: new Date().toISOString(),
+                })
+              }
+            />
 
-        <TechShowcase />
+            <TechShowcase />
 
-        <Reveal>
-          <SmartCapabilities />
-        </Reveal>
+            <Reveal>
+              <SmartCapabilities />
+            </Reveal>
 
-        <Reveal>
-          <TaxCalculatorInteractive />
-        </Reveal>
+            <Reveal>
+              <TaxCalculatorInteractive />
+            </Reveal>
 
-        <Reveal>
-          <TaxRiskAuditDemo />
-        </Reveal>
+            <Reveal>
+              <TaxRiskAuditDemo />
+            </Reveal>
 
-        <Reveal>
-          <LegalKnowledgeBase onOpenAIChat={handleOpenAIChat} />
-        </Reveal>
+            <Reveal>
+              <LegalKnowledgeBase onOpenAIChat={handleOpenAIChat} />
+            </Reveal>
+          </>
+        )}
       </main>
 
       <Footer />

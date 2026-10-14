@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { ArrowRight, Menu, X, Calculator, Search, Store, Sparkles, User, Zap, LogOut, PlusCircle, History } from 'lucide-react';
+import { ArrowRight, Menu, X, Calculator, Search, Store, Sparkles, User, Zap, LogOut, PlusCircle, History, FileCheck2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useHashRoute } from '../features/registration/hooks/useHashRoute';
 
 interface HeaderProps {
   onOpenConsultation: () => void;
@@ -14,6 +15,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const { user, isAuthenticated, openAuthModal, openDepositModal, logout } = useAuth();
+  const { isRegRoute } = useHashRoute();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
 
@@ -57,6 +59,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
 
         {/* Minimal Navigation */}
         <nav className="hidden md:flex items-center gap-6 text-[14px] font-semibold text-slate-600">
+          <a
+            href="#/dang-ky"
+            className={`transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-xl ${
+              isRegRoute
+                ? 'text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 shadow-2xs'
+                : 'hover:text-emerald-600'
+            }`}
+          >
+            <FileCheck2 className="w-4 h-4 text-emerald-600" />
+            <span>Đăng ký HKD</span>
+          </a>
           <a
             href="#ai-assistant"
             className="hover:text-emerald-600 transition-colors flex items-center gap-1"
@@ -258,6 +271,18 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
             </button>
           )}
 
+          <a
+            href="#/dang-ky"
+            onClick={() => setMobileMenuOpen(false)}
+            className={`flex items-center gap-2 text-sm font-semibold py-1.5 px-2.5 rounded-xl ${
+              isRegRoute
+                ? 'text-emerald-900 bg-emerald-50 font-bold border border-emerald-200'
+                : 'text-slate-800'
+            }`}
+          >
+            <FileCheck2 className="w-4 h-4 text-emerald-600" />
+            <span>Đăng ký HKD (Mới 2026)</span>
+          </a>
           <a
             href="#ai-assistant"
             onClick={() => setMobileMenuOpen(false)}
