@@ -1,220 +1,208 @@
-import React, { useState } from 'react';
-import { BookOpen, Search } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { BookOpen, Search, ArrowRight, Sparkles, X } from 'lucide-react';
 
 interface LawItem {
   code: string;
   title: string;
   issuer: string;
   effectiveDate: string;
-  category: string;
-  keyTopics: string[];
 }
 
 const HKD_LAWS: LawItem[] = [
   {
     code: 'Nghị định 141/2026/NĐ-CP',
-    title: 'Sửa đổi, bổ sung một số điều của Nghị định 68/2026/NĐ-CP - Nâng ngưỡng miễn thuế HKD lên 1 tỷ đồng/năm',
+    title: 'Sửa đổi, bổ sung Nghị định 68/2026/NĐ-CP - Nâng ngưỡng miễn thuế HKD lên 1 tỷ đồng/năm',
     issuer: 'Chính Phủ',
     effectiveDate: '29/04/2026',
-    category: 'Văn bản cốt lõi HKD',
-    keyTopics: ['Nâng ngưỡng doanh thu miễn thuế lên 1 tỷ đồng/năm', 'Doanh thu từ 1 tỷ trở xuống không chịu thuế GTGT & TNCN', 'Quy định sử dụng hóa đơn điện tử khi vượt 1 tỷ'],
   },
   {
-    code: 'Luật Thuế GTGT số 48/2024/QH15',
-    title: 'Luật Thuế Giá trị gia tăng (sửa đổi) & Khung pháp lý thuế Hộ kinh doanh',
+    code: 'Nghị quyết 43/2026/QH16',
+    title: 'Giảm 30% số thuế TNCN phải nộp năm 2026–2027 cho cá nhân cư trú có doanh thu từ 1 tỷ đến 10 tỷ đồng',
     issuer: 'Quốc Hội',
     effectiveDate: '01/01/2026',
-    category: 'Văn bản cốt lõi HKD',
-    keyTopics: ['Quy định đối tượng không chịu thuế GTGT cho HKD, CNKD', 'Khung pháp lý thuế TMĐT', 'Trách nhiệm kê khai nộp thuế'],
+  },
+  {
+    code: 'Công văn 311/TCT-DNNCN',
+    title: 'Quy trình cấp và quản lý mã số thuế phân loại 888 trên Cổng TMĐT qua tài khoản VNeID',
+    issuer: 'Tổng Cục Thuế',
+    effectiveDate: '20/01/2025',
+  },
+  {
+    code: 'Thông tư 86/2024/TT-BTC',
+    title: 'Sử dụng số định danh cá nhân (CCCD 12 số) thay thế mã số thuế từ ngày 01/07/2025',
+    issuer: 'Bộ Tài Chính',
+    effectiveDate: '01/07/2025',
+  },
+  {
+    code: 'Luật Thuế GTGT 48/2024/QH15',
+    title: 'Luật Thuế Giá trị gia tăng (sửa đổi) - Quy định không chịu thuế GTGT cho doanh thu từ 1 tỷ đồng trở xuống',
+    issuer: 'Quốc Hội',
+    effectiveDate: '01/01/2026',
+  },
+  {
+    code: 'Luật Thuế TNCN 109/2025/QH15',
+    title: 'Luật Thuế Thu nhập cá nhân mới - Bãi bỏ biểu lũy tiến cũ đối với thu nhập từ kinh doanh',
+    issuer: 'Quốc Hội',
+    effectiveDate: '01/01/2026',
   },
   {
     code: 'Nghị định 68/2026/NĐ-CP',
-    title: 'Quy định chi tiết và hướng dẫn thi hành Luật Quản lý Thuế & Luật Thuế GTGT cho sàn TMĐT',
+    title: 'Quy định chi tiết thi hành Luật Quản lý Thuế & Sàn TMĐT khấu trừ nộp thay thuế cho cá nhân',
     issuer: 'Chính Phủ',
     effectiveDate: '01/01/2026',
-    category: 'Thương Mại Điện Tử',
-    keyTopics: ['Sàn TMĐT khấu trừ, kê khai và nộp thay thuế cho cá nhân kinh doanh', 'Cơ chế chia sẻ dữ liệu doanh thu tự động', 'Xử lý hoàn thuế'],
   },
   {
     code: 'Thông tư 40/2021/TT-BTC',
     title: 'Hướng dẫn thuế GTGT, TNCN và quản lý thuế đối với Hộ kinh doanh, Cá nhân kinh doanh',
     issuer: 'Bộ Tài Chính',
     effectiveDate: '01/08/2021',
-    category: 'Văn bản cốt lõi HKD',
-    keyTopics: ['Tỷ lệ % tính thuế trên doanh thu theo ngành nghề', 'Kê khai thuế sàn TMĐT Shopee/TikTok', 'Thuế cho thuê nhà', 'Mẫu biểu 01/CNKD'],
   },
   {
     code: 'Thông tư 100/2021/TT-BTC',
-    title: 'Sửa đổi, bổ sung một số điều của Thông tư số 40/2021/TT-BTC',
+    title: 'Sửa đổi, bổ sung Thông tư 40/2021/TT-BTC về thuế cho thuê tài sản và thời điểm xác định doanh thu',
     issuer: 'Bộ Tài Chính',
     effectiveDate: '01/01/2022',
-    category: 'Văn bản cốt lõi HKD',
-    keyTopics: ['Làm rõ trách nhiệm nộp thuế cho thuê tài sản', 'Thời điểm xác định ngưỡng doanh thu chịu thuế'],
   },
   {
     code: 'Nghị định 91/2022/NĐ-CP',
-    title: 'Quy định trách nhiệm sàn TMĐT cung cấp dữ liệu định kỳ cho Tổng cục Thuế',
+    title: 'Trách nhiệm sàn TMĐT (Shopee, TikTok Shop...) cung cấp dữ liệu định kỳ cho cơ quan thuế',
     issuer: 'Chính Phủ',
     effectiveDate: '30/10/2022',
-    category: 'Thương Mại Điện Tử',
-    keyTopics: ['Dữ liệu CCCD, MST, Doanh thu người bán', 'Đối soát chéo tài khoản ngân hàng với doanh thu sàn'],
   },
   {
     code: 'Thông tư 88/2021/TT-BTC',
-    title: 'Hướng dẫn chế độ kế toán cho Hộ kinh doanh, Cá nhân kinh doanh',
+    title: 'Hướng dẫn chế độ chứng từ và sổ sách kế toán đơn giản đối với Hộ kinh doanh',
     issuer: 'Bộ Tài Chính',
     effectiveDate: '01/01/2022',
-    category: 'Sổ sách kế toán HKD',
-    keyTopics: ['Chế độ chứng từ và sổ sách kế toán đơn giản', 'Mẫu biểu sổ doanh thu, chi phí, vật tư'],
   },
   {
     code: 'Nghị định 123/2020/NĐ-CP',
-    title: 'Quy định hóa đơn điện tử khởi tạo từ máy tính tiền đối với Hộ kinh doanh',
+    title: 'Quy định áp dụng hóa đơn điện tử khởi tạo từ máy tính tiền đối với Hộ kinh doanh',
     issuer: 'Chính Phủ',
     effectiveDate: '01/07/2022',
-    category: 'Hóa đơn điện tử',
-    keyTopics: ['Hóa đơn máy tính tiền cho quán ăn, bán lẻ', 'Xuất hóa đơn theo từng lần bán'],
   },
   {
-    code: 'Luật Quản lý Thuế số 38/2019/QH14',
-    title: 'Quy định về đăng ký thuế, kê khai, nộp thuế và xử phạt đối với HKD',
+    code: 'Luật Quản lý Thuế 108/2025/QH15',
+    title: 'Luật Quản lý Thuế mới - Thay thế Luật 38/2019/QH14 từ 01/07/2026 (rút hạn khai bổ sung xuống 5 năm)',
     issuer: 'Quốc Hội',
-    effectiveDate: '01/07/2020',
-    category: 'Luật chung',
-    keyTopics: ['Xử phạt chậm nộp 0.03%/ngày', 'Mức phạt khai sai từ 20%', 'Đăng ký thuế điện tử qua VNeID'],
+    effectiveDate: '01/07/2026',
   },
 ];
 
-export const LegalKnowledgeBase: React.FC = () => {
-  const [filterCategory, setFilterCategory] = useState<string>('all');
+interface LegalKnowledgeBaseProps {
+  onOpenAIChat?: (query: string) => void;
+}
+
+export const LegalKnowledgeBase: React.FC<LegalKnowledgeBaseProps> = ({ onOpenAIChat }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const filteredLaws = HKD_LAWS.filter((law) => {
-    const matchesCategory = filterCategory === 'all' || law.category === filterCategory;
-    const matchesSearch = law.title.toLowerCase().includes(searchTerm.toLowerCase()) || law.code.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredLaws = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) return HKD_LAWS;
+    return HKD_LAWS.filter((law) => {
+      const matchCode = law.code.toLowerCase().includes(term);
+      const matchTitle = law.title.toLowerCase().includes(term);
+      const matchIssuer = law.issuer.toLowerCase().includes(term);
+      return matchCode || matchTitle || matchIssuer;
+    });
+  }, [searchTerm]);
 
   return (
-    <section id="legal-base" className="py-20 md:py-28 bg-[#F8FAFC]">
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8">
+    <section id="legal-base" className="py-14 md:py-20 bg-slate-50/70 border-t border-slate-200/60">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
-          <div>
-            <div className="inline-flex items-center gap-2 text-emerald-700 text-[12px] font-extrabold tracking-widest uppercase mb-2">
-              <BookOpen className="w-4 h-4 text-emerald-600" />
-              <span>CƠ SỞ PHÁP LÝ THUẾ HỘ & CÁ NHÂN KINH DOANH</span>
-            </div>
-            <h2 className="text-[30px] sm:text-[40px] font-extrabold text-slate-900 tracking-tight leading-tight">
-              Thư viện Thông tư & Nghị định Thuế HKD <br />
-              được AI cập nhật mới nhất
-            </h2>
+        {/* Header gọn gàng */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 text-emerald-700 text-[12px] font-extrabold tracking-widest uppercase mb-3 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200/70 shadow-xs">
+            <BookOpen className="w-4 h-4 text-emerald-600" />
+            <span>CƠ SỞ PHÁP LÝ THUẾ HỘ & CÁ NHÂN KINH DOANH</span>
           </div>
+          <h2 className="text-[26px] sm:text-[36px] font-extrabold text-slate-900 tracking-tight leading-tight mb-2">
+            Thư viện Thông tư & Nghị định Thuế HKD <br className="hidden sm:inline" />
+            <span className="text-emerald-700">được AI cập nhật mới nhất</span>
+          </h2>
+          <p className="text-slate-500 text-[14px] sm:text-[15px] max-w-xl mx-auto">
+            Tìm kiếm nhanh các luật, thông tư, nghị định và công văn đã được huấn luyện vào hệ thống AI.
+          </p>
+        </div>
 
-          {/* Search inside legal library */}
-          <div className="mt-4 md:mt-0 w-full md:w-80">
-            <div className="relative">
-              <input
-                type="text"
-                aria-label="Tìm kiếm văn bản pháp luật"
-                placeholder="Tìm Thông tư 40, Nghị định 91, Nghị định 141..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-white border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-[14px] text-slate-900 focus:outline-none focus:border-emerald-500 font-medium focus-visible:ring-2 focus-visible:ring-emerald-500"
-              />
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" aria-hidden="true" />
-            </div>
+        {/* Thanh tìm kiếm trực quan theo tên */}
+        <div className="relative mb-6">
+          <div className="relative flex items-center">
+            <Search className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" />
+            <input
+              type="text"
+              aria-label="Tìm kiếm văn bản pháp luật"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Tìm kiếm tài liệu theo tên hoặc số hiệu (ví dụ: Nghị định 141, Thông tư 40, CV 311...)"
+              className="w-full bg-white border border-slate-300 rounded-2xl pl-12 pr-10 py-3.5 text-[15px] text-slate-900 placeholder:text-slate-400 shadow-xs focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 transition-all font-medium"
+            />
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm('')}
+                className="absolute right-3.5 text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition-colors"
+                title="Xóa tìm kiếm"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Filter Pills */}
-        <div role="group" aria-label="Lọc theo nhóm văn bản" className="flex flex-wrap items-center gap-2 mb-8">
-          <button
-            type="button"
-            onClick={() => setFilterCategory('all')}
-            className={`px-4 py-1.5 rounded-full text-[13px] font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-              filterCategory === 'all'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            Tất cả ({HKD_LAWS.length})
-          </button>
-          <button
-            onClick={() => setFilterCategory('Văn bản cốt lõi HKD')}
-            className={`px-4 py-1.5 rounded-full text-[13px] font-bold transition-all ${
-              filterCategory === 'Văn bản cốt lõi HKD'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            Thông tư 40 & TT 100
-          </button>
-          <button
-            onClick={() => setFilterCategory('Thương Mại Điện Tử')}
-            className={`px-4 py-1.5 rounded-full text-[13px] font-bold transition-all ${
-              filterCategory === 'Thương Mại Điện Tử'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            Nghị định 91 (TMĐT)
-          </button>
-          <button
-            onClick={() => setFilterCategory('Sổ sách kế toán HKD')}
-            className={`px-4 py-1.5 rounded-full text-[13px] font-bold transition-all ${
-              filterCategory === 'Sổ sách kế toán HKD'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            Thông tư 88 (Sổ sách)
-          </button>
-        </div>
-
-        {/* Laws Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredLaws.map((law, idx) => (
-            <div
-              key={idx}
-              className="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between hover:border-emerald-500 transition-colors shadow-soft"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[12px] font-bold text-emerald-700 font-mono bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
-                    {law.code}
-                  </span>
-                  <span className="text-[11px] text-slate-500 font-semibold">
-                    {law.issuer} • {law.effectiveDate}
-                  </span>
-                </div>
-
-                <h3 className="text-[16px] font-bold text-slate-900 mb-3 leading-snug">
-                  {law.title}
-                </h3>
-
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {law.keyTopics.map((topic, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="text-[11px] text-slate-700 bg-slate-100 font-medium px-2 py-1 rounded"
-                    >
-                      {topic}
+        {/* Danh sách văn bản dạng hàng gọn gàng, tinh giản */}
+        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs divide-y divide-slate-100 overflow-hidden">
+          {filteredLaws.length > 0 ? (
+            filteredLaws.map((law) => (
+              <div
+                key={law.code}
+                onClick={() => onOpenAIChat?.(`Tư vấn quy định của ${law.code} đối với hộ kinh doanh`)}
+                className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-emerald-50/50 transition-colors cursor-pointer group"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    onOpenAIChat?.(`Tư vấn quy định của ${law.code} đối với hộ kinh doanh`);
+                  }
+                }}
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2.5 mb-1.5 flex-wrap">
+                    <span className="text-[12px] font-bold text-emerald-700 font-mono bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-md">
+                      {law.code}
                     </span>
-                  ))}
+                    <span className="text-[12px] text-slate-400 font-medium">
+                      {law.issuer} • Hiệu lực: {law.effectiveDate}
+                    </span>
+                  </div>
+                  <p className="text-[14px] sm:text-[15px] font-semibold text-slate-800 group-hover:text-emerald-900 transition-colors line-clamp-2 sm:line-clamp-1">
+                    {law.title}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-1.5 text-emerald-600 text-[13px] font-semibold shrink-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                  <span>Hỏi AI</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </div>
-
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[12px]">
-                <span className="text-slate-500 font-medium">Trạng thái: Đang có hiệu lực</span>
-                <span className="text-emerald-700 font-bold flex items-center gap-1">
-                  Đã nạp vào AI
-                </span>
-              </div>
+            ))
+          ) : (
+            <div className="py-12 px-4 text-center text-slate-500 text-[14px]">
+              Không tìm thấy tài liệu phù hợp với từ khóa <span className="font-semibold text-slate-700">"{searchTerm}"</span>.
             </div>
-          ))}
+          )}
         </div>
+
+        {/* Footer ghi chú */}
+        <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[12px] text-slate-400 px-2">
+          <span>Đang hiển thị {filteredLaws.length}/{HKD_LAWS.length} văn bản cốt lõi</span>
+          <span className="inline-flex items-center gap-1 text-emerald-700 font-medium">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            Nhấn vào văn bản để mở câu hỏi trực tiếp với AI
+          </span>
+        </div>
+
       </div>
     </section>
   );

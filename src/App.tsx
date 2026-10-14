@@ -73,7 +73,7 @@ function MainApp() {
         </Reveal>
 
         <Reveal>
-          <LegalKnowledgeBase />
+          <LegalKnowledgeBase onOpenAIChat={handleOpenAIChat} />
         </Reveal>
       </main>
 
