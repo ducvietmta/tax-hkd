@@ -1,0 +1,866 @@
+{
+  "16.1": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1008",
+    "ref_id": "16.1",
+    "section": "16.1. Cầm đồ: doanh thu không phải toàn bộ dòng tiền gốc vay",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.2": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1009",
+    "ref_id": "16.2",
+    "section": "16.2. Mua nông sản rồi sơ chế/chế biến",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.3": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1010",
+    "ref_id": "16.3",
+    "section": "16.3. Mua heo hơi, thuê lò mổ rồi bán thịt",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.4": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1011",
+    "ref_id": "16.4",
+    "section": "16.4. Cung cấp nhân công/nhân lực cho công trình",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.5": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1012",
+    "ref_id": "16.5",
+    "section": "16.5. Sang nhượng sạp/quyền kinh doanh tại chợ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.6": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1013",
+    "ref_id": "16.6",
+    "section": "16.6. Chủ HKD có được giảm trừ gia cảnh vào thu nhập kinh doanh?",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.7": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1014",
+    "ref_id": "16.7",
+    "section": "16.7. Một cá nhân có được đứng tên 2 HKD?",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.8": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1015",
+    "ref_id": "16.8",
+    "section": "16.8. Vợ và chồng mỗi người một HKD tại cùng địa chỉ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.9": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1016",
+    "ref_id": "16.9",
+    "section": "16.9. Tài khoản ngân hàng/ví điện tử của HKD",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.10": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1017",
+    "ref_id": "16.10",
+    "section": "16.10. Hợp đồng cho thuê dài hạn chấm dứt trước thời hạn",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.11": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1018",
+    "ref_id": "16.11",
+    "section": "16.11. HKD mua SaaS/tool/quảng cáo của nhà cung cấp nước ngoài",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.12": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1019",
+    "ref_id": "16.12",
+    "section": "16.12. Đăng ký/thay đổi người phụ thuộc trên eTax Mobile",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.13": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1020",
+    "ref_id": "16.13",
+    "section": "16.13. Mua bán điện thoại cũ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.14": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1021",
+    "ref_id": "16.14",
+    "section": "16.14. HKD/cá nhân trực tiếp chăn nuôi lợn thịt",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.15": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1022",
+    "ref_id": "16.15",
+    "section": "16.15. Homestay/lưu trú",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.16": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1023",
+    "ref_id": "16.16",
+    "section": "16.16. Hóa đơn GTGT đầu vào của HKD có được khấu trừ/hoàn?",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.17": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1024",
+    "ref_id": "16.17",
+    "section": "16.17. Giao dịch cũ chưa lập hóa đơn / lập hóa đơn muộn",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.18": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1025",
+    "ref_id": "16.18",
+    "section": "16.18. Khách trả lại hàng sau khi đã lập hóa đơn",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.19": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1026",
+    "ref_id": "16.19",
+    "section": "16.19. Mua hàng từ người dân/cá nhân không có hóa đơn",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.20": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1027",
+    "ref_id": "16.20",
+    "section": "16.20. Affiliate: phân loại theo nền tảng — ưu tiên CV 7403 cho affiliate trên TMĐT",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.21": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1028",
+    "ref_id": "16.21",
+    "section": "16.21. HĐĐT điều chỉnh/thay thế sau 01/07/2026",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.22": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1029",
+    "ref_id": "16.22",
+    "section": "16.22. COD và phí ship thu hộ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.23": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1030",
+    "ref_id": "16.23",
+    "section": "16.23. HKD mới ra kinh doanh giữa năm: ngưỡng 1 tỷ",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.24": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1031",
+    "ref_id": "16.24",
+    "section": "16.24. Hồ sơ thuế điện tử: “đã gửi/ghi nhận” khác với “tiếp nhận hồ sơ hợp lệ”",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.25": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1032",
+    "ref_id": "16.25",
+    "section": "16.25. Trạng thái MST 03/06 và tạm hoãn xuất cảnh",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.26": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1033",
+    "ref_id": "16.26",
+    "section": "16.26. Dạy học/đào tạo",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.27": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1034",
+    "ref_id": "16.27",
+    "section": "16.27. Gỗ tròn mua về cưa xẻ thành thanh/ván rồi bán",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.28": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1035",
+    "ref_id": "16.28",
+    "section": "16.28. Mua cà phê tươi của dân rồi bán lại",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.29": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1036",
+    "ref_id": "16.29",
+    "section": "16.29. Vừa kinh doanh thông thường vừa cho thuê bất động sản: tách riêng ngưỡng và mức trừ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.30": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1037",
+    "ref_id": "16.30",
+    "section": "16.30. Thời điểm doanh thu ≠ thời điểm lập hóa đơn; tiền đặt cọc/trả trước phải phân loại theo giao dịch",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.31": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1038",
+    "ref_id": "16.31",
+    "section": "16.31. Hợp đồng hỗn hợp: phải tách cấu phần hàng hóa, dịch vụ, xây dựng/lắp đặt; không được mở rộng dữ kiện",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.32": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1039",
+    "ref_id": "16.32",
+    "section": "16.32. Voucher, trợ giá, chiết khấu và phí sàn: xác định ai chịu khoản giảm cuối cùng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.33": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1040",
+    "ref_id": "16.33",
+    "section": "16.33. Tiền vào tài khoản không phát sinh từ kinh doanh: tự chuyển tiền, tiền vay, chuyển nhầm",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.34": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1041",
+    "ref_id": "16.34",
+    "section": "16.34. TNCN có “doanh thu khác”: thưởng, hỗ trợ, chiết khấu thanh toán, bồi thường liên quan kinh doanh",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.35": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1042",
+    "ref_id": "16.35",
+    "section": "16.35. Sàn TMĐT khấu trừ/nộp thay: không giảm doanh thu và không đồng nghĩa luôn phải khai lại cùng một giao dịch",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.36": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1043",
+    "ref_id": "16.36",
+    "section": "16.36. Thanh lý/bán tài sản kinh doanh, tài sản cá nhân và phế liệu phải phân loại riêng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.37": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1044",
+    "ref_id": "16.37",
+    "section": "16.37. “Doanh thu” phải xác định theo mục đích pháp lý: TNCN, GTGT và HĐĐT không được dùng chung máy móc",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.38": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1045",
+    "ref_id": "16.38",
+    "section": "16.38. Hộ kinh doanh doanh thu dưới 1 tỷ năm 2026 có bắt buộc dùng hóa đơn điện tử không? — Không bắt buộc (với hoạt độn",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.39": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1046",
+    "ref_id": "16.39",
+    "section": "16.39. Nghị quyết 43/2026/QH16: giảm 30% số thuế TNCN phải nộp kỳ 2026–2027",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.40": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1047",
+    "ref_id": "16.40",
+    "section": "16.40. Chỉ tiêu [14] Mẫu 01/CNKD (TT 50/2026): được CHỌN ngành/địa điểm áp mức trừ 1 tỷ theo phương án có lợi nhất",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.41": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1048",
+    "ref_id": "16.41",
+    "section": "16.41. HĐĐT bắt buộc khi doanh thu năm hiện tại >1 tỷ; doanh thu năm trước chỉ dùng xác định nhánh chuyển ngưỡng và thời",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.42": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1049",
+    "ref_id": "16.42",
+    "section": "16.42. Sàn thương mại điện tử khấu trừ/nộp thay (NĐ 117/2025 → NĐ 252/2026 từ 01/7/2026): HKD không khai/nộp lại; hàng b",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.43": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1050",
+    "ref_id": "16.43",
+    "section": "16.43. Đặt cọc vs tạm ứng: thời điểm lập hóa đơn dịch vụ",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.44": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1051",
+    "ref_id": "16.44",
+    "section": "16.44. 1 tỷ đồng: ngưỡng xác định đối tượng kê khai + khoản trừ riêng của TNCN — không khấu trừ khỏi doanh thu GTGT",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.45": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1052",
+    "ref_id": "16.45",
+    "section": "16.45. Thuật ngữ đúng theo phương pháp tính thuế TNCN",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.46": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1053",
+    "ref_id": "16.46",
+    "section": "16.46. Ví dụ minh họa hiệu chỉnh sau 3 case: pipeline tính đầy đủ (không phải nghĩa vụ cuối cùng)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.48": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1055",
+    "ref_id": "16.48",
+    "section": "16.48. Mức trừ 1 tỷ TNCN với doanh thu qua sàn đã nộp thay: tính trên tổng gộp, đối trừ sau — VERIFIED (đóng U-Q2)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.49": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1056",
+    "ref_id": "16.49",
+    "section": "16.49. Nhóm thuế suất của khoản \"thưởng\" chưa rõ bản chất: xác định bản chất trước, cấm áp máy móc — VERIFIED_CONDITIONA",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.50": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1058",
+    "ref_id": "16.50",
+    "section": "16.50. Nghị quyết 204/2025/QH15: giảm thuế GTGT 01/07/2025–31/12/2026; HKD tính theo tỷ lệ % được giảm 20% mức tỷ lệ %",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.51": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1059",
+    "ref_id": "16.51",
+    "section": "16.51. Chuỗi thay thế mẫu 01/TKN-CNKD (TT 18 → TT 50 → TT 89) và quy tắc hồ sơ đề nghị hoàn thuế nộp thừa — VERIFIED (ki",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.52": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1060",
+    "ref_id": "16.52",
+    "section": "16.52. Chọn sổ kế toán 2026: S1a/S2a/S2b–S2e theo trạng thái và phương pháp thuế; không bắt buộc mua “sổ in sẵn” — VERIF",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.53": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1061",
+    "ref_id": "16.53",
+    "section": "16.53. Vượt ngưỡng 1 tỷ trong năm 2026: bắt đầu khai từ quý phát sinh vượt; sau đó xác định chu kỳ tháng/quý theo dải do",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.54": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1062",
+    "ref_id": "16.54",
+    "section": "16.54. Kỳ 2022–2025: ngưỡng 100 triệu/năm; trường hợp lịch sử không trọn năm phải xác định đúng phương pháp trước khi “q",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.55": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1063",
+    "ref_id": "16.55",
+    "section": "16.55. HTKK/eTax/phần mềm tự tính ra số thuế không tự chứng minh nghĩa vụ cuối cùng — VERIFIED_CONDITIONAL",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.56": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1064",
+    "ref_id": "16.56",
+    "section": "16.56. Năm 2026: mốc 3 tỷ quyết định phương pháp TNCN; đúng 3 tỷ vẫn ở nhánh được lựa chọn; vượt cuối năm thì chuyển phư",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.57": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1065",
+    "ref_id": "16.57",
+    "section": "16.57. Sàn đã khấu trừ theo giao dịch nhưng doanh thu năm >3 tỷ: vẫn quyết toán TNCN theo phương pháp thu nhập; số sàn n",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.58": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1066",
+    "ref_id": "16.58",
+    "section": "16.58. HĐĐT tự nguyện ở nhóm ≤1 tỷ và trường hợp không có hóa đơn đầu vào: tách quyền dùng HĐĐT khỏi nghĩa vụ thuế và ch",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.59": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1067",
+    "ref_id": "16.59",
+    "section": "16.59. Quên kỳ / nộp trùng tháng-quý: giữ nguyên ranh giới kỳ tính thuế; chưa nộp thì nộp đúng kỳ bị thiếu, đã nộp sai t",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.60": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1068",
+    "ref_id": "16.60",
+    "section": "16.60. Temporal canonical: ngưỡng GTGT/TNCN của hộ/cá nhân kinh doanh theo từng kỳ 2021–2026 — VERIFIED_HISTORICAL + VER",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED_HISTORICAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.61": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1069",
+    "ref_id": "16.61",
+    "section": "16.61. Temporal canonical: từ 01/07/2026, thời hạn khai bổ sung chuyển từ 10 năm xuống 05 năm — VERIFIED_CURRENT",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED_CURRENT",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.62": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1070",
+    "ref_id": "16.62",
+    "section": "16.62. Năm 2021: ngưỡng 100 triệu đồng không bị mất khi chuyển từ TT 92 sang TT 40 — VERIFIED_HISTORICAL",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED_HISTORICAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.63": {
+    "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1071",
+    "ref_id": "16.63",
+    "section": "16.63. Thời hạn nộp hồ sơ khai thuế tháng/quý từ 01/07/2026 (Điều 10 NĐ 252/2026): ngày cuối cùng của tháng đầu quý sau,",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED_CURRENT",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.64": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1077",
+    "ref_id": "16.64",
+    "section": "16.64. Thời hạn đăng ký thuế lần đầu từ 01/07/2026 (NĐ 252/2026, Điều 6)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.65": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1078",
+    "ref_id": "16.65",
+    "section": "16.65. Chế tài chậm đăng ký thuế KHÔNG áp dụng cho trường hợp đăng ký thuế liên thông",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.66": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1079",
+    "ref_id": "16.66",
+    "section": "16.66. Khung phạt chậm đăng ký thuế lần đầu (Điều 10 NĐ 125/2020) — mức tổ chức và mức cá nhân",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.67": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1080",
+    "ref_id": "16.67",
+    "section": "16.67. Khai sai hồ sơ thuế nhưng không làm thiếu thuế (Điều 12 NĐ 125/2020)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.68": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1081",
+    "ref_id": "16.68",
+    "section": "16.68. Khai sai dẫn đến thiếu số thuế phải nộp (Điều 16 NĐ 125/2020)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.69": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1082",
+    "ref_id": "16.69",
+    "section": "16.69. Không lập hóa đơn khi bán hàng hóa, cung cấp dịch vụ (Điều 24 NĐ 125/2020, sửa bởi NĐ 310/2025)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.70": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1084",
+    "ref_id": "16.70",
+    "section": "16.70. Các trường hợp bị ấn định thuế từ 01/07/2026 (khoản 2 Điều 24 Luật Quản lý thuế 108/2025)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.71": {
+    "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1087",
+    "ref_id": "16.71",
+    "section": "16.71. Sổ sách, chứng từ và lưu trữ của nhóm ≤1 tỷ (thông báo doanh thu 01/TKN-CNKD)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.72": {
+    "id": "KB/16D-da-nguon-pham-vi-nguong.md#1089",
+    "ref_id": "16.72",
+    "section": "16.72. \"Doanh thu năm\" xét ngưỡng 1 tỷ 2026 gồm những gì",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.73": {
+    "id": "KB/16D-da-nguon-pham-vi-nguong.md#1090",
+    "ref_id": "16.73",
+    "section": "16.73. Affiliate: căn cứ pháp lý của decision tree phân loại (bổ sung 16.20)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.74": {
+    "id": "KB/16D-da-nguon-pham-vi-nguong.md#1091",
+    "ref_id": "16.74",
+    "section": "16.74. Doanh thu YouTube/AdSense: hoạt động kinh doanh, tự kê khai TNCN và GTGT",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.75": {
+    "id": "KB/16D-da-nguon-pham-vi-nguong.md#1092",
+    "ref_id": "16.75",
+    "section": "16.75. Ngưỡng 1 tỷ xét theo từng cá nhân kinh doanh; vợ chồng hai HKD không tự động cộng doanh thu",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.77": {
+    "id": "KB/16E-va-lo-hong-p0.md#1096",
+    "ref_id": "16.77",
+    "section": "16.77. Bảng tỷ lệ % GTGT và TNCN trên doanh thu theo nhóm ngành 2026 — ĐÃ CÓ NGUỒN (điền từ nguyên văn luật ngày 2026-10",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.78": {
+    "id": "KB/16E-va-lo-hong-p0.md#1098",
+    "ref_id": "16.78",
+    "section": "16.78. Giảm 30% số thuế TNCN phải nộp 2026–2027: cổng thủ tục (chính sách xem 16.39)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.79": {
+    "id": "KB/16E-va-lo-hong-p0.md#1101",
+    "ref_id": "16.79",
+    "section": "16.79. Phạm vi doanh thu xét ngưỡng HĐĐT 1 tỷ: nguyên tắc + 3 ca PENDING",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.81": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1105",
+    "ref_id": "16.81",
+    "section": "16.81. Biểu thuế lũy tiến tiền lương, tiền công 2026 (Điều 9 Luật 109/2025/QH15)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.82": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1106",
+    "ref_id": "16.82",
+    "section": "16.82. Giảm trừ gia cảnh và thu nhập tính thuế tiền lương (Điều 8, 10 Luật 109/2025/QH15)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.83": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1107",
+    "ref_id": "16.83",
+    "section": "16.83. Khấu trừ thuế khi trả thu nhập (Điều 50 NĐ 253/2026/NĐ-CP)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.84": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1108",
+    "ref_id": "16.84",
+    "section": "16.84. Phân loại thu nhập freelancer/thù lao dịch vụ (điểm c khoản 2 Điều 8 NĐ 253/2026/NĐ-CP)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.85": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1109",
+    "ref_id": "16.85",
+    "section": "16.85. Quyết toán và ủy quyền quyết toán thuế TNCN (Điều 51 NĐ 253/2026/NĐ-CP)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.86": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1110",
+    "ref_id": "16.86",
+    "section": "16.86. Hoàn thuế TNCN (Điều 6 Luật 109/2025; Điều 15 Luật 108/2025)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.87": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1111",
+    "ref_id": "16.87",
+    "section": "16.87. Cá nhân cư trú / không cư trú (Điều 2 Luật 109/2025/QH15)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.88": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1112",
+    "ref_id": "16.88",
+    "section": "16.88. Chuyển nhượng bất động sản: thuế suất và miễn thuế (Điều 14, Điều 4 Luật 109/2025/QH15)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.89": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1113",
+    "ref_id": "16.89",
+    "section": "16.89. Chứng khoán, chuyển nhượng vốn, đầu tư vốn (Điều 12, 13 Luật 109/2025/QH15)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.90": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1114",
+    "ref_id": "16.90",
+    "section": "16.90. Thừa kế, quà tặng, trúng thưởng, bản quyền, thu nhập khác (Điều 15, 18, 19, 27 Luật 109/2025/QH15)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.91": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1115",
+    "ref_id": "16.91",
+    "section": "16.91. Cho thuê BĐS — công thức và hiệu lực (khoản 4 Điều 7 Luật 109/2025; Luật 09/2026/QH16; NĐ 141/2026)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.93": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1117",
+    "ref_id": "16.93",
+    "section": "16.93. Chuyển tiếp 2025→2026 cho thuế TNCN tiền lương (Điều 29 Luật 109/2025/QH15)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.94": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1118",
+    "ref_id": "16.94",
+    "section": "16.94. Hiệp định tránh đánh thuế hai lần Việt Nam–Singapore (Điều 4, 14, 15, 24)",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.95": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1119",
+    "ref_id": "16.95",
+    "section": "16.95. Công văn 7403/CT-TMĐT (06/10/2026): thuế TNCN với tiếp thị liên kết và nội dung số trên TMĐT",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.96": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#affiliate-888-2026",
+    "ref_id": "16.96",
+    "section": "16.96. Mã đuôi 888 cho TMĐT năm 2026 (gắn với CCCD)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.97": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#le-phi-mon-bai-hkd",
+    "ref_id": "16.97",
+    "section": "16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.98": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#bieu-muc-le-phi-mon-bai-lich-su",
+    "ref_id": "16.98",
+    "section": "16.98. Biểu mức lệ phí môn bài cho năm 2025 trở về trước (Nghị định 139/2016/NĐ-CP)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  "16.99": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#giam-30-phan-tram-tncn-nq43",
+    "ref_id": "16.99",
+    "section": "16.99. Chính sách giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 và 3 tầng tính thuế năm 2026",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.100": {
+    "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#dang-ky-mst-888-cv-311-2025",
+    "ref_id": "16.100",
+    "section": "16.100. Thủ tục đăng ký mã số thuế 888 trên Cổng thông tin điện tử TMĐT (Công văn 311/TCT-DNNCN-2025)",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  }
+}

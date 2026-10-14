@@ -22,6 +22,13 @@ import { answerVerifiedBusinessTax } from './businessTaxAnswer';
 import { answerPriorityTax } from './priorityTaxAnswer';
 import { missingAnswerIntents, validateLegalCitations } from './answerValidation';
 import { answerVerifiedReliefEligibility } from './reliefEligibilityAnswer';
+import { understandQuery, refineQueryWithL2 } from './decision/understandQuery';
+import { QuyetDecisionProvider } from './decision/quyetProvider';
+import { filterAndGateEvidence } from './decision/evidenceGate';
+import { evaluateDecisionFrame, evaluateMultiYear } from './rules/evaluator';
+import { renderDeterministicAnswer, renderMultiYearComparison } from './decision/render';
+import { validateAnswer } from './decision/answerValidator';
+import { CURRENT_RULESET_VERSION } from './rules/registry';
 
 export interface Env {
   DB: D1Database;
@@ -30,6 +37,8 @@ export interface Env {
   ENVIRONMENT?: string;
   CORS_ALLOW_ORIGIN?: string;
   MUSE_API_KEY?: string;
+  FPT_AI_KEY?: string;
+  DECISION_MODE?: string;
   VIP_PHONE?: string;
   VIP_CREDITS?: string;
   SEPAY_API_KEY?: string;
@@ -891,8 +900,11 @@ export default {
         const answerScope = resolveAnswerScope(history, message);
         const cacheable = !fileKey;
         const normMsg = message.trim().normalize('NFC').replace(/\s+/g, ' ');
-        // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v35|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`));
+        // Invalidate old answers when ruleset updates or relative periods expire
+        const digest = await crypto.subtle.digest(
+          'SHA-256',
+          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+        );
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -936,11 +948,30 @@ export default {
         const pendingNotice = pendingTopics.length
           ? `CHỦ ĐỀ CHƯA XÁC MINH: ${pendingTopics.map((t) => t.disclaimer).join(' ')} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.\n`
           : '';
+        // --- BƯỚC 1.5: DECISION FRAME (L1 DETERMINISTIC + GATED L2 QUYET) ---
+        const decisionMode = env.DECISION_MODE || 'shadow';
+        let decisionFrame = decisionMode !== 'off' ? understandQuery(message, answerScope, history) : null;
+        if (decisionFrame && env.FPT_AI_KEY) {
+          try {
+            const quyetProvider = new QuyetDecisionProvider(env.FPT_AI_KEY);
+            decisionFrame = await refineQueryWithL2(decisionFrame, message, quyetProvider);
+          } catch (e) {
+            console.error('[L2_REFINEMENT_ERR]', e);
+          }
+        }
+
         const retrievalTrace = {
           method: routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25',
           period: { years: answerScope.years, source: answerScope.periodSource },
           ruleIds: verifiedTaxAnswer?.ruleIds || [],
           pendingTopics: pendingTopics.map((t) => t.id),
+          decision: decisionFrame ? {
+            layer: decisionFrame.meta.layer,
+            taxpayer: decisionFrame.taxpayer_type.value,
+            intent: decisionFrame.tax_intent.primary.value,
+            revenueVnd: decisionFrame.facts.revenue_vnd,
+            confidence: Math.round(decisionFrame.meta.confidence * 100) / 100,
+          } : undefined,
           evidence: relevantChunks.map((chunk) => ({
             title: (chunk.text.match(/^##\s*(?:16\.\d+\.\s*)?(.+)$/m)?.[1] || chunk.section)
               .replace(/[*`]/g, '').slice(0, 150),
@@ -1072,13 +1103,32 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           source = `verified-answer-guard (${guarded.reason}) + ${source}`;
         }
 
-        // Nếu mô hình không khả dụng và không có answer guard, không biến một đoạn truy xuất thành kết luận pháp lý.
+        // Nếu mô hình không khả dụng và không có answer guard, thử render từ Rules Engine
         let llmOk = !!aiText;
         if (!aiText) {
-          if (relevantChunks.length > 0) {
-            aiText = 'Đã tìm thấy tài liệu liên quan, nhưng hệ thống Muse Spark AI hiện chưa thể tổng hợp câu trả lời lúc này. Vui lòng thử lại sau ít phút.';
-          } else {
-            aiText = `Mình chưa tìm thấy căn cứ đủ chắc cho câu hỏi này. Bạn cho mình biết thêm doanh thu năm, ngành nghề và bán trên kênh nào (sàn TMĐT, cửa hàng, dịch vụ) nhé. Nếu cần chắc chắn, bạn có thể đặt lịch tư vấn với chuyên viên.`;
+          if (decisionFrame && decisionFrame.facts.revenue_vnd) {
+            if (decisionFrame.tax_period.years.length > 1) {
+              const multiResults = evaluateMultiYear(decisionFrame);
+              const rendered = renderMultiYearComparison(multiResults, decisionFrame);
+              aiText = rendered.response;
+              legalCitations = rendered.citations;
+              source = 'Decision Rules Engine (Multi-Year Comparison)';
+            } else {
+              const evalResult = evaluateDecisionFrame(decisionFrame);
+              if (evalResult.status === 'ANSWERED') {
+                const rendered = renderDeterministicAnswer(evalResult, decisionFrame);
+                aiText = rendered.response;
+                legalCitations = rendered.citations;
+                source = 'Decision Rules Engine (Deterministic Render)';
+              }
+            }
+          }
+          if (!aiText) {
+            if (relevantChunks.length > 0) {
+              aiText = 'Đã tìm thấy tài liệu liên quan, nhưng hệ thống Muse Spark AI hiện chưa thể tổng hợp câu trả lời lúc này. Vui lòng thử lại sau ít phút.';
+            } else {
+              aiText = `Mình chưa tìm thấy căn cứ đủ chắc cho câu hỏi này. Bạn cho mình biết thêm doanh thu năm, ngành nghề và bán trên kênh nào (sàn TMĐT, cửa hàng, dịch vụ) nhé. Nếu cần chắc chắn, bạn có thể đặt lịch tư vấn với chuyên viên.`;
+            }
           }
         }
 
@@ -1108,6 +1158,14 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
         const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope);
         aiText = citationCheck.answer;
         legalCitations = citationCheck.citations;
+
+        // --- BƯỚC 3: ANSWER VALIDATOR (LEGAL COMPLIANCE GUARD) ---
+        if (decisionFrame) {
+          const valReport = validateAnswer(aiText, decisionFrame);
+          if (valReport.repairedText) {
+            aiText = valReport.repairedText;
+          }
+        }
 
         // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
         let logD1Prefix = '';

@@ -1,0 +1,52 @@
+{
+  "ruleset_id": "HKD_2025",
+  "version": "1.0.0",
+  "name": "Chính sách thuế Hộ & Cá nhân kinh doanh năm 2025 trở về trước",
+  "effective_from": "2021-08-01",
+  "effective_to": "2025-12-31",
+  "tax_year_range": [2021, 2025],
+  "supersedes": [],
+  "thresholds": {
+    "exemption_annual_vnd": 100000000,
+    "income_method_mandatory_vnd": null,
+    "relief_max_revenue_vnd": null
+  },
+  "rates": {
+    "goods": {
+      "vat_rate": 0.01,
+      "pit_rate": 0.005,
+      "description": "Phân phối, cung cấp hàng hóa"
+    },
+    "service": {
+      "vat_rate": 0.05,
+      "pit_rate": 0.02,
+      "description": "Dịch vụ, xây dựng không bao thầu nguyên vật liệu"
+    },
+    "food_service": {
+      "vat_rate": 0.03,
+      "pit_rate": 0.015,
+      "description": "Dịch vụ ăn uống"
+    },
+    "property_rental": {
+      "vat_rate": 0.05,
+      "pit_rate": 0.05,
+      "description": "Cho thuê tài sản"
+    }
+  },
+  "relief_policies": {
+    "nq43_pit_reduction_rate": 0,
+    "note": "Nghị quyết 43/2026/QH16 không hồi tố cho năm 2025"
+  },
+  "citations": {
+    "exemption": {
+      "doc_id": "TT-40-2021-TT-BTC",
+      "name": "Thông tư 40/2021/TT-BTC",
+      "article": "Điều 4"
+    },
+    "amendment": {
+      "doc_id": "TT-100-2021-TT-BTC",
+      "name": "Thông tư 100/2021/TT-BTC",
+      "article": "Điều 1"
+    }
+  }
+}

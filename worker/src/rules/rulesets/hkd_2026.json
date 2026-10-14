@@ -1,0 +1,75 @@
+{
+  "ruleset_id": "HKD_2026",
+  "version": "1.0.0",
+  "name": "Chính sách thuế Hộ & Cá nhân kinh doanh năm 2026 - 2027",
+  "effective_from": "2026-01-01",
+  "effective_to": "2027-12-31",
+  "tax_year_range": [2026, 2027],
+  "supersedes": ["HKD_2025"],
+  "thresholds": {
+    "exemption_annual_vnd": 1000000000,
+    "income_method_mandatory_vnd": 3000000000,
+    "income_method_tier2_vnd": 50000000000,
+    "relief_max_revenue_vnd": 10000000000
+  },
+  "rates": {
+    "goods": {
+      "vat_rate": 0.01,
+      "pit_rate": 0.005,
+      "description": "Phân phối, cung cấp hàng hóa"
+    },
+    "service": {
+      "vat_rate": 0.05,
+      "pit_rate": 0.02,
+      "description": "Dịch vụ, xây dựng không bao thầu nguyên vật liệu"
+    },
+    "food_service": {
+      "vat_rate": 0.03,
+      "pit_rate": 0.015,
+      "description": "Dịch vụ ăn uống"
+    },
+    "property_rental": {
+      "vat_rate": 0.05,
+      "pit_rate": 0.05,
+      "description": "Cho thuê tài sản"
+    }
+  },
+  "pit_income_rates": {
+    "tier1_voluntary": 0.15,
+    "tier2_mandatory": 0.17,
+    "tier3_high": 0.20
+  },
+  "relief_policies": {
+    "nq43_pit_reduction_rate": 0.30,
+    "nq204_vat_reduction_rate": 0.20
+  },
+  "citations": {
+    "exemption": {
+      "doc_id": "ND-141-2026-ND-CP",
+      "name": "Nghị định 141/2026/NĐ-CP",
+      "article": "Điều 3, Điều 4",
+      "clause": "Khoản 1"
+    },
+    "pit_law": {
+      "doc_id": "Luat-109-2025-QH15",
+      "name": "Luật Thuế Thu nhập cá nhân 109/2025/QH15",
+      "article": "Điều 7"
+    },
+    "pit_relief": {
+      "doc_id": "NQ-43-2026-QH16",
+      "name": "Nghị quyết 43/2026/QH16",
+      "article": "Điều 1",
+      "clause": "Khoản 1"
+    },
+    "vat_relief": {
+      "doc_id": "NQ-204-2025-QH15",
+      "name": "Nghị quyết 204/2025/QH15",
+      "article": "Điều 1"
+    },
+    "e_invoice": {
+      "doc_id": "ND-68-2026-ND-CP",
+      "name": "Nghị định 68/2026/NĐ-CP",
+      "article": "Điều 6"
+    }
+  }
+}

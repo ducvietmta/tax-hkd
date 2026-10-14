@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tax-hkd.pages.dev/schema/tax-decision-frame/1.0.json",
+  "title": "TaxDecisionFrame",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "tax_period",
+    "taxpayer_type",
+    "tax_intent",
+    "income_type",
+    "facts",
+    "missing_facts",
+    "meta"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "tax_period": {
+      "type": "object",
+      "required": ["years", "source", "granularity", "is_historical", "is_future_unsupported"],
+      "properties": {
+        "years": { "type": "array", "items": { "type": "integer" } },
+        "source": { "type": "string" },
+        "granularity": { "enum": ["YEAR", "QUARTER", "MONTH", "EVENT_DATE"] },
+        "event_date": { "type": "string" },
+        "is_historical": { "type": "boolean" },
+        "is_future_unsupported": { "type": "boolean" }
+      }
+    },
+    "taxpayer_type": {
+      "type": "object",
+      "required": ["value", "confidence", "source"],
+      "properties": {
+        "value": {
+          "enum": [
+            "HOUSEHOLD_BUSINESS",
+            "INDIVIDUAL_BUSINESS",
+            "INDIVIDUAL_EMPLOYEE",
+            "ENTERPRISE",
+            "PLATFORM_OPERATOR",
+            "UNKNOWN"
+          ]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "source": { "type": "string" },
+        "span": { "type": "string" }
+      }
+    },
+    "income_type": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["value", "confidence", "source"],
+        "properties": {
+          "value": {
+            "enum": [
+              "GOODS_SALES",
+              "SERVICE",
+              "FOOD_SERVICE",
+              "PROPERTY_RENTAL",
+              "MARKETPLACE_SALES",
+              "AFFILIATE_COMMISSION",
+              "CONTENT_ADS",
+              "FREELANCE_SERVICE",
+              "WAGE_SALARY",
+              "OTHER",
+              "UNKNOWN"
+            ]
+          },
+          "confidence": { "type": "number" },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "tax_intent": {
+      "type": "object",
+      "required": ["primary"],
+      "properties": {
+        "primary": {
+          "type": "object",
+          "required": ["value", "confidence", "source"],
+          "properties": {
+            "value": { "type": "string" },
+            "confidence": { "type": "number" },
+            "source": { "type": "string" }
+          }
+        },
+        "secondary": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "facts": {
+      "type": "object",
+      "required": ["revenue_basis"],
+      "properties": {
+        "revenue_vnd": { "type": "number" },
+        "revenue_basis": { "enum": ["ANNUAL", "MONTHLY", "QUARTERLY", "UNSPECIFIED"] },
+        "taxable_income_vnd": { "type": "number" },
+        "refund_deducted_vnd": { "type": "number" },
+        "platform_fee_vnd": { "type": "number" },
+        "shipping_cod_vnd": { "type": "number" },
+        "is_resident": { "type": ["boolean", "null"] },
+        "activity_type": { "type": "string" }
+      }
+    },
+    "missing_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "blocking", "ask"],
+        "properties": {
+          "id": { "type": "string" },
+          "blocking": { "type": "boolean" },
+          "ask": { "type": "string" }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["layer", "confidence", "degraded", "l2_used", "latency_ms"],
+      "properties": {
+        "layer": { "enum": ["L1", "L2", "PROVIDER"] },
+        "confidence": { "type": "number" },
+        "degraded": { "type": "boolean" },
+        "l2_used": { "type": "boolean" },
+        "latency_ms": { "type": "number" }
+      }
+    }
+  }
+}
