@@ -55,12 +55,23 @@ const db = {
 };
 
 let modelCalls = 0;
+const concurrentQuestion = 'Năm 2026 hộ kinh doanh khai thuế vào lúc nào?';
+let releaseConcurrent;
+const concurrentGate = new Promise(resolve => { releaseConcurrent = resolve; });
+let concurrentCalls = 0;
 global.caches = { default: { match: async () => undefined, put: async () => {} } };
 global.fetch = async (_url, init) => {
   const input = JSON.parse(init.body);
   assert.equal(input.stream, false, 'Web SSE and MCP must send the same non-stream model request');
   const call = ++modelCalls;
-  await new Promise(resolve => setTimeout(resolve, 15));
+  if (input.input.at(-1).content[0].text === concurrentQuestion) {
+    concurrentCalls += 1;
+    if (concurrentCalls === 2) releaseConcurrent();
+    await Promise.race([
+      concurrentGate,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Concurrent requests did not reach the model together')), 2000)),
+    ]);
+  }
   return Response.json({ output: [{ type: 'message', content: [{ text: `Câu trả lời kiểm thử từ mô hình lần ${call}. Căn cứ pháp lý: tài liệu kiểm thử.` }] }] });
 };
 const env = { DB: db, MUSE_API_KEY: 'test-fixture' };
@@ -100,7 +111,6 @@ async function main() {
   assert.equal(await mcpAnswer('  Hộ kinh doanh năm 2026 tính nghĩa vụ thuế như thế nào?  '), first);
   assert.equal(modelCalls, 1, 'Identical independent questions should generate only once');
 
-  const concurrentQuestion = 'Năm 2026 hộ kinh doanh khai thuế vào lúc nào?';
   const [webConcurrent, mcpConcurrent] = await Promise.all([
     streamAnswer(concurrentQuestion), mcpAnswer(concurrentQuestion),
   ]);
