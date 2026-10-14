@@ -113,6 +113,21 @@ async function testWorkerPaths() {
       assert.match(body, /Tax Engine \(verified rules\)/);
       assert.equal(captured.length, museCallsBeforeVerified, 'Verified tax amount must bypass model generation');
     }
+    const vatReliefQuestion = 'Tôi cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026, thuế GTGT theo tỷ lệ 5%. Nghị quyết 204/2025/QH15 có thể giảm mức tỷ lệ GTGT của tôi xuống 4% hay không? Cần xác định điều kiện gì? Nghị quyết 43/2026/QH16 có giảm GTGT không? Không đổi thành ngành bán lẻ.';
+    const webResponse = await worker.fetch(request(false, vatReliefQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    assert.equal(webResponse.status, 200);
+    const webAnswer = await webResponse.json();
+    assert.match(webAnswer.response, /5% còn 4%/);
+    assert.match(webAnswer.response, /60\.000\.000 đồng/);
+    assert.doesNotMatch(webAnswer.response, /doanh thu bán hàng hóa\/tạp hóa|thuế GTGT: 1%/i);
+    const mcpResponse = await worker.fetch(new Request('https://test.local/mcp', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 77, method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: vatReliefQuestion } } }),
+    }), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    assert.equal(mcpResponse.status, 200);
+    const mcpAnswer = await mcpResponse.json();
+    assert.equal(mcpAnswer.result.isError, false);
+    assert.ok(mcpAnswer.result.content[0].text.startsWith(webAnswer.response), 'MCP and web must share the same core answer');
     const fallback = await worker.fetch(request(false), {}, ctx);
     assert.equal(fallback.status, 200);
     assert.match((await fallback.json()).response, /chưa thể tổng hợp câu trả lời/);

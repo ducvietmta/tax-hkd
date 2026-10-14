@@ -1,5 +1,6 @@
 import type { AnswerScope } from './answerScope';
 import { calculateTax, extractTaxFactsFromQuery, formatVnd, formatRevenue } from './taxEngine';
+import { hasActiveRetailActivity } from './sectorIntent';
 
 function fold(value: string): string {
   return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
@@ -62,7 +63,7 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
   //    ĐẢM BẢO ĐỦ 3 TẦNG: VAT 1% | PIT GỐC 0,5% VƯỢT 1 TỶ | GIẢM 30% NQ43 | HĐĐT 30 NGÀY
   // ==========================================
   const asksRate = /bao nhieu\s*(phan tram|%)|thue suat|bao nhieu tien|nop nhung thue gi|tinh thue|nop thue|phai nop/.test(q);
-  const retail = /\b(tap hoa|phan phoi|ban hang hoa|hang hoa|ban hang|ban le|shopee|ban online)\b/.test(q);
+  const retail = hasActiveRetailActivity(query);
   const annualRevenue = q.match(/doanh thu\s+(\d+(?:[.,]\d+)?)\s*(ty|trieu)\b/);
   const isOnePointZeroOneBillion =
     /\b(1[,.]01\s*ty|1010\s*trieu|1[.]010\s*trieu|1[.]010[.]000[.]000)\b/.test(q) ||
@@ -118,7 +119,8 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
     /\b(1[,.]5\s*ty|1500\s*trieu|1[.]500\s*trieu)\b/.test(q) &&
     /\b(dich vu|sua may tinh|sua chua)\b/.test(q);
 
-  if (isOnePointFiveBillionService && (scope.years.includes(2026) || scope.years.length === 0)) {
+  if (isOnePointFiveBillionService && !/204\/2025|giam\s+gtgt|gtgt[^.!?]{0,80}\b4\s*%/.test(q) &&
+      (scope.years.includes(2026) || scope.years.length === 0)) {
     const hasVat75m = a.includes('75.000.000') || a.includes('75 trieu');
     const hasPit7m = a.includes('7.000.000') || a.includes('7 trieu');
     const hasPit10m = a.includes('10.000.000') || a.includes('10 trieu');

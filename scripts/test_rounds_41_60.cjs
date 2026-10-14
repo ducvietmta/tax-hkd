@@ -21,9 +21,22 @@ function load(relativePath, dependencies = {}) {
 const conversation = load('worker/src/conversation.ts');
 const scope = load('worker/src/answerScope.ts', { './conversation': conversation });
 const taxEngine = load('worker/src/taxEngine.ts');
-const business = load('worker/src/businessTaxAnswer.ts', { './taxEngine': taxEngine });
+const sectorIntent = load('worker/src/sectorIntent.ts');
+const business = load('worker/src/businessTaxAnswer.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
+const guard = load('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
 const now = new Date('2026-10-14T05:00:00Z');
 const answer = question => business.answerVerifiedBusinessTax(question, scope.resolveAnswerScope([], question, now));
+
+const vatReliefQuestion = 'Tôi cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026, thuế GTGT theo tỷ lệ 5%. Nghị quyết 204/2025/QH15 có thể giảm mức tỷ lệ GTGT của tôi xuống 4% hay không? Cần xác định điều kiện gì? Nghị quyết 43/2026/QH16 có giảm GTGT không? Không đổi thành ngành bán lẻ.';
+const vatReliefAnswer = answer(vatReliefQuestion);
+assert.ok(vatReliefAnswer, 'Exact MCP question should use a verified answer');
+assert.equal(vatReliefAnswer.facts.activityType, 'service');
+assert.match(vatReliefAnswer.response, /5% còn 4%/);
+assert.match(vatReliefAnswer.response, /60\.000\.000 đồng/);
+assert.match(vatReliefAnswer.response, /75\.000\.000 đồng/);
+assert.match(vatReliefAnswer.response, /không giảm thuế GTGT/);
+assert.doesNotMatch(vatReliefAnswer.response, /GTGT: 1%|TNCN sau giảm: 1\.750\.000/);
+assert.equal(guard.guardTaxAnswer(vatReliefQuestion, scope.resolveAnswerScope([], vatReliefQuestion, now), ['16.99', '16.50'], 'Câu trả lời giả lập').reason, null);
 
 const repairParaphrases = [
   'Năm 2026 tôi làm dịch vụ sửa chữa, doanh thu 1,5 tỷ, thuế GTGT và TNCN bao nhiêu?',

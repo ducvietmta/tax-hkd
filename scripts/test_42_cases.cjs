@@ -35,7 +35,8 @@ const conversation = loadModule('worker/src/conversation.ts');
 const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation });
 const pendingTopics = loadModule('worker/src/pendingTopics.ts');
 const taxEngine = loadModule('worker/src/taxEngine.ts');
-const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine });
+const sectorIntent = loadModule('worker/src/sectorIntent.ts');
+const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
   './answerScope': scope,

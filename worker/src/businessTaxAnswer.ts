@@ -1,5 +1,6 @@
 import type { AnswerScope } from './answerScope';
 import { calculateTax, formatVnd, formatRevenue, type TaxFacts } from './taxEngine';
+import { hasActiveRetailActivity } from './sectorIntent';
 
 export interface VerifiedBusinessAnswer {
   response: string;
@@ -30,7 +31,7 @@ export function extractVerifiedBusinessFacts(question: string, scope: AnswerScop
     .filter(item => item.vnd > 0);
   const revenueAmounts = amounts.filter(amount => !/\b(khau tru|muc tru|giam tru|nguong)\s*$/.test(q.slice(Math.max(0, amount.index - 20), amount.index)));
   const billions = amounts.filter(item => item.vnd > 1_000_000_000 && item.vnd <= 3_000_000_000);
-  const goods = /\b(tap hoa|ban le|ban hang|hang hoa|phan phoi)\b/.test(q);
+  const goods = hasActiveRetailActivity(question);
   // The verified 5%/2% sector mapping here is limited to the repair examples.
   const service = /\b(sua chua|sua may|sua xe)\b/.test(q);
   const isResident = /\b(khong cu tru|phi cu tru)\b/.test(q) ? false
@@ -81,6 +82,28 @@ export function answerVerifiedBusinessTax(question: string, scope: AnswerScope):
   if (residentCalculation.status !== 'ANSWERED') return null;
   const revenue = formatRevenue(residentCalculation.effectiveRevenueVnd);
   const multi = facts.activityType === 'multi';
+  const vatReliefQuestion = facts.taxYear === 2026 && facts.activityType === 'service' &&
+    /204\/2025|giam\s+(?:muc\s+ty\s+le\s+)?gtgt|gtgt[^.!?]{0,80}\b4\s*%/.test(fold(question));
+  if (vatReliefQuestion) {
+    const reducedVat = Math.round(residentCalculation.vatDueVnd * 0.8);
+    const citations = [
+      'Điều 1 và Điều 2 Nghị quyết 204/2025/QH15',
+      'Khoản 1, khoản 2 Điều 1 và các phụ lục Nghị định 174/2025/NĐ-CP',
+      'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16',
+    ];
+    return {
+      response: [
+        `Bạn hỏi về dịch vụ sửa chữa máy vi tính, doanh thu ${revenue} năm 2026; không áp tỷ lệ của ngành bán lẻ.`,
+        'Nghị quyết 204/2025/QH15 có thể làm mức tỷ lệ GTGT 5% còn 4% (giảm 20% của 5%), nhưng không tự động áp dụng. Cần xác định dịch vụ sửa chữa cụ thể thuộc nhóm đang chịu thuế suất GTGT 10% theo khoản 3 Điều 9 Luật Thuế GTGT, không thuộc nhóm loại trừ và các phụ lục của Nghị định 174/2025/NĐ-CP; bạn tính GTGT theo tỷ lệ % trên doanh thu và việc cung cấp dịch vụ, xuất hóa đơn thuộc thời gian từ 01/07/2025 đến hết 31/12/2026.',
+        `Nếu đủ điều kiện, GTGT trên toàn bộ ${revenue} là ${formatVnd(reducedVat)} (4%); nếu không, theo tỷ lệ 5% bạn nêu là ${formatVnd(residentCalculation.vatDueVnd)}. Không trừ 1 tỷ đồng khỏi doanh thu tính GTGT.`,
+        'Nghị quyết 43/2026/QH16 chỉ giảm 30% thuế TNCN phải nộp của thu nhập kinh doanh đủ điều kiện, không giảm thuế GTGT.',
+        `Căn cứ pháp lý:\n${citations.join('\n')}`,
+      ].join('\n\n'),
+      citations,
+      ruleIds: ['NQ204_2025_ART1', 'ND174_2025_ART1_2', 'NQ43_2026_ART1_1'],
+      facts,
+    };
+  }
   const sector = multi ? 'hai hoạt động bán hàng và dịch vụ sửa chữa'
     : facts.activityType === 'service' ? 'dịch vụ sửa chữa' : 'bán hàng hóa';
   const lines = [
