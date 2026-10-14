@@ -25,8 +25,8 @@ const STEP_TIPS: Record<string, { speech: string; tip: string }> = {
     tip: 'VNeID Mức 2 giúp bạn ký số và nộp tờ khai một chạm qua Cổng Thuế điện tử mà không cần nộp giấy.',
   },
   'ind-submit-tax-reg': {
-    speech: 'Nộp Tờ khai 03-ĐK-TCT online trên thuedientu.gdt.gov.vn. Nhớ chọn đúng Chi cục Thuế nơi thường trú hoặc tạm trú nhé!',
-    tip: 'Hệ thống tự động trích xuất họ tên và số định danh từ VNeID, bạn chỉ cần điền vốn và ngành nghề dự kiến.',
+    speech: 'Đăng ký thuế lần đầu làm trực tiếp trên app eTax Mobile hoặc Cổng DVC (dichvucong.gdt.gov.vn) với mã thủ tục 1.007565 nhé!',
+    tip: 'Hệ thống tự sinh tờ khai từ dữ liệu VNeID Mức 2 của bạn — không cần chuẩn bị mẫu giấy 03-ĐK-TCT.',
   },
   'ind-receive-tax-code': {
     speech: 'Sau 03 ngày làm việc bạn sẽ nhận thông báo kích hoạt MST. Hãy cài ngay ứng dụng eTax Mobile trên điện thoại.',
