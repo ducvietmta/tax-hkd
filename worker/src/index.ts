@@ -1015,8 +1015,8 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                 }
                 const body = (await museRes.text()).slice(0, 300);
                 console.warn('[MODEL_HTTP_ERROR]', JSON.stringify({ model: modelRequest.model, status: museRes.status, body, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
-                // A missing model or invalid credentials will not be fixed by retrying.
-                if (museRes.status !== 429 && museRes.status < 500) break;
+                // Transient errors (429 rate limit, 404 node-routing glitch, or 5xx server errors) will be retried on attempt 2
+                if (museRes.status !== 429 && museRes.status !== 404 && museRes.status < 500) break;
               } catch (errMuse: any) {
                 console.error('[MODEL_REQUEST_ERROR]', JSON.stringify({ model: modelRequest.model, error: errMuse?.name || 'Error', detail: errMuse?.message, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
               }
@@ -1029,19 +1029,33 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           if (!aiText && env.AI && ragContextText) {
             try {
               console.warn('[LLM_FALLBACK] Kích hoạt Cloudflare Workers AI làm dự phòng...');
-              const fbRes: any = await env.AI.run('@cf/meta/llama-3.3-70b-instruct', {
-                messages: [
-                  { role: 'system', content: systemPrompt },
-                  ...history.map((h: any) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: h.content })),
-                  { role: 'user', content: message },
-                ],
-                temperature: 0.1,
-                max_tokens: 1500,
-              });
+              let fbRes: any = null;
+              try {
+                fbRes = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
+                  messages: [
+                    { role: 'system', content: systemPrompt },
+                    ...history.map((h: any) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: h.content })),
+                    { role: 'user', content: message },
+                  ],
+                  temperature: 0.1,
+                  max_tokens: 1500,
+                });
+              } catch (err70b: any) {
+                console.warn('[LLM_FALLBACK_70B_ERR] Thử Llama 3.1 8B:', err70b?.message);
+                fbRes = await env.AI.run('@cf/meta/llama-3.1-8b-instruct-fp8', {
+                  messages: [
+                    { role: 'system', content: systemPrompt },
+                    ...history.map((h: any) => ({ role: h.role === 'assistant' ? 'assistant' : 'user', content: h.content })),
+                    { role: 'user', content: message },
+                  ],
+                  temperature: 0.1,
+                  max_tokens: 1500,
+                });
+              }
               const fbText = fbRes?.response?.trim();
               if (fbText && fbText.length > 20) {
                 aiText = fbText;
-                source = `Workers AI Llama 3.3 (Fallback) + ${source}`;
+                source = `Workers AI Llama (Fallback) + ${source}`;
               }
             } catch (errAi: any) {
               console.error('[LLM_FALLBACK_ERR] Lỗi Workers AI fallback:', errAi?.message);
