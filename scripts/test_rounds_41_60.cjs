@@ -24,8 +24,21 @@ const taxEngine = load('worker/src/taxEngine.ts');
 const sectorIntent = load('worker/src/sectorIntent.ts');
 const business = load('worker/src/businessTaxAnswer.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
 const guard = load('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './sectorIntent': sectorIntent });
+const relief = load('worker/src/reliefEligibilityAnswer.ts');
 const now = new Date('2026-10-14T05:00:00Z');
 const answer = question => business.answerVerifiedBusinessTax(question, scope.resolveAnswerScope([], question, now));
+
+const nq43BoundaryQuestion = 'Một cá nhân cư trú có tổng doanh thu kinh doanh năm 2026 đúng bằng 10 tỷ đồng; một cá nhân khác có doanh thu 10 tỷ đồng cộng thêm 1 đồng. Chỉ xét đến chính sách giảm 30% thuế thu nhập cá nhân (TNCN) theo Nghị quyết 43/2026. Trường hợp nào đủ điều kiện, và liệu doanh thu từ 5 cửa hàng có được cộng gộp ở cấp độ cá nhân hay không? Lưu ý không nhầm lẫn giữa mức 10 tỷ đồng này với ngưỡng miễn thuế 1 tỷ đồng.';
+const nq43BoundaryScope = scope.resolveAnswerScope([], nq43BoundaryQuestion, now);
+const nq43BoundaryAnswer = relief.answerVerifiedReliefEligibility(nq43BoundaryQuestion, nq43BoundaryScope);
+assert.ok(nq43BoundaryAnswer, 'Exact 10 billion boundary question should use the verified answer');
+assert.match(nq43BoundaryAnswer.response, /10\.000\.000\.000 đồng.*đáp ứng/);
+assert.match(nq43BoundaryAnswer.response, /10\.000\.000\.001 đồng.*không đủ điều kiện/);
+assert.match(nq43BoundaryAnswer.response, /5 cửa hàng.*cộng doanh thu/);
+assert.match(nq43BoundaryAnswer.response, /không phải ngưỡng 1 tỷ/);
+assert.equal(guard.guardTaxAnswer(nq43BoundaryQuestion, nq43BoundaryScope, ['16.99'], 'Câu trả lời giả lập').reason, null);
+const oneBillionQuestion = 'Doanh thu bán hàng năm 2026 vượt ngưỡng 1 tỷ đúng 1 đồng, tính thuế?';
+assert.equal(guard.guardTaxAnswer(oneBillionQuestion, scope.resolveAnswerScope([], oneBillionQuestion, now), ['16.99'], '').reason, 'one_dong_threshold_rounding');
 
 const vatReliefQuestion = 'Tôi cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026, thuế GTGT theo tỷ lệ 5%. Nghị quyết 204/2025/QH15 có thể giảm mức tỷ lệ GTGT của tôi xuống 4% hay không? Cần xác định điều kiện gì? Nghị quyết 43/2026/QH16 có giảm GTGT không? Không đổi thành ngành bán lẻ.';
 const vatReliefAnswer = answer(vatReliefQuestion);

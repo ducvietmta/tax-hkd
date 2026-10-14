@@ -19,6 +19,7 @@ import { buildConversationRetrievalQuery, normalizeConversationHistory } from '.
 import { buildMuseRequest } from './museRequest';
 import { guardTaxAnswer } from './taxAnswerGuard';
 import { answerVerifiedBusinessTax } from './businessTaxAnswer';
+import { answerVerifiedReliefEligibility } from './reliefEligibilityAnswer';
 
 export interface Env {
   DB: D1Database;
@@ -849,7 +850,7 @@ export default {
         const cacheable = !fileKey && history.length === 0 && !body.stream;
         const normMsg = message.trim().normalize('NFC');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v30|${answerScope.today}|${normMsg}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v31|${answerScope.today}|${normMsg}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -877,7 +878,8 @@ export default {
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
         const { text: ragContextText, citations: retrievedCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
-        const verifiedTaxAnswer = answerVerifiedBusinessTax(message, answerScope);
+        const verifiedTaxAnswer = answerVerifiedReliefEligibility(message, answerScope) ||
+          answerVerifiedBusinessTax(message, answerScope);
         const legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
         // Guard chủ đề PENDING: chèn disclaimer vào prompt, không để model chốt cứng
         const pendingTopics = matchPendingTopics(message);

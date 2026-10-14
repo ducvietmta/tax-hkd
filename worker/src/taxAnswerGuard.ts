@@ -150,7 +150,10 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
   // ==========================================
   // 5. TRƯỜNG HỢP VƯỢT NGƯỠNG 1 ĐỒNG (1.000.000.001Đ - T26)
   // ==========================================
-  if (q.includes('1.000.000.001') || (q.includes('1 ty') && q.includes('1 dong'))) {
+  const oneBillionPlusOne = /(?<!\d)1[.,]000[.,]000[.,]001(?!\d)/.test(q) ||
+    /\b1\s*ty(?:\s*dong)?\s*(?:\+|cong(?:\s*them)?|them|hon|vuot)\s*1\s*dong\b/.test(q) ||
+    /\bvuot\s+(?:nguong\s+)?1\s*ty(?:\s*dong)?\s+(?:dung\s+)?1\s*dong\b/.test(q);
+  if (oneBillionPlusOne) {
     if (!a.includes('0,005') && !a.includes('lam tron') && !a.includes('0 dong')) {
       return {
         answer:

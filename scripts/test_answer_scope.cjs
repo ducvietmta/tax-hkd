@@ -128,6 +128,26 @@ async function testWorkerPaths() {
     const mcpAnswer = await mcpResponse.json();
     assert.equal(mcpAnswer.result.isError, false);
     assert.ok(mcpAnswer.result.content[0].text.startsWith(webAnswer.response), 'MCP and web must share the same core answer');
+    const nq43BoundaryQuestion = 'Một cá nhân cư trú có tổng doanh thu kinh doanh năm 2026 đúng bằng 10 tỷ đồng; một cá nhân khác có doanh thu 10 tỷ đồng cộng thêm 1 đồng. Chỉ xét đến chính sách giảm 30% thuế thu nhập cá nhân (TNCN) theo Nghị quyết 43/2026. Trường hợp nào đủ điều kiện, và liệu doanh thu từ 5 cửa hàng có được cộng gộp ở cấp độ cá nhân hay không? Lưu ý không nhầm lẫn giữa mức 10 tỷ đồng này với ngưỡng miễn thuế 1 tỷ đồng.';
+    const museCallsBeforeBoundary = captured.length;
+    const boundaryWebResponse = await worker.fetch(request(false, nq43BoundaryQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    assert.equal(boundaryWebResponse.status, 200);
+    const boundaryWebAnswer = await boundaryWebResponse.json();
+    assert.match(boundaryWebAnswer.response, /10\.000\.000\.000 đồng.*đáp ứng/);
+    assert.match(boundaryWebAnswer.response, /10\.000\.000\.001 đồng.*không đủ điều kiện/);
+    const boundaryStreamResponse = await worker.fetch(request(true, nq43BoundaryQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    assert.equal(boundaryStreamResponse.status, 200);
+    const boundaryStreamEvents = (await boundaryStreamResponse.text()).split('\n\n').filter(part => part.startsWith('data: {')).map(part => JSON.parse(part.slice(6)));
+    assert.equal(boundaryStreamEvents.find(event => event.type === 'done')?.fullText, boundaryWebAnswer.response, 'Web stream and non-stream must share the verified answer');
+    const boundaryMcpResponse = await worker.fetch(new Request('https://test.local/mcp', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 78, method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: nq43BoundaryQuestion } } }),
+    }), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    assert.equal(boundaryMcpResponse.status, 200);
+    const boundaryMcpAnswer = await boundaryMcpResponse.json();
+    assert.equal(boundaryMcpAnswer.result.isError, false);
+    assert.ok(boundaryMcpAnswer.result.content[0].text.startsWith(boundaryWebAnswer.response), 'MCP must use the same 10 billion boundary answer as web');
+    assert.equal(captured.length, museCallsBeforeBoundary, 'Verified 10 billion boundary must bypass model generation');
     const fallback = await worker.fetch(request(false), {}, ctx);
     assert.equal(fallback.status, 200);
     assert.match((await fallback.json()).response, /chưa thể tổng hợp câu trả lời/);
