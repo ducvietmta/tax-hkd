@@ -19,6 +19,8 @@ import { buildConversationRetrievalQuery, normalizeConversationHistory } from '.
 import { buildMuseRequest } from './museRequest';
 import { guardTaxAnswer } from './taxAnswerGuard';
 import { answerVerifiedBusinessTax } from './businessTaxAnswer';
+import { answerPriorityTax } from './priorityTaxAnswer';
+import { missingAnswerIntents, validateLegalCitations } from './answerValidation';
 import { answerVerifiedReliefEligibility } from './reliefEligibilityAnswer';
 
 export interface Env {
@@ -882,7 +884,7 @@ export default {
         const cacheable = !fileKey;
         const normMsg = message.trim().normalize('NFC').replace(/\s+/g, ' ');
         // Invalidate old answers; relative periods must also expire when the local date changes.
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v33|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`));
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`v34|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`));
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
         if (cacheable) {
@@ -917,9 +919,10 @@ export default {
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
         const { text: ragContextText, citations: retrievedCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
-        const verifiedTaxAnswer = answerVerifiedReliefEligibility(message, answerScope) ||
+        const verifiedTaxAnswer = answerPriorityTax(message, answerScope) ||
+          answerVerifiedReliefEligibility(message, answerScope) ||
           answerVerifiedBusinessTax(message, answerScope);
-        const legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
+        let legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
         // Guard chủ đề PENDING: chèn disclaimer vào prompt, không để model chốt cứng
         const pendingTopics = matchPendingTopics(message);
         const pendingNotice = pendingTopics.length
@@ -973,7 +976,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 9. Trước khi viết câu trả lời, tự kiểm tra theo thứ tự: xác định kỳ áp dụng; phân loại từng khoản thu; liệt kê điều kiện, ngưỡng và ngoại lệ từ căn cứ đã truy xuất; đối chiếu từng điều kiện với dữ kiện người dùng; rồi mới kết luận và nêu bước cần làm. Nếu thiếu dữ kiện, trả lời phần có thể chốt bằng điều kiện rõ ràng. Chỉ xuất câu trả lời cuối cùng, không in quá trình kiểm tra nội bộ.
 10. Nếu câu hỏi không liên quan đến thuế, hóa đơn, kê khai hay doanh thu của Hộ kinh doanh & cá nhân kinh doanh, CHỈ trả lời đúng nguyên văn: "Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh." + xuống dòng "Căn cứ pháp lý:\nKhông áp dụng". Không sáng tạo thêm, không liệt kê văn bản.
 11. Lệ phí môn bài: từ 01/01/2026 đã chấm dứt thu, nộp và không cần khai cho năm 2026 trở đi. Bảng mức của Nghị định 139/2016/NĐ-CP chỉ dùng để xét nghĩa vụ phát sinh từ năm 2025 trở về trước; tuyệt đối không áp cho năm hiện tại.
-12. Nghị quyết 43/2026/QH16 (Giảm 30% thuế TNCN kỳ 2026–2027): Áp dụng giảm 30% số thuế TNCN phải nộp đối với thu nhập từ kinh doanh của cá nhân cư trú có doanh thu năm không quá 10 tỷ đồng. Khi tính số thuế năm 2026, phân biệt: (1) Thuế GTGT tính trên toàn bộ doanh thu, không trừ 1 tỷ và không giảm theo NQ43; nếu người dùng hỏi giảm GTGT thì xét riêng Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP theo điều kiện hàng hóa/dịch vụ, thời gian và hóa đơn; (2) Thuế TNCN trước ưu đãi tính trên phần doanh thu vượt 1 tỷ đồng; (3) Mức giảm 30% TNCN theo NQ43 và số thuế TNCN sau giảm. Không áp NQ43 cho GTGT, tiền lương, cá nhân không cư trú hoặc năm 2025. Giữ đúng ngành người dùng khẳng định; cụm "không bán lẻ" là phủ định, không phải dữ kiện ngành bán lẻ.
+12. Nghị quyết 43/2026/QH16 (Giảm 30% thuế TNCN kỳ 2026–2027): Áp dụng giảm 30% số thuế TNCN phải nộp đối với thu nhập từ kinh doanh của cá nhân cư trú có doanh thu năm không quá 10 tỷ đồng. Khi tính số thuế năm 2026, phân biệt: (1) Thuế GTGT tính trên toàn bộ doanh thu, không trừ 1 tỷ và không giảm theo NQ43; nếu người dùng đã giả định hàng hóa đủ điều kiện giảm GTGT theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP thì phải tính ngay mức tỷ lệ × 80%; (2) Doanh thu trên 1 tỷ đến đúng 3 tỷ có thể chọn phương pháp TNCN theo doanh thu hoặc thu nhập; doanh thu trên 3 tỷ đến 50 tỷ bắt buộc tính theo thu nhập tính thuế × 17%, tuyệt đối không dùng 0,5% trên doanh thu; (3) Sau đó mới xét giảm 30% TNCN theo NQ43. Không áp NQ43 cho GTGT, tiền lương, cá nhân không cư trú hoặc năm 2025. Giữ đúng ngành người dùng khẳng định; cụm "không bán lẻ" là phủ định, không phải dữ kiện ngành bán lẻ.
 13. Mã số thuế 888 & Định danh CCCD: Theo Thông tư 86/2024/TT-BTC, từ 01/07/2025 số định danh cá nhân (CCCD 12 số) được sử dụng thay thế cho mã số thuế khi thông tin đã đồng bộ. HKD mở thêm kênh hoặc có MST cũ đuôi 888 KHÔNG bắt buộc phải nộp hồ sơ xin cấp mã 888 mới riêng cho từng kênh bán hàng.
 14. Tiếp thị liên kết (Affiliate): Không được mặc định ấn định thuế suất 5% TNCN cho mọi trường hợp. Phải phân biệt dịch vụ quảng cáo số (HKD), hoa hồng môi giới đại lý hay tiền lương tiền công khấu trừ 10%. Nếu chưa rõ thực tế, nêu điều kiện hoặc yêu cầu làm rõ, không chốt số thuế bừa bãi.
 15. Đơn hoàn và chi phí sàn: Đơn hoàn hủy thực tế chỉ trừ khỏi doanh thu nếu chưa được trừ trong doanh thu gộp ban đầu (không trừ trùng). Phí sàn là chi phí kinh doanh, đối với phương pháp tính thuế theo tỷ lệ doanh thu thì không được trừ phí sàn khỏi doanh thu chịu thuế.`;
@@ -981,34 +984,37 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
           if (museKey) {
-            try {
-              // Generate once through the same model request for every transport.
-              const museRes = await Promise.race([
-                fetch('https://api.meta.ai/v1/responses', {
+            const modelRequest = buildMuseRequest(systemPrompt, history, message, false);
+            for (let attempt = 1; attempt <= 2 && !aiText; attempt++) {
+              try {
+                const museRes = await fetch('https://api.meta.ai/v1/responses', {
                   method: 'POST',
-                  headers: {
-                    Authorization: `Bearer ${museKey}`,
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(buildMuseRequest(systemPrompt, history, message, false)),
-                }),
-                new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
-              ]);
-
-              if (museRes.ok) {
-                const museData: any = await museRes.json();
-                const msgOutput = (museData?.output || []).find((item: any) => item.type === 'message' && item.content);
-                const outText = msgOutput?.content?.[0]?.text?.trim();
-                if (outText && outText.length > 15) {
-                  aiText = outText;
-                  source = `Muse Spark 1.3 (Meta AI) + ${source}`;
+                  headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
+                  body: JSON.stringify(modelRequest),
+                  signal: AbortSignal.timeout(45000),
+                });
+                if (museRes.ok) {
+                  const museData: any = await museRes.json();
+                  const msgOutput = (museData?.output || []).find((item: any) => item.type === 'message' && item.content);
+                  const outText = msgOutput?.content?.[0]?.text?.trim();
+                  if (outText && outText.length > 15) {
+                    aiText = outText;
+                    source = `Muse Spark 1.3 (Meta AI) + ${source}`;
+                  } else {
+                    console.warn('[MODEL_EMPTY]', JSON.stringify({ model: modelRequest.model, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+                  }
+                  break;
                 }
-              } else {
-                console.warn('Muse API error:', museRes.status, (await museRes.text()).slice(0, 300));
+                const body = (await museRes.text()).slice(0, 300);
+                console.warn('[MODEL_HTTP_ERROR]', JSON.stringify({ model: modelRequest.model, status: museRes.status, body, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+                // A missing model or invalid credentials will not be fixed by retrying.
+                if (museRes.status !== 429 && museRes.status < 500) break;
+              } catch (errMuse: any) {
+                console.error('[MODEL_REQUEST_ERROR]', JSON.stringify({ model: modelRequest.model, error: errMuse?.name || 'Error', detail: errMuse?.message, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
               }
-            } catch (errMuse: any) {
-              console.error('Lỗi gọi Muse API:', errMuse?.message);
             }
+          } else {
+            console.warn('[MODEL_UNCONFIGURED]', JSON.stringify({ routeId, refs: relevantChunks.map(c => c.ref_id) }));
           }
         }
 
@@ -1031,8 +1037,32 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           }
         }
 
+        const uncovered = missingAnswerIntents(message, aiText);
+        if (uncovered.length) {
+          console.warn('[INTENT_COVERAGE]', JSON.stringify({ missing: uncovered, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+          if (uncovered.includes('platform_withholding')) {
+            aiText += '\n\nVề khoản “tax” nền tảng giữ lại: chưa thể coi là thuế TNCN đã nộp thay nếu chưa có chứng từ khấu trừ/nộp thuế và đối soát đúng kỳ, đúng người nộp.';
+          }
+          if (uncovered.includes('vat_relief') && answerScope.years.every(y => y === 2026)) {
+            aiText += '\n\nVề giảm GTGT: nếu hàng hóa/dịch vụ thực sự đủ điều kiện theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP, mức tỷ lệ GTGT trên doanh thu được giảm 20% trong thời gian áp dụng; cần đối chiếu tỷ lệ gốc và doanh thu để ra số tiền.';
+            legalCitations = [...legalCitations, 'Điều 1 Nghị quyết 204/2025/QH15', 'Điều 1 Nghị định 174/2025/NĐ-CP'];
+          }
+          if (uncovered.includes('pit')) {
+            aiText += answerScope.years.every(y => y === 2026 || y === 2027)
+              ? '\n\nVề TNCN: cần chọn phương pháp theo tổng doanh thu năm của cá nhân; trên 3 tỷ đến 50 tỷ đồng tính trên thu nhập tính thuế với thuế suất 17%. Nếu chưa có thu nhập tính thuế hợp lệ, chưa thể chốt số tiền TNCN.'
+              : '\n\nVề TNCN: câu trả lời trên chưa xác định được phương pháp và số thuế cho kỳ bạn hỏi; cần đối chiếu doanh thu, loại thu nhập và chứng từ của đúng kỳ đó.';
+            if (answerScope.years.every(y => y === 2026 || y === 2027)) legalCitations = [...legalCitations, 'Điều 7 Luật Thuế TNCN 109/2025/QH15'];
+          }
+          if (uncovered.includes('einvoice')) {
+            aiText += '\n\nVề hóa đơn điện tử: cần xét doanh thu tính thuế GTGT lũy kế và tình trạng đăng ký hiện tại; chưa thể kết luận nghĩa vụ cụ thể chỉ từ phần trả lời trên.';
+          }
+        }
+
         // Dọn dẹp nếu model vẫn sinh ra thẻ suy luận sót lại
         aiText = aiText.replace(/(?:<thinking>|\[SUY_LUAN\])[\s\S]*?(?:<\/thinking>|\[\/SUY_LUAN\])/i, '').trim();
+        const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope);
+        aiText = citationCheck.answer;
+        legalCitations = citationCheck.citations;
 
         // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
         let logD1Prefix = '';

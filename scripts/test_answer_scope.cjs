@@ -148,6 +148,25 @@ async function testWorkerPaths() {
     assert.equal(boundaryMcpAnswer.result.isError, false);
     assert.ok(boundaryMcpAnswer.result.content[0].text.startsWith(boundaryWebAnswer.response), 'MCP must use the same 10 billion boundary answer as web');
     assert.equal(captured.length, museCallsBeforeBoundary, 'Verified 10 billion boundary must bypass model generation');
+    const priorityCases = [
+      ['T84', 'Năm 2026 bán tạp hóa doanh thu 1,5 tỷ, tỷ lệ GTGT 1%. Giả định hàng hóa đủ điều kiện giảm GTGT 20% theo Nghị quyết 204/2025, tính thuế GTGT bao nhiêu?', /12\.000\.000 đồng/],
+      ['T86', 'Tôi là cá nhân cư trú năm 2026 có doanh thu 3.000.000.001 đồng, thu nhập tính thuế hợp lệ 400 triệu đồng. TNCN sau giảm 30% theo Nghị quyết 43 là bao nhiêu?', /47\.600\.000 đồng/],
+      ['T91', 'Năm 2026 doanh thu hoa hồng TikTok 500 triệu, TikTok giữ lại dòng tax 5 triệu. Doanh thu là bao nhiêu và tax đó chắc là TNCN đã nộp thay không?', /chưa đủ/],
+      ['T95', 'Năm 2026 vợ chồng làm affiliate độc lập, mỗi người 600 triệu doanh thu. Có cộng gộp không, nếu một người đứng tên hộ thì sao?', /đứng tên hộ/],
+      ['T98', 'Năm 2026 vượt 1 tỷ, thời hạn đăng ký hóa đơn điện tử 30 ngày căn cứ điều khoản nào?', /khoản 2 Điều 1 Nghị định 141\/2026/],
+      ['T100', 'Năm 2026 doanh thu 3 tỷ + 1 đồng, có thể vẫn dùng TNCN 0,5% không? Thuế suất nào?', /17%/],
+    ];
+    const beforePriority = captured.length;
+    for (const [id, priorityQuestion, expected] of priorityCases) {
+      const web = await (await worker.fetch(request(false, priorityQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+      assert.match(web.response, expected, id);
+      const mcp = await (await worker.fetch(new Request('https://test.local/mcp', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id, method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: priorityQuestion } } }),
+      }), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+      assert.ok(mcp.result.content[0].text.startsWith(web.response), `${id}: MCP/web parity`);
+    }
+    assert.equal(captured.length, beforePriority, 'All priority answers must be deterministic and shared across transports');
     const fallback = await worker.fetch(request(false), {}, ctx);
     assert.equal(fallback.status, 200);
     assert.match((await fallback.json()).response, /chưa thể tổng hợp câu trả lời/);

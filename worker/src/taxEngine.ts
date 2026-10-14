@@ -25,6 +25,8 @@ export interface TaxFacts {
   platformFeeVnd?: number;
   isResident?: boolean | null; // true: cá nhân cư trú, false: không cư trú, null: chưa rõ
   pitMethod?: 'PERCENT_OF_TURNOVER' | 'INCOME_EXPENSE';
+  taxableIncomeVnd?: number;
+  vatReliefEligible?: boolean; // Explicitly supplied eligibility under NQ 204/ND 174.
   multiActivities?: Array<{
     id: string;
     kind: 'goods' | 'service';
@@ -61,6 +63,8 @@ export function formatVnd(amount: number): string {
 }
 
 export function formatRevenue(vnd: number): string {
+  // Never round away a one-dong difference at a statutory boundary.
+  if (!Number.isSafeInteger(vnd) || vnd % 1_000_000 !== 0) return formatVnd(vnd);
   if (vnd >= 1_000_000_000) {
     const ty = vnd / 1_000_000_000;
     return `${Number(ty.toFixed(3)).toLocaleString('vi-VN')} tỷ đồng`;
@@ -167,6 +171,38 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
   // NĂM 2026 & 2027: Ngưỡng 1 tỷ (NĐ 141/2026) & NQ 43/2026/QH16
   // ==========================================
   const threshold2026 = 1_000_000_000;
+
+  // Select the PIT method from exact annual revenue before calculating tax.
+  // Up to exactly 3 billion, the taxpayer may elect income-based taxation (15%).
+  // Over 3 billion through 50 billion it is mandatory (17%); above 50 billion: 20%.
+  const incomeMethod = effectiveRevenue > 3_000_000_000 || facts.pitMethod === 'INCOME_EXPENSE';
+  if (facts.activityType !== 'affiliate_unknown' && effectiveRevenue > threshold2026 && incomeMethod) {
+    const mandatory = effectiveRevenue > 3_000_000_000;
+    const incomeRate = effectiveRevenue > 50_000_000_000 ? 0.20 : mandatory ? 0.17 : 0.15;
+    const taxableIncome = facts.taxableIncomeVnd;
+    const hasIncome = taxableIncome !== undefined && Number.isSafeInteger(taxableIncome) && taxableIncome >= 0;
+    const pitBefore = hasIncome ? Math.round(taxableIncome * incomeRate) : 0;
+    const relief = isResident && effectiveRevenue <= 10_000_000_000 ? Math.round(pitBefore * 0.3) : 0;
+    const baseVatRate = facts.activityType === 'goods' ? 0.01
+      : ['service', 'rental', 'affiliate_service'].includes(facts.activityType) ? 0.05 : 0;
+    const vatRate = baseVatRate * (facts.vatReliefEligible && taxYear === 2026 ? 0.8 : 1);
+    const vatDue = Math.round(effectiveRevenue * vatRate);
+    return {
+      taxYear, grossRevenueVnd: facts.grossRevenueVnd, effectiveRevenueVnd: effectiveRevenue,
+      taxableVatRevenueVnd: effectiveRevenue, vatRate, vatDueVnd: vatDue,
+      pitDeductionVnd: 0, taxablePitRevenueVnd: 0, pitRate: incomeRate,
+      pitBeforeReliefVnd: pitBefore, pitReliefVnd: relief,
+      pitReliefRule: relief ? 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16' : null,
+      pitAfterReliefVnd: pitBefore - relief, totalTaxPayableVnd: vatDue + pitBefore - relief,
+      status: hasIncome && vatRate > 0 ? 'ANSWERED' : 'NEEDS_INFO',
+      statusReason: !hasIncome ? 'Cần thu nhập tính thuế hợp lệ để tính số thuế TNCN theo phương pháp trên thu nhập.'
+        : vatRate === 0 ? 'Chưa xác định ngành nghề/tỷ lệ GTGT để tính tổng hai loại thuế.' : undefined,
+      explanation: hasIncome
+        ? `Doanh thu năm ${taxYear} là ${formatRevenue(effectiveRevenue)}: TNCN ${mandatory ? 'bắt buộc' : 'đã chọn'} tính theo thu nhập tính thuế × ${incomeRate * 100}%. ${formatVnd(taxableIncome)} × ${incomeRate * 100}% = ${formatVnd(pitBefore)}.${relief ? ` Cá nhân cư trú có doanh thu không quá 10 tỷ đồng được giảm 30% TNCN theo Nghị quyết 43/2026/QH16: còn ${formatVnd(pitBefore - relief)}.` : ''} ${vatRate ? `Thuế GTGT theo tỷ lệ ${vatRate * 100}% trên doanh thu: ${formatVnd(vatDue)}.` : 'Thuế GTGT cần xác định riêng theo ngành và điều kiện giảm GTGT nếu có.'}`
+        : `Doanh thu ${formatRevenue(effectiveRevenue)} ${mandatory ? 'vượt 3 tỷ đồng, bắt buộc' : 'không vượt 3 tỷ đồng và đã chọn'} tính TNCN trên thu nhập tính thuế với thuế suất ${incomeRate * 100}%; cần thu nhập tính thuế hợp lệ để ra số tiền.`,
+      citations: ['Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16', ...(facts.vatReliefEligible ? ['Điều 1 Nghị quyết 204/2025/QH15', 'Điều 1 Nghị định 174/2025/NĐ-CP'] : [])],
+    };
+  }
 
   // TRƯỜNG HỢP AFFILIATE CHƯA RÕ BẢN CHẤT: Không tự áp ngưỡng miễn 1 tỷ của HKD
   if (facts.activityType === 'affiliate_unknown') {
@@ -326,6 +362,7 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
 
   // 2. Tầng tax_before_relief
   // Xử lý làm tròn đặc biệt cho trường hợp vượt 1 đồng (1.000.000.001đ)
+  if (facts.vatReliefEligible && taxYear === 2026) vatRate *= 0.8;
   const vatDue = Math.round(taxableVatRevenue * vatRate);
   let pitBeforeRelief = 0;
   if (taxablePitRevenue === 1) {
@@ -366,6 +403,9 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
   ];
   if (pitRelief > 0) {
     citations.push('Điều 1 khoản 1 Nghị quyết 43/2026/QH16');
+  }
+  if (facts.vatReliefEligible && taxYear === 2026) {
+    citations.push('Điều 1 Nghị quyết 204/2025/QH15', 'Điều 1 Nghị định 174/2025/NĐ-CP');
   }
 
   return {
