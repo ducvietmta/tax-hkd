@@ -34,7 +34,6 @@ export function filterAndGateEvidence(
   frame: TaxDecisionFrame
 ): EvidenceGateResult {
   const queryYears = frame.tax_period.years;
-  const isComparingPeriods = frame.tax_intent.primary.value === 'COMPARE_PERIODS';
   const passedChunks: RagChunk[] = [];
   const evidenceItems: EvidenceItem[] = [];
   const conflicts: ConflictEvent[] = [];
@@ -43,7 +42,7 @@ export function filterAndGateEvidence(
     const metaKey = chunk.ref_id || chunk.id;
     const meta = CHUNK_META[metaKey];
 
-    let legalStatus: any = (meta?.legal_status as any) || (chunk.tier as any) || 'VERIFIED';
+    let legalStatus: any = (meta?.legal_status as any) || 'VERIFIED_CONDITIONAL';
     let relation: any = 'SUPPORTS';
     let periodMatch: 'EXACT' | 'PARTIAL' | 'MISMATCH' = 'EXACT';
 
@@ -52,27 +51,20 @@ export function filterAndGateEvidence(
       const toYear = meta.applies_to_year;
 
       // Kiểm tra khớp kỳ tính thuế
-      const isHistoricalChunk = toYear !== null && toYear <= 2025;
-      const isHistoricalQuery = queryYears.every((y) => y <= 2025);
-
-      if (!isComparingPeriods) {
-        if (isHistoricalChunk && !isHistoricalQuery) {
-          // Chunk cũ năm 2025 nhưng câu hỏi dành cho năm 2026 -> Loại bỏ
-          relation = 'NOT_RELEVANT';
-          periodMatch = 'MISMATCH';
-        } else if (!isHistoricalChunk && isHistoricalQuery) {
-          // Chunk mới năm 2026 nhưng câu hỏi dành cho năm 2025 -> Loại bỏ
-          relation = 'NOT_RELEVANT';
-          periodMatch = 'MISMATCH';
-        }
+      if (queryYears.length && !queryYears.some(y => y >= fromYear && (toYear === null || y <= toYear))) {
+        relation = 'NOT_RELEVANT';
+        periodMatch = 'MISMATCH';
       }
 
-      if (meta.legal_status === 'SUPERSEDED') {
+      if (['SUPERSEDED', 'EXPIRED', 'NOT_YET_EFFECTIVE'].includes(meta.legal_status)) {
         relation = 'NOT_RELEVANT';
-        legalStatus = 'SUPERSEDED';
+        legalStatus = meta.legal_status;
       } else if (meta.legal_status === 'VERIFIED_CONDITIONAL' && relation !== 'NOT_RELEVANT') {
         relation = 'CONDITIONAL_SUPPORT';
       }
+    } else {
+      relation = 'CONDITIONAL_SUPPORT';
+      periodMatch = 'PARTIAL';
     }
 
     const item: EvidenceItem = {
@@ -91,12 +83,6 @@ export function filterAndGateEvidence(
     if (relation !== 'NOT_RELEVANT') {
       passedChunks.push(chunk);
     }
-  }
-
-  // Đảm bảo không để Context rỗng nếu mọi chunk bị loại nhưng có rule xác minh
-  if (passedChunks.length === 0 && chunks.length > 0) {
-    // Giữ lại chunk đầu tiên làm ngữ cảnh tối thiểu
-    passedChunks.push(chunks[0]);
   }
 
   return {

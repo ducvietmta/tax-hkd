@@ -13,6 +13,11 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   const years = frame.tax_period.years;
   const isHistorical = frame.tax_period.is_historical;
 
+  if (!isHistorical && (frame.tax_intent.primary.value === 'TAX_CALCULATION' ||
+      frame.tax_intent.primary.value === 'RELIEF_REDUCTION')) {
+    mustIncludeRefs.push('16.77');
+  }
+
   // 1. Ghim các ref bắt buộc theo quy định thời kỳ
   if (isHistorical || years.includes(2025)) {
     mustIncludeRefs.push('16.54'); // Ngưỡng 100tr TT40
@@ -20,7 +25,8 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
 
   // 2. Doanh thu trên 3 tỷ (phương pháp 17%)
   if (frame.facts.revenue_vnd && frame.facts.revenue_vnd > 3_000_000_000) {
-    mustIncludeRefs.push('16.57', '16.60');
+    mustIncludeRefs.push('16.99');
+    if (frame.income_type.some(item => item.value === 'MARKETPLACE_SALES')) mustIncludeRefs.push('16.57');
   }
 
   // 3. Ưu đãi giảm thuế (NQ 43 / NQ 204)
@@ -29,17 +35,17 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     frame.tax_intent.secondary.includes('RELIEF_REDUCTION') ||
     frame.facts.vat_relief_assumed
   ) {
-    mustIncludeRefs.push('16.95', '16.96'); // NQ43 giảm 30% và NQ204 giảm VAT
+    mustIncludeRefs.push('16.99', '16.50');
   }
 
   // 4. Hóa đơn điện tử máy tính tiền / hạn 30 ngày
   if (frame.tax_intent.primary.value === 'E_INVOICE' || frame.tax_intent.secondary.includes('E_INVOICE')) {
-    mustIncludeRefs.push('16.100', '16.99');
+    mustIncludeRefs.push('16.41');
   }
 
   // 5. Mã số thuế 888
   if (frame.tax_intent.primary.value === 'TAX_ID_888') {
-    mustIncludeRefs.push('16.88');
+    mustIncludeRefs.push('16.96', '16.100');
   }
 
   // 6. Keywords bổ trợ

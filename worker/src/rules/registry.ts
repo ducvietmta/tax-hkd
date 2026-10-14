@@ -17,7 +17,7 @@ export const RULESET_REGISTRY: Record<string, TaxRuleset> = {
   HKD_2025: ruleset2025,
 };
 
-export const CURRENT_RULESET_VERSION = `${ruleset2026.ruleset_id}_${ruleset2026.version}_quyet_active_v1`;
+export const CURRENT_RULESET_VERSION = `${ruleset2025.ruleset_id}:${ruleset2025.version}|${ruleset2026.ruleset_id}:${ruleset2026.version}|decision-v2`;
 
 /**
  * Tra cứu Ruleset phù hợp theo năm tính thuế

@@ -86,7 +86,7 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     if (letter === 'A') return { taxpayer: 'HOUSEHOLD_BUSINESS', confidence: 0.95 };
     if (letter === 'B') return { taxpayer: 'INDIVIDUAL_EMPLOYEE', confidence: 0.95 };
     if (letter === 'C') return { taxpayer: 'ENTERPRISE', confidence: 0.95 };
-    return { taxpayer: 'HOUSEHOLD_BUSINESS', confidence: 0.8 };
+    return { taxpayer: 'UNKNOWN', confidence: 0 };
   }
 
   async classifyIntent(text: string): Promise<{ intent: TaxIntent; confidence: number }> {
@@ -100,8 +100,8 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     if (letter === 'C') return { intent: 'E_INVOICE', confidence: 0.95 };
     if (letter === 'D') return { intent: 'DECLARATION_FILING', confidence: 0.9 };
     if (letter === 'E') return { intent: 'RELIEF_REDUCTION', confidence: 0.95 };
-    if (letter === 'F') return { intent: 'PENALTY', confidence: 0.85 };
-    return { intent: 'TAX_CALCULATION', confidence: 0.7 };
+    if (letter === 'F') return { intent: 'OTHER_TAX', confidence: 0.7 };
+    return { intent: 'OTHER_TAX', confidence: 0 };
   }
 
   async classifyIncome(text: string): Promise<{ income: IncomeType; confidence: number }> {
@@ -116,7 +116,8 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     if (letter === 'D') return { income: 'AFFILIATE_COMMISSION', confidence: 0.95 };
     if (letter === 'E') return { income: 'PROPERTY_RENTAL', confidence: 0.95 };
     if (letter === 'F') return { income: 'FREELANCE_SERVICE', confidence: 0.9 };
-    return { income: 'OTHER', confidence: 0.7 };
+    if (letter === 'G') return { income: 'OTHER', confidence: 0.7 };
+    return { income: 'UNKNOWN', confidence: 0 };
   }
 
   /**

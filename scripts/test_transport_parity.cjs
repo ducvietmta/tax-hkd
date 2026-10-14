@@ -7,13 +7,17 @@ const modules = new Map();
 function load(relativePath) {
   const file = path.resolve(__dirname, '..', relativePath);
   if (modules.has(file)) return modules.get(file);
+  if (file.endsWith('.json')) {
+    const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
+    return { default: parsed, ...parsed };
+  }
   const source = fs.readFileSync(file, 'utf8');
   const compiled = ts.transpileModule(source, {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
   }).outputText;
   const module = { exports: {} };
   new Function('require', 'module', 'exports', 'setTimeout', compiled)(
-    id => load(path.relative(path.resolve(__dirname, '..'), path.resolve(path.dirname(file), id + '.ts'))),
+    id => load(path.relative(path.resolve(__dirname, '..'), path.resolve(path.dirname(file), id.endsWith('.json') ? id : id + '.ts'))),
     module, module.exports, (callback, ms) => setTimeout(callback, ms).unref(),
   );
   modules.set(file, module.exports);
@@ -42,6 +46,7 @@ const db = {
               if (!rows.has(values[0])) rows.set(values[0], values[1]);
               return {};
             }
+            if (sql.startsWith('INSERT INTO decision_traces')) return {};
             throw new Error(`Unexpected write: ${sql}`);
           },
         };
@@ -74,7 +79,7 @@ global.fetch = async (_url, init) => {
   }
   return Response.json({ output: [{ type: 'message', content: [{ text: `Câu trả lời kiểm thử từ mô hình lần ${call}. Căn cứ pháp lý: tài liệu kiểm thử.` }] }] });
 };
-const env = { DB: db, MUSE_API_KEY: 'test-fixture' };
+const env = { DB: db, MUSE_API_KEY: 'test-fixture', DECISION_MODE: 'enforce' };
 const question = 'Hộ kinh doanh năm 2026 tính nghĩa vụ thuế như thế nào?';
 const webRequest = (message, stream, history = []) => new Request('https://test.local/api/chat', {
   method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Internal-Caller': 'mcp' },
@@ -128,6 +133,19 @@ async function main() {
   const unrelated = 'Thời tiết Hà Nội hôm nay như thế nào?';
   assert.equal(await streamAnswer(unrelated), await mcpAnswer(unrelated), 'Out-of-scope answers must match too');
   assert.equal(modelCalls, 4, 'Out-of-scope answers must not invoke the model');
+
+  const methodQuestion = 'Cá nhân cư trú cung cấp dịch vụ sửa chữa, doanh thu 3 tỷ + 1 đồng năm 2026, thu nhập tính thuế hợp lệ 400 triệu; tính thuế TNCN bao nhiêu?';
+  const methodAnswer = await mcpAnswer(methodQuestion);
+  assert.match(methodAnswer, /17%/);
+  assert.match(methodAnswer, /47\.600\.000 đồng/);
+  assert.doesNotMatch(methodAnswer, /0[,.]5%/);
+  assert.equal(await streamAnswer(methodQuestion), methodAnswer);
+
+  const sectorQuestion = 'Cá nhân cư trú cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026, thuế GTGT và TNCN bao nhiêu?';
+  const sectorAnswer = await mcpAnswer(sectorQuestion);
+  assert.match(sectorAnswer, /75 triệu đồng/);
+  assert.doesNotMatch(sectorAnswer, /15 triệu đồng/);
+  assert.equal(await streamAnswer(sectorQuestion), sectorAnswer);
 
   const toolsResponse = await worker.fetch(new Request('https://test.local/mcp', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },

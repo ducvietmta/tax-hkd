@@ -526,16 +526,16 @@
     "ref_id": "16.60",
     "section": "16.60. Temporal canonical: ngưỡng GTGT/TNCN của hộ/cá nhân kinh doanh theo từng kỳ 2021–2026 — VERIFIED_HISTORICAL + VER",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED_HISTORICAL",
-    "applies_from_year": 2026,
-    "applies_to_year": null
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2026
   },
   "16.61": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1069",
     "ref_id": "16.61",
     "section": "16.61. Temporal canonical: từ 01/07/2026, thời hạn khai bổ sung chuyển từ 10 năm xuống 05 năm — VERIFIED_CURRENT",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED_CURRENT",
+    "legal_status": "VERIFIED",
     "applies_from_year": 2026,
     "applies_to_year": null
   },
@@ -544,16 +544,16 @@
     "ref_id": "16.62",
     "section": "16.62. Năm 2021: ngưỡng 100 triệu đồng không bị mất khi chuyển từ TT 92 sang TT 40 — VERIFIED_HISTORICAL",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED_HISTORICAL",
-    "applies_from_year": 2026,
-    "applies_to_year": null
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": 2021
   },
   "16.63": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1071",
     "ref_id": "16.63",
     "section": "16.63. Thời hạn nộp hồ sơ khai thuế tháng/quý từ 01/07/2026 (Điều 10 NĐ 252/2026): ngày cuối cùng của tháng đầu quý sau,",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED_CURRENT",
+    "legal_status": "VERIFIED",
     "applies_from_year": 2026,
     "applies_to_year": null
   },

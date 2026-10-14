@@ -36,6 +36,7 @@ const understandQuery = loadModule('worker/src/decision/understandQuery.ts', {
 const chunkMetaJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../worker/src/kb/chunkMeta.json'), 'utf8'));
 
 const { buildRetrievalPlan } = loadModule('worker/src/decision/retrievalPlan.ts', { './types': {} });
+const { decide } = loadModule('worker/src/decision/orchestrator.ts', { '../rules/evaluator': {}, './types': {} });
 const { filterAndGateEvidence } = loadModule('worker/src/decision/evidenceGate.ts', {
   '../ragEngine': {},
   './types': {},
@@ -78,6 +79,29 @@ runTest('EvidenceGate_Filters_2025_For_2026', () => {
   // Chunk 16.54 phải bị loại khỏi passedChunks
   assert.equal(gateResult.passedChunks.length, 1);
   assert.equal(gateResult.passedChunks[0].ref_id, '16.1');
+});
+
+runTest('EvidenceGate_Does_Not_Restore_Rejected_Chunk', () => {
+  const frame = understandQuery('Năm 2026 doanh thu 1,5 tỷ nộp thuế gì?', { years: [2026], periodSource: 'current_message' });
+  const result = filterAndGateEvidence([
+    { id: 'old', ref_id: '16.54', section: 'Ngưỡng 2025', tier: 'VERIFIED', text: '2025: 100 triệu' },
+  ], frame);
+  assert.equal(result.passedChunks.length, 0);
+  assert.equal(result.evidenceItems[0].evidence_relation, 'NOT_RELEVANT');
+});
+
+runTest('RetrievalPlan_Pins_Correct_Legal_Chunks', () => {
+  const frame = understandQuery('Cá nhân cư trú dịch vụ sửa chữa 3 tỷ + 1 đồng năm 2026 có giảm GTGT theo Nghị quyết 204 không?', { years: [2026], periodSource: 'current_message' });
+  const refs = buildRetrievalPlan(frame).must_include_refs;
+  assert.ok(refs.includes('16.50') && refs.includes('16.99'));
+  assert.ok(!refs.includes('16.88'));
+});
+
+runTest('Orchestrator_Requires_Missing_Income', () => {
+  const frame = understandQuery('Cá nhân cư trú sửa chữa doanh thu 3 tỷ + 1 đồng năm 2026, tính TNCN?', { years: [2026], periodSource: 'current_message' });
+  const decision = decide(frame, { status: 'NEEDS_INFO' }, [], buildRetrievalPlan(frame));
+  assert.equal(decision.decision_status, 'NEEDS_INFO');
+  assert.equal(decision.rule_outcomes.length, 0);
 });
 
 // 3. Validator: Bổ sung mốc 30 ngày cho HĐĐT

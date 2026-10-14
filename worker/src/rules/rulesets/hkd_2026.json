@@ -1,6 +1,6 @@
 {
   "ruleset_id": "HKD_2026",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Chính sách thuế Hộ & Cá nhân kinh doanh năm 2026 - 2027",
   "effective_from": "2026-01-01",
   "effective_to": "2027-12-31",
@@ -41,9 +41,17 @@
   },
   "relief_policies": {
     "nq43_pit_reduction_rate": 0.30,
-    "nq204_vat_reduction_rate": 0.20
+    "nq204_vat_reduction_rate": 0.20,
+    "nq204_vat_last_year": 2026
   },
   "citations": {
+    "vat_rates": {
+      "doc_id": "Luat-48-2024-QH15",
+      "name": "Luật Thuế GTGT 48/2024/QH15",
+      "article": "Điều 12",
+      "clause": "Khoản 2",
+      "point": "Điểm b"
+    },
     "exemption": {
       "doc_id": "ND-141-2026-ND-CP",
       "name": "Nghị định 141/2026/NĐ-CP",

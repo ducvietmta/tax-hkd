@@ -98,7 +98,7 @@ export interface Retrieved {
   viaRoute: boolean;
 }
 
-export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveAnswerScope([], query)): { results: Retrieved[]; routeId: string | null; usedFallback: boolean } {
+export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveAnswerScope([], query), plan?: import('./decision/types').RetrievalPlan): { results: Retrieved[]; routeId: string | null; usedFallback: boolean } {
   build();
   const idx = INDEX!;
   const qTerms = termsOf(expandQuery(`${query} ${scope.years.join(' ')}`));
@@ -165,6 +165,19 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
     // Nới ngưỡng thay vì trả "không tìm thấy", và đánh dấu để prompt thận trọng hơn.
     selected = pick(2.5);
     usedFallback = selected.length > 0;
+  }
+  // The decision plan owns mandatory evidence when present. Keep the legacy
+  // routing only for DECISION_MODE=off, where callers omit the plan.
+  if (plan) {
+    const pinned: Retrieved[] = [];
+    for (const ref of plan.must_include_refs) {
+      const evidence = idx.find(item => item.chunk.ref_id === ref);
+      if (evidence && !pinned.some(item => item.chunk.id === evidence.chunk.id)) {
+        pinned.push({ chunk: evidence.chunk, score: selected[0]?.score || 0, viaRoute: false });
+      }
+    }
+    selected = [...pinned, ...selected.filter(item => !pinned.some(p => p.chunk.id === item.chunk.id))].slice(0, limit);
+    return { results: selected, routeId: route?.id || null, usedFallback };
   }
   // Điểm cao nhất hiện tại — dùng để gắn cho chunk chèn tay (ưu tiên lên đầu).
   const topScore = selected[0]?.score || 0;

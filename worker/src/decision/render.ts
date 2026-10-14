@@ -26,7 +26,10 @@ export function renderDeterministicAnswer(
     }
   } else {
     const vatLine = `- Thuế GTGT (${evalResult.vat_rate * 100}% trên doanh thu): ${formatVnd(evalResult.vat_due_vnd)}`;
-    const pitBaseLine = taxYear >= 2026
+    const usesIncomeMethod = taxYear >= 2026 && rev > 3_000_000_000;
+    const pitBaseLine = usesIncomeMethod
+      ? `- Thuế TNCN (${evalResult.pit_rate * 100}% trên thu nhập tính thuế ${formatVnd(evalResult.taxable_pit_revenue_vnd)}): ${formatVnd(evalResult.pit_before_relief_vnd)}`
+      : taxYear >= 2026
       ? `- Thuế TNCN (${evalResult.pit_rate * 100}% trên phần doanh thu vượt 1 tỷ đồng): ${formatVnd(evalResult.pit_before_relief_vnd)}`
       : `- Thuế TNCN (${evalResult.pit_rate * 100}% trên toàn bộ doanh thu): ${formatVnd(evalResult.pit_before_relief_vnd)}`;
 
@@ -50,6 +53,9 @@ export function renderDeterministicAnswer(
 }
 
 function formatVnd(amount: number): string {
+  if (!Number.isSafeInteger(amount) || amount % 1_000_000 !== 0) {
+    return `${amount.toLocaleString('vi-VN')} đồng`;
+  }
   if (amount >= 1_000_000_000) {
     const billions = amount / 1_000_000_000;
     return `${billions.toLocaleString('vi-VN', { maximumFractionDigits: 3 })} tỷ đồng`;

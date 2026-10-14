@@ -1,4 +1,4 @@
-name = "tax-agent-worker"
+﻿name = "tax-agent-worker"
 main = "src/index.ts"
 compatibility_date = "2026-10-13"
 compatibility_flags = ["nodejs_compat"]
@@ -22,5 +22,4 @@ INITIAL_FREE_CREDITS = 3
 VIP_PHONE = "0943219594"
 VIP_CREDITS = 1000
 SEPAY_PATTERN = "SP-LIVE-TD295786"
-DECISION_MODE = "active"
-FPT_AI_KEY = "sk-iJZ3AjmwiNDEZkSSLmgC0Fije4Vl8nlRjsDcYkcytKo="
+DECISION_MODE = "shadow"

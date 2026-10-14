@@ -109,3 +109,16 @@ console.log(`📊 TỔNG KẾT: ${passed}/${testCases.length} TEST CASES TƯƠNG
 console.log('================================================================');
 
 if (passed !== testCases.length) process.exit(1);
+
+const over3WithoutIncome = understandQuery('Cá nhân cư trú dịch vụ sửa chữa doanh thu 3 tỷ + 1 đồng năm 2026, nộp TNCN bao nhiêu?', { years: [2026], periodSource: 'current_message' });
+assert.equal(evaluateDecisionFrame(over3WithoutIncome).status, 'NEEDS_INFO');
+
+const over3WithIncome = understandQuery('Cá nhân cư trú dịch vụ sửa chữa doanh thu 3 tỷ + 1 đồng năm 2026, thu nhập tính thuế hợp lệ 400 triệu', { years: [2026], periodSource: 'current_message' });
+const incomeResult = evaluateDecisionFrame(over3WithIncome);
+assert.equal(incomeResult.status, 'ANSWERED');
+assert.equal(incomeResult.pit_rate, 0.17);
+assert.equal(incomeResult.pit_after_relief_vnd, 47_600_000);
+
+const overReliefCap = understandQuery('Cá nhân cư trú dịch vụ sửa chữa doanh thu 10 tỷ cộng thêm 1 đồng năm 2026, thu nhập tính thuế hợp lệ 400 triệu', { years: [2026], periodSource: 'current_message' });
+assert.equal(evaluateDecisionFrame(overReliefCap).pit_relief_vnd, 0);
+console.log('✅ [Boundary_3B_And_10B] PASS');

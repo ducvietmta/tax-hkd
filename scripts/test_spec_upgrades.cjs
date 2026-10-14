@@ -3,20 +3,26 @@ const fs = require('node:fs');
 const path = require('node:path');
 const ts = require('typescript');
 
+const loadedModules = new Map();
 function loadModule(relativePath, dependencies = {}) {
-  const source = fs.readFileSync(path.join(__dirname, '..', relativePath), 'utf8');
+  const file = path.resolve(__dirname, '..', relativePath);
+  if (loadedModules.has(file)) return loadedModules.get(file);
+  const source = fs.readFileSync(file, 'utf8');
   const compiled = ts.transpileModule(source, {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
   }).outputText;
   const module = { exports: {} };
+  loadedModules.set(file, module.exports);
   new Function('require', 'module', 'exports', compiled)(
     (id) => {
-      if (!(id in dependencies)) throw new Error(`Unexpected import: ${id}`);
-      return dependencies[id];
+      if (id in dependencies) return dependencies[id];
+      if (!id.startsWith('.')) throw new Error(`Unexpected import: ${id}`);
+      return loadModule(path.relative(path.resolve(__dirname, '..'), path.resolve(path.dirname(file), id + '.ts')));
     },
     module,
     module.exports,
   );
+  loadedModules.set(file, module.exports);
   return module.exports;
 }
 

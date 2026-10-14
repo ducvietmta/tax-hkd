@@ -28,7 +28,22 @@ import { filterAndGateEvidence } from './decision/evidenceGate';
 import { evaluateDecisionFrame, evaluateMultiYear } from './rules/evaluator';
 import { renderDeterministicAnswer, renderMultiYearComparison } from './decision/render';
 import { validateAnswer } from './decision/answerValidator';
+import { buildRetrievalPlan } from './decision/retrievalPlan';
+import { decide } from './decision/orchestrator';
 import { CURRENT_RULESET_VERSION } from './rules/registry';
+import { CANONICAL_CHUNKS } from './ragEngine';
+import chunkMeta from './kb/chunkMeta.json';
+
+let kbVersionPromise: Promise<string> | undefined;
+function knowledgeVersion(): Promise<string> {
+  if (!kbVersionPromise) {
+    kbVersionPromise = crypto.subtle.digest('SHA-256', new TextEncoder().encode(
+      JSON.stringify(CANONICAL_CHUNKS) + JSON.stringify(chunkMeta)
+    )).then(bytes => Array.from(new Uint8Array(bytes)).slice(0, 12)
+      .map(value => value.toString(16).padStart(2, '0')).join(''));
+  }
+  return kbVersionPromise;
+}
 
 export interface Env {
   DB: D1Database;
@@ -39,6 +54,7 @@ export interface Env {
   MUSE_API_KEY?: string;
   FPT_AI_KEY?: string;
   DECISION_MODE?: string;
+  DECISION_L2?: string;
   VIP_PHONE?: string;
   VIP_CREDITS?: string;
   SEPAY_API_KEY?: string;
@@ -164,7 +180,7 @@ export default {
             decisionModel: 'Quyet-1.0-Large (FPT Cloud AI)',
             hasMuse: !!env.MUSE_API_KEY,
             hasQuyet: !!env.FPT_AI_KEY,
-            decisionMode: env.DECISION_MODE || 'active',
+            decisionMode: env.DECISION_MODE || 'shadow',
             timestamp: new Date().toISOString(),
           },
           200,
@@ -911,6 +927,11 @@ export default {
               .run()
               .catch((e: any) => console.error('[ANSWER_CACHE_CLEANUP_ERR]', e?.message))
           );
+          ctx.waitUntil(
+            env.DB.prepare(`DELETE FROM decision_traces WHERE created_at < datetime('now', '-90 days')`)
+              .run()
+              .catch((e: any) => console.error('[DECISION_TRACE_CLEANUP_ERR]', e?.message))
+          );
         }
 
         // Cache by the complete conversation context so both transports converge.
@@ -920,7 +941,7 @@ export default {
         // Invalidate old answers when ruleset updates or relative periods expire
         const digest = await crypto.subtle.digest(
           'SHA-256',
-          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:1.0|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
         );
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
@@ -950,37 +971,68 @@ export default {
           }
         }
 
-        // --- BƯỚC 1: HYBRID RETRIEVAL (BM25 + route boost) ---
+        // Classify before retrieval so the frame controls the evidence path.
+        const decisionMode = env.DECISION_MODE || 'shadow';
+        const applyDecision = decisionMode === 'enforce';
+        let decisionFrame = decisionMode !== 'off' ? understandQuery(message, answerScope, history) : null;
+        if (decisionFrame && env.FPT_AI_KEY && env.DECISION_L2 !== 'off') {
+          try {
+            decisionFrame = await refineQueryWithL2(decisionFrame, message, new QuyetDecisionProvider(env.FPT_AI_KEY));
+          } catch (e) {
+            console.error('[L2_REFINEMENT_ERR]', e);
+          }
+        }
+        const decisionPlan = decisionFrame ? buildRetrievalPlan(decisionFrame) : undefined;
+        const retrievalPlan = applyDecision ? decisionPlan : undefined;
+        const decisionEvaluation = decisionFrame?.facts.revenue_vnd && decisionFrame.tax_period.years.length === 1
+          ? evaluateDecisionFrame(decisionFrame) : null;
+
+        // --- BƯỚC 1: HYBRID RETRIEVAL (BM25 + decision plan + evidence gate) ---
         const retrievalQuery = buildConversationRetrievalQuery(history, message, answerScope.years);
-        const { results, routeId, usedFallback } = retrieve(retrievalQuery, 4, answerScope);
+        const retrieved = retrieve(retrievalQuery, 4, answerScope, retrievalPlan);
+        const { routeId, usedFallback } = retrieved;
+        const gated = decisionFrame ? filterAndGateEvidence(retrieved.results.map(r => r.chunk), decisionFrame) : null;
+        const results = applyDecision && gated
+          ? retrieved.results.filter(r => gated.passedChunks.includes(r.chunk))
+          : retrieved.results;
         const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
+        const structuredDecision = decisionFrame && decisionPlan && gated
+          ? decide(decisionFrame, decisionEvaluation, gated.evidenceItems, decisionPlan) : null;
         const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
         const { text: ragContextText, citations: retrievedCitations } = buildContext(results, retrievalQuery, 6500, answerScope);
-        const verifiedTaxAnswer = answerPriorityTax(message, answerScope) ||
+        const canUseDecisionCalculation = applyDecision && decisionFrame && decisionEvaluation?.status === 'ANSWERED' &&
+          decisionFrame.tax_period.years.length === 1 &&
+          decisionFrame.facts.revenue_basis === 'ANNUAL' &&
+          decisionFrame.residency.value === 'RESIDENT' &&
+          ['HOUSEHOLD_BUSINESS', 'INDIVIDUAL_BUSINESS'].includes(decisionFrame.taxpayer_type.value) &&
+          ['GOODS_SALES', 'SERVICE', 'FREELANCE_SERVICE', 'FOOD_SERVICE'].includes(decisionFrame.income_type[0]?.value || '') &&
+          ['TAX_CALCULATION', 'RELIEF_REDUCTION', 'EXEMPTION_ELIGIBILITY'].includes(decisionFrame.tax_intent.primary.value) &&
+          decisionFrame.tax_intent.secondary.every(intent => intent === 'RELIEF_REDUCTION') &&
+          !decisionFrame.facts.multi_activities && !decisionFrame.facts.platform_fee_vnd &&
+          !decisionFrame.facts.shipping_cod_vnd && !decisionFrame.missing_facts.some(fact => fact.blocking) &&
+          !/(một cá nhân khác|người thứ hai|trường hợp thứ hai|so sánh|so với)/i.test(message) &&
+          !(decisionFrame.facts.vat_relief_assumed && decisionFrame.tax_period.years[0] !== 2026) &&
+          !(decisionFrame.tax_intent.primary.value === 'RELIEF_REDUCTION' &&
+            /gtgt|204\/2025/i.test(message) && !decisionFrame.facts.vat_relief_assumed) &&
+          /\b(?:năm|nam)\b/i.test(message);
+        const renderedDecision = canUseDecisionCalculation
+          ? renderDeterministicAnswer(decisionEvaluation!, decisionFrame!) : null;
+        const verifiedTaxAnswer: { response: string; citations: string[]; ruleIds: string[] } | null = renderedDecision
+          ? { ...renderedDecision, ruleIds: decisionEvaluation!.rule_outcomes.map(outcome => outcome.rule_id) }
+          : answerPriorityTax(message, answerScope) ||
           answerVerifiedReliefEligibility(message, answerScope) ||
           answerVerifiedBusinessTax(message, answerScope);
         let legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
+        const decisionStatus = verifiedTaxAnswer && structuredDecision?.decision_status !== 'NEEDS_LEGAL_REVIEW'
+          ? 'ANSWERABLE_VERIFIED' : structuredDecision?.decision_status || 'NO_BASIS';
         // Guard chủ đề PENDING: chèn disclaimer vào prompt, không để model chốt cứng
         const pendingTopics = matchPendingTopics(message);
         const pendingNotice = pendingTopics.length
           ? `CHỦ ĐỀ CHƯA XÁC MINH: ${pendingTopics.map((t) => t.disclaimer).join(' ')} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.\n`
           : '';
-        // --- BƯỚC 1.5: DECISION FRAME (L1 DETERMINISTIC + GATED L2 QUYET) ---
-        const decisionMode = env.DECISION_MODE || 'active';
-        let decisionFrame = decisionMode !== 'off' ? understandQuery(message, answerScope, history) : null;
-        if (decisionFrame && env.FPT_AI_KEY) {
-          try {
-            const quyetProvider = new QuyetDecisionProvider(env.FPT_AI_KEY);
-            decisionFrame = await refineQueryWithL2(decisionFrame, message, quyetProvider, decisionMode === 'active');
-          } catch (e) {
-            console.error('[L2_REFINEMENT_ERR]', e);
-          }
-        }
-
         const retrievalTrace = {
           method: routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25',
           period: { years: answerScope.years, source: answerScope.periodSource },
-          ruleIds: verifiedTaxAnswer?.ruleIds || [],
           pendingTopics: pendingTopics.map((t) => t.id),
           decision: decisionFrame ? {
             layer: decisionFrame.meta.layer,
@@ -990,17 +1042,21 @@ export default {
             income: decisionFrame.income_type[0]?.value,
             revenueVnd: decisionFrame.facts.revenue_vnd,
             confidence: Math.round(decisionFrame.meta.confidence * 100) / 100,
+            status: decisionStatus,
+            risk: structuredDecision?.risk_level,
           } : undefined,
           evidence: relevantChunks.map((chunk) => ({
             title: (chunk.text.match(/^##\s*(?:16\.\d+\.\s*)?(.+)$/m)?.[1] || chunk.section)
               .replace(/[*`]/g, '').slice(0, 150),
             conditional: chunk.tier === 'VERIFIED_CONDITIONAL',
           })),
+          excludedEvidence: gated?.evidenceItems.filter(item => item.evidence_relation === 'NOT_RELEVANT').map(item => item.ref_id) || [],
+          ruleIds: decisionEvaluation?.rule_outcomes.map(outcome => outcome.rule_id) || verifiedTaxAnswer?.ruleIds || [],
         };
 
-        const decisionPrefix = decisionFrame?.meta?.l2_used ? 'Quyet-1.0-Large + ' : '';
+        const decisionPrefix = applyDecision && decisionFrame?.meta?.l2_used ? 'Quyet-1.0-Large + ' : '';
         let aiText = verifiedTaxAnswer?.response || '';
-        let source = verifiedTaxAnswer ? `${decisionPrefix}Tax Engine (verified rules)`
+        let source = renderedDecision ? 'Decision Rules Engine (verified rules)' : verifiedTaxAnswer ? `${decisionPrefix}Tax Engine (verified rules)`
           : relevantChunks.length === 0
           ? 'Chưa tìm thấy căn cứ'
           : routeId ? `${decisionPrefix}RAG Hybrid (${routeId})` : `${decisionPrefix}RAG Hybrid (BM25)`;
@@ -1008,6 +1064,7 @@ export default {
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) ---
         if (!aiText && ragContextText) {
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
+${applyDecision && structuredDecision ? `QUYẾT ĐỊNH CÓ CẤU TRÚC: ${JSON.stringify({ status: structuredDecision.decision_status, risk: structuredDecision.risk_level, tax_period: decisionFrame!.tax_period.years, taxpayer: decisionFrame!.taxpayer_type.value, income_types: decisionFrame!.income_type.map(item => item.value), facts: decisionFrame!.facts, missing_facts: decisionFrame!.missing_facts, must_cover: structuredDecision.must_cover_intents, allowed_claims: structuredDecision.allowed_claims })}\n${canUseDecisionCalculation && decisionEvaluation ? `KẾT QUẢ RULES ENGINE (${decisionEvaluation.status}): ${decisionEvaluation.explanation}. Không tự thay phương pháp hoặc tỷ lệ tính thuế.` : ''}` : ''}
 ${scopeInstructions(answerScope)}
 ${intentInstructions(message)}
 ${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}\n${pendingNotice}
@@ -1175,17 +1232,35 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
 
         // Dọn dẹp nếu model vẫn sinh ra thẻ suy luận sót lại
         aiText = aiText.replace(/(?:<thinking>|\[SUY_LUAN\])[\s\S]*?(?:<\/thinking>|\[\/SUY_LUAN\])/i, '').trim();
-        const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope);
-        aiText = citationCheck.answer;
-        legalCitations = citationCheck.citations;
-
         // --- BƯỚC 3: ANSWER VALIDATOR (LEGAL COMPLIANCE GUARD) ---
+        let validationPass = !applyDecision || !decisionFrame;
+        let validationStatus = 'SKIPPED';
         if (decisionFrame) {
-          const valReport = validateAnswer(aiText, decisionFrame);
+          const applicableEvaluation = canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED'
+            ? decisionEvaluation : undefined;
+          const valReport = validateAnswer(aiText, decisionFrame, applicableEvaluation);
+          validationStatus = valReport.status;
           if (valReport.repairedText) {
             aiText = valReport.repairedText;
           }
+          if (applyDecision && valReport.status === 'DOWNGRADE') {
+            if (canUseDecisionCalculation && decisionEvaluation) {
+              const safeAnswer = renderDeterministicAnswer(decisionEvaluation, decisionFrame);
+              aiText = safeAnswer.response;
+              legalCitations = safeAnswer.citations;
+              source = 'Decision Rules Engine (validator fallback)';
+            } else {
+              aiText = 'Mình chưa thể xác minh chắc chắn kết quả tính thuế từ tài liệu hiện có. Bạn vui lòng thử lại hoặc trao đổi với chuyên viên thuế.';
+              legalCitations = [];
+            }
+          }
+          if (applyDecision) validationPass = validateAnswer(aiText, decisionFrame,
+            canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined).status === 'PASS';
+          if (validationPass && validationStatus === 'REPAIR') validationStatus = 'PASS_AFTER_REPAIR';
         }
+        const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope);
+        aiText = citationCheck.answer;
+        legalCitations = citationCheck.citations;
 
         // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
         let logD1Prefix = '';
@@ -1207,7 +1282,8 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           retrieval: retrievalTrace,
           matchedRefs: matchedRoute?.refs || [],
         };
-        if (cacheable && llmOk) {
+        if (cacheable && llmOk && validationPass && missingAnswerIntents(message, aiText).length === 0 &&
+            !pendingTopics.length && (!applyDecision || ['ANSWERABLE_VERIFIED', 'ANSWERABLE_WITH_EVIDENCE', 'CONDITIONAL'].includes(decisionStatus))) {
           if (env.DB) {
             // The first completed answer wins even when web and MCP ask concurrently.
             await env.DB.prepare('INSERT OR IGNORE INTO answer_cache (cache_key, payload) VALUES (?, ?)')
@@ -1224,6 +1300,19 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
         }
         aiText = canonicalPayload.response;
         source = canonicalPayload.source;
+
+        if (env.DB && decisionFrame) {
+          ctx.waitUntil(env.DB.prepare(
+            `INSERT INTO decision_traces (id, mode, decision_status, layer, tax_years, rule_ids, evidence_refs, excluded_refs, validation_status, source)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          ).bind(
+            `dt_${crypto.randomUUID()}`, decisionMode, decisionStatus, decisionFrame.meta.layer,
+            JSON.stringify(decisionFrame.tax_period.years), JSON.stringify(decisionEvaluation?.rule_outcomes.map(outcome => outcome.rule_id) || []),
+            JSON.stringify(relevantChunks.map(chunk => chunk.ref_id).filter(Boolean)),
+            JSON.stringify(gated?.evidenceItems.filter(item => item.evidence_relation === 'NOT_RELEVANT').map(item => item.ref_id) || []),
+            validationStatus, source
+          ).run().catch((error: any) => console.warn('[DECISION_TRACE_ERR]', error?.message)));
+        }
 
         // --- BƯỚC 3: GHI LOG VÀO CLOUDFLARE D1 ---
         if (env.DB && activePhone) {

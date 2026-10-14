@@ -39,6 +39,7 @@ export interface TaxRuleset {
   relief_policies?: {
     nq43_pit_reduction_rate?: number;
     nq204_vat_reduction_rate?: number;
+    nq204_vat_last_year?: number;
     note?: string;
   };
   citations: Record<string, CitationRef>;

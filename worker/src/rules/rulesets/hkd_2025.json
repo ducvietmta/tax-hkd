@@ -1,6 +1,6 @@
 {
   "ruleset_id": "HKD_2025",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Chính sách thuế Hộ & Cá nhân kinh doanh năm 2025 trở về trước",
   "effective_from": "2021-08-01",
   "effective_to": "2025-12-31",
@@ -38,6 +38,11 @@
     "note": "Nghị quyết 43/2026/QH16 không hồi tố cho năm 2025"
   },
   "citations": {
+    "vat_rates": {
+      "doc_id": "TT-40-2021-TT-BTC",
+      "name": "Thông tư 40/2021/TT-BTC",
+      "article": "Phụ lục I"
+    },
     "exemption": {
       "doc_id": "TT-40-2021-TT-BTC",
       "name": "Thông tư 40/2021/TT-BTC",

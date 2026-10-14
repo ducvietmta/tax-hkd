@@ -23,6 +23,16 @@ export function validateAnswer(
   let status: 'PASS' | 'REPAIR' | 'DOWNGRADE' = 'PASS';
   let text = answerText;
 
+  if (!text.trim() || /hiện chưa thể tổng hợp câu trả lời/i.test(text)) {
+    return { status: 'DOWNGRADE', reasons: ['Không có câu trả lời có thể kiểm chứng'], repairedText: text };
+  }
+
+  if (evalResult?.status === 'ANSWERED' && evalResult.effective_revenue_vnd > 3_000_000_000 &&
+      frame.tax_period.years[0] >= 2026 &&
+      (/0[,.]5\s*%/.test(text) || !text.includes(`${evalResult.pit_rate * 100}%`))) {
+    return { status: 'DOWNGRADE', reasons: ['TNCN theo doanh thu hoặc thiếu thuế suất của phương pháp thu nhập'], repairedText: text };
+  }
+
   // 1. Kiểm tra cấm trích dẫn Luật Quản lý thuế 38/2019 nếu nói về HĐĐT máy tính tiền năm 2026
   if (
     frame.tax_period.years.includes(2026) &&
@@ -50,7 +60,7 @@ export function validateAnswer(
     frame.tax_intent.primary.value === 'E_INVOICE' ||
     frame.tax_intent.secondary.includes('E_INVOICE')
   ) {
-    if (!/30 ngày/i.test(text)) {
+    if (/trên 1 tỷ|vượt 1 tỷ|hơn 1 tỷ/i.test(text) && !/30 ngày/i.test(text)) {
       status = 'REPAIR';
       reasons.push('Thiếu mốc thời hạn 30 ngày bắt buộc sử dụng HĐĐT từ máy tính tiền');
       text += '\n\n*Lưu ý quan trọng:* Hộ kinh doanh thuộc diện áp dụng phải đăng ký sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền trong thời hạn **30 ngày** kể từ ngày phát sinh nghĩa vụ theo quy định.';

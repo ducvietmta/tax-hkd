@@ -8,16 +8,10 @@
 import type { AnswerScope } from '../answerScope';
 import type {
   TaxDecisionFrame,
-  TaxpayerType,
-  Residency,
-  IncomeType,
-  TaxIntent,
-  TaxCategory,
-  ConversationAct,
-  JurisdictionType,
   MissingFact,
   Provenance,
 } from './types';
+import type { TaxpayerType, Residency, IncomeType, TaxIntent, TaxCategory, ConversationAct, JurisdictionType } from './labels';
 import { extractTaxFacts, extractResidency, fold } from './factExtractor';
 
 export function understandQuery(
@@ -27,6 +21,7 @@ export function understandQuery(
 ): TaxDecisionFrame {
   const startTime = Date.now();
   const q = fold(query);
+  const positiveActivityText = q.replace(/\b(?:khong|chua|chang)\s+(?:ban\s+le|ban\s+hang|kinh\s+doanh)\b(?:\s+(?:tap\s+hoa|hang\s+hoa))?/g, ' ');
 
   // 1. Phân tích tax_period (Kế thừa từ AnswerScope đã có)
   const isHistorical = scope.years.some((y) => y < 2026);
@@ -45,7 +40,7 @@ export function understandQuery(
   let taxpayerSource: Provenance<TaxpayerType>['source'] = 'default';
   let taxpayerSpan: string | undefined;
 
-  if (/\b(ho kinh doanh|hkd|tiem|quan an|quan pho|cua hang|tap hoa)\b/.test(q)) {
+  if (/\b(ho kinh doanh|hkd|tiem|quan an|quan pho|cua hang|tap hoa)\b/.test(positiveActivityText)) {
     taxpayerType = 'HOUSEHOLD_BUSINESS';
     taxpayerConfidence = 0.9;
     taxpayerSource = 'user_text';
@@ -106,7 +101,7 @@ export function understandQuery(
   // 6. Phân loại loại thu nhập (Income Types)
   const incomeTypes: Array<Provenance<IncomeType>> = [];
 
-  if (/\b(ban hang|ban le|hang hoa|tap hoa|phan phoi|thuong mai)\b/.test(q)) {
+  if (/\b(ban hang|ban le|hang hoa|tap hoa|phan phoi|thuong mai)\b/.test(positiveActivityText)) {
     incomeTypes.push({ value: 'GOODS_SALES', confidence: 0.95, source: 'user_text' });
   }
   if (/\b(quan pho|quan an|an uong|nha hang|ca phe|tra sua)\b/.test(q)) {
@@ -150,7 +145,7 @@ export function understandQuery(
     } else {
       primaryIntent = 'E_INVOICE';
     }
-  } else if (/\b(giam thue|nghi quyet 43|nq 43|giam 30|giam 20|nq 204|174\/2025)\b/.test(q)) {
+  } else if (/\b(giam thue|giam gtgt|nghi quyet 43|nq 43|giam 30|giam 20|nghi quyet 204|nq 204|174\/2025)\b/.test(q)) {
     if (/\b(tinh thue|bao nhieu|phai nop)\b/.test(q)) {
       primaryIntent = 'TAX_CALCULATION';
       secondaryIntents.push('RELIEF_REDUCTION');
@@ -265,11 +260,14 @@ export async function refineQueryWithL2(
 ): Promise<TaxDecisionFrame> {
   if (!provider) return frame;
 
-  const isLowConfidence = frame.meta.confidence < 0.75;
   const hasUnknownTaxpayer = frame.taxpayer_type.value === 'UNKNOWN';
   const hasUnknownIncome = frame.income_type.length === 0 || frame.income_type[0]?.value === 'UNKNOWN';
+  const needsSemanticHelp =
+    (frame.tax_intent.primary.value === 'TAX_CALCULATION' && hasUnknownIncome) ||
+    (hasUnknownTaxpayer && hasUnknownIncome) ||
+    (['CORRECTION', 'TOPIC_SWITCH'].includes(frame.conversation_act.value) && frame.meta.confidence < 0.75);
 
-  if (!forceL2 && !isLowConfidence && !hasUnknownTaxpayer && !hasUnknownIncome) {
+  if (!forceL2 && !needsSemanticHelp) {
     return frame;
   }
 
@@ -278,32 +276,37 @@ export async function refineQueryWithL2(
     if (typeof provider.classifyAll === 'function') {
       const allRes = await provider.classifyAll(query);
       if (allRes) {
-        if (allRes.taxpayer && allRes.taxpayer !== 'UNKNOWN') {
+        let changed = false;
+        if (allRes.taxpayer && allRes.taxpayer !== 'UNKNOWN' && allRes.taxpayerConf >= 0.7 && frame.taxpayer_type.source !== 'user_text') {
           updated.taxpayer_type = {
             value: allRes.taxpayer,
             confidence: allRes.taxpayerConf,
             source: 'llm',
           };
+          changed = true;
         }
-        if (allRes.income && allRes.income !== 'UNKNOWN') {
+        if (allRes.income && allRes.income !== 'UNKNOWN' && allRes.incomeConf >= 0.7 && frame.income_type[0]?.source !== 'user_text') {
           updated.income_type = [{
             value: allRes.income,
             confidence: allRes.incomeConf,
             source: 'llm',
           }];
+          changed = true;
         }
-        if (allRes.intent) {
+        if (allRes.intent && allRes.intentConf >= 0.7 && frame.tax_intent.primary.source !== 'user_text') {
           updated.tax_intent.primary = {
             value: allRes.intent,
             confidence: allRes.intentConf,
             source: 'llm',
           };
+          changed = true;
         }
+        if (!changed) return frame;
         updated.meta = {
           ...frame.meta,
           layer: 'L2',
           l2_used: true,
-          confidence: 0.95,
+          confidence: Math.min(allRes.taxpayerConf || 0.8, allRes.incomeConf || 0.8, allRes.intentConf || 0.8),
           latency_ms: (frame.meta.latency_ms || 0) + (allRes.durationMs || 0),
         };
         return updated;
@@ -311,7 +314,7 @@ export async function refineQueryWithL2(
     }
 
     let l2Triggered = false;
-    if (hasUnknownTaxpayer || frame.taxpayer_type.confidence < 0.7 || forceL2) {
+    if ((hasUnknownTaxpayer || frame.taxpayer_type.confidence < 0.7 || forceL2) && frame.taxpayer_type.source !== 'user_text') {
       const res = await provider.classifyTaxpayer(query);
       if (res && res.taxpayer !== 'UNKNOWN') {
         updated.taxpayer_type = {
@@ -323,7 +326,7 @@ export async function refineQueryWithL2(
       }
     }
 
-    if (hasUnknownIncome || frame.income_type[0]?.confidence < 0.7 || forceL2) {
+    if ((hasUnknownIncome || frame.income_type[0]?.confidence < 0.7 || forceL2) && frame.income_type[0]?.source !== 'user_text') {
       const res = await provider.classifyIncome(query);
       if (res && res.income !== 'UNKNOWN') {
         updated.income_type = [{

@@ -7,8 +7,8 @@
  * - businessTaxAnswer.ts:13-60 (extractVerifiedBusinessFacts, multi-activity matching)
  */
 
-import type { TaxFactsFrame, RevenueBasis, MultiActivityItem } from './types';
-import type { Residency } from './labels';
+import type { TaxFactsFrame, MultiActivityItem } from './types';
+import type { Residency, RevenueBasis } from './labels';
 
 export const fold = (s: string) =>
   s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
@@ -98,7 +98,7 @@ export function extractResidency(text: string): { residency: Residency; isReside
   if (/\b(khong cu tru|phi cu tru)\b/.test(q)) {
     return { residency: 'NON_RESIDENT', isResident: false };
   }
-  if (/\b(ca nhan cu tru|nguoi cu tru|toi cu tru|la cu tru|cu tru du dieu kien)\b/.test(q)) {
+  if (/\b(ca nhan cu tru|nguoi cu tru|toi cu tru|la cu tru|cu tru du dieu kien|cu tru)\b/.test(q)) {
     return { residency: 'RESIDENT', isResident: true };
   }
   // Mặc định cư trú cho công dân bình thường nhưng ghi nhận không nêu rõ
@@ -120,9 +120,11 @@ export function extractTaxFacts(text: string, defaultYear = 2026): TaxFactsFrame
     revenueBasis = 'QUARTERLY';
   }
 
-  // 2. Kiểm tra trường hợp đặc biệt: 1 đồng (1.000.000.001 hoặc 3.000.000.001)
+  // 2. Preserve a one-dong boundary exactly; never round it back to billions.
   let specialRevenue: number | undefined;
-  if (q.includes('1.000.000.001') || (q.includes('1 ty') && q.includes('1 dong'))) {
+  if (q.includes('10.000.000.001') || (/\b10\s*ty\b/.test(q) && /(?:cong them|\+)\s*1\s*dong/.test(q))) {
+    specialRevenue = 10_000_000_001;
+  } else if (q.includes('1.000.000.001') || (q.includes('1 ty') && q.includes('1 dong'))) {
     specialRevenue = 1_000_000_001;
   } else if (q.includes('3.000.000.001') || (q.includes('3 ty') && (q.includes('1 dong') || q.includes('+') || q.includes('cong them')))) {
     specialRevenue = 3_000_000_001;
@@ -156,7 +158,8 @@ export function extractTaxFacts(text: string, defaultYear = 2026): TaxFactsFrame
   }
 
   // 5. Kiểm tra nhiều ngành kết hợp (ví dụ: bán hàng 800tr + dịch vụ 350tr)
-  const hasGoodsKeyword = /\b(ban hang|ban le|shopee|hang hoa|thuong mai|tap hoa)\b/.test(q);
+  const positiveActivityText = q.replace(/\b(?:khong|chua|chang)\s+(?:ban\s+le|ban\s+hang|kinh\s+doanh)\b(?:\s+(?:tap\s+hoa|hang\s+hoa))?/g, ' ');
+  const hasGoodsKeyword = /\b(ban hang|ban le|shopee|hang hoa|thuong mai|tap hoa)\b/.test(positiveActivityText);
   const hasServiceKeyword = /\b(dich vu|affiliate|tiktok|koc|hoa hong|sua chua)\b/.test(q);
   const allAmounts = extractAllAmounts(text);
 
@@ -164,7 +167,7 @@ export function extractTaxFacts(text: string, defaultYear = 2026): TaxFactsFrame
     let revGoods: number | null = null;
     let revService: number | null = null;
 
-    const goodsMatch = q.match(/(?:ban hang|ban le|shopee|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
+    const goodsMatch = positiveActivityText.match(/(?:ban hang|ban le|shopee|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
     const serviceMatch = q.match(/(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
 
     if (goodsMatch && serviceMatch) {

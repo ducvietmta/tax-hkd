@@ -139,6 +139,19 @@ runTest('TC10_Food_Service', () => {
   assert.equal(frame.facts.revenue_vnd, 800_000_000);
 });
 
+runTest('Negated_Retail_Remains_Service', () => {
+  const frame = understandQuery('Tôi cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026.', scope2026);
+  assert.equal(frame.income_type[0].value, 'SERVICE');
+  assert.ok(!frame.income_type.some(item => item.value === 'GOODS_SALES'));
+  assert.equal(frame.facts.revenue_vnd, 1_500_000_000);
+});
+
+runTest('Ten_Billion_And_One_Dong', () => {
+  const frame = understandQuery('Một cá nhân cư trú doanh thu 10 tỷ cộng thêm 1 đồng năm 2026', scope2026);
+  assert.equal(frame.facts.revenue_vnd, 10_000_000_001);
+  assert.equal(frame.residency.value, 'RESIDENT');
+});
+
 console.log('\n================================================================');
 console.log(`📊 TỔNG KẾT: ${passed}/${total} TEST CASES PASSED (${((passed / total) * 100).toFixed(1)}%)`);
 console.log('================================================================');
