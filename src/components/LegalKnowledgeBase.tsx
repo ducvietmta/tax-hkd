@@ -1,6 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { BookOpen, Search, Sparkles, X, Eye, ExternalLink, FileSearch } from 'lucide-react';
+import React, { useState, useMemo, useEffect, useRef, Suspense } from 'react';
+import { createPortal } from 'react-dom';
+import { BookOpen, Search, Sparkles, X, Eye, ExternalLink, FileSearch, Download, FileText, Building2, CalendarDays, LoaderCircle, ArrowUpRight } from 'lucide-react';
 import legalDocsRaw from '../data/legalDocuments.json';
+
+const PdfDocumentViewer = React.lazy(() => import('./PdfDocumentViewer'));
 
 interface LegalDoc {
   id: string;
@@ -35,6 +38,7 @@ interface LegalKnowledgeBaseProps {
 export const LegalKnowledgeBase: React.FC<LegalKnowledgeBaseProps> = ({ onOpenAIChat }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [viewingDoc, setViewingDoc] = useState<LegalDoc | null>(null);
+  const closeViewerRef = useRef<HTMLButtonElement>(null);
 
   // Close viewer on ESC key
   useEffect(() => {
@@ -47,15 +51,16 @@ export const LegalKnowledgeBase: React.FC<LegalKnowledgeBaseProps> = ({ onOpenAI
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [viewingDoc]);
 
-  // Prevent background scroll when viewing document
+  // Preserve the previous scroll lock when this viewer closes.
   useEffect(() => {
-    if (viewingDoc) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    if (!viewingDoc) return;
+    const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    document.body.style.overflow = 'hidden';
+    closeViewerRef.current?.focus();
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
     };
   }, [viewingDoc]);
 
@@ -224,83 +229,117 @@ export const LegalKnowledgeBase: React.FC<LegalKnowledgeBaseProps> = ({ onOpenAI
 
       </div>
 
-      {/* MODAL XEM TRỰC TIẾP VĂN BẢN PDF */}
-      {viewingDoc && (
+      {/* Trình xem PDF */}
+      {viewingDoc && createPortal((
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 md:p-6 animate-fade-in"
+          aria-labelledby="pdf-viewer-title"
+          className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center sm:p-4 lg:p-6 animate-fade-in"
           onClick={() => setViewingDoc(null)}
         >
           <div
-            className="bg-white rounded-2xl w-full max-w-5xl h-[92vh] sm:h-[88vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden"
+            className="w-full h-[100dvh] sm:h-[min(94dvh,1100px)] max-w-[1500px] bg-white sm:rounded-[24px] flex flex-col overflow-hidden shadow-[0_32px_100px_rgba(0,0,0,0.38)] ring-1 ring-white/15"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header modal */}
-            <div className="px-4 py-3 sm:px-6 sm:py-3.5 border-b border-slate-200 flex items-center justify-between gap-3 bg-slate-50 shrink-0">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                  <span className="text-xs font-bold text-emerald-700 font-mono bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
-                    {viewingDoc.code}
-                  </span>
-                  <span className="text-xs text-slate-500 font-medium hidden sm:inline">
-                    {viewingDoc.issuer} • {viewingDoc.date}
-                  </span>
+            <header className="shrink-0 bg-slate-950 text-white border-b border-white/10">
+              <div className="min-h-[72px] px-4 sm:px-6 flex items-center gap-3 sm:gap-5">
+                <div className="hidden sm:flex w-10 h-10 rounded-xl bg-emerald-400/10 ring-1 ring-emerald-400/20 items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5 text-emerald-300" />
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-slate-900 truncate">
-                  {viewingDoc.title}
-                </h4>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                {onOpenAIChat && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const code = viewingDoc.code;
-                      setViewingDoc(null);
-                      onOpenAIChat(`Tư vấn chi tiết các quy định của ${code} đối với hộ kinh doanh`);
-                    }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-700 bg-emerald-100/70 hover:bg-emerald-200/80 transition-colors"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="hidden sm:inline">Hỏi AI về văn bản này</span>
-                    <span className="sm:hidden">Hỏi AI</span>
-                  </button>
-                )}
-
+                <div className="min-w-0 flex-1 py-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-300">Văn bản gốc</span>
+                    <span className="w-1 h-1 rounded-full bg-slate-500" aria-hidden="true" />
+                    <span className="text-[11px] text-slate-400">PDF</span>
+                  </div>
+                  <h4 id="pdf-viewer-title" className="text-sm sm:text-base font-semibold leading-snug truncate" title={viewingDoc.title}>
+                    {viewingDoc.code}
+                    <span className="font-normal text-slate-300"> · {viewingDoc.title}</span>
+                  </h4>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
                 <a
                   href={viewingDoc.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200/70 rounded-lg transition-colors"
-                  title="Mở toàn màn hình tab mới"
+                  className="inline-flex items-center gap-2 h-9 px-3 rounded-lg text-xs font-semibold text-slate-100 hover:bg-white/10 border border-white/15 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300"
+                  aria-label="Mở PDF trong tab mới"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                  <span className="hidden md:inline">Mở tab mới</span>
                 </a>
-
                 <button
+                  ref={closeViewerRef}
                   type="button"
                   onClick={() => setViewingDoc(null)}
-                  className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-200/70 rounded-lg transition-colors"
-                  title="Đóng cửa sổ"
+                  className="w-9 h-9 inline-flex items-center justify-center rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-300"
+                  aria-label="Đóng trình xem PDF"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5" aria-hidden="true" />
                 </button>
+                </div>
+              </div>
+            </header>
+
+            <div className="flex-1 min-h-0 flex flex-col lg:flex-row bg-slate-100">
+              <aside className="hidden lg:flex w-[288px] shrink-0 flex-col border-r border-slate-200 bg-white px-6 py-7 overflow-y-auto">
+                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700 mb-6 ring-1 ring-emerald-100">
+                  <FileText className="w-6 h-6" aria-hidden="true" />
+                </div>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Đang xem tài liệu</span>
+                <h5 className="text-lg font-bold leading-snug text-slate-900 mb-2">{viewingDoc.code}</h5>
+                <p className="text-sm leading-relaxed text-slate-600 mb-7">{viewingDoc.title}</p>
+                <div className="space-y-4 py-5 border-y border-slate-100 text-sm">
+                  <div className="flex gap-3 text-slate-600"><Building2 className="w-4 h-4 mt-0.5 shrink-0 text-slate-400" aria-hidden="true" /><span>{viewingDoc.issuer}</span></div>
+                  <div className="flex gap-3 text-slate-600"><CalendarDays className="w-4 h-4 mt-0.5 shrink-0 text-slate-400" aria-hidden="true" /><span>{viewingDoc.date}</span></div>
+                  <div className="flex gap-3 text-slate-600"><FileText className="w-4 h-4 mt-0.5 shrink-0 text-slate-400" aria-hidden="true" /><span>{viewingDoc.category} · {viewingDoc.fileSize}</span></div>
+                </div>
+                <div className="mt-auto pt-7 space-y-2.5">
+                  {onOpenAIChat && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const code = viewingDoc.code;
+                        setViewingDoc(null);
+                        onOpenAIChat(`Tư vấn chi tiết các quy định của ${code} đối với hộ kinh doanh`);
+                      }}
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700 transition-colors"
+                    >
+                      <Sparkles className="w-4 h-4" aria-hidden="true" /> Hỏi AI về văn bản
+                    </button>
+                  )}
+                  <a href={viewingDoc.downloadUrl} download={viewingDoc.fileName} className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    <Download className="w-4 h-4" aria-hidden="true" /> Tải bản PDF
+                  </a>
+                </div>
+              </aside>
+
+              <div className="lg:hidden shrink-0 flex items-center justify-between gap-3 px-4 py-2.5 bg-white border-b border-slate-200">
+                <span className="min-w-0 truncate text-xs font-medium text-slate-600">{viewingDoc.issuer} · {viewingDoc.date} · {viewingDoc.fileSize}</span>
+                <a href={viewingDoc.downloadUrl} download={viewingDoc.fileName} className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700" aria-label="Tải bản PDF">
+                  <Download className="w-4 h-4" aria-hidden="true" /> Tải về
+                </a>
+              </div>
+
+              <div className="relative flex-1 min-h-0 bg-slate-200/70 lg:p-4 xl:p-6">
+                <div className="w-full h-full bg-white lg:rounded-xl overflow-hidden lg:shadow-[0_8px_30px_rgba(15,23,42,0.13)] lg:ring-1 lg:ring-slate-900/5">
+                  <Suspense fallback={<div role="status" className="h-full flex items-center justify-center gap-3 text-sm text-slate-500"><LoaderCircle className="h-6 w-6 animate-spin text-emerald-600" />Đang mở trình xem…</div>}>
+                    <PdfDocumentViewer key={viewingDoc.id} url={viewingDoc.downloadUrl} title={viewingDoc.title} />
+                  </Suspense>
+                </div>
               </div>
             </div>
 
-            {/* Khung iframe xem PDF trực tiếp trên trình duyệt */}
-            <div className="flex-1 bg-slate-100 relative">
-              <iframe
-                src={`${viewingDoc.downloadUrl}#toolbar=1`}
-                className="w-full h-full border-0"
-                title={viewingDoc.title}
-              />
-            </div>
+            <footer className="shrink-0 flex items-center justify-between gap-3 px-4 sm:px-6 py-2.5 border-t border-slate-200 bg-white text-[11px] sm:text-xs text-slate-500">
+              <span className="truncate">Bản PDF gốc · Chuyển trang và phóng to ngay tại đây.</span>
+              <a href={viewingDoc.downloadUrl} target="_blank" rel="noopener noreferrer" className="shrink-0 inline-flex items-center gap-1 font-semibold text-emerald-700 hover:text-emerald-800">
+                Không xem được? Mở trực tiếp <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+              </a>
+            </footer>
           </div>
         </div>
-      )}
+      ), document.body)}
 
     </section>
   );
