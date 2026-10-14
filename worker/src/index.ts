@@ -97,8 +97,11 @@ export default {
           : ((await request.clone().json().catch(() => ({}))) as { phone?: string }).phone;
         if (requestedPhone !== verifiedPhone) return jsonResponse({ success: false, error: 'Access denied.' }, 403, corsHeaders);
       }
-      // 1. HEALTH CHECK & TEST AI (MUSE SPARK API CHUYÊN BIỆT)
+      // 1. HEALTH CHECK & TEST AI (MUSE SPARK API CHUYÊN BIỆT - CHỈ NỘI BỘ MCP)
       if (path === '/api/test-ai') {
+        if (request.headers.get('X-Internal-Caller') !== 'mcp') {
+          return jsonResponse({ success: false, error: 'Forbidden: Endpoint này chỉ dành riêng cho kiểm thử nội bộ.' }, 403, corsHeaders);
+        }
         try {
           const museKey = env.MUSE_API_KEY;
           if (!museKey) {
