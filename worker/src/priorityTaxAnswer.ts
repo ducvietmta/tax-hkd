@@ -21,7 +21,7 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
   const revenue = amounts.find(n => n > 3e9 && n <= 50e9) || 0;
 
   // T86/T100: 3,000,000,001 is safely representable as an integer, never rounded to 3 billion.
-  const overThree = revenue || (/3\s*ty\s*(?:\+|cong\s*them|them)\s*1\s*dong/.test(q) ? 3_000_000_001 : 0);
+  const overThree = revenue || (/3\s*ty\s*(?:(?:\+|cong\s*them|them)\s*)?1\s*dong/.test(q) ? 3_000_000_001 : 0);
   const asksThreeBillionMethod = /(?:3\s*ty|3[.]000[.]000[.]001|3,000,000,001|0[.,]5\s*%|17\s*%)/.test(q) &&
     /tncn|thu nhap tinh thue|0[.,]5\s*%|17\s*%|phuong phap/.test(q);
   if (overThree && asksThreeBillionMethod) {
@@ -77,9 +77,9 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
   }
 
   // T98: attach the precise amending provision, not an unrelated article.
-  if (/hoa don dien tu|hddt/.test(q) && /30\s*ngay|thoi han|khi nao|bao lau/.test(q) && /1\s*ty|1[.]000[.]000[.]000/.test(q)) {
+  if (/hoa don dien tu|hddt/.test(q) && /30\s*ngay|thoi han|han dang ky|khi nao|bao lau/.test(q) && /1\s*ty|1[.]000[.]000[.]000/.test(q)) {
     const facts: TaxFacts = { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 1e9 };
-    return result('Khi doanh thu tính thuế GTGT lũy kế vượt 1 tỷ đồng trong kỳ tính thuế, hộ/cá nhân kinh doanh thuộc trường hợp phải dùng hóa đơn điện tử theo quy định. Thời hạn đăng ký sử dụng là 30 ngày kể từ ngày cuối cùng của kỳ tính thuế có doanh thu lũy kế vượt ngưỡng. Căn cứ trực tiếp là khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP.', ['Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)'], ['ND141_2026_ART1_2_EINVOICE'], facts);
+    return result('Nếu hộ mới kinh doanh hoặc năm trước có doanh thu không quá 1 tỷ đồng, nhưng doanh thu tính thuế GTGT lũy kế năm hiện tại vượt 1 tỷ đồng, thời hạn đăng ký sử dụng hóa đơn điện tử là 30 ngày kể từ ngày cuối cùng của kỳ tính thuế có doanh thu lũy kế vượt ngưỡng. Không lấy mặc định ngày giao dịch vừa vượt 1 tỷ làm ngày bắt đầu tính hạn. Nếu hộ đã thuộc diện bắt buộc từ đầu năm thì cần xét nhánh đăng ký tương ứng. Căn cứ trực tiếp là khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP.', ['Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)'], ['ND141_2026_ART1_2_EINVOICE'], facts);
   }
 
   // Direct consultation on core tax documents from the Legal Knowledge Base

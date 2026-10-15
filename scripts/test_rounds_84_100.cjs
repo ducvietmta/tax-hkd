@@ -34,6 +34,9 @@ const t86 = answer('Tôi là cá nhân cư trú năm 2026 có doanh thu 3.000.00
 assert.match(t86, /3\.000\.000\.001 đồng/);
 assert.match(t86, /17%/);
 assert.match(t86, /47\.600\.000 đồng/);
+const g010 = answer('Doanh thu 3 tỷ 1 đồng, thu nhập tính thuế hợp lệ 400 triệu, cá nhân cư trú. Tính TNCN sau giảm NQ43.');
+assert.match(g010, /3\.000\.000\.001 đồng/);
+assert.match(g010, /47\.600\.000 đồng/);
 assert.doesNotMatch(t86, /TNCN\s*=.*0,5%/);
 assert.equal(engine.formatRevenue(3_000_000_001), '3.000.000.001 đồng');
 assert.equal(engine.calculateTax({ taxYear: 2026, activityType: 'goods', grossRevenueVnd: 3_000_000_000 }).pitRate, 0.005);
@@ -55,6 +58,10 @@ assert.match(t98, /30 ngày/);
 assert.match(t98, /khoản 2 Điều 1 Nghị định 141\/2026/);
 assert.match(t98, /khoản 5 Điều 8 Nghị định 68\/2026/);
 assert.doesNotMatch(t98, /Điều 9 Nghị định 141/);
+const g025 = answer('Hộ kinh doanh vượt mốc doanh thu 1 tỷ năm 2026; hạn đăng ký hóa đơn điện tử và căn cứ điều khoản?');
+assert.match(g025, /30 ngày kể từ ngày cuối cùng của kỳ tính thuế/);
+assert.match(g025, /năm trước có doanh thu không quá 1 tỷ/);
+assert.match(g025, /khoản 2 Điều 1 Nghị định 141\/2026/);
 const g025Citation = validation.validateLegalCitations('Hộ kinh doanh vượt mốc doanh thu 1 tỷ năm 2026; hạn đăng ký hóa đơn điện tử và căn cứ điều khoản?',
   'Hạn là 30 ngày kể từ cuối kỳ. Căn cứ pháp lý: Điều 9, Nghị định 141/2026/NĐ-CP.',
   ['Điều 9, Nghị định 141/2026/NĐ-CP'], scope.resolveAnswerScope([], 'Năm 2026', now));
