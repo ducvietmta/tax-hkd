@@ -1147,6 +1147,7 @@ export default {
           : routeId ? `${decisionPrefix}RAG Hybrid (${routeId})` : `${decisionPrefix}RAG Hybrid (BM25)`;
 
         // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) ---
+        let isSystemError = false;
         if (!aiText && ragContextText) {
           const broadSystemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 ${applyDecision && structuredDecision ? `QUYẾT ĐỊNH CÓ CẤU TRÚC: ${JSON.stringify({ status: structuredDecision.decision_status, risk: structuredDecision.risk_level, tax_period: decisionFrame!.tax_period.years, taxpayer: decisionFrame!.taxpayer_type.value, income_types: decisionFrame!.income_type.map(item => item.value), facts: decisionFrame!.facts, missing_facts: decisionFrame!.missing_facts, must_cover: structuredDecision.must_cover_intents, allowed_claims: structuredDecision.allowed_claims })}\n${canUseDecisionCalculation && decisionEvaluation ? `KẾT QUẢ RULES ENGINE (${decisionEvaluation.status}): ${decisionEvaluation.explanation}. Không tự thay phương pháp hoặc tỷ lệ tính thuế.` : ''}` : ''}
@@ -1275,14 +1276,16 @@ ${ragContextText}`;
           }
           if (!aiText) {
             if (relevantChunks.length > 0) {
-              aiText = 'Đã tìm thấy tài liệu liên quan, nhưng hệ thống Muse Spark AI hiện chưa thể tổng hợp câu trả lời lúc này. Vui lòng thử lại sau ít phút.';
+              aiText = 'Hệ thống tư vấn TAX HKD  hiện đang gặp sự cố kết nối hoặc gián đoạn tạm thời. Vui lòng thử lại sau ít phút.';
+              source = 'system_connection_error';
+              isSystemError = true;
             } else {
               aiText = `Mình chưa tìm thấy căn cứ đủ chắc cho câu hỏi này. Bạn cho mình biết thêm doanh thu năm, ngành nghề và bán trên kênh nào (sàn TMĐT, cửa hàng, dịch vụ) nhé. Nếu cần chắc chắn, bạn có thể đặt lịch tư vấn với chuyên viên.`;
             }
           }
         }
 
-        const uncovered = missingAnswerIntents(message, aiText, businessClassification);
+        const uncovered = !isSystemError ? missingAnswerIntents(message, aiText, businessClassification) : [];
         if (uncovered.length) {
           console.warn('[INTENT_COVERAGE]', JSON.stringify({ missing: uncovered, routeId, refs: relevantChunks.map(c => c.ref_id) }));
           if (uncovered.includes('platform_withholding')) {
@@ -1308,9 +1311,9 @@ ${ragContextText}`;
         // Dọn dẹp nếu model vẫn sinh ra thẻ suy luận sót lại
         aiText = aiText.replace(/(?:<thinking>|\[SUY_LUAN\])[\s\S]*?(?:<\/thinking>|\[\/SUY_LUAN\])/i, '').trim();
         // --- BƯỚC 3: ANSWER VALIDATOR (LEGAL COMPLIANCE GUARD) ---
-        let validationPass = !applyDecision || !decisionFrame;
+        let validationPass = isSystemError || !applyDecision || !decisionFrame;
         let validationStatus = 'SKIPPED';
-        if (decisionFrame) {
+        if (!isSystemError && decisionFrame) {
           const applicableEvaluation = canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED'
             ? decisionEvaluation : undefined;
           const valReport = validateAnswer(aiText, decisionFrame, applicableEvaluation);
@@ -1333,11 +1336,15 @@ ${ragContextText}`;
             canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined).status === 'PASS';
           if (validationPass && validationStatus === 'REPAIR') validationStatus = 'PASS_AFTER_REPAIR';
         }
-        const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope);
-        aiText = citationCheck.answer;
-        legalCitations = citationCheck.citations;
+        if (isSystemError) {
+          legalCitations = [];
+        } else {
+          const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope);
+          aiText = citationCheck.answer;
+          legalCitations = citationCheck.citations;
+        }
 
-        let semanticReviewPassed = !applyDecision || !!verifiedTaxAnswer || validationPass;
+        let semanticReviewPassed = isSystemError || !applyDecision || !!verifiedTaxAnswer || validationPass;
         let semanticReviewIssues: string[] | null = null;
         if (!verifiedTaxAnswer && aiText && generationPrompt && env.FPT_AI_KEY) {
           const reviewer = new QuyetDecisionProvider(env.FPT_AI_KEY);
@@ -1399,7 +1406,7 @@ ${ragContextText}`;
           retrieval: retrievalTrace,
           matchedRefs: matchedRoute?.refs || [],
         };
-        if (cacheable && llmOk && validationPass && semanticReviewPassed && missingAnswerIntents(message, aiText, businessClassification).length === 0 &&
+        if (cacheable && !isSystemError && llmOk && validationPass && semanticReviewPassed && missingAnswerIntents(message, aiText, businessClassification).length === 0 &&
             !pendingTopics.length && (!applyDecision || ['ANSWERABLE_VERIFIED', 'ANSWERABLE_WITH_EVIDENCE', 'CONDITIONAL'].includes(decisionStatus))) {
           if (env.DB) {
             // The first completed answer wins even when web and MCP ask concurrently.
@@ -1436,13 +1443,14 @@ ${ragContextText}`;
           ctx.waitUntil(
             env.DB.prepare(
               `INSERT INTO chat_logs (id, user_phone, message, response, credits_used, source)
-               VALUES (?, ?, ?, ?, 1, ?)`
+               VALUES (?, ?, ?, ?, ?, ?)`
             )
               .bind(
                 `chat_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
                 activePhone,
                 message,
                 logD1Prefix ? `${logD1Prefix}${aiText}` : aiText,
+                isSystemError ? 0 : 1,
                 logD1Prefix ? `${logD1Prefix}${source}` : source
               )
               .run()
@@ -1450,7 +1458,7 @@ ${ragContextText}`;
           );
         }
 
-        const remainingCredits = await deductCreditOnce();
+        const remainingCredits = isSystemError ? (userRecord?.credits ?? 99) : await deductCreditOnce();
         return respondWithAnswer(canonicalPayload, remainingCredits);
       }
 
