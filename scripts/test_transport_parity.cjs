@@ -60,6 +60,7 @@ const db = {
 };
 
 let modelCalls = 0;
+let scopeLabel = 'IN_SCOPE';
 const concurrentQuestion = 'Năm 2026 hộ kinh doanh khai thuế vào lúc nào?';
 let releaseConcurrent;
 const concurrentGate = new Promise(resolve => { releaseConcurrent = resolve; });
@@ -67,6 +68,9 @@ let concurrentCalls = 0;
 global.caches = { default: { match: async () => undefined, put: async () => {} } };
 global.fetch = async (_url, init) => {
   const input = JSON.parse(init.body);
+  if (String(_url).includes('mkp-api.fptcloud.com')) {
+    return Response.json({ choices: [{ message: { content: scopeLabel } }] });
+  }
   assert.equal(input.stream, false, 'Web SSE and MCP must send the same non-stream model request');
   const call = ++modelCalls;
   if (input.input.at(-1).content[0].text === concurrentQuestion) {
@@ -79,7 +83,7 @@ global.fetch = async (_url, init) => {
   }
   return Response.json({ output: [{ type: 'message', content: [{ text: `Câu trả lời kiểm thử từ mô hình lần ${call}. Căn cứ pháp lý: tài liệu kiểm thử.` }] }] });
 };
-const env = { DB: db, MUSE_API_KEY: 'test-fixture', DECISION_MODE: 'enforce' };
+const env = { DB: db, MUSE_API_KEY: 'test-fixture', FPT_AI_KEY: 'scope-fixture', DECISION_L2: 'off', DECISION_MODE: 'enforce' };
 const question = 'Hộ kinh doanh năm 2026 tính nghĩa vụ thuế như thế nào?';
 const webRequest = (message, stream, history = []) => new Request('https://test.local/api/chat', {
   method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Internal-Caller': 'mcp' },
@@ -131,8 +135,10 @@ async function main() {
   assert.equal(modelCalls, 4, 'Equivalent history should share one canonical answer');
 
   const unrelated = 'Thời tiết Hà Nội hôm nay như thế nào?';
+  scopeLabel = 'OUT_OF_SCOPE';
   assert.equal(await streamAnswer(unrelated), await mcpAnswer(unrelated), 'Out-of-scope answers must match too');
   assert.equal(modelCalls, 4, 'Out-of-scope answers must not invoke the model');
+  scopeLabel = 'IN_SCOPE';
 
   const methodQuestion = 'Cá nhân cư trú cung cấp dịch vụ sửa chữa, doanh thu 3 tỷ + 1 đồng năm 2026, thu nhập tính thuế hợp lệ 400 triệu; tính thuế TNCN bao nhiêu?';
   const methodAnswer = await mcpAnswer(methodQuestion);

@@ -13,7 +13,8 @@
 import { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
 import { retrieve, buildContext, analyzeAmounts } from './retriever';
-import { resolveAnswerScope, scopeInstructions, intentInstructions, isOutOfScope, OUT_OF_SCOPE_RESPONSE } from './answerScope';
+import { resolveAnswerScope, scopeInstructions, intentInstructions, OUT_OF_SCOPE_RESPONSE } from './answerScope';
+import { resolveTaxRelevance } from './taxRelevance';
 import { matchPendingTopics } from './pendingTopics';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
@@ -835,7 +836,7 @@ export default {
         };
 
         // --- BƯỚC 0: KIỂM TRA PHẠM VI HỎI ĐÁP (MỤC 1) ---
-        if (isOutOfScope(message, history)) {
+        if (await resolveTaxRelevance(message, history, env.FPT_AI_KEY) === 'OUT_OF_SCOPE') {
           const outOfScopeResponse = {
             success: true,
             response: 'Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng',
@@ -941,7 +942,7 @@ export default {
         // Invalidate old answers when ruleset updates or relative periods expire
         const digest = await crypto.subtle.digest(
           'SHA-256',
-          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:1.6|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:1.7-semantic-scope|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
         );
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);

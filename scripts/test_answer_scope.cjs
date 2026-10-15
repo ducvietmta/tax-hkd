@@ -24,17 +24,13 @@ function load(relativePath) {
   modules.set(file, module.exports);
   return module.exports;
 }
-const { resolveAnswerScope, scopeInstructions, intentInstructions, isOutOfScope } = load('worker/src/answerScope.ts');
+const { resolveAnswerScope, scopeInstructions, intentInstructions } = load('worker/src/answerScope.ts');
 const { buildConversationRetrievalQuery } = load('worker/src/conversation.ts');
 const { retrieve, buildContext, snippet } = load('worker/src/retriever.ts');
 const now = new Date('2026-10-13T04:02:00Z');
 const user = content => ({ role: 'user', content });
 const assistant = content => ({ role: 'assistant', content });
 const scopeFor = (message, history = []) => resolveAnswerScope(history, message, now);
-assert.equal(isOutOfScope('Một hoạt động công nghệ thông tin có bán quyền phần mềm, cần phân loại ra sao?'), false);
-assert.equal(isOutOfScope('Mua máy sửa chữa dùng nhiều năm có được trừ toàn bộ giá mua ngay trong năm?'), false);
-assert.equal(isOutOfScope('Hỏi quy định tháng 6/2025 nhưng tài liệu trích dẫn có hiệu lực từ 2026. Có áp dụng không?'), false);
-assert.equal(isOutOfScope('Hộ đã dùng HĐĐT trước khi vượt ngưỡng; có cần đăng ký lại khi vượt?'), false);
 const compoundEvidence = retrieve('Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?', 4, scopeFor('Năm 2026')).results;
 assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.50'), 'Keep explicitly requested VAT relief evidence');
 assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.39' || r.chunk.ref_id === '16.99'), 'Keep explicitly requested PIT relief evidence');
@@ -50,10 +46,6 @@ assert.deepEqual(scopeFor('Thu nhập năm 2025').years, [2025]);
 assert.deepEqual(scopeFor('So sánh năm 2025 và 2026').years, [2025, 2026]);
 assert.deepEqual(scopeFor('Năm nay').years, [2026]);
 assert.deepEqual(scopeFor('Năm ngoái').years, [2025]);
-assert.equal(isOutOfScope('Năm 2025 tôi bán hàng 280 triệu, giờ 2026 mới hỏi: nghĩa vụ năm đó thế nào?'), false);
-assert.equal(isOutOfScope('Một cá nhân có 5 cửa hàng, mỗi cửa hàng thu 2 tỷ. Xét mốc 10 tỷ theo cửa hàng hay người?'), false);
-assert.equal(isOutOfScope('TikTok đã trừ 10% trên hoa hồng 30 triệu, tôi còn lương công ty. Có hoàn được không và có cộng lương?'), false);
-assert.equal(isOutOfScope('Ngày mai thời tiết Hà Nội thế nào?'), true);
 assert.deepEqual(resolveAnswerScope([], 'năm nay', new Date('2026-12-31T18:00:00Z')).years, [2027]);
 assert.deepEqual(scopeFor('30 triệu', [assistant('Nếu năm 2025 thì...')]).years, [2026]);
 const history = [user('Bán Shopee năm 2025 có nộp thuế không?'), assistant('Doanh thu bao nhiêu?')];
@@ -98,8 +90,16 @@ async function testWorkerPaths() {
   const ctx = { waitUntil: task => pending.push(task) };
   global.caches = { default: { match: async () => undefined, put: async () => {} } };
   const captured = [];
+  let scopeLabel = 'IN_SCOPE';
+  const scopeRequests = [];
   global.fetch = async (_url, init) => {
     const input = JSON.parse(init.body);
+    if (String(_url).includes('mkp-api.fptcloud.com')) {
+      scopeRequests.push(input);
+      if (scopeLabel === 'HTTP_ERROR') return new Response('', { status: 503 });
+      if (scopeLabel === 'TIMEOUT') throw new DOMException('timeout', 'AbortError');
+      return Response.json({ choices: [{ message: { content: scopeLabel } }] });
+    }
     captured.push(input);
     if (input.stream) {
       return new Response('data: ' + JSON.stringify({ type: 'response.output_text.delta', delta: 'Câu trả lời giả lập để kiểm tra đường truyền.' }) + '\n\n');
@@ -110,6 +110,34 @@ async function testWorkerPaths() {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Internal-Caller': 'mcp' }, body: JSON.stringify({ message, stream }),
   });
   try {
+    const { resolveTaxRelevance } = load('worker/src/taxRelevance.ts');
+    const repairBundle = 'Người bán gói dịch vụ sửa chữa có kèm phụ tùng miễn phí trên quảng cáo nhưng giá đã bao gồm phụ tùng. Tính nhóm nào?';
+    const semanticEnv = { MUSE_API_KEY: 'test-fixture', FPT_AI_KEY: 'scope-fixture', DECISION_L2: 'off' };
+    const accepted = await (await worker.fetch(request(false, repairBundle), semanticEnv, ctx)).json();
+    assert.notEqual(accepted.source, 'out_of_scope', 'No tax keyword required to enter tax pipeline');
+    assert.equal(JSON.parse(scopeRequests.at(-1).messages.at(-1).content).question, repairBundle);
+    scopeLabel = 'OUT_OF_SCOPE';
+    const unrelated = 'Viết bài hát có chữ thuế';
+    const rejected = await (await worker.fetch(request(false, unrelated), semanticEnv, ctx)).json();
+    assert.equal(rejected.source, 'out_of_scope', 'Tax keyword cannot override semantic classification');
+    const rejectedStream = await (await worker.fetch(request(true, unrelated), semanticEnv, ctx)).text();
+    const scopeEvents = rejectedStream.split('\n\n').filter(part => part.startsWith('data: {')).map(part => JSON.parse(part.slice(6)));
+    assert.equal(scopeEvents.find(event => event.type === 'done')?.fullText, rejected.response, 'SSE uses identical scope rejection');
+    const rejectedMcp = await (await worker.fetch(new Request('https://test.local/mcp', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 'scope', method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: unrelated } } }),
+    }), semanticEnv, ctx)).json();
+    assert.ok(rejectedMcp.result.content[0].text.startsWith(rejected.response));
+    for (const label of ['UNCERTAIN', 'A', 'OUT_OF_SCOPE because I said so', 'HTTP_ERROR', 'TIMEOUT']) {
+      scopeLabel = label;
+      assert.equal(await resolveTaxRelevance(repairBundle, [], 'fixture'), 'UNCERTAIN', label);
+    }
+    assert.equal(await resolveTaxRelevance(repairBundle, []), 'UNCERTAIN');
+    scopeLabel = 'IN_SCOPE';
+    const followupHistory = [user('Tôi đang hỏi phân loại doanh thu để tính thuế.')];
+    assert.equal(await resolveTaxRelevance('Vậy gói này thuộc nhóm nào?', followupHistory, 'fixture'), 'IN_SCOPE');
+    assert.deepEqual(JSON.parse(scopeRequests.at(-1).messages.at(-1).content).history, followupHistory);
+    console.log('Semantic scope checks passed: shared web/SSE/MCP gate, context, malformed output and provider failures.');
     const providerQuestion = 'Hộ kinh doanh cần lưu chứng từ thanh toán thế nào?';
     for (const stream of [false, true]) {
       const response = await worker.fetch(request(stream, providerQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
