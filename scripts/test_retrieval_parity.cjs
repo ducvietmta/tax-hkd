@@ -62,6 +62,24 @@ for (const [unsigned, accented] of accentPairs) {
 // 2. `not` loại route.
 assert.notEqual(matchRoute('bán nhà cho thuê có phải nộp thuế?')?.id, 'REAL_ESTATE_TRANSFER_TAX');
 assert.equal(matchRoute('bán nhà sang tên có phải nộp thuế?')?.id, 'REAL_ESTATE_TRANSFER_TAX');
+assert.equal(matchRoute('khi nào nên đăng ký cnkd và khi nào nên đăng ký hkd')?.id, 'CHON_HKD_CNKD');
+
+// 2b. Câu hỏi chọn loại hình: ghim 16.107 + 16.7 + 16.8, không ghim oan affiliate.
+const choiceFrame = {
+  tax_period: { years: [2026], is_historical: false },
+  taxpayer_type: { value: 'UNKNOWN' },
+  tax_intent: { primary: { value: 'REGISTRATION' }, secondary: [] },
+  income_type: [], facts: {}, missing_facts: [],
+  semantic: { topic: 'BUSINESS_REGISTRATION', revenueContext: 'UNSPECIFIED' },
+};
+assert.deepEqual(retrievalPlanMod.buildRetrievalPlan(choiceFrame).must_include_refs, ['16.107', '16.7', '16.8']);
+const affFrame = { ...choiceFrame, income_type: [{ value: 'AFFILIATE_COMMISSION' }] };
+assert.deepEqual(retrievalPlanMod.buildRetrievalPlan(affFrame).must_include_refs, ['16.107', '16.73', '16.20']);
+const choiceRes = retrieve('khi nào nên đăng ký cnkd và khi nào nên đăng ký hkd', 4,
+  resolveAnswerScope([], 'khi nào nên đăng ký cnkd và khi nào nên đăng ký hkd', new Date('2026-10-15T00:00:00Z')),
+  retrievalPlanMod.buildRetrievalPlan(choiceFrame));
+assert.deepEqual(refsOf(choiceRes), ['16.107', '16.7', '16.8']);
+assert.ok(!refsOf(choiceRes).includes('16.73'));
 
 // 3. Thứ tự ghim legacy ổn định.
 const scope2026 = resolveAnswerScope([], 'năm 2026', new Date('2026-10-15T00:00:00Z'));

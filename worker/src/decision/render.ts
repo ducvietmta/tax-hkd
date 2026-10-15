@@ -22,12 +22,12 @@ export function renderDeterministicAnswer(
 
   if (evalResult.total_tax_payable_vnd === 0) {
     if (onlyTax) {
-      response = `Doanh thu ${formatVnd(rev)} trong năm ${taxYear} thuộc ngưỡng không phải nộp thuế ${onlyTax}. Số thuế ${onlyTax} phải nộp là 0 đồng.`;
+      response = `Mình đối chiếu giúp bạn: doanh thu ${formatVnd(rev)} trong năm ${taxYear} nằm trong ngưỡng không phải nộp thuế ${onlyTax}, nên bạn không phải nộp đồng nào.`;
     } else {
     if (taxYear >= 2026) {
-      response = `Doanh thu ${formatVnd(rev)} trong năm ${taxYear} từ 1 tỷ đồng/năm trở xuống thuộc diện không phải nộp thuế GTGT và thuế TNCN (Nghị định 141/2026/NĐ-CP). Số thuế phải nộp là 0 đồng. Lệ phí môn bài từ 01/01/2026 đã được bãi bỏ hoàn toàn.`;
+      response = `Mình đối chiếu giúp bạn: doanh thu ${formatVnd(rev)} trong năm ${taxYear} từ 1 tỷ đồng/năm trở xuống nên không phải nộp thuế GTGT và thuế TNCN (Nghị định 141/2026/NĐ-CP), bạn không phải nộp đồng nào. Lệ phí môn bài từ 01/01/2026 cũng đã được bãi bỏ hoàn toàn.`;
     } else {
-      response = `Doanh thu ${formatVnd(rev)} năm ${taxYear} từ 100 triệu đồng/năm trở xuống thuộc diện không phải nộp thuế GTGT và thuế TNCN theo Thông tư 40/2021/TT-BTC. Số thuế phải nộp là 0 đồng.`;
+      response = `Mình đối chiếu giúp bạn: doanh thu ${formatVnd(rev)} năm ${taxYear} từ 100 triệu đồng/năm trở xuống nên không phải nộp thuế GTGT và thuế TNCN theo Thông tư 40/2021/TT-BTC, bạn không phải nộp đồng nào.`;
     }
     }
   } else {
@@ -46,7 +46,7 @@ export function renderDeterministicAnswer(
 
     const assumption = frame.facts.vat_rate_explicit !== undefined && focus !== 'pit'
       ? `Theo tỷ lệ GTGT gốc ${percentage(frame.facts.vat_rate_explicit)}% bạn cung cấp${frame.facts.vat_relief_assumed ? ', với giả định toàn bộ doanh thu đủ điều kiện giảm 20% mức tỷ lệ' : ''}:\n` : '';
-    response = assumption + `Với doanh thu ${formatVnd(rev)} trong năm ${taxYear}:\n` +
+    response = assumption + `Mình tính cho trường hợp của bạn (doanh thu ${formatVnd(rev)}, năm ${taxYear}) nhé:\n` +
       (focus === 'pit' ? '' : `${vatLine}\n`) +
       (focus === 'vat' ? '' : `${pitBaseLine}${pitReliefLine}\n`) +
       (onlyTax ? `Số thuế ${onlyTax} phải nộp: ${formatVnd(focus === 'vat' ? evalResult.vat_due_vnd : evalResult.pit_after_relief_vnd)}.`
@@ -103,7 +103,7 @@ export function renderMultiYearComparison(
     }
   }
 
-  const response = `**So sánh chính sách thuế giữa các năm đối với doanh thu ${formatVnd(rev)}:**\n\n` +
+  const response = `**Mình so sánh giúp bạn các năm với doanh thu ${formatVnd(rev)} nhé:**\n\n` +
     sections.join('\n\n') +
     `\n\n**Điểm khác biệt then chốt:**\n` +
     `- **Năm 2025 trở về trước:** Ngưỡng không chịu thuế là 100 triệu đồng/năm. Nếu vượt 100 triệu, phải nộp thuế trên TOÀN BỘ doanh thu và không được áp dụng giảm 30% TNCN của Nghị quyết 43.\n` +

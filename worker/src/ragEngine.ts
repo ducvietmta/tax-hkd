@@ -1078,6 +1078,29 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "CV 311/TCT-DNNCN-2025"
     ],
     "priority": 95
+  },
+  {
+    "id": "CHON_HKD_CNKD",
+    "any": [
+      "cnkd",
+      "hkd hay",
+      "hay cnkd",
+      "ca nhan kinh doanh hay",
+      "nên đăng ký hkd",
+      "nen dang ky hkd",
+      "nên đăng ký cnkd",
+      "nen dang ky cnkd",
+      "mở hộ kinh doanh hay",
+      "mo ho kinh doanh hay",
+      "chon dang ky hkd",
+      "chọn đăng ký hkd"
+    ],
+    "refs": [
+      "16.7",
+      "16.8",
+      "16.107"
+    ],
+    "priority": 80
   }
 ];
 

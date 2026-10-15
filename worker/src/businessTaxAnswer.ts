@@ -88,7 +88,7 @@ export function answerVerifiedBusinessTax(question: string, scope: AnswerScope):
     const citations = ['Điều 12 Luật Thuế GTGT 48/2024/QH15',
       ...(canDiscussRelief ? ['Điều 1 Nghị quyết 204/2025/QH15', 'Khoản 1, khoản 2 Điều 1 và các phụ lục Nghị định 174/2025/NĐ-CP', 'Khoản 3 Điều 9 Luật Thuế GTGT 48/2024/QH15'] : []),
       ...(asksNq43 ? ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'] : [])];
-    return { response: `Về GTGT năm ${facts.taxYear}, với doanh thu ${revenue}, tỷ lệ gốc ${rate}% cho số trước giảm là ${formatVnd(before)}.` +
+    return { response: `Mình trả lời riêng phần GTGT năm ${facts.taxYear} của bạn: với doanh thu ${revenue}, tỷ lệ gốc ${rate}% thì số trước giảm là ${formatVnd(before)}.` +
       (canDiscussRelief ? ` Không mặc định toàn bộ hàng hóa, dịch vụ đều được giảm. Nếu toàn bộ doanh thu thực sự đủ điều kiện theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP, giảm 20% mức tỷ lệ: ${rate}% còn ${(residentCalculation.vatRate * 80).toLocaleString('vi-VN')}%, số GTGT là ${formatVnd(Math.round(before * 0.8))}. Cần xác định đúng hàng hóa, dịch vụ thuộc nhóm chịu thuế suất 10% theo khoản 3 Điều 9 Luật Thuế GTGT và không thuộc nhóm loại trừ. Phần loại trừ giữ mức tỷ lệ gốc; nếu có nhiều nhóm phải tách doanh thu và tính riêng theo phụ lục áp dụng.` : '') +
       (asksNq43 ? ' Nghị quyết 43/2026/QH16 không giảm GTGT; nghị quyết này chỉ giảm TNCN kinh doanh đủ điều kiện.' : '') +
       `\n\nCăn cứ pháp lý:\n${citations.join('\n')}`, citations, ruleIds: ['VAT_FOCUSED_CALCULATION'], facts };
@@ -118,7 +118,7 @@ export function answerVerifiedBusinessTax(question: string, scope: AnswerScope):
   const sector = multi ? 'hai hoạt động bán hàng và dịch vụ sửa chữa'
     : facts.activityType === 'service' ? 'dịch vụ sửa chữa' : 'bán hàng hóa';
   const lines = [
-    `Với doanh thu ${sector} ${revenue} trong năm ${facts.taxYear}, nếu tính thuế TNCN theo tỷ lệ trên doanh thu:`,
+    `Mình tính cho bạn trường hợp ${sector}, doanh thu ${revenue} năm ${facts.taxYear} (TNCN theo tỷ lệ trên doanh thu) nhé:`,
     `- Thuế GTGT trước khi xét chính sách giảm GTGT riêng: ${formatVnd(residentCalculation.vatDueVnd)}. Mức giảm GTGT (nếu có) phải kiểm tra theo loại hàng hóa, dịch vụ và hóa đơn; Nghị quyết 43 không giảm thuế GTGT.`,
     `- Mức trừ doanh thu TNCN 1 tỷ đồng được áp dụng một lần trong năm${multi ? ', phân bổ ưu tiên cho hoạt động có tỷ lệ TNCN cao hơn' : ''}. Doanh thu chịu thuế TNCN sau mức trừ: ${formatVnd(residentCalculation.taxablePitRevenueVnd)}.`,
     `- Thuế TNCN trước ưu đãi: ${formatVnd(residentCalculation.pitBeforeReliefVnd)}.`,

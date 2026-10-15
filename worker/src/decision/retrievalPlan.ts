@@ -100,6 +100,16 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   };
   if (topic && topicEvidence[topic]) {
     const refs = [...topicEvidence[topic]];
+    // Câu hỏi đăng ký không liên quan affiliate: ưu tiên 16.7 (một cá nhân
+    // một HKD) và 16.8 (mỗi người một HKD) ở vị trí ghim thay vì chunk
+    // affiliate 16.73 gây nhiễu.
+    if (topic === 'BUSINESS_REGISTRATION' && !frame.income_type.some((t) =>
+        t.value === 'AFFILIATE_COMMISSION' || t.value === 'CONTENT_ADS')) {
+      const i7 = refs.indexOf('16.7');
+      if (i7 > 1) { refs.splice(i7, 1); refs.splice(1, 0, '16.7'); }
+      const i8 = refs.indexOf('16.8');
+      if (i8 > 2) { refs.splice(i8, 1); refs.splice(2, 0, '16.8'); }
+    }
     // Topic and intent are complementary, not mutually exclusive routes.
     // Keep the relief rule ahead of ownership evidence for per-person limits.
     const relief = frame.tax_intent.primary.value === 'RELIEF_REDUCTION' || frame.tax_intent.secondary.includes('RELIEF_REDUCTION');
@@ -107,7 +117,7 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
     if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
     return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
-      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' || relief ? 3 : 2), filter_years: years,
+      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' || relief || topic === 'BUSINESS_REGISTRATION' ? 3 : 2), filter_years: years,
       filter_taxpayer_types: [frame.taxpayer_type.value], boost_keywords: [] };
   }
 
