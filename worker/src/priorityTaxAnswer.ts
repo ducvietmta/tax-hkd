@@ -15,8 +15,16 @@ function result(response: string, citations: string[], ruleIds: string[], facts:
 
 /** High-confidence rules for compound questions that the generic engine/guard must not overwrite. */
 export function answerPriorityTax(question: string, scope: AnswerScope): VerifiedBusinessAnswer | null {
-  if (scope.years.length !== 1 || scope.years[0] !== 2026) return null;
   const q = fold(question);
+  if (scope.years.includes(2025) && scope.years.includes(2026) &&
+      /hoa don dien tu|hddt/.test(q) &&
+      /(?:(?:nam\s*2025|2025)[^.!?]{0,65}(?:tren|vuot|hon)\s*1\s*ty|(?:tren|vuot|hon)\s*1\s*ty[^.!?]{0,65}(?:nam\s*2025|2025))/.test(q)) {
+    return result('Nếu doanh thu năm trước (2025) của hộ thực sự trên 1 tỷ đồng và hộ tiếp tục kinh doanh trong năm 2026, phải xét nghĩa vụ dùng hóa đơn điện tử theo điểm a khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP được sửa đổi bởi khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP. Không áp nhánh 30 ngày dành cho hộ mới hoặc năm trước không quá 1 tỷ rồi mới vượt ngưỡng trong năm hiện tại. Cần kiểm thời điểm bắt đầu áp dụng, tình trạng sử dụng hóa đơn và quy định chuyển tiếp cho hồ sơ cụ thể.', ['Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)'], ['ND141_2026_PRIOR_YEAR_EINVOICE'], { taxYear: 2026, activityType: 'unknown' });
+  }
+  if (scope.years.length !== 1 || scope.years[0] !== 2026) return null;
+  if (/du thao/.test(q) && /van ban da ban hanh|van ban chinh thuc|con hieu luc/.test(q)) {
+    return result('Để chốt nghĩa vụ, phải dùng văn bản quy phạm pháp luật đã ban hành và có hiệu lực tại thời điểm giao dịch; bản dự thảo chỉ là nội dung dự kiến, không phải căn cứ áp dụng. Cần đối chiếu văn bản gốc, các văn bản sửa đổi và bản hợp nhất chính thức để xác định nội dung đang có hiệu lực.', ['Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'], ['LEGAL_SOURCE_EFFECTIVE_TEXT'], { taxYear: 2026, activityType: 'unknown' });
+  }
   const amounts = unique([...exact(q), ...named(q)]);
   const revenue = amounts.find(n => n > 3e9 && n <= 50e9) || 0;
 
@@ -40,8 +48,9 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
   }
 
   // T84: respect the user's explicit assumption that goods qualify for the VAT reduction.
-  const eligible = /(du dieu kien|thuoc dien|duoc giam|gia dinh)[^.!?]{0,90}(giam|20\s*%|gtgt)|(?:hang hoa|mat hang)[^.!?]{0,90}(du dieu kien|duoc giam)/.test(q);
-  const asksVatRelief = /gtgt/.test(q) && /(?:giam|204\/2025|174\/2025|20\s*%)/.test(q);
+  const eligible = /(du dieu kien|thuoc dien|duoc giam|gia dinh)[^.!?]{0,90}(giam|20\s*%|gtgt)|(?:hang hoa|mat hang)[^.!?]{0,90}(du dieu kien|duoc giam)/.test(q) ||
+    (/du dieu kien|thuoc dien|duoc giam|gia dinh/.test(q) && /\bnq\s*204\b|nghi quyet 204|174\/2025/.test(q));
+  const asksVatRelief = /gtgt/.test(q) && /(?:giam|204\/2025|\bnq\s*204\b|nghi quyet 204|174\/2025|20\s*%)/.test(q);
   const goods = /tap hoa|ban hang hoa|ban hang|ban le|hang hoa/.test(q) &&
     !/khong ban le|khong ban hang hoa|khong ban hang|khong phai tap hoa/.test(q) &&
     !/dich vu|sua chua|affiliate|hoa hong/.test(q);
@@ -51,6 +60,12 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
     const calc = calculateTax(facts);
     const citations = ['Điều 1 Nghị quyết 204/2025/QH15', 'Khoản 1, khoản 2 Điều 1 Nghị định 174/2025/NĐ-CP'];
     return result(`Với giả định hàng hóa bạn bán đủ điều kiện giảm GTGT 20% mức tỷ lệ và giao dịch, hóa đơn thuộc thời gian áp dụng, tỷ lệ 1% còn 0,8%. Thuế GTGT trên toàn bộ doanh thu ${formatRevenue(retailRevenue)} là ${formatRevenue(retailRevenue)} × (1% × 80%) = ${formatVnd(calc.vatDueVnd)}. Đây là số GTGT sau giảm; ${formatVnd(Math.round(retailRevenue * 0.01))} chỉ là số trước giảm. Chính sách này không tự quyết định số thuế TNCN.`, citations, ['NQ204_2025_VAT_RELIEF', 'ND174_2025_ART1'], facts);
+  }
+  if (eligible && asksVatRelief && /dich vu|sua chua|sua may/.test(q) && !goods && retailRevenue && /5\s*%/.test(q)) {
+    const facts: TaxFacts = { taxYear: 2026, activityType: 'service', grossRevenueVnd: retailRevenue, vatReliefEligible: true };
+    const calc = calculateTax(facts);
+    const citations = ['Điều 1 Nghị quyết 204/2025/QH15', 'Khoản 1, khoản 2 Điều 1 Nghị định 174/2025/NĐ-CP'];
+    return result(`Nếu dịch vụ sửa chữa thuộc diện được giảm GTGT và không nằm trong phụ lục loại trừ, tỷ lệ GTGT theo doanh thu 5% giảm 20% còn 4%. Với doanh thu ${formatRevenue(retailRevenue)}, thuế GTGT sau giảm là ${formatRevenue(retailRevenue)} × (5% × 80%) = ${formatVnd(calc.vatDueVnd)}. Cần đối chiếu đúng loại dịch vụ và điều kiện giảm trước khi chốt nghĩa vụ.`, citations, ['NQ204_2025_VAT_RELIEF', 'ND174_2025_ART1'], facts);
   }
 
   // T91: a platform's unexplained "tax" line is not evidence of paid PIT.

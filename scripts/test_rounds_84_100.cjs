@@ -29,6 +29,9 @@ assert.match(t84, /0,8%/);
 assert.match(t84, /12\.000\.000 đồng/);
 const g004 = answer('Bán hàng thuộc diện được giảm, doanh thu 1,5 tỷ năm 2026; tỷ lệ GTGT gốc 1%. Tính sau giảm.');
 assert.match(g004, /12\.000\.000 đồng/);
+const g005 = answer('Dịch vụ sửa máy tính 1,5 tỷ, GTGT gốc 5%; nếu đủ điều kiện theo NQ204 thì tính bao nhiêu?');
+assert.match(g005, /4%/);
+assert.match(g005, /60\.000\.000 đồng/);
 
 const t86 = answer('Tôi là cá nhân cư trú năm 2026 có doanh thu 3.000.000.001 đồng, thu nhập tính thuế hợp lệ 400 triệu đồng. TNCN sau giảm 30% theo Nghị quyết 43 là bao nhiêu?');
 assert.match(t86, /3\.000\.000\.001 đồng/);
@@ -62,6 +65,13 @@ const g025 = answer('Hộ kinh doanh vượt mốc doanh thu 1 tỷ năm 2026; h
 assert.match(g025, /30 ngày kể từ ngày cuối cùng của kỳ tính thuế/);
 assert.match(g025, /năm trước có doanh thu không quá 1 tỷ/);
 assert.match(g025, /khoản 2 Điều 1 Nghị định 141\/2026/);
+const g125 = answer('Hộ đạt doanh thu trên 1 tỷ ở năm 2025; hỏi năm 2026 có nghĩa vụ HĐĐT gì theo quy định mới.');
+assert.ok(g125, JSON.stringify(scope.resolveAnswerScope([], 'Hộ đạt doanh thu trên 1 tỷ ở năm 2025; hỏi năm 2026 có nghĩa vụ HĐĐT gì theo quy định mới.', now)));
+assert.match(g125, /điểm a khoản 5 Điều 8/);
+assert.match(g125, /Không áp nhánh 30 ngày/);
+const g131 = answer('AI tìm thấy bản dự thảo nghị định và văn bản đã ban hành khác nội dung; câu trả lời được dùng bản nào?');
+assert.match(g131, /bản dự thảo chỉ là nội dung dự kiến/);
+assert.doesNotMatch(g131, /Nghị quyết 43\/2026/);
 const g025Citation = validation.validateLegalCitations('Hộ kinh doanh vượt mốc doanh thu 1 tỷ năm 2026; hạn đăng ký hóa đơn điện tử và căn cứ điều khoản?',
   'Hạn là 30 ngày kể từ cuối kỳ. Căn cứ pháp lý: Điều 9, Nghị định 141/2026/NĐ-CP.',
   ['Điều 9, Nghị định 141/2026/NĐ-CP'], scope.resolveAnswerScope([], 'Năm 2026', now));

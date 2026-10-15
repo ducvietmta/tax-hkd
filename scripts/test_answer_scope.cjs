@@ -11,13 +11,20 @@ function load(relativePath) {
   }).outputText;
   const module = { exports: {} };
   new Function('require', 'module', 'exports', 'setTimeout', compiled)(
-    id => load(path.relative(path.resolve(__dirname, '..'), path.resolve(path.dirname(file), id + '.ts'))),
+    id => {
+      const target = path.resolve(path.dirname(file), id);
+      if (id.endsWith('.json')) {
+        const data = JSON.parse(fs.readFileSync(target, 'utf8'));
+        return { default: data, ...data };
+      }
+      return load(path.relative(path.resolve(__dirname, '..'), target + '.ts'));
+    },
     module, module.exports, (callback, ms) => setTimeout(callback, ms).unref(),
   );
   modules.set(file, module.exports);
   return module.exports;
 }
-const { resolveAnswerScope, scopeInstructions, intentInstructions } = load('worker/src/answerScope.ts');
+const { resolveAnswerScope, scopeInstructions, intentInstructions, isOutOfScope } = load('worker/src/answerScope.ts');
 const { buildConversationRetrievalQuery } = load('worker/src/conversation.ts');
 const { retrieve, buildContext, snippet } = load('worker/src/retriever.ts');
 const now = new Date('2026-10-13T04:02:00Z');
@@ -36,6 +43,10 @@ assert.deepEqual(scopeFor('Thu nhập năm 2025').years, [2025]);
 assert.deepEqual(scopeFor('So sánh năm 2025 và 2026').years, [2025, 2026]);
 assert.deepEqual(scopeFor('Năm nay').years, [2026]);
 assert.deepEqual(scopeFor('Năm ngoái').years, [2025]);
+assert.equal(isOutOfScope('Năm 2025 tôi bán hàng 280 triệu, giờ 2026 mới hỏi: nghĩa vụ năm đó thế nào?'), false);
+assert.equal(isOutOfScope('Một cá nhân có 5 cửa hàng, mỗi cửa hàng thu 2 tỷ. Xét mốc 10 tỷ theo cửa hàng hay người?'), false);
+assert.equal(isOutOfScope('TikTok đã trừ 10% trên hoa hồng 30 triệu, tôi còn lương công ty. Có hoàn được không và có cộng lương?'), false);
+assert.equal(isOutOfScope('Ngày mai thời tiết Hà Nội thế nào?'), true);
 assert.deepEqual(resolveAnswerScope([], 'năm nay', new Date('2026-12-31T18:00:00Z')).years, [2027]);
 assert.deepEqual(scopeFor('30 triệu', [assistant('Nếu năm 2025 thì...')]).years, [2026]);
 const history = [user('Bán Shopee năm 2025 có nộp thuế không?'), assistant('Doanh thu bao nhiêu?')];
@@ -169,7 +180,7 @@ async function testWorkerPaths() {
     assert.equal(captured.length, beforePriority, 'All priority answers must be deterministic and shared across transports');
     const fallback = await worker.fetch(request(false), {}, ctx);
     assert.equal(fallback.status, 200);
-    assert.match((await fallback.json()).response, /chưa thể tổng hợp câu trả lời/);
+    assert.match((await fallback.json()).response, /0 đồng/);
     await Promise.all(pending);
     console.log('Worker integration checks passed: Muse stream, non-stream and provider-unavailable fallback share the same scope.');
   } finally {

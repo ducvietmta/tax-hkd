@@ -71,6 +71,8 @@ const TAX_KEYWORDS = [
   'ho kinh doanh', 'ca nhan kinh doanh', 'hkd', 'cnkd',
   'dang ky thue', 'bao cao thue', 'mien thue', 'giam thue',
   'hoan thue', 'vi pham', ' an dinh thue',
+  'ban hang', 'cua hang', 'hoa hong', 'tiktok', 'thu nhap', 'luong',
+  'kinh doanh', 'gian hang',
   'thong bao doanh thu', 'to khai',
   'nghi dinh', 'thong tu', 'luat', 'van ban', 'dieu khoan', 'cong van', 'nd-cp', 'tt-btc',
 ];
