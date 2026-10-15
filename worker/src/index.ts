@@ -1109,6 +1109,8 @@ ${applyDecision && structuredDecision ? `QUYẾT ĐỊNH CÓ CẤU TRÚC: ${JSON
 ${scopeInstructions(answerScope)}
 PHÂN LOẠI NGỮ NGHĨA TỪ QUYET: ${JSON.stringify(businessClassification)}. Dùng để hiểu chủ thể, mục đích và các nguồn thu; đây không phải kết luận pháp lý. Giữ UNKNOWN khi thiếu dữ kiện, không tự đổi ngành hoặc bỏ các mục đích phụ.
 RÀNG BUỘC DỮ KIỆN VÀ MỤC ĐÍCH:
+- Giữ nguyên số lượng tổng và quan hệ bộ phận. Khi câu nêu tổng N địa điểm rồi mô tả một địa điểm mở mới, không tự cộng thành N+1; nếu cách diễn đạt mơ hồ, nói "các cửa hàng của cùng cá nhân" hoặc nêu rõ giả định, không khẳng định tổng mới. Không tự bổ sung sự kiện thanh toán vào sự kiện đặt hàng. Quy tắc này áp dụng cả câu hỏi gợi ý cuối đáp án.
+- Mọi điều kiện BẮT BUỘC và điều/khoản viện dẫn phải có đúng nội dung trong bằng chứng, kể cả phần căn cứ cuối bài. Không biến yêu cầu chứng minh nghĩa vụ/hồ sơ thành bắt buộc đổi tên hợp đồng. Phân biệt chưa đủ căn cứ để công nhận với đã xác định không được trừ. Chỉ dẫn điều khoản trực tiếp của nhánh đang hỏi; điều khoản ví dụ khác hoặc thời kỳ khác không phải căn cứ xử lý giao dịch này.
 - Dự kiến là giả định để lập dự toán, không được gọi là doanh thu thực tế; một hóa đơn, doanh thu quý/tháng hoặc một cửa hàng không mặc nhiên là tổng doanh thu năm của cá nhân. Không tự quy đổi nhân đủ 12 tháng. Nếu kỳ được hỏi là quý I, trả lời nghĩa vụ quý I trước rồi mới giải thích ngưỡng năm.
 - Hỏi doanh thu thuộc ai thì xét chủ thể thực, hợp đồng, quyền hưởng, người vận hành, hồ sơ đăng ký; không chốt chỉ theo tên tài khoản hay ai nhận tiền. Không thêm thuế suất hay phép tính khi người dùng chỉ hỏi chủ thể/ngưỡng.
 - Hỏi phân nhóm dịch vụ/vật tư hoặc phương pháp GTGT thì nêu tiêu chí và hồ sơ để phân biệt trước, không tự gán mức 5%/2% khi hợp đồng chưa rõ. Không lấy thuế suất hóa đơn của khấu trừ thay tỷ lệ doanh thu trực tiếp.
@@ -1263,9 +1265,11 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           }
         }
 
+        let semanticReviewPassed = true;
         if (!verifiedTaxAnswer && aiText && generationPrompt && env.FPT_AI_KEY && env.MUSE_API_KEY) {
           const reviewer = new QuyetDecisionProvider(env.FPT_AI_KEY);
           const issues = await reviewer.reviewAnswer(message, aiText, ragContextText);
+          semanticReviewPassed = issues !== null && issues.length === 0;
           console.log('[ANSWER_SEMANTIC_REVIEW]', JSON.stringify({ available: issues !== null, issues }));
           if (issues?.length) {
             try {
@@ -1279,8 +1283,9 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
                 const repairedText = (repaired.output || []).find((item: any) => item.type === 'message')?.content?.[0]?.text?.trim();
                 if (repairedText && repairedText.length > 15) {
                   const remainingIssues = await reviewer.reviewAnswer(message, repairedText, ragContextText);
-                  if (remainingIssues && remainingIssues.length < issues.length) {
+                  if (remainingIssues && remainingIssues.length === 0) {
                     aiText = repairedText;
+                    semanticReviewPassed = true;
                     source = `Semantic review repaired + ${source}`;
                   }
                   console.log('[ANSWER_REPAIR_REVIEW]', JSON.stringify({ issues: remainingIssues }));
@@ -1364,7 +1369,7 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           retrieval: retrievalTrace,
           matchedRefs: matchedRoute?.refs || [],
         };
-        if (cacheable && llmOk && validationPass && missingAnswerIntents(message, aiText).length === 0 &&
+        if (cacheable && llmOk && validationPass && semanticReviewPassed && missingAnswerIntents(message, aiText).length === 0 &&
             !pendingTopics.length && (!applyDecision || ['ANSWERABLE_VERIFIED', 'ANSWERABLE_WITH_EVIDENCE', 'CONDITIONAL'].includes(decisionStatus))) {
           if (env.DB) {
             // The first completed answer wins even when web and MCP ask concurrently.

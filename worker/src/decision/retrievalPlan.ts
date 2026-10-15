@@ -27,7 +27,7 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     REVENUE_OWNERSHIP: ['16.75', '16.72', '16.8', '16.7', '16.9', '16.35', '16.37', '16.41', '16.105'],
     VAT_METHOD_CLASSIFICATION: ['16.104', '16.31', '16.50', '16.77', '16.16', '16.37'],
     BUSINESS_EXPENSES: ['16.102', '16.19', '16.52', '16.57', '16.56'],
-    INVOICE_CORRECTION: ['16.103', '16.21', '16.18', '16.17', '16.42'],
+    INVOICE_CORRECTION: ['16.106', '16.103', '16.21', '16.18', '16.17', '16.42'],
     INVOICE_REGISTRATION: ['16.41', '16.105', '16.38', '16.58', '16.79', '16.24'],
     REVENUE_THRESHOLD: ['16.60', '16.72', '16.44', '16.23', '16.53', '16.41', '16.105', '16.38'],
   };

@@ -1,6 +1,11 @@
 // Typed FPT fixture only; production never derives these labels from this helper.
 module.exports = function nativeResponse(input, scope, business) {
   if (input.questions.scope) return { answers: { scope: { type: 'choice', choice: scope, confidence: 0.95 } } };
+  if (input.questions.facts) return { answers: {
+    facts: { type: 'choice', choice: 'FAITHFUL', confidence: 0.95 },
+    evidence: { type: 'choice', choice: 'SUPPORTED', confidence: 0.95 },
+    coverage: { type: 'choice', choice: 'COMPLETE', confidence: 0.95 },
+  } };
   const answers = {};
   for (const key of Object.keys(input.questions)) {
     if (key === 'taxpayer') answers[key] = { type: 'choice', choice: business.taxpayer, confidence: 0.95 };

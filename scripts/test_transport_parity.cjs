@@ -61,6 +61,7 @@ const db = {
 
 let modelCalls = 0;
 let scopeLabel = 'IN_SCOPE';
+let reviewFailure = false;
 const concurrentQuestion = 'Năm 2026 hộ kinh doanh khai thuế vào lúc nào?';
 let releaseConcurrent;
 const concurrentGate = new Promise(resolve => { releaseConcurrent = resolve; });
@@ -70,6 +71,11 @@ global.fetch = async (_url, init) => {
   const input = JSON.parse(init.body);
   if (String(_url).includes('mkp-api.fptcloud.com')) {
     assert.equal(String(_url), 'https://mkp-api.fptcloud.com/v1/systemone');
+    if (input.questions.facts && reviewFailure) return Response.json({ answers: {
+      facts: { type: 'choice', choice: 'INVENTED', confidence: 0.99 },
+      evidence: { type: 'choice', choice: 'SUPPORTED', confidence: 0.99 },
+      coverage: { type: 'choice', choice: 'COMPLETE', confidence: 0.99 },
+    } });
     if (input.questions.scope) return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel));
     const q = input.state.question;
     const fixture = load('worker/src/decision/understandQuery.ts').understandQuery(q, { years: [2026], periodSource: 'current_message' });
@@ -166,6 +172,13 @@ async function main() {
   }), env, ctx);
   const listed = await toolsResponse.json();
   assert.ok(listed.result.tools[0].inputSchema.properties.history, 'MCP must expose history for context-equivalent requests');
+
+  reviewFailure = true;
+  const cachedBefore = rows.size;
+  const callsBefore = modelCalls;
+  await mcpAnswer('Hộ kinh doanh năm 2026 cần lưu chứng từ gì?');
+  assert.equal(modelCalls, callsBefore + 2, 'One bounded repair only');
+  assert.equal(rows.size, cachedBefore, 'A still-failing semantic review must not populate the shared answer cache');
 
   await Promise.all(pending);
   console.log('Web SSE, web JSON and MCP exact-answer parity checks passed.');

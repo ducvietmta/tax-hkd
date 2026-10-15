@@ -907,5 +907,14 @@
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
     "applies_to_year": null
+  },
+  "16.106": {
+    "id": "KB/semantic-topic-supplements#invoice-before-july",
+    "ref_id": "16.106",
+    "section": "16.106. Hóa đơn tháng 3/4 năm 2026 — Điều 19 NĐ123 sửa bởi khoản 13 Điều 1 NĐ70/2025",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
   }
 }

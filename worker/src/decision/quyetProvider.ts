@@ -79,11 +79,11 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     const questions = {
       facts: { type: 'choice', instructions: 'So sánh đáp án với câu hỏi. Có khẳng định dữ kiện chưa được người dùng cung cấp hoặc chốt một trường hợp khi còn thiếu điều kiện quyết định không? Câu mở đầu chắc chắn nhưng cuối mới hỏi điều kiện quyết định cũng là vượt dữ kiện. Các nhánh nếu-thì không bị coi là bịa dữ kiện.',
         criteria: { FAITHFUL: 'Giữ đúng dữ kiện và mức chắc chắn; điều kiện được nêu trước kết luận tương ứng.',
-          INVENTED: 'Tự coi dự kiến là thực tế, tự chọn loại thu nhập, tự xác định chủ thể chỉ theo tên, tự xác định tài sản cố định, hoặc chốt chắc chắn trong khi chưa đủ hồ sơ.',
+          INVENTED: 'Tự tăng tổng số cửa hàng vì hiểu một cửa hàng mới là cộng thêm; đổi đặt hàng thành đã thu tiền; tự coi dự kiến là thực tế; tự xác định chủ thể chỉ theo tên; hoặc chốt chắc chắn khi chưa đủ hồ sơ. Một dữ kiện bịa dù chỉ xuất hiện trong câu hỏi cuối đáp án vẫn là lỗi.',
           UNCERTAIN: 'Không đủ căn cứ để đánh giá.' } },
       evidence: { type: 'choice', instructions: 'Chỉ đối chiếu lập luận trong đáp án với bằng chứng được cung cấp, không dùng kiến thức pháp luật riêng. Có kết luận trái điều kiện, ngoại lệ, phạm vi hoặc kỳ hiệu lực trong bằng chứng không?',
         criteria: { SUPPORTED: 'Các khẳng định phù hợp với điều kiện/ngoại lệ của bằng chứng.',
-          CONTRADICTED: 'Bằng chứng yêu cầu kiểm chứng hoặc có ngoại lệ nhưng đáp án kết luận tuyệt đối; hoặc đáp án áp quy định sai phạm vi/kỳ.',
+          CONTRADICTED: 'Thêm điều kiện bắt buộc mà nguồn không quy định (như phải đổi tên người vay); biến chưa đủ hồ sơ thành không được trừ; dẫn điều khoản sai nhánh hoặc sai kỳ kể cả chỉ trong mục căn cứ cuối đáp án; hoặc kết luận trái ngoại lệ trong nguồn.',
           UNCERTAIN: 'Bằng chứng chưa đủ để đánh giá.' } },
       coverage: { type: 'choice', instructions: 'Đáp án có giải quyết đủ các ý thực chất được hỏi chưa? Không cần khớp chữ, cần đúng mục đích. Câu hỏi chi phí/phương pháp cần đủ nhánh liên quan và chứng từ; câu sửa hóa đơn không được thay bằng hạn đăng ký.',
         criteria: { COMPLETE: 'Đã trả lời đủ trọng tâm và các ý hoặc nêu rõ điều kiện còn thiếu.',

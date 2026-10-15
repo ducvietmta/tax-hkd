@@ -70,6 +70,24 @@ for (const query of [
 
 console.log('RAG retrieval regression checks passed.');
 
+// Both effective periods and the price-error clause must survive retrieval and
+// context packing, rather than leaving the model only the name-error example.
+const { buildRetrievalPlan } = loadModule('worker/src/decision/retrievalPlan.ts');
+const invoicePlan = buildRetrievalPlan({ tax_period: { years: [2026], is_historical: false },
+  semantic: { topic: 'INVOICE_CORRECTION', revenueContext: 'TRANSACTION' },
+  taxpayer_type: { value: 'UNKNOWN' } });
+for (const question of [
+  'Đã bán hàng tháng 3, khách trả lại tháng 4; doanh thu và GTGT cần điều chỉnh kỳ nào?',
+  'Xuất hóa đơn điều chỉnh giảm do sai giá, không trả hàng, xử lý GTGT thế nào?',
+]) {
+  const period = scope.resolveAnswerScope([], question, new Date('2026-10-15T00:00:00Z'));
+  const selected = retrieve(question, 4, period, invoicePlan);
+  const context = buildContext(selected.results, question, 9000, period).text;
+  assert.match(context, /khoản 13 Điều 1 Nghị định 70\/2025/);
+  assert.match(context, /điểm b khoản 1 Điều 10 Thông tư 91\/2026/);
+  assert.match(context, /không phải nhánh trả hàng/);
+}
+
 const affiliateQuestion = 'Trước mã số thuế của em đuôi 888, nay chuyển sang CCCD. Em làm tiếp thị liên kết TikTok từ 2025, năm nay doanh thu dưới 1 tỷ thì chỉ cần khai thuế cuối năm đúng không?';
 const affiliateResults = resultsFor(affiliateQuestion);
 assert.ok(affiliateResults.results.some(({ chunk }) => chunk.ref_id === '16.96'));
