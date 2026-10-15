@@ -20,7 +20,7 @@ import { buildMuseRequest } from './museRequest';
 import { guardTaxAnswer } from './taxAnswerGuard';
 import { answerVerifiedBusinessTax } from './businessTaxAnswer';
 import { answerPriorityTax } from './priorityTaxAnswer';
-import { missingAnswerIntents, validateLegalCitations } from './answerValidation';
+import { missingAnswerIntents, validateLegalCitations, canUseVerifiedAnswer } from './answerValidation';
 import { answerVerifiedReliefEligibility } from './reliefEligibilityAnswer';
 import { understandQuery, refineQueryWithL2 } from './decision/understandQuery';
 import { QuyetDecisionProvider } from './decision/quyetProvider';
@@ -941,7 +941,7 @@ export default {
         // Invalidate old answers when ruleset updates or relative periods expire
         const digest = await crypto.subtle.digest(
           'SHA-256',
-          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:1.4|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:1.5|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
         );
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
@@ -1017,11 +1017,12 @@ export default {
           /\b(?:năm|nam)\b/i.test(message);
         const renderedDecision = canUseDecisionCalculation
           ? renderDeterministicAnswer(decisionEvaluation!, decisionFrame!) : null;
-        const verifiedTaxAnswer: { response: string; citations: string[]; ruleIds: string[] } | null = renderedDecision
-          ? { ...renderedDecision, ruleIds: decisionEvaluation!.rule_outcomes.map(outcome => outcome.rule_id) }
-          : answerPriorityTax(message, answerScope) ||
-          answerVerifiedReliefEligibility(message, answerScope) ||
-          answerVerifiedBusinessTax(message, answerScope);
+        const verifiedTaxAnswer: { response: string; citations: string[]; ruleIds: string[] } | null = [
+          renderedDecision ? { ...renderedDecision, ruleIds: decisionEvaluation!.rule_outcomes.map(outcome => outcome.rule_id) } : null,
+          answerPriorityTax(message, answerScope),
+          answerVerifiedReliefEligibility(message, answerScope),
+          answerVerifiedBusinessTax(message, answerScope),
+        ].find(answer => answer && canUseVerifiedAnswer(message, answer.response)) || null;
         let legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
         const decisionStatus = verifiedTaxAnswer && structuredDecision?.decision_status !== 'NEEDS_LEGAL_REVIEW'
           ? 'ANSWERABLE_VERIFIED' : structuredDecision?.decision_status || 'NO_BASIS';
@@ -1171,9 +1172,11 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
           }
         }
 
-        const guarded = verifiedTaxAnswer
+        const proposedGuard = verifiedTaxAnswer
           ? { answer: aiText, reason: null }
           : guardTaxAnswer(message, answerScope, relevantChunks.map((chunk) => chunk.ref_id || ''), aiText || '');
+        const guarded = proposedGuard.reason && !canUseVerifiedAnswer(message, proposedGuard.answer)
+          ? { answer: aiText, reason: null } : proposedGuard;
         if (guarded.reason) {
           console.warn(`[ANSWER_GUARD] ${guarded.reason}: "${message}"`);
           aiText = guarded.answer;
@@ -1213,14 +1216,16 @@ QUY TẮC BẮT BUỘC (TUÂN THỦ TUYỆT ĐỐI):
         if (uncovered.length) {
           console.warn('[INTENT_COVERAGE]', JSON.stringify({ missing: uncovered, routeId, refs: relevantChunks.map(c => c.ref_id) }));
           if (uncovered.includes('platform_withholding')) {
-            aiText += '\n\nVề khoản “tax” nền tảng giữ lại: chưa thể coi là thuế TNCN đã nộp thay nếu chưa có chứng từ khấu trừ/nộp thuế và đối soát đúng kỳ, đúng người nộp.';
+            aiText += '\n\nVề khoản nền tảng giữ lại: cần phân biệt phí dịch vụ với tiền thuế. Phí không tự giảm doanh thu gộp; chỉ xem xét là chi phí khi phương pháp tính theo thu nhập cho phép và có chứng từ hợp lệ. Khoản ghi “tax” chưa thể coi là TNCN đã nộp thay nếu chưa có chứng từ khấu trừ/nộp thuế và đối soát đúng loại thuế, kỳ và người nộp.';
           }
           if (uncovered.includes('vat_relief') && answerScope.years.every(y => y === 2026)) {
             aiText += '\n\nVề giảm GTGT: nếu hàng hóa/dịch vụ thực sự đủ điều kiện theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP, mức tỷ lệ GTGT trên doanh thu được giảm 20% trong thời gian áp dụng; cần đối chiếu tỷ lệ gốc và doanh thu để ra số tiền.';
             legalCitations = [...legalCitations, 'Điều 1 Nghị quyết 204/2025/QH15', 'Điều 1 Nghị định 174/2025/NĐ-CP'];
           }
           if (uncovered.includes('pit')) {
-            aiText += answerScope.years.every(y => y === 2026 || y === 2027)
+            aiText += !/tính|tinh|bao nhiêu|bao nhieu|phương pháp|phuong phap|17\s*%|0[,.]5\s*%/i.test(message)
+              ? '\n\nVề TNCN: cần đối chiếu đúng loại thu nhập, kỳ thuế và chứng từ đã nộp. Chỉ ghi nhận khoản TNCN đã nộp hợp lệ với nghĩa vụ TNCN tương ứng, không tự đối trừ sang GTGT hoặc nghĩa vụ khác.'
+              : answerScope.years.every(y => y === 2026 || y === 2027)
               ? '\n\nVề TNCN: cần chọn phương pháp theo tổng doanh thu năm của cá nhân; trên 3 tỷ đến 50 tỷ đồng tính trên thu nhập tính thuế với thuế suất 17%. Nếu chưa có thu nhập tính thuế hợp lệ, chưa thể chốt số tiền TNCN.'
               : '\n\nVề TNCN: câu trả lời trên chưa xác định được phương pháp và số thuế cho kỳ bạn hỏi; cần đối chiếu doanh thu, loại thu nhập và chứng từ của đúng kỳ đó.';
             if (answerScope.years.every(y => y === 2026 || y === 2027)) legalCitations = [...legalCitations, 'Điều 7 Luật Thuế TNCN 109/2025/QH15'];

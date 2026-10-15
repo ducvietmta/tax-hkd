@@ -145,7 +145,7 @@ export function understandQuery(
     } else {
       primaryIntent = 'E_INVOICE';
     }
-  } else if (/\b(giam thue|giam gtgt|nghi quyet 43|nq 43|giam 30|giam 20|nghi quyet 204|nq 204|174\/2025)\b/.test(q)) {
+  } else if (/\b(giam thue|giam gtgt|nghi quyet 43|nq\s*43|giam 30|giam 20|nghi quyet 204|nq\s*204|174\/2025)\b/.test(q)) {
     if (/\b(tinh thue|bao nhieu|phai nop)\b/.test(q)) {
       primaryIntent = 'TAX_CALCULATION';
       secondaryIntents.push('RELIEF_REDUCTION');

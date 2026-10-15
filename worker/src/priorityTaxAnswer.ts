@@ -38,11 +38,13 @@ Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa h
   const revenue = amounts.find(n => n > 3e9 && n <= 50e9) || 0;
 
   // T86/T100: 3,000,000,001 is safely representable as an integer, never rounded to 3 billion.
-  const overThree = revenue || (/3\s*ty\s*(?:(?:\+|cong\s*them|them)\s*)?1\s*dong/.test(q) ? 3_000_000_001 : 0);
+  const overThree = revenue || (/3\s*ty\s*(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/.test(q) ? 3_000_000_001 : 0);
   const asksThreeBillionMethod = /(?:3\s*ty|3[.]000[.]000[.]001|3,000,000,001|0[.,]5\s*%|17\s*%)/.test(q) &&
     /tncn|thu nhap tinh thue|0[.,]5\s*%|17\s*%|phuong phap/.test(q);
   if (overThree && asksThreeBillionMethod) {
     const incomeMatch = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    // A proposed subtraction or an unsupported cost is not verified taxable income.
+    if (incomeMatch && /(?:khong|chua)\s+co\s+chung tu|co the coi|coi ngay|chi phi[^.!?]{0,40}(?:khong|chua)\s+hop le/.test(q)) return null;
     const income = incomeMatch ? money(incomeMatch[1], incomeMatch[2]) : undefined;
     const resident = /\b(ca nhan cu tru|nguoi cu tru|toi cu tru|cu tru du dieu kien)\b/.test(q);
     const facts: TaxFacts = { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: overThree,

@@ -48,6 +48,11 @@ export function extractAllAmounts(text: string): ExtractedAmount[] {
   const q = fold(text);
   const results: ExtractedAmount[] = [];
 
+  // Keep the complete amount before shorter unit matches at the same position.
+  for (const m of q.matchAll(/(\d+(?:[.,]\d+)?)\s*(ty|trieu)\s*(?:dong\s*)?(?:(?:le|cong them|cong|them|\+)\s*)?(?:mot|1)\s*dong\b/g)) {
+    results.push({ raw: m[0], vnd: parseMoneyWithUnit(m[1], m[2]) + 1, index: m.index ?? 0, unit: m[2] });
+  }
+
   // 1. Số đầy đủ hàng nghìn: "1.010.000.000 dong", "500.000.000", "1,000,000,001"
   const exactMatches = q.matchAll(/(?<!\d)(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?/g);
   for (const m of exactMatches) {
@@ -101,8 +106,8 @@ export function extractResidency(text: string): { residency: Residency; isReside
   if (/\b(ca nhan cu tru|nguoi cu tru|toi cu tru|la cu tru|cu tru du dieu kien|cu tru)\b/.test(q)) {
     return { residency: 'RESIDENT', isResident: true };
   }
-  // Mặc định cư trú cho công dân bình thường nhưng ghi nhận không nêu rõ
-  return { residency: 'UNKNOWN', isResident: true };
+  // Missing residency remains unknown in both the label and calculation facts.
+  return { residency: 'UNKNOWN', isResident: null };
 }
 
 /**
@@ -122,7 +127,10 @@ export function extractTaxFacts(text: string, defaultYear = 2026): TaxFactsFrame
 
   // 2. Preserve a one-dong boundary exactly; never round it back to billions.
   let specialRevenue: number | undefined;
-  if (q.includes('10.000.000.001') || (/\b10\s*ty\b/.test(q) && /(?:cong them|\+)\s*1\s*dong/.test(q))) {
+  const composite = q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu)\s*(?:dong\s*)?(?:(?:le|cong them|cong|them|\+)\s*)?(?:mot|1)\s*dong\b/);
+  if (composite) {
+    specialRevenue = parseMoneyWithUnit(composite[1], composite[2]) + 1;
+  } else if (q.includes('10.000.000.001')) {
     specialRevenue = 10_000_000_001;
   } else if (q.includes('1.000.000.001') || (q.includes('1 ty') && q.includes('1 dong'))) {
     specialRevenue = 1_000_000_001;
@@ -153,7 +161,7 @@ export function extractTaxFacts(text: string, defaultYear = 2026): TaxFactsFrame
   // 4. Trích xuất thu nhập tính thuế / lợi nhuận (cho trường hợp > 3 tỷ)
   let taxableIncomeVnd: number | undefined;
   const incomeMatch = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
-  if (incomeMatch) {
+  if (incomeMatch && !/(?:khong|chua)\s+co\s+chung tu|co the coi|coi ngay|chi phi[^.!?]{0,40}(?:khong|chua)\s+hop le/.test(q)) {
     taxableIncomeVnd = parseMoneyWithUnit(incomeMatch[1], incomeMatch[2]);
   }
 

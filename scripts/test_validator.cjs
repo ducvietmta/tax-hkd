@@ -34,6 +34,7 @@ const understandQuery = loadModule('worker/src/decision/understandQuery.ts', {
 }).understandQuery;
 
 const chunkMetaJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../worker/src/kb/chunkMeta.json'), 'utf8'));
+const { CANONICAL_CHUNKS } = loadModule('worker/src/ragEngine.ts');
 
 const { buildRetrievalPlan } = loadModule('worker/src/decision/retrievalPlan.ts', { './types': {} });
 const { decide } = loadModule('worker/src/decision/orchestrator.ts', { '../rules/evaluator': {}, './types': {} });
@@ -105,6 +106,19 @@ runTest('Orchestrator_Requires_Missing_Income', () => {
 });
 
 // 3. Validator: Bổ sung mốc 30 ngày cho HĐĐT
+runTest('Nq204_Shorthand_Pins_Current_Vat_Evidence', () => {
+  const frame = understandQuery('Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43?', { years: [2026], periodSource: 'current_default' });
+  const plan = buildRetrievalPlan(frame);
+  assert.ok(plan.must_include_refs.includes('16.50'));
+  assert.ok(plan.must_include_refs.includes('16.99'));
+  const vatChunk = CANONICAL_CHUNKS.find(c => c.ref_id === '16.50');
+  assert.ok(vatChunk);
+  const evidence = filterAndGateEvidence([vatChunk], frame);
+  assert.equal(evidence.passedChunks.length, 1);
+  const futureFrame = { ...frame, tax_period: { ...frame.tax_period, years: [2027] } };
+  assert.equal(filterAndGateEvidence([vatChunk], futureFrame).passedChunks.length, 0);
+});
+
 runTest('Validator_Repairs_30_Days_Invoice', () => {
   const frame = understandQuery('Hộ kinh doanh khi nào phải dùng hóa đơn điện tử máy tính tiền?', { years: [2026], periodSource: 'current_default' });
   const rawAnswer = 'Hộ kinh doanh doanh thu trên 1 tỷ đồng phải sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền.';

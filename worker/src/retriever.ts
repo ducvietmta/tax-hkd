@@ -6,7 +6,7 @@
  * - Route (query-map) chỉ BOOST điểm, không loại bỏ kết quả tìm kiếm
  * - Cắt snippet theo câu hỏi để prompt gọn, LLM không bị nhiễu bởi chunk dài
  */
-import { CANONICAL_CHUNKS, RagChunk, matchRoute } from './ragEngine';
+import { CANONICAL_CHUNKS, QUERY_ROUTES, RagChunk, matchRoute } from './ragEngine';
 import { resolveAnswerScope, type AnswerScope } from './answerScope';
 import { extractTaxFactsFromQuery, calculateTax } from './taxEngine';
 import { foldText as fold } from './utils/text';
@@ -104,6 +104,16 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
   const qTerms = termsOf(expandQuery(`${query} ${scope.years.join(' ')}`));
   const route = matchRoute(`${query} ${scope.years.join(' ')}`);
   const routeRefs = new Set(route?.refs || []);
+  // A compound question can explicitly name more than the highest-priority route.
+  // Preserve the primary source for each named policy using the existing route data.
+  const namedPolicies = new Set([...fold(query).matchAll(/\b(?:nq|nghi quyet)\s*(\d+)\b/g)].map(m => `NQ${m[1]}`));
+  const namedPolicyRefs = QUERY_ROUTES.filter(r => namedPolicies.has(r.id)).flatMap(r => r.refs.slice(0, 1));
+  for (const ref of namedPolicyRefs) routeRefs.add(ref);
+  const withNamedPolicyEvidence = (items: Retrieved[]) => {
+    const pinned = namedPolicyRefs.map(ref => idx.find(item => item.chunk.ref_id === ref)).filter((item): item is IndexedChunk => !!item)
+      .map(item => ({ chunk: item.chunk, score: items[0]?.score || 0, viaRoute: true }));
+    return [...pinned, ...items.filter(item => !pinned.some(p => p.chunk.id === item.chunk.id))].slice(0, limit);
+  };
   const N = idx.length;
   const k1 = 1.4;
   const b = 0.75;
@@ -177,7 +187,7 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
       }
     }
     selected = [...pinned, ...selected.filter(item => !pinned.some(p => p.chunk.id === item.chunk.id))].slice(0, limit);
-    return { results: selected, routeId: route?.id || null, usedFallback };
+    return { results: withNamedPolicyEvidence(selected), routeId: route?.id || null, usedFallback };
   }
   // Điểm cao nhất hiện tại — dùng để gắn cho chunk chèn tay (ưu tiên lên đầu).
   const topScore = selected[0]?.score || 0;
@@ -265,7 +275,7 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
     }
   }
   return {
-    results: selected.slice(0, limit),
+    results: withNamedPolicyEvidence(selected),
     routeId: route?.id || null,
     usedFallback,
   };

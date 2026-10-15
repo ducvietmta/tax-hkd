@@ -2,6 +2,7 @@ import type { AnswerScope } from './answerScope';
 import { calculateTax, formatVnd, formatRevenue, type TaxFacts } from './taxEngine';
 import { normalizeText as fold } from './utils/text';
 import { hasActiveRetailActivity } from './sectorIntent';
+import { requestedTaxFocus } from './answerValidation';
 
 export interface VerifiedBusinessAnswer {
   response: string;
@@ -79,6 +80,19 @@ export function answerVerifiedBusinessTax(question: string, scope: AnswerScope):
   if (residentCalculation.status !== 'ANSWERED') return null;
   const revenue = formatRevenue(residentCalculation.effectiveRevenueVnd);
   const multi = facts.activityType === 'multi';
+  if (requestedTaxFocus(question) === 'vat' && !multi) {
+    const before = residentCalculation.vatDueVnd;
+    const rate = (residentCalculation.vatRate * 100).toLocaleString('vi-VN');
+    const canDiscussRelief = facts.taxYear === 2026 && /giam|204|174/.test(fold(question));
+    const asksNq43 = /(?:nghi quyet|nq)\s*43\b/.test(fold(question));
+    const citations = ['Điều 12 Luật Thuế GTGT 48/2024/QH15',
+      ...(canDiscussRelief ? ['Điều 1 Nghị quyết 204/2025/QH15', 'Khoản 1, khoản 2 Điều 1 và các phụ lục Nghị định 174/2025/NĐ-CP', 'Khoản 3 Điều 9 Luật Thuế GTGT 48/2024/QH15'] : []),
+      ...(asksNq43 ? ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'] : [])];
+    return { response: `Về GTGT năm ${facts.taxYear}, với doanh thu ${revenue}, tỷ lệ gốc ${rate}% cho số trước giảm là ${formatVnd(before)}.` +
+      (canDiscussRelief ? ` Không mặc định toàn bộ hàng hóa, dịch vụ đều được giảm. Nếu toàn bộ doanh thu thực sự đủ điều kiện theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP, giảm 20% mức tỷ lệ: ${rate}% còn ${(residentCalculation.vatRate * 80).toLocaleString('vi-VN')}%, số GTGT là ${formatVnd(Math.round(before * 0.8))}. Cần xác định đúng hàng hóa, dịch vụ thuộc nhóm chịu thuế suất 10% theo khoản 3 Điều 9 Luật Thuế GTGT và không thuộc nhóm loại trừ. Phần loại trừ giữ mức tỷ lệ gốc; nếu có nhiều nhóm phải tách doanh thu và tính riêng theo phụ lục áp dụng.` : '') +
+      (asksNq43 ? ' Nghị quyết 43/2026/QH16 không giảm GTGT; nghị quyết này chỉ giảm TNCN kinh doanh đủ điều kiện.' : '') +
+      `\n\nCăn cứ pháp lý:\n${citations.join('\n')}`, citations, ruleIds: ['VAT_FOCUSED_CALCULATION'], facts };
+  }
   const vatReliefQuestion = facts.taxYear === 2026 && facts.activityType === 'service' &&
     /204\/2025|giam\s+(?:muc\s+ty\s+le\s+)?gtgt|gtgt[^.!?]{0,80}\b4\s*%/.test(fold(question));
   if (vatReliefQuestion) {

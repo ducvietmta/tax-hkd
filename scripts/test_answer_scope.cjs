@@ -31,6 +31,13 @@ const now = new Date('2026-10-13T04:02:00Z');
 const user = content => ({ role: 'user', content });
 const assistant = content => ({ role: 'assistant', content });
 const scopeFor = (message, history = []) => resolveAnswerScope(history, message, now);
+assert.equal(isOutOfScope('Một hoạt động công nghệ thông tin có bán quyền phần mềm, cần phân loại ra sao?'), false);
+assert.equal(isOutOfScope('Mua máy sửa chữa dùng nhiều năm có được trừ toàn bộ giá mua ngay trong năm?'), false);
+assert.equal(isOutOfScope('Hỏi quy định tháng 6/2025 nhưng tài liệu trích dẫn có hiệu lực từ 2026. Có áp dụng không?'), false);
+assert.equal(isOutOfScope('Hộ đã dùng HĐĐT trước khi vượt ngưỡng; có cần đăng ký lại khi vượt?'), false);
+const compoundEvidence = retrieve('Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?', 4, scopeFor('Năm 2026')).results;
+assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.50'), 'Keep explicitly requested VAT relief evidence');
+assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.39' || r.chunk.ref_id === '16.99'), 'Keep explicitly requested PIT relief evidence');
 const question = 'TikTok đã trừ 10% thuế trên tiền hoa hồng của em. Tổng năm chỉ được 30 triệu thì có được hoàn lại không? Có cần cộng tiền lương ở công ty vào không?';
 assert.deepEqual(scopeFor(question).years, [2026]);
 assert.equal(scopeFor(question).periodSource, 'current_default');
@@ -180,6 +187,14 @@ async function testWorkerPaths() {
       assert.ok(mcp.result.content[0].text.startsWith(web.response), `${id}: MCP/web parity`);
     }
     assert.equal(captured.length, beforePriority, 'All priority answers must be deterministic and shared across transports');
+    const vatOnly = await (await worker.fetch(request(false, 'Bán tạp hóa 1,5 tỷ, chỉ hỏi GTGT được giảm, không hỏi TNCN.'), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+    assert.match(vatOnly.response, /12\.000\.000 đồng/);
+    assert.match(vatOnly.response, /loại trừ/);
+    assert.doesNotMatch(vatOnly.response, /TNCN trước|TNCN sau|1\.750\.000/);
+    const beforeCompound = captured.length;
+    const compound = await (await worker.fetch(request(false, 'Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?'), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+    assert.ok(captured.length > beforeCompound, 'An incomplete verified answer must not bypass generation');
+    assert.match(compound.response, /phí dịch vụ với tiền thuế/);
     const fallback = await worker.fetch(request(false), {}, ctx);
     assert.equal(fallback.status, 200);
     assert.match((await fallback.json()).response, /không mặc định hoàn toàn bộ/);

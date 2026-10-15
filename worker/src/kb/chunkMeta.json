@@ -374,8 +374,8 @@
     "section": "16.42. Sàn thương mại điện tử khấu trừ/nộp thay (NĐ 117/2025 → NĐ 252/2026 từ 01/7/2026): HKD không khai/nộp lại; hàng b",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2025,
+    "applies_to_year": null
   },
   "16.43": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1050",
@@ -437,8 +437,8 @@
     "section": "16.50. Nghị quyết 204/2025/QH15: giảm thuế GTGT 01/07/2025–31/12/2026; HKD tính theo tỷ lệ % được giảm 20% mức tỷ lệ %",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2025,
+    "applies_to_year": 2026
   },
   "16.51": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1059",
@@ -446,8 +446,8 @@
     "section": "16.51. Chuỗi thay thế mẫu 01/TKN-CNKD (TT 18 → TT 50 → TT 89) và quy tắc hồ sơ đề nghị hoàn thuế nộp thừa — VERIFIED (ki",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.52": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1060",
@@ -608,8 +608,8 @@
     "section": "16.69. Không lập hóa đơn khi bán hàng hóa, cung cấp dịch vụ (Điều 24 NĐ 125/2020, sửa bởi NĐ 310/2025)",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.70": {
     "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1084",
@@ -617,8 +617,8 @@
     "section": "16.70. Các trường hợp bị ấn định thuế từ 01/07/2026 (khoản 2 Điều 24 Luật Quản lý thuế 108/2025)",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.71": {
     "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1087",
@@ -698,8 +698,8 @@
     "section": "16.81. Biểu thuế lũy tiến tiền lương, tiền công 2026 (Điều 9 Luật 109/2025/QH15)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.82": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1106",
@@ -707,8 +707,8 @@
     "section": "16.82. Giảm trừ gia cảnh và thu nhập tính thuế tiền lương (Điều 8, 10 Luật 109/2025/QH15)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.83": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1107",
@@ -743,8 +743,8 @@
     "section": "16.86. Hoàn thuế TNCN (Điều 6 Luật 109/2025; Điều 15 Luật 108/2025)",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.87": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1111",
@@ -752,8 +752,8 @@
     "section": "16.87. Cá nhân cư trú / không cư trú (Điều 2 Luật 109/2025/QH15)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.88": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1112",
@@ -761,8 +761,8 @@
     "section": "16.88. Chuyển nhượng bất động sản: thuế suất và miễn thuế (Điều 14, Điều 4 Luật 109/2025/QH15)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.89": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1113",
@@ -770,8 +770,8 @@
     "section": "16.89. Chứng khoán, chuyển nhượng vốn, đầu tư vốn (Điều 12, 13 Luật 109/2025/QH15)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.90": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1114",
@@ -779,8 +779,8 @@
     "section": "16.90. Thừa kế, quà tặng, trúng thưởng, bản quyền, thu nhập khác (Điều 15, 18, 19, 27 Luật 109/2025/QH15)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.91": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1115",
@@ -788,8 +788,8 @@
     "section": "16.91. Cho thuê BĐS — công thức và hiệu lực (khoản 4 Điều 7 Luật 109/2025; Luật 09/2026/QH16; NĐ 141/2026)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2026,
+    "applies_to_year": null
   },
   "16.93": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1117",
@@ -797,8 +797,8 @@
     "section": "16.93. Chuyển tiếp 2025→2026 cho thuế TNCN tiền lương (Điều 29 Luật 109/2025/QH15)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2025,
+    "applies_to_year": null
   },
   "16.94": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1118",
@@ -860,7 +860,7 @@
     "section": "16.100. Thủ tục đăng ký mã số thuế 888 trên Cổng thông tin điện tử TMĐT (Công văn 311/TCT-DNNCN-2025)",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_from_year": 2025,
+    "applies_to_year": null
   }
 }

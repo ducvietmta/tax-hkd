@@ -23,6 +23,15 @@ const priority = load('worker/src/priorityTaxAnswer.ts', { './taxEngine': engine
 const validation = load('worker/src/answerValidation.ts');
 const now = new Date('2026-10-14T05:00:00Z');
 const answer = q => priority.answerPriorityTax(q, scope.resolveAnswerScope([], q, now))?.response;
+assert.equal(validation.requestedTaxFocus('Chỉ hỏi GTGT được giảm, không hỏi TNCN.'), 'vat');
+assert.equal(validation.requestedTaxFocus('Chỉ hỏi TNCN, không cần tính GTGT.'), 'pit');
+assert.equal(validation.canUseVerifiedAnswer('Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?',
+  'GTGT 75 triệu, TNCN sau giảm 7 triệu.'), false);
+assert.equal(validation.canUseVerifiedAnswer('Chỉ hỏi GTGT được giảm, không hỏi TNCN.',
+  'GTGT 15 triệu. TNCN trước ưu đãi 2,5 triệu, TNCN sau giảm 1,75 triệu.'), false);
+assert.equal(validation.canUseVerifiedAnswer('Doanh thu 3,5 tỷ gồm 2 tỷ bán hàng và 1,5 tỷ dịch vụ; có được áp phương pháp khác nhau từng mảng?',
+  'Với doanh thu dịch vụ 1,5 tỷ đồng, TNCN sau giảm 7 triệu.'), false);
+assert.equal(answer('Hộ có doanh thu 4 tỷ, báo chi phí 3 tỷ nhưng không có chứng từ. Có thể coi ngay thu nhập tính thuế 1 tỷ?'), undefined);
 const refundQuestion = 'TikTok đã trừ 10% trên hoa hồng 30 triệu, tôi còn lương công ty. Có hoàn được không và có cộng lương?';
 const refundAnswer = answer(refundQuestion);
 assert.match(refundAnswer, /năm 2026/);
@@ -37,6 +46,11 @@ assert.deepEqual(unrelatedSources.citations, ['Khoản 1 Điều 1 Nghị quyế
 const citedSource = validation.validateLegalCitations('Xét giảm TNCN?', 'Không đủ điều kiện.\n\nCăn cứ pháp lý:\nKhoản 1 Điều 1 Nghị quyết 43/2026/QH16',
   ['Nghị quyết 204/2025/QH15'], scope.resolveAnswerScope([], 'Năm 2026', now));
 assert.deepEqual(citedSource.citations, ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16']);
+const invoiceWithoutExplicitThreshold = validation.validateLegalCitations('Hộ vượt mốc doanh thu giữa năm, cần dữ liệu gì để tính hạn đăng ký HĐĐT?',
+  'Hạn 30 ngày kể từ cuối kỳ có doanh thu lũy kế trên 01 tỷ. Điều 9, Nghị định 141/2026/NĐ-CP.',
+  ['Điều 9, Nghị định 141/2026/NĐ-CP'], scope.resolveAnswerScope([], 'Năm 2026', now));
+assert.match(invoiceWithoutExplicitThreshold.answer, /Khoản 2 Điều 1 Nghị định 141\/2026/);
+assert.doesNotMatch(invoiceWithoutExplicitThreshold.answer, /Điều 9, Nghị định 141/);
 
 const t84 = answer('Năm 2026 bán tạp hóa doanh thu 1,5 tỷ, tỷ lệ GTGT 1%. Giả định hàng hóa đủ điều kiện giảm GTGT 20% theo Nghị quyết 204/2025, tính thuế GTGT bao nhiêu?');
 assert.match(t84, /0,8%/);

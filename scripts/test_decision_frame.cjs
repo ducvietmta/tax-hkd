@@ -156,6 +156,16 @@ runTest('Platform_Tax_Amount_Is_Not_Revenue', () => {
   const frame = understandQuery('TikTok báo hoa hồng 500 triệu, giữ 5 triệu ghi “tax”. Doanh thu tính thuế bao nhiêu và 5 triệu đã là TNCN nộp thay chưa?', scope2026);
   assert.equal(frame.facts.revenue_vnd, 500_000_000);
 });
+runTest('Written_One_Dong_And_Unknown_Residency', () => {
+  const frame = understandQuery('Doanh thu 3 tỷ lẻ một đồng năm 2026, tính TNCN theo phương pháp nào?', scope2026);
+  assert.equal(frame.facts.revenue_vnd, 3_000_000_001);
+  assert.equal(frame.residency.value, 'UNKNOWN');
+  assert.equal(frame.facts.is_resident, null);
+});
+runTest('Unsupported_Cost_Is_Not_Taxable_Income', () => {
+  const frame = understandQuery('Hộ có doanh thu 4 tỷ, báo chi phí 3 tỷ nhưng không có chứng từ. Có thể coi ngay thu nhập tính thuế 1 tỷ?', scope2026);
+  assert.equal(frame.facts.taxable_income_vnd, undefined);
+});
 
 console.log('\n================================================================');
 console.log(`📊 TỔNG KẾT: ${passed}/${total} TEST CASES PASSED (${((passed / total) * 100).toFixed(1)}%)`);
