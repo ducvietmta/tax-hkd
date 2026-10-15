@@ -76,7 +76,7 @@ export function understandQuery(
 
   }
   // 3. Tình trạng cư trú
-  const { residency: resVal, isResident } = extractResidency(query);
+  const { residency: resVal } = extractResidency(query);
   const residency: Provenance<Residency> = {
     value: resVal,
     confidence: resVal === 'UNKNOWN' ? 0.7 : 0.95,

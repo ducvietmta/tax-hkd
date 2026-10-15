@@ -1,5 +1,5 @@
 import type { AnswerScope } from './answerScope';
-import { calculateTax, extractTaxFactsFromQuery, formatVnd, formatRevenue } from './taxEngine';
+import { formatVnd, formatRevenue } from './taxEngine';
 import { normalizeText as fold } from './utils/text';
 import { hasActiveRetailActivity } from './sectorIntent';
 
@@ -59,7 +59,6 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
   // 3. TÍNH THUẾ BÁN HÀNG HÓA / TẠP HÓA 2026 (T06, T21, T40, T41, E01)
   //    ĐẢM BẢO ĐỦ 3 TẦNG: VAT 1% | PIT GỐC 0,5% VƯỢT 1 TỶ | GIẢM 30% NQ43 | HĐĐT 30 NGÀY
   // ==========================================
-  const asksRate = /bao nhieu\s*(phan tram|%)|thue suat|bao nhieu tien|nop nhung thue gi|tinh thue|nop thue|phai nop/.test(q);
   const retail = hasActiveRetailActivity(query);
   const annualRevenue = q.match(/doanh thu\s+(\d+(?:[.,]\d+)?)\s*(ty|trieu)\b/);
   const isOnePointZeroOneBillion =

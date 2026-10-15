@@ -49,13 +49,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
 
-  // Lắng nghe trạng thái đăng nhập Firebase Phone Auth & đồng bộ với Cloudflare D1
+  // Lắng nghe trạng thái đăng nhập Firebase Phone Auth & đồng bộ với Cloudflare D1.
+  // Server là nguồn duy nhất cho role/credits — client không tự suy luận VIP.
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (fbUser) => {
       setFirebaseUser(fbUser);
       if (fbUser && fbUser.phoneNumber) {
         const localPhone = cleanPhoneForDisplay(fbUser.phoneNumber);
-        const isVip = localPhone === '0943219594' || localPhone.includes('0943219594');
 
         // Tạo/lấy session người dùng từ Cloudflare D1 Backend
         try {
@@ -65,8 +65,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               uid: fbUser.uid,
               phone: localPhone,
               name: sessionRes.user.name || `Khách hàng ${localPhone.slice(-4)}`,
-              credits: sessionRes.user.credits ?? (isVip ? 1000 : 3),
-              role: (sessionRes.user.role as any) || (isVip ? 'vip' : 'user'),
+              credits: sessionRes.user.credits ?? 3,
+              role: (sessionRes.user.role as any) || 'user',
               registeredAt: new Date().toISOString(),
             });
             return;
@@ -75,13 +75,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           console.warn('Lỗi kết nối Cloudflare D1 session:', err);
         }
 
-        // Fallback profile nếu chưa kết nối D1
+        // Fallback an toàn khi chưa lấy được session: role user thường, 0 lượt
+        // để không vô tình cấp quyền VIP phía client.
         setUser({
           uid: fbUser.uid,
           phone: localPhone,
-          name: isVip ? 'Tài khoản VIP Quản trị' : `Khách hàng ${localPhone.slice(-4)}`,
-          credits: isVip ? 1000 : 3,
-          role: isVip ? 'vip' : 'user',
+          name: `Khách hàng ${localPhone.slice(-4)}`,
+          credits: 0,
+          role: 'user',
           registeredAt: new Date().toISOString(),
         });
       } else {
@@ -94,16 +95,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loginWithVerifiedUser = async (fbUser: FirebaseUser): Promise<{ success: boolean; error?: string }> => {
     try {
-      const phone = fbUser.phoneNumber ? cleanPhoneForDisplay(fbUser.phoneNumber) : '0943219594';
-      const isVip = phone === '0943219594' || phone.includes('0943219594');
+      if (!fbUser.phoneNumber) {
+        return { success: false, error: 'Tài khoản chưa có số điện thoại xác thực.' };
+      }
+      const phone = cleanPhoneForDisplay(fbUser.phoneNumber);
 
-      // 1. Phản hồi giao diện ngay lập tức
+      // 1. Phản hồi giao diện ngay với quyền thường; server sẽ trả role/credits chuẩn.
       setUser({
         uid: fbUser.uid,
         phone,
         name: fbUser.displayName || `Khách hàng ${phone.slice(-4)}`,
-        credits: isVip ? 1000 : 3,
-        role: isVip ? 'vip' : 'user',
+        credits: 0,
+        role: 'user',
         registeredAt: new Date().toISOString(),
       });
       setIsAuthModalOpen(false);

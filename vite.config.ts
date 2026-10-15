@@ -17,13 +17,16 @@ function aiChatBridgePlugin() {
   const tokenPath = path.join(process.env.APPDATA || '', 'AI Chat Bridge', 'mcp-token')
   const LOCAL_PORT = 8788
 
-  function getToken() {
+  function getToken(): string {
     try {
       if (fs.existsSync(tokenPath)) {
-        return fs.readFileSync(tokenPath, 'utf8').trim()
+        const value = fs.readFileSync(tokenPath, 'utf8').trim()
+        if (value) return value
       }
     } catch {}
-    return 'YUxeTTEs-ARJ9NZlPg8-L519nt4-6b37uuGbjuRDzc0'
+    // Không còn token fallback cứng trong repo (tránh lộ secret).
+    // Dev cần cài AI Chat Bridge để ghi mcp-token, hoặc đặt env AI_BRIDGE_TOKEN.
+    return (process.env.AI_BRIDGE_TOKEN || '').trim()
   }
 
   function callMcp(method: string, params: any): Promise<any> {
@@ -75,7 +78,7 @@ function aiChatBridgePlugin() {
   return {
     name: 'ai-chat-bridge-middleware',
     configureServer(server) {
-      // 1. Health check endpoint
+      // 1. Health check endpoint (dev-only)
       server.middlewares.use('/api/bridge-status', async (req, res) => {
         if (req.method !== 'GET') {
           res.statusCode = 405
@@ -83,18 +86,34 @@ function aiChatBridgePlugin() {
           return
         }
 
+        if (!getToken()) {
+          res.setHeader('Content-Type', 'application/json')
+          res.end(JSON.stringify({ connected: false, configured: false }))
+          return
+        }
         try {
           await callMcp('tools/list', {})
           res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ connected: true }))
+          res.end(JSON.stringify({ connected: true, configured: true }))
         } catch {
           res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ connected: false }))
+          res.end(JSON.stringify({ connected: false, configured: true }))
         }
       })
 
       // 2. Query endpoint – có guardrail bắt buộc phía server
+      // Dev-only: middleware này chỉ tồn tại khi `vite dev`, production dùng Worker /api/chat.
       const hits = new Map<string, number[]>()
+      // Dọn dẹp định kỳ để Map rate-limit không phình memory khi dev lâu.
+      const RATE_WINDOW_MS = 60_000
+      setInterval(() => {
+        const cutoff = Date.now() - RATE_WINDOW_MS
+        for (const [ip, times] of hits) {
+          const kept = times.filter((t) => t > cutoff)
+          if (kept.length) hits.set(ip, kept)
+          else hits.delete(ip)
+        }
+      }, RATE_WINDOW_MS).unref?.()
       let queue: Promise<unknown> = Promise.resolve()
       const MAX_BODY = 2048
       const RATE_LIMIT = 8 // số câu hỏi / phút / IP
@@ -106,6 +125,8 @@ function aiChatBridgePlugin() {
       }
       const blocked = (res: any, message: string, reason: string) =>
         sendJson(res, { success: true, blocked: true, reason, text: refusalText(message) })
+      const bridgeUnavailable = (res: any) =>
+        sendJson(res, { success: false, error: 'AI Chat Bridge chưa cấu hình (thiếu mcp-token). Production dùng Worker /api/chat.' }, 503)
 
       server.middlewares.use('/api/bridge-query', async (req, res) => {
         if (req.method !== 'POST') {
@@ -113,6 +134,9 @@ function aiChatBridgePlugin() {
           res.end()
           return
         }
+
+        // Không có token -> báo rõ thay vì gọi MCP chắc chắn lỗi.
+        if (!getToken()) return bridgeUnavailable(res)
 
         // Rate limit theo IP
         const ip = req.socket.remoteAddress || 'unknown'

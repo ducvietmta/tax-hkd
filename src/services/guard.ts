@@ -3,7 +3,7 @@
  * Không phụ thuộc thư viện nào để vite.config.ts có thể import trực tiếp.
  */
 
-import { resolveAnswerScope, scopeInstructions, intentInstructions } from '../../worker/src/answerScope';
+import { resolveAnswerScope, scopeInstructions, intentInstructions } from '../../shared/taxScope';
 
 export const MAX_QUESTION_LENGTH = 2000;
 

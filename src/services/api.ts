@@ -9,9 +9,12 @@ import { auth } from './firebase';
  * - CDN: Cloudflare Global Edge
  */
 
-const API_BASE =
-  ((import.meta as any).env?.VITE_API_URL as string) ||
-  'https://tax-agent-worker.ducviet-mta.workers.dev';
+/**
+ * Ưu tiên cùng origin (`/api/*` qua Pages Functions proxy tới Worker) để
+ * tránh CORS 2 cấu hình. Đặt VITE_API_URL chỉ khi muốn trỏ thẳng Worker
+ * (local/preview ngoài Pages).
+ */
+const API_BASE = ((import.meta as any).env?.VITE_API_URL as string) || '';
 
 export interface ChatHistoryItem {
   id: string;

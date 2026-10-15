@@ -54,7 +54,7 @@ export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?
 export function validateLegalCitations(question: string, answer: string, citations: string[], scope: AnswerScope) {
   // Retrieval candidates are not automatically sources supporting the final answer.
   // Keep only documents actually cited in the prose; do not invent missing citations.
-  const documentIds = (text: string) => fold(text).match(/\b\d+\/(?:19|20)\d{2}(?:\/[a-z0-9-]+)?/g) || [];
+  const documentIds = (text: string): string[] => fold(text).match(/\b\d+\/(?:19|20)\d{2}(?:\/[a-z0-9-]+)?/g) || [];
   const citedIds = new Set(documentIds(answer));
   citations = citations.filter(citation => {
     const ids = documentIds(citation);

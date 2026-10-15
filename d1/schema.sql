@@ -109,3 +109,12 @@ CREATE TABLE IF NOT EXISTS decision_traces (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_decision_traces_created ON decision_traces(created_at);
+
+-- 7. RATE LIMIT SLIDING-WINDOW BỀN VỮNG (thay cho caches.default best-effort).
+-- Mỗi request /api/chat ghi 1 dòng; đếm số dòng trong window để giới hạn.
+CREATE TABLE IF NOT EXISTS rate_limits (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_rate_limits_scope_created ON rate_limits(scope, created_at);

@@ -14,7 +14,6 @@ export function renderDeterministicAnswer(
 ): { response: string; citations: string[] } {
   const taxYear = frame.tax_period.years[0] || 2026;
   const rev = evalResult.effective_revenue_vnd;
-  const isResident = frame.residency.value !== 'NON_RESIDENT';
 
   let response = '';
   const focus = frame.semantic?.taxFocus;

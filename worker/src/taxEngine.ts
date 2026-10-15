@@ -18,7 +18,7 @@
 
 export interface TaxFacts {
   taxYear: number;
-  activityType: 'goods' | 'service' | 'rental' | 'affiliate_service' | 'affiliate_unknown' | 'multi' | 'unknown';
+  activityType: 'goods' | 'service' | 'rental' | 'ecommerce' | 'affiliate_service' | 'affiliate_unknown' | 'multi' | 'unknown';
   grossRevenueVnd: number;
   returnsVnd?: number;
   returnsAlreadyExcluded?: boolean;

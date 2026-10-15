@@ -31,7 +31,7 @@ console.log('🧪 BẮT ĐẦU KIỂM THỬ SPEC NÂNG CẤP TAX-HKD (5 MỤC)..
 // 1. TẢI CÁC MODULE
 const engine = loadModule('worker/src/ragEngine.ts');
 const conversation = loadModule('worker/src/conversation.ts');
-const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation });
+const scope = loadModule('shared/taxScope.ts');
 const pendingTopics = loadModule('worker/src/pendingTopics.ts');
 const taxEngine = loadModule('worker/src/taxEngine.ts');
 const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine });

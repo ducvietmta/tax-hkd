@@ -19,7 +19,7 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
   if (scope.years.includes(2025) && scope.years.includes(2026) &&
       /hoa don dien tu|hddt/.test(q) &&
       /(?:(?:nam\s*2025|2025)[^.!?]{0,65}(?:tren|vuot|hon)\s*1\s*ty|(?:tren|vuot|hon)\s*1\s*ty[^.!?]{0,65}(?:nam\s*2025|2025))/.test(q)) {
-    return result('Nếu doanh thu năm trước (2025) của hộ thực sự trên 1 tỷ đồng và hộ tiếp tục kinh doanh trong năm 2026, phải xét nghĩa vụ dùng hóa đơn điện tử theo điểm a khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP được sửa đổi bởi khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP. Không áp nhánh 30 ngày dành cho hộ mới hoặc năm trước không quá 1 tỷ rồi mới vượt ngưỡng trong năm hiện tại. Cần kiểm thời điểm bắt đầu áp dụng, tình trạng sử dụng hóa đơn và quy định chuyển tiếp cho hồ sơ cụ thể.', ['Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)'], ['ND141_2026_PRIOR_YEAR_EINVOICE'], { taxYear: 2026, activityType: 'unknown' });
+    return result('Nếu doanh thu năm trước (2025) của hộ thực sự trên 1 tỷ đồng và hộ tiếp tục kinh doanh trong năm 2026, phải xét nghĩa vụ dùng hóa đơn điện tử theo điểm a khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP được sửa đổi bởi khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP. Không áp nhánh 30 ngày dành cho hộ mới hoặc năm trước không quá 1 tỷ rồi mới vượt ngưỡng trong năm hiện tại. Cần kiểm thời điểm bắt đầu áp dụng, tình trạng sử dụng hóa đơn và quy định chuyển tiếp cho hồ sơ cụ thể.', ['Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)'], ['ND141_2026_PRIOR_YEAR_EINVOICE'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
   }
   if (scope.years.length !== 1 || scope.years[0] !== 2026) return null;
   // A withholding percentage alone cannot determine the income category or refund.
@@ -29,10 +29,10 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
 
 Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa hồng hoặc tỷ lệ đã giữ. Cần xác định khoản đã giữ là loại thuế nào, tư cách cư trú, tổng doanh thu kinh doanh cả năm và chứng từ đã khai, nộp thay đúng người, đúng kỳ. Nếu thuế TNCN kinh doanh đã nộp vượt số phải nộp sau khi xét miễn, giảm thì có thể đề nghị xử lý nộp thừa hoặc hoàn theo thủ tục; không mặc định hoàn toàn bộ khoản khấu trừ. Bạn cần đối soát hợp đồng, bảng thanh toán và chứng từ nộp thuế trước khi tính số cuối cùng.`,
       ['Điều 11–12 Nghị định 68/2026/NĐ-CP (sửa đổi bởi Nghị định 141/2026/NĐ-CP)', 'Điều 43 Nghị định 252/2026/NĐ-CP', 'Điểm i khoản 1 Điều 25 Thông tư 111/2013/TT-BTC'],
-      ['AFFILIATE_REFUND_INCOME_CLASSIFICATION'], { taxYear: 2026, activityType: 'affiliate_unknown' });
+      ['AFFILIATE_REFUND_INCOME_CLASSIFICATION'], { taxYear: 2026, activityType: 'affiliate_unknown', grossRevenueVnd: 0 });
   }
   if (/du thao/.test(q) && /van ban da ban hanh|van ban chinh thuc|con hieu luc/.test(q)) {
-    return result('Để chốt nghĩa vụ, phải dùng văn bản quy phạm pháp luật đã ban hành và có hiệu lực tại thời điểm giao dịch; bản dự thảo chỉ là nội dung dự kiến, không phải căn cứ áp dụng. Cần đối chiếu văn bản gốc, các văn bản sửa đổi và bản hợp nhất chính thức để xác định nội dung đang có hiệu lực.', ['Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'], ['LEGAL_SOURCE_EFFECTIVE_TEXT'], { taxYear: 2026, activityType: 'unknown' });
+    return result('Để chốt nghĩa vụ, phải dùng văn bản quy phạm pháp luật đã ban hành và có hiệu lực tại thời điểm giao dịch; bản dự thảo chỉ là nội dung dự kiến, không phải căn cứ áp dụng. Cần đối chiếu văn bản gốc, các văn bản sửa đổi và bản hợp nhất chính thức để xác định nội dung đang có hiệu lực.', ['Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'], ['LEGAL_SOURCE_EFFECTIVE_TEXT'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
   }
   const amounts = unique([...exact(q), ...named(q)]);
   const revenue = amounts.find(n => n > 3e9 && n <= 50e9) || 0;
@@ -125,55 +125,55 @@ Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa h
     // 1. Nghị định 141/2026/NĐ-CP
     if (/141\/2026/.test(q)) {
       const resp = `Nghị định 141/2026/NĐ-CP (ban hành ngày 29/04/2026, hiệu lực áp dụng từ 01/01/2026) sửa đổi, bổ sung Nghị định 68/2026/NĐ-CP với các nội dung trọng tâm đối với hộ kinh doanh và cá nhân kinh doanh:\n\n1. Nâng ngưỡng doanh thu miễn thuế lên 1 tỷ đồng/năm: Hộ kinh doanh có doanh thu năm từ 1 tỷ đồng trở xuống không phải nộp thuế GTGT và thuế TNCN (trước đây là 500 triệu đồng).\n2. Cách xác định doanh thu: Tính toàn bộ tiền bán hàng, hoa hồng, dịch vụ phát sinh trong năm (không trừ chi phí, không trừ phí sàn TMĐT, không trừ khoản sàn đã khấu trừ).\n3. Xét theo từng cá nhân: Ngưỡng 1 tỷ đồng xét riêng cho từng cá nhân kinh doanh (đại diện hộ kinh doanh), không cộng gộp doanh thu của hai vợ chồng kinh doanh độc lập.\n4. Quy định về hóa đơn điện tử: Doanh thu từ 1 tỷ trở xuống không bắt buộc dùng hóa đơn điện tử (được tự nguyện đăng ký). Khi doanh thu lũy kế vượt 1 tỷ đồng, bắt buộc đăng ký sử dụng hóa đơn điện tử trong thời hạn 30 ngày.`;
-      return result(resp, ['Điều 1 Nghị định 141/2026/NĐ-CP', 'Nghị định 68/2026/NĐ-CP'], ['DOC_ND141_2026'], { taxYear: 2026, activityType: 'unknown' });
+      return result(resp, ['Điều 1 Nghị định 141/2026/NĐ-CP', 'Nghị định 68/2026/NĐ-CP'], ['DOC_ND141_2026'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
 
     // 2. Thông tư 88/2021/TT-BTC
     if (/88\/2021/.test(q)) {
       const resp = `Thông tư 88/2021/TT-BTC của Bộ Tài Chính hướng dẫn chế độ chứng từ và sổ sách kế toán đơn giản cho hộ kinh doanh, cá nhân kinh doanh:\n\n1. Nhóm áp dụng chế độ kế toán đầy đủ: Hộ kinh doanh nộp thuế theo phương pháp kê khai phải lập chứng từ và mở đủ các sổ kế toán theo quy định (Sổ chi tiết doanh thu, chi phí, vật tư, tiền lương...).\n2. Nhóm doanh thu từ 1 tỷ đồng trở xuống hoặc nộp thuế theo tỷ lệ %: Chỉ cần mở và ghi chép Sổ theo dõi doanh thu bán hàng hóa, dịch vụ (Mẫu S1a-HKD). Hộ có thể ghi chép trên máy tính hoặc sổ giấy, không bắt buộc mua sổ in sẵn.\n3. Khuyến nghị lưu trữ: Cần lưu trữ đầy đủ hóa đơn đầu vào, chứng từ bán hàng để chứng minh doanh thu thực tế khi cơ quan thuế kiểm tra, đối chiếu.`;
-      return result(resp, ['Thông tư 88/2021/TT-BTC', 'Luật Quản lý thuế 108/2025/QH15'], ['DOC_TT88_2021'], { taxYear: 2026, activityType: 'unknown' });
+      return result(resp, ['Thông tư 88/2021/TT-BTC', 'Luật Quản lý thuế 108/2025/QH15'], ['DOC_TT88_2021'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
 
     // 3. Công văn 311/TCT-DNNCN (Mã 888)
     if (/311(?:\/tct|\/2025)?/.test(q) || /311-tct/.test(q)) {
       const resp = `Công văn 311/TCT-DNNCN của Tổng cục Thuế hướng dẫn quy trình cấp và quản lý mã số thuế phân loại 888 cho hộ, cá nhân kinh doanh trên sàn thương mại điện tử qua tài khoản định danh VNeID mức 2:\n\n1. Hiệu lực trong năm 2026: Hậu tố 888 VẪN ĐƯỢC SỬ DỤNG trong năm 2026 để phân loại hoạt động TMĐT và kinh doanh nền tảng số. Từ 01/07/2025, CCCD/số định danh thay thế 10 số đầu làm định danh gốc, còn hậu tố 888 vẫn giữ để phân loại.\n2. Bắt buộc đăng ký: Hộ, cá nhân kinh doanh trên sàn TMĐT (Shopee, TikTok Shop...), mạng xã hội BẮT BUỘC phải đăng ký trên Cổng TMĐT HKD (https://canhantmdt.gdt.gov.vn) để được cấp/gắn mã 888.\n3. Quy trình 3 bước theo CV 311:\n- Bước 1: Truy cập Cổng TMĐT (canhantmdt.gdt.gov.vn).\n- Bước 2: Đăng nhập bằng tài khoản Định danh điện tử (VNeID mức 2).\n- Bước 3: Hệ thống tự động kiểm tra:\n  + Nếu chưa có MST: Kê khai mẫu 03-ĐK-TCT để được cấp MST gắn đuôi 888;\n  + Nếu đã có MST 10 số (hoặc CCCD) nhưng chưa có 888: Hiển thị form đăng ký bổ sung phân loại 888;\n  + Nếu đã có mã 888: Tự động đăng nhập vào cổng để thực hiện kê khai, nộp thuế.`;
-      return result(resp, ['Công văn 311/TCT-DNNCN', 'Thông tư 86/2024/TT-BTC'], ['DOC_CV311_TCT'], { taxYear: 2026, activityType: 'ecommerce' });
+      return result(resp, ['Công văn 311/TCT-DNNCN', 'Thông tư 86/2024/TT-BTC'], ['DOC_CV311_TCT'], { taxYear: 2026, activityType: 'ecommerce', grossRevenueVnd: 0 });
     }
 
     // 4. Nghị định 123/2020/NĐ-CP
     if (/123\/2020/.test(q)) {
       const resp = `Nghị định 123/2020/NĐ-CP của Chính Phủ quy định về hóa đơn, chứng từ điện tử đối với hộ kinh doanh:\n\n1. Nguyên tắc sử dụng: Hộ kinh doanh nộp thuế theo phương pháp kê khai hoặc có doanh thu trên 1 tỷ đồng/năm bắt buộc phải sử dụng hóa đơn điện tử có mã của cơ quan thuế.\n2. Hóa đơn từ máy tính tiền: Hộ kinh doanh trong lĩnh vực bán lẻ, ăn uống, dịch vụ trực tiếp đến người tiêu dùng được áp dụng hóa đơn điện tử khởi tạo từ máy tính tiền kết nối chuyển dữ liệu điện tử với cơ quan thuế.\n3. Hộ doanh thu từ 1 tỷ trở xuống: Không thuộc diện bắt buộc sử dụng hóa đơn điện tử nhưng được quyền tự nguyện đăng ký sử dụng nếu đáp ứng đủ điều kiện về hạ tầng công nghệ thông tin.`;
-      return result(resp, ['Nghị định 123/2020/NĐ-CP', 'Thông tư 78/2021/TT-BTC', 'Nghị định 141/2026/NĐ-CP'], ['DOC_ND123_2020'], { taxYear: 2026, activityType: 'unknown' });
+      return result(resp, ['Nghị định 123/2020/NĐ-CP', 'Thông tư 78/2021/TT-BTC', 'Nghị định 141/2026/NĐ-CP'], ['DOC_ND123_2020'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
 
     // 5. Nghị quyết 43/2026/QH16
     if (/43\/2026/.test(q)) {
       const resp = `Nghị quyết 43/2026/QH16 của Quốc Hội quy định chính sách giảm thuế TNCN trong năm 2026–2027 cho cá nhân kinh doanh:\n\n1. Mức giảm: Giảm 30% số thuế TNCN phải nộp phát sinh từ hoạt động sản xuất, kinh doanh.\n2. Điều kiện áp dụng: Áp dụng cho cá nhân cư trú có tổng doanh thu kinh doanh trong năm không quá 10 tỷ đồng.\n3. Lưu ý quan trọng: Chính sách chỉ giảm cho thuế TNCN, KHÔNG áp dụng giảm cho thuế GTGT; không áp dụng cho thu nhập từ tiền lương, tiền công; không áp dụng cho cá nhân không cư trú hoặc các năm trước 2026.`;
-      return result(resp, ['Khoản 1 Điều 1 và Khoản 1 Điều 2 Nghị quyết 43/2026/QH16'], ['DOC_NQ43_2026'], { taxYear: 2026, activityType: 'unknown' });
+      return result(resp, ['Khoản 1 Điều 1 và Khoản 1 Điều 2 Nghị quyết 43/2026/QH16'], ['DOC_NQ43_2026'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
 
     // 6. Thông tư 86/2024/TT-BTC
     if (/86\/2024/.test(q)) {
       const resp = `Thông tư 86/2024/TT-BTC của Bộ Tài Chính hướng dẫn về đăng ký thuế và sử dụng số định danh cá nhân:\n\n1. Từ ngày 01/07/2025: Số định danh cá nhân (CCCD 12 số) được sử dụng chính thức thay thế cho mã số thuế 10 số của cá nhân và người đại diện hộ kinh doanh.\n2. Đối với mã phụ 888: Hậu tố 888 vẫn được giữ nguyên và gắn liền với số CCCD để phân loại hoạt động kinh doanh thương mại điện tử trên hệ thống quản lý thuế điện tử.`;
-      return result(resp, ['Thông tư 86/2024/TT-BTC', 'Công văn 311/TCT-DNNCN'], ['DOC_TT86_2024'], { taxYear: 2026, activityType: 'unknown' });
+      return result(resp, ['Thông tư 86/2024/TT-BTC', 'Công văn 311/TCT-DNNCN'], ['DOC_TT86_2024'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
 
     // 7. Thông tư 40/2021/TT-BTC
     if (/40\/2021/.test(q)) {
       const resp = `Thông tư 40/2021/TT-BTC của Bộ Tài Chính hướng dẫn chính sách thuế GTGT, TNCN và quản lý thuế đối với hộ, cá nhân kinh doanh:\n\n1. Phương pháp tính thuế: Quy định cách tính thuế theo tỷ lệ trên doanh thu đối với hộ khoán, hộ kê khai và cá nhân kinh doanh từng lần phát sinh.\n2. Biểu tỷ lệ thuế trên doanh thu: Phân định chi tiết theo từng lĩnh vực (Phân phối, cung cấp hàng hóa: 1% GTGT + 0,5% TNCN; Dịch vụ, xây dựng: 5% GTGT + 2% TNCN; Cho thuê tài sản: 5% GTGT + 5% TNCN...).\n3. Cập nhật năm 2026: Ngưỡng doanh thu bắt đầu chịu thuế đã được Nghị định 141/2026/NĐ-CP nâng lên trên 1 tỷ đồng/năm.`;
-      return result(resp, ['Thông tư 40/2021/TT-BTC', 'Nghị định 141/2026/NĐ-CP'], ['DOC_TT40_2021'], { taxYear: 2026, activityType: 'unknown' });
+      return result(resp, ['Thông tư 40/2021/TT-BTC', 'Nghị định 141/2026/NĐ-CP'], ['DOC_TT40_2021'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
 
     // 8. Nghị định 68/2026/NĐ-CP
     if (/68\/2026/.test(q)) {
       const resp = `Nghị định 68/2026/NĐ-CP của Chính Phủ quy định chi tiết về chính sách thuế và quản lý thuế đối với HKD, cá nhân kinh doanh và nền tảng số:\n\n1. Trách nhiệm của sàn TMĐT: Sàn giao dịch TMĐT có chức năng đặt hàng, thanh toán trực tuyến có trách nhiệm khấu trừ, kê khai và nộp thay thuế cho cá nhân kinh doanh trên sàn theo kỳ quy định.\n2. Doanh thu chịu thuế: Xác định dựa trên tổng giá trị giao dịch thực tế trên nền tảng (không trừ phí sàn và các khoản chiết khấu dịch vụ).\n3. Ngưỡng miễn thuế: Được sửa đổi bởi Nghị định 141/2026/NĐ-CP nâng lên 1 tỷ đồng/năm.`;
-      return result(resp, ['Nghị định 68/2026/NĐ-CP', 'Nghị định 141/2026/NĐ-CP'], ['DOC_ND68_2026'], { taxYear: 2026, activityType: 'ecommerce' });
+      return result(resp, ['Nghị định 68/2026/NĐ-CP', 'Nghị định 141/2026/NĐ-CP'], ['DOC_ND68_2026'], { taxYear: 2026, activityType: 'ecommerce', grossRevenueVnd: 0 });
     }
 
     // 9. Công văn 6480/CT-QLNT
     if (/6480(?:\/ct|\/2026)?/.test(q) || /6480-ct/.test(q)) {
       const resp = `Công văn 6480/CT-QLNT của Cục Thuế trả lời kiến nghị về quản lý nợ thuế và cưỡng chế thuế đối với cá nhân, hộ kinh doanh:\n\n1. Biện pháp tạm hoãn xuất cảnh: Áp dụng đối với cá nhân kinh doanh, người đại diện theo pháp luật của hộ kinh doanh thuộc diện chưa hoàn thành nghĩa vụ nộp thuế theo Luật Quản lý thuế.\n2. Quy trình rà soát: Cơ quan thuế gửi thông báo nhắc nợ, đôn đốc nộp thuế trước khi ban hành thông báo tạm hoãn xuất cảnh hoặc áp dụng các biện pháp cưỡng chế tài khoản.\n3. Hoàn thành nghĩa vụ thuế: Người nộp thuế nộp đủ tiền thuế, tiền phạt, tiền chậm nộp sẽ được cơ quan thuế ban hành văn bản hủy bỏ tạm hoãn xuất cảnh trong thời hạn quy định.`;
-      return result(resp, ['Công văn 6480/CT-QLNT', 'Luật Quản lý thuế 108/2025/QH15'], ['DOC_CV6480_QLNT'], { taxYear: 2026, activityType: 'unknown' });
+      return result(resp, ['Công văn 6480/CT-QLNT', 'Luật Quản lý thuế 108/2025/QH15'], ['DOC_CV6480_QLNT'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
   }
 

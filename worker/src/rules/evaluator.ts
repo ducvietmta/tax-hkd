@@ -144,10 +144,11 @@ export function evaluateDecisionFrame(frame: TaxDecisionFrame): EvaluationResult
   let pitRate = rateConfig.pit_rate;
 
   // Giảm thuế VAT theo NQ 204 nếu có
-  const vatReliefApplies = frame.facts.vat_relief_assumed && ruleset.relief_policies?.nq204_vat_reduction_rate &&
-    taxYear <= (ruleset.relief_policies.nq204_vat_last_year || 2026);
+  const nq204Rate = ruleset.relief_policies?.nq204_vat_reduction_rate ?? 0;
+  const vatReliefApplies = !!frame.facts.vat_relief_assumed && !!nq204Rate &&
+    taxYear <= (ruleset.relief_policies?.nq204_vat_last_year || 2026);
   if (vatReliefApplies) {
-    vatRate = Math.round(vatRate * (1 - ruleset.relief_policies.nq204_vat_reduction_rate) * 1e6) / 1e6;
+    vatRate = Math.round(vatRate * (1 - nq204Rate) * 1e6) / 1e6;
   }
 
   // Phương pháp tính thuế TNCN (Doanh thu hay Thu nhập)

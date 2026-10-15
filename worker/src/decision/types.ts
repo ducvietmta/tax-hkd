@@ -11,7 +11,6 @@ import type {
   ConversationAct,
   JurisdictionType,
   RevenueBasis,
-  RevenueBand,
   RiskLevel,
   RetrievalStrategy,
   LegalStatus,

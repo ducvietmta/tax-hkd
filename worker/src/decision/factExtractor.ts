@@ -113,7 +113,7 @@ export function extractResidency(text: string): { residency: Residency; isReside
 /**
  * Trích xuất cấu trúc dữ kiện số TaxFactsFrame
  */
-export function extractTaxFacts(text: string, defaultYear = 2026, semanticIncomeTypes?: readonly string[]): TaxFactsFrame {
+export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncomeTypes?: readonly string[]): TaxFactsFrame {
   const q = fold(text);
   const { isResident } = extractResidency(text);
 
