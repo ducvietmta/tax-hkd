@@ -26,7 +26,7 @@ function load(relativePath) {
 }
 const { resolveAnswerScope, scopeInstructions, intentInstructions } = load('worker/src/answerScope.ts');
 const { buildConversationRetrievalQuery } = load('worker/src/conversation.ts');
-const { retrieve, buildContext, snippet } = load('worker/src/retriever.ts');
+const { retrieve, buildContext, snippet, analyzeAmounts } = load('worker/src/retriever.ts');
 const now = new Date('2026-10-13T04:02:00Z');
 const user = content => ({ role: 'user', content });
 const assistant = content => ({ role: 'assistant', content });
@@ -34,6 +34,31 @@ const scopeFor = (message, history = []) => resolveAnswerScope(history, message,
 const compoundEvidence = retrieve('Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?', 4, scopeFor('Năm 2026')).results;
 assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.50'), 'Keep explicitly requested VAT relief evidence');
 assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.39' || r.chunk.ref_id === '16.99'), 'Keep explicitly requested PIT relief evidence');
+const { understandClassifiedQuery } = load('worker/src/decision/understandQuery.ts');
+const { buildRetrievalPlan } = load('worker/src/decision/retrievalPlan.ts');
+const repairText = 'Một hóa đơn gồm tiền công sửa máy và linh kiện thay thế; có thể lấy một tỷ lệ GTGT cho toàn bộ không?';
+const repairFrame = understandClassifiedQuery(repairText, scopeFor(repairText), [], {
+  taxpayer: 'UNKNOWN', primaryIntent: 'TAX_CALCULATION', secondaryIntents: [], incomeTypes: ['SERVICE'], topic: 'VAT_METHOD_CLASSIFICATION', revenueContext: 'TRANSACTION',
+});
+const semanticEvidence = retrieve(repairText, 4, scopeFor(repairText), buildRetrievalPlan(repairFrame));
+assert.equal(semanticEvidence.routeId, 'VAT_METHOD_CLASSIFICATION');
+assert.ok(semanticEvidence.results.some(x => x.chunk.ref_id === '16.104'));
+assert.ok(semanticEvidence.results.every(x => !['16.81', '16.82', '16.89'].includes(x.chunk.ref_id)), 'Labor cost in a repair bill must not route to wage tax or investments');
+const conditionalParagraph = 'Điều kiện cần kiểm chứng. '.repeat(100) + 'Ngoại lệ quyết định ở cuối đoạn.';
+const paragraphContext = buildContext([{ chunk: { id: 'paragraph', file: 'KB/semantic-topic-supplements', text: conditionalParagraph, tier: 'VERIFIED_CONDITIONAL' }, score: 1 }], 'chi phí', 6500, scopeFor('năm 2026'));
+assert.match(paragraphContext.text, /Ngoại lệ quyết định ở cuối đoạn/, 'Keep the complete curated condition instead of dropping an oversized single line');
+const transactionFrame = understandClassifiedQuery('Khách trả 110 triệu theo hóa đơn', scopeFor('năm 2026'), [], {
+  taxpayer: 'UNKNOWN', primaryIntent: 'TAX_CALCULATION', secondaryIntents: [], incomeTypes: ['UNKNOWN'], topic: 'TAX_AMOUNT', revenueContext: 'TRANSACTION',
+});
+assert.ok(buildRetrievalPlan(transactionFrame).must_include_refs.includes('16.104'), 'Transaction calculation needs method and inclusive-price evidence before annual thresholds');
+assert.match(analyzeAmounts('Doanh thu 3 tỷ + 1 đồng'), /3\.000\.000\.001/);
+const { validateLegalCitations, missingAnswerIntents } = load('worker/src/answerValidation.ts');
+const fixedCitation = validateLegalCitations('Hộ vượt 1 tỷ, hạn đăng ký HĐĐT?', 'Hạn 30 ngày. Căn cứ pháp lý:\nĐiều 9, Nghị định số 141/2026/NĐ-CP', ['Điều 9, Nghị định số 141/2026/NĐ-CP'], scopeFor('năm 2026'));
+assert.doesNotMatch(fixedCitation.answer, /Điều 9.*141/);
+assert.ok(!fixedCitation.citations.some(x => /Điều 9.*141/.test(x)));
+assert.deepEqual(missingAnswerIntents('Hóa đơn điều chỉnh giảm do sai giá. GTGT điều chỉnh thế nào?', 'Cần lập hóa đơn điều chỉnh theo đúng kỳ.', {
+  taxpayer: 'UNKNOWN', primaryIntent: 'E_INVOICE', secondaryIntents: [], incomeTypes: ['UNKNOWN'], topic: 'INVOICE_CORRECTION',
+}), [], 'Price correction is not a VAT relief policy');
 const question = 'TikTok đã trừ 10% thuế trên tiền hoa hồng của em. Tổng năm chỉ được 30 triệu thì có được hoàn lại không? Có cần cộng tiền lương ở công ty vào không?';
 assert.deepEqual(scopeFor(question).years, [2026]);
 assert.equal(scopeFor(question).periodSource, 'current_default');
@@ -44,6 +69,8 @@ for (const text of ['Cả năm được 30 triệu', 'Quyết toán cuối năm'
 assert.deepEqual(scopeFor('Không phải năm 2025 mà là 2026').years, [2026]);
 assert.deepEqual(scopeFor('Thu nhập năm 2025').years, [2025]);
 assert.deepEqual(scopeFor('So sánh năm 2025 và 2026').years, [2025, 2026]);
+assert.deepEqual(scopeFor('Thu nhập phát sinh tháng 12/2025, chi trả tháng 1/2026; áp năm nào?').years, [2025, 2026]);
+assert.deepEqual(scopeFor('Nghị định số 68/2026 và Luật 109/2025').years, [2026]);
 assert.deepEqual(scopeFor('Năm nay').years, [2026]);
 assert.deepEqual(scopeFor('Năm ngoái').years, [2025]);
 assert.deepEqual(resolveAnswerScope([], 'năm nay', new Date('2026-12-31T18:00:00Z')).years, [2027]);
@@ -97,24 +124,21 @@ async function testWorkerPaths() {
   global.fetch = async (_url, init) => {
     const input = JSON.parse(init.body);
     if (String(_url).includes('mkp-api.fptcloud.com')) {
-      if (input.max_tokens === 64) {
+      assert.equal(String(_url), 'https://mkp-api.fptcloud.com/v1/systemone');
+      if (!input.questions.scope) {
         businessRequests.push(input);
-        const q = JSON.parse(input.messages.at(-1).content.match(/(\{"history":[^\n]+\})\nChỉ trả/)[1]).question;
+        const q = input.state.question;
         const fixture = load('worker/src/decision/understandQuery.ts').understandQuery(q, scopeFor(q));
         const value = businessReply ? (businessReply === 'IN_SCOPE' ? null : JSON.parse(businessReply)) : {
           taxpayer: fixture.taxpayer_type.value, primaryIntent: fixture.tax_intent.primary.value,
           secondaryIntents: fixture.tax_intent.secondary, incomeTypes: fixture.income_type.map(x => x.value),
         };
-        const registry = load('worker/src/decision/labels.ts');
-        const field = input.messages[0].content.split('\n')[0];
-        const labels = field.endsWith('TAXPAYER') ? registry.TAXPAYER_TYPES : field.endsWith('INTENT') ? registry.TAX_INTENTS.filter(x => x !== 'OUT_OF_SCOPE') : registry.INCOME_TYPES;
-        const selected = value ? (field.endsWith('TAXPAYER') ? [value.taxpayer] : field.endsWith('INTENT') ? [value.primaryIntent, ...value.secondaryIntents] : value.incomeTypes) : [];
-        return Response.json({ choices: [{ message: { content: value ? selected.map(x => String.fromCharCode(65 + labels.indexOf(x))).join(',') : 'invalid' } }] });
+        return Response.json(value ? require('./fixtures/quyet_native.cjs')(input, scopeLabel, value) : {});
       }
       scopeRequests.push(input);
       if (scopeLabel === 'HTTP_ERROR') return new Response('', { status: 503 });
       if (scopeLabel === 'TIMEOUT') throw new DOMException('timeout', 'AbortError');
-      return Response.json({ choices: [{ message: { content: scopeLabel } }] });
+      return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel));
     }
     captured.push(input);
     if (input.stream) {
@@ -131,7 +155,7 @@ async function testWorkerPaths() {
     const semanticEnv = { MUSE_API_KEY: 'test-fixture', FPT_AI_KEY: 'scope-fixture', DECISION_L2: 'off' };
     const accepted = await (await worker.fetch(request(false, repairBundle), semanticEnv, ctx)).json();
     assert.notEqual(accepted.source, 'out_of_scope', 'No tax keyword required to enter tax pipeline');
-    assert.equal(JSON.parse(scopeRequests.at(-1).messages.at(-1).content).question, repairBundle);
+    assert.equal(scopeRequests.at(-1).state.question, repairBundle);
     scopeLabel = 'OUT_OF_SCOPE';
     const unrelated = 'Viết bài hát có chữ thuế';
     const rejected = await (await worker.fetch(request(false, unrelated), semanticEnv, ctx)).json();
@@ -181,7 +205,7 @@ async function testWorkerPaths() {
     assert.ok(businessRequests.length > 0);
     const followupHistory = [user('Tôi đang hỏi phân loại doanh thu để tính thuế.')];
     assert.equal(await resolveTaxRelevance('Vậy gói này thuộc nhóm nào?', followupHistory, 'fixture'), 'IN_SCOPE');
-    assert.deepEqual(JSON.parse(scopeRequests.at(-1).messages.at(-1).content).history, followupHistory);
+    assert.deepEqual(scopeRequests.at(-1).state.history, followupHistory);
     console.log('Semantic scope checks passed: shared web/SSE/MCP gate, context, malformed output and provider failures.');
     const providerQuestion = 'Hộ kinh doanh cần lưu chứng từ thanh toán thế nào?';
     for (const stream of [false, true]) {

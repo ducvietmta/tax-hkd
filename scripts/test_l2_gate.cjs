@@ -45,6 +45,8 @@ async function main() {
   assert.deepEqual(modelFrame.income_type.map(x => x.value), semantic.incomeTypes);
   assert.equal(modelFrame.facts.revenue_vnd, 3_000_000_001);
   assert.equal(modelFrame.facts.taxable_income_vnd, 400_000_000);
+  assert.equal(facts.extractTaxFacts('Doanh thu năm 2026 đúng 1 tỷ đồng').revenue_vnd, 1_000_000_000, 'A year is never revenue');
+  assert.equal(facts.extractTaxFacts('Doanh thu năm 2026 là 1 tỷ 1 đồng').revenue_vnd, 1_000_000_001);
   assert.equal(modelFrame.meta.l2_used, true);
   const unknown = understandClassifiedQuery('Hộ kinh doanh bán tạp hóa cần đăng ký hóa đơn', scope, [], {
     taxpayer: 'UNKNOWN', primaryIntent: 'OTHER_TAX', secondaryIntents: [], incomeTypes: ['UNKNOWN'],
@@ -56,34 +58,52 @@ async function main() {
   const { QuyetDecisionProvider } = load('worker/src/decision/quyetProvider.ts', { './labels': labels });
   const oldFetch = global.fetch;
   try {
-    let reply;
+    let corrupt;
     let captured;
-    global.fetch = async (_url, init) => {
+    const fixture = require('./fixtures/quyet_native.cjs');
+    global.fetch = async (url, init) => {
+      assert.equal(url, 'https://mkp-api.fptcloud.com/v1/systemone');
       captured = JSON.parse(init.body);
-      const field = captured.messages[0].content.split('\n')[0];
-      const options = field.endsWith('TAXPAYER') ? labels.TAXPAYER_TYPES : field.endsWith('INTENT') ? labels.TAX_INTENTS.filter(x => x !== 'OUT_OF_SCOPE') : labels.INCOME_TYPES;
-      const selected = field.endsWith('TAXPAYER') ? [semantic.taxpayer] : field.endsWith('INTENT') ? [semantic.primaryIntent, ...semantic.secondaryIntents] : semantic.incomeTypes;
-      return Response.json({ choices: [{ message: { content: reply ?? selected.map(x => String.fromCharCode(65 + options.indexOf(x))).join(',') } }] });
+      assert.equal(captured.messages, undefined, 'Must use native decisions, never generated chat');
+      const response = fixture(captured, 'IN_SCOPE', semantic);
+      if (corrupt) corrupt(response);
+      return Response.json(response);
     };
-    const realProvider = new QuyetDecisionProvider('fixture');
+    const provider = new QuyetDecisionProvider('fixture');
     const history = [{ role: 'user', content: 'Tôi làm affiliate và có lương.' }];
-    assert.deepEqual(await realProvider.classifyBusiness('Có hoàn được không?', history), semantic);
-    assert.deepEqual(JSON.parse(captured.messages.at(-1).content.match(/(\{"history":[^\n]+\})\nChỉ trả/)[1]).history, history);
-    const basic = { taxpayer: 'INDIVIDUAL_BUSINESS', primaryIntent: 'TAX_CALCULATION', secondaryIntents: [], incomeTypes: ['SERVICE'] };
+    const classified = await provider.classifyBusiness('Có hoàn được không?', history);
+    const { confidence, ...semanticLabels } = classified;
+    assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR' });
+    assert.deepEqual(confidence, { taxpayer: 0.95, intent: 0.99, income: 0.97 });
+    assert.deepEqual(captured.state.history, history);
+    assert.equal(await provider.classifyTaxRelevance('Có hoàn được không?', history), 'IN_SCOPE');
+    corrupt = r => { r.answers.tax_period = { type: 'choice', choice: '2025', confidence: 0.98 }; };
+    assert.deepEqual((await provider.classifyBusiness('Năm 2025 bán hàng, giờ 2026 hỏi nghĩa vụ năm đó')).taxYears, [2025], 'Separate the tax year from the year a question is asked');
+    corrupt = undefined;
     const originalMock = global.fetch;
-    global.fetch = async (_url, init) => {
-      const task = JSON.parse(init.body).messages[0].content.split('\n')[0];
-      return Response.json({ choices: [{ message: { content: task.endsWith('TAXPAYER') ? 'B. INDIVIDUAL_BUSINESS'
-        : task.endsWith('INTENT') ? 'D. TAX_CALCULATION' : 'B. SERVICE' } }] });
-    };
-    assert.deepEqual(await realProvider.classifyBusiness('Sửa chữa tính nhóm nào?'), basic);
+    global.fetch = async () => Response.json({ answers: {
+      facts: { type: 'choice', choice: 'INVENTED', confidence: 0.97 },
+      evidence: { type: 'choice', choice: 'CONTRADICTED', confidence: 0.96 },
+      coverage: { type: 'choice', choice: 'COMPLETE', confidence: 0.95 },
+    } });
+    assert.deepEqual(await provider.reviewAnswer('Chưa rõ chủ thể', 'Chốt toàn bộ thuộc vợ', 'Cần kiểm hợp đồng'), ['facts:INVENTED', 'evidence:CONTRADICTED']);
     global.fetch = originalMock;
-    for (const invalid of ['', 'A,B', 'Z', 'Có chữ A ở trong câu', 'A. ENTERPRISE', 'IN_SCOPE']) {
-      reply = invalid;
-      assert.equal(await realProvider.classifyBusiness('Có hoàn không?'), null);
+    for (const invalid of [
+      r => { delete r.answers.taxpayer; },
+      r => { r.answers.taxpayer.choice = 'FAKE'; },
+      r => { r.answers.taxpayer.confidence = -1; },
+      r => { r.answers.income_SERVICE.noul = 1.5; },
+      r => { r.answers.income_SERVICE.noul = 'true'; },
+      r => { delete r.answers.intent_REFUND; },
+      r => { r.partial_failures = { income_SERVICE: 'failed' }; },
+    ]) {
+      corrupt = invalid;
+      assert.equal(await provider.classifyBusiness('Có hoàn không?'), null);
     }
+    global.fetch = async () => Response.json({ choices: [{ message: { content: 'A' } }] });
+    assert.equal(await provider.classifyBusiness('Có hoàn không?'), null, 'Reject legacy chat responses');
     global.fetch = async () => { throw new DOMException('timeout', 'AbortError'); };
-    assert.equal(await realProvider.classifyBusiness('Có hoàn không?'), null);
+    assert.equal(await provider.classifyBusiness('Có hoàn không?'), null);
   } finally { global.fetch = oldFetch; }
   console.log('L2 gate and explicit-fact precedence passed.');
 }

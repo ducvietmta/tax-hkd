@@ -209,7 +209,7 @@ export function extractTaxFacts(text: string, defaultYear = 2026, semanticIncome
   let primaryRevenue: number | undefined = specialRevenue;
   if (!primaryRevenue && allAmounts.length > 0) {
     // Ưu tiên số tiền lớn nhất hoặc số tiền gắn liền với từ khóa "doanh thu", "ban duoc"
-    const revenueCandidates = [...q.matchAll(/(?:doanh thu|hoa hong|ban duoc|thu nhap|tong thu|kiem duoc)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/g)];
+    const revenueCandidates = [...q.matchAll(/(?:doanh thu|hoa hong|ban duoc|thu nhap|tong thu|kiem duoc)(?:\s+nam\s+(?:19|20)\d{2})?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/g)];
     const revExplicitMatch = revenueCandidates.find(m => !/bao nhieu|\btax\b|khau tru|giu lai/.test(m[0]));
     if (revExplicitMatch) {
       primaryRevenue = parseMoneyWithUnit(revExplicitMatch[1], revExplicitMatch[2] || (Number(revExplicitMatch[1]) >= 10 ? 'trieu' : 'ty'));

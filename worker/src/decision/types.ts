@@ -68,6 +68,7 @@ export interface MissingFact {
  * Đầu ra của bước understandQuery (L1/L2)
  */
 export interface TaxDecisionFrame {
+  semantic?: { topic?: string; revenueContext?: string };
   schema_version: '1.0';
   tax_period: TaxPeriodFrame;
   taxpayer_type: Provenance<TaxpayerType>;
@@ -93,6 +94,8 @@ export interface TaxDecisionFrame {
 }
 
 export interface RetrievalPlan {
+  semantic_topic?: string;
+  allowed_refs?: string[];
   strategy: RetrievalStrategy;
   must_include_refs: string[];     // Các ref_id bắt buộc theo rule
   filter_years: number[];          // Chỉ lấy tài liệu đúng kỳ này

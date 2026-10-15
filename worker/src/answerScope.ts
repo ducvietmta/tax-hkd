@@ -12,7 +12,8 @@ export function userPeriodYears(text: string, currentYear: number): number[] {
   const clean = normalize(text)
     .replace(/https?:\/\/\S+/g, '')
     .replace(/\b\d{1,2}[/.\-]\d{1,2}[/.\-](?:19|20)\d{2}\b/g, '')
-    .replace(/\b\d+[a-z]*\/(?:19|20)\d{2}(?:\/[a-z0-9-]+)?/g, '')
+    .replace(/\b\d+[a-z]*\/(?:19|20)\d{2}\/[a-z0-9-]+/g, '')
+    .replace(/\b(?:nghi dinh|nd|luat|nghi quyet|nq|thong tu|tt|cong van|cv)\s*(?:so\s*)?\d+\/(?:19|20)\d{2}\b/g, '')
     .replace(/\b(?:khong|ko|chua)\s+(?:noi|nhac)[^.!?\n]{0,25}?\b(?:19|20)\d{2}\b/g, '')
     .replace(/\b(?:khong|ko)\s+phai(?:\s+nam)?\s+(?:19|20)\d{2}\b/g, '');
   const years = Array.from(clean.matchAll(/\b(?:19|20)\d{2}\b/g), match => Number(match[0]));

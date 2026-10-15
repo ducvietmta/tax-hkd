@@ -12,10 +12,40 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   const boostKeywords: string[] = [];
   const years = frame.tax_period.years;
   const isHistorical = frame.tax_period.is_historical;
+  const topic = frame.semantic?.topic;
+  // A transaction amount cannot establish annual thresholds. Supply the
+  // method/base distinction even when the semantic topic is broader.
+  if (topic === 'TAX_AMOUNT' && frame.semantic?.revenueContext === 'TRANSACTION') {
+    return { strategy: 'PINNED_REFS', semantic_topic: 'VAT_METHOD_CLASSIFICATION',
+      allowed_refs: ['16.104', '16.77', '16.31', '16.50'],
+      must_include_refs: ['16.104', '16.77'], filter_years: years,
+      filter_taxpayer_types: [frame.taxpayer_type.value], boost_keywords: [] };
+  }
+  const topicEvidence: Record<string, string[]> = {
+    REVENUE_COMPOSITION: ['16.32', '16.37', '16.72', '16.101', '16.102'],
+    REVENUE_TIMING: ['16.101', '16.30', '16.37', '16.72', '16.43', '16.102'],
+    REVENUE_OWNERSHIP: ['16.75', '16.72', '16.8', '16.7', '16.9', '16.35', '16.37', '16.41', '16.105'],
+    VAT_METHOD_CLASSIFICATION: ['16.104', '16.31', '16.50', '16.77', '16.16', '16.37'],
+    BUSINESS_EXPENSES: ['16.102', '16.19', '16.52', '16.57', '16.56'],
+    INVOICE_CORRECTION: ['16.103', '16.21', '16.18', '16.17', '16.42'],
+    INVOICE_REGISTRATION: ['16.41', '16.105', '16.38', '16.58', '16.79', '16.24'],
+    REVENUE_THRESHOLD: ['16.60', '16.72', '16.44', '16.23', '16.53', '16.41', '16.105', '16.38'],
+  };
+  if (topic && topicEvidence[topic]) {
+    const refs = [...topicEvidence[topic]];
+    if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
+    if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
+    return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
+      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' ? 3 : 2), filter_years: years,
+      filter_taxpayer_types: [frame.taxpayer_type.value], boost_keywords: [] };
+  }
 
   if (!isHistorical && (frame.tax_intent.primary.value === 'TAX_CALCULATION' ||
       frame.tax_intent.primary.value === 'RELIEF_REDUCTION')) {
     mustIncludeRefs.push('16.77');
+    if (frame.facts.revenue_vnd && frame.facts.revenue_vnd > 1_000_000_000 && frame.facts.revenue_vnd <= 3_000_000_000) {
+      mustIncludeRefs.push('16.56');
+    }
   }
 
   // 1. Ghim các ref bắt buộc theo quy định thời kỳ

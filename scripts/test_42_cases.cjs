@@ -43,6 +43,7 @@ const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retrie
   './answerScope': scope,
   './taxEngine': taxEngine,
   './utils/text': textUtils,
+  './decision/factExtractor': loadModule('worker/src/decision/factExtractor.ts'),
 });
 
 const resultsReport = [];

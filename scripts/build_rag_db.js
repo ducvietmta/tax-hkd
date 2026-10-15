@@ -28,6 +28,8 @@ async function main() {
     }
   }
 
+  const supplementsPath = path.resolve('rag_data/semantic-topic-supplements.json');
+  if (fs.existsSync(supplementsPath)) chunks.push(...JSON.parse(fs.readFileSync(supplementsPath, 'utf8')));
   console.log(`✅ Đã đọc thành công ${chunks.length} chunks.`);
   console.log('📊 Thống kê Tier:', tierCounts);
 

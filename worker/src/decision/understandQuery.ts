@@ -39,7 +39,7 @@ export function understandQuery(
 
   // 2. Phân loại taxpayer_type (Lớp S)
   let taxpayerType: TaxpayerType = classification?.taxpayer ?? 'UNKNOWN';
-  let taxpayerConfidence = classification ? (taxpayerType === 'UNKNOWN' ? 0 : 0.8) : 0.5;
+  let taxpayerConfidence = classification ? (classification.confidence?.taxpayer ?? (taxpayerType === 'UNKNOWN' ? 0 : 0.8)) : 0.5;
   let taxpayerSource: Provenance<TaxpayerType>['source'] = classification ? 'llm' : 'default';
   let taxpayerSpan: string | undefined;
 
@@ -106,7 +106,7 @@ export function understandQuery(
 
   // 6. Phân loại loại thu nhập (Income Types)
   const incomeTypes: Array<Provenance<IncomeType>> = classification
-    ? classification.incomeTypes.map(value => ({ value, confidence: value === 'UNKNOWN' ? 0 : 0.8, source: 'llm' })) : [];
+    ? classification.incomeTypes.map(value => ({ value, confidence: classification.confidence?.income ?? (value === 'UNKNOWN' ? 0 : 0.8), source: 'llm' })) : [];
 
   if (!classification) {
   if (/\b(ban hang|ban le|hang hoa|tap hoa|phan phoi|thuong mai)\b/.test(positiveActivityText)) {
@@ -216,6 +216,7 @@ export function understandQuery(
 
   return {
     schema_version: '1.0',
+    ...(classification ? { semantic: { topic: classification.topic, revenueContext: classification.revenueContext } } : {}),
     tax_period: taxPeriod,
     taxpayer_type: {
       value: taxpayerType,
@@ -240,7 +241,7 @@ export function understandQuery(
     tax_intent: {
       primary: {
         value: primaryIntent,
-        confidence: 0.9,
+        confidence: classification?.confidence?.intent ?? 0.9,
         source: classification ? 'llm' : 'user_text',
       },
       secondary: secondaryIntents,

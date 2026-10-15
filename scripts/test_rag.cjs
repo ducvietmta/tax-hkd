@@ -25,10 +25,12 @@ const conversation = loadModule('worker/src/conversation.ts');
 const textUtils = loadModule('worker/src/utils/text.ts');
 const scope = loadModule('worker/src/answerScope.ts', { './conversation': conversation, './utils/text': textUtils });
 const taxEngine = loadModule('worker/src/taxEngine.ts');
+const factExtractor = loadModule('worker/src/decision/factExtractor.ts', { '../utils/text': textUtils });
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
   './answerScope': scope,
   './taxEngine': taxEngine,
+  './decision/factExtractor': factExtractor,
   './utils/text': textUtils,
 });
 
@@ -52,8 +54,9 @@ const historicalQuery = 'Thuế năm 2021 cho hộ khoán kinh doanh 9 tháng do
 const historicalCitations = buildContext(resultsFor(historicalQuery).results, historicalQuery).citations;
 assert.ok(historicalCitations.every((citation) => !/\/202[2-9]\b/.test(citation)));
 assert.doesNotMatch(analyzeAmounts('doanh thu 800 triệu năm 2021'), /miễn thuế|phải nộp/i);
-assert.match(analyzeAmounts('doanh thu 1,5 tỷ'), /1\.5 tỷ đồng/);
-assert.match(analyzeAmounts('doanh thu 1.5 tỷ'), /1\.5 tỷ đồng/);
+assert.match(analyzeAmounts('doanh thu 1,5 tỷ'), /1\.500\.000\.000 đồng/);
+assert.match(analyzeAmounts('doanh thu 1.5 tỷ'), /1\.500\.000\.000 đồng/);
+assert.match(analyzeAmounts('doanh thu 3 tỷ + 1 đồng'), /3\.000\.000\.001 đồng/);
 for (const query of [
   'Doanh thu 800 triệu bán Shopee có phải nộp thuế không?',
   'Doanh thu 1.5 tỷ bán hàng online tính thuế thế nào?',

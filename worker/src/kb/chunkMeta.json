@@ -862,5 +862,50 @@
     "legal_status": "VERIFIED",
     "applies_from_year": 2025,
     "applies_to_year": null
+  },
+  "16.101": {
+    "id": "KB/semantic-topic-supplements#revenue-timing",
+    "ref_id": "16.101",
+    "section": "16.101. Doanh thu và kỳ ghi nhận — Điều 5 Nghị định 68/2026/NĐ-CP",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.102": {
+    "id": "KB/semantic-topic-supplements#business-expenses",
+    "ref_id": "16.102",
+    "section": "16.102. Điều kiện và loại trừ chi phí — Điều 6 Nghị định 68/2026/NĐ-CP",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.103": {
+    "id": "KB/semantic-topic-supplements#invoice-correction",
+    "ref_id": "16.103",
+    "section": "16.103. Phân loại lỗi hóa đơn — Điều 10 Thông tư 91/2026/TT-BTC từ 01/07/2026",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.104": {
+    "id": "KB/semantic-topic-supplements#vat-method-and-components",
+    "ref_id": "16.104",
+    "section": "16.104. Phương pháp GTGT và cấu phần hợp đồng — Điều 5, Điều 12 Luật 48/2024/QH15",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.105": {
+    "id": "KB/semantic-topic-supplements#invoice-application-conditions",
+    "ref_id": "16.105",
+    "section": "16.105. Điều kiện hồ sơ áp dụng ngưỡng và hạn HĐĐT — khoản 5 Điều 8 NĐ68 sửa bởi khoản 2 Điều 1 NĐ141",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
   }
 }

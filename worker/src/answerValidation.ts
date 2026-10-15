@@ -1,4 +1,5 @@
 import type { AnswerScope } from './answerScope';
+import type { BusinessClassification } from './decision/quyetProvider';
 
 const fold = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
 const EINVOICE_CITATION = 'Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)';
@@ -11,12 +12,14 @@ export function requestedTaxFocus(question: string): 'vat' | 'pit' | 'both' | 'u
 }
 
 /** Compare the answer against every material intent explicitly present in the question. */
-export function missingAnswerIntents(question: string, answer: string): string[] {
+export function missingAnswerIntents(question: string, answer: string, semantic?: BusinessClassification): string[] {
   const q = fold(question);
   const a = fold(answer);
   const missing: string[] = [];
   const focus = requestedTaxFocus(question);
-  if ((focus === 'vat' || focus === 'both') && /giam|\b(?:nq\s*204|204\/2025)\b/.test(q) &&
+  const asksRelief = semantic ? semantic.primaryIntent === 'RELIEF_REDUCTION' || semantic.secondaryIntents.includes('RELIEF_REDUCTION')
+    : /giam|\b(?:nq\s*204|204\/2025)\b/.test(q);
+  if ((focus === 'vat' || focus === 'both') && asksRelief &&
       (!/gtgt/.test(a) || !/204|174|20\s*%|0[,.]8\s*%|4\s*%|giam\s+gtgt/.test(a))) missing.push('vat_relief');
   if ((focus === 'pit' || focus === 'both' || /thu nhap tinh thue/.test(q)) && !/tncn|thu nhap ca nhan/.test(a)) missing.push('pit');
   if (/tiktok|nen tang|\bsan\b/.test(q) && /\btax\b|giu lai|khau tru|nop thay|doi tru/.test(q) &&
@@ -64,14 +67,14 @@ export function validateLegalCitations(question: string, answer: string, citatio
     /hoa don dien tu|hddt/.test(q) && /1\s*ty|1[.]000[.]000[.]000/.test(q + ' ' + a) &&
     /30\s*ngay/.test(a);
   if (!invoiceRule) return { answer, citations };
-  const wrongArticle = /(?:khoan\s*\d+\s*)?dieu\s*9[\s,.:;–—-]*nghi\s*dinh\s*141\/2026/.test(a);
-  const hasCorrect = /khoan\s*2\s*dieu\s*1\s*nghi\s*dinh\s*141\/2026/.test(a) &&
+  const wrongArticle = /(?:khoan\s*\d+\s*)?dieu\s*9[\s,.:;–—-]*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(a);
+  const hasCorrect = /khoan\s*2\s*dieu\s*1\s*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(a) &&
     /khoan\s*5\s*dieu\s*8\s*nghi\s*dinh\s*68\/2026/.test(a);
   let corrected = answer;
-  if (wrongArticle) corrected = corrected.replace(/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*141\/2026\/NĐ-CP/gi,
+  if (wrongArticle) corrected = corrected.replace(/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*(?:số\s*)?141\/2026\/NĐ-CP/gi,
     hasCorrect ? '' : EINVOICE_CITATION);
   if (!hasCorrect && !wrongArticle) corrected += `\n\nCăn cứ trực tiếp cho thời hạn 30 ngày: ${EINVOICE_CITATION}.`;
-  const cleanCitations = citations.filter(c => !/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*141\/2026\/NĐ-CP/i.test(c));
+  const cleanCitations = citations.filter(c => !/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*(?:số\s*)?141\/2026\/NĐ-CP/i.test(c));
   if (!cleanCitations.includes(EINVOICE_CITATION)) cleanCitations.push(EINVOICE_CITATION);
   return { answer: corrected, citations: cleanCitations };
 }

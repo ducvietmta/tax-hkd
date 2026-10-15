@@ -69,16 +69,14 @@ global.caches = { default: { match: async () => undefined, put: async () => {} }
 global.fetch = async (_url, init) => {
   const input = JSON.parse(init.body);
   if (String(_url).includes('mkp-api.fptcloud.com')) {
-    if (input.max_tokens === 64) {
-      const q = JSON.parse(input.messages.at(-1).content.match(/(\{"history":[^\n]+\})\nChỉ trả/)[1]).question;
-      const fixture = load('worker/src/decision/understandQuery.ts').understandQuery(q, { years: [2026], periodSource: 'current_message' });
-      const registry = load('worker/src/decision/labels.ts');
-      const field = input.messages[0].content.split('\n')[0];
-      const labels = field.endsWith('TAXPAYER') ? registry.TAXPAYER_TYPES : field.endsWith('INTENT') ? registry.TAX_INTENTS.filter(x => x !== 'OUT_OF_SCOPE') : registry.INCOME_TYPES;
-      const selected = field.endsWith('TAXPAYER') ? [fixture.taxpayer_type.value] : field.endsWith('INTENT') ? [fixture.tax_intent.primary.value, ...fixture.tax_intent.secondary] : fixture.income_type.map(x => x.value);
-      return Response.json({ choices: [{ message: { content: selected.map(x => String.fromCharCode(65 + labels.indexOf(x))).join(',') } }] });
-    }
-    return Response.json({ choices: [{ message: { content: scopeLabel } }] });
+    assert.equal(String(_url), 'https://mkp-api.fptcloud.com/v1/systemone');
+    if (input.questions.scope) return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel));
+    const q = input.state.question;
+    const fixture = load('worker/src/decision/understandQuery.ts').understandQuery(q, { years: [2026], periodSource: 'current_message' });
+    return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel, {
+      taxpayer: fixture.taxpayer_type.value, primaryIntent: fixture.tax_intent.primary.value,
+      secondaryIntents: fixture.tax_intent.secondary, incomeTypes: fixture.income_type.map(x => x.value),
+    }));
   }
   assert.equal(input.stream, false, 'Web SSE and MCP must send the same non-stream model request');
   const call = ++modelCalls;

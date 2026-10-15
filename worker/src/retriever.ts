@@ -8,7 +8,7 @@
  */
 import { CANONICAL_CHUNKS, QUERY_ROUTES, RagChunk, matchRoute } from './ragEngine';
 import { resolveAnswerScope, type AnswerScope } from './answerScope';
-import { extractTaxFactsFromQuery, calculateTax } from './taxEngine';
+import { extractAllAmounts } from './decision/factExtractor';
 import { foldText as fold } from './utils/text';
 
 const STOP = new Set(
@@ -103,7 +103,7 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
   const idx = INDEX!;
   const qTerms = termsOf(expandQuery(`${query} ${scope.years.join(' ')}`));
   const route = matchRoute(`${query} ${scope.years.join(' ')}`);
-  const routeRefs = new Set(route?.refs || []);
+  const routeRefs = new Set(plan?.semantic_topic ? [] : route?.refs || []);
   // A compound question can explicitly name more than the highest-priority route.
   // Preserve the primary source for each named policy using the existing route data.
   const namedPolicies = new Set([...fold(query).matchAll(/\b(?:nq|nghi quyet)\s*(\d+)\b/g)].map(m => `NQ${m[1]}`));
@@ -186,8 +186,10 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
         pinned.push({ chunk: evidence.chunk, score: selected[0]?.score || 0, viaRoute: false });
       }
     }
-    selected = [...pinned, ...selected.filter(item => !pinned.some(p => p.chunk.id === item.chunk.id))].slice(0, limit);
-    return { results: withNamedPolicyEvidence(selected), routeId: route?.id || null, usedFallback };
+    selected = [...pinned, ...selected.filter(item => !pinned.some(p => p.chunk.id === item.chunk.id))];
+    if (plan.allowed_refs) selected = selected.filter(item => plan.allowed_refs!.includes(item.chunk.ref_id || ''));
+    selected = selected.slice(0, limit);
+    return { results: withNamedPolicyEvidence(selected), routeId: plan.semantic_topic || route?.id || null, usedFallback };
   }
   // Điểm cao nhất hiện tại — dùng để gắn cho chunk chèn tay (ưu tiên lên đầu).
   const topScore = selected[0]?.score || 0;
@@ -409,7 +411,11 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
   for (const r of results) {
     const per = Math.max(1200, Math.floor(totalBudget / results.length));
     // Dọn sạch tiêu đề thô 16.xx khỏi snippet để LLM không bị dính vào câu trả lời
-    const rawSnippet = snippet(r.chunk, `${query} ${scope.years.join(' ')}`, per);
+    // Curated conditional paragraphs are an indivisible rule plus its exceptions.
+    // The line selector would otherwise drop a whole one-line paragraph when it
+    // exceeds the per-document allowance, silently giving the model no evidence.
+    const curatedParagraph = r.chunk.file === 'KB/semantic-topic-supplements' && r.chunk.text.length <= 4000;
+    const rawSnippet = curatedParagraph ? r.chunk.text : snippet(r.chunk, `${query} ${scope.years.join(' ')}`, per);
     const cleanedSnippet = rawSnippet
       .replace(/^##?\s*16\.\d+.*?\n/gim, '')
       .replace(/^##?\s*\d+\.\d+.*?\n/gim, '')
@@ -445,21 +451,8 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
  * đồng thời chạy Deterministic Tax Engine để đưa kết quả tính toán chính xác vào prompt.
  */
 export function analyzeAmounts(query: string): string {
-  const f = query.toLowerCase().normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd');
-  const re = /(\d+(?:[.,]\d+)?)\s*(nghin ty|ty|trieu|tr)\b/g;
-  const facts: string[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(f))) {
-    const n = parseFloat(m[1].replace(',', '.'));
-    if (!isFinite(n)) continue;
-    const unit = m[2];
-    const vnd = unit === 'nghin ty' ? n * 1e12 : unit === 'ty' ? n * 1e9 : n * 1e6;
-    const ty = vnd / 1e9;
-    const fmt = ty >= 1 ? `${+ty.toFixed(3)} tỷ đồng` : `${Math.round(vnd / 1e6)} triệu đồng`;
-    facts.push(`- Số "${m[0]}" = ${fmt}.`);
-  }
+  const facts = extractAllAmounts(query).map(amount =>
+    `- Số "${amount.raw}" = ${amount.vnd.toLocaleString('vi-VN')} đồng (giữ chính xác đến 1 đồng).`);
   return facts.length
     ? `QUY ĐỔI ĐƠN VỊ (chưa xác định kỳ tính thuế hoặc tính chất doanh thu):\n${facts.join('\n')}\nChỉ kết luận nghĩa vụ thuế sau khi xác định năm/kỳ, loại thu nhập và căn cứ phù hợp.\n`
     : '';
