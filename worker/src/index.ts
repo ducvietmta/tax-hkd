@@ -1196,15 +1196,15 @@ ${ragContextText}`;
           if (museKey) {
             // Chỉ dùng muse-spark-1.3-contributor, lần 3 mới đổi sang muse-spark-1.3, tuyệt đối không dùng bản thấp hơn
             for (let attempt = 1; attempt <= 3 && !aiText; attempt++) {
+              const museModel = attempt <= 2 ? 'muse-spark-1.3-contributor' : 'muse-spark-1.3';
               try {
                 if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
-                const museModel = attempt <= 2 ? 'muse-spark-1.3-contributor' : 'muse-spark-1.3';
                 const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel);
                 const museRes = await fetch('https://api.meta.ai/v1/responses', {
                   method: 'POST',
                   headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
                   body: JSON.stringify(modelRequest),
-                  signal: AbortSignal.timeout(45000),
+                  signal: AbortSignal.timeout(30000),
                 });
                 if (museRes.ok) {
                   const museData: any = await museRes.json();
@@ -1214,16 +1214,16 @@ ${ragContextText}`;
                     aiText = outText;
                     source = `Muse Spark 1.3 (Meta AI) + ${source}`;
                   } else {
-                    console.warn('[MODEL_EMPTY]', JSON.stringify({ model: modelRequest.model, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+                    console.warn('[MODEL_EMPTY]', JSON.stringify({ model: museModel, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
                   }
                   break;
                 }
                 const body = (await museRes.text()).slice(0, 300);
-                console.warn('[MODEL_HTTP_ERROR]', JSON.stringify({ model: modelRequest.model, status: museRes.status, body, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+                console.warn('[MODEL_HTTP_ERROR]', JSON.stringify({ model: museModel, status: museRes.status, body, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
                 // Transient errors (429 rate limit, 404 node-routing glitch, or 5xx server errors) will be retried on attempt 2
                 if (museRes.status !== 429 && museRes.status !== 404 && museRes.status < 500) break;
               } catch (errMuse: any) {
-                console.error('[MODEL_REQUEST_ERROR]', JSON.stringify({ model: modelRequest.model, error: errMuse?.name || 'Error', detail: errMuse?.message, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+                console.error('[MODEL_REQUEST_ERROR]', JSON.stringify({ model: museModel, error: errMuse?.name || 'Error', detail: errMuse?.message, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
               }
             }
           } else {
