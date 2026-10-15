@@ -23,7 +23,7 @@ import { answerVerifiedBusinessTax } from './businessTaxAnswer';
 import { answerPriorityTax } from './priorityTaxAnswer';
 import { missingAnswerIntents, validateLegalCitations, canUseVerifiedAnswer } from './answerValidation';
 import { answerVerifiedReliefEligibility } from './reliefEligibilityAnswer';
-import { understandQuery, refineQueryWithL2 } from './decision/understandQuery';
+import { understandClassifiedQuery } from './decision/understandQuery';
 import { QuyetDecisionProvider } from './decision/quyetProvider';
 import { filterAndGateEvidence } from './decision/evidenceGate';
 import { evaluateDecisionFrame, evaluateMultiYear } from './rules/evaluator';
@@ -164,8 +164,14 @@ export default {
           if (!key) return jsonResponse({ success: false, error: 'FPT_AI_KEY missing' }, 200, corsHeaders);
           const provider = new QuyetDecisionProvider(key);
           const start = Date.now();
-          const res = await provider.classifyAll('Em bán hàng trên TikTok Shop doanh thu 1.5 tỷ nộp bao nhiêu?');
-          return jsonResponse({ success: true, duration: Date.now() - start, res }, 200, corsHeaders);
+          const fixtures: Record<string, string> = {
+            repair: 'Người bán gói dịch vụ sửa chữa có kèm phụ tùng miễn phí trên quảng cáo nhưng giá đã bao gồm phụ tùng. Tính nhóm nào?',
+            negated: 'Tôi là cá nhân kinh doanh sửa chữa máy vi tính, không bán lẻ tạp hóa. Năm 2026 doanh thu 1,5 tỷ, hỏi điều kiện giảm GTGT và thuế TNCN.',
+            mixed: 'Tôi làm affiliate có doanh thu hoa hồng TikTok 500 triệu và còn có lương ở công ty. Khoản tax 5 triệu giữ lại đã chắc là thuế nộp thay chưa, có được hoàn lại và có phải cộng lương không?',
+          };
+          const res = await provider.classifyBusiness(fixtures[url.searchParams.get('case') || '']
+            || 'Em bán hàng trên TikTok Shop doanh thu 1.5 tỷ nộp bao nhiêu?');
+          return jsonResponse({ success: !!res, duration: Date.now() - start, res, diagnostics: provider.businessDiagnostics }, 200, corsHeaders);
         } catch (e: any) {
           return jsonResponse({ success: false, error: e.message, stack: e.stack }, 200, corsHeaders);
         }
@@ -852,6 +858,17 @@ export default {
           return respondWithAnswer(outOfScopeResponse, 99);
         }
 
+        // Mandatory semantic preprocessing, independent of rules-engine enforcement mode.
+        const businessClassification = await new QuyetDecisionProvider(env.FPT_AI_KEY!)
+          .classifyBusiness(message, history);
+        console.log('[QUYET_BUSINESS]', JSON.stringify({ model: 'Quyet-1.0-Large',
+          available: !!businessClassification, labels: businessClassification }));
+        if (!businessClassification) {
+          return respondWithAnswer({ success: true,
+            response: 'Hệ thống tạm thời chưa phân loại được nội dung câu hỏi. Vui lòng thử lại sau ít phút.',
+            source: 'classification_unavailable', citations: [], legal_citations: [] }, 99);
+        }
+
         // --- KIỂM TRA LƯỢT HỎI TRONG CLOUDFLARE D1 (TẦNG WORKER) ---
         let userRecord: { id: string; phone: string; credits: number; role?: string } | null = null;
         if (!isInternal && env.DB && activePhone) {
@@ -947,7 +964,7 @@ export default {
         // Invalidate old answers when ruleset updates or relative periods expire
         const digest = await crypto.subtle.digest(
           'SHA-256',
-          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:1.7-semantic-scope|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:2-quyet-business|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
         );
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
@@ -980,14 +997,7 @@ export default {
         // Classify before retrieval so the frame controls the evidence path.
         const decisionMode = env.DECISION_MODE || 'shadow';
         const applyDecision = decisionMode === 'enforce';
-        let decisionFrame = decisionMode !== 'off' ? understandQuery(message, answerScope, history) : null;
-        if (decisionFrame && env.FPT_AI_KEY && env.DECISION_L2 !== 'off') {
-          try {
-            decisionFrame = await refineQueryWithL2(decisionFrame, message, new QuyetDecisionProvider(env.FPT_AI_KEY));
-          } catch (e) {
-            console.error('[L2_REFINEMENT_ERR]', e);
-          }
-        }
+        const decisionFrame = understandClassifiedQuery(message, answerScope, history, businessClassification);
         const decisionPlan = decisionFrame ? buildRetrievalPlan(decisionFrame) : undefined;
         const retrievalPlan = applyDecision ? decisionPlan : undefined;
         const decisionEvaluation = decisionFrame?.facts.revenue_vnd && decisionFrame.tax_period.years.length === 1
@@ -1073,6 +1083,7 @@ export default {
           const systemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 ${applyDecision && structuredDecision ? `QUYẾT ĐỊNH CÓ CẤU TRÚC: ${JSON.stringify({ status: structuredDecision.decision_status, risk: structuredDecision.risk_level, tax_period: decisionFrame!.tax_period.years, taxpayer: decisionFrame!.taxpayer_type.value, income_types: decisionFrame!.income_type.map(item => item.value), facts: decisionFrame!.facts, missing_facts: decisionFrame!.missing_facts, must_cover: structuredDecision.must_cover_intents, allowed_claims: structuredDecision.allowed_claims })}\n${canUseDecisionCalculation && decisionEvaluation ? `KẾT QUẢ RULES ENGINE (${decisionEvaluation.status}): ${decisionEvaluation.explanation}. Không tự thay phương pháp hoặc tỷ lệ tính thuế.` : ''}` : ''}
 ${scopeInstructions(answerScope)}
+PHÂN LOẠI NGỮ NGHĨA TỪ QUYET: ${JSON.stringify(businessClassification)}. Dùng để hiểu chủ thể, mục đích và các nguồn thu; đây không phải kết luận pháp lý. Giữ UNKNOWN khi thiếu dữ kiện, không tự đổi ngành hoặc bỏ các mục đích phụ.
 ${intentInstructions(message)}
 ${usedFallback ? 'ĐỘ TIN CẬY TRÍCH LỤC THẤP: câu hỏi diễn đạt khác thường nên trích lục có thể chưa sát — chỉ kết luận khi có căn cứ rõ ràng trong trích lục, nếu không chắc hãy hỏi lại thay vì suy diễn.\n' : ''}\n${pendingNotice}
 QUY TRÌNH SUY LUẬN (bắt buộc — thực hiện ngầm trước khi viết, không trình bày các bước này trong câu trả lời):

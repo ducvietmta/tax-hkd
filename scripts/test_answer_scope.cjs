@@ -92,9 +92,25 @@ async function testWorkerPaths() {
   const captured = [];
   let scopeLabel = 'IN_SCOPE';
   const scopeRequests = [];
+  let businessReply;
+  const businessRequests = [];
   global.fetch = async (_url, init) => {
     const input = JSON.parse(init.body);
     if (String(_url).includes('mkp-api.fptcloud.com')) {
+      if (input.max_tokens === 64) {
+        businessRequests.push(input);
+        const q = JSON.parse(input.messages.at(-1).content.match(/(\{"history":[^\n]+\})\nChỉ trả/)[1]).question;
+        const fixture = load('worker/src/decision/understandQuery.ts').understandQuery(q, scopeFor(q));
+        const value = businessReply ? (businessReply === 'IN_SCOPE' ? null : JSON.parse(businessReply)) : {
+          taxpayer: fixture.taxpayer_type.value, primaryIntent: fixture.tax_intent.primary.value,
+          secondaryIntents: fixture.tax_intent.secondary, incomeTypes: fixture.income_type.map(x => x.value),
+        };
+        const registry = load('worker/src/decision/labels.ts');
+        const field = input.messages[0].content.split('\n')[0];
+        const labels = field.endsWith('TAXPAYER') ? registry.TAXPAYER_TYPES : field.endsWith('INTENT') ? registry.TAX_INTENTS.filter(x => x !== 'OUT_OF_SCOPE') : registry.INCOME_TYPES;
+        const selected = value ? (field.endsWith('TAXPAYER') ? [value.taxpayer] : field.endsWith('INTENT') ? [value.primaryIntent, ...value.secondaryIntents] : value.incomeTypes) : [];
+        return Response.json({ choices: [{ message: { content: value ? selected.map(x => String.fromCharCode(65 + labels.indexOf(x))).join(',') : 'invalid' } }] });
+      }
       scopeRequests.push(input);
       if (scopeLabel === 'HTTP_ERROR') return new Response('', { status: 503 });
       if (scopeLabel === 'TIMEOUT') throw new DOMException('timeout', 'AbortError');
@@ -151,6 +167,18 @@ async function testWorkerPaths() {
     const missingKey = await (await worker.fetch(request(false, repairBundle), {}, ctx)).json();
     assert.equal(missingKey.source, 'scope_unavailable');
     scopeLabel = 'IN_SCOPE';
+    const beforeBusinessFailure = captured.length;
+    businessReply = 'IN_SCOPE';
+    const invalidBusiness = await (await worker.fetch(request(false, repairBundle), semanticEnv, ctx)).json();
+    assert.equal(invalidBusiness.source, 'classification_unavailable');
+    assert.equal(captured.length, beforeBusinessFailure, 'Invalid business labels must not fall back to keywords or generation');
+    businessReply = JSON.stringify({ taxpayer: 'UNKNOWN', primaryIntent: 'OTHER_TAX', secondaryIntents: [], incomeTypes: ['UNKNOWN'] });
+    const unknownBusiness = await (await worker.fetch(request(false, repairBundle), semanticEnv, ctx)).json();
+    assert.equal(unknownBusiness.retrieval.decision.taxpayer, 'UNKNOWN');
+    assert.equal(unknownBusiness.retrieval.decision.income, 'UNKNOWN');
+    assert.equal(unknownBusiness.retrieval.decision.intent, 'OTHER_TAX');
+    businessReply = undefined;
+    assert.ok(businessRequests.length > 0);
     const followupHistory = [user('Tôi đang hỏi phân loại doanh thu để tính thuế.')];
     assert.equal(await resolveTaxRelevance('Vậy gói này thuộc nhóm nào?', followupHistory, 'fixture'), 'IN_SCOPE');
     assert.deepEqual(JSON.parse(scopeRequests.at(-1).messages.at(-1).content).history, followupHistory);

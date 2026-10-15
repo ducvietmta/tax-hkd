@@ -13,11 +13,14 @@ import type {
 } from './types';
 import type { TaxpayerType, Residency, IncomeType, TaxIntent, TaxCategory, ConversationAct, JurisdictionType } from './labels';
 import { extractTaxFacts, extractResidency, fold } from './factExtractor';
+import type { BusinessClassification } from './quyetProvider';
 
+/** Legacy baseline for offline equivalence tests. Production uses understandClassifiedQuery. */
 export function understandQuery(
   query: string,
   scope: AnswerScope,
-  history?: Array<{ role: string; content: string }>
+  history?: Array<{ role: string; content: string }>,
+  classification?: BusinessClassification
 ): TaxDecisionFrame {
   const startTime = Date.now();
   const q = fold(query);
@@ -35,11 +38,13 @@ export function understandQuery(
   };
 
   // 2. Phân loại taxpayer_type (Lớp S)
-  let taxpayerType: TaxpayerType = 'UNKNOWN';
-  let taxpayerConfidence = 0.5;
-  let taxpayerSource: Provenance<TaxpayerType>['source'] = 'default';
+  let taxpayerType: TaxpayerType = classification?.taxpayer ?? 'UNKNOWN';
+  let taxpayerConfidence = classification ? (taxpayerType === 'UNKNOWN' ? 0 : 0.8) : 0.5;
+  let taxpayerSource: Provenance<TaxpayerType>['source'] = classification ? 'llm' : 'default';
   let taxpayerSpan: string | undefined;
 
+  // Legacy synchronous fixtures only. Production always supplies Quyet labels.
+  if (!classification) {
   if (/\b(ho kinh doanh|hkd|tiem|quan an|quan pho|cua hang|tap hoa)\b/.test(positiveActivityText)) {
     taxpayerType = 'HOUSEHOLD_BUSINESS';
     taxpayerConfidence = 0.9;
@@ -69,6 +74,7 @@ export function understandQuery(
     taxpayerSource = 'default';
   }
 
+  }
   // 3. Tình trạng cư trú
   const { residency: resVal, isResident } = extractResidency(query);
   const residency: Provenance<Residency> = {
@@ -99,8 +105,10 @@ export function understandQuery(
   }
 
   // 6. Phân loại loại thu nhập (Income Types)
-  const incomeTypes: Array<Provenance<IncomeType>> = [];
+  const incomeTypes: Array<Provenance<IncomeType>> = classification
+    ? classification.incomeTypes.map(value => ({ value, confidence: value === 'UNKNOWN' ? 0 : 0.8, source: 'llm' })) : [];
 
+  if (!classification) {
   if (/\b(ban hang|ban le|hang hoa|tap hoa|phan phoi|thuong mai)\b/.test(positiveActivityText)) {
     incomeTypes.push({ value: 'GOODS_SALES', confidence: 0.95, source: 'user_text' });
   }
@@ -129,10 +137,12 @@ export function understandQuery(
     incomeTypes.push({ value: 'UNKNOWN', confidence: 0.5, source: 'default' });
   }
 
+  }
   // 7. Mục đích câu hỏi thuế (Tax Intent)
-  let primaryIntent: TaxIntent = 'TAX_CALCULATION';
-  const secondaryIntents: TaxIntent[] = [];
+  let primaryIntent: TaxIntent = classification?.primaryIntent ?? 'TAX_CALCULATION';
+  const secondaryIntents: TaxIntent[] = classification ? [...classification.secondaryIntents] : [];
 
+  if (!classification) {
   if (/\b(ma 888|mst 888|dinh danh|14 so|ma so thue 888)\b/.test(q)) {
     primaryIntent = 'TAX_ID_888';
     if (/\b(dang ky|thu tuc)\b/.test(q)) secondaryIntents.push('REGISTRATION');
@@ -170,6 +180,7 @@ export function understandQuery(
     secondaryIntents.push('PLATFORM_WITHHOLDING');
   }
 
+  }
   // 8. Thuế suất / Danh mục thuế (Tax Categories)
   const taxCategories: TaxCategory[] = [];
   if (primaryIntent === 'LICENSE_FEE') {
@@ -181,7 +192,7 @@ export function understandQuery(
   }
 
   // 9. Trích xuất dữ kiện số (Facts)
-  const facts = extractTaxFacts(query, scope.years[0] || 2026);
+  const facts = extractTaxFacts(query, scope.years[0] || 2026, classification?.incomeTypes);
 
   // 10. Missing facts & Cảnh báo dữ kiện thiếu
   const missingFacts: MissingFact[] = [];
@@ -230,7 +241,7 @@ export function understandQuery(
       primary: {
         value: primaryIntent,
         confidence: 0.9,
-        source: 'user_text',
+        source: classification ? 'llm' : 'user_text',
       },
       secondary: secondaryIntents,
     },
@@ -238,13 +249,22 @@ export function understandQuery(
     facts,
     missing_facts: missingFacts,
     meta: {
-      layer: 'L1',
+      layer: classification ? 'L2' : 'L1',
       confidence,
       degraded: false,
-      l2_used: false,
+      l2_used: !!classification,
       latency_ms: latencyMs,
     },
   };
+}
+
+/** Mandatory semantic labels in the production entry point; never fall back to keyword labels. */
+export function understandClassifiedQuery(
+  query: string, scope: AnswerScope, history: Array<{ role: string; content: string }>,
+  classification: BusinessClassification,
+): TaxDecisionFrame {
+  if (!classification) throw new Error('Quyet business classification is required');
+  return understandQuery(query, scope, history, classification);
 }
 
 /**

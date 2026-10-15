@@ -113,7 +113,7 @@ export function extractResidency(text: string): { residency: Residency; isReside
 /**
  * Trích xuất cấu trúc dữ kiện số TaxFactsFrame
  */
-export function extractTaxFacts(text: string, defaultYear = 2026): TaxFactsFrame {
+export function extractTaxFacts(text: string, defaultYear = 2026, semanticIncomeTypes?: readonly string[]): TaxFactsFrame {
   const q = fold(text);
   const { isResident } = extractResidency(text);
 
@@ -167,8 +167,10 @@ export function extractTaxFacts(text: string, defaultYear = 2026): TaxFactsFrame
 
   // 5. Kiểm tra nhiều ngành kết hợp (ví dụ: bán hàng 800tr + dịch vụ 350tr)
   const positiveActivityText = q.replace(/\b(?:khong|chua|chang)\s+(?:ban\s+le|ban\s+hang|kinh\s+doanh)\b(?:\s+(?:tap\s+hoa|hang\s+hoa))?/g, ' ');
-  const hasGoodsKeyword = /\b(ban hang|ban le|shopee|hang hoa|thuong mai|tap hoa)\b/.test(positiveActivityText);
-  const hasServiceKeyword = /\b(dich vu|affiliate|tiktok|koc|hoa hong|sua chua)\b/.test(q);
+  const hasGoodsKeyword = semanticIncomeTypes ? semanticIncomeTypes.some(x => ['GOODS_SALES', 'MARKETPLACE_SALES'].includes(x))
+    : /\b(ban hang|ban le|shopee|hang hoa|thuong mai|tap hoa)\b/.test(positiveActivityText);
+  const hasServiceKeyword = semanticIncomeTypes ? semanticIncomeTypes.some(x => ['SERVICE', 'FREELANCE_SERVICE', 'AFFILIATE_COMMISSION', 'CONTENT_ADS', 'FOOD_SERVICE'].includes(x))
+    : /\b(dich vu|affiliate|tiktok|koc|hoa hong|sua chua)\b/.test(q);
   const allAmounts = extractAllAmounts(text);
 
   if (hasGoodsKeyword && hasServiceKeyword && allAmounts.length >= 2) {
