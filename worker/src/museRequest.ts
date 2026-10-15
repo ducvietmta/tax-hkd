@@ -6,7 +6,7 @@ export function buildMuseRequest(
   history: ConversationTurn[],
   message: string,
   stream: boolean,
-  model = 'muse-spark-1.2-contributor',
+  model = 'muse-spark-1.3-contributor',
 ) {
   return {
     model,

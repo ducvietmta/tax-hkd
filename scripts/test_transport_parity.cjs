@@ -238,16 +238,13 @@ async function main() {
   reviewUnavailable = false;
   const testFetch=global.fetch;
   try {
-    let repairCalls=0, fallbackCalls=0;
+    let repairCalls=0;
     global.fetch=async()=>{repairCalls++;return new Response('',{status:503});};
     const repaired=await load('worker/src/decision/repairAnswer.ts').repairAnswer('Nguồn và yêu cầu sửa',[], 'Câu hỏi',{
-      MUSE_API_KEY:'fixture',AI:{run:async(_model,input)=>{fallbackCalls++;assert.equal(input.messages[0].content,'Nguồn và yêu cầu sửa');return {response:'Bản sửa thử nghiệm đầy đủ để kiểm tra.'};}},
+      MUSE_API_KEY:'fixture',AI:{run:async()=>{throw new Error('Should not call other models');}},
     });
-    assert.equal(repaired.provider,'Workers AI');
-    assert.equal(repairCalls,1);assert.equal(fallbackCalls,1);
-    assert.equal(await load('worker/src/decision/repairAnswer.ts').repairAnswer('Nguồn',[],'Câu hỏi',{
-      AI:{run:async()=>{throw new Error('provider unavailable');}},
-    }),null,'Exhausted recovery must not manufacture a successful answer');
+    assert.equal(repaired,null,'Must not fall back to other models when Muse fails');
+    assert.equal(repairCalls,1);
   } finally {global.fetch=testFetch;}
 
   await Promise.all(pending);

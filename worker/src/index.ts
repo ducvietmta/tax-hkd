@@ -145,13 +145,14 @@ export default {
           const testMessage = testBody.message || 'Chào bạn, 1 + 1 bằng mấy?';
           let testData: any = null;
           let lastErr: any = null;
-          for (let attempt = 1; attempt <= 4 && !testData; attempt++) {
+          for (let attempt = 1; attempt <= 3 && !testData; attempt++) {
             if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
+            const museModel = attempt <= 2 ? 'muse-spark-1.3-contributor' : 'muse-spark-1.3';
             try {
               const testRes = await fetch('https://api.meta.ai/v1/responses', {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify(buildMuseRequest(testInstructions, [], testMessage, false, testBody.model || 'muse-spark-1.3-contributor')),
+                body: JSON.stringify(buildMuseRequest(testInstructions, [], testMessage, false, testBody.model || museModel)),
                 signal: AbortSignal.timeout(30000),
               });
               if (testRes.ok) {
@@ -1193,11 +1194,11 @@ ${ragContextText}`;
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
           if (museKey) {
-            // Gọi Muse Spark (Meta AI) với các phiên bản ổn định
-            for (let attempt = 1; attempt <= 4 && !aiText; attempt++) {
+            // Chỉ dùng muse-spark-1.3-contributor, lần 3 mới đổi sang muse-spark-1.3, tuyệt đối không dùng bản thấp hơn
+            for (let attempt = 1; attempt <= 3 && !aiText; attempt++) {
               try {
                 if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
-                const museModel = attempt <= 2 ? 'muse-spark-1.2-contributor' : (attempt === 3 ? 'muse-spark-1.1' : 'muse-spark-1.3-contributor');
+                const museModel = attempt <= 2 ? 'muse-spark-1.3-contributor' : 'muse-spark-1.3';
                 const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel);
                 const museRes = await fetch('https://api.meta.ai/v1/responses', {
                   method: 'POST',
