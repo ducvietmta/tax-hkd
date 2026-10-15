@@ -17,6 +17,19 @@ export function missingAnswerIntents(question: string, answer: string): string[]
 
 /** Validate a known rule's document, article, clause, content and effective tax period. */
 export function validateLegalCitations(question: string, answer: string, citations: string[], scope: AnswerScope) {
+  // Retrieval candidates are not automatically sources supporting the final answer.
+  // Keep only documents actually cited in the prose; do not invent missing citations.
+  const documentIds = (text: string) => fold(text).match(/\b\d+\/(?:19|20)\d{2}(?:\/[a-z0-9-]+)?/g) || [];
+  const citedIds = new Set(documentIds(answer));
+  citations = citations.filter(citation => {
+    const ids = documentIds(citation);
+    return ids.length ? ids.some(id => citedIds.has(id)) : fold(answer).includes(fold(citation));
+  });
+  const sourceSection = answer.split(/Căn cứ pháp lý\s*:/i).slice(1).join('\n');
+  for (const line of sourceSection.split('\n').map(s => s.trim()).filter(Boolean)) {
+    const ids = documentIds(line);
+    if (ids.length && !citations.some(c => documentIds(c).some(id => ids.includes(id)))) citations.push(line);
+  }
   const q = fold(question);
   const a = fold(answer);
   const invoiceRule = scope.years.every(y => y >= 2026) &&

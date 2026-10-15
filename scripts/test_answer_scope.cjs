@@ -103,8 +103,9 @@ async function testWorkerPaths() {
     method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Internal-Caller': 'mcp' }, body: JSON.stringify({ message, stream }),
   });
   try {
+    const providerQuestion = 'Hộ kinh doanh cần lưu chứng từ thanh toán thế nào?';
     for (const stream of [false, true]) {
-      const response = await worker.fetch(request(stream), { MUSE_API_KEY: 'test-fixture' }, ctx);
+      const response = await worker.fetch(request(stream, providerQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
       assert.equal(response.status, 200);
       const body = await response.text();
       if (stream) {
@@ -112,7 +113,7 @@ async function testWorkerPaths() {
         assert.match(body, /\[DONE\]/);
       }
       assert.match(captured[captured.length - 1].instructions, /hiểu là năm hiện tại/);
-      assert.equal(captured[captured.length - 1].input.slice(-1)[0].content[0].text, question);
+      assert.equal(captured[captured.length - 1].input.slice(-1)[0].content[0].text, providerQuestion);
     }
     const repairQuestion = 'Năm 2026 tôi sửa chữa doanh thu 1,5 tỷ, thuế TNCN sau giảm bao nhiêu?';
     const museCallsBeforeVerified = captured.length;
@@ -160,6 +161,7 @@ async function testWorkerPaths() {
     assert.ok(boundaryMcpAnswer.result.content[0].text.startsWith(boundaryWebAnswer.response), 'MCP must use the same 10 billion boundary answer as web');
     assert.equal(captured.length, museCallsBeforeBoundary, 'Verified 10 billion boundary must bypass model generation');
     const priorityCases = [
+      ['G021', question, /không mặc định hoàn toàn bộ/],
       ['T84', 'Năm 2026 bán tạp hóa doanh thu 1,5 tỷ, tỷ lệ GTGT 1%. Giả định hàng hóa đủ điều kiện giảm GTGT 20% theo Nghị quyết 204/2025, tính thuế GTGT bao nhiêu?', /12\.000\.000 đồng/],
       ['T86', 'Tôi là cá nhân cư trú năm 2026 có doanh thu 3.000.000.001 đồng, thu nhập tính thuế hợp lệ 400 triệu đồng. TNCN sau giảm 30% theo Nghị quyết 43 là bao nhiêu?', /47\.600\.000 đồng/],
       ['T91', 'Năm 2026 doanh thu hoa hồng TikTok 500 triệu, TikTok giữ lại dòng tax 5 triệu. Doanh thu là bao nhiêu và tax đó chắc là TNCN đã nộp thay không?', /chưa đủ/],
@@ -180,7 +182,7 @@ async function testWorkerPaths() {
     assert.equal(captured.length, beforePriority, 'All priority answers must be deterministic and shared across transports');
     const fallback = await worker.fetch(request(false), {}, ctx);
     assert.equal(fallback.status, 200);
-    assert.match((await fallback.json()).response, /0 đồng/);
+    assert.match((await fallback.json()).response, /không mặc định hoàn toàn bộ/);
     await Promise.all(pending);
     console.log('Worker integration checks passed: Muse stream, non-stream and provider-unavailable fallback share the same scope.');
   } finally {

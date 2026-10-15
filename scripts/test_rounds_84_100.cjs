@@ -23,6 +23,20 @@ const priority = load('worker/src/priorityTaxAnswer.ts', { './taxEngine': engine
 const validation = load('worker/src/answerValidation.ts');
 const now = new Date('2026-10-14T05:00:00Z');
 const answer = q => priority.answerPriorityTax(q, scope.resolveAnswerScope([], q, now))?.response;
+const refundQuestion = 'TikTok đã trừ 10% trên hoa hồng 30 triệu, tôi còn lương công ty. Có hoàn được không và có cộng lương?';
+const refundAnswer = answer(refundQuestion);
+assert.match(refundAnswer, /năm 2026/);
+assert.match(refundAnswer, /Không cộng tiền lương công ty vào doanh thu kinh doanh/);
+assert.match(refundAnswer, /chứng từ/);
+assert.match(refundAnswer, /không mặc định hoàn toàn bộ/);
+assert.doesNotMatch(refundAnswer, /5%|1,5 triệu|năm trước/);
+assert.equal(answer(refundQuestion.replace('TikTok', 'Năm 2025 TikTok')), undefined);
+const unrelatedSources = validation.validateLegalCitations('Xét giảm TNCN?', 'Căn cứ Nghị quyết 43/2026/QH16.',
+  ['Nghị quyết 204/2025/QH15', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'], scope.resolveAnswerScope([], 'Năm 2026', now));
+assert.deepEqual(unrelatedSources.citations, ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16']);
+const citedSource = validation.validateLegalCitations('Xét giảm TNCN?', 'Không đủ điều kiện.\n\nCăn cứ pháp lý:\nKhoản 1 Điều 1 Nghị quyết 43/2026/QH16',
+  ['Nghị quyết 204/2025/QH15'], scope.resolveAnswerScope([], 'Năm 2026', now));
+assert.deepEqual(citedSource.citations, ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16']);
 
 const t84 = answer('Năm 2026 bán tạp hóa doanh thu 1,5 tỷ, tỷ lệ GTGT 1%. Giả định hàng hóa đủ điều kiện giảm GTGT 20% theo Nghị quyết 204/2025, tính thuế GTGT bao nhiêu?');
 assert.match(t84, /0,8%/);
@@ -40,6 +54,10 @@ assert.match(t86, /47\.600\.000 đồng/);
 const g010 = answer('Doanh thu 3 tỷ 1 đồng, thu nhập tính thuế hợp lệ 400 triệu, cá nhân cư trú. Tính TNCN sau giảm NQ43.');
 assert.match(g010, /3\.000\.000\.001 đồng/);
 assert.match(g010, /47\.600\.000 đồng/);
+const overReliefCap = answer('Năm 2026 cá nhân cư trú doanh thu 10.000.000.001 đồng, thu nhập tính thuế 400 triệu. Thuế suất 17% và giảm NQ43 thế nào?');
+assert.match(overReliefCap, /không được giảm 30%/);
+assert.match(overReliefCap, /68\.000\.000 đồng/);
+assert.doesNotMatch(overReliefCap, /47\.600\.000 đồng/);
 assert.doesNotMatch(t86, /TNCN\s*=.*0,5%/);
 assert.equal(engine.formatRevenue(3_000_000_001), '3.000.000.001 đồng');
 assert.equal(engine.calculateTax({ taxYear: 2026, activityType: 'goods', grossRevenueVnd: 3_000_000_000 }).pitRate, 0.005);
