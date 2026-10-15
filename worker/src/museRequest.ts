@@ -6,9 +6,10 @@ export function buildMuseRequest(
   history: ConversationTurn[],
   message: string,
   stream: boolean,
+  model = 'muse-spark-1.2-contributor',
 ) {
   return {
-    model: 'muse-spark-1.3-contributor',
+    model,
     instructions,
     input: [
       ...history.map((turn) => ({

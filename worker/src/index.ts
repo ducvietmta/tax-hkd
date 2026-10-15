@@ -136,26 +136,38 @@ export default {
           if (!museKey) {
             return jsonResponse({ success: false, error: 'MUSE_API_KEY chưa được cấu hình.' }, 200, corsHeaders);
           }
+          if (url.searchParams.get('models')) {
+            const mRes = await fetch('https://api.meta.ai/v1/models', { headers: { Authorization: `Bearer ${museKey}` } });
+            return jsonResponse({ status: mRes.status, body: await mRes.text() }, 200, corsHeaders);
+          }
           const testBody: any = request.method === 'POST' ? await request.json().catch(() => ({})) : {};
           const testInstructions = testBody.instructions || 'Bạn là trợ lý AI.';
           const testMessage = testBody.message || 'Chào bạn, 1 + 1 bằng mấy?';
-          const testRes = await Promise.race([
-            fetch('https://api.meta.ai/v1/responses', {
-              method: 'POST',
-              headers: {
-                Authorization: `Bearer ${museKey}`,
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(buildMuseRequest(testInstructions, [], testMessage, false)),
-            }),
-            new Promise<Response>((_, rej) => setTimeout(() => rej(new Error('timeout')), 45000)),
-          ]);
-          if (!testRes.ok) {
-            const errBody = await testRes.text();
-            return jsonResponse({ success: false, status: testRes.status, error: errBody }, 200, corsHeaders);
+          let testData: any = null;
+          let lastErr: any = null;
+          for (let attempt = 1; attempt <= 4 && !testData; attempt++) {
+            if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
+            try {
+              const testRes = await fetch('https://api.meta.ai/v1/responses', {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(buildMuseRequest(testInstructions, [], testMessage, false, testBody.model || 'muse-spark-1.3-contributor')),
+                signal: AbortSignal.timeout(30000),
+              });
+              if (testRes.ok) {
+                testData = await testRes.json();
+                break;
+              }
+              lastErr = { status: testRes.status, body: (await testRes.text()).slice(0, 300) };
+              if (testRes.status !== 429 && testRes.status !== 404 && testRes.status < 500) break;
+            } catch (err: any) {
+              lastErr = { status: 500, body: err.message };
+            }
           }
-          const data = await testRes.json();
-          return jsonResponse({ success: true, model: 'Muse Spark 1.3 (Meta AI)', res: data }, 200, corsHeaders);
+          if (!testData) {
+            return jsonResponse({ success: false, status: lastErr?.status || 500, error: lastErr?.body || 'Connection error' }, 200, corsHeaders);
+          }
+          return jsonResponse({ success: true, model: 'Muse Spark 1.3 (Meta AI)', res: testData }, 200, corsHeaders);
         } catch (e: any) {
           return jsonResponse({ success: false, error: e.message }, 200, corsHeaders);
         }
@@ -1181,9 +1193,12 @@ ${ragContextText}`;
           // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
           const museKey = env.MUSE_API_KEY;
           if (museKey) {
-            const modelRequest = buildMuseRequest(systemPrompt, history, message, false);
-            for (let attempt = 1; attempt <= 2 && !aiText; attempt++) {
+            // Gọi Muse Spark (Meta AI) với các phiên bản ổn định
+            for (let attempt = 1; attempt <= 4 && !aiText; attempt++) {
               try {
+                if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
+                const museModel = attempt <= 2 ? 'muse-spark-1.2-contributor' : (attempt === 3 ? 'muse-spark-1.1' : 'muse-spark-1.3-contributor');
+                const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel);
                 const museRes = await fetch('https://api.meta.ai/v1/responses', {
                   method: 'POST',
                   headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
