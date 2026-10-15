@@ -836,11 +836,16 @@ export default {
         };
 
         // --- BƯỚC 0: KIỂM TRA PHẠM VI HỎI ĐÁP (MỤC 1) ---
-        if (await resolveTaxRelevance(message, history, env.FPT_AI_KEY) === 'OUT_OF_SCOPE') {
+        const taxRelevance = await resolveTaxRelevance(message, history, env.FPT_AI_KEY);
+        if (taxRelevance !== 'IN_SCOPE') {
           const outOfScopeResponse = {
             success: true,
-            response: 'Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng',
-            source: 'out_of_scope',
+            response: taxRelevance === 'OUT_OF_SCOPE' ? OUT_OF_SCOPE_RESPONSE
+              : taxRelevance === 'UNCERTAIN'
+                ? 'Bạn muốn hỏi vấn đề thuế nào trong tình huống này? Vui lòng nêu rõ để hệ thống tư vấn đúng trọng tâm.'
+                : 'Hệ thống tạm thời chưa kiểm tra được phạm vi câu hỏi. Vui lòng thử lại sau ít phút.',
+            source: taxRelevance === 'OUT_OF_SCOPE' ? 'out_of_scope'
+              : taxRelevance === 'UNCERTAIN' ? 'scope_clarification' : 'scope_unavailable',
             citations: [],
             legal_citations: [],
           };

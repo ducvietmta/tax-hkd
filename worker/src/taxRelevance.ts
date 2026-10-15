@@ -5,9 +5,9 @@ export async function resolveTaxRelevance(message: string, history: Conversation
   const started = Date.now();
   const result = apiKey
     ? await new QuyetDecisionProvider(apiKey).classifyTaxRelevance(message, history)
-    : 'UNCERTAIN';
+    : 'UNAVAILABLE';
   console.log('[TAX_SCOPE]', JSON.stringify({ model: 'Quyet-1.0-Large', result,
-    durationMs: Date.now() - started, degraded: result === 'UNCERTAIN', configured: !!apiKey }));
-  // Missing credentials, malformed output or timeout cannot justify rejecting a question.
+    durationMs: Date.now() - started, degraded: result === 'UNAVAILABLE', configured: !!apiKey }));
+  // Only IN_SCOPE may reach retrieval/generation. A provider failure is not a scope judgment.
   return result;
 }

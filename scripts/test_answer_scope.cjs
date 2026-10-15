@@ -130,9 +130,26 @@ async function testWorkerPaths() {
     assert.ok(rejectedMcp.result.content[0].text.startsWith(rejected.response));
     for (const label of ['UNCERTAIN', 'A', 'OUT_OF_SCOPE because I said so', 'HTTP_ERROR', 'TIMEOUT']) {
       scopeLabel = label;
-      assert.equal(await resolveTaxRelevance(repairBundle, [], 'fixture'), 'UNCERTAIN', label);
+      const expected = label === 'UNCERTAIN' ? 'UNCERTAIN' : 'UNAVAILABLE';
+      assert.equal(await resolveTaxRelevance(repairBundle, [], 'fixture'), expected, label);
+      const beforeBlocked = captured.length;
+      const blocked = await (await worker.fetch(request(false, repairBundle), semanticEnv, ctx)).json();
+      assert.equal(blocked.source, expected === 'UNCERTAIN' ? 'scope_clarification' : 'scope_unavailable', label);
+      assert.deepEqual(blocked.citations, []);
+      assert.equal(captured.length, beforeBlocked, 'Unconfirmed scope must not call answer model');
+      const blockedSse = await (await worker.fetch(request(true, repairBundle), semanticEnv, ctx)).text();
+      const blockedEvents = blockedSse.split('\n\n').filter(part => part.startsWith('data: {')).map(part => JSON.parse(part.slice(6)));
+      assert.equal(blockedEvents.find(event => event.type === 'done')?.fullText, blocked.response);
+      const blockedMcp = await (await worker.fetch(new Request('https://test.local/mcp', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: label, method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: repairBundle } } }),
+      }), semanticEnv, ctx)).json();
+      assert.equal(blockedMcp.result.structuredContent.answer, blocked.response);
+      assert.equal(captured.length, beforeBlocked, 'All transports must stop before generation');
     }
-    assert.equal(await resolveTaxRelevance(repairBundle, []), 'UNCERTAIN');
+    assert.equal(await resolveTaxRelevance(repairBundle, []), 'UNAVAILABLE');
+    const missingKey = await (await worker.fetch(request(false, repairBundle), {}, ctx)).json();
+    assert.equal(missingKey.source, 'scope_unavailable');
     scopeLabel = 'IN_SCOPE';
     const followupHistory = [user('Tôi đang hỏi phân loại doanh thu để tính thuế.')];
     assert.equal(await resolveTaxRelevance('Vậy gói này thuộc nhóm nào?', followupHistory, 'fixture'), 'IN_SCOPE');
@@ -140,7 +157,7 @@ async function testWorkerPaths() {
     console.log('Semantic scope checks passed: shared web/SSE/MCP gate, context, malformed output and provider failures.');
     const providerQuestion = 'Hộ kinh doanh cần lưu chứng từ thanh toán thế nào?';
     for (const stream of [false, true]) {
-      const response = await worker.fetch(request(stream, providerQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+      const response = await worker.fetch(request(stream, providerQuestion), semanticEnv, ctx);
       assert.equal(response.status, 200);
       const body = await response.text();
       if (stream) {
@@ -153,7 +170,7 @@ async function testWorkerPaths() {
     const repairQuestion = 'Năm 2026 tôi sửa chữa doanh thu 1,5 tỷ, thuế TNCN sau giảm bao nhiêu?';
     const museCallsBeforeVerified = captured.length;
     for (const stream of [false, true]) {
-      const response = await worker.fetch(request(stream, repairQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+      const response = await worker.fetch(request(stream, repairQuestion), semanticEnv, ctx);
       assert.equal(response.status, 200);
       const body = await response.text();
       assert.match(body, /7\.000\.000 đồng/);
@@ -161,7 +178,7 @@ async function testWorkerPaths() {
       assert.equal(captured.length, museCallsBeforeVerified, 'Verified tax amount must bypass model generation');
     }
     const vatReliefQuestion = 'Tôi cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026, thuế GTGT theo tỷ lệ 5%. Nghị quyết 204/2025/QH15 có thể giảm mức tỷ lệ GTGT của tôi xuống 4% hay không? Cần xác định điều kiện gì? Nghị quyết 43/2026/QH16 có giảm GTGT không? Không đổi thành ngành bán lẻ.';
-    const webResponse = await worker.fetch(request(false, vatReliefQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    const webResponse = await worker.fetch(request(false, vatReliefQuestion), semanticEnv, ctx);
     assert.equal(webResponse.status, 200);
     const webAnswer = await webResponse.json();
     assert.match(webAnswer.response, /5% còn 4%/);
@@ -170,26 +187,26 @@ async function testWorkerPaths() {
     const mcpResponse = await worker.fetch(new Request('https://test.local/mcp', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jsonrpc: '2.0', id: 77, method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: vatReliefQuestion } } }),
-    }), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    }), semanticEnv, ctx);
     assert.equal(mcpResponse.status, 200);
     const mcpAnswer = await mcpResponse.json();
     assert.equal(mcpAnswer.result.isError, false);
     assert.ok(mcpAnswer.result.content[0].text.startsWith(webAnswer.response), 'MCP and web must share the same core answer');
     const nq43BoundaryQuestion = 'Một cá nhân cư trú có tổng doanh thu kinh doanh năm 2026 đúng bằng 10 tỷ đồng; một cá nhân khác có doanh thu 10 tỷ đồng cộng thêm 1 đồng. Chỉ xét đến chính sách giảm 30% thuế thu nhập cá nhân (TNCN) theo Nghị quyết 43/2026. Trường hợp nào đủ điều kiện, và liệu doanh thu từ 5 cửa hàng có được cộng gộp ở cấp độ cá nhân hay không? Lưu ý không nhầm lẫn giữa mức 10 tỷ đồng này với ngưỡng miễn thuế 1 tỷ đồng.';
     const museCallsBeforeBoundary = captured.length;
-    const boundaryWebResponse = await worker.fetch(request(false, nq43BoundaryQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    const boundaryWebResponse = await worker.fetch(request(false, nq43BoundaryQuestion), semanticEnv, ctx);
     assert.equal(boundaryWebResponse.status, 200);
     const boundaryWebAnswer = await boundaryWebResponse.json();
     assert.match(boundaryWebAnswer.response, /10\.000\.000\.000 đồng.*đáp ứng/);
     assert.match(boundaryWebAnswer.response, /10\.000\.000\.001 đồng.*không đủ điều kiện/);
-    const boundaryStreamResponse = await worker.fetch(request(true, nq43BoundaryQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    const boundaryStreamResponse = await worker.fetch(request(true, nq43BoundaryQuestion), semanticEnv, ctx);
     assert.equal(boundaryStreamResponse.status, 200);
     const boundaryStreamEvents = (await boundaryStreamResponse.text()).split('\n\n').filter(part => part.startsWith('data: {')).map(part => JSON.parse(part.slice(6)));
     assert.equal(boundaryStreamEvents.find(event => event.type === 'done')?.fullText, boundaryWebAnswer.response, 'Web stream and non-stream must share the verified answer');
     const boundaryMcpResponse = await worker.fetch(new Request('https://test.local/mcp', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ jsonrpc: '2.0', id: 78, method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: nq43BoundaryQuestion } } }),
-    }), { MUSE_API_KEY: 'test-fixture' }, ctx);
+    }), semanticEnv, ctx);
     assert.equal(boundaryMcpResponse.status, 200);
     const boundaryMcpAnswer = await boundaryMcpResponse.json();
     assert.equal(boundaryMcpAnswer.result.isError, false);
@@ -206,24 +223,24 @@ async function testWorkerPaths() {
     ];
     const beforePriority = captured.length;
     for (const [id, priorityQuestion, expected] of priorityCases) {
-      const web = await (await worker.fetch(request(false, priorityQuestion), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+      const web = await (await worker.fetch(request(false, priorityQuestion), semanticEnv, ctx)).json();
       assert.match(web.response, expected, id);
       const mcp = await (await worker.fetch(new Request('https://test.local/mcp', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ jsonrpc: '2.0', id, method: 'tools/call', params: { name: 'ask_tax_ai', arguments: { question: priorityQuestion } } }),
-      }), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+      }), semanticEnv, ctx)).json();
       assert.ok(mcp.result.content[0].text.startsWith(web.response), `${id}: MCP/web parity`);
     }
     assert.equal(captured.length, beforePriority, 'All priority answers must be deterministic and shared across transports');
-    const vatOnly = await (await worker.fetch(request(false, 'Bán tạp hóa 1,5 tỷ, chỉ hỏi GTGT được giảm, không hỏi TNCN.'), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+    const vatOnly = await (await worker.fetch(request(false, 'Bán tạp hóa 1,5 tỷ, chỉ hỏi GTGT được giảm, không hỏi TNCN.'), semanticEnv, ctx)).json();
     assert.match(vatOnly.response, /12\.000\.000 đồng/);
     assert.match(vatOnly.response, /loại trừ/);
     assert.doesNotMatch(vatOnly.response, /TNCN trước|TNCN sau|1\.750\.000/);
     const beforeCompound = captured.length;
-    const compound = await (await worker.fetch(request(false, 'Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?'), { MUSE_API_KEY: 'test-fixture' }, ctx)).json();
+    const compound = await (await worker.fetch(request(false, 'Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?'), semanticEnv, ctx)).json();
     assert.ok(captured.length > beforeCompound, 'An incomplete verified answer must not bypass generation');
     assert.match(compound.response, /phí dịch vụ với tiền thuế/);
-    const fallback = await worker.fetch(request(false), {}, ctx);
+    const fallback = await worker.fetch(request(false), { FPT_AI_KEY: 'scope-fixture', DECISION_L2: 'off' }, ctx);
     assert.equal(fallback.status, 200);
     assert.match((await fallback.json()).response, /không mặc định hoàn toàn bộ/);
     await Promise.all(pending);
