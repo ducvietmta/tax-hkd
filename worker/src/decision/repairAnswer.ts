@@ -17,14 +17,5 @@ export async function repairAnswer(instructions: string, history: ConversationTu
       } else console.warn('[ANSWER_REPAIR_HTTP]',response.status);
     } catch(e: any) { console.warn('[ANSWER_REPAIR_ERROR]',e?.name || 'request_failed'); }
   }
-  if (env.AI) {
-    try {
-      const data = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
-        messages:[{role:'system',content:instructions},...history,{role:'user',content:question}],temperature:0.1,max_tokens:2000,
-      });
-      const text=data.response?.trim();
-      if(text && text.length>15)return {text,provider:'Workers AI'};
-    } catch(e: any) { console.warn('[ANSWER_REPAIR_FALLBACK_ERROR]',e?.name || 'request_failed'); }
-  }
   return null;
 }

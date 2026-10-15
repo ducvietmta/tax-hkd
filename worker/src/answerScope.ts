@@ -65,8 +65,40 @@ export function intentInstructions(message: string): string {
 }
 
 // ==== PHẦN THÊM MỚI ====
+const TAX_KEYWORDS = [
+  'thue', 'hoa don', 'ke khai', 'doanh thu', 'mon bai', 'le phi',
+  'gtgt', 'tncn', 'hddt', 'san ', ' tmdt', 'thuong mai dien tu',
+  'ma so thue', 'mst', '888', 'quyet toan', 'khau tru',
+  'nop thay', 'khai thay', 'affiliate', 'cho thue',
+  'ho kinh doanh', 'ca nhan kinh doanh', 'hkd', 'cnkd',
+  'dang ky thue', 'bao cao thue', 'mien thue', 'giam thue',
+  'hoan thue', 'vi pham', ' an dinh thue',
+  'ban hang', 'cua hang', 'hoa hong', 'tiktok', 'thu nhap', 'luong',
+  'kinh doanh', 'gian hang',
+  'thong bao doanh thu', 'to khai',
+  'nghi dinh', 'nghi quyet', 'thong tu', 'luat', 'van ban', 'dieu khoan', 'cong van', 'nd-cp', 'tt-btc',
+];
+
+/** true nếu câu hỏi không liên quan thuế/HKD — dùng để từ chối sớm, không gọi LLM. */
+export function isOutOfScope(message: string, history: ConversationTurn[] = []): boolean {
+  const f = ' ' + normalize(message) + ' ';
+  if (TAX_KEYWORDS.some((k) => f.includes(k))) return false;
+  if (/dich vu|sua chua|phan mem/.test(f) && /phan loai|tinh nhom|ty le|chi phi|tru toan bo/.test(f)) return false;
+  if (/tai lieu|pdf|nguon|trich dan/.test(f) && /quy dinh|hieu luc|phap ly|dieu khoan/.test(f)) return false;
+  if (/don hang|dat hang|giao hang|hoan tien/.test(f) && /ky|nam|thoi diem|doanh thu/.test(f)) return false;
+  if (isContextualFollowUp(message)) {
+    for (const turn of history.filter((t) => t.role === 'user').slice().reverse()) {
+      const tf = ' ' + normalize(turn.content) + ' ';
+      if (TAX_KEYWORDS.some((k) => tf.includes(k))) return false;
+      if (!isContextualFollowUp(turn.content)) break;
+    }
+  }
+  return true;
+}
+
 export const OUT_OF_SCOPE_RESPONSE =
   'Nội dung câu hỏi nằm ngoài phạm vi hỗ trợ tư vấn thuế của hệ thống. ' +
   'Vui lòng đặt câu hỏi liên quan đến chính sách thuế, mức thuế suất, hóa đơn điện tử ' +
   'hoặc kê khai thuế cho Hộ kinh doanh và Cá nhân kinh doanh.\n\nCăn cứ pháp lý:\nKhông áp dụng';
+
 
