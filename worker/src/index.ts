@@ -23,7 +23,7 @@ import { answerVerifiedBusinessTax } from './businessTaxAnswer';
 import { answerPriorityTax } from './priorityTaxAnswer';
 import { missingAnswerIntents, validateLegalCitations, canUseVerifiedAnswer } from './answerValidation';
 import { answerVerifiedReliefEligibility } from './reliefEligibilityAnswer';
-import { understandQuery, understandClassifiedQuery } from './decision/understandQuery';
+import { understandClassifiedQuery } from './decision/understandQuery';
 import { QuyetDecisionProvider, type BusinessClassification } from './decision/quyetProvider';
 import { repairAnswer } from './decision/repairAnswer';
 import { answerContract, UNVERIFIED_ANSWER } from './decision/answerContract';
@@ -104,50 +104,6 @@ function jsonResponse(data: any, status = 200, corsHeaders?: Headers): Response 
   return new Response(JSON.stringify(data), { status, headers });
 }
 
-
-export function classifyBusinessLocally(
-  message: string,
-  answerScope: any,
-  history: any[] = []
-): BusinessClassification {
-  const frame = understandQuery(message, answerScope, history);
-  let topic = 'GENERAL';
-  const intent = frame.tax_intent.primary.value;
-  if (intent === 'TAX_CALCULATION') topic = 'TAX_AMOUNT';
-  else if (intent === 'EXEMPTION_ELIGIBILITY') topic = 'REVENUE_THRESHOLD';
-  else if (intent === 'E_INVOICE') topic = 'E_INVOICE';
-  else if (intent === 'TAX_ID_888') topic = 'TAX_ID_888';
-  else if (intent === 'RELIEF_REDUCTION') topic = 'TAX_REDUCTION';
-  else if (intent === 'ACCOUNTING_BOOKS') topic = 'ACCOUNTING_BOOKS';
-  else if (intent === 'BUSINESS_EXPENSES') topic = 'BUSINESS_EXPENSES';
-  else if (intent === 'INVOICE_CORRECTION') topic = 'INVOICE_CORRECTION';
-  else if (intent === 'REVENUE_OWNERSHIP') topic = 'REVENUE_OWNERSHIP';
-
-  let taxFocus: 'vat' | 'pit' | 'both' | 'unspecified' = 'unspecified';
-  const norm = message.toLowerCase();
-  const hasVat = /gtgt|vat|gia tri gia tang/.test(norm);
-  const hasPit = /tncn|thu nhap ca nhan/.test(norm);
-  if (hasVat && hasPit) taxFocus = 'both';
-  else if (hasVat) taxFocus = 'vat';
-  else if (hasPit) taxFocus = 'pit';
-
-  return {
-    taxpayer: frame.taxpayer_type.value,
-    primaryIntent: intent,
-    secondaryIntents: frame.tax_intent.secondary,
-    incomeTypes: frame.income_type.map(x => x.value),
-    topic,
-    revenueContext: frame.facts.revenue_basis === 'ANNUAL' ? 'ACTUAL_YEAR' : 'GENERAL',
-    taxFocus,
-    vatRelief: frame.facts.vat_relief_assumed ? 'ELIGIBLE' : 'UNKNOWN',
-    invoicePeriod: 'MIXED_OR_UNKNOWN',
-    confidence: {
-      taxpayer: frame.taxpayer_type.confidence,
-      intent: frame.tax_intent.primary.confidence,
-      income: frame.income_type[0]?.confidence || 0.9,
-    },
-  };
-}
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -231,7 +187,9 @@ export default {
             service: 'Cloudflare Workers API',
             platform: 'Cloudflare Edge (Pages + Workers + D1 + R2)',
             aiModel: 'Muse Spark 1.3 (Meta AI)',
+            decisionModel: 'Quyet-1.0-Large (FPT Cloud AI)',
             hasMuse: !!env.MUSE_API_KEY,
+            hasQuyet: !!env.FPT_AI_KEY,
             decisionMode: env.DECISION_MODE || 'enforce',
             timestamp: new Date().toISOString(),
           },
@@ -888,7 +846,7 @@ export default {
 
         const answerScope = resolveAnswerScope(history, message);
         // --- BƯỚC 0: KIỂM TRA PHẠM VI HỎI ĐÁP (MỤC 1) ---
-        const taxRelevance = env.FPT_AI_KEY ? await resolveTaxRelevance(message, history, env.FPT_AI_KEY) : (isOutOfScope(message, history) ? 'OUT_OF_SCOPE' : 'IN_SCOPE');
+        const taxRelevance = await resolveTaxRelevance(message, history, env.FPT_AI_KEY);
         if (taxRelevance !== 'IN_SCOPE') {
           const outOfScopeResponse = {
             success: true,
@@ -905,7 +863,15 @@ export default {
         }
 
         // Mandatory semantic preprocessing, independent of rules-engine enforcement mode.
-        const businessClassification = (env.FPT_AI_KEY ? await new QuyetDecisionProvider(env.FPT_AI_KEY).classifyBusiness(message, history).catch(() => null) : null) || classifyBusinessLocally(message, answerScope, history);
+        const businessClassification = await new QuyetDecisionProvider(env.FPT_AI_KEY!)
+          .classifyBusiness(message, history);
+        console.log('[QUYET_BUSINESS]', JSON.stringify({ model: 'Quyet-1.0-Large',
+          available: !!businessClassification, labels: businessClassification }));
+        if (!businessClassification) {
+          return respondWithAnswer({ success: true,
+            response: 'Hệ thống tạm thời chưa phân loại được nội dung câu hỏi. Vui lòng thử lại sau ít phút.',
+            source: 'classification_unavailable', citations: [], legal_citations: [] }, 99);
+        }
 
         // --- KIỂM TRA LƯỢT HỎI TRONG CLOUDFLARE D1 (TẦNG WORKER) ---
         let userRecord: { id: string; phone: string; credits: number; role?: string } | null = null;
@@ -1112,7 +1078,7 @@ export default {
           pendingTopics: pendingTopics.map((t) => t.id),
           decision: decisionFrame ? {
             layer: decisionFrame.meta.layer,
-            model: 'Muse Spark 1.3 (Meta AI)',
+            model: decisionFrame.meta.l2_used ? 'Quyet-1.0-Large (FPT Cloud AI)' : 'L1 Deterministic Rules',
             taxpayer: decisionFrame.taxpayer_type.value,
             intent: decisionFrame.tax_intent.primary.value,
             income: decisionFrame.income_type[0]?.value,
@@ -1138,7 +1104,7 @@ export default {
           ruleIds: decisionEvaluation?.rule_outcomes.map(outcome => outcome.rule_id) || verifiedTaxAnswer?.ruleIds || [],
         };
 
-        const decisionPrefix = '';
+        const decisionPrefix = applyDecision && decisionFrame?.meta?.l2_used ? 'Quyet-1.0-Large + ' : '';
         let aiText = verifiedTaxAnswer?.response || '';
         let generationPrompt = '';
         let source = verifiedTaxAnswer ? `${decisionPrefix}Tax Engine (verified rules)`
@@ -1344,7 +1310,7 @@ ${ragContextText}`;
           legalCitations = citationCheck.citations;
         }
 
-        let semanticReviewPassed = isSystemError || !applyDecision || !!verifiedTaxAnswer || validationPass;
+        let semanticReviewPassed = isSystemError || !!verifiedTaxAnswer;
         let semanticReviewIssues: string[] | null = null;
         if (!verifiedTaxAnswer && aiText && generationPrompt && env.FPT_AI_KEY) {
           const reviewer = new QuyetDecisionProvider(env.FPT_AI_KEY);
@@ -1377,7 +1343,7 @@ ${ragContextText}`;
           }
         }
         // Enforce checks the FINAL text. An unavailable/uncertain review is not a pass.
-        if (applyDecision && !semanticReviewPassed) {
+        if (applyDecision && !semanticReviewPassed && !isSystemError) {
           aiText = UNVERIFIED_ANSWER;
           legalCitations = [];
           source = 'Answer review blocked';
