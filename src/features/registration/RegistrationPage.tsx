@@ -24,6 +24,7 @@ import { StepCard } from './components/StepCard';
 import { ProgressSummary } from './components/ProgressSummary';
 import { RegFAQ } from './components/RegFAQ';
 import { AICompanion } from './components/AICompanion';
+import { RegistrationChatAdvisor } from './components/RegistrationChatAdvisor';
 import { PdfViewerModal } from '../../components/PdfViewerModal';
 
 interface RegistrationPageProps {
@@ -39,7 +40,6 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
     state,
     setPath,
     setQuizAnswer,
-    resetQuiz,
     setStep,
     toggleStepDone,
     toggleDocChecked,
@@ -50,6 +50,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
   const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
   const [quizDecision, setQuizDecision] = useState<PathDecision | null>(null);
   const [isQuizActive, setIsQuizActive] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<'advisor' | 'catalog'>('advisor');
   const wizardTopRef = useRef<HTMLDivElement>(null);
 
   // Sync route query params if user visited #/dang-ky?path=household
@@ -60,6 +61,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
         const initialStep = stepParam && p.stepIds.includes(stepParam) ? stepParam : p.stepIds[0];
         setPath(pathParam as PathId, initialStep);
         setIsQuizActive(false);
+        setViewMode('catalog');
       }
     }
   }, [pathParam, stepParam, state.pathId, setPath]);
@@ -85,9 +87,8 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
   // Handlers
   const handleStartQuiz = () => {
-    setQuizDecision(null);
-    setIsQuizActive(true);
-    resetQuiz();
+    setViewMode('advisor');
+    setIsQuizActive(false);
     setTimeout(() => {
       wizardTopRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
@@ -137,9 +138,56 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
         onBackToHome={() => navigateTo('#')}
       />
 
-      <div ref={wizardTopRef} className="max-w-[1200px] mx-auto px-4 sm:px-6 space-y-10">
-        {/* 2. Situation Quiz or Path Result View */}
-        {isQuizActive && (
+      <div ref={wizardTopRef} className="max-w-[1200px] mx-auto px-4 sm:px-6 space-y-8">
+        {/* Chuyển đổi chế độ: Chatbot Tư Vấn Thông Minh vs Cẩm Nang Tra Cứu */}
+        <div className="flex items-center justify-center pt-2">
+          <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs gap-1.5">
+            <button
+              type="button"
+              onClick={() => {
+                setViewMode('advisor');
+                setIsQuizActive(false);
+              }}
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
+                viewMode === 'advisor'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Chatbot Tư vấn Đăng ký (Đề xuất)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setViewMode('catalog');
+                setIsQuizActive(false);
+              }}
+              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
+                viewMode === 'catalog'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              }`}
+            >
+              <Store className="w-4 h-4" />
+              <span>Cẩm nang tra cứu từng bước</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 2. CHATBOT TƯ VẤN THÔNG MINH (ACTIVE BY DEFAULT) */}
+        {viewMode === 'advisor' && (
+          <section className="space-y-6">
+            <RegistrationChatAdvisor
+              onOpenAIChat={onOpenAIChat}
+              onSelectDocId={(docId) => setSelectedDocId(docId)}
+              onOpenConsultation={onOpenConsultation}
+            />
+          </section>
+        )}
+
+        {/* 2b. Situation Quiz or Path Result View (Nếu chọn trắc nghiệm riêng) */}
+        {viewMode === 'catalog' && isQuizActive && (
           <section className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-xs">
             {quizDecision ? (
               <PathResult
@@ -159,8 +207,8 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({
           </section>
         )}
 
-        {/* 3. Main Wizard Mode */}
-        {!isQuizActive && (
+        {/* 3. Main Wizard Mode (Cẩm nang từng bước) */}
+        {viewMode === 'catalog' && !isQuizActive && (
           <section className="space-y-6">
             {/* Path Selection Tabs */}
             <div className="bg-white rounded-2xl border border-slate-200/90 p-2 sm:p-2.5 shadow-2xs">

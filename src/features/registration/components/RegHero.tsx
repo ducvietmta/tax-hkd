@@ -1,5 +1,4 @@
-import React from 'react';
-import { Sparkles, ShieldCheck, ArrowRight, HelpCircle, FileCheck2, Home, ChevronRight } from 'lucide-react';
+import { Sparkles, ShieldCheck, ArrowRight, HelpCircle, Home, ChevronRight } from 'lucide-react';
 
 interface RegHeroProps {
   onStartQuiz: () => void;
@@ -68,8 +67,8 @@ export const RegHero: React.FC<RegHeroProps> = ({
             onClick={onStartQuiz}
             className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
           >
-            <FileCheck2 className="w-4 h-4" />
-            <span>Tư vấn chọn mô hình phù hợp (4 câu)</span>
+            <Sparkles className="w-4 h-4" />
+            <span>Chatbot tư vấn đăng ký kinh doanh</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 
@@ -80,7 +79,7 @@ export const RegHero: React.FC<RegHeroProps> = ({
               className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 font-bold text-sm transition-all shadow-xs cursor-pointer"
             >
               <HelpCircle className="w-4 h-4 text-emerald-600" />
-              <span>Hỏi AI tư vấn trực tiếp</span>
+              <span>Hỏi đáp thuế với AI chuyên sâu</span>
             </button>
           )}
         </div>
