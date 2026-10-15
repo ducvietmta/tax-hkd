@@ -266,7 +266,14 @@ export function understandClassifiedQuery(
   classification: BusinessClassification,
 ): TaxDecisionFrame {
   if (!classification) throw new Error('Quyet business classification is required');
-  return understandQuery(query, scope, history, classification);
+  const normalized = { ...classification };
+  const qFold = fold(query);
+  const asksBusinessReg = /\b(dang ky kinh doanh|mo ho kinh doanh|dang ky hkd|thanh lap ho kinh doanh|thanh lap hkd|co (?:can|phai) dang ky (?:kinh doanh|hkd)?)\b/i.test(qFold);
+  if (asksBusinessReg && (!normalized.topic || normalized.topic === 'REVENUE_THRESHOLD' || normalized.topic === 'OTHER')) {
+    normalized.topic = 'BUSINESS_REGISTRATION';
+    normalized.primaryIntent = 'REGISTRATION';
+  }
+  return understandQuery(query, scope, history, normalized);
 }
 
 /**

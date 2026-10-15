@@ -904,6 +904,7 @@ export const QUERY_ROUTES: QueryRoute[] = [
       "contractor",
       "thù lao",
       "không đăng ký kinh doanh",
+      "chưa đăng ký kinh doanh",
       "làm cho công ty nước ngoài"
     ],
     "refs": [
@@ -1895,7 +1896,14 @@ export const CANONICAL_CHUNKS: RagChunk[] = [
     "section": "16.106. Hóa đơn tháng 3/4 năm 2026 — Điều 19 NĐ123 sửa bởi khoản 13 Điều 1 NĐ70/2025",
     "ref_id": "16.106",
     "tier": "VERIFIED_CONDITIONAL",
-    "text": "Trước 01/07/2026: đối chiếu Điều 19 Nghị định 123/2020/NĐ-CP, được sửa tại khoản 13 Điều 1 Nghị định 70/2025/NĐ-CP. Trả hàng thực tế thuộc điểm c khoản 4 Điều 19; c.1 cho người bán lập điều chỉnh, trừ thỏa thuận người mua lập hóa đơn trả lại; c.2 có quy tắc cho tài sản đã đăng ký tên người mua. Sai giá/số tiền thuộc điểm b khoản 1, không phải nhánh trả hàng: người bán có thể lựa chọn điều chỉnh (b.1) hoặc thay thế (b.2). Không chốt bắt buộc chỉ điều chỉnh khi chưa có dữ kiện/ngoại lệ hạn chế lựa chọn. Cần hóa đơn gốc, thời điểm lập chứng từ điều chỉnh/thay thế, hồ sơ sai sót và phương pháp/kỳ kê khai trước khi chốt kỳ thuế. Chỉ yêu cầu hồ sơ trả hàng khi thực tế có trả hàng; người dùng đã xác nhận không trả hàng thì không yêu cầu hồ sơ này. Không dùng Thông tư 91/2026 như căn cứ trực tiếp cho tháng 3/4. Nguồn: https://baochinhphu.vn/nhung-noi-dung-moi-cua-nghi-dinh-so-70-2025-nd-cp-ve-hoa-don-chung-tu-102250903091616929.htm ; https://dnieza.dongnai.gov.vn/Pages/newsdetail.aspx?CatId=105&NewsId=5066"
+    "text": "Trước 01/07/2026: đối chiếu Điều 19 Nghị định 123/2020/NĐ-CP, được sửa tại khoản 13 Điều 1 Nghị định 70/2025/NĐ-CP. Trả hàng thực tế thuộc điểm c khoản 4 Điều 19; c.1 cho người bán lập điều chỉnh, trừ thỏa thuận người mua lập hóa đơn trả lại; c.2 có quy tắc cho tài sản đã đăng ký tên người mua. Sai giá/số tiền thuộc điểm b khoản 1, không phải nhánh trả hàng: người bán có thể lựa chọn điều chỉnh (b.1) hoặc thay thế (b.2). Không chốt bắt buộc chỉ điều chỉnh khi chưa có dữ kiện/ngoại lệ hạn chế lựa chọn. Cần hóa đơn gốc, thời điểm lập chứng từ điều chỉnh/thay thế, hồ sơ sai sót và phương pháp/kỳ kê khai trước khi chốt kỳ thuế. Chỉ yêu cầu hồ sơ trả hàng khi thực tế có trả hàng; người dùng đã xác nhận không trả hàng thì không yêu cầu hồ sơ này. Không dùng Thông tư 91/2026 như căn cứ trực tiếp cho tháng 3/4. Nguồn: https://baochinhphu.vn/nhung-noi-dung-moi-cua-nghi-dinh-so-70-2025-nd-cp-ve-hoa-don-chung-tu-102250903091616929.htm ; https://dnieza.dongnai.gov.vn/Pages/newsdetail.aspx?CatId=105&NewsId=5066"  },
+  {
+    "id": "KB/business-registration#exemption-and-online-freelance",
+    "file": "KB/business-registration",
+    "section": "16.107. Đăng ký kinh doanh: trường hợp không bắt buộc đăng ký và hoạt động affiliate, online, thu nhập thấp",
+    "ref_id": "16.107",
+    "tier": "VERIFIED",
+    "text": "Căn cứ pháp lý: Khoản 2 Điều 79 Nghị định 01/2021/NĐ-CP và Nghị định 168/2025/NĐ-CP; Nghị định 39/2007/NĐ-CP về cá nhân hoạt động thương mại độc lập; Thông tư 111/2013/TT-BTC; Công văn 1241/CTCBA-TTHT; Công văn 7403/CT-TMĐT.\n1. Các trường hợp KHÔNG BẮT BUỘC đăng ký hộ kinh doanh: Cá nhân hoạt động thương mại độc lập, kinh doanh thời vụ, lưu động, làm dịch vụ không có địa điểm cố định hoặc có thu nhập thấp (dưới mức chuẩn nghèo / quy định cụ thể của địa phương).\n2. Hoạt động tiếp thị liên kết (affiliate marketing), cộng tác viên bán hàng, kiếm tiền online tự do quy mô nhỏ (ví dụ thu nhập vài trăm nghìn đến vài triệu đồng/tháng): KHÔNG bắt buộc phải đăng ký hộ kinh doanh hay thành lập doanh nghiệp.\n3. Cơ chế quản lý thuế khi không đăng ký HKD: Cá nhân sử dụng Mã số thuế cá nhân (theo CCCD) để bên chi trả hoa hồng (sàn TMĐT, mạng affiliate, đối tác) ghi nhận. Bên chi trả thực hiện khấu trừ thuế TNCN tại nguồn (nếu từng lần chi trả từ 2 triệu đồng trở lên thì khấu trừ 10% theo Thông tư 111/2013/TT-BTC, hoặc theo cơ chế khấu trừ/kê khai nộp thay của sàn TMĐT theo NĐ 68/2026 và NĐ 252/2026). Nếu thu nhập cả năm dưới mức giảm trừ gia cảnh, cá nhân không phát sinh thuế TNCN phải nộp thêm.\n4. Tuyệt đối phân biệt: Câu hỏi có phải đăng ký kinh doanh hay không là câu hỏi về tư cách pháp lý và thủ tục thành lập, hoàn toàn độc lập với việc xét ngưỡng doanh thu tính thuế 1 tỷ đồng của HKD theo Nghị định 141/2026/NĐ-CP. Không đem quy định ngưỡng 1 tỷ ra trả lời thay cho câu hỏi đăng ký kinh doanh.\nNguồn: https://thuvienphapluat.vn/van-ban/Doanh-nghiep/Nghi-dinh-01-2021-ND-CP-dang-ky-doanh-nghiep-446706.aspx ; https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
   }
 ];
 

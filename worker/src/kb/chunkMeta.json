@@ -916,5 +916,14 @@
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
     "applies_to_year": null
+  },
+  "16.107": {
+    "id": "KB/business-registration#exemption-and-online-freelance",
+    "ref_id": "16.107",
+    "section": "16.107. Đăng ký kinh doanh: trường hợp không bắt buộc đăng ký và hoạt động affiliate, online, thu nhập thấp",
+    "tier": "VERIFIED",
+    "legal_status": "VERIFIED",
+    "applies_from_year": 2021,
+    "applies_to_year": null
   }
 }
