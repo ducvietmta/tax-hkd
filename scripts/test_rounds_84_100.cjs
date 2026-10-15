@@ -31,7 +31,18 @@ assert.equal(validation.canUseVerifiedAnswer('Chỉ hỏi GTGT được giảm, 
   'GTGT 15 triệu. TNCN trước ưu đãi 2,5 triệu, TNCN sau giảm 1,75 triệu.'), false);
 assert.equal(validation.canUseVerifiedAnswer('Doanh thu 3,5 tỷ gồm 2 tỷ bán hàng và 1,5 tỷ dịch vụ; có được áp phương pháp khác nhau từng mảng?',
   'Với doanh thu dịch vụ 1,5 tỷ đồng, TNCN sau giảm 7 triệu.'), false);
-assert.equal(answer('Hộ có doanh thu 4 tỷ, báo chi phí 3 tỷ nhưng không có chứng từ. Có thể coi ngay thu nhập tính thuế 1 tỷ?'), undefined);
+const unsupportedCosts = answer('Hộ có doanh thu 4 tỷ, báo chi phí 3 tỷ nhưng không có chứng từ. Có thể coi ngay thu nhập tính thuế 1 tỷ?');
+assert.match(unsupportedCosts, /Chưa thể coi/);
+assert.match(unsupportedCosts, /chứng từ/);
+assert.doesNotMatch(unsupportedCosts, /119\.000\.000|170\.000\.000/);
+const aggregateMethod = answer('Doanh thu 3,5 tỷ gồm 2 tỷ bán hàng và 1,5 tỷ dịch vụ; có được áp phương pháp khác nhau từng mảng?');
+assert.match(aggregateMethod, /3\.500\.000\.000/);
+assert.match(aggregateMethod, /17%/);
+assert.match(aggregateMethod, /không tách từng mảng/);
+const rateOnly = answer('Doanh thu 49,9 tỷ, thu nhập tính thuế hợp lệ 1 tỷ; hỏi chỉ thuế suất TNCN, không hỏi tiền.');
+assert.match(rateOnly, /17%/);
+assert.doesNotMatch(rateOnly, /170\.000\.000/);
+assert.equal(answer('Doanh thu 50 tỷ 1 đồng và thu nhập tính thuế 2 tỷ; so với đúng 50 tỷ.'), undefined);
 const refundQuestion = 'TikTok đã trừ 10% trên hoa hồng 30 triệu, tôi còn lương công ty. Có hoàn được không và có cộng lương?';
 const refundAnswer = answer(refundQuestion);
 assert.match(refundAnswer, /năm 2026/);
