@@ -152,6 +152,11 @@ runTest('Ten_Billion_And_One_Dong', () => {
   assert.equal(frame.residency.value, 'RESIDENT');
 });
 
+runTest('Platform_Tax_Amount_Is_Not_Revenue', () => {
+  const frame = understandQuery('TikTok báo hoa hồng 500 triệu, giữ 5 triệu ghi “tax”. Doanh thu tính thuế bao nhiêu và 5 triệu đã là TNCN nộp thay chưa?', scope2026);
+  assert.equal(frame.facts.revenue_vnd, 500_000_000);
+});
+
 console.log('\n================================================================');
 console.log(`📊 TỔNG KẾT: ${passed}/${total} TEST CASES PASSED (${((passed / total) * 100).toFixed(1)}%)`);
 console.log('================================================================');

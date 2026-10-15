@@ -42,7 +42,9 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
   // T84: respect the user's explicit assumption that goods qualify for the VAT reduction.
   const eligible = /(du dieu kien|thuoc dien|duoc giam|gia dinh)[^.!?]{0,90}(giam|20\s*%|gtgt)|(?:hang hoa|mat hang)[^.!?]{0,90}(du dieu kien|duoc giam)/.test(q);
   const asksVatRelief = /gtgt/.test(q) && /(?:giam|204\/2025|174\/2025|20\s*%)/.test(q);
-  const goods = /tap hoa|ban hang hoa|ban le|hang hoa/.test(q) && !/khong ban le|khong ban hang hoa|khong phai tap hoa/.test(q);
+  const goods = /tap hoa|ban hang hoa|ban hang|ban le|hang hoa/.test(q) &&
+    !/khong ban le|khong ban hang hoa|khong ban hang|khong phai tap hoa/.test(q) &&
+    !/dich vu|sua chua|affiliate|hoa hong/.test(q);
   const retailRevenue = amounts.find(n => n > 1e9 && n <= 3e9);
   if (eligible && asksVatRelief && goods && retailRevenue && /1\s*%/.test(q)) {
     const facts: TaxFacts = { taxYear: 2026, activityType: 'goods', grossRevenueVnd: retailRevenue, vatReliefEligible: true };

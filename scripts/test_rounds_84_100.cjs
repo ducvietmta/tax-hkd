@@ -27,6 +27,8 @@ const answer = q => priority.answerPriorityTax(q, scope.resolveAnswerScope([], q
 const t84 = answer('Năm 2026 bán tạp hóa doanh thu 1,5 tỷ, tỷ lệ GTGT 1%. Giả định hàng hóa đủ điều kiện giảm GTGT 20% theo Nghị quyết 204/2025, tính thuế GTGT bao nhiêu?');
 assert.match(t84, /0,8%/);
 assert.match(t84, /12\.000\.000 đồng/);
+const g004 = answer('Bán hàng thuộc diện được giảm, doanh thu 1,5 tỷ năm 2026; tỷ lệ GTGT gốc 1%. Tính sau giảm.');
+assert.match(g004, /12\.000\.000 đồng/);
 
 const t86 = answer('Tôi là cá nhân cư trú năm 2026 có doanh thu 3.000.000.001 đồng, thu nhập tính thuế hợp lệ 400 triệu đồng. TNCN sau giảm 30% theo Nghị quyết 43 là bao nhiêu?');
 assert.match(t86, /3\.000\.000\.001 đồng/);
@@ -53,6 +55,17 @@ assert.match(t98, /30 ngày/);
 assert.match(t98, /khoản 2 Điều 1 Nghị định 141\/2026/);
 assert.match(t98, /khoản 5 Điều 8 Nghị định 68\/2026/);
 assert.doesNotMatch(t98, /Điều 9 Nghị định 141/);
+const g025Citation = validation.validateLegalCitations('Hộ kinh doanh vượt mốc doanh thu 1 tỷ năm 2026; hạn đăng ký hóa đơn điện tử và căn cứ điều khoản?',
+  'Hạn là 30 ngày kể từ cuối kỳ. Căn cứ pháp lý: Điều 9, Nghị định 141/2026/NĐ-CP.',
+  ['Điều 9, Nghị định 141/2026/NĐ-CP'], scope.resolveAnswerScope([], 'Năm 2026', now));
+assert.doesNotMatch(g025Citation.answer, /Điều 9, Nghị định 141/);
+assert.match(g025Citation.answer, /Khoản 2 Điều 1 Nghị định 141\/2026/);
+assert.doesNotMatch(g025Citation.citations.join(' '), /Điều 9, Nghị định 141/);
+const duplicateCitation = validation.validateLegalCitations('Năm 2026 vượt 1 tỷ, hạn đăng ký hóa đơn điện tử?',
+  'Hóa đơn điện tử đăng ký trong 30 ngày. Điều 9, Nghị định 141/2026/NĐ-CP. Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP.',
+  [], scope.resolveAnswerScope([], 'Năm 2026', now));
+assert.doesNotMatch(duplicateCitation.answer, /Điều 9, Nghị định 141/);
+assert.equal((duplicateCitation.answer.match(/Khoản 2 Điều 1 Nghị định 141\/2026/g) || []).length, 1);
 const citationCheck = validation.validateLegalCitations('Năm 2026 vượt 1 tỷ, HĐĐT phải đăng ký trong bao lâu?',
   'Hóa đơn điện tử đăng ký trong 30 ngày, Điều 9 Nghị định 141/2026/NĐ-CP.',
   ['Điều 9 Nghị định 141/2026/NĐ-CP'], scope.resolveAnswerScope([], 'Năm 2026', now));

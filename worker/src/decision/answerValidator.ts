@@ -63,7 +63,7 @@ export function validateAnswer(
     if (/trên 1 tỷ|vượt 1 tỷ|hơn 1 tỷ/i.test(text) && !/30 ngày/i.test(text)) {
       status = 'REPAIR';
       reasons.push('Thiếu mốc thời hạn 30 ngày bắt buộc sử dụng HĐĐT từ máy tính tiền');
-      text += '\n\n*Lưu ý quan trọng:* Hộ kinh doanh thuộc diện áp dụng phải đăng ký sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền trong thời hạn **30 ngày** kể từ ngày phát sinh nghĩa vụ theo quy định.';
+      text += '\n\n*Lưu ý quan trọng:* Với trường hợp doanh thu lũy kế vượt ngưỡng trong năm, hộ kinh doanh thuộc diện áp dụng phải đăng ký sử dụng hóa đơn điện tử trong **30 ngày kể từ ngày cuối cùng của kỳ tính thuế** có doanh thu lũy kế trên 1 tỷ đồng.';
     }
   }
 

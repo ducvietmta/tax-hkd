@@ -21,15 +21,16 @@ export function validateLegalCitations(question: string, answer: string, citatio
   const a = fold(answer);
   const invoiceRule = scope.years.every(y => y >= 2026) &&
     /hoa don dien tu|hddt/.test(q) && /1\s*ty|1[.]000[.]000[.]000/.test(q) &&
-    /30\s*ngay/.test(a) && /hoa don dien tu|hddt/.test(a);
+    /30\s*ngay/.test(a);
   if (!invoiceRule) return { answer, citations };
-  const wrongArticle = /(?:khoan\s*\d+\s*)?dieu\s*9\s*nghi\s*dinh\s*141\/2026/.test(a);
+  const wrongArticle = /(?:khoan\s*\d+\s*)?dieu\s*9[\s,.:;–—-]*nghi\s*dinh\s*141\/2026/.test(a);
   const hasCorrect = /khoan\s*2\s*dieu\s*1\s*nghi\s*dinh\s*141\/2026/.test(a) &&
     /khoan\s*5\s*dieu\s*8\s*nghi\s*dinh\s*68\/2026/.test(a);
   let corrected = answer;
-  if (wrongArticle) corrected = corrected.replace(/(?:Khoản\s*\d+\s*)?Điều\s*9\s*Nghị\s*định\s*141\/2026\/NĐ-CP/gi, EINVOICE_CITATION);
+  if (wrongArticle) corrected = corrected.replace(/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*141\/2026\/NĐ-CP/gi,
+    hasCorrect ? '' : EINVOICE_CITATION);
   if (!hasCorrect && !wrongArticle) corrected += `\n\nCăn cứ trực tiếp cho thời hạn 30 ngày: ${EINVOICE_CITATION}.`;
-  const cleanCitations = citations.filter(c => !/(?:Khoản\s*\d+\s*)?Điều\s*9\s*Nghị\s*định\s*141\/2026\/NĐ-CP/i.test(c));
+  const cleanCitations = citations.filter(c => !/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*141\/2026\/NĐ-CP/i.test(c));
   if (!cleanCitations.includes(EINVOICE_CITATION)) cleanCitations.push(EINVOICE_CITATION);
   return { answer: corrected, citations: cleanCitations };
 }
