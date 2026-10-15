@@ -25,7 +25,7 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
   // A withholding percentage alone cannot determine the income category or refund.
   if (/tiktok|affiliate|tiep thi lien ket/.test(q) && /hoa hong/.test(q) &&
       /hoan|nop thua/.test(q) && /luong|tien cong/.test(q)) {
-    return result(`Mình đang xét năm ${scope.years[0]}. Không cộng tiền lương công ty vào doanh thu kinh doanh affiliate. Nếu hồ sơ xác định khoản hoa hồng thực chất là tiền lương, tiền công thì mới xét chung với lương khi quyết toán theo loại thu nhập đó; chỉ tỷ lệ khấu trừ chưa đủ để phân loại.
+    return result(`Không cộng tiền lương công ty vào doanh thu kinh doanh affiliate. Nếu hồ sơ xác định khoản hoa hồng thực chất là tiền lương, tiền công thì mới xét chung với lương khi quyết toán theo loại thu nhập đó; chỉ tỷ lệ khấu trừ chưa đủ để phân loại.
 
 Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa hồng hoặc tỷ lệ đã giữ. Cần xác định khoản đã giữ là loại thuế nào, tư cách cư trú, tổng doanh thu kinh doanh cả năm và chứng từ đã khai, nộp thay đúng người, đúng kỳ. Nếu thuế TNCN kinh doanh đã nộp vượt số phải nộp sau khi xét miễn, giảm thì có thể đề nghị xử lý nộp thừa hoặc hoàn theo thủ tục; không mặc định hoàn toàn bộ khoản khấu trừ. Bạn cần đối soát hợp đồng, bảng thanh toán và chứng từ nộp thuế trước khi tính số cuối cùng.`,
       ['Điều 11–12 Nghị định 68/2026/NĐ-CP (sửa đổi bởi Nghị định 141/2026/NĐ-CP)', 'Điều 43 Nghị định 252/2026/NĐ-CP', 'Điểm i khoản 1 Điều 25 Thông tư 111/2013/TT-BTC'],
