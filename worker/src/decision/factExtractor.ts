@@ -220,7 +220,12 @@ export function extractTaxFacts(text: string, defaultYear = 2026, semanticIncome
 
   // 7. Giả định giảm thuế VAT (NQ 204/2025 hoặc NĐ 174/2025)
   const vatReliefAssumed =
-    /(du dieu kien|thuoc dien|duoc giam|gia dinh)[^.!?]{0,90}(giam|20\s*%|gtgt)|(?:hang hoa|mat hang)[^.!?]{0,90}(du dieu kien|duoc giam)/.test(q);
+    !/khong (?:duoc|du dieu kien) giam (?:thue )?gtgt/.test(q) &&
+    /(du dieu kien|thuoc dien|duoc giam|gia dinh)[^.!?]{0,90}(20\s*%|gtgt)|(?:hang hoa|mat hang)[^.!?]{0,90}(du dieu kien|duoc giam)/.test(q);
+  // Numeric extraction only: never infer a business sector from this number.
+  const explicitRates = [...q.matchAll(/ty le\s+(?:thue\s+)?gtgt(?:\s+[a-z]+){0,8}\s+(\d+(?:[.,]\d+)?)\s*%/g)]
+    .map(m => Number(m[1].replace(',', '.')) / 100);
+  const vatRateExplicit = explicitRates.length === 1 && [0.01, 0.02, 0.03, 0.05].includes(explicitRates[0]) ? explicitRates[0] : undefined;
 
   return {
     revenue_vnd: primaryRevenue,
@@ -231,5 +236,6 @@ export function extractTaxFacts(text: string, defaultYear = 2026, semanticIncome
     platform_fee_vnd: platformFeeVnd,
     shipping_cod_vnd: shippingCodVnd,
     vat_relief_assumed: vatReliefAssumed,
+    vat_rate_explicit: vatRateExplicit,
   };
 }

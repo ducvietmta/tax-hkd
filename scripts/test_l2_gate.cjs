@@ -73,7 +73,7 @@ async function main() {
     const history = [{ role: 'user', content: 'Tôi làm affiliate và có lương.' }];
     const classified = await provider.classifyBusiness('Có hoàn được không?', history);
     const { confidence, ...semanticLabels } = classified;
-    assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR' });
+    assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR', taxFocus: 'unspecified', vatRelief: 'UNKNOWN' });
     assert.deepEqual(confidence, { taxpayer: 0.95, intent: 0.99, income: 0.97 });
     assert.deepEqual(captured.state.history, history);
     assert.equal(await provider.classifyTaxRelevance('Có hoàn được không?', history), 'IN_SCOPE');

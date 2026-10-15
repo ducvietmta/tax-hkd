@@ -56,6 +56,7 @@ export interface TaxFactsFrame {
   activity_type?: string;
   multi_activities?: MultiActivityItem[];
   vat_relief_assumed?: boolean;     // Người dùng giả định đủ điều kiện giảm VAT
+  vat_rate_explicit?: number;       // Tỷ lệ trên doanh thu do người dùng cung cấp, không phải thuế suất khấu trừ
 }
 
 export interface MissingFact {
@@ -68,7 +69,7 @@ export interface MissingFact {
  * Đầu ra của bước understandQuery (L1/L2)
  */
 export interface TaxDecisionFrame {
-  semantic?: { topic?: string; revenueContext?: string };
+  semantic?: { topic?: string; revenueContext?: string; taxFocus?: 'vat' | 'pit' | 'both' | 'unspecified' };
   schema_version: '1.0';
   tax_period: TaxPeriodFrame;
   taxpayer_type: Provenance<TaxpayerType>;

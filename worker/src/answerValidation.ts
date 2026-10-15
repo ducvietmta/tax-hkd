@@ -29,7 +29,7 @@ export function missingAnswerIntents(question: string, answer: string, semantic?
 }
 
 /** A template may bypass generation only when it answers the complete request. */
-export function canUseVerifiedAnswer(question: string, answer: string): boolean {
+export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?: BusinessClassification['taxFocus']): boolean {
   if (missingAnswerIntents(question, answer).length) return false;
   const q = fold(question);
   const revenue = q.match(/\b(?:tong\s+)?doanh thu\s+(\d+(?:[.,]\d+)?)\s*(ty|trieu)\b/);
@@ -41,7 +41,10 @@ export function canUseVerifiedAnswer(question: string, answer: string): boolean 
     const exact = [...a.matchAll(/(?<!\d)\d{1,3}(?:[.,]\d{3}){2,}(?!\d)/g)].map(m => Number(m[0].replace(/[.,]/g, '')));
     if (!values.includes(expected) && !exact.includes(expected)) return false;
   }
-  const focus = requestedTaxFocus(question);
+  const focus = taxFocus || requestedTaxFocus(question);
+  const body = fold(answer.split(/Căn cứ pháp lý\s*:/i)[0]);
+  if (focus === 'pit' && /(?:thue\s+)?gtgt[^\n]{0,100}(?:\d[\d.,]*\s*(?:%|dong|trieu|ty))/.test(body)) return false;
+  if (focus === 'vat' && /(?:thue\s+)?tncn[^\n]{0,100}(?:\d[\d.,]*\s*(?:%|dong|trieu|ty))/.test(body)) return false;
   if (focus === 'vat' && /thu nhap chiu thue|doanh thu chiu thue tncn|tncn (?:truoc|sau)/.test(fold(answer))) return false;
   return true;
 }

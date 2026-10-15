@@ -140,14 +140,14 @@ export function evaluateDecisionFrame(frame: TaxDecisionFrame): EvaluationResult
   else if (incomeType === 'PROPERTY_RENTAL') sectorKey = 'property_rental';
 
   const rateConfig = ruleset.rates[sectorKey] || ruleset.rates.goods;
-  let vatRate = rateConfig.vat_rate;
+  let vatRate = frame.facts.vat_rate_explicit ?? rateConfig.vat_rate;
   let pitRate = rateConfig.pit_rate;
 
   // Giảm thuế VAT theo NQ 204 nếu có
   const vatReliefApplies = frame.facts.vat_relief_assumed && ruleset.relief_policies?.nq204_vat_reduction_rate &&
     taxYear <= (ruleset.relief_policies.nq204_vat_last_year || 2026);
   if (vatReliefApplies) {
-    vatRate = vatRate * (1 - ruleset.relief_policies.nq204_vat_reduction_rate);
+    vatRate = Math.round(vatRate * (1 - ruleset.relief_policies.nq204_vat_reduction_rate) * 1e6) / 1e6;
   }
 
   // Phương pháp tính thuế TNCN (Doanh thu hay Thu nhập)
@@ -190,14 +190,16 @@ export function evaluateDecisionFrame(frame: TaxDecisionFrame): EvaluationResult
   const pitAfterRelief = Math.max(0, pitBeforeRelief - pitRelief);
   const totalTaxPayable = vatDue + pitAfterRelief;
 
-  const supportingRefs = [ruleset.citations.exemption, ruleset.citations.vat_rates,
-    ruleset.citations.pit_law || ruleset.citations.amendment];
+  const focus = frame.semantic?.taxFocus;
+  const supportingRefs = [ruleset.citations.exemption,
+    ...(focus !== 'pit' ? [ruleset.citations.vat_rates] : []),
+    ...(focus !== 'vat' ? [ruleset.citations.pit_law || ruleset.citations.amendment] : [])];
   const citations: string[] = supportingRefs.map(cite);
-  if (pitRelief > 0 && ruleset.citations.pit_relief) {
+  if (focus !== 'vat' && pitRelief > 0 && ruleset.citations.pit_relief) {
     supportingRefs.push(ruleset.citations.pit_relief);
     citations.push(cite(ruleset.citations.pit_relief));
   }
-  if (vatReliefApplies && ruleset.citations.vat_relief) {
+  if (focus !== 'pit' && vatReliefApplies && ruleset.citations.vat_relief) {
     supportingRefs.push(ruleset.citations.vat_relief);
     citations.push(cite(ruleset.citations.vat_relief));
   }
@@ -214,7 +216,7 @@ export function evaluateDecisionFrame(frame: TaxDecisionFrame): EvaluationResult
       total_payable: totalTaxPayable,
     },
     params_used: {
-      vat_rate: { value: vatRate, param_ref: `rates.${sectorKey}.vat_rate` },
+      vat_rate: { value: vatRate, param_ref: frame.facts.vat_rate_explicit !== undefined ? 'user.vat_rate_explicit' : `rates.${sectorKey}.vat_rate` },
       pit_rate: { value: pitRate, param_ref: `rates.${sectorKey}.pit_rate` },
     },
     citations: supportingRefs.map(ref => ({ doc_id: ref.doc_id, article: ref.article, clause: ref.clause, point: ref.point })),

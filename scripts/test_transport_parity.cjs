@@ -62,6 +62,7 @@ const db = {
 let modelCalls = 0;
 let scopeLabel = 'IN_SCOPE';
 let reviewFailure = false;
+const semanticOverrides = new Map();
 const concurrentQuestion = 'Năm 2026 hộ kinh doanh khai thuế vào lúc nào?';
 let releaseConcurrent;
 const concurrentGate = new Promise(resolve => { releaseConcurrent = resolve; });
@@ -79,7 +80,7 @@ global.fetch = async (_url, init) => {
     if (input.questions.scope) return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel));
     const q = input.state.question;
     const fixture = load('worker/src/decision/understandQuery.ts').understandQuery(q, { years: [2026], periodSource: 'current_message' });
-    return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel, {
+    return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel, semanticOverrides.get(q) || {
       taxpayer: fixture.taxpayer_type.value, primaryIntent: fixture.tax_intent.primary.value,
       secondaryIntents: fixture.tax_intent.secondary, incomeTypes: fixture.income_type.map(x => x.value),
     }));
@@ -172,6 +173,26 @@ async function main() {
   }), env, ctx);
   const listed = await toolsResponse.json();
   assert.ok(listed.result.tools[0].inputSchema.properties.history, 'MCP must expose history for context-equivalent requests');
+
+  const vatOnly = 'Hộ tôi cung cấp dịch vụ gắn với hàng hóa, doanh thu tính GTGT cả năm 2026 là 2,4 tỷ đồng. Tỷ lệ GTGT gốc đã xác định là 3%, toàn bộ doanh thu đủ điều kiện giảm 20% mức tỷ lệ theo Nghị quyết 204 và Nghị định 174. Chỉ tính GTGT phải nộp, không tính TNCN.';
+  semanticOverrides.set(vatOnly, { taxpayer:'HOUSEHOLD_BUSINESS',primaryIntent:'TAX_CALCULATION',secondaryIntents:['RELIEF_REDUCTION'],incomeTypes:['SERVICE'],taxFocus:'vat',vatRelief:'ELIGIBLE' });
+  const vatOnlyAnswer = await mcpAnswer(vatOnly);
+  assert.match(vatOnlyAnswer, /57[.,]600[.,]000/);
+  assert.match(vatOnlyAnswer, /3%/);
+  assert.match(vatOnlyAnswer, /2,4%/);
+  assert.doesNotMatch(vatOnlyAnswer.split('Căn cứ pháp lý:')[0], /TNCN|19[.,]200[.,]000/);
+  assert.equal(await streamAnswer(vatOnly), vatOnlyAnswer);
+  const pitOnly = 'Tôi là cá nhân cư trú kinh doanh sửa chữa, doanh thu năm 2026 là 3,6 tỷ, thu nhập tính thuế đã xác định hợp lệ 550 triệu. Đủ điều kiện giảm 30% TNCN theo Nghị quyết 43. TNCN cuối cùng là bao nhiêu? Không tính GTGT.';
+  semanticOverrides.set(pitOnly, { taxpayer:'INDIVIDUAL_BUSINESS',primaryIntent:'TAX_CALCULATION',secondaryIntents:['RELIEF_REDUCTION'],incomeTypes:['SERVICE'],taxFocus:'pit',vatRelief:'UNKNOWN' });
+  const pitOnlyAnswer = await mcpAnswer(pitOnly);
+  assert.match(pitOnlyAnswer, /65[.,]450[.,]000/);
+  assert.doesNotMatch(pitOnlyAnswer, /GTGT|4\.000000|209[.,]450[.,]000|Điều 3, Điều 4/);
+  assert.equal(await streamAnswer(pitOnly), pitOnlyAnswer);
+  const frame = load('worker/src/decision/understandQuery.ts').understandClassifiedQuery(pitOnly, {years:[2026],periodSource:'current_message'}, [], semanticOverrides.get(pitOnly));
+  assert.equal(frame.facts.vat_relief_assumed, false, 'PIT relief cannot authorize VAT relief');
+  const invalid = load('worker/src/decision/answerValidator.ts').validateAnswer('Thuế TNCN: 65.450.000 đồng. Thuế GTGT: 144 triệu đồng.', frame);
+  assert.equal(invalid.status, 'DOWNGRADE');
+  assert.equal(load('worker/src/answerValidation.ts').canUseVerifiedAnswer(pitOnly,'Thuế TNCN: 65.450.000 đồng. Thuế GTGT: 144 triệu đồng.','pit'),false);
 
   reviewFailure = true;
   const cachedBefore = rows.size;

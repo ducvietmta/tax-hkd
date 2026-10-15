@@ -27,7 +27,13 @@ export function validateAnswer(
     return { status: 'DOWNGRADE', reasons: ['Không có câu trả lời có thể kiểm chứng'], repairedText: text };
   }
 
-  if (evalResult?.status === 'ANSWERED' && evalResult.effective_revenue_vnd > 3_000_000_000 &&
+  const focus = frame.semantic?.taxFocus;
+  const body = text.split(/Căn cứ pháp lý\s*:/i)[0];
+  const excluded = focus === 'pit' ? 'GTGT' : focus === 'vat' ? 'TNCN' : null;
+  if (excluded && new RegExp(`${excluded}[^\\n]{0,100}\\d[\\d.,]*\\s*(%|đồng|triệu|tỷ)`, 'i').test(body)) {
+    return { status: 'DOWNGRADE', reasons: ['Tính thêm loại thuế người dùng không yêu cầu'], repairedText: text };
+  }
+  if (focus !== 'vat' && evalResult?.status === 'ANSWERED' && evalResult.effective_revenue_vnd > 3_000_000_000 &&
       frame.tax_period.years[0] >= 2026 &&
       (/0[,.]5\s*%/.test(text) || !text.includes(`${evalResult.pit_rate * 100}%`))) {
     return { status: 'DOWNGRADE', reasons: ['TNCN theo doanh thu hoặc thiếu thuế suất của phương pháp thu nhập'], repairedText: text };

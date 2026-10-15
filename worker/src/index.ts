@@ -967,7 +967,7 @@ export default {
         // Invalidate old answers when ruleset updates or relative periods expire
         const digest = await crypto.subtle.digest(
           'SHA-256',
-          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:11-contextual-period-style|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+          new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:12-tax-focus-explicit-rate|${await knowledgeVersion()}|${env.DECISION_MODE || 'shadow'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
         );
         const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
         const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
@@ -1024,7 +1024,7 @@ export default {
         const canUseDecisionCalculation = applyDecision && decisionFrame && decisionEvaluation?.status === 'ANSWERED' &&
           decisionFrame.tax_period.years.length === 1 &&
           decisionFrame.facts.revenue_basis === 'ANNUAL' &&
-          decisionFrame.residency.value === 'RESIDENT' &&
+          (decisionFrame.residency.value === 'RESIDENT' || businessClassification.taxFocus === 'vat') &&
           ['HOUSEHOLD_BUSINESS', 'INDIVIDUAL_BUSINESS'].includes(decisionFrame.taxpayer_type.value) &&
           ['GOODS_SALES', 'SERVICE', 'FREELANCE_SERVICE', 'FOOD_SERVICE'].includes(decisionFrame.income_type[0]?.value || '') &&
           ['TAX_CALCULATION', 'RELIEF_REDUCTION', 'EXEMPTION_ELIGIBILITY'].includes(decisionFrame.tax_intent.primary.value) &&
@@ -1054,12 +1054,14 @@ export default {
             ruleIds: decisionEvaluation!.rule_outcomes.map(outcome => outcome.rule_id) } : null,
           answerPriorityTax(message, answerScope),
           answerVerifiedReliefEligibility(message, answerScope),
-          answerVerifiedBusinessTax(message, answerScope),
+          // The legacy calculator does not carry explicit rate provenance.
+          decisionFrame.facts.vat_rate_explicit === undefined ? answerVerifiedBusinessTax(message, answerScope) : null,
         ].find(answer => answer &&
           allowTaxTemplates &&
-          canUseVerifiedAnswer(message, answer.response)) || null;
+          canUseVerifiedAnswer(message, answer.response, businessClassification.taxFocus)) || null;
         let legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
-        const decisionStatus = verifiedTaxAnswer && structuredDecision?.decision_status !== 'NEEDS_LEGAL_REVIEW'
+        const decisionStatus = verifiedTaxAnswer && decisionFrame.facts.vat_rate_explicit !== undefined
+          ? 'CONDITIONAL' : verifiedTaxAnswer && structuredDecision?.decision_status !== 'NEEDS_LEGAL_REVIEW'
           ? 'ANSWERABLE_VERIFIED' : structuredDecision?.decision_status || 'NO_BASIS';
         // Guard chủ đề PENDING: chèn disclaimer vào prompt, không để model chốt cứng
         const pendingTopics = matchPendingTopics(message);
@@ -1080,6 +1082,9 @@ export default {
             secondaryIntents: decisionFrame.tax_intent.secondary,
             topic: businessClassification.topic,
             revenueContext: businessClassification.revenueContext,
+            taxFocus: businessClassification.taxFocus,
+            vatRelief: businessClassification.vatRelief,
+            explicitVatRate: decisionFrame.facts.vat_rate_explicit,
             revenueVnd: decisionFrame.facts.revenue_vnd,
             confidence: Math.round(decisionFrame.meta.confidence * 100) / 100,
             status: decisionStatus,

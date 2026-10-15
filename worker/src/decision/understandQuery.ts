@@ -193,6 +193,7 @@ export function understandQuery(
 
   // 9. Trích xuất dữ kiện số (Facts)
   const facts = extractTaxFacts(query, scope.years[0] || 2026, classification?.incomeTypes);
+  if (classification) facts.vat_relief_assumed = classification.vatRelief === 'ELIGIBLE';
 
   // 10. Missing facts & Cảnh báo dữ kiện thiếu
   const missingFacts: MissingFact[] = [];
@@ -216,7 +217,7 @@ export function understandQuery(
 
   return {
     schema_version: '1.0',
-    ...(classification ? { semantic: { topic: classification.topic, revenueContext: classification.revenueContext } } : {}),
+    ...(classification ? { semantic: { topic: classification.topic, revenueContext: classification.revenueContext, taxFocus: classification.taxFocus } } : {}),
     tax_period: taxPeriod,
     taxpayer_type: {
       value: taxpayerType,

@@ -13,6 +13,8 @@ export interface BusinessClassification {
   topic?: string;
   revenueContext?: string;
   taxYears?: number[];
+  taxFocus?: 'vat' | 'pit' | 'both' | 'unspecified';
+  vatRelief?: 'ELIGIBLE' | 'INELIGIBLE' | 'UNKNOWN';
 }
 export interface QuyetClassificationResult {
   taxpayer: TaxpayerType; taxpayerConf: number;
@@ -129,6 +131,11 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
       TRANSACTION: 'Số tiền một hóa đơn, khoản thu, chi phí hoặc giao dịch; không xác nhận là tổng doanh thu năm.',
       UNSPECIFIED: 'Không đủ thông tin để khẳng định doanh thu thực tế cả năm.',
     } };
+    questions.tax_focus = { type: 'choice', instructions: 'Loại thuế người dùng MUỐN trả lời. Hiểu phủ định và giới hạn chỉ tính; nhắc không tính GTGT không phải yêu cầu tính GTGT.', criteria: {
+      vat: 'Chỉ hỏi GTGT.', pit: 'Chỉ hỏi TNCN.', both: 'Hỏi cả GTGT và TNCN hoặc tổng nghĩa vụ hai thuế.', unspecified: 'Không xác định hoặc hỏi nghiệp vụ chung.' } };
+    questions.vat_relief = { type: 'choice', instructions: 'Chỉ đọc GIẢ ĐỊNH người dùng về giảm GTGT theo NQ204/NĐ174. Không suy điều kiện pháp luật. Giảm 30% TNCN theo NQ43 không phải giảm GTGT. Hỏi có được giảm hay chỉ nhắc văn bản không phải xác nhận đủ điều kiện.', criteria: {
+      ELIGIBLE: 'Người dùng khẳng định toàn bộ hàng hóa/dịch vụ hoặc doanh thu đang tính đủ điều kiện giảm GTGT 20% mức tỷ lệ.',
+      INELIGIBLE: 'Người dùng khẳng định không được giảm GTGT.', UNKNOWN: 'Chưa xác nhận, chỉ hỏi điều kiện, có nhiều nhóm khác nhau hoặc chỉ nói giảm TNCN.' } };
     const primaryIncomeLabels = INCOME_TYPES.filter(x => x !== 'OTHER');
     questions.primary_income = { type: 'choice',
       instructions: 'Nguồn thu chính thực sự được người hỏi nêu là loại nào? Nếu chỉ nói thu nhập mà chưa rõ là lương, hoa hồng hay kinh doanh thì chọn UNKNOWN. Không đoán lương từ chữ thu nhập, không đoán bán trên sàn khi chưa nói kênh. Hiểu phủ định.',
@@ -155,7 +162,7 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     this.businessDiagnostics = [{ task: 'NATIVE_SYSTEMONE', received: !!answers, validFormat: false }];
     if (!answers || taxpayer?.type !== 'choice' || !TAXPAYER_TYPES.includes(taxpayer.choice) || !validProbability(taxpayer.confidence) ||
       primaryIncome?.type !== 'choice' || !primaryIncomeLabels.includes(primaryIncome.choice) || !validProbability(primaryIncome.confidence)) return null;
-    for (const [key, value] of [['topic', topic], ['revenue_context', revenueContext], ['tax_period', taxPeriod]] as const) {
+    for (const [key, value] of [['topic', topic], ['revenue_context', revenueContext], ['tax_period', taxPeriod], ['tax_focus', answers.tax_focus], ['vat_relief', answers.vat_relief]] as const) {
       const options = (questions[key] as any).criteria;
       if (value?.type !== 'choice' || !Object.hasOwn(options, value.choice) || !validProbability(value.confidence)) return null;
     }
@@ -168,6 +175,8 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
       ? ['UNKNOWN'] : [primaryIncome.choice, ...selectedIncomes.map(x => x.label as IncomeType)];
     this.businessDiagnostics[0].validFormat = true;
     return { taxpayer: taxpayer.choice, topic: topic.choice, revenueContext: revenueContext.choice,
+      taxFocus: answers.tax_focus.confidence >= 0.7 ? answers.tax_focus.choice : 'unspecified',
+      vatRelief: answers.vat_relief.confidence >= 0.7 ? answers.vat_relief.choice : 'UNKNOWN',
       ...(mentionedYears.includes(taxPeriod.choice) && taxPeriod.confidence >= 0.7 ? { taxYears: [Number(taxPeriod.choice)] } : {}),
       primaryIntent: selectedIntents[0]?.label as TaxIntent || 'OTHER_TAX',
       secondaryIntents: selectedIntents.slice(1).map(x => x.label as TaxIntent),
