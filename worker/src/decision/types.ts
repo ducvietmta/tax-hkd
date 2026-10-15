@@ -69,7 +69,7 @@ export interface MissingFact {
  * Đầu ra của bước understandQuery (L1/L2)
  */
 export interface TaxDecisionFrame {
-  semantic?: { topic?: string; revenueContext?: string; taxFocus?: 'vat' | 'pit' | 'both' | 'unspecified' };
+  semantic?: { topic?: string; revenueContext?: string; taxFocus?: 'vat' | 'pit' | 'both' | 'unspecified'; invoicePeriod?: 'H1_2026' | 'H2_2026' | 'MIXED_OR_UNKNOWN' };
   schema_version: '1.0';
   tax_period: TaxPeriodFrame;
   taxpayer_type: Provenance<TaxpayerType>;

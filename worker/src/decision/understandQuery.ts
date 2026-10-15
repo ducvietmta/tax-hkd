@@ -217,7 +217,7 @@ export function understandQuery(
 
   return {
     schema_version: '1.0',
-    ...(classification ? { semantic: { topic: classification.topic, revenueContext: classification.revenueContext, taxFocus: classification.taxFocus } } : {}),
+    ...(classification ? { semantic: { topic: classification.topic, revenueContext: classification.revenueContext, taxFocus: classification.taxFocus, invoicePeriod: classification.invoicePeriod } } : {}),
     tax_period: taxPeriod,
     taxpayer_type: {
       value: taxpayerType,

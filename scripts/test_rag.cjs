@@ -73,7 +73,12 @@ console.log('RAG retrieval regression checks passed.');
 // Both effective periods and the price-error clause must survive retrieval and
 // context packing, rather than leaving the model only the name-error example.
 const { buildRetrievalPlan } = loadModule('worker/src/decision/retrievalPlan.ts');
+const halfYearFrame={tax_period:{years:[2026],is_historical:false},tax_intent:{primary:{value:'E_INVOICE'},secondary:[]},taxpayer_type:{value:'UNKNOWN'},semantic:{topic:'INVOICE_CORRECTION',invoicePeriod:'H1_2026'}};
+assert.deepEqual(buildRetrievalPlan(halfYearFrame).allowed_refs,['16.106']);
+assert.ok(buildRetrievalPlan({...halfYearFrame,semantic:{...halfYearFrame.semantic,invoicePeriod:'MIXED_OR_UNKNOWN'}}).allowed_refs.includes('16.103'),'Cross-period or unknown dates must retain transition evidence');
+assert.ok(buildRetrievalPlan({...halfYearFrame,tax_period:{years:[2025],is_historical:true}}).allowed_refs.includes('16.103'),'A semantic half-year label cannot override an explicit different year');
 const invoicePlan = buildRetrievalPlan({ tax_period: { years: [2026], is_historical: false },
+  tax_intent: { primary: { value: 'E_INVOICE' }, secondary: [] },
   semantic: { topic: 'INVOICE_CORRECTION', revenueContext: 'TRANSACTION' },
   taxpayer_type: { value: 'UNKNOWN' } });
 for (const question of [

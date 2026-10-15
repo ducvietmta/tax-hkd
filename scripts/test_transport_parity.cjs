@@ -62,6 +62,7 @@ const db = {
 let modelCalls = 0;
 let scopeLabel = 'IN_SCOPE';
 let reviewFailure = false;
+let reviewUnavailable = false;
 const semanticOverrides = new Map();
 const concurrentQuestion = 'Năm 2026 hộ kinh doanh khai thuế vào lúc nào?';
 let releaseConcurrent;
@@ -72,7 +73,9 @@ global.fetch = async (_url, init) => {
   const input = JSON.parse(init.body);
   if (String(_url).includes('mkp-api.fptcloud.com')) {
     assert.equal(String(_url), 'https://mkp-api.fptcloud.com/v1/systemone');
+    if (input.questions.facts && reviewUnavailable) return new Response('',{status:503});
     if (input.questions.facts && reviewFailure) return Response.json({ answers: {
+      ...require('./fixtures/quyet_native.cjs')(input,scopeLabel).answers,
       facts: { type: 'choice', choice: 'INVENTED', confidence: 0.99 },
       evidence: { type: 'choice', choice: 'SUPPORTED', confidence: 0.99 },
       coverage: { type: 'choice', choice: 'COMPLETE', confidence: 0.99 },
@@ -194,12 +197,58 @@ async function main() {
   assert.equal(invalid.status, 'DOWNGRADE');
   assert.equal(load('worker/src/answerValidation.ts').canUseVerifiedAnswer(pitOnly,'Thuế TNCN: 65.450.000 đồng. Thuế GTGT: 144 triệu đồng.','pit'),false);
 
+  const historical='Tôi rà lại nghĩa vụ năm 2025 của cá nhân cư trú bán hàng hóa: tổng doanh thu chịu thuế cả năm 150 triệu, không được giảm GTGT, chưa có khoản đã nộp thay. Tỷ lệ GTGT 1%, TNCN 0,5%. Tính giúp từng loại thuế của năm 2025, không dùng ngưỡng năm 2026.';
+  semanticOverrides.set(historical,{taxpayer:'INDIVIDUAL_BUSINESS',primaryIntent:'TAX_CALCULATION',secondaryIntents:[],incomeTypes:['GOODS_SALES'],taxYears:[2025],taxFocus:'both',vatRelief:'INELIGIBLE'});
+  const beforeHistorical=modelCalls;
+  const historicalAnswer=await mcpAnswer(historical);
+  assert.match(historicalAnswer,/2[.,]250[.,]000/);
+  assert.doesNotMatch(historicalAnswer,/Điều [89][, ]+Thông tư 40/);
+  assert.equal(modelCalls,beforeHistorical,'Explicitly ineligible VAT relief must not reject a valid deterministic calculation');
+
   reviewFailure = true;
   const cachedBefore = rows.size;
   const callsBefore = modelCalls;
-  await mcpAnswer('Hộ kinh doanh năm 2026 cần lưu chứng từ gì?');
+  const blocked = await mcpAnswer('Hộ kinh doanh năm 2026 cần lưu chứng từ gì?');
+  assert.equal(blocked, load('worker/src/decision/answerContract.ts').UNVERIFIED_ANSWER,
+    'Enforce must not serve the original rejected draft when repair fails');
   assert.equal(modelCalls, callsBefore + 2, 'One bounded repair only');
   assert.equal(rows.size, cachedBefore, 'A still-failing semantic review must not populate the shared answer cache');
+  reviewFailure = false;
+  const expenseSemantic = { taxpayer:'INDIVIDUAL_BUSINESS', primaryIntent:'ACCOUNTING_BOOKS',secondaryIntents:[],incomeTypes:['UNKNOWN'],topic:'BUSINESS_EXPENSES',taxFocus:'pit' };
+  assert.deepEqual(load('worker/src/answerValidation.ts').missingAnswerIntents(
+    'Tính TNCN theo thu nhập, hợp đồng vay mang tên người thân thì có được trừ lãi không?',
+    'Chưa đủ hồ sơ để xác định chi phí được trừ, cần đối chiếu nghĩa vụ vay.', expenseSemantic), [],
+    'Do not append unrelated PIT payment/offset boilerplate to an expense answer');
+  assert.deepEqual(load('worker/src/answerValidation.ts').missingAnswerIntents(
+    'Hóa đơn điện tử sai giá, xử lý thế nào?', 'Được chọn điều chỉnh hoặc thay thế hóa đơn.',
+    {...expenseSemantic,topic:'INVOICE_CORRECTION',taxFocus:'unspecified'}), [],
+    'Invoice correction must not trigger an unrelated registration appendix');
+  for (const topic of ['REVENUE_OWNERSHIP','REVENUE_THRESHOLD']) {
+    const ownershipFrame = load('worker/src/decision/understandQuery.ts').understandClassifiedQuery(
+      'Một cá nhân có nhiều hoạt động kinh doanh xét giảm thuế năm 2026 như thế nào?',
+      {years:[2026],periodSource:'current_message'}, [], {...expenseSemantic,topic,primaryIntent:'RELIEF_REDUCTION'});
+    const plan = load('worker/src/decision/retrievalPlan.ts').buildRetrievalPlan(ownershipFrame);
+    assert.ok(plan.must_include_refs.includes('16.39'),'Relief evidence must survive topic routing');
+    assert.ok(plan.must_include_refs.includes('16.72') || plan.must_include_refs.includes('16.75'));
+  }
+  reviewUnavailable = true;
+  const unavailable = await mcpAnswer('Cần lưu hồ sơ kinh doanh những gì để đối chiếu?');
+  assert.equal(unavailable,load('worker/src/decision/answerContract.ts').UNVERIFIED_ANSWER);
+  assert.equal(rows.size,cachedBefore,'Unavailable review must neither release nor cache a draft');
+  reviewUnavailable = false;
+  const testFetch=global.fetch;
+  try {
+    let repairCalls=0, fallbackCalls=0;
+    global.fetch=async()=>{repairCalls++;return new Response('',{status:503});};
+    const repaired=await load('worker/src/decision/repairAnswer.ts').repairAnswer('Nguồn và yêu cầu sửa',[], 'Câu hỏi',{
+      MUSE_API_KEY:'fixture',AI:{run:async(_model,input)=>{fallbackCalls++;assert.equal(input.messages[0].content,'Nguồn và yêu cầu sửa');return {response:'Bản sửa thử nghiệm đầy đủ để kiểm tra.'};}},
+    });
+    assert.equal(repaired.provider,'Workers AI');
+    assert.equal(repairCalls,1);assert.equal(fallbackCalls,1);
+    assert.equal(await load('worker/src/decision/repairAnswer.ts').repairAnswer('Nguồn',[],'Câu hỏi',{
+      AI:{run:async()=>{throw new Error('provider unavailable');}},
+    }),null,'Exhausted recovery must not manufacture a successful answer');
+  } finally {global.fetch=testFetch;}
 
   await Promise.all(pending);
   console.log('Web SSE, web JSON and MCP exact-answer parity checks passed.');

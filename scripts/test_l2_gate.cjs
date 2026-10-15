@@ -73,7 +73,7 @@ async function main() {
     const history = [{ role: 'user', content: 'Tôi làm affiliate và có lương.' }];
     const classified = await provider.classifyBusiness('Có hoàn được không?', history);
     const { confidence, ...semanticLabels } = classified;
-    assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR', taxFocus: 'unspecified', vatRelief: 'UNKNOWN' });
+    assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR', taxFocus: 'unspecified', vatRelief: 'UNKNOWN',invoicePeriod:'MIXED_OR_UNKNOWN' });
     assert.deepEqual(confidence, { taxpayer: 0.95, intent: 0.99, income: 0.97 });
     assert.deepEqual(captured.state.history, history);
     assert.equal(await provider.classifyTaxRelevance('Có hoàn được không?', history), 'IN_SCOPE');
@@ -87,6 +87,24 @@ async function main() {
       coverage: { type: 'choice', choice: 'COMPLETE', confidence: 0.95 },
     } });
     assert.deepEqual(await provider.reviewAnswer('Chưa rõ chủ thể', 'Chốt toàn bộ thuộc vợ', 'Cần kiểm hợp đồng'), ['facts:INVENTED', 'evidence:CONTRADICTED']);
+    for (const [choice, confidence, issue] of [['UNCERTAIN',0.99,'evidence:UNCERTAIN'],['SUPPORTED',0.4,'evidence:LOW_CONFIDENCE'],['CONTRADICTED',0.4,'evidence:LOW_CONFIDENCE']]) {
+      global.fetch = async (_url, init) => {
+        const payload=JSON.parse(init.body);
+        assert.equal(payload.state.evidence.length,8000,'Reviewer must not drop evidence after 5500 chars');
+        assert.deepEqual(payload.state.history,history,'Review must retain follow-up context');
+        return Response.json({answers:{facts:{type:'choice',choice:'FAITHFUL',confidence:.99},evidence:{type:'choice',choice,confidence},coverage:{type:'choice',choice:'COMPLETE',confidence:.99}}});
+      };
+      assert.deepEqual(await provider.reviewAnswer('Câu nối tiếp','Đáp án','x'.repeat(8000),history),[issue]);
+    }
+    assert.equal(await provider.reviewAnswer('Câu hỏi','a'.repeat(12001),'Nguồn'),null,'Oversized draft must not be silently certified after truncation');
+    global.fetch=async (_url,init)=>{
+      const input=JSON.parse(init.body);
+      assert.ok(input.questions.contract_change && input.questions.expense_conditions && input.questions.citations);
+      const output=fixture(input,'IN_SCOPE');
+      output.answers.contract_change.choice='INCOMPLETE';
+      return Response.json(output);
+    };
+    assert.deepEqual(await provider.reviewAnswer('Chi phí lãi vay và đổi tên?', 'Chưa đủ chứng từ.', 'Nguồn', [], {topic:'BUSINESS_EXPENSES'}),['contract_change:INCOMPLETE']);
     global.fetch = originalMock;
     for (const invalid of [
       r => { delete r.answers.taxpayer; },

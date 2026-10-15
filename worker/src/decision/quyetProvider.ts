@@ -15,6 +15,7 @@ export interface BusinessClassification {
   taxYears?: number[];
   taxFocus?: 'vat' | 'pit' | 'both' | 'unspecified';
   vatRelief?: 'ELIGIBLE' | 'INELIGIBLE' | 'UNKNOWN';
+  invoicePeriod?: 'H1_2026' | 'H2_2026' | 'MIXED_OR_UNKNOWN';
 }
 export interface QuyetClassificationResult {
   taxpayer: TaxpayerType; taxpayerConf: number;
@@ -77,8 +78,8 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
   }
 
   /** Compare text against supplied evidence, never ask Quyet to determine tax law. */
-  async reviewAnswer(question: string, answer: string, evidence: string): Promise<string[] | null> {
-    const questions = {
+  async reviewAnswer(question: string, answer: string, evidence: string, history: ConversationTurn[] = [], semantic?: BusinessClassification): Promise<string[] | null> {
+    const questions: Record<string, any> = {
       facts: { type: 'choice', instructions: 'So sánh đáp án với câu hỏi. Có khẳng định dữ kiện chưa được người dùng cung cấp hoặc chốt một trường hợp khi còn thiếu điều kiện quyết định không? Câu mở đầu chắc chắn nhưng cuối mới hỏi điều kiện quyết định cũng là vượt dữ kiện. Các nhánh nếu-thì không bị coi là bịa dữ kiện.',
         criteria: { FAITHFUL: 'Giữ đúng dữ kiện và mức chắc chắn; điều kiện được nêu trước kết luận tương ứng.',
           INVENTED: 'Tự tăng tổng số cửa hàng vì hiểu một cửa hàng mới là cộng thêm; đổi đặt hàng thành đã thu tiền; tự coi dự kiến là thực tế; tự xác định chủ thể chỉ theo tên; hoặc chốt chắc chắn khi chưa đủ hồ sơ. Một dữ kiện bịa dù chỉ xuất hiện trong câu hỏi cuối đáp án vẫn là lỗi.',
@@ -87,18 +88,40 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
         criteria: { SUPPORTED: 'Các khẳng định phù hợp với điều kiện/ngoại lệ của bằng chứng.',
           CONTRADICTED: 'Thêm điều kiện bắt buộc mà nguồn không quy định (như phải đổi tên người vay); biến chưa đủ hồ sơ thành không được trừ; dẫn điều khoản sai nhánh hoặc sai kỳ kể cả chỉ trong mục căn cứ cuối đáp án; hoặc kết luận trái ngoại lệ trong nguồn.',
           UNCERTAIN: 'Bằng chứng chưa đủ để đánh giá.' } },
-      coverage: { type: 'choice', instructions: 'Đáp án có giải quyết đủ các ý thực chất được hỏi chưa? Không cần khớp chữ, cần đúng mục đích. Câu hỏi chi phí/phương pháp cần đủ nhánh liên quan và chứng từ; câu sửa hóa đơn không được thay bằng hạn đăng ký.',
+      coverage: { type: 'choice', instructions: 'Tách câu hỏi thành từng yêu cầu rồi đối chiếu từng ý trong đáp án. Chỉ COMPLETE nếu TẤT CẢ được trả lời. Nêu thiếu hồ sơ cho ý được trừ không thay thế trả lời ý có bắt buộc đổi hợp đồng không. Chi phí lãi cần giới hạn lãi và chứng từ theo nguồn. Hóa đơn cần đủ lựa chọn xử lý và dữ kiện xác định kỳ, không chỉ tên văn bản. Doanh thu nhiều hoạt động cần xác định đơn vị cộng gộp, không chỉ kết luận đủ điều kiện.',
         criteria: { COMPLETE: 'Đã trả lời đủ trọng tâm và các ý hoặc nêu rõ điều kiện còn thiếu.',
           INCOMPLETE: 'Bỏ một ý quan trọng, một nhánh điều kiện được hỏi hoặc chuyển sang vấn đề khác.',
           UNCERTAIN: 'Không đủ thông tin để đánh giá.' } },
     };
-    const answers = await this.ask({ question: question.slice(0, 3000), answer: answer.slice(0, 5000), evidence: evidence.slice(0, 5500) }, questions);
+    const requirements: Record<string, Record<string, string>> = {
+      REVENUE_OWNERSHIP: {
+        aggregation: 'Đáp án xác định đúng đơn vị xét ngưỡng từ bằng chứng và quan hệ chủ thể trong câu hỏi? Cùng người, nhiều sổ sách không thành nhiều người. Phải cộng các khoản cùng người cùng kỳ, không cộng các người thực sự độc lập.',
+      },
+      BUSINESS_EXPENSES: {
+        contract_change: 'Nếu người dùng hỏi có phải đổi tên/sửa hợp đồng không, đáp án phải trả lời RIÊNG ý này theo nguồn. Chỉ nói chưa đủ hồ sơ được trừ là CHƯA trả lời. Không suy luôn bắt buộc hoặc luôn không cần đổi khi chưa đủ hồ sơ.',
+        expense_conditions: 'Nếu hỏi trừ chi phí lãi vay, đáp án phải bao phủ giới hạn lãi theo bên cho vay và hồ sơ/điều kiện thanh toán trong nguồn, bên cạnh mục đích kinh doanh. Chỉ liệt kê nghĩa vụ vay mà bỏ giới hạn lãi là thiếu.',
+      },
+      INVOICE_CORRECTION: {
+        correction_options: 'Đáp án có giữ đủ lựa chọn điều chỉnh/thay thế theo đúng nhánh nguồn và kỳ áp dụng không? Không chốt bắt buộc chỉ một cách khi nguồn cho lựa chọn và chưa có ngoại lệ.',
+        filing_period: 'Nếu hỏi kỳ khai thuế, đáp án có trả lời kỳ theo đủ điều kiện hoặc chỉ rõ dữ kiện cần bổ sung không? Chỉ nói phụ thuộc quy định là chưa đủ.',
+      },
+    };
+    const checks = requirements[semantic?.topic || ''] || {};
+    if (semantic) questions.citations = { type:'choice', instructions:'Đối chiếu TỪNG điều/khoản/điểm trong đáp án (kể cả mục căn cứ) với bằng chứng. Điều 10 khoản 2 dẫn Phụ lục I không có nghĩa khoản 2 Phụ lục I. Viện dẫn đúng văn bản nhưng sai điều/nhánh vẫn INCOMPLETE. Không có điều khoản tương ứng trong bằng chứng thì UNCERTAIN, không đoán theo kiến thức riêng.',
+      criteria:{COMPLETE:'Mọi viện dẫn có đúng cấu trúc và nội dung tương ứng trong bằng chứng.',INCOMPLETE:'Có viện dẫn sai điều/khoản/nhánh.',UNCERTAIN:'Không đủ nguồn đối chiếu.'} };
+    for (const [key, instructions] of Object.entries(checks)) questions[key] = { type:'choice', instructions,
+      criteria:{ COMPLETE:'Đã giải quyết đầy đủ theo nguồn.', INCOMPLETE:'Thiếu ý hoặc khẳng định trái nguồn.', NOT_APPLICABLE:'Câu hỏi không yêu cầu nghiệp vụ này.', UNCERTAIN:'Không đủ căn cứ đánh giá.' } };
+    // The reviewer must see the same evidence and conversation as generation.
+    // Never silently certify a truncated answer or evidence set.
+    if (question.length > 6000 || answer.length > 12000 || evidence.length > 14000) return null;
+    const answers = await this.ask({ ...this.state(question, history), answer, evidence }, questions);
     if (!answers) return null;
     const issues: string[] = [];
-    for (const key of ['facts', 'evidence', 'coverage'] as const) {
+    for (const key of Object.keys(questions)) {
       const value = answers[key];
       if (value?.type !== 'choice' || !Object.hasOwn(questions[key].criteria, value.choice) || !validProbability(value.confidence)) return null;
-      if (value.confidence >= 0.7 && ['INVENTED', 'CONTRADICTED', 'INCOMPLETE'].includes(value.choice)) issues.push(`${key}:${value.choice}`);
+      const accepted: Record<string,string[]> = { facts:['FAITHFUL'], evidence:['SUPPORTED'], coverage:['COMPLETE'] };
+      if (!(accepted[key] || ['COMPLETE','NOT_APPLICABLE']).includes(value.choice) || value.confidence < 0.7) issues.push(`${key}:${value.confidence < 0.7 ? 'LOW_CONFIDENCE' : value.choice}`);
     }
     return issues;
   }
@@ -133,6 +156,10 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     } };
     questions.tax_focus = { type: 'choice', instructions: 'Loại thuế người dùng MUỐN trả lời. Hiểu phủ định và giới hạn chỉ tính; nhắc không tính GTGT không phải yêu cầu tính GTGT.', criteria: {
       vat: 'Chỉ hỏi GTGT.', pit: 'Chỉ hỏi TNCN.', both: 'Hỏi cả GTGT và TNCN hoặc tổng nghĩa vụ hai thuế.', unspecified: 'Không xác định hoặc hỏi nghiệp vụ chung.' } };
+    questions.invoice_period = { type:'choice', instructions:'Chỉ phân loại THỜI ĐIỂM nghiệp vụ sửa hóa đơn được người dùng nêu, không quyết định luật. Xét ngày hóa đơn gốc và ngày phát hiện/xử lý. Không lấy ngày hiệu lực văn bản được nhắc làm ngày giao dịch. Thiếu thời điểm quan trọng hoặc xuyên hai giai đoạn chọn MIXED_OR_UNKNOWN.', criteria:{
+      H1_2026:'Hóa đơn gốc và phát hiện/xử lý đều trong 01/01–30/06/2026.',
+      H2_2026:'Hóa đơn gốc và phát hiện/xử lý đều trong 01/07–31/12/2026.',
+      MIXED_OR_UNKNOWN:'Không hỏi sửa hóa đơn, thiếu mốc, xuyên giai đoạn hoặc ngoài 2026.' } };
     questions.vat_relief = { type: 'choice', instructions: 'Chỉ đọc GIẢ ĐỊNH người dùng về giảm GTGT theo NQ204/NĐ174. Không suy điều kiện pháp luật. Giảm 30% TNCN theo NQ43 không phải giảm GTGT. Hỏi có được giảm hay chỉ nhắc văn bản không phải xác nhận đủ điều kiện.', criteria: {
       ELIGIBLE: 'Người dùng khẳng định toàn bộ hàng hóa/dịch vụ hoặc doanh thu đang tính đủ điều kiện giảm GTGT 20% mức tỷ lệ.',
       INELIGIBLE: 'Người dùng khẳng định không được giảm GTGT.', UNKNOWN: 'Chưa xác nhận, chỉ hỏi điều kiện, có nhiều nhóm khác nhau hoặc chỉ nói giảm TNCN.' } };
@@ -162,7 +189,7 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     this.businessDiagnostics = [{ task: 'NATIVE_SYSTEMONE', received: !!answers, validFormat: false }];
     if (!answers || taxpayer?.type !== 'choice' || !TAXPAYER_TYPES.includes(taxpayer.choice) || !validProbability(taxpayer.confidence) ||
       primaryIncome?.type !== 'choice' || !primaryIncomeLabels.includes(primaryIncome.choice) || !validProbability(primaryIncome.confidence)) return null;
-    for (const [key, value] of [['topic', topic], ['revenue_context', revenueContext], ['tax_period', taxPeriod], ['tax_focus', answers.tax_focus], ['vat_relief', answers.vat_relief]] as const) {
+    for (const [key, value] of [['topic', topic], ['revenue_context', revenueContext], ['tax_period', taxPeriod], ['tax_focus', answers.tax_focus], ['vat_relief', answers.vat_relief], ['invoice_period',answers.invoice_period]] as const) {
       const options = (questions[key] as any).criteria;
       if (value?.type !== 'choice' || !Object.hasOwn(options, value.choice) || !validProbability(value.confidence)) return null;
     }
@@ -177,6 +204,7 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     return { taxpayer: taxpayer.choice, topic: topic.choice, revenueContext: revenueContext.choice,
       taxFocus: answers.tax_focus.confidence >= 0.7 ? answers.tax_focus.choice : 'unspecified',
       vatRelief: answers.vat_relief.confidence >= 0.7 ? answers.vat_relief.choice : 'UNKNOWN',
+      invoicePeriod: answers.invoice_period.confidence >= 0.8 ? answers.invoice_period.choice : 'MIXED_OR_UNKNOWN',
       ...(mentionedYears.includes(taxPeriod.choice) && taxPeriod.confidence >= 0.7 ? { taxYears: [Number(taxPeriod.choice)] } : {}),
       primaryIntent: selectedIntents[0]?.label as TaxIntent || 'OTHER_TAX',
       secondaryIntents: selectedIntents.slice(1).map(x => x.label as TaxIntent),

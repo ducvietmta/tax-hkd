@@ -225,9 +225,10 @@ async function testWorkerPaths() {
       const response = await worker.fetch(request(stream, repairQuestion), semanticEnv, ctx);
       assert.equal(response.status, 200);
       const body = await response.text();
-      assert.match(body, /7\.000\.000 đồng/);
-      assert.match(body, /Tax Engine \(verified rules\)/);
-      assert.equal(captured.length, museCallsBeforeVerified, 'Verified tax amount must bypass model generation');
+      assert.doesNotMatch(body, /Thuế GTGT[^\n]{0,80}(?:75 triệu|75\.000\.000)/,
+        'PIT-only request must not accept the old combined-tax template');
+      assert.ok(captured.length > museCallsBeforeVerified,
+        'Without confirmed residency/method in shadow mode, use generation rather than assert a verified amount');
     }
     const vatReliefQuestion = 'Tôi cung cấp dịch vụ sửa chữa máy vi tính, không bán lẻ tạp hóa, doanh thu 1,5 tỷ năm 2026, thuế GTGT theo tỷ lệ 5%. Nghị quyết 204/2025/QH15 có thể giảm mức tỷ lệ GTGT của tôi xuống 4% hay không? Cần xác định điều kiện gì? Nghị quyết 43/2026/QH16 có giảm GTGT không? Không đổi thành ngành bán lẻ.';
     const webResponse = await worker.fetch(request(false, vatReliefQuestion), semanticEnv, ctx);

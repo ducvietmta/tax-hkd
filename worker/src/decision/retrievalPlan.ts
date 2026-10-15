@@ -13,6 +13,10 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   const years = frame.tax_period.years;
   const isHistorical = frame.tax_period.is_historical;
   const topic = frame.semantic?.topic;
+  if (topic === 'INVOICE_CORRECTION' && frame.semantic?.invoicePeriod === 'H1_2026' && years.length === 1 && years[0] === 2026) {
+    return { strategy:'PINNED_REFS',semantic_topic:topic,allowed_refs:['16.106'],must_include_refs:['16.106'],filter_years:years,
+      filter_taxpayer_types:[frame.taxpayer_type.value],boost_keywords:[] };
+  }
   // A transaction amount cannot establish annual thresholds. Supply the
   // method/base distinction even when the semantic topic is broader.
   if (topic === 'TAX_AMOUNT' && frame.semantic?.revenueContext === 'TRANSACTION') {
@@ -33,10 +37,14 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   };
   if (topic && topicEvidence[topic]) {
     const refs = [...topicEvidence[topic]];
+    // Topic and intent are complementary, not mutually exclusive routes.
+    // Keep the relief rule ahead of ownership evidence for per-person limits.
+    const relief = frame.tax_intent.primary.value === 'RELIEF_REDUCTION' || frame.tax_intent.secondary.includes('RELIEF_REDUCTION');
+    if (!isHistorical && relief && ['REVENUE_OWNERSHIP', 'REVENUE_THRESHOLD'].includes(topic)) refs.unshift('16.39');
     if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
     if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
     return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
-      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' ? 3 : 2), filter_years: years,
+      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' || relief ? 3 : 2), filter_years: years,
       filter_taxpayer_types: [frame.taxpayer_type.value], boost_keywords: [] };
   }
 

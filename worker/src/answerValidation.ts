@@ -16,21 +16,22 @@ export function missingAnswerIntents(question: string, answer: string, semantic?
   const q = fold(question);
   const a = fold(answer);
   const missing: string[] = [];
-  const focus = requestedTaxFocus(question);
+  const focus = semantic?.taxFocus || requestedTaxFocus(question);
   const asksRelief = semantic ? semantic.primaryIntent === 'RELIEF_REDUCTION' || semantic.secondaryIntents.includes('RELIEF_REDUCTION')
     : /giam|\b(?:nq\s*204|204\/2025)\b/.test(q);
-  if ((focus === 'vat' || focus === 'both') && asksRelief &&
+  if (semantic?.vatRelief !== 'INELIGIBLE' && (focus === 'vat' || focus === 'both') && asksRelief &&
       (!/gtgt/.test(a) || !/204|174|20\s*%|0[,.]8\s*%|4\s*%|giam\s+gtgt/.test(a))) missing.push('vat_relief');
-  if ((focus === 'pit' || focus === 'both' || /thu nhap tinh thue/.test(q)) && !/tncn|thu nhap ca nhan/.test(a)) missing.push('pit');
+  const asksPitAmount = !semantic || ['TAX_AMOUNT', 'REVENUE_THRESHOLD'].includes(semantic.topic || '');
+  if (asksPitAmount && (focus === 'pit' || focus === 'both' || /thu nhap tinh thue/.test(q)) && !/tncn|thu nhap ca nhan/.test(a)) missing.push('pit');
   if (/tiktok|nen tang|\bsan\b/.test(q) && /\btax\b|giu lai|khau tru|nop thay|doi tru/.test(q) &&
       !/\btax\b|khau tru|nop thay|chung tu|doi soat/.test(a)) missing.push('platform_withholding');
-  if (/hoa don dien tu|hddt/.test(q) && !/hoa don dien tu|hddt/.test(a)) missing.push('einvoice');
+  if ((!semantic || semantic.topic === 'INVOICE_REGISTRATION') && /hoa don dien tu|hddt/.test(q) && !/hoa don dien tu|hddt/.test(a)) missing.push('einvoice');
   return missing;
 }
 
 /** A template may bypass generation only when it answers the complete request. */
-export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?: BusinessClassification['taxFocus']): boolean {
-  if (missingAnswerIntents(question, answer).length) return false;
+export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?: BusinessClassification['taxFocus'], semantic?: BusinessClassification): boolean {
+  if (missingAnswerIntents(question, answer, semantic).length) return false;
   const q = fold(question);
   const revenue = q.match(/\b(?:tong\s+)?doanh thu\s+(\d+(?:[.,]\d+)?)\s*(ty|trieu)\b/);
   if (revenue) {
