@@ -63,9 +63,12 @@ async function main() {
     const fixture = require('./fixtures/quyet_native.cjs');
     global.fetch = async (url, init) => {
       assert.equal(url, 'https://mkp-api.fptcloud.com/v1/systemone');
-      captured = JSON.parse(init.body);
+      const input = JSON.parse(init.body);
+      assert.ok(Object.keys(input.questions).length <= 32);
+      for (const q of Object.values(input.questions)) if (q.type === 'choice') assert.ok(Object.keys(q.criteria).length <= 10);
+      captured = { ...input, questions: { ...captured?.questions, ...input.questions } };
       assert.equal(captured.messages, undefined, 'Must use native decisions, never generated chat');
-      const response = fixture(captured, 'IN_SCOPE', semantic);
+      const response = fixture(input, 'IN_SCOPE', semantic);
       if (corrupt) corrupt(response);
       return Response.json(response);
     };
@@ -76,6 +79,7 @@ async function main() {
     assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR', taxFocus: 'unspecified', vatRelief: 'UNKNOWN',invoicePeriod:'MIXED_OR_UNKNOWN' });
     assert.deepEqual(confidence, { taxpayer: 0.95, intent: 0.99, income: 0.97 });
     assert.deepEqual(captured.state.history, history);
+    assert.ok(captured.questions.business_registration, 'The classifier must be able to choose the registration route within provider option limits');
     assert.equal(await provider.classifyTaxRelevance('Có hoàn được không?', history), 'IN_SCOPE');
     corrupt = r => { r.answers.tax_period = { type: 'choice', choice: '2025', confidence: 0.98 }; };
     assert.deepEqual((await provider.classifyBusiness('Năm 2025 bán hàng, giờ 2026 hỏi nghĩa vụ năm đó')).taxYears, [2025], 'Separate the tax year from the year a question is asked');

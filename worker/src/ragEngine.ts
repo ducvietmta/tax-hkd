@@ -1903,25 +1903,40 @@ export const CANONICAL_CHUNKS: RagChunk[] = [
     "section": "16.107. Đăng ký kinh doanh: trường hợp không bắt buộc đăng ký và hoạt động affiliate, online, thu nhập thấp",
     "ref_id": "16.107",
     "tier": "VERIFIED",
-    "text": "Căn cứ pháp lý: Khoản 2 Điều 79 Nghị định 01/2021/NĐ-CP và Nghị định 168/2025/NĐ-CP; Nghị định 39/2007/NĐ-CP về cá nhân hoạt động thương mại độc lập; Thông tư 111/2013/TT-BTC; Công văn 1241/CTCBA-TTHT; Công văn 7403/CT-TMĐT.\n1. Các trường hợp KHÔNG BẮT BUỘC đăng ký hộ kinh doanh: Cá nhân hoạt động thương mại độc lập, kinh doanh thời vụ, lưu động, làm dịch vụ không có địa điểm cố định hoặc có thu nhập thấp (dưới mức chuẩn nghèo / quy định cụ thể của địa phương).\n2. Hoạt động tiếp thị liên kết (affiliate marketing), cộng tác viên bán hàng, kiếm tiền online tự do quy mô nhỏ (ví dụ thu nhập vài trăm nghìn đến vài triệu đồng/tháng): KHÔNG bắt buộc phải đăng ký hộ kinh doanh hay thành lập doanh nghiệp.\n3. Cơ chế quản lý thuế khi không đăng ký HKD: Cá nhân sử dụng Mã số thuế cá nhân (theo CCCD) để bên chi trả hoa hồng (sàn TMĐT, mạng affiliate, đối tác) ghi nhận. Bên chi trả thực hiện khấu trừ thuế TNCN tại nguồn (nếu từng lần chi trả từ 2 triệu đồng trở lên thì khấu trừ 10% theo Thông tư 111/2013/TT-BTC, hoặc theo cơ chế khấu trừ/kê khai nộp thay của sàn TMĐT theo NĐ 68/2026 và NĐ 252/2026). Nếu thu nhập cả năm dưới mức giảm trừ gia cảnh, cá nhân không phát sinh thuế TNCN phải nộp thêm.\n4. Tuyệt đối phân biệt: Câu hỏi có phải đăng ký kinh doanh hay không là câu hỏi về tư cách pháp lý và thủ tục thành lập, hoàn toàn độc lập với việc xét ngưỡng doanh thu tính thuế 1 tỷ đồng của HKD theo Nghị định 141/2026/NĐ-CP. Không đem quy định ngưỡng 1 tỷ ra trả lời thay cho câu hỏi đăng ký kinh doanh.\nNguồn: https://thuvienphapluat.vn/van-ban/Doanh-nghiep/Nghi-dinh-01-2021-ND-CP-dang-ky-doanh-nghiep-446706.aspx ; https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
+    "text": "Đăng ký hộ kinh doanh từ 01/07/2025: khoản 3 và khoản 4 Điều 82, Điều 83 Nghị định 168/2025/NĐ-CP. Khoản 3 Điều 82 quy định hộ gia đình sản xuất nông, lâm, ngư nghiệp, làm muối; người bán hàng rong, quà vặt, buôn chuyến, kinh doanh lưu động, kinh doanh thời vụ, làm dịch vụ có thu nhập thấp không phải đăng ký hộ kinh doanh, trừ ngành, nghề đầu tư kinh doanh có điều kiện. UBND tỉnh, thành phố trực thuộc trung ương quy định mức thu nhập thấp áp dụng tại địa phương. Khoản 4 cho phép các đối tượng này đăng ký nếu có nhu cầu. Điều 83 quy định nghĩa vụ đăng ký và không được hoạt động dưới danh nghĩa hộ kinh doanh mà không đăng ký. Không có căn cứ trong các điều này để coi mọi hoạt động online/affiliate, không có địa điểm cố định hoặc một mức tiền nhỏ bất kỳ đều tự động được miễn đăng ký. Muốn áp dụng ngoại lệ phải xác định tính chất hoạt động và, nếu dựa vào dịch vụ thu nhập thấp, địa phương cùng mức thu nhập thấp đang có hiệu lực tại đó. Chưa biết thì trình bày các nhánh điều kiện và hỏi bổ sung, không kết luận tuyệt đối. Ngưỡng miễn thuế và việc bên trả thu nhập khấu trừ không thay thế điều kiện miễn đăng ký kinh doanh. Nguồn này không xác định nghĩa vụ khấu trừ hay mức thuế và không dùng cho thời kỳ trước 01/07/2025. Nguồn: https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
   }
 ];
 
 /**
  * 1. Định tuyến nhanh qua Query Map
+ * Fold dấu tiếng Việt cả 2 phía để câu hỏi không dấu ("tiep thi lien ket",
+ * "cho thue nha") vẫn trúng route như bản có dấu. `not` loại route bị cấm.
  */
+function foldRouteKey(s: string): string {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd');
+}
+
 export function matchRoute(query: string): QueryRoute | null {
-  const q = query.toLowerCase();
+  const q = foldRouteKey(query);
   let bestRoute: QueryRoute | null = null;
   let highestPriority = -1;
 
   for (const route of QUERY_ROUTES) {
-    const hasAny = route.any.some((kw) => q.includes(kw.toLowerCase()));
+    const hasAny = route.any.some((kw) => q.includes(foldRouteKey(kw)));
     if (!hasAny) continue;
 
     if (route.context_any && route.context_any.length > 0) {
-      const hasContext = route.context_any.some((kw) => q.includes(kw.toLowerCase()));
+      const hasContext = route.context_any.some((kw) => q.includes(foldRouteKey(kw)));
       if (!hasContext) continue;
+    }
+
+    if (route.not && route.not.length > 0) {
+      const excluded = route.not.some((kw) => q.includes(foldRouteKey(kw)));
+      if (excluded) continue;
     }
 
     if (route.priority > highestPriority) {

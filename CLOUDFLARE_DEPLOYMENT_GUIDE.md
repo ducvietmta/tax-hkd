@@ -33,15 +33,17 @@ binding = "DB"
 database_name = "tax_db"
 database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 ```
-👉 Hãy copy `database_id` này và dán vào file [wrangler.toml](file:///c:/Users/engin/OneDrive/Documents/Website/wrangler.toml).
+👉 Hãy copy `database_id` này và dán vào file `worker/wrangler.toml` (config Worker duy nhất; `wrangler.toml` ở root đã bỏ để tránh 2 cấu hình mâu thuẫn).
+
+> Secrets (`MUSE_API_KEY`, `FPT_AI_KEY`, `SEPAY_API_KEY`, `VIP_PHONE`) KHÔNG ghi vào file — cấu hình bằng `wrangler secret put <TÊN> --config worker/wrangler.toml`.
 
 ### 2. Chạy Migration tạo bảng (Schema):
 ```bash
-# Thực thi trên Cloudflare D1 Production
-npx wrangler d1 execute tax_db --remote --file=./d1/schema.sql
+# Thực thi trên Cloudflare D1 Production (dùng config Worker duy nhất)
+npx wrangler d1 execute tax_db --remote --config worker/wrangler.toml --file=./d1/schema.sql
 
 # (Tùy chọn) Thực thi trên môi trường local dev để test
-npx wrangler d1 execute tax_db --local --file=./d1/schema.sql
+npx wrangler d1 execute tax_db --local --config worker/wrangler.toml --file=./d1/schema.sql
 ```
 
 ### 3. Nạp dữ liệu khởi tạo (Seed VIP Account `0943219594`):

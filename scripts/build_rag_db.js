@@ -142,19 +142,34 @@ export const CANONICAL_CHUNKS: RagChunk[] = ${JSON.stringify(verifiedChunks, nul
 
 /**
  * 1. Định tuyến nhanh qua Query Map
+ * Fold dấu tiếng Việt cả 2 phía để câu hỏi không dấu ("tiep thi lien ket",
+ * "cho thue nha") vẫn trúng route như bản có dấu. `not` loại route bị cấm.
  */
+function foldRouteKey(s: string): string {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\\u0300-\\u036f]/g, '')
+    .replace(/đ/g, 'd');
+}
+
 export function matchRoute(query: string): QueryRoute | null {
-  const q = query.toLowerCase();
+  const q = foldRouteKey(query);
   let bestRoute: QueryRoute | null = null;
   let highestPriority = -1;
 
   for (const route of QUERY_ROUTES) {
-    const hasAny = route.any.some((kw) => q.includes(kw.toLowerCase()));
+    const hasAny = route.any.some((kw) => q.includes(foldRouteKey(kw)));
     if (!hasAny) continue;
 
     if (route.context_any && route.context_any.length > 0) {
-      const hasContext = route.context_any.some((kw) => q.includes(kw.toLowerCase()));
+      const hasContext = route.context_any.some((kw) => q.includes(foldRouteKey(kw)));
       if (!hasContext) continue;
+    }
+
+    if (route.not && route.not.length > 0) {
+      const excluded = route.not.some((kw) => q.includes(foldRouteKey(kw)));
+      if (excluded) continue;
     }
 
     if (route.priority > highestPriority) {

@@ -6,7 +6,12 @@
 export interface Env {
   DB: D1Database;
   STORAGE_BUCKET: R2Bucket;
-  AI?: { run: (model: string, input: unknown) => Promise<{ response?: string }> };
+  AI?: { run: (model: string, input: unknown) => Promise<{ response?: string; data?: number[][]; shape?: number[] }> };
+  /** Bật dense retrieval khi đã nạp Vectorize index. Mặc định tắt. */
+  VECTORIZE_ENABLED?: string;
+  VECTORIZE?: {
+    query(vector: number[], opts?: { topK?: number }): Promise<{ matches: Array<{ id: string; score: number }> }>;
+  };
   ENVIRONMENT?: string;
   CORS_ALLOW_ORIGIN?: string;
   MUSE_API_KEY?: string;

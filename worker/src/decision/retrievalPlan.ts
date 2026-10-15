@@ -3,9 +3,71 @@
  *
  * Xây dựng kế hoạch truy xuất cho RAG dựa trên TaxDecisionFrame,
  * thay thế các đoạn ghim mã ref_id thủ công rải rác trong code.
+ * legacyPinRefs: single source of truth cho các quy tắc ghim dự phòng
+ * của đường legacy (không có decision plan). retriever.ts chỉ áp dụng
+ * theo đúng thứ tự này, không định nghĩa lại regex/ref ở nơi khác.
+ * Module này KHÔNG import runtime (giữ tương thích test harness stub).
  */
 
 import type { TaxDecisionFrame, RetrievalPlan } from './types';
+
+function foldLegacy(s: string): string {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9%\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Một ref được ghim lên đầu, giữ nguyên bonus điểm như logic cũ. */
+export interface LegacyPin {
+  ref: string;
+  bonus: number;
+}
+
+/**
+ * Thứ tự ghim legacy (front-to-back) cho câu hỏi không có decision frame.
+ * Tái hiện chính xác thứ tự unshift cũ trong retriever: 16.77, 16.99,
+ * 16.100, 16.96, 16.60, 16.95, 16.51, 16.54 (chỉ các ref đủ điều kiện).
+ */
+export function legacyPinRefs(query: string, scope: { years: number[]; today: string }): LegacyPin[] {
+  const normalizedQuery = foldLegacy(query);
+  const currentYear = Number(String(scope.today).slice(0, 4)) || new Date().getFullYear();
+  const asksCurrentYear = scope.years.includes(currentYear);
+  const historicalOnly = scope.years.length > 0 && scope.years.every((year) => year < 2026);
+  const asksAboutAffiliate = /\b(affiliate|tiep thi lien ket|hoa hong|koc|kol)\b/.test(normalizedQuery);
+  const asksRefund = /\b(hoan thue|nop thua|lay lai tien thue)\b/.test(normalizedQuery) ||
+    (/\bthue\b/.test(normalizedQuery) && /\b(hoan lai|hoan tien|lay lai)\b/.test(normalizedQuery));
+
+  const asks888Registration =
+    /dang ky.*888|888.*(nhu the nao|cach|huong dan|thu tuc|lam sao)|(da co mst 10 so|co can dang ky 888)/.test(normalizedQuery);
+  const asksPercentageRate = /bao nhieu\s*(phan tram|%)/.test(normalizedQuery) ||
+    (/\b(thue suat|ty le)\b/.test(normalizedQuery) && /\b(bao nhieu|may %)\b/.test(normalizedQuery));
+  const mentionsSector = /\b(hang hoa|tap hoa|dich vu|an uong|van tai|xay dung|phan phoi|cat toc|spa|nha hang|quan an|ca phe)\b/.test(normalizedQuery);
+  const asksTaxCalculation2026 =
+    !historicalOnly &&
+    (/\b(1[,.]01\s*ty|1010\s*trieu|1[,.]5\s*ty|1500\s*trieu|1[.]000[.]000[.]001|tinh thue|nop thue|phai nop|nq43|30%)\b/.test(normalizedQuery) ||
+      (asksPercentageRate && mentionsSector) ||
+      (normalizedQuery.includes('doanh thu') && /\b(ty|trieu)\b/.test(normalizedQuery)));
+
+  const pins: LegacyPin[] = [];
+  if (asksPercentageRate && mentionsSector) pins.push({ ref: '16.77', bonus: 2 });
+  if (asksTaxCalculation2026) pins.push({ ref: '16.99', bonus: 1.2 });
+  if (asks888Registration) pins.push({ ref: '16.100', bonus: 3 });
+  if (!historicalOnly && (/\b888\b/.test(normalizedQuery) ||
+      (asksAboutAffiliate && /\b(1 ty|mot ty)\b/.test(normalizedQuery)))) pins.push({ ref: '16.96', bonus: 2 });
+  if (asksCurrentYear && (
+      (normalizedQuery.includes('doanh thu') && /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) ||
+      (asksRefund && asksAboutAffiliate && /\b\d+\s*(trieu|ty)\b/.test(normalizedQuery))
+    )) pins.push({ ref: '16.60', bonus: 1 });
+  if (asksAboutAffiliate && !historicalOnly) pins.push({ ref: '16.95', bonus: 1 });
+  if (asksRefund) pins.push({ ref: '16.51', bonus: 1 });
+  if (historicalOnly && /\bdoanh thu\b/.test(normalizedQuery)) pins.push({ ref: '16.54', bonus: 1 });
+  return pins;
+}
 
 export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   const mustIncludeRefs: string[] = [];

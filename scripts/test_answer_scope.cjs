@@ -36,6 +36,23 @@ assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.50'), 'Keep explicit
 assert.ok(compoundEvidence.some(r => r.chunk.ref_id === '16.39' || r.chunk.ref_id === '16.99'), 'Keep explicitly requested PIT relief evidence');
 const { understandClassifiedQuery } = load('worker/src/decision/understandQuery.ts');
 const { buildRetrievalPlan } = load('worker/src/decision/retrievalPlan.ts');
+// These are retrieval regressions with supplied semantic decisions, not live model accuracy tests.
+for (const question of [
+  'Thu nhập affiliate hai triệu mỗi tháng có phải mở hộ kinh doanh?',
+  'Tôi làm dịch vụ tự do, muốn biết có được hoạt động mà chưa lập hộ không?',
+  'Bán hàng theo mùa cần đăng ký kinh doanh không?',
+]) {
+  const frame = understandClassifiedQuery(question, scopeFor(question), [], {
+    taxpayer: 'UNKNOWN', primaryIntent: 'REGISTRATION', secondaryIntents: [],
+    incomeTypes: ['UNKNOWN'], topic: 'BUSINESS_REGISTRATION', revenueContext: 'UNSPECIFIED',
+  });
+  const result = retrieve(question, 4, scopeFor(question), buildRetrievalPlan(frame));
+  assert.ok(result.results.some(x => x.chunk.ref_id === '16.107'), 'Registration evidence must survive different amounts, activities and wording');
+  const evidence = result.results.find(x => x.chunk.ref_id === '16.107').chunk.text;
+  assert.match(evidence, /khoản 3.*Điều 82/i);
+  assert.match(evidence, /địa phương/);
+  assert.ok(!evidence.includes('KHÔNG bắt buộc phải đăng ký hộ kinh doanh hay thành lập doanh nghiệp'), 'No blanket exemption for low-income online workers');
+}
 const repairText = 'Một hóa đơn gồm tiền công sửa máy và linh kiện thay thế; có thể lấy một tỷ lệ GTGT cho toàn bộ không?';
 const repairFrame = understandClassifiedQuery(repairText, scopeFor(repairText), [], {
   taxpayer: 'UNKNOWN', primaryIntent: 'TAX_CALCULATION', secondaryIntents: [], incomeTypes: ['SERVICE'], topic: 'VAT_METHOD_CLASSIFICATION', revenueContext: 'TRANSACTION',

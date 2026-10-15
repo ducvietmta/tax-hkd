@@ -24,6 +24,7 @@ const engine = loadModule('worker/src/ragEngine.ts');
 const conversation = loadModule('worker/src/conversation.ts');
 const textUtils = loadModule('worker/src/utils/text.ts');
 const scope = loadModule('shared/taxScope.ts');
+const retrievalPlan = loadModule('worker/src/decision/retrievalPlan.ts');
 const taxEngine = loadModule('worker/src/taxEngine.ts');
 const factExtractor = loadModule('worker/src/decision/factExtractor.ts', { '../utils/text': textUtils });
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
@@ -31,6 +32,7 @@ const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retrie
   './answerScope': scope,
   './taxEngine': taxEngine,
   './decision/factExtractor': factExtractor,
+  './decision/retrievalPlan': retrievalPlan,
   './utils/text': textUtils,
 });
 

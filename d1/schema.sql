@@ -118,3 +118,18 @@ CREATE TABLE IF NOT EXISTS rate_limits (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_rate_limits_scope_created ON rate_limits(scope, created_at);
+
+-- 8. QUAN TRẮC RETRIEVAL (route miss / fallback) — chỉ diagnostics, không lưu câu hỏi/SĐT.
+CREATE TABLE IF NOT EXISTS retrieval_stats (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    transport TEXT NOT NULL DEFAULT 'web',   -- 'web' | 'mcp' | 'chatgpt'
+    route_id TEXT,                            -- NULL khi không trúng route nào
+    used_fallback INTEGER NOT NULL DEFAULT 0,
+    cache_hit INTEGER NOT NULL DEFAULT 0,
+    has_plan INTEGER NOT NULL DEFAULT 0,
+    result_count INTEGER NOT NULL DEFAULT 0,
+    years TEXT NOT NULL DEFAULT ''
+);
+CREATE INDEX IF NOT EXISTS idx_retrieval_stats_created ON retrieval_stats(created_at);
+CREATE INDEX IF NOT EXISTS idx_retrieval_stats_route ON retrieval_stats(route_id, created_at);

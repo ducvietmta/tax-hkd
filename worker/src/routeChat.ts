@@ -26,11 +26,13 @@ import { renderDeterministicAnswer, renderMultiYearComparison } from './decision
 import { validateAnswer } from './decision/answerValidator';
 import { buildRetrievalPlan } from './decision/retrievalPlan';
 import { decide } from './decision/orchestrator';
+import { vectorSearch, mergeVectorHits } from './vectorRetriever';
 import { CURRENT_RULESET_VERSION } from './rules/registry';
 import { CANONICAL_CHUNKS } from './ragEngine';
 import chunkMeta from './kb/chunkMeta.json';
 import { jsonResponse, type Env } from './http';
 import { isChatRateLimited } from './rateLimit';
+import { logRetrieval } from './retrievalStats';
 
 let kbVersionPromise: Promise<string> | undefined;
 function knowledgeVersion(): Promise<string> {
@@ -118,6 +120,7 @@ export async function handleChat(
           evidence: (payload.retrieval?.evidence || []).map((e: any) => e.title),
           decision: payload.retrieval?.decision,
           source: payload.source,
+          ...(payload.diagnostic_code ? { diagnostic_code: payload.diagnostic_code } : {}),
         }, 200, corsHeaders);
       }
       if (!body.stream) return jsonResponse(answerPayload, 200, corsHeaders);
@@ -165,14 +168,14 @@ export async function handleChat(
     }
 
     // Mandatory semantic preprocessing, independent of rules-engine enforcement mode.
-    const businessClassification = await new QuyetDecisionProvider(env.FPT_AI_KEY!)
-      .classifyBusiness(message, history);
+    const businessProvider = new QuyetDecisionProvider(env.FPT_AI_KEY!);
+    const businessClassification = await businessProvider.classifyBusiness(message, history);
     console.log('[QUYET_BUSINESS]', JSON.stringify({ model: 'Quyet-1.0-Large',
       available: !!businessClassification, labels: businessClassification }));
     if (!businessClassification) {
       return respondWithAnswer({ success: true,
         response: 'Hệ thống tạm thời chưa phân loại được nội dung câu hỏi. Vui lòng thử lại sau ít phút.',
-        source: 'classification_unavailable', citations: [], legal_citations: [] }, 99);
+        source: 'classification_unavailable', diagnostic_code: businessProvider.failureCode || 'INVALID_CLASSIFICATION', citations: [], legal_citations: [] }, 99);
     }
 
     // --- KIỂM TRA LƯỢT HỎI TRONG CLOUDFLARE D1 (TẦNG WORKER) ---
@@ -265,7 +268,7 @@ export async function handleChat(
     // Invalidate old answers when ruleset updates or relative periods expire
     const digest = await crypto.subtle.digest(
       'SHA-256',
-      new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:17-final-topic-coverage|${await knowledgeVersion()}|${env.DECISION_MODE || 'enforce'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+      new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:18-registration-coverage|${await knowledgeVersion()}|${env.DECISION_MODE || 'enforce'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
     );
     const hash = Array.from(new Uint8Array(digest)).slice(0, 12).map((x) => x.toString(16).padStart(2, '0')).join('');
     const cacheKey = new Request(`https://cache.internal/chat/${hash}`);
@@ -281,6 +284,12 @@ export async function handleChat(
       }
       if (cached) {
         const remainingCredits = await deductCreditOnce();
+        logRetrieval(env, ctx, {
+          transport: path === '/api/chatgpt/tax-qa' ? 'chatgpt'
+            : request.headers.get('X-Internal-Caller') === 'mcp' ? 'mcp' : 'web',
+          routeId: null, usedFallback: false, cacheHit: true,
+          hasPlan: false, resultCount: 0, years: answerScope.years,
+        });
         if (env.DB && activePhone) {
           ctx.waitUntil(
             env.DB.prepare(
@@ -308,8 +317,20 @@ export async function handleChat(
 
     // --- BƯỚC 1: HYBRID RETRIEVAL (BM25 + decision plan + evidence gate) ---
     const retrievalQuery = buildConversationRetrievalQuery(history, message, answerScope.years);
-    const retrieved = retrieve(retrievalQuery, businessClassification.topic === 'TAX_AMOUNT' ? 6 : 4, answerScope, retrievalPlan);
+    const topK = businessClassification.topic === 'TAX_AMOUNT' ? 6 : 4;
+    const retrieved = retrieve(retrievalQuery, topK, answerScope, retrievalPlan);
     const { routeId, usedFallback } = retrieved;
+    // Dense opt-in: chỉ thêm chunk còn thiếu, không xáo trộn thứ tự BM25/pin.
+    const vectorHits = await vectorSearch(retrievalQuery, env).catch(() => null);
+    if (vectorHits?.length) {
+      retrieved.results = mergeVectorHits(retrieved.results, vectorHits, topK + 2);
+    }
+    logRetrieval(env, ctx, {
+      transport: path === '/api/chatgpt/tax-qa' ? 'chatgpt'
+        : request.headers.get('X-Internal-Caller') === 'mcp' ? 'mcp' : 'web',
+      routeId, usedFallback, cacheHit: false,
+      hasPlan: !!retrievalPlan, resultCount: retrieved.results.length, years: answerScope.years,
+    });
     const gated = decisionFrame ? filterAndGateEvidence(retrieved.results.map(r => r.chunk), decisionFrame) : null;
     const results = applyDecision && gated
       ? retrieved.results.filter(r => gated.passedChunks.includes(r.chunk))
@@ -408,6 +429,7 @@ export async function handleChat(
 
     // --- BƯỚC 2: LLM GENERATION VỚI MUSE SPARK API (META AI) ---
     let isSystemError = false;
+    let generationFailure: string | undefined;
     if (!aiText && ragContextText) {
       const broadSystemPrompt = `Bạn là chuyên viên tư vấn thuế cho hộ kinh doanh & cá nhân kinh doanh tại Việt Nam.
 ${applyDecision && structuredDecision ? `QUYẾT ĐỊNH CÓ CẤU TRÚC: ${JSON.stringify({ status: structuredDecision.decision_status, risk: structuredDecision.risk_level, tax_period: decisionFrame!.tax_period.years, taxpayer: decisionFrame!.taxpayer_type.value, income_types: decisionFrame!.income_type.map(item => item.value), facts: decisionFrame!.facts, missing_facts: decisionFrame!.missing_facts, must_cover: structuredDecision.must_cover_intents, allowed_claims: structuredDecision.allowed_claims })}\n${canUseDecisionCalculation && decisionEvaluation ? `KẾT QUẢ RULES ENGINE (${decisionEvaluation.status}): ${decisionEvaluation.explanation}. Không tự thay phương pháp hoặc tỷ lệ tính thuế.` : ''}` : ''}
@@ -475,9 +497,9 @@ ${ragContextText}`;
       // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
       const museKey = env.MUSE_API_KEY;
       if (museKey) {
-        // Chỉ dùng muse-spark-1.3-contributor, lần 3 mới đổi sang muse-spark-1.3, tuyệt đối không dùng bản thấp hơn
+        // Chỉ dùng duy nhất muse-spark-1.3-contributor trong tất cả các lần gọi
         for (let attempt = 1; attempt <= 3 && !aiText; attempt++) {
-          const museModel = attempt <= 2 ? 'muse-spark-1.3-contributor' : 'muse-spark-1.3';
+          const museModel = 'muse-spark-1.3-contributor';
           try {
             if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
             const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel);
@@ -495,19 +517,23 @@ ${ragContextText}`;
                 aiText = outText;
                 source = `Muse Spark 1.3 (Meta AI) + ${source}`;
               } else {
+                generationFailure = 'MODEL_EMPTY';
                 console.warn('[MODEL_EMPTY]', JSON.stringify({ model: museModel, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
               }
               break;
             }
             const body = (await museRes.text()).slice(0, 300);
+            generationFailure = `MODEL_HTTP_${museRes.status}`;
             console.warn('[MODEL_HTTP_ERROR]', JSON.stringify({ model: museModel, status: museRes.status, body, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
             // Transient errors (429 rate limit, 404 node-routing glitch, or 5xx server errors) will be retried on attempt 2
             if (museRes.status !== 429 && museRes.status !== 404 && museRes.status < 500) break;
           } catch (errMuse: any) {
+            generationFailure = errMuse?.name === 'TimeoutError' ? 'MODEL_TIMEOUT' : 'MODEL_REQUEST_ERROR';
             console.error('[MODEL_REQUEST_ERROR]', JSON.stringify({ model: museModel, error: errMuse?.name || 'Error', detail: errMuse?.message, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
           }
         }
       } else {
+        generationFailure = 'MODEL_UNCONFIGURED';
         console.warn('[MODEL_UNCONFIGURED]', JSON.stringify({ routeId, refs: relevantChunks.map(c => c.ref_id) }));
       }
 
@@ -617,7 +643,7 @@ ${ragContextText}`;
 
     let semanticReviewPassed = isSystemError || !!verifiedTaxAnswer;
     let semanticReviewIssues: string[] | null = null;
-    if (!verifiedTaxAnswer && aiText && generationPrompt && env.FPT_AI_KEY) {
+    if (!isSystemError && !verifiedTaxAnswer && aiText && generationPrompt && env.FPT_AI_KEY) {
       const reviewer = new QuyetDecisionProvider(env.FPT_AI_KEY);
       const issues = await reviewer.reviewAnswer(message, aiText, ragContextText + "\nYÊU CẦU BAO PHỦ: " + answerContract(businessClassification), history, businessClassification);
       semanticReviewIssues = issues;
@@ -654,8 +680,9 @@ ${ragContextText}`;
       source = 'Answer review blocked';
       if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
     }
-    if (retrievalTrace.decision) Object.assign(retrievalTrace.decision, { answerReview: { status: semanticReviewPassed ? 'PASS' : 'BLOCKED', issues: semanticReviewIssues } });
-    Object.assign(retrievalTrace, { answerReview: { status: semanticReviewPassed ? 'PASS' : 'BLOCKED', issues: semanticReviewIssues } });
+    const answerReview = { status: isSystemError ? 'SKIPPED_GENERATION_ERROR' : semanticReviewPassed ? 'PASS' : 'BLOCKED', issues: semanticReviewIssues };
+    if (retrievalTrace.decision) Object.assign(retrievalTrace.decision, { answerReview });
+    Object.assign(retrievalTrace, { answerReview });
 
     // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
     let logD1Prefix = '';
@@ -675,6 +702,7 @@ ${ragContextText}`;
       source,
       citations: legalCitations,
       retrieval: retrievalTrace,
+      ...(isSystemError ? { diagnostic_code: generationFailure || 'MODEL_UNAVAILABLE' } : {}),
       matchedRefs: matchedRoute?.refs || [],
     };
     if (cacheable && !isSystemError && llmOk && validationPass && semanticReviewPassed && missingAnswerIntents(message, aiText, businessClassification).length === 0 &&

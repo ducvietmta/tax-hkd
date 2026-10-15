@@ -41,12 +41,25 @@ const validProbability = (x: unknown): x is number => typeof x === 'number' && N
 export class QuyetDecisionProvider implements DecisionModelProvider {
   name = 'Quyet-1.0-Large';
   businessDiagnostics: Array<{ task: string; received: boolean; validFormat: boolean }> = [];
+  failureCode?: string;
   constructor(private apiKey: string, private endpoint = 'https://mkp-api.fptcloud.com/v1/systemone', private timeoutMs = 12000) {}
 
   private state(message: string, history: ConversationTurn[]) {
     return { question: message, history: history.slice(-4).map(t => ({ role: t.role, content: t.content.slice(0, 800) })) };
   }
   private async ask(state: object, questions: Record<string, unknown>): Promise<Record<string, any> | null> {
+    // System One accepts at most 32 named decisions per request. Preserve the
+    // shared context and require every batch before accepting any classification.
+    const entries = Object.entries(questions);
+    if (entries.length > 32) {
+      const combined: Record<string, any> = {};
+      for (let offset = 0; offset < entries.length; offset += 32) {
+        const batch = await this.ask(state, Object.fromEntries(entries.slice(offset, offset + 32)));
+        if (!batch) return null;
+        for (const [key] of entries.slice(offset, offset + 32)) combined[key] = batch[key];
+      }
+      return combined;
+    }
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), this.timeoutMs);
     try {
@@ -54,9 +67,19 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
         method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${this.apiKey}` },
         body: JSON.stringify({ model: this.name, state, questions }), signal: controller.signal,
       });
-      if (!response.ok) { console.warn('[QUYET_HTTP_ERR]', response.status); return null; }
+      if (!response.ok) {
+        this.failureCode = `HTTP_${response.status}`;
+        if (response.status === 422) {
+          const error: any = await response.json().catch(() => null);
+          // Validation location/type only; never return inputs, credentials or provider prose.
+          const details = Array.isArray(error?.detail) ? error.detail : [];
+          this.failureCode += details.map((x: any) => ':' + String(x.type || 'validation') + '@' +
+            (Array.isArray(x.loc) ? x.loc.map(String).join('.') : '')).join('').slice(0, 400);
+        }
+        console.warn('[QUYET_HTTP_ERR]', this.failureCode); return null;
+      }
       const data: any = await response.json();
-      if (data.partial_failures && Object.keys(data.partial_failures).length) return null;
+      if (data.partial_failures && Object.keys(data.partial_failures).length) { this.failureCode = 'PARTIAL_FAILURE'; return null; }
       if (!data.answers || typeof data.answers !== 'object' || Array.isArray(data.answers)) return null;
       return data.answers;
     } catch (e: any) { console.warn('[QUYET_CALL_ERR]', e?.name || 'request_failed'); return null; }
@@ -94,6 +117,9 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
           UNCERTAIN: 'Không đủ thông tin để đánh giá.' } },
     };
     const requirements: Record<string, Record<string, string>> = {
+      BUSINESS_REGISTRATION: {
+        registration_conditions: 'Phân biệt nghĩa vụ đăng ký kinh doanh với đăng ký thuế, khấu trừ và miễn thuế. Không suy miễn đăng ký từ kênh online, mức tiền nhỏ hay việc bên trả khấu trừ. Đối chiếu từng điều kiện ngoại lệ với nguồn; thiếu địa phương hoặc tính chất hoạt động thì nêu kết luận có điều kiện và hỏi dữ kiện quyết định, không chốt có/không tuyệt đối.',
+      },
       REVENUE_OWNERSHIP: {
         aggregation: 'Đáp án xác định đúng đơn vị xét ngưỡng từ bằng chứng và quan hệ chủ thể trong câu hỏi? Cùng người, nhiều sổ sách không thành nhiều người. Phải cộng các khoản cùng người cùng kỳ, không cộng các người thực sự độc lập.',
       },
@@ -147,6 +173,9 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
       TAX_AMOUNT: 'Tính số tiền thuế, thuế suất, phương pháp TNCN theo doanh thu hay theo thu nhập, lựa chọn 15%/17%, hoặc chính sách giảm thuế, kể cả chỉ hỏi cách tính mà chưa yêu cầu số tiền.',
       OTHER: 'Nghiệp vụ khác hoặc chưa rõ trọng tâm.',
     } };
+    questions.business_registration = { type: 'noul', instructions: 'Trọng tâm người dùng có phải nghĩa vụ thành lập/đăng ký hộ kinh doanh hoặc doanh nghiệp, được hoạt động mà chưa đăng ký, hoặc ngoại lệ miễn đăng ký kinh doanh không? Số tiền, ngành và kênh chỉ là dữ kiện; hiểu mục đích thực tế, không dò từ khóa.', criteria: {
+      true: 'Thực sự hỏi nghĩa vụ hoặc ngoại lệ đăng ký kinh doanh.',
+      false: 'Chỉ hỏi đăng ký thuế, hóa đơn, miễn thuế, tính thuế hoặc nghiệp vụ khác; đăng ký kinh doanh chỉ là dữ kiện.' } };
     questions.revenue_context = { type: 'choice', instructions: 'Các số tiền trong câu hỏi phản ánh điều gì? Không biến dự kiến, một hóa đơn, doanh thu một quý hoặc một cửa hàng thành doanh thu thực tế cả năm của cá nhân.', criteria: {
       ACTUAL_YEAR: 'Nêu doanh thu thực tế cả năm để tính thuế hoặc xét ngưỡng.',
       PROJECTED: 'Có doanh thu dự kiến/ước tính, kể cả có thêm doanh thu thực tế khác; dự kiến chưa phải số đã phát sinh.',
@@ -183,6 +212,7 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
         false: `Không nêu nguồn thu từ ${incomeDescriptions[i]}, hoặc phủ định nguồn thu này. Nhắc sàn không có nghĩa bán hàng; nhắc lương công ty không làm công ty thành người hỏi; dịch vụ sửa chữa kèm phụ tùng vẫn là dịch vụ.` },
     }; });
     const answers = await this.ask(this.state(message, history), questions);
+    if (answers?.business_registration?.type !== 'noul' || !validProbability(answers.business_registration.noul)) return null;
     const taxpayer = answers?.taxpayer;
     const primaryIncome = answers?.primary_income;
     const topic = answers?.topic, revenueContext = answers?.revenue_context, taxPeriod = answers?.tax_period;
@@ -201,7 +231,7 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     const incomeTypes: IncomeType[] = primaryIncome.choice === 'UNKNOWN' || primaryIncome.confidence < 0.5
       ? ['UNKNOWN'] : [primaryIncome.choice, ...selectedIncomes.map(x => x.label as IncomeType)];
     this.businessDiagnostics[0].validFormat = true;
-    return { taxpayer: taxpayer.choice, topic: topic.choice, revenueContext: revenueContext.choice,
+    return { taxpayer: taxpayer.choice, topic: answers.business_registration.noul >= 0.8 ? 'BUSINESS_REGISTRATION' : topic.choice, revenueContext: revenueContext.choice,
       taxFocus: answers.tax_focus.confidence >= 0.7 ? answers.tax_focus.choice : 'unspecified',
       vatRelief: answers.vat_relief.confidence >= 0.7 ? answers.vat_relief.choice : 'UNKNOWN',
       invoicePeriod: answers.invoice_period.confidence >= 0.8 ? answers.invoice_period.choice : 'MIXED_OR_UNKNOWN',

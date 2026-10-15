@@ -38,11 +38,13 @@ const scope = loadModule('shared/taxScope.ts');
 const pendingTopics = loadModule('worker/src/pendingTopics.ts');
 const taxEngine = loadModule('worker/src/taxEngine.ts');
 const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './utils/text': textUtils, './sectorIntent': sectorIntent });
+const retrievalPlan = loadModule('worker/src/decision/retrievalPlan.ts');
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
   './ragEngine': engine,
   './answerScope': scope,
   './taxEngine': taxEngine,
   './utils/text': textUtils,
+  './decision/retrievalPlan': retrievalPlan,
   './decision/factExtractor': loadModule('worker/src/decision/factExtractor.ts'),
 });
 

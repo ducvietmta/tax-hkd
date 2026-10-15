@@ -12,9 +12,10 @@ module.exports = function nativeResponse(input, scope, business) {
   const active = q.replace(/\b(?:khong|ko)\s+(?:hoi|can|tinh|xet)(?:\s+(?:hoi|tinh|xet|ve|den|phan|thue))*\s*(?:tncn|thu nhap ca nhan|gtgt|gia tri gia tang)\b/g, '');
   const vat = /gtgt|gia tri gia tang/.test(active), pit = /tncn|thu nhap ca nhan/.test(active);
   for (const key of Object.keys(input.questions)) {
+    if (key === 'business_registration') { answers[key] = { type: 'noul', noul: business.topic === 'BUSINESS_REGISTRATION' ? .99 : .01 }; continue; }
     if (key === 'taxpayer') answers[key] = { type: 'choice', choice: business.taxpayer, confidence: 0.95 };
     else if (key === 'primary_income') answers[key] = { type: 'choice', choice: business.incomeTypes[0] || 'UNKNOWN', confidence: 0.97 };
-    else if (key === 'topic') answers[key] = { type: 'choice', choice: business.topic || 'TAX_AMOUNT', confidence: 0.95 };
+    else if (key === 'topic') answers[key] = { type: 'choice', choice: business.topic === 'BUSINESS_REGISTRATION' ? 'OTHER' : business.topic || 'TAX_AMOUNT', confidence: 0.95 };
     else if (key === 'revenue_context') answers[key] = { type: 'choice', choice: business.revenueContext || 'ACTUAL_YEAR', confidence: 0.95 };
     else if (key === 'tax_period') answers[key] = { type: 'choice', choice: business.taxYears?.[0]?.toString() || 'CURRENT', confidence: 0.95 };
     else if (key === 'tax_focus') answers[key] = { type:'choice', choice: business.taxFocus || (vat && pit ? 'both' : vat ? 'vat' : pit ? 'pit' : 'unspecified'), confidence:0.98 };

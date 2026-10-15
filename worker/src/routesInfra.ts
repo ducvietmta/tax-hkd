@@ -90,8 +90,23 @@ export async function handleTestAi(request: Request, env: Env, corsHeaders: Head
     if (!museKey) {
       return jsonResponse({ success: false, error: 'MUSE_API_KEY chưa được cấu hình.' }, 200, corsHeaders);
     }
+    const probe = url.searchParams.get('probe');
+    if (probe) {
+      const targetUrl = probe.startsWith('http') ? probe : `https://api.meta.ai${probe}`;
+      const probeRes = await fetch(targetUrl, {
+        method: request.method,
+        headers: {
+          Authorization: `Bearer ${museKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: request.method === 'POST' ? await request.text() : undefined,
+      });
+      return jsonResponse({ probe, status: probeRes.status, body: await probeRes.text() }, 200, corsHeaders);
+    }
     if (url.searchParams.get('models')) {
-      const mRes = await fetch('https://api.meta.ai/v1/models', { headers: { Authorization: `Bearer ${museKey}` } });
+      const mRes = await fetch('https://api.meta.ai/v1/models', {
+        headers: { Authorization: `Bearer ${museKey}` },
+      });
       return jsonResponse({ status: mRes.status, body: await mRes.text() }, 200, corsHeaders);
     }
     const testBody: { instructions?: string; message?: string; model?: string } =
@@ -102,7 +117,7 @@ export async function handleTestAi(request: Request, env: Env, corsHeaders: Head
     let lastErr: { status: number; body: string } | null = null;
     for (let attempt = 1; attempt <= 3 && !testData; attempt++) {
       if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
-      const museModel = attempt <= 2 ? 'muse-spark-1.3-contributor' : 'muse-spark-1.3';
+      const museModel = 'muse-spark-1.3-contributor';
       try {
         const testRes = await fetch('https://api.meta.ai/v1/responses', {
           method: 'POST',

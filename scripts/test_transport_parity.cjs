@@ -39,6 +39,7 @@ const db = {
             if (sql.startsWith('SELECT payload FROM answer_cache')) {
               return rows.has(values[0]) ? { payload: rows.get(values[0]) } : null;
             }
+            if (sql.startsWith('SELECT COUNT(*) AS n FROM rate_limits')) return { n: 0 };
             throw new Error(`Unexpected SELECT: ${sql}`);
           },
           async run() {
@@ -47,6 +48,9 @@ const db = {
               return {};
             }
             if (sql.startsWith('INSERT INTO decision_traces')) return {};
+            if (sql.startsWith('INSERT INTO retrieval_stats')) return {};
+            if (sql.startsWith('INSERT INTO rate_limits')) return {};
+            if (sql.startsWith('DELETE FROM rate_limits')) return {};
             throw new Error(`Unexpected write: ${sql}`);
           },
         };
@@ -63,6 +67,8 @@ let modelCalls = 0;
 let scopeLabel = 'IN_SCOPE';
 let reviewFailure = false;
 let reviewUnavailable = false;
+let generationUnavailable = false;
+let reviewCalls = 0;
 const semanticOverrides = new Map();
 const concurrentQuestion = 'Năm 2026 hộ kinh doanh khai thuế vào lúc nào?';
 let releaseConcurrent;
@@ -72,6 +78,7 @@ global.caches = { default: { match: async () => undefined, put: async () => {} }
 global.fetch = async (_url, init) => {
   const input = JSON.parse(init.body);
   if (String(_url).includes('mkp-api.fptcloud.com')) {
+    if (input.questions.facts) reviewCalls++;
     assert.equal(String(_url), 'https://mkp-api.fptcloud.com/v1/systemone');
     if (input.questions.facts && reviewUnavailable) return new Response('',{status:503});
     if (input.questions.facts && reviewFailure) return Response.json({ answers: {
@@ -90,6 +97,7 @@ global.fetch = async (_url, init) => {
   }
   assert.equal(input.stream, false, 'Web SSE and MCP must send the same non-stream model request');
   const call = ++modelCalls;
+  if (generationUnavailable) return new Response('', { status: 404 });
   if (input.input.at(-1).content[0].text === concurrentQuestion) {
     concurrentCalls += 1;
     if (concurrentCalls === 2) releaseConcurrent();
@@ -236,6 +244,16 @@ async function main() {
   assert.equal(unavailable,load('worker/src/decision/answerContract.ts').UNVERIFIED_ANSWER);
   assert.equal(rows.size,cachedBefore,'Unavailable review must neither release nor cache a draft');
   reviewUnavailable = false;
+  generationUnavailable = true;
+  const beforeFailedGenerationReview = reviewCalls;
+  const failedQuestion = 'Affiliate thu nhập ít có cần mở hộ kinh doanh hay không?';
+  semanticOverrides.set(failedQuestion, { taxpayer:'INDIVIDUAL_BUSINESS', primaryIntent:'REGISTRATION', secondaryIntents:[], incomeTypes:['AFFILIATE_COMMISSION'], topic:'BUSINESS_REGISTRATION' });
+  const failedResponse = await (await worker.fetch(webRequest(failedQuestion, false), env, ctx)).json();
+  assert.equal(failedResponse.source, 'system_connection_error');
+  assert.equal(failedResponse.diagnostic_code, 'MODEL_HTTP_404');
+  assert.equal(failedResponse.retrieval.decision.answerReview.status, 'SKIPPED_GENERATION_ERROR');
+  assert.equal(reviewCalls, beforeFailedGenerationReview, 'Do not spend reviewer tokens on a connection error message');
+  generationUnavailable = false;
   const testFetch=global.fetch;
   try {
     let repairCalls=0;

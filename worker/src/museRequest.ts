@@ -21,10 +21,8 @@ export function buildMuseRequest(
       })),
       { role: 'user', content: [{ type: 'input_text', text: message }] },
     ],
-    reasoning: stream ? { effort: 'high', summary: 'concise' } : { effort: 'high' },
-    // This covers internal reasoning and the visible answer. Muse recommends
-    // keeping temperature at its default rather than lowering it.
-    max_output_tokens: 8192,
+    reasoning: stream ? { effort: 'high', summary: 'concise' } : { effort: 'medium' },
+    max_output_tokens: 32000,
     stream,
   };
 }
