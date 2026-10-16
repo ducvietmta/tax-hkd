@@ -52,12 +52,18 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     // shared context and require every batch before accepting any classification.
     const entries = Object.entries(questions);
     if (entries.length > 32) {
-      const combined: Record<string, any> = {};
+      const chunks: Array<Array<[string, unknown]>> = [];
       for (let offset = 0; offset < entries.length; offset += 32) {
-        const batch = await this.ask(state, Object.fromEntries(entries.slice(offset, offset + 32)));
-        if (!batch) return null;
-        for (const [key] of entries.slice(offset, offset + 32)) combined[key] = batch[key];
+        chunks.push(entries.slice(offset, offset + 32));
       }
+      const batches = await Promise.all(
+        chunks.map(chunk => this.ask(state, Object.fromEntries(chunk)))
+      );
+      if (batches.some(b => !b)) return null;
+      const combined: Record<string, any> = {};
+      chunks.forEach((chunk, idx) => {
+        for (const [key] of chunk) combined[key] = batches[idx]![key];
+      });
       return combined;
     }
     const controller = new AbortController();
