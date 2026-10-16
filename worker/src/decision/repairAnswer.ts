@@ -8,7 +8,7 @@ export async function repairAnswer(instructions: string, history: ConversationTu
     try {
       const response = await fetch('https://api.meta.ai/v1/responses', {
         method:'POST', headers:{Authorization:`Bearer ${env.MUSE_API_KEY}`,'Content-Type':'application/json'},
-        body:JSON.stringify(buildMuseRequest(instructions,history,question,false,'muse-spark-1.3-contributor','low')),signal:AbortSignal.timeout(45000),
+        body:JSON.stringify(buildMuseRequest(instructions,history,question,false,'muse-spark-1.3-contributor','high')),signal:AbortSignal.timeout(45000),
       });
       if (response.ok) {
         const data: any = await response.json();

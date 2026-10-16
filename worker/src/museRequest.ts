@@ -7,7 +7,7 @@ export function buildMuseRequest(
   message: string,
   stream: boolean,
   model = 'muse-spark-1.3-contributor',
-  effort: 'minimal' | 'low' | 'medium' | 'high' = 'minimal',
+  effort: 'minimal' | 'low' | 'medium' | 'high' = 'high',
 ) {
   return {
     model,
@@ -23,7 +23,7 @@ export function buildMuseRequest(
       { role: 'user', content: [{ type: 'input_text', text: message }] },
     ],
     reasoning: stream ? { effort: 'high', summary: 'concise' } : { effort },
-    max_output_tokens: 8000,
+    max_output_tokens: 32000,
     stream,
   };
 }

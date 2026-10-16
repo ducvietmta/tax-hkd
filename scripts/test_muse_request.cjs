@@ -30,5 +30,6 @@ assert.equal(request.stream, true);
 assert.ok(request.max_output_tokens >= 4000);
 assert.ok(!('temperature' in request));
 assert.equal(buildMuseRequest('Quy tắc', history, '800 triệu', false).stream, false);
+assert.equal(buildMuseRequest('Quy tắc', history, '800 triệu', false).reasoning.effort, 'high');
 
 console.log('Muse request contract checks passed.');

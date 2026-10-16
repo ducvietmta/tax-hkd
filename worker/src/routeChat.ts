@@ -505,12 +505,12 @@ ${ragContextText}`;
           const museModel = 'muse-spark-1.3-contributor';
           try {
             if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
-            const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel);
+            const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel, 'high');
             const museRes = await fetch('https://api.meta.ai/v1/responses', {
               method: 'POST',
               headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
               body: JSON.stringify(modelRequest),
-              signal: AbortSignal.timeout(30000),
+              signal: AbortSignal.timeout(45000),
             });
             if (museRes.ok) {
               const museData: any = await museRes.json();
