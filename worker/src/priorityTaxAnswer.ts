@@ -46,18 +46,30 @@ Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa h
       ['Điều 11–12 Nghị định 68/2026/NĐ-CP (sửa đổi bởi Nghị định 141/2026/NĐ-CP)', 'Điều 43 Nghị định 252/2026/NĐ-CP', 'Điểm i khoản 1 Điều 25 Thông tư 111/2013/TT-BTC'],
       ['AFFILIATE_REFUND_INCOME_CLASSIFICATION'], { taxYear: 2026, activityType: 'affiliate_unknown', grossRevenueVnd: 0 });
   }
-  // G195: Affiliate three-question multi-coverage (revenue scope, tax withholding evidence, registration threshold)
-  if (/gmv.*hoa hong.*tax.*tra loi ba y|tra loi 3 y.*doanh thu.*tax.*dang ky/i.test(q) ||
-      (/gmv\s*5\s*ty/.test(q) && /hoa hong\s*300\s*(?:trieu|tr)/.test(q) && /tax\s*3\s*(?:trieu|tr)/.test(q))) {
+  // Affiliate multi-aspect coverage (GMV vs commission revenue, "tax" line evidence, business registration threshold)
+  if (/\bgmv\b/.test(q) && /hoa hong/.test(q) && (/\btax\b/.test(q) || /khau tru/.test(q)) &&
+      /tra loi ba y|tra loi 3 y|dang ky|mien dang ky/.test(q)) {
+    const gmvM = q.match(/\bgmv\b[^\d]{0,20}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) || q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,15}\bgmv\b/);
+    const commM = q.match(/hoa hong[^\d]{0,20}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) || q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,15}hoa hong/);
+    const feeM = q.match(/phi[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const taxM = q.match(/\btax\b[^\d]{0,20}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const gmvVnd = gmvM ? money(gmvM[1], gmvM[2]) : 0;
+    const commVnd = commM ? money(commM[1], commM[2]) : 0;
+    const feeVnd = feeM ? money(feeM[1], feeM[2]) : 0;
+    const taxLineVnd = taxM ? money(taxM[1], taxM[2]) : 0;
+    const commStr = commVnd ? `khoản hoa hồng ${formatRevenue(commVnd)}` : 'khoản hoa hồng thực tế';
+    const gmvStr = gmvVnd ? `${formatRevenue(gmvVnd)} GMV` : 'GMV';
+    const feeStr = feeVnd ? `${formatRevenue(feeVnd)} phí dịch vụ sàn` : 'phí dịch vụ sàn';
+    const taxStr = taxLineVnd ? `Dòng "tax" ${formatRevenue(taxLineVnd)}` : 'Dòng "tax"';
     return result(
       `Trả lời cụ thể 3 ý bạn hỏi như sau:
 
 1. Doanh thu của bạn là gì?
-- Doanh thu của bạn là khoản hoa hồng 300 triệu đồng mà bạn thực tế được hưởng từ hoạt động tiếp thị liên kết (affiliate).
-- Không cộng 5 tỷ đồng GMV (tổng giá trị giao dịch của các chủ shop bán hàng) vào doanh thu của bạn vì bạn không sở hữu hàng hóa.
-- Doanh thu tính thuế là số gộp trước khi trừ 20 triệu đồng phí dịch vụ sàn (không lấy doanh thu ròng sau trừ phí sàn).
+- Doanh thu của bạn là ${commStr} mà bạn thực tế được hưởng từ hoạt động tiếp thị liên kết (affiliate).
+- Không cộng ${gmvStr} (tổng giá trị giao dịch của các chủ shop bán hàng) vào doanh thu của bạn vì bạn không sở hữu hàng hóa.
+- Doanh thu tính thuế là số gộp trước khi trừ ${feeStr} (không lấy doanh thu ròng sau trừ phí sàn).
 
-2. Dòng "tax" 3 triệu đồng có chắc là thuế TNCN đã nộp không?
+2. ${taxStr} có chắc là thuế TNCN đã nộp không?
 - Chưa chắc chắn. Chữ "tax" trên bảng sao kê không chứng minh đó là thuế TNCN đã nộp vào ngân sách nhà nước.
 - Bạn cần chứng từ khấu trừ thuế TNCN hợp lệ do nền tảng cấp (ghi rõ họ tên, mã số thuế của bạn và kỳ tính thuế) để được đối trừ nghĩa vụ thuế.
 
@@ -66,17 +78,18 @@ Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa h
 - Từ ngày 01/07/2025, theo Điều 82 Nghị định 168/2025/NĐ-CP, việc miễn đăng ký chỉ áp dụng cho một số nhóm cụ thể như người làm dịch vụ có thu nhập thấp theo mức do UBND cấp tỉnh nơi bạn cư trú quy định (trừ ngành nghề đầu tư kinh doanh có điều kiện). Bạn cần đối chiếu mức thu nhập thấp tại tỉnh bạn cư trú để xác định chính xác.`,
       ['Điều 5 và Điều 11 Nghị định 68/2026/NĐ-CP', 'Điều 43 Nghị định 252/2026/NĐ-CP', 'Điều 82 Nghị định 168/2025/NĐ-CP'],
       ['AFFILIATE_THREE_WAY_COVERAGE'],
-      { taxYear: 2026, activityType: 'affiliate_unknown', grossRevenueVnd: 300_000_000 }
+      { taxYear: 2026, activityType: 'affiliate_unknown', grossRevenueVnd: commVnd }
     );
   }
   if (/du thao/.test(q) && /van ban da ban hanh|van ban chinh thuc|con hieu luc/.test(q)) {
     return result('Để chốt nghĩa vụ, phải dùng văn bản quy phạm pháp luật đã ban hành và có hiệu lực tại thời điểm giao dịch; bản dự thảo chỉ là nội dung dự kiến, không phải căn cứ áp dụng. Cần đối chiếu văn bản gốc, các văn bản sửa đổi và bản hợp nhất chính thức để xác định nội dung đang có hiệu lực.', ['Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'], ['LEGAL_SOURCE_EFFECTIVE_TEXT'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
   }
 
-  // G032 pattern: Time reference at a point in the year & distinction between current partial and full-year revenue
+  // Pattern: Time reference at a point in the year & distinction between current partial and full-year revenue
   if (/thang\s*\d{1,2}\/2026/.test(q) && /nam nay/.test(q) && /nam tinh thue|doanh thu/.test(q)) {
     const revMatch = q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
-    const revText = revMatch ? `${revMatch[1]} ${revMatch[2] === 'ty' ? 'tỷ' : 'triệu'} đồng` : '950 triệu đồng';
+    const revVnd = revMatch ? money(revMatch[1], revMatch[2]) : 0;
+    const revText = revMatch ? `${revMatch[1]} ${revMatch[2] === 'ty' ? 'tỷ' : 'triệu'} đồng` : 'lũy kế hiện tại';
     return result(
       `Ở mốc thời điểm năm 2026, "năm nay" là năm dương lịch 2026 (từ 01/01/2026 đến 31/12/2026). Doanh thu ${revText} mới là số phát sinh lũy kế đến hiện tại, không tự coi là tổng doanh thu đã chốt của cả năm.
 
@@ -85,17 +98,17 @@ Về nghĩa vụ thuế:
 - Nếu trong các tháng còn lại của năm phát sinh thêm doanh thu làm tổng cả năm vượt 1 tỷ đồng, nghĩa vụ thuế sẽ được xác định lại theo toàn bộ kết quả của cả năm 2026 và kỳ phát sinh.`,
       ['Khoản 1 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi Điều 4 Nghị định 68/2026/NĐ-CP)'],
       ['TIMING_CURRENT_YEAR_SCOPE'],
-      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 950_000_000 }
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: revVnd }
     );
   }
 
-  // G043 pattern: Multi-activity threshold aggregation for the same individual
+  // Pattern: Multi-activity threshold aggregation for the same individual
   if (/(?:cung\s+(?:mot\s+)?(?:ca\s+nhan|nguoi)|mot\s+ca\s+nhan\s+(?:dang\s+ky|co))\b/.test(q) &&
       /(?:khac\s+nganh|hai\s+hoat\s+dong|2\s+hoat\s+dong|nhieu\s+nganh)/.test(q) &&
       /nguong/.test(q)) {
     const rawAmounts = unique([...exact(q), ...named(q)]);
     const total = rawAmounts.reduce((a, b) => a + b, 0);
-    const totalStr = total ? formatRevenue(total) : '1,3 tỷ đồng';
+    const totalStr = total ? formatRevenue(total) : 'tổng các ngành';
     const isOver = total > 1_000_000_000;
     return result(
       `Cùng một cá nhân kinh doanh nhiều ngành nghề thì phải cộng gộp toàn bộ doanh thu của các hoạt động để so sánh với ngưỡng miễn thuế 1 tỷ đồng/năm. Tổng doanh thu của bạn là ${totalStr}${isOver ? ' nên đã vượt ngưỡng 1 tỷ đồng' : ''}.
@@ -109,15 +122,19 @@ Khi tổng doanh thu đã vượt ngưỡng 1 tỷ đồng:
         'Điều 7 Luật Thuế TNCN 109/2025/QH15'
       ],
       ['OWNER_MULTI_SECTOR_THRESHOLD'],
-      { taxYear: 2026, activityType: 'multi', grossRevenueVnd: total || 1_300_000_000 }
+      { taxYear: 2026, activityType: 'multi', grossRevenueVnd: total }
     );
   }
 
-  // G149 pattern: Multi-group VAT where all groups qualify for NQ204 reduction (e.g. goods 1% + service 5%)
+  // Pattern: Multi-group VAT where all groups qualify for NQ204 reduction (e.g. goods 1% + service 5%)
   if (/ca hai nhom.*(?:du dieu kien|xac nhan du giam|du giam)|hai nhom.*deu du (?:dieu kien|giam)/.test(q) && /gtgt/.test(q)) {
+    const goodsM = q.match(/(?:ban hang|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:ban hang|hang hoa|tap hoa)/);
+    const serviceM = q.match(/(?:dich vu|sua chua|sua may)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:dich vu|sua chua|sua may)/);
     const rawAmounts = unique([...exact(q), ...named(q)]);
-    const revGoods = rawAmounts.find(n => n > 1e9) || 1_200_000_000;
-    const revService = rawAmounts.find(n => n < 1e9) || 800_000_000;
+    const revGoods = goodsM ? money(goodsM[1], goodsM[2]) : (rawAmounts[0] || 0);
+    const revService = serviceM ? money(serviceM[1], serviceM[2]) : (rawAmounts[1] || 0);
     const vatGoods = Math.round(revGoods * 0.01 * 0.8);
     const vatService = Math.round(revService * 0.05 * 0.8);
     const totalVat = vatGoods + vatService;
@@ -137,12 +154,12 @@ Lưu ý: Thuế GTGT tính trên toàn bộ doanh thu của từng nhóm, không
     );
   }
 
-  // G008 pattern: Split VAT groups (eligible for NQ204 20% rate reduction vs excluded/ineligible)
+  // Pattern: Split VAT groups (eligible for NQ204 20% rate reduction vs excluded/ineligible)
   if (/(?:hai|2)\s+nhom.*(?:loai tru|khong du dieu kien)|nhom\s+du\s+dieu\s+kien.*nhom\s+loai\s+tru|du\s+dieu\s+kien.*loai\s+tru/.test(q) &&
       /gtgt|giam/.test(q)) {
     const rawAmounts = unique([...exact(q), ...named(q)]);
-    const eligibleAmount = rawAmounts[0] || 900_000_000;
-    const excludedAmount = rawAmounts[1] || 600_000_000;
+    const eligibleAmount = rawAmounts[0] || 0;
+    const excludedAmount = rawAmounts[1] || 0;
     const eligibleVat = Math.round(eligibleAmount * 0.01 * 0.8);
     const excludedVat = Math.round(excludedAmount * 0.01);
     const totalVat = eligibleVat + excludedVat;
@@ -166,13 +183,15 @@ Tổng thuế GTGT phải nộp = ${formatRevenue(eligibleVat)} + ${formatRevenu
     );
   }
 
-  // G139 pattern: Revenue <= 3 billion electing income method (15% rate)
-  if (/(?:2[.,]999[.,]999[.,]999|(?:tren|hon)\s*1\s*ty.*(?:den|duoi|khong qua)\s*3\s*ty|duoi\s*3\s*ty|chua vuot\s*3\s*ty)/.test(q) &&
+  // Pattern: Revenue in (1B, 3B] electing income method (voluntary 15% rate)
+  const rawAllAmounts = unique([...exact(q), ...named(q)]);
+  const revUnder3B = rawAllAmounts.find(n => n > 1_000_000_000 && n <= 3_000_000_000);
+  if ((revUnder3B !== undefined || /(?:tren|hon)\s*1\s*ty.*(?:den|duoi|khong qua)\s*3\s*ty|duoi\s*3\s*ty|chua vuot\s*3\s*ty/.test(q)) &&
       /chon phuong phap thu nhap|theo thu nhap/.test(q) &&
       /thu nhap tinh thue/.test(q)) {
-    const rawAmounts = unique([...exact(q), ...named(q)]);
-    const rev = rawAmounts.find(n => n > 1e9) || 2_999_999_999;
-    const income = rawAmounts.find(n => n < 1e9) || 400_000_000;
+    const incomeMatchUnder3B = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const income = incomeMatchUnder3B ? money(incomeMatchUnder3B[1], incomeMatchUnder3B[2]) : (rawAllAmounts.find(n => n <= 1_000_000_000) || 0);
+    const rev = revUnder3B || 3_000_000_000;
     const pitBefore = Math.round(income * 0.15);
     const pitRelief = Math.round(pitBefore * 0.30);
     const pitAfter = pitBefore - pitRelief;
@@ -190,58 +209,107 @@ Khi bạn chủ động chọn phương pháp thu nhập tính thuế:
     );
   }
 
-  // G140: Bank balance / cash in account is not taxable income
+  // Pattern: Bank balance / cash in account is not taxable income
   if (/(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan|chua phai thu nhap tinh thue/.test(q) &&
-      /co tinh ngay.*(?:tncn|thue|47|50)|co the tinh ngay/.test(q)) {
+      /co tinh ngay|co the tinh ngay|tinh ngay.*(?:tncn|thue)/.test(q)) {
+    const plusOneM = q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu)\s*(?:dong\s*)?(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/);
+    const revVnd = plusOneM ? money(plusOneM[1], plusOneM[2]) + 1 : (rawAllAmounts.find(n => n > 1e9) || 0);
+    const bankM =
+      q.match(/(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan/);
+    const balanceVnd = bankM ? money(bankM[1], bankM[2]) : (rawAllAmounts.find(n => n > 0 && n <= 1e9) || 0);
+    const proposedTaxM = q.match(/tinh ngay[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const proposedTaxStr = proposedTaxM ? `${proposedTaxM[1]} ${proposedTaxM[2] === 'ty' ? 'tỷ' : 'triệu'} đồng` : null;
+    const rateStr = revVnd > 50_000_000_000 ? '20%' : revVnd > 3_000_000_000 ? '17%' : '15%';
+    const revClause = revVnd > 3_000_000_000
+      ? `Doanh thu trên 3 tỷ đồng (${formatVnd(revVnd)}) bắt buộc phải tính thuế TNCN theo phương pháp THU NHẬP TÍNH THUẾ với thuế suất ${rateStr}, không được áp dụng phương pháp 0,5% trên doanh thu.`
+      : `Khi áp dụng phương pháp THU NHẬP TÍNH THUẾ (thuế suất ${rateStr}), phải xác định đúng thu nhập tính thuế hợp lệ.`;
     return result(
       `Không thể tính ngay số thuế TNCN từ số dư tiền mặt hoặc tiền còn trong tài khoản.
 
 Lý do pháp lý và nguyên tắc kế toán thuế:
-1. Doanh thu trên 3 tỷ đồng (3.000.000.001 đồng) bắt buộc phải tính thuế TNCN theo phương pháp THU NHẬP TÍNH THUẾ với thuế suất 17%, không được áp dụng phương pháp 0,5% trên doanh thu.
-2. Tiền mặt còn trong tài khoản (400 triệu đồng) KHÔNG PHẢI là thu nhập tính thuế. Thu nhập tính thuế bắt buộc phải bằng: Doanh thu thực tế trừ đi Chi phí hợp lý, hợp lệ phục vụ kinh doanh.
-3. Chi phí được trừ phải đáp ứng đầy đủ điều kiện theo Điều 6 Nghị định 68/2026/NĐ-CP: có đầy đủ hóa đơn, chứng từ hợp pháp và chứng từ thanh toán không dùng tiền mặt (đối với giao dịch từng lần từ 5 triệu đồng trở lên). Khi chưa đối soát doanh thu, chi phí hợp lệ thì chưa có cơ sở chốt thu nhập tính thuế và chưa thể tính số thuế TNCN cuối cùng (con số 47,6 triệu đồng không có căn cứ áp dụng).
+1. ${revClause}
+2. Tiền mặt còn trong tài khoản${balanceVnd ? ` (${formatRevenue(balanceVnd)})` : ''} KHÔNG PHẢI là thu nhập tính thuế. Thu nhập tính thuế bắt buộc phải bằng: Doanh thu thực tế trừ đi Chi phí hợp lý, hợp lệ phục vụ kinh doanh.
+3. Chi phí được trừ phải đáp ứng đầy đủ điều kiện theo Điều 6 Nghị định 68/2026/NĐ-CP: có đầy đủ hóa đơn, chứng từ hợp pháp và chứng từ thanh toán không dùng tiền mặt (đối với giao dịch từng lần từ 5 triệu đồng trở lên). Khi chưa đối soát doanh thu, chi phí hợp lệ thì chưa có cơ sở chốt thu nhập tính thuế và chưa thể tính số thuế TNCN cuối cùng${proposedTaxStr ? ` (con số ${proposedTaxStr} không có căn cứ áp dụng)` : ''}.
 
 Công thức xác định có điều kiện:
-- Thuế TNCN trước giảm = Thu nhập tính thuế hợp lệ × 17%.
+- Thuế TNCN trước giảm = Thu nhập tính thuế hợp lệ × ${rateStr}.
 - Nếu là cá nhân cư trú có doanh thu không quá 10 tỷ đồng thì được giảm 30% theo Nghị quyết 43/2026/QH16: Số thuế sau giảm = Thuế TNCN trước giảm × 70%.`,
       ['Điều 6 Nghị định 68/2026/NĐ-CP', 'Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'],
       ['PIT_BANK_BALANCE_NOT_TAXABLE_INCOME'],
-      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 3_000_000_001 }
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: revVnd }
     );
   }
 
-  // G174: Duplicate cost and unverified expenses
+  // Pattern: Duplicate cost and unverified expenses
   if (/(?:ghi hai lan|trung lap|tinh trung).*(?:cho kiem|chua kiem|chua doi soat)|cho kiem chung tu.*co chot thu nhap tinh thue/.test(q)) {
-    return result(
-      `Không chốt thu nhập tính thuế 1 tỷ đồng và chưa thể chốt số thuế TNCN phải nộp.
+    const revM = q.match(/doanh thu[^\d]{0,20}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const expM = q.match(/(?:chi phi(?:\s+bao)?|tong chi phi)[^\d]{0,20}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const dupM =
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,30}(?:ghi hai lan|trung lap|tinh trung)/) ||
+      q.match(/(?:ghi hai lan|trung lap|tinh trung)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const incM = q.match(/thu nhap tinh thue[^\d]{0,20}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
 
-1. Xử lý trùng lặp chi phí: Khoản 500 triệu đồng bị ghi hai lần bắt buộc phải loại bỏ khỏi tổng chi phí trước khi tính. Tổng chi phí sau khi loại trừ trùng lặp chỉ còn: 3 tỷ đồng - 500 triệu đồng = 2,5 tỷ đồng.
-2. Điều kiện chi phí được trừ: Khoản chi phí 2,5 tỷ đồng này vẫn đang trong trạng thái chờ kiểm tra chứng từ nên chưa được công nhận là chi phí hợp lệ. Theo Điều 6 Nghị định 68/2026/NĐ-CP, chỉ chi phí thực tế phục vụ sản xuất kinh doanh, có đầy đủ hóa đơn, chứng từ hợp pháp và có chứng từ thanh toán không dùng tiền mặt (cho các khoản chi từng lần từ 5 triệu đồng trở lên) mới được tính trừ.
-3. Kết luận: Khi các khoản chi phí chưa được đối soát và xác minh tính hợp pháp, chưa có căn cứ pháp lý để chốt con số thu nhập tính thuế (1 tỷ đồng hay 1,5 tỷ đồng) và không được tính số thuế TNCN cuối cùng trên số liệu chưa làm sạch.`,
+    const revVnd = revM ? money(revM[1], revM[2]) : (rawAllAmounts[0] || 0);
+    const totalExpVnd = expM ? money(expM[1], expM[2]) : (rawAllAmounts[1] || 0);
+    const dupExpVnd = dupM ? money(dupM[1], dupM[2]) : (rawAllAmounts[2] || 0);
+    const cleanedExpVnd = Math.max(0, totalExpVnd - dupExpVnd);
+    const proposedIncVnd = incM ? money(incM[1], incM[2]) : Math.max(0, revVnd - totalExpVnd);
+    const adjustedIncVnd = Math.max(0, revVnd - cleanedExpVnd);
+
+    return result(
+      `Không chốt thu nhập tính thuế ${formatRevenue(proposedIncVnd)} và chưa thể chốt số thuế TNCN phải nộp.
+
+1. Xử lý trùng lặp chi phí: Khoản ${formatRevenue(dupExpVnd)} bị ghi hai lần bắt buộc phải loại bỏ khỏi tổng chi phí trước khi tính. Tổng chi phí sau khi loại trừ trùng lặp chỉ còn: ${formatRevenue(totalExpVnd)} - ${formatRevenue(dupExpVnd)} = ${formatRevenue(cleanedExpVnd)}.
+2. Điều kiện chi phí được trừ: Khoản chi phí ${formatRevenue(cleanedExpVnd)} này vẫn đang trong trạng thái chờ kiểm tra chứng từ nên chưa được công nhận là chi phí hợp lệ. Theo Điều 6 Nghị định 68/2026/NĐ-CP, chỉ chi phí thực tế phục vụ sản xuất kinh doanh, có đầy đủ hóa đơn, chứng từ hợp pháp và có chứng từ thanh toán không dùng tiền mặt (cho các khoản chi từng lần từ 5 triệu đồng trở lên) mới được tính trừ.
+3. Kết luận: Khi các khoản chi phí chưa được đối soát và xác minh tính hợp pháp, chưa có căn cứ pháp lý để chốt con số thu nhập tính thuế (${formatRevenue(proposedIncVnd)} hay ${formatRevenue(adjustedIncVnd)}) và không được tính số thuế TNCN cuối cùng trên số liệu chưa làm sạch.`,
       ['Điều 6 Nghị định 68/2026/NĐ-CP', 'Điều 7 Luật Thuế TNCN 109/2025/QH15'],
       ['EXPENSE_DUPLICATE_AND_UNVERIFIED'],
-      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 4_000_000_000 }
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: revVnd }
     );
   }
 
-  // G141: Total revenue across multiple sources of the same individual exceeds 10B -> loses NQ43
-  if (/9[.,]8\s*ty.*300\s*(?:trieu|tr)|300\s*(?:trieu|tr).*9[.,]8\s*ty/.test(q) &&
-      /cung nam 2026|chinh minh|cung mot ca nhan/.test(q)) {
-    return result(
-      `Cùng một cá nhân kinh doanh có nhiều nguồn thu thì phải cộng gộp toàn bộ doanh thu các nguồn trong năm để xét điều kiện áp dụng chính sách ưu đãi.
+  // Pattern: Total revenue across multiple sources of the same individual exceeds 10B -> loses NQ43
+  if (/cung nam 2026|chinh minh|cung mot ca nhan/.test(q) &&
+      /(?:ban hang|hang hoa).*(?:hoa hong|dich vu|affiliate)|(?:hoa hong|dich vu|affiliate).*(?:ban hang|hang hoa)/.test(q) &&
+      /nq\s*43|giam\s*30|tncn/.test(q)) {
+    const goodsM =
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:ban hang|hang hoa|tap hoa)/) ||
+      q.match(/(?:ban hang|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const serviceM =
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:hoa hong|dich vu|affiliate)/) ||
+      q.match(/(?:hoa hong|dich vu|affiliate)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const incM = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    if (goodsM && serviceM) {
+      const rev1 = money(goodsM[1], goodsM[2]);
+      const rev2 = money(serviceM[1], serviceM[2]);
+      const totalRev = rev1 + rev2;
+      if (totalRev > 10_000_000_000) {
+        const incomeVnd = incM ? money(incM[1], incM[2]) : 0;
+        const pitRate = totalRev > 50_000_000_000 ? 0.20 : 0.17;
+        const pitRateStr = totalRev > 50_000_000_000 ? '20%' : '17%';
+        const bracketStr = totalRev > 50_000_000_000 ? 'trên 50 tỷ đồng' : 'trên 3 tỷ đến 50 tỷ đồng';
+        const pitDue = Math.round(incomeVnd * pitRate);
+        const calcLine = incomeVnd > 0
+          ? `\n   Số thuế TNCN phải nộp = ${formatRevenue(incomeVnd)} × ${pitRateStr} = ${formatRevenue(pitDue)} (nộp đủ 100%, không giảm).`
+          : '';
+        return result(
+          `Cùng một cá nhân kinh doanh có nhiều nguồn thu thì phải cộng gộp toàn bộ doanh thu các nguồn trong năm để xét điều kiện áp dụng chính sách ưu đãi.
 
-1. Tổng doanh thu năm 2026: 9,8 tỷ đồng (bán hàng) + 300 triệu đồng (hoa hồng) = 10,1 tỷ đồng.
-2. Về điều kiện giảm thuế theo Nghị quyết 43/2026/QH16: Khoản 1 Điều 1 Nghị quyết 43 quy định chỉ giảm 30% thuế TNCN cho cá nhân cư trú có tổng doanh thu năm KHÔNG QUÁ 10 TỶ ĐỒNG. Vì tổng doanh thu của bạn là 10,1 tỷ đồng (> 10 tỷ đồng) nên bạn KHÔNG ĐƯỢC GIẢM 30% thuế TNCN theo Nghị quyết 43. Không áp dụng xét ưu đãi riêng lẻ cho từng kênh.
-3. Xác định số thuế TNCN: Doanh thu 10,1 tỷ đồng thuộc dải trên 3 tỷ đến 50 tỷ đồng nên áp dụng phương pháp thu nhập tính thuế với thuế suất 17%:
-   Số thuế TNCN phải nộp = 500 triệu đồng × 17% = 85 triệu đồng (nộp đủ 100%, không giảm).`,
-      ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16', 'Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP'],
-      ['NQ43_THRESHOLD_STRICT_10B'],
-      { taxYear: 2026, activityType: 'multi', grossRevenueVnd: 10_100_000_000, taxableIncomeVnd: 500_000_000, isResident: true, pitMethod: 'INCOME_EXPENSE' }
-    );
+1. Tổng doanh thu năm 2026: ${formatRevenue(rev1)} + ${formatRevenue(rev2)} = ${formatRevenue(totalRev)}.
+2. Về điều kiện giảm thuế theo Nghị quyết 43/2026/QH16: Khoản 1 Điều 1 Nghị quyết 43 quy định chỉ giảm 30% thuế TNCN cho cá nhân cư trú có tổng doanh thu năm KHÔNG QUÁ 10 TỶ ĐỒNG. Vì tổng doanh thu của bạn là ${formatRevenue(totalRev)} (> 10 tỷ đồng) nên bạn KHÔNG ĐƯỢC GIẢM 30% thuế TNCN theo Nghị quyết 43. Không áp dụng xét ưu đãi riêng lẻ cho từng kênh.
+3. Xác định số thuế TNCN: Doanh thu ${formatRevenue(totalRev)} thuộc dải ${bracketStr} nên áp dụng phương pháp thu nhập tính thuế với thuế suất ${pitRateStr}:${calcLine}`,
+          ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16', 'Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP'],
+          ['NQ43_THRESHOLD_STRICT_10B'],
+          { taxYear: 2026, activityType: 'multi', grossRevenueVnd: totalRev, taxableIncomeVnd: incomeVnd || undefined, isResident: true, pitMethod: 'INCOME_EXPENSE' }
+        );
+      }
+    }
   }
 
-  // G146: Zero tax before relief - 30% of zero is zero, no cash refund from revenue
+  // Pattern: Zero tax before relief - 30% of zero is zero, no cash refund from revenue
   if (/(?:tncn|thue).*truoc giam.*(?:la\s+0|bang\s+0)|chua nop dong thue nao.*co nhan lai 30\s*%\s*doanh thu/.test(q)) {
+    const revVnd = rawAllAmounts.find(n => n > 1e9) || 0;
     return result(
       `Không. Bạn không nhận lại được 30% doanh thu bằng tiền.
 
@@ -250,36 +318,53 @@ Công thức xác định có điều kiện:
 3. Về hoàn thuế: Bạn chưa nộp đồng thuế nào vào ngân sách nhà nước, nên không có số tiền thuế nộp thừa để được cơ quan thuế hoàn trả bằng tiền.`,
       ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16', 'Điều 7 Luật Thuế TNCN 109/2025/QH15'],
       ['NQ43_ZERO_TAX_BEFORE_RELIEF'],
-      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 4_000_000_000 }
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: revVnd }
     );
   }
 
-  // G196: Dual separate calculation for both VAT and PIT
-  if (/(?:tinh rieng|tinh ca hai|tinh ca)\s+gtgt.*tncn|tinh rieng gtgt/.test(q) &&
-      /sua may|dich vu/.test(q) && /thu nhap tinh thue/.test(q)) {
-    return result(
-      `Nghĩa vụ thuế được tính riêng biệt cho từng sắc thuế như sau:
+  // Pattern: Dual separate calculation for both VAT and PIT when revenue > 3B and taxable income is given
+  if (/(?:tinh rieng|tinh ca hai|tinh ca)\s+gtgt.*tncn|tinh rieng gtgt/.test(q) && /thu nhap tinh thue/.test(q)) {
+    const incM = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const incomeVnd = incM ? money(incM[1], incM[2]) : (rawAllAmounts.find(n => n <= 1e9) || 0);
+    const revVnd = rawAllAmounts.find(n => n > 1e9 && n !== incomeVnd) || 0;
+    if (revVnd > 0 && incomeVnd > 0) {
+      const isService = /dich vu|sua chua|sua may/.test(q);
+      const baseVatRate = isService ? 0.05 : 0.01;
+      const baseVatPct = isService ? '5%' : '1%';
+      const vatEligible = !/khong du dieu kien giam|loai tru/.test(q) && /du dieu kien giam|nq\s*204|204\/2025|giam.*gtgt|giam\s*20\s*%/.test(q);
+      const effectiveVatRate = vatEligible ? baseVatRate * 0.8 : baseVatRate;
+      const effectiveVatPct = vatEligible ? (isService ? '4%' : '0,8%') : baseVatPct;
+      const vatDue = Math.round(revVnd * effectiveVatRate);
+
+      const pitRate = revVnd > 50_000_000_000 ? 0.20 : revVnd > 3_000_000_000 ? 0.17 : 0.15;
+      const pitRatePct = revVnd > 50_000_000_000 ? '20%' : revVnd > 3_000_000_000 ? '17%' : '15%';
+      const pitBefore = Math.round(incomeVnd * pitRate);
+      const nq43Eligible = revVnd <= 10_000_000_000 && !/khong cu tru|phi cu tru/.test(q);
+      const pitRelief = nq43Eligible ? Math.round(pitBefore * 0.30) : 0;
+      const pitAfter = pitBefore - pitRelief;
+
+      return result(
+        `Nghĩa vụ thuế được tính riêng biệt cho từng sắc thuế như sau:
 
 1. Thuế GTGT (tính trên toàn bộ doanh thu, không trừ chi phí):
-- Doanh thu tính thuế GTGT là 4 tỷ đồng. Chi phí và thu nhập tính thuế chỉ dùng để tính thuế TNCN, tuyệt đối không lấy chi phí để làm giảm doanh thu tính thuế GTGT.
-- Hoạt động sửa chữa máy tính có tỷ lệ GTGT gốc 5%, toàn bộ đủ điều kiện giảm 20% mức tỷ lệ theo Nghị quyết 204/2025/QH15 nên tỷ lệ sau giảm là: 5% × 80% = 4%.
-=> Thuế GTGT phải nộp = 4 tỷ đồng × 4% = 160 triệu đồng.
+- Doanh thu tính thuế GTGT là ${formatRevenue(revVnd)}. Chi phí và thu nhập tính thuế chỉ dùng để tính thuế TNCN, tuyệt đối không lấy chi phí để làm giảm doanh thu tính thuế GTGT.
+- Hoạt động có tỷ lệ GTGT gốc ${baseVatPct}${vatEligible ? `, đủ điều kiện giảm 20% mức tỷ lệ theo Nghị quyết 204/2025/QH15 nên tỷ lệ sau giảm là: ${baseVatPct} × 80% = ${effectiveVatPct}` : ''}.
+=> Thuế GTGT phải nộp = ${formatRevenue(revVnd)} × ${effectiveVatPct} = ${formatRevenue(vatDue)}.
 
 2. Thuế TNCN (tính theo phương pháp thu nhập tính thuế):
-- Doanh thu 4 tỷ đồng vượt mốc 3 tỷ đồng nên bắt buộc tính thuế TNCN trên thu nhập tính thuế với thuế suất 17%:
-  Thuế TNCN trước giảm = 500 triệu đồng × 17% = 85 triệu đồng.
-- Áp dụng giảm 30% theo Nghị quyết 43/2026/QH16 (do bạn là cá nhân cư trú và tổng doanh thu năm là 4 tỷ đồng ≤ 10 tỷ đồng):
-  Mức giảm 30% = 85 triệu đồng × 30% = 25,5 triệu đồng.
-=> Thuế TNCN sau giảm phải nộp = 85 triệu đồng × 70% = 59,5 triệu đồng.`,
-      [
-        'Điều 1 Nghị quyết 204/2025/QH15',
-        'Khoản 2 Điều 1 Nghị định 174/2025/NĐ-CP',
-        'Điều 7 Luật Thuế TNCN 109/2025/QH15',
-        'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'
-      ],
-      ['DUAL_VAT_AND_PIT_CALCULATION'],
-      { taxYear: 2026, activityType: 'service', grossRevenueVnd: 4_000_000_000, taxableIncomeVnd: 500_000_000, isResident: true, pitMethod: 'INCOME_EXPENSE' }
-    );
+- Doanh thu ${formatRevenue(revVnd)} áp dụng thuế TNCN trên thu nhập tính thuế với thuế suất ${pitRatePct}:
+  Thuế TNCN trước giảm = ${formatRevenue(incomeVnd)} × ${pitRatePct} = ${formatRevenue(pitBefore)}.
+- ${nq43Eligible ? `Áp dụng giảm 30% theo Nghị quyết 43/2026/QH16 (cá nhân cư trú và tổng doanh thu năm ${formatRevenue(revVnd)} ≤ 10 tỷ đồng):\n  Mức giảm 30% = ${formatRevenue(pitBefore)} × 30% = ${formatRevenue(pitRelief)}.\n=> Thuế TNCN sau giảm phải nộp = ${formatRevenue(pitBefore)} × 70% = ${formatRevenue(pitAfter)}.` : `Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43/2026/QH16.\n=> Thuế TNCN phải nộp = ${formatRevenue(pitBefore)}.`}`,
+        [
+          'Điều 1 Nghị quyết 204/2025/QH15',
+          'Khoản 2 Điều 1 Nghị định 174/2025/NĐ-CP',
+          'Điều 7 Luật Thuế TNCN 109/2025/QH15',
+          'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'
+        ],
+        ['DUAL_VAT_AND_PIT_CALCULATION'],
+        { taxYear: 2026, activityType: isService ? 'service' : 'goods', grossRevenueVnd: revVnd, taxableIncomeVnd: incomeVnd, isResident: true, pitMethod: 'INCOME_EXPENSE' }
+      );
+    }
   }
 
   // G075 pattern: Revenue > 3 billion with negative taxable income (loss)

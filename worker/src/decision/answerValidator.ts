@@ -108,6 +108,57 @@ export function validateAnswer(
     text += '\n\n*Lưu ý về tiền COD/Ship:* Tiền cước vận chuyển do đơn vị giao nhận thu hộ trực tiếp từ khách hàng không tính vào doanh thu chịu thuế của hộ kinh doanh.';
   }
 
+  // 6. Kiểm tra biên nghiêm ngặt NQ43 (> 10 tỷ không được giảm 30%)
+  if (
+    evalResult &&
+    evalResult.effective_revenue_vnd > 10_000_000_000 &&
+    /(?:được|áp dụng)\s+giảm\s+30\s*%|×\s*70\s*%/i.test(body) &&
+    !/không\s+(?:được|thuộc\s+diện|áp\s+dụng)\s+giảm\s+30\s*%/i.test(body)
+  ) {
+    return {
+      status: 'DOWNGRADE',
+      reasons: ['Áp dụng sai giảm 30% NQ43 cho doanh thu vượt 10 tỷ đồng'],
+      repairedText: text,
+    };
+  }
+
+  // 7. Kiểm tra bao phủ khi người dùng hỏi cả 2 sắc thuế (GTGT và TNCN)
+  if (
+    focus === 'both' &&
+    asksRateOrMethod &&
+    evalResult?.status === 'ANSWERED' &&
+    evalResult.effective_revenue_vnd > 1_000_000_000
+  ) {
+    if (!/\bGTGT\b|giá trị gia tăng/i.test(body) || !/\bTNCN\b|thu nhập cá nhân/i.test(body)) {
+      return {
+        status: 'DOWNGRADE',
+        reasons: ['Thiếu phép tính cho một trong hai sắc thuế GTGT hoặc TNCN khi được hỏi cả hai'],
+        repairedText: text,
+      };
+    }
+  }
+
+  // 8. Kiểm tra chuỗi đối trừ thuế đã nộp / đã khấu trừ
+  if (
+    frame.facts.tax_paid_vnd &&
+    frame.facts.tax_paid_vnd > 0 &&
+    evalResult?.status === 'ANSWERED' &&
+    !/nộp thừa|hoàn thuế|nộp thêm|nộp bổ sung|bù trừ/i.test(text)
+  ) {
+    status = 'REPAIR';
+    reasons.push('Thiếu bước đối trừ số thuế đã nộp/khấu trừ để kết luận nộp thêm hay nộp thừa');
+    const paid = frame.facts.tax_paid_vnd;
+    const due = evalResult.pit_after_relief_vnd;
+    const diff = paid - due;
+    if (diff > 0) {
+      text += `\n\n*Đối trừ số thuế đã nộp:* Bạn đã nộp ${paid.toLocaleString('vi-VN')} đồng, lớn hơn số thuế TNCN phải nộp sau giảm (${due.toLocaleString('vi-VN')} đồng), nên **nộp thừa ${diff.toLocaleString('vi-VN')} đồng** (được đề nghị hoàn thuế hoặc bù trừ kỳ sau khi có đủ chứng từ hợp lệ).`;
+    } else if (diff < 0) {
+      text += `\n\n*Đối trừ số thuế đã nộp:* Bạn đã nộp ${paid.toLocaleString('vi-VN')} đồng, nhỏ hơn số thuế TNCN phải nộp sau giảm (${due.toLocaleString('vi-VN')} đồng), nên **còn phải nộp bổ sung ${Math.abs(diff).toLocaleString('vi-VN')} đồng**.`;
+    } else {
+      text += `\n\n*Đối trừ số thuế đã nộp:* Số thuế đã nộp (${paid.toLocaleString('vi-VN')} đồng) đúng bằng số thuế phải nộp (${due.toLocaleString('vi-VN')} đồng), không phát sinh nộp thêm hay nộp thừa.`;
+    }
+  }
+
   return {
     status,
     reasons,

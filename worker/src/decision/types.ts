@@ -48,6 +48,12 @@ export interface TaxFactsFrame {
   revenue_vnd?: number;
   revenue_basis: RevenueBasis;
   taxable_income_vnd?: number;      // Thu nhập tính thuế (đối với phương pháp thu nhập)
+  pit_method_elected?: 'REVENUE' | 'INCOME'; // Phương pháp tính TNCN người dùng chủ động chọn
+  tax_paid_vnd?: number;            // Số thuế đã nộp / sàn đã khấu trừ có chứng từ
+  unverified_bank_balance_vnd?: number; // Số dư tài khoản / tiền mặt chưa đối soát
+  reported_expense_vnd?: number;    // Tổng chi phí báo cáo
+  duplicate_expense_vnd?: number;   // Khoản chi phí ghi trùng / ghi hai lần
+  gmv_vnd?: number;                 // Tổng giá trị giao dịch (GMV) của shop (khác hoa hồng affiliate)
   refund_deducted_vnd?: number;     // Tiền đơn hoàn đã trừ
   platform_fee_vnd?: number;        // Phí sàn
   shipping_cod_vnd?: number;        // Tiền thu hộ / ship

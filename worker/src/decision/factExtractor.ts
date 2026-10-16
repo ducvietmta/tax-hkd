@@ -163,10 +163,55 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     shippingCodVnd = parseMoneyWithUnit(codMatch[1], codMatch[2] || 'trieu');
   }
 
-  // 4. Trích xuất thu nhập tính thuế / lợi nhuận (cho trường hợp > 3 tỷ)
+  // 4. Trích xuất thu nhập tính thuế / lợi nhuận và phân loại đại lượng đầu vào
+  const pitMethodElected: 'REVENUE' | 'INCOME' | undefined =
+    /chon phuong phap thu nhap|tinh theo thu nhap tinh thue|theo phuong phap thu nhap/.test(q)
+      ? 'INCOME'
+      : /chon phuong phap doanh thu|theo ty le % tren doanh thu/.test(q)
+      ? 'REVENUE'
+      : undefined;
+
+  let taxPaidVnd: number | undefined;
+  const paidMatch = q.match(/(?:da nop|da khau tru|da nop thay)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+  if (paidMatch) {
+    taxPaidVnd = parseMoneyWithUnit(paidMatch[1], paidMatch[2]);
+  }
+
+  let unverifiedBankBalanceVnd: number | undefined;
+  const bankMatch =
+    q.match(/(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
+    q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan/);
+  if (bankMatch) {
+    unverifiedBankBalanceVnd = parseMoneyWithUnit(bankMatch[1], bankMatch[2]);
+  }
+
+  let reportedExpenseVnd: number | undefined;
+  const expMatch = q.match(/(?:chi phi(?:\s+bao)?|tong chi phi)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+  if (expMatch) {
+    reportedExpenseVnd = parseMoneyWithUnit(expMatch[1], expMatch[2]);
+  }
+
+  let duplicateExpenseVnd: number | undefined;
+  const dupMatch =
+    q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,30}(?:ghi hai lan|trung lap|tinh trung)/) ||
+    q.match(/(?:ghi hai lan|trung lap|tinh trung)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+  if (dupMatch) {
+    duplicateExpenseVnd = parseMoneyWithUnit(dupMatch[1], dupMatch[2]);
+  }
+
+  let gmvVnd: number | undefined;
+  const gmvMatch =
+    q.match(/\bgmv\b[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
+    q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,15}\bgmv\b/);
+  if (gmvMatch) {
+    gmvVnd = parseMoneyWithUnit(gmvMatch[1], gmvMatch[2]);
+  }
+
   let taxableIncomeVnd: number | undefined;
   const incomeMatch = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
-  if (incomeMatch && !/(?:khong|chua)\s+co\s+chung tu|co the coi|coi ngay|chi phi[^.!?]{0,40}(?:khong|chua)\s+hop le/.test(q)) {
+  const hasUnverifiedOrDirtyCosts =
+    /(?:khong|chua)\s+co\s+chung tu|co the coi|coi ngay|chi phi[^.!?]{0,40}(?:khong|chua)\s+hop le|ghi hai lan|trung lap|cho kiem chung tu|chua phai thu nhap tinh thue/.test(q);
+  if (incomeMatch && !hasUnverifiedOrDirtyCosts) {
     taxableIncomeVnd = parseMoneyWithUnit(incomeMatch[1], incomeMatch[2]);
   }
 
@@ -207,16 +252,22 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
         platform_fee_vnd: platformFeeVnd,
         shipping_cod_vnd: shippingCodVnd,
         taxable_income_vnd: taxableIncomeVnd,
+        pit_method_elected: pitMethodElected,
+        tax_paid_vnd: taxPaidVnd,
+        unverified_bank_balance_vnd: unverifiedBankBalanceVnd,
+        reported_expense_vnd: reportedExpenseVnd,
+        duplicate_expense_vnd: duplicateExpenseVnd,
+        gmv_vnd: gmvVnd,
       };
     }
   }
 
   // 6. Doanh thu đơn lẻ
-  // Lọc ra các số tiền không phải là đơn hoàn, phí sàn, tiền ship hoặc thu nhập tính thuế
+  // Lọc ra các số tiền không phải là đơn hoàn, phí sàn, tiền ship, thu nhập tính thuế, số dư TK, GMV, chi phí hay thuế đã nộp
   let primaryRevenue: number | undefined = specialRevenue;
   if (!primaryRevenue && allAmounts.length > 0) {
     // Ưu tiên số tiền gắn liền với từ khóa "doanh thu", "ban duoc", "tong thu", "hoa hong" (loại trừ thu nhập tính thuế)
-    const revExplicitRegex = /(?:doanh thu|tong doanh thu|ban duoc|tong thu|kiem duoc)(?:\s+nam\s+(?:19|20)\d{2})?[^\d]{0,25}(?:(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?|(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b)/g;
+    const revExplicitRegex = /(?:doanh thu|tong doanh thu|ban duoc|tong thu|kiem duoc|hoa hong)(?:\s+nam\s+(?:19|20)\d{2})?[^\d]{0,25}(?:(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?|(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b)/g;
     const revCandidates = [...q.matchAll(revExplicitRegex)];
     const revMatch = revCandidates.find(m => !/bao nhieu|\btax\b|khau tru|giu lai|thu nhap tinh thue/.test(m[0]));
     if (revMatch) {
@@ -226,7 +277,20 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
         primaryRevenue = parseMoneyWithUnit(revMatch[2], revMatch[3] || (Number(revMatch[2]) >= 10 ? 'trieu' : 'ty'));
       }
     } else {
-      const nonTaxableIncome = allAmounts.filter(a => a.vnd !== taxableIncomeVnd && a.vnd !== refundDeductedVnd && a.vnd !== platformFeeVnd);
+      const nonRevenueValues = new Set(
+        [
+          taxableIncomeVnd,
+          refundDeductedVnd,
+          platformFeeVnd,
+          shippingCodVnd,
+          taxPaidVnd,
+          unverifiedBankBalanceVnd,
+          reportedExpenseVnd,
+          duplicateExpenseVnd,
+          gmvVnd,
+        ].filter((v): v is number => v !== undefined)
+      );
+      const nonTaxableIncome = allAmounts.filter(a => !nonRevenueValues.has(a.vnd));
       primaryRevenue = nonTaxableIncome.length > 0 ? nonTaxableIncome[0].vnd : allAmounts[0].vnd;
     }
   }
@@ -245,6 +309,12 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     revenue_basis: revenueBasis,
     is_resident: isResident,
     taxable_income_vnd: taxableIncomeVnd,
+    pit_method_elected: pitMethodElected,
+    tax_paid_vnd: taxPaidVnd,
+    unverified_bank_balance_vnd: unverifiedBankBalanceVnd,
+    reported_expense_vnd: reportedExpenseVnd,
+    duplicate_expense_vnd: duplicateExpenseVnd,
+    gmv_vnd: gmvVnd,
     refund_deducted_vnd: refundDeductedVnd,
     platform_fee_vnd: platformFeeVnd,
     shipping_cod_vnd: shippingCodVnd,

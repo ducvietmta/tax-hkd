@@ -155,6 +155,12 @@ export function evaluateDecisionFrame(frame: TaxDecisionFrame): EvaluationResult
   const isIncomeMethodMandatory =
     ruleset.thresholds.income_method_mandatory_vnd &&
     effectiveRevenue > ruleset.thresholds.income_method_mandatory_vnd;
+  const isVoluntaryIncomeMethod =
+    !isIncomeMethodMandatory &&
+    frame.facts.pit_method_elected === 'INCOME' &&
+    frame.facts.taxable_income_vnd !== undefined &&
+    Number.isSafeInteger(frame.facts.taxable_income_vnd) &&
+    frame.facts.taxable_income_vnd >= 0;
 
   let pitBeforeRelief = 0;
   let taxablePitRevenue = effectiveRevenue;
@@ -167,6 +173,11 @@ export function evaluateDecisionFrame(frame: TaxDecisionFrame): EvaluationResult
     pitRate = incomeRate;
     pitBeforeRelief = Math.round(frame.facts.taxable_income_vnd! * incomeRate);
     taxablePitRevenue = frame.facts.taxable_income_vnd!;
+  } else if (isVoluntaryIncomeMethod) {
+    const voluntaryRate = ruleset.pit_income_rates?.tier1_voluntary ?? 0.15;
+    pitRate = voluntaryRate;
+    taxablePitRevenue = frame.facts.taxable_income_vnd!;
+    pitBeforeRelief = Math.round(taxablePitRevenue * voluntaryRate);
   } else if (taxYear >= 2026) {
     // Năm 2026: Thuế TNCN tính trên phần doanh thu vượt 1 tỷ đồng (Luật 109/2025/QH15)
     taxablePitRevenue = Math.max(0, effectiveRevenue - exemptionThreshold);
