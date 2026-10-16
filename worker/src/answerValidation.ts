@@ -16,7 +16,8 @@ export function missingAnswerIntents(question: string, answer: string, semantic?
   const q = fold(question);
   const a = fold(answer);
   const missing: string[] = [];
-  const focus = semantic?.taxFocus || requestedTaxFocus(question);
+  const explicitFocus = requestedTaxFocus(question);
+  const focus = explicitFocus !== 'unspecified' ? explicitFocus : (semantic?.taxFocus || 'unspecified');
   const asksRelief = semantic ? semantic.primaryIntent === 'RELIEF_REDUCTION' || semantic.secondaryIntents.includes('RELIEF_REDUCTION')
     : /giam|\b(?:nq\s*204|204\/2025)\b/.test(q);
   if (semantic?.vatRelief !== 'INELIGIBLE' && (focus === 'vat' || focus === 'both') && asksRelief &&

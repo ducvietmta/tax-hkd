@@ -35,36 +35,45 @@ Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa h
     return result('Để chốt nghĩa vụ, phải dùng văn bản quy phạm pháp luật đã ban hành và có hiệu lực tại thời điểm giao dịch; bản dự thảo chỉ là nội dung dự kiến, không phải căn cứ áp dụng. Cần đối chiếu văn bản gốc, các văn bản sửa đổi và bản hợp nhất chính thức để xác định nội dung đang có hiệu lực.', ['Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'], ['LEGAL_SOURCE_EFFECTIVE_TEXT'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
   }
   const amounts = unique([...exact(q), ...named(q)]);
-  const revenue = amounts.find(n => n > 3e9 && n <= 50e9) || 0;
+  const explicitlyOver50B = /(?:tren|vuot|hon)\s*50\s*ty/.test(q) ||
+    /50\s*ty\s*(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/.test(q) ||
+    q.includes('50.000.000.001');
+  const overFifty = explicitlyOver50B ? 50_000_000_001 : (amounts.find(n => n > 50e9) || 0);
+  const revenue = !overFifty ? (amounts.find(n => n > 3e9 && n <= 50e9) || 0) : 0;
 
   // T86/T100: 3,000,000,001 is safely representable as an integer, never rounded to 3 billion.
-  const overThree = revenue || (/3\s*ty\s*(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/.test(q) ? 3_000_000_001 : 0);
-  const asksThreeBillionMethod = /thu nhap tinh thue|0[.,]5\s*%|17\s*%|phuong phap|thue suat/.test(q) ||
+  const targetOverRevenue = overFifty || revenue || (/3\s*ty\s*(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/.test(q) ? 3_000_000_001 : 0);
+  const asksThreeBillionMethod = /thu nhap tinh thue|0[.,]5\s*%|17\s*%|20\s*%|phuong phap|thue suat/.test(q) ||
     (/tncn/.test(q) && /tinh|bao nhieu|phai nop/.test(q));
-  if (overThree && asksThreeBillionMethod && /so voi|so sanh|mot ca nhan khac|nguoi thu hai|khong cu tru|phi cu tru/.test(q)) return null;
-  if (overThree && asksThreeBillionMethod) {
+  if (targetOverRevenue && asksThreeBillionMethod && /so voi|so sanh|mot ca nhan khac|nguoi thu hai|khong cu tru|phi cu tru/.test(q)) return null;
+  if (targetOverRevenue && asksThreeBillionMethod) {
+    const isOverFifty = targetOverRevenue > 50_000_000_000;
+    const pitRateNumber = isOverFifty ? 0.20 : 0.17;
+    const pitRateText = isOverFifty ? '20%' : '17%';
+    const bracketText = isOverFifty ? 'trên 50 tỷ đồng' : 'trên 3 tỷ đến 50 tỷ đồng';
+
     const incomeMatch = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
     // A proposed subtraction or an unsupported cost is not verified taxable income.
     if (incomeMatch && /(?:khong|chua)\s+co\s+chung tu|co the coi|coi ngay|chi phi[^.!?]{0,40}(?:khong|chua)\s+hop le/.test(q)) {
-      return result(`Chưa thể coi chênh lệch doanh thu trừ khoản chi bạn báo là thu nhập tính thuế hợp lệ. Với doanh thu ${formatVnd(overThree)}, cần kiểm tra chi phí thực tế phục vụ kinh doanh, hóa đơn, chứng từ và điều kiện thanh toán theo Điều 6 Nghị định 68/2026/NĐ-CP. Khoản thanh toán từng lần từ 5 triệu đồng trở lên cần đối chiếu điều kiện chứng từ thanh toán không dùng tiền mặt và trường hợp áp dụng. Sau khi loại chi phí không đủ điều kiện mới xác định thu nhập tính thuế; trong dải doanh thu trên 3 tỷ đến 50 tỷ, TNCN tính trên thu nhập hợp lệ × 17%. Hiện chưa đủ căn cứ chốt số tiền TNCN hoặc số được giảm.`,
+      return result(`Chưa thể coi chênh lệch doanh thu trừ khoản chi bạn báo là thu nhập tính thuế hợp lệ. Với doanh thu ${formatVnd(targetOverRevenue)}, cần kiểm tra chi phí thực tế phục vụ kinh doanh, hóa đơn, chứng từ và điều kiện thanh toán theo Điều 6 Nghị định 68/2026/NĐ-CP. Khoản thanh toán từng lần từ 5 triệu đồng trở lên cần đối chiếu điều kiện chứng từ thanh toán không dùng tiền mặt và trường hợp áp dụng. Sau khi loại chi phí không đủ điều kiện mới xác định thu nhập tính thuế; trong dải doanh thu ${bracketText}, TNCN tính trên thu nhập hợp lệ × ${pitRateText}. Hiện chưa đủ căn cứ chốt số tiền TNCN hoặc số được giảm.`,
         ['Điều 6 Nghị định 68/2026/NĐ-CP', 'Điều 7 Luật Thuế TNCN 109/2025/QH15'], ['PIT_UNVERIFIED_COSTS'],
-        { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: overThree, isResident: null, pitMethod: 'INCOME_EXPENSE' });
+        { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: targetOverRevenue, isResident: null, pitMethod: 'INCOME_EXPENSE' });
     }
     const income = incomeMatch ? money(incomeMatch[1], incomeMatch[2]) : undefined;
     const resident = /\b(ca nhan cu tru|nguoi cu tru|toi cu tru|cu tru du dieu kien)\b/.test(q);
-    const facts: TaxFacts = { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: overThree,
+    const facts: TaxFacts = { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: targetOverRevenue,
       taxableIncomeVnd: income, isResident: resident ? true : null, pitMethod: 'INCOME_EXPENSE' };
     const calc = calculateTax(facts);
     const citations = ['Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'];
     if (/chi (?:hoi )?thue suat|khong hoi (?:so )?tien/.test(q)) {
-      return result(`Thuế suất TNCN trên thu nhập tính thuế là 17% vì doanh thu ${formatVnd(overThree)} thuộc dải trên 3 tỷ đến 50 tỷ đồng.`, citations.slice(0, 2), ['PIT_METHOD_3B'], facts);
+      return result(`Thuế suất TNCN trên thu nhập tính thuế là ${pitRateText} vì doanh thu ${formatVnd(targetOverRevenue)} thuộc dải ${bracketText}.`, citations.slice(0, 2), ['PIT_METHOD_3B'], facts);
     }
-    const reliefText = overThree > 10_000_000_000
+    const reliefText = targetOverRevenue > 10_000_000_000
       ? `Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43; số TNCN là ${formatVnd(calc.pitBeforeReliefVnd)}.`
       : `${!resident ? 'Nếu bạn là cá nhân cư trú và đủ điều kiện Nghị quyết 43, ' : ''}giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16, còn ${formatVnd(calc.pitAfterReliefVnd)}.`;
     const response = income !== undefined
-      ? `Doanh thu ${formatVnd(overThree)} đã vượt 3 tỷ đồng; không được dùng phương pháp TNCN 0,5% trên doanh thu. Trong dải trên 3 tỷ đến 50 tỷ, TNCN = thu nhập tính thuế × 17%. Với thu nhập tính thuế hợp lệ ${formatVnd(income)}, thuế trước giảm là ${formatVnd(calc.pitBeforeReliefVnd)}. ${reliefText} Mức 1 tỷ là ngưỡng miễn thuế riêng, không phải mốc chọn phương pháp 3 tỷ. Thuế GTGT tính riêng theo hoạt động.`
-      : `Doanh thu ${formatVnd(overThree)} vượt mốc 3 tỷ đồng nên TNCN phải tính trên thu nhập tính thuế với thuế suất 17%, không được dùng 0,5% trên doanh thu. Muốn tính số tiền cần doanh thu, chi phí hợp lệ để xác định thu nhập tính thuế. Nếu là cá nhân cư trú và tổng doanh thu năm không quá 10 tỷ đồng, số TNCN phải nộp tiếp tục được giảm 30% theo Nghị quyết 43/2026/QH16. Mốc 1 tỷ là ngưỡng miễn thuế riêng.`;
+      ? `Doanh thu ${formatVnd(targetOverRevenue)} đã vượt 3 tỷ đồng; không được dùng phương pháp TNCN 0,5% trên doanh thu. Trong dải ${bracketText}, TNCN = thu nhập tính thuế × ${pitRateText}. Với thu nhập tính thuế hợp lệ ${formatVnd(income)}, thuế trước giảm là ${formatVnd(income * pitRateNumber)}.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43.' : ` ${reliefText}`} Mức 1 tỷ là ngưỡng miễn thuế riêng, không phải mốc chọn phương pháp 3 tỷ. Thuế GTGT tính riêng theo hoạt động.`
+      : `Doanh thu ${formatVnd(targetOverRevenue)} vượt mốc 3 tỷ đồng nên TNCN phải tính trên thu nhập tính thuế với thuế suất ${pitRateText}, không được dùng 0,5% trên doanh thu. Muốn tính số tiền cần doanh thu, chi phí hợp lệ để xác định thu nhập tính thuế.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không thuộc diện giảm 30% theo Nghị quyết 43/2026/QH16.' : ' Nếu là cá nhân cư trú và tổng doanh thu năm không quá 10 tỷ đồng, số TNCN phải nộp tiếp tục được giảm 30% theo Nghị quyết 43/2026/QH16.'} Mốc 1 tỷ là ngưỡng miễn thuế riêng.`;
     const aggregateNotice = /tung mang|tung hoat dong|gom[^.!?]{0,80}(ban hang|dich vu)/.test(q)
       ? ' Với tổng doanh thu của cùng một cá nhân, không tách từng mảng để áp riêng phương pháp theo tỷ lệ doanh thu; GTGT vẫn phân loại riêng theo hoạt động.' : '';
     return result(response + aggregateNotice, citations, ['PIT_METHOD_3B', 'NQ43_2026_ART1_1'], facts);

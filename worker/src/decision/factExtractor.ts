@@ -128,8 +128,13 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
   // 2. Preserve a one-dong boundary exactly; never round it back to billions.
   let specialRevenue: number | undefined;
   const composite = q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu)\s*(?:dong\s*)?(?:(?:le|cong them|cong|them|\+)\s*)?(?:mot|1)\s*dong\b/);
+  const strictlyOverBoundary = q.match(/\b(?:tren|vuot|hon)\s+(1|3|10|50)\s*ty\b(?!\s*(?:dong\s*)?(?:le|cong|\+|\d))/);
   if (composite) {
     specialRevenue = parseMoneyWithUnit(composite[1], composite[2]) + 1;
+  } else if (strictlyOverBoundary) {
+    specialRevenue = parseMoneyWithUnit(strictlyOverBoundary[1], 'ty') + 1;
+  } else if (q.includes('50.000.000.001')) {
+    specialRevenue = 50_000_000_001;
   } else if (q.includes('10.000.000.001')) {
     specialRevenue = 10_000_000_001;
   } else if (q.includes('1.000.000.001') || (q.includes('1 ty') && q.includes('1 dong'))) {

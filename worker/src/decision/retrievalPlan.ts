@@ -113,7 +113,13 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     // Topic and intent are complementary, not mutually exclusive routes.
     // Keep the relief rule ahead of ownership evidence for per-person limits.
     const relief = frame.tax_intent.primary.value === 'RELIEF_REDUCTION' || frame.tax_intent.secondary.includes('RELIEF_REDUCTION');
+    const calc = frame.tax_intent.primary.value === 'TAX_CALCULATION' || frame.tax_intent.secondary.includes('TAX_CALCULATION') || topic === 'TAX_AMOUNT';
+    const refund = frame.tax_intent.primary.value === 'REFUND' || frame.tax_intent.secondary.includes('REFUND');
     if (!isHistorical && relief && ['REVENUE_OWNERSHIP', 'REVENUE_THRESHOLD'].includes(topic)) refs.unshift('16.39');
+    if (!isHistorical && relief && !refs.includes('16.50')) refs.push('16.50', '16.99');
+    if (!isHistorical && calc && !refs.includes('16.77')) refs.push('16.77', '16.99', '16.56');
+    if (!isHistorical && refund && !refs.includes('16.51')) refs.push('16.51', '16.95');
+    if (frame.facts?.revenue_vnd && frame.facts.revenue_vnd >= 3_000_000_000 && !refs.includes('16.99')) refs.unshift('16.99');
     if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
     if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
     return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
@@ -124,7 +130,7 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   if (!isHistorical && (frame.tax_intent.primary.value === 'TAX_CALCULATION' ||
       frame.tax_intent.primary.value === 'RELIEF_REDUCTION')) {
     mustIncludeRefs.push('16.77');
-    if (frame.facts.revenue_vnd && frame.facts.revenue_vnd > 1_000_000_000 && frame.facts.revenue_vnd <= 3_000_000_000) {
+    if (frame.facts?.revenue_vnd && frame.facts.revenue_vnd > 1_000_000_000 && frame.facts.revenue_vnd <= 3_000_000_000) {
       mustIncludeRefs.push('16.56');
     }
   }
@@ -135,7 +141,7 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   }
 
   // 2. Doanh thu trên 3 tỷ (phương pháp 17%)
-  if (frame.facts.revenue_vnd && frame.facts.revenue_vnd > 3_000_000_000) {
+  if (frame.facts?.revenue_vnd && frame.facts.revenue_vnd > 3_000_000_000) {
     mustIncludeRefs.push('16.99');
     if (frame.income_type.some(item => item.value === 'MARKETPLACE_SALES')) mustIncludeRefs.push('16.57');
   }

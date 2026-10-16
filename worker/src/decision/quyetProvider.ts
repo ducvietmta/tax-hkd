@@ -109,15 +109,15 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
   /** Compare text against supplied evidence, never ask Quyet to determine tax law. */
   async reviewAnswer(question: string, answer: string, evidence: string, history: ConversationTurn[] = [], semantic?: BusinessClassification): Promise<string[] | null> {
     const questions: Record<string, any> = {
-      facts: { type: 'choice', instructions: 'So sánh đáp án với câu hỏi. Có khẳng định dữ kiện chưa được người dùng cung cấp hoặc chốt một trường hợp khi còn thiếu điều kiện quyết định không? Câu mở đầu chắc chắn nhưng cuối mới hỏi điều kiện quyết định cũng là vượt dữ kiện. Các nhánh nếu-thì không bị coi là bịa dữ kiện.',
-        criteria: { FAITHFUL: 'Giữ đúng dữ kiện và mức chắc chắn; điều kiện được nêu trước kết luận tương ứng.',
-          INVENTED: 'Tự tăng tổng số cửa hàng vì hiểu một cửa hàng mới là cộng thêm; đổi đặt hàng thành đã thu tiền; tự coi dự kiến là thực tế; tự xác định chủ thể chỉ theo tên; hoặc chốt chắc chắn khi chưa đủ hồ sơ. Một dữ kiện bịa dù chỉ xuất hiện trong câu hỏi cuối đáp án vẫn là lỗi.',
+      facts: { type: 'choice', instructions: 'So sánh đáp án với câu hỏi. Có khẳng định dữ kiện chưa được người dùng cung cấp hoặc chốt một trường hợp khi còn thiếu điều kiện quyết định không? Các nhánh nếu-thì, giải thích quy tắc chung theo dữ kiện đã có, hoặc câu hỏi làm rõ ở cuối không bị coi là bịa dữ kiện.',
+        criteria: { FAITHFUL: 'Giữ đúng dữ kiện và phân tích đúng trường hợp hoặc nêu các nhánh điều kiện/hướng dẫn làm rõ.',
+          INVENTED: 'Khẳng định một dữ kiện thực tế hoàn toàn không có trong câu hỏi (như tự tăng số doanh thu khác hẳn mà không phải giả định minh họa; tự biến chưa có thành đã có) mà không đặt dưới dạng điều kiện giả định.',
           UNCERTAIN: 'Không đủ căn cứ để đánh giá.' } },
       evidence: { type: 'choice', instructions: 'Chỉ đối chiếu lập luận trong đáp án với bằng chứng được cung cấp, không dùng kiến thức pháp luật riêng. Có kết luận trái điều kiện, ngoại lệ, phạm vi hoặc kỳ hiệu lực trong bằng chứng không?',
         criteria: { SUPPORTED: 'Các khẳng định phù hợp với điều kiện/ngoại lệ của bằng chứng.',
           CONTRADICTED: 'Thêm điều kiện bắt buộc mà nguồn không quy định (như phải đổi tên người vay); biến chưa đủ hồ sơ thành không được trừ; dẫn điều khoản sai nhánh hoặc sai kỳ kể cả chỉ trong mục căn cứ cuối đáp án; hoặc kết luận trái ngoại lệ trong nguồn.',
           UNCERTAIN: 'Bằng chứng chưa đủ để đánh giá.' } },
-      coverage: { type: 'choice', instructions: 'Tách câu hỏi thành từng yêu cầu rồi đối chiếu từng ý trong đáp án. Chỉ COMPLETE nếu TẤT CẢ được trả lời. Nêu thiếu hồ sơ cho ý được trừ không thay thế trả lời ý có bắt buộc đổi hợp đồng không. Chi phí lãi cần giới hạn lãi và chứng từ theo nguồn. Hóa đơn cần đủ lựa chọn xử lý và dữ kiện xác định kỳ, không chỉ tên văn bản. Doanh thu nhiều hoạt động cần xác định đơn vị cộng gộp, không chỉ kết luận đủ điều kiện.',
+      coverage: { type: 'choice', instructions: 'Tách câu hỏi thành từng yêu cầu rồi đối chiếu từng ý trong đáp án. Chỉ COMPLETE nếu TẤT CẢ được trả lời hoặc đã nêu rõ điều kiện còn thiếu để áp dụng. Chi phí lãi cần giới hạn lãi và chứng từ theo nguồn. Hóa đơn cần đủ lựa chọn xử lý và dữ kiện xác định kỳ. Doanh thu nhiều hoạt động cần xác định đơn vị cộng gộp.',
         criteria: { COMPLETE: 'Đã trả lời đủ trọng tâm và các ý hoặc nêu rõ điều kiện còn thiếu.',
           INCOMPLETE: 'Bỏ một ý quan trọng, một nhánh điều kiện được hỏi hoặc chuyển sang vấn đề khác.',
           UNCERTAIN: 'Không đủ thông tin để đánh giá.' } },

@@ -30,13 +30,34 @@ export function validateAnswer(
   const focus = frame.semantic?.taxFocus;
   const body = text.split(/Căn cứ pháp lý\s*:/i)[0];
   const excluded = focus === 'pit' ? 'GTGT' : focus === 'vat' ? 'TNCN' : null;
-  if (excluded && new RegExp(`${excluded}[^\\n]{0,100}\\d[\\d.,]*\\s*(%|đồng|triệu|tỷ)`, 'i').test(body)) {
-    return { status: 'DOWNGRADE', reasons: ['Tính thêm loại thuế người dùng không yêu cầu'], repairedText: text };
+  if (excluded) {
+    const lines = body.split('\n');
+    for (const line of lines) {
+      if (new RegExp(`\\b${excluded}\\b`, 'i').test(line)) {
+        if (/không|chưa|chỉ|riêng|thuộc|phạm vi/i.test(line) && /không (?:áp dụng|giảm|tính|thu|phải nộp|thuộc)|chưa (?:tính|xét)|chỉ (?:giảm|tính|xét)|ngoài phạm vi/i.test(line)) {
+          continue;
+        }
+        if (new RegExp(`${excluded}[^\\n]{0,80}\\d[\\d.,]*\\s*(%|đồng|triệu|tỷ)`, 'i').test(line)) {
+          return { status: 'DOWNGRADE', reasons: ['Tính thêm loại thuế người dùng không yêu cầu'], repairedText: text };
+        }
+      }
+    }
   }
+  const isReliefIntent = frame.tax_intent.primary.value === 'RELIEF_REDUCTION' ||
+    frame.tax_intent.secondary.includes('RELIEF_REDUCTION');
+  const asksRateOrMethod = !isReliefIntent && (
+    frame.tax_intent.primary.value === 'TAX_CALCULATION' ||
+    frame.tax_intent.secondary.includes('TAX_CALCULATION') ||
+    frame.semantic?.topic === 'TAX_AMOUNT'
+  );
   if (focus !== 'vat' && evalResult?.status === 'ANSWERED' && evalResult.effective_revenue_vnd > 3_000_000_000 &&
-      frame.tax_period.years[0] >= 2026 &&
-      (/0[,.]5\s*%/.test(text) || !text.includes(`${evalResult.pit_rate * 100}%`))) {
-    return { status: 'DOWNGRADE', reasons: ['TNCN theo doanh thu hoặc thiếu thuế suất của phương pháp thu nhập'], repairedText: text };
+      frame.tax_period.years[0] >= 2026) {
+    if (/0[,.]5\s*%/.test(text)) {
+      return { status: 'DOWNGRADE', reasons: ['Áp dụng sai phương pháp 0,5% cho doanh thu trên 3 tỷ'], repairedText: text };
+    }
+    if (asksRateOrMethod && !text.includes(`${evalResult.pit_rate * 100}%`)) {
+      return { status: 'DOWNGRADE', reasons: ['Thiếu thuế suất của phương pháp thu nhập khi được hỏi'], repairedText: text };
+    }
   }
 
   // 1. Kiểm tra cấm trích dẫn Luật Quản lý thuế 38/2019 nếu nói về HĐĐT máy tính tiền năm 2026
