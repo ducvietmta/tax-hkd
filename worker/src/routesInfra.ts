@@ -5,7 +5,8 @@
 import { buildMuseRequest } from './museRequest';
 import { QuyetDecisionProvider } from './decision/quyetProvider';
 import { CANONICAL_CHUNKS } from './ragEngine';
-import { vectorSearch } from './vectorRetriever';
+import { vectorSearch, VECTORIZE_INDEX_VERSION } from './vectorRetriever';
+import chunkMetaRaw from './kb/chunkMeta.json';
 import { jsonResponse, type Env } from './http';
 
 export function handleHealth(env: Env, corsHeaders: Headers): Response {
@@ -109,25 +110,71 @@ export async function handleTestAi(request: Request, env: Env, corsHeaders: Head
           throw new Error(`Batch embedding failed at offset ${i}: ${JSON.stringify(emb).slice(0, 200)}`);
         }
         for (let idx = 0; idx < batch.length; idx++) {
+          const meta = (chunkMetaRaw as any)?.[batch[idx].id];
           allVectors.push({
             id: batch[idx].id,
             values: vectors[idx],
-            metadata: { tier: batch[idx].tier },
+            metadata: {
+              tier: batch[idx].tier,
+              from_year: String(meta?.applies_from_year ?? ''),
+              to_year: String(meta?.applies_to_year ?? ''),
+              index_version: VECTORIZE_INDEX_VERSION,
+            },
           });
         }
       }
       const mutation = await env.VECTORIZE.upsert(allVectors);
-      return jsonResponse({ success: true, index: 'tax-kb-v1', upserted: allVectors.length, totalChunks: items.length, mutation }, 200, corsHeaders);
+      return jsonResponse({
+        success: true,
+        index: 'tax-kb-v1',
+        index_version: VECTORIZE_INDEX_VERSION,
+        upserted: allVectors.length,
+        totalChunks: items.length,
+        mutation,
+      }, 200, corsHeaders);
     }
     if (vectorizeAction === 'query') {
       const q = url.searchParams.get('q') || 'Ngưỡng doanh thu miễn thuế hộ kinh doanh năm 2026';
-      const hits = await vectorSearch(q, env, 6);
+      const t0 = Date.now();
+      const hits = await vectorSearch(q, env, 10);
+      const latencyMs = Date.now() - t0;
       return jsonResponse({
         success: true,
         query: q,
+        latencyMs,
         vectorizeEnabled: env.VECTORIZE_ENABLED === '1',
         hits,
       }, 200, corsHeaders);
+    }
+    if (vectorizeAction === 'batch_query' && request.method === 'POST') {
+      if (!env.AI || !env.VECTORIZE) {
+        return jsonResponse({ success: false, error: 'Thiếu binding AI hoặc VECTORIZE.' }, 500, corsHeaders);
+      }
+      const body: { queries?: Array<{ id: string; q: string }> } = await request.json().catch(() => ({}));
+      const queries = body.queries || [];
+      const out: Record<string, { hits: Array<{ refId: string; score: number }>; embedMs: number; searchMs: number }> = {};
+      const batchSize = 25;
+      for (let i = 0; i < queries.length; i += batchSize) {
+        const batch = queries.slice(i, i + batchSize);
+        const tEmbed0 = Date.now();
+        const emb = await env.AI.run('@cf/baai/bge-m3', { text: batch.map((b) => b.q.slice(0, 1500)) });
+        const embedMs = Date.now() - tEmbed0;
+        const vectors = emb?.data || [];
+        await Promise.all(
+          batch.map(async (item, idx) => {
+            const vec = vectors[idx];
+            const tSearch0 = Date.now();
+            const res = Array.isArray(vec) ? await env.VECTORIZE!.query(vec, { topK: 10 }) : { matches: [] };
+            const searchMs = Date.now() - tSearch0;
+            out[item.id] = {
+              embedMs: Math.round(embedMs / batch.length),
+              searchMs,
+              hits: (res.matches || []).map((m) => ({ refId: m.id, score: m.score })),
+            };
+          })
+        );
+      }
+      return jsonResponse({ success: true, count: queries.length, results: out }, 200, corsHeaders);
     }
     const museKey = env.MUSE_API_KEY;
     if (!museKey) {

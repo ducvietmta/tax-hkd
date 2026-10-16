@@ -52,7 +52,13 @@ export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?
 }
 
 /** Validate a known rule's document, article, clause, content and effective tax period. */
-export function validateLegalCitations(question: string, answer: string, citations: string[], scope: AnswerScope) {
+export function validateLegalCitations(
+  question: string,
+  answer: string,
+  citations: string[],
+  scope: AnswerScope,
+  relevantChunks?: Array<{ ref_id?: string | null; section?: string; text?: string }>,
+) {
   // Retrieval candidates are not automatically sources supporting the final answer.
   // Keep only documents actually cited in the prose; do not invent missing citations.
   const documentIds = (text: string): string[] => fold(text).match(/\b\d+\/(?:19|20)\d{2}(?:\/[a-z0-9-]+)?/g) || [];
@@ -66,16 +72,48 @@ export function validateLegalCitations(question: string, answer: string, citatio
     const ids = documentIds(line);
     if (ids.length && !citations.some(c => documentIds(c).some(id => ids.includes(id)))) citations.push(line);
   }
+
+  // Loại bỏ trích dẫn văn bản tương lai không thuộc kỳ tính thuế đang hỏi
+  const maxRequestedYear = scope.years.length ? Math.max(...scope.years) : 2026;
+  citations = citations.filter(c => {
+    const docYears = Array.from(c.matchAll(/\/(?:19|20)\d{2}\b/g), m => Number(m[0].slice(1)));
+    return docYears.every(y => y <= maxRequestedYear);
+  });
+
+  // Đối chiếu tính xác thực của trích dẫn với các chunk bằng chứng đã truy xuất
+  if (relevantChunks?.length) {
+    const evidenceText = fold(relevantChunks.map(c => `${c.section || ''} ${c.text || ''}`).join(' '));
+    const knownDocPatterns = [
+      '68/2026', '141/2026', '43/2026', '204/2025', '174/2025',
+      '108/2025', '109/2025', '40/2021', '311/tct', '86/2024',
+      '01/2021', '139/2016',
+    ];
+    citations = citations.filter(citation => {
+      const ids = documentIds(citation);
+      if (!ids.length) return true;
+      return ids.some(id =>
+        evidenceText.includes(id) ||
+        knownDocPatterns.some(pat => id.includes(pat))
+      );
+    });
+  }
+
   const q = fold(question);
-  const a = fold(answer);
-  const invoiceRule = scope.years.every(y => y >= 2026) &&
-    /hoa don dien tu|hddt/.test(q) && /1\s*ty|1[.]000[.]000[.]000/.test(q + ' ' + a) &&
-    /30\s*ngay/.test(a);
-  if (!invoiceRule) return { answer, citations };
-  const wrongArticle = /(?:khoan\s*\d+\s*)?dieu\s*9[\s,.:;–—-]*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(a);
-  const hasCorrect = /khoan\s*2\s*dieu\s*1\s*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(a) &&
-    /khoan\s*5\s*dieu\s*8\s*nghi\s*dinh\s*68\/2026/.test(a);
   let corrected = answer;
+
+  // Sửa lỗi viện dẫn Luật 38/2019 hết hiệu lực từ 2026
+  if (scope.years.every(y => y >= 2026) && /38\/2019\/qh14/.test(fold(corrected))) {
+    corrected = corrected.replace(/Luật\s+(?:Quản lý thuế\s+)?(?:số\s+)?38\/2019\/QH14/gi, 'Luật Quản lý thuế (sửa đổi) 108/2025/QH15');
+    citations = citations.map(c => c.replace(/38\/2019\/QH14/g, '108/2025/QH15'));
+  }
+
+  const invoiceRule = scope.years.every(y => y >= 2026) &&
+    /hoa don dien tu|hddt/.test(q) && /1\s*ty|1[.]000[.]000[.]000/.test(q + ' ' + fold(corrected)) &&
+    /30\s*ngay/.test(fold(corrected));
+  if (!invoiceRule) return { answer: corrected, citations };
+  const wrongArticle = /(?:khoan\s*\d+\s*)?dieu\s*9[\s,.:;–—-]*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(fold(corrected));
+  const hasCorrect = /khoan\s*2\s*dieu\s*1\s*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(fold(corrected)) &&
+    /khoan\s*5\s*dieu\s*8\s*nghi\s*dinh\s*68\/2026/.test(fold(corrected));
   if (wrongArticle) corrected = corrected.replace(/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*(?:số\s*)?141\/2026\/NĐ-CP/gi,
     hasCorrect ? '' : EINVOICE_CITATION);
   if (!hasCorrect && !wrongArticle) corrected += `\n\nCăn cứ trực tiếp cho thời hạn 30 ngày: ${EINVOICE_CITATION}.`;

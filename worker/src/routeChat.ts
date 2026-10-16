@@ -46,6 +46,35 @@ function knowledgeVersion(): Promise<string> {
   return kbVersionPromise;
 }
 
+export function selectReasoningEffort(
+  message: string,
+  classification?: any,
+  decisionFrame?: any,
+): 'low' | 'medium' | 'high' {
+  const norm = message.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
+  const isBoundaryOrComplex =
+    /10[,.]1\s*ty|50\s*ty|999|001|1[,.]3\s*ty|hai quan|2 quan|2 cua hang|vua ban|vua lam|vua dich vu|vua thuong mai|hai nhom|tach 2 nhom|tru 1 ty/i.test(norm) ||
+    Boolean(decisionFrame?.facts?.multi_activities) ||
+    Boolean(decisionFrame?.facts?.platform_fee_vnd) ||
+    (classification?.secondaryIntents && classification.secondaryIntents.length >= 2);
+  if (isBoundaryOrComplex) return 'high';
+
+  const hasCalculation =
+    Boolean(decisionFrame?.facts?.revenue_vnd) ||
+    classification?.topic === 'TAX_AMOUNT' ||
+    /tinh thue|bao nhieu|nop thue|phai nop|khau tru/i.test(norm);
+  if (hasCalculation) return 'medium';
+
+  const isSimpleLookup =
+    classification?.topic === 'BUSINESS_REGISTRATION' ||
+    classification?.topic === 'TAX_IDENTIFIER' ||
+    classification?.topic === 'INVOICE_REGISTRATION' ||
+    /le phi mon bai|mon bai|ma 888|dang ky hkd|thu tuc|giay to|mau so/i.test(norm);
+  if (isSimpleLookup) return 'low';
+
+  return 'medium';
+}
+
 export async function handleChat(
   request: Request, env: Env, ctx: ExecutionContext, corsHeaders: Headers
 ): Promise<Response> {
@@ -151,7 +180,8 @@ export async function handleChat(
     };
 
     const answerScope = resolveAnswerScope(history, message);
-    const cacheable = !fileKey;
+    const cacheBypass = request.headers.get('X-Bypass-Cache') === '1' || url.searchParams.get('nocache') === '1';
+    const cacheable = !fileKey && !cacheBypass;
     const normMsg = message.trim().normalize('NFC').replace(/\s+/g, ' ');
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
 
@@ -273,6 +303,10 @@ export async function handleChat(
       }
     }
 
+    // Khởi chạy Vector Search song song ngay từ đầu để ẩn hoàn toàn latency (~250-400ms)
+    const earlyRetrievalQuery = buildConversationRetrievalQuery(history, message, answerScope.years);
+    const vectorSearchPromise = vectorSearch(earlyRetrievalQuery, env, 8, answerScope.years).catch(() => null);
+
     // --- BƯỚC 0: KIỂM TRA PHẠM VI & PHÂN LOẠI NGỮ NGHĨA SONG SONG ---
     const businessProvider = new QuyetDecisionProvider(env.FPT_AI_KEY || '');
     const [taxRelevance, businessClassification] = await Promise.all([
@@ -323,10 +357,18 @@ export async function handleChat(
     const topK = businessClassification.topic === 'TAX_AMOUNT' ? 6 : 4;
     const retrieved = retrieve(retrievalQuery, topK, answerScope, retrievalPlan);
     const { routeId, usedFallback } = retrieved;
-    // Dense opt-in: chỉ thêm chunk còn thiếu, không xáo trộn thứ tự BM25/pin.
-    const vectorHits = await vectorSearch(retrievalQuery, env).catch(() => null);
+    // Dense opt-in: Weighted RRF + True-Pin preservation + Period metadata filtering
+    const vectorHits = await vectorSearchPromise;
     if (vectorHits?.length) {
-      retrieved.results = mergeVectorHits(retrieved.results, vectorHits, topK + 2);
+      retrieved.results = mergeVectorHits(retrieved.results, vectorHits, topK + 2, {
+        query: retrievalQuery,
+        years: answerScope.years,
+        pinnedRefs: retrievalPlan?.must_include_refs,
+        rrfK: 60,
+        wBm25: 1.0,
+        wDense: 0.6,
+        minScore: 0.35,
+      });
     }
     logRetrieval(env, ctx, {
       transport: path === '/api/chatgpt/tax-qa' ? 'chatgpt'
@@ -390,11 +432,13 @@ export async function handleChat(
     const pendingNotice = pendingTopics.length
       ? `CHỦ ĐỀ CHƯA XÁC MINH: ${pendingTopics.map((t) => t.disclaimer).join(' ')} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.\n`
       : '';
+    const reasoningEffort = selectReasoningEffort(message, businessClassification, decisionFrame);
     const retrievalTrace = {
       method: vectorHits?.length
         ? (routeId ? 'Hybrid (BM25 + Vectorize + Định tuyến)' : 'Hybrid (BM25 + Vectorize)')
         : (routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25'),
       vectorHitsCount: vectorHits?.length || 0,
+      reasoningEffort,
       period: { years: answerScope.years, source: answerScope.periodSource },
       pendingTopics: pendingTopics.map((t) => t.id),
       decision: decisionFrame ? {
@@ -531,7 +575,7 @@ ${ragContextText}`;
           const museModel = 'muse-spark-1.3-contributor';
           try {
             if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
-            const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel, 'high');
+            const modelRequest = buildMuseRequest(systemPrompt, history, message, false, museModel, reasoningEffort);
             const museRes = await fetch('https://api.meta.ai/v1/responses', {
               method: 'POST',
               headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
@@ -667,7 +711,7 @@ ${ragContextText}`;
     if (isSystemError) {
       legalCitations = [];
     } else {
-      const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope);
+      const citationCheck = validateLegalCitations(message, aiText, legalCitations, answerScope, relevantChunks);
       aiText = citationCheck.answer;
       legalCitations = citationCheck.citations;
     }
@@ -701,13 +745,13 @@ ${ragContextText}`;
                 canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined);
               if (remainingIssues && remainingIssues.length === 0 && repairedValidation.status === 'PASS') {
                 aiText = repairedText;
-                const repairedCitations = validateLegalCitations(message, aiText, legalCitations, answerScope);
+                const repairedCitations = validateLegalCitations(message, aiText, legalCitations, answerScope, relevantChunks);
                 legalCitations = repairedCitations.citations;
                 semanticReviewPassed = true;
                 source = `Semantic review repaired (${repaired?.provider}) + ${source}`;
               } else if (remainingIssues && remainingHardIssues.length === 0 && repairedValidation.status === 'PASS') {
                 aiText = repairedText;
-                const repairedCitations = validateLegalCitations(message, aiText, legalCitations, answerScope);
+                const repairedCitations = validateLegalCitations(message, aiText, legalCitations, answerScope, relevantChunks);
                 legalCitations = repairedCitations.citations;
                 semanticReviewPassed = true;
                 source = `Semantic review soft-repaired (${repaired?.provider}) + ${source}`;

@@ -100,18 +100,36 @@ assert.equal(refsOf(calc)[0], '16.99');
 const pct = retrieve('Bán tạp hóa doanh thu 1,2 tỷ chịu bao nhiêu phần trăm thuế?', 4, scope2026);
 assert.deepEqual(refsOf(pct).slice(0, 2), ['16.77', '16.99']);
 
-// 5. Dense opt-in: tắt mặc định, merge chỉ thêm chunk thiếu ở cuối.
+// 5. Dense opt-in: Weighted RRF, True-Pin preservation, lọc theo kỳ hiệu lực và mở rộng truy vấn.
 (async () => {
-  const { vectorSearch, mergeVectorHits } = loadModule('worker/src/vectorRetriever.ts', {
+  const metaData = require('../worker/src/kb/chunkMeta.json');
+  const { vectorSearch, mergeVectorHits, rewriteQueryForDense, isPeriodCompatible } = loadModule('worker/src/vectorRetriever.ts', {
     './ragEngine': engine,
+    './kb/chunkMeta.json': Object.assign({}, metaData, { default: metaData }),
   });
   assert.equal(await vectorSearch('bán hàng 1,5 tỷ', {}), null);
   assert.equal(await vectorSearch('bán hàng 1,5 tỷ', { VECTORIZE_ENABLED: '1' }), null);
-  const base = calc.results.map((r) => ({ chunk: r.chunk, score: r.score, viaRoute: r.viaRoute }));
-  const merged = mergeVectorHits(base, [{ refId: '16.77', score: 0.9 }, { refId: 'nope', score: 0.9 }], 6);
-  assert.deepEqual(refsOf({ results: merged }).slice(0, base.length), refsOf(calc));
-  assert.ok(refsOf({ results: merged }).includes('16.77'));
-  assert.equal(mergeVectorHits(base, [], 6).length, base.length);
 
-  console.log('Retrieval parity checks passed.');
+  // Period compatibility
+  assert.equal(isPeriodCompatible('16.54', [2026]), false, '16.54 (2025) không được lọt vào 2026');
+  assert.equal(isPeriodCompatible('16.99', [2026]), true, '16.99 hợp lệ cho 2026');
+
+  // Query rewriting
+  assert.ok(rewriteQueryForDense('bán hàng trên shopee').includes('thương mại điện tử'));
+  assert.ok(rewriteQueryForDense('đăng ký mã 888').includes('311/TCT'));
+
+  // True-pin preservation: chunk 16.99 có điểm >= 90 luôn giữ vị trí số 1
+  const base = calc.results.map((r) => ({ chunk: r.chunk, score: r.score, viaRoute: r.viaRoute }));
+  const merged = mergeVectorHits(base, [{ refId: '16.77', score: 0.9 }, { refId: 'nope', score: 0.9 }], 6, {
+    query: 'Bán hàng doanh thu 1,5 tỷ năm 2026 tính thuế thế nào?',
+    years: [2026],
+  });
+  assert.equal(merged[0].chunk.ref_id, '16.99', 'Chunk ghim 16.99 phải luôn ở vị trí số 1');
+  assert.ok(merged.map(m => m.chunk.ref_id).includes('16.77'), 'Vector hit 16.77 điểm cao được kết hợp qua RRF');
+
+  // Lọc chunk thời kỳ cũ không lọt vào năm 2026
+  const periodFiltered = mergeVectorHits(base, [{ refId: '16.54', score: 0.95 }], 6, { years: [2026] });
+  assert.ok(!periodFiltered.map(m => m.chunk.ref_id).includes('16.54'), '16.54 phải bị loại khỏi kết quả năm 2026');
+
+  console.log('Retrieval parity and Weighted RRF checks passed.');
 })().catch((e) => { console.error(e); process.exit(1); });
