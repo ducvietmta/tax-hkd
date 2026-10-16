@@ -155,8 +155,25 @@ runTest('Validator_Warns_COD_Shipping', () => {
   assert.ok(report.repairedText.includes('không tính vào doanh thu'));
 });
 
+// 7. Validator: Không phạt khi giải thích ngưỡng doanh thu GTGT lúc hỏi ranh giới TNCN (G071)
+runTest('Validator_Allows_Revenue_Threshold_GTGT_When_Asking_TNCN', () => {
+  const frame = understandQuery('Doanh thu năm 2026 đúng 1 tỷ đồng, hỏi TNCN kinh doanh; cần xác định điều kiện nào ở ranh giới?', { years: [2026], periodSource: 'current_default' });
+  const rawAnswer = 'Ở mốc đúng 1 tỷ đồng, theo luật mới 2026, ngưỡng doanh thu tính thuế GTGT và TNCN đều là trên 1 tỷ đồng. Doanh thu từ 1 tỷ đồng trở xuống không phải nộp thuế.';
+  const report = validateAnswer(rawAnswer, frame, undefined, 'Doanh thu năm 2026 đúng 1 tỷ đồng, hỏi TNCN kinh doanh; cần xác định điều kiện nào ở ranh giới?');
+  assert.notEqual(report.status, 'DOWNGRADE');
+});
+
+// 8. Validator: Không phạt khi người dùng hỏi đối trừ giữa 2 sắc thuế (G103)
+runTest('Validator_Allows_Excluded_Tax_Mention_When_Question_Mentions_Offset', () => {
+  const frame = understandQuery('TikTok ghi "tax" 5 triệu nhưng chứng từ thể hiện là thuế GTGT, người hỏi muốn đối trừ TNCN.', { years: [2026], periodSource: 'current_default' });
+  const rawAnswer = 'Không được bạn nhé. 5.000.000 đồng đó chứng từ ghi là thuế GTGT thì chỉ tính cho nghĩa vụ GTGT, không bù trừ sang thuế TNCN được.';
+  const report = validateAnswer(rawAnswer, frame, undefined, 'TikTok ghi "tax" 5 triệu nhưng chứng từ thể hiện là thuế GTGT, người hỏi muốn đối trừ TNCN.');
+  assert.notEqual(report.status, 'DOWNGRADE');
+});
+
 console.log('\n================================================================');
 console.log(`📊 TỔNG KẾT: ${passed}/${total} TEST CASES PASSED`);
 console.log('================================================================');
 
 if (passed !== total) process.exit(1);
+

@@ -177,7 +177,12 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "855ff6fe992f8e38192334cfece2af6a180bb4a9ee1579ff7627af78d500a44b",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm"
+    ]
   },
   "16.21": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1028",
@@ -308,11 +313,17 @@
   "16.35": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1042",
     "ref_id": "16.35",
-    "section": "16.35. Sàn TMĐT khấu trừ/nộp thay: không giảm doanh thu và không đồng nghĩa luôn phải khai lại cùng một giao dịch",
+    "section": "16.35. Sàn khấu trừ: tổng doanh thu, khoản đã nộp và nghĩa vụ còn lại là ba lớp khác nhau",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "912d9e2ac22326576c38a1673c5adde6267c59848aea2e2262e0bffa5f02b01b",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+      "https://xaydungchinhsach.chinhphu.vn/ban-hang-da-kenh-hieu-dung-de-thuc-hien-dung-nghia-vu-thue-119260727151911181.htm"
+    ]
   },
   "16.36": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1043",
@@ -389,11 +400,17 @@
   "16.44": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1051",
     "ref_id": "16.44",
-    "section": "16.44. 1 tỷ đồng: ngưỡng xác định đối tượng kê khai + khoản trừ riêng của TNCN — không khấu trừ khỏi doanh thu GTGT",
+    "section": "16.44. Nghị định 141/2026/NĐ-CP nâng ngưỡng doanh thu lên 1 tỷ đồng: phân biệt mức trừ TNCN và cơ sở GTGT",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "510ad242d43c98b354557cca749f6f16db696d656de8bb02451da9ebd82e64b8",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+    ]
   },
   "16.45": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1052",
@@ -420,7 +437,13 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "ab01e6718bc5fd4725056a5f4204bf03800b95e547e53946a97dc3ac68b06c66",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+    ]
   },
   "16.49": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1056",
@@ -434,11 +457,16 @@
   "16.50": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1058",
     "ref_id": "16.50",
-    "section": "16.50. Nghị quyết 204/2025/QH15: giảm thuế GTGT 01/07/2025–31/12/2026; HKD tính theo tỷ lệ % được giảm 20% mức tỷ lệ %",
+    "section": "16.50. Giảm GTGT theo NQ204/NĐ174: đúng phương pháp, đối tượng và giai đoạn",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2025,
-    "applies_to_year": 2026
+    "applies_to_year": 2026,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "a247c1e21c9cd503ed74f02acb3511b1d0352c4ed86a2a50b1d50570b9027f90",
+    "reviewed_source_urls": [
+      "https://baochinhphu.vn/giam-thue-gia-tri-gia-tang-tu-01-7-2025-den-het-31-12-2026-10225070118590677.htm"
+    ]
   },
   "16.51": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1059",
@@ -488,11 +516,19 @@
   "16.56": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1064",
     "ref_id": "16.56",
-    "section": "16.56. Năm 2026: mốc 3 tỷ quyết định phương pháp TNCN; đúng 3 tỷ vẫn ở nhánh được lựa chọn; vượt cuối năm thì chuyển phư",
+    "section": "16.56. Phương pháp TNCN theo dải doanh thu và ngoại lệ chuyển từ năm tiếp theo",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "545468db77d4ff7d2a026d27255d0a7e90a25dab3a6f0cff4d4a55d4139d2291",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
+      "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm",
+      "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-du-kien-dau-nam-doanh-thu-duoi-3-ty-dong-cuoi-nam-vuot-3-ty-dong-ap-dung-phuong-phap-tinh-thue-tncn-nao-119260722111045417.htm",
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+    ]
   },
   "16.57": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1065",
@@ -632,11 +668,17 @@
   "16.72": {
     "id": "KB/16D-da-nguon-pham-vi-nguong.md#1089",
     "ref_id": "16.72",
-    "section": "16.72. \"Doanh thu năm\" xét ngưỡng 1 tỷ 2026 gồm những gì",
+    "section": "16.72. Doanh thu năm: quyền được hưởng, phạm vi chủ thể và số liệu cần đối soát",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "41f4f79a0a7d4052aa40a16b1d496fc89afe7808bd8540f67ae3f813fdf7c478",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm",
+      "https://xaydungchinhsach.chinhphu.vn/ban-hang-da-kenh-hieu-dung-de-thuc-hien-dung-nghia-vu-thue-119260727151911181.htm"
+    ]
   },
   "16.73": {
     "id": "KB/16D-da-nguon-pham-vi-nguong.md#1090",
@@ -645,7 +687,12 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "d678a81a9eb3df9a453cfb8a6b58dbc629eaabef6e2ed634436b35341be8c3e6",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm"
+    ]
   },
   "16.74": {
     "id": "KB/16D-da-nguon-pham-vi-nguong.md#1091",
@@ -848,11 +895,21 @@
   "16.99": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#giam-30-phan-tram-tncn-nq43",
     "ref_id": "16.99",
-    "section": "16.99. Chính sách giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 và 3 tầng tính thuế năm 2026",
+    "section": "16.99. Trình tự xác định GTGT, phương pháp TNCN và giảm thuế — không dùng một công thức cho mọi trường hợp",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "6a97ca3773b17fd2928d1145ccbaba621f8d9fd197f75d3277a11f1cb8068261",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
+      "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm",
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-43-2026-qh16-ve-giam-thue-thu-nhap-ca-nhan-thue-thu-nhap-doanh-nghiep-119260830184758301.htm",
+      "https://baochinhphu.vn/giam-thue-gia-tri-gia-tang-tu-01-7-2025-den-het-31-12-2026-10225070118590677.htm",
+      "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm"
+    ]
   },
   "16.100": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#dang-ky-mst-888-cv-311-2025",
@@ -879,7 +936,13 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "96dbf3ef96a15d0d9caa25fb4916c376da09672e6a73fb0061d33a773db5c8fd",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm",
+      "https://xdcs.cdnchinhphu.vn/446259493575335936/2026/3/6/68-2026-nd-cp-05032026-signed-17727673940151875228819.pdf"
+    ]
   },
   "16.103": {
     "id": "KB/semantic-topic-supplements#invoice-correction",
@@ -906,7 +969,12 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "b932410db19f7417c6cf3002fd0321d12a76169f780e1eeadd91e955b5f0a827",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+    ]
   },
   "16.106": {
     "id": "KB/semantic-topic-supplements#invoice-before-july",
@@ -923,7 +991,13 @@
     "section": "16.107. Đăng ký kinh doanh: trường hợp không bắt buộc đăng ký và hoạt động affiliate, online, thu nhập thấp",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
-    "applies_from_year": 2021,
-    "applies_to_year": null
+    "applies_from_year": 2025,
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-16",
+    "content_sha256": "2a595be1388159ce60f25d308951976d84b29e6e8ecf81cb19a3ff90617b01f2",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
+    ],
+    "effective_from_date": "2025-07-01"
   }
 }

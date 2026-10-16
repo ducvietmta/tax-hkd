@@ -692,7 +692,7 @@ ${ragContextText}`;
     if (!isSystemError && decisionFrame) {
       const applicableEvaluation = canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED'
         ? decisionEvaluation : undefined;
-      const valReport = validateAnswer(aiText, decisionFrame, applicableEvaluation);
+      const valReport = validateAnswer(aiText, decisionFrame, applicableEvaluation, message);
       validationStatus = valReport.status;
       if (valReport.repairedText) {
         aiText = valReport.repairedText;
@@ -711,7 +711,7 @@ ${ragContextText}`;
         }
       }
       if (applyDecision) validationPass = validateAnswer(aiText, decisionFrame,
-        canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined).status === 'PASS';
+        canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined, message).status !== 'DOWNGRADE';
       if (validationPass && validationStatus === 'REPAIR') validationStatus = 'PASS_AFTER_REPAIR';
     }
     if (isSystemError) {
@@ -748,15 +748,17 @@ ${ragContextText}`;
               semanticReviewIssues = remainingIssues;
               const remainingHardIssues = remainingIssues?.filter(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED')) || [];
               const repairedValidation = validateAnswer(repairedText, decisionFrame,
-                canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined);
-              if (remainingIssues && remainingIssues.length === 0 && repairedValidation.status === 'PASS') {
-                aiText = repairedText;
+                canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined, message);
+              const isValidationAcceptable = repairedValidation.status !== 'DOWNGRADE';
+              const candidateText = repairedValidation.repairedText || repairedText;
+              if (remainingIssues && remainingIssues.length === 0 && isValidationAcceptable) {
+                aiText = candidateText;
                 const repairedCitations = validateLegalCitations(message, aiText, legalCitations, answerScope, relevantChunks);
                 legalCitations = repairedCitations.citations;
                 semanticReviewPassed = true;
                 source = `Semantic review repaired (${repaired?.provider}) + ${source}`;
-              } else if (remainingIssues && remainingHardIssues.length === 0 && repairedValidation.status === 'PASS') {
-                aiText = repairedText;
+              } else if (remainingIssues && remainingHardIssues.length === 0 && isValidationAcceptable) {
+                aiText = candidateText;
                 const repairedCitations = validateLegalCitations(message, aiText, legalCitations, answerScope, relevantChunks);
                 legalCitations = repairedCitations.citations;
                 semanticReviewPassed = true;
@@ -772,14 +774,28 @@ ${ragContextText}`;
     if (applyDecision && !semanticReviewPassed && !isSystemError) {
       if (semanticReviewIssues === null) {
         // Operational failure from review provider (HTTP 503, timeout, network failure)
-        // In enforce mode, do not release unreviewed AI draft, but do not blame it as a content violation
-        aiText = UNVERIFIED_ANSWER;
-        legalCitations = [];
-        source = 'Review provider unavailable';
-        if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
+        // If the answer is already valid according to deterministic rules and legal citations, preserve it!
+        if (validationPass && legalCitations.length > 0) {
+          source = `Validated fallback (review provider unavailable) + ${source}`;
+          semanticReviewPassed = true;
+          console.warn('[REVIEW_PROVIDER_FALLBACK]', 'Preserving validated answer despite reviewer unavailable');
+        } else {
+          aiText = UNVERIFIED_ANSWER;
+          legalCitations = [];
+          source = 'Review provider unavailable';
+          if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
+        }
       } else {
         const hasFatalViolation = semanticReviewIssues.some(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED'));
-        if (hasFatalViolation || !validationPass) {
+        const finalValidation = validateAnswer(aiText, decisionFrame,
+          canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined, message);
+        const finalValidationPass = finalValidation.status !== 'DOWNGRADE';
+        if (hasFatalViolation || !finalValidationPass) {
+          console.warn('[ANSWER_REVIEW_BLOCKED]', JSON.stringify({
+            hasFatalViolation,
+            validationReasons: finalValidation.reasons,
+            issues: semanticReviewIssues
+          }));
           aiText = UNVERIFIED_ANSWER;
           legalCitations = [];
           source = 'Answer review blocked';

@@ -17,7 +17,8 @@ export interface ValidationReport {
 export function validateAnswer(
   answerText: string,
   frame: TaxDecisionFrame,
-  evalResult?: EvaluationResult
+  evalResult?: EvaluationResult,
+  userMessage?: string
 ): ValidationReport {
   const reasons: string[] = [];
   let status: 'PASS' | 'REPAIR' | 'DOWNGRADE' = 'PASS';
@@ -30,14 +31,24 @@ export function validateAnswer(
   const focus = frame.semantic?.taxFocus;
   const body = text.split(/Căn cứ pháp lý\s*:/i)[0];
   const excluded = focus === 'pit' ? 'GTGT' : focus === 'vat' ? 'TNCN' : null;
-  if (excluded) {
+  const messageMentionsExcluded = !!(excluded && userMessage && new RegExp(`\\b${excluded}\\b`, 'i').test(userMessage));
+  const isCalculationIntent = frame.tax_intent.primary.value === 'TAX_CALCULATION' ||
+    frame.tax_intent.secondary.includes('TAX_CALCULATION') ||
+    frame.semantic?.topic === 'TAX_AMOUNT';
+  if (excluded && !messageMentionsExcluded && isCalculationIntent) {
     const lines = body.split('\n');
     for (const line of lines) {
       if (new RegExp(`\\b${excluded}\\b`, 'i').test(line)) {
-        if (/không|chưa|chỉ|riêng|thuộc|phạm vi/i.test(line) && /không (?:áp dụng|giảm|tính|thu|phải nộp|thuộc)|chưa (?:tính|xét)|chỉ (?:giảm|tính|xét)|ngoài phạm vi/i.test(line)) {
+        if (/ngưỡng|ranh giới|mốc|hạn mức|điều kiện|miễn|không phải nộp/i.test(line)) {
           continue;
         }
-        if (new RegExp(`${excluded}[^\\n]{0,80}\\d[\\d.,]*\\s*(%|đồng|triệu|tỷ)`, 'i').test(line)) {
+        if (
+          /không|chưa|chỉ|riêng|thuộc|phạm vi|đối trừ|khấu trừ|bù trừ|chứng từ/i.test(line) &&
+          /không (?:áp dụng|giảm|tính|thu|phải nộp|thuộc|đối trừ|khấu trừ|bù trừ|thể|được|cho phép)|chưa (?:tính|xét)|chỉ (?:giảm|tính|xét)|ngoài phạm vi|chứng từ/i.test(line)
+        ) {
+          continue;
+        }
+        if (new RegExp(`(?:thuế\\s+${excluded}|${excluded})[^\\n]{0,40}?(?:phải nộp|nộp thêm|tạm tính|tính ra|là|:|=|phát sinh)?\\s*\\d[\\d.,]*\\s*(?:đồng|triệu|nghìn|%|k\\b)`, 'i').test(line)) {
           return { status: 'DOWNGRADE', reasons: ['Tính thêm loại thuế người dùng không yêu cầu'], repairedText: text };
         }
       }

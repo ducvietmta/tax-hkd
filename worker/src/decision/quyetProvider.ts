@@ -167,8 +167,15 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
     for (const key of Object.keys(questions)) {
       const value = answers[key];
       if (value?.type !== 'choice' || !Object.hasOwn(questions[key].criteria, value.choice) || !validProbability(value.confidence)) return null;
+      if (value.choice === 'NOT_APPLICABLE') continue;
+      if (key === 'citations') {
+        if (value.choice === 'INCOMPLETE') {
+          issues.push('citations:INCOMPLETE');
+        }
+        continue;
+      }
       const accepted: Record<string,string[]> = { facts:['FAITHFUL'], evidence:['SUPPORTED'], coverage:['COMPLETE'] };
-      if (!(accepted[key] || ['COMPLETE','NOT_APPLICABLE']).includes(value.choice) || value.confidence < 0.7) issues.push(`${key}:${value.confidence < 0.7 ? 'LOW_CONFIDENCE' : value.choice}`);
+      if (!(accepted[key] || ['COMPLETE']).includes(value.choice) || value.confidence < 0.7) issues.push(`${key}:${value.confidence < 0.7 ? 'LOW_CONFIDENCE' : value.choice}`);
     }
     return issues;
   }

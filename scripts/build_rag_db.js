@@ -143,7 +143,7 @@ export const CANONICAL_CHUNKS: RagChunk[] = ${JSON.stringify(verifiedChunks, nul
 /**
  * 1. Định tuyến nhanh qua Query Map
  * Fold dấu tiếng Việt cả 2 phía để câu hỏi không dấu ("tiep thi lien ket",
- * "cho thue nha") vẫn trúng route như bản có dấu. `not` loại route bị cấm.
+ * "cho thue nha") vẫn trúng route như bản có dấu. Trường not loại route bị cấm.
  */
 function foldRouteKey(s: string): string {
   return (s || '')

@@ -11,3 +11,5 @@ worker/.dev.vars*
 .DS_Store
 Thumbs.db
 outputs/
+scratch/
+

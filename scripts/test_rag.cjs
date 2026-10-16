@@ -21,6 +21,21 @@ function loadModule(relativePath, dependencies = {}) {
 }
 
 const engine = loadModule('worker/src/ragEngine.ts');
+// Content regressions: these conditions prevent a mathematically correct
+// formula from being applied to the wrong method, period or legal purpose.
+const reviewed = ref => engine.CANONICAL_CHUNKS.find(c => c.ref_id === ref).text;
+assert.doesNotMatch(reviewed('16.99'), /Ví dụ E\d|T06|T21|T40|T41/, 'Knowledge must not encode evaluation IDs');
+assert.match(reviewed('16.99'), /TNCN THEO THU NHẬP/);
+assert.match(reviewed('16.99'), /không trừ mức miễn của TNCN/);
+assert.match(reviewed('16.56'), /cuối năm.*từ năm tiếp theo/);
+assert.match(reviewed('16.50'), /5%.*4%/);
+assert.match(reviewed('16.50'), /Thuế suất 5%.*không đồng nghĩa tỷ lệ trực tiếp 5%/);
+assert.match(reviewed('16.35'), /Dòng tax.*chưa chứng minh đã nộp TNCN/);
+assert.match(reviewed('16.35'), /Chứng từ ghi GTGT không phải TNCN/);
+assert.match(reviewed('16.72'), /GMV.*không tự là doanh thu/);
+assert.match(reviewed('16.102'), /người nhà.*nhân viên.*thành viên hộ/);
+assert.match(reviewed('16.107'), /địa phương/);
+for (const ref of ['16.20','16.73']) assert.match(reviewed(ref), /KHÔNG phải quy tắc phân loại chung/);
 const conversation = loadModule('worker/src/conversation.ts');
 const textUtils = loadModule('worker/src/utils/text.ts');
 const scope = loadModule('shared/taxScope.ts');

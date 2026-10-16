@@ -119,7 +119,9 @@ assert.deepEqual(refsOf(pct).slice(0, 2), ['16.77', '16.99']);
   assert.ok(rewriteQueryForDense('đăng ký mã 888').includes('311/TCT'));
 
   // True-pin preservation: chunk 16.99 có điểm >= 90 luôn giữ vị trí số 1
-  const base = calc.results.map((r) => ({ chunk: r.chunk, score: r.score, viaRoute: r.viaRoute }));
+  // The preservation contract is score >= 90, not a particular BM25 score for
+  // mutable KB prose. Make that precondition explicit in this unit fixture.
+  const base = calc.results.map((r) => ({ chunk: r.chunk, score: r.chunk.ref_id === '16.99' ? 100 : Math.min(r.score, 89), viaRoute: r.viaRoute }));
   const merged = mergeVectorHits(base, [{ refId: '16.77', score: 0.9 }, { refId: 'nope', score: 0.9 }], 6, {
     query: 'Bán hàng doanh thu 1,5 tỷ năm 2026 tính thuế thế nào?',
     years: [2026],
