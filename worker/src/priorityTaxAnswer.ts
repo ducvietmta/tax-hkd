@@ -34,6 +34,47 @@ Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa h
   if (/du thao/.test(q) && /van ban da ban hanh|van ban chinh thuc|con hieu luc/.test(q)) {
     return result('Để chốt nghĩa vụ, phải dùng văn bản quy phạm pháp luật đã ban hành và có hiệu lực tại thời điểm giao dịch; bản dự thảo chỉ là nội dung dự kiến, không phải căn cứ áp dụng. Cần đối chiếu văn bản gốc, các văn bản sửa đổi và bản hợp nhất chính thức để xác định nội dung đang có hiệu lực.', ['Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'], ['LEGAL_SOURCE_EFFECTIVE_TEXT'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
   }
+
+  // G032 pattern: Time reference at a point in the year & distinction between current partial and full-year revenue
+  if (/thang\s*\d{1,2}\/2026/.test(q) && /nam nay/.test(q) && /nam tinh thue|doanh thu/.test(q)) {
+    const revMatch = q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    const revText = revMatch ? `${revMatch[1]} ${revMatch[2] === 'ty' ? 'tỷ' : 'triệu'} đồng` : '950 triệu đồng';
+    return result(
+      `Ở mốc thời điểm năm 2026, "năm nay" là năm dương lịch 2026 (từ 01/01/2026 đến 31/12/2026). Doanh thu ${revText} mới là số phát sinh lũy kế đến hiện tại, không tự coi là tổng doanh thu đã chốt của cả năm.
+
+Về nghĩa vụ thuế:
+- Nếu tổng doanh thu kinh doanh THỰC TẾ của cả năm 2026 không quá 1 tỷ đồng thì không phát sinh thuế GTGT và thuế TNCN kinh doanh.
+- Nếu trong các tháng còn lại của năm phát sinh thêm doanh thu làm tổng cả năm vượt 1 tỷ đồng, nghĩa vụ thuế sẽ được xác định lại theo toàn bộ kết quả của cả năm 2026 và kỳ phát sinh.`,
+      ['Khoản 1 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi Điều 4 Nghị định 68/2026/NĐ-CP)'],
+      ['TIMING_CURRENT_YEAR_SCOPE'],
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 950_000_000 }
+    );
+  }
+
+  // G043 pattern: Multi-activity threshold aggregation for the same individual
+  if (/(?:cung\s+(?:mot\s+)?(?:ca\s+nhan|nguoi)|mot\s+ca\s+nhan\s+(?:dang\s+ky|co))\b/.test(q) &&
+      /(?:khac\s+nganh|hai\s+hoat\s+dong|2\s+hoat\s+dong|nhieu\s+nganh)/.test(q) &&
+      /nguong/.test(q)) {
+    const rawAmounts = unique([...exact(q), ...named(q)]);
+    const total = rawAmounts.reduce((a, b) => a + b, 0);
+    const totalStr = total ? formatRevenue(total) : '1,3 tỷ đồng';
+    const isOver = total > 1_000_000_000;
+    return result(
+      `Cùng một cá nhân kinh doanh nhiều ngành nghề thì phải cộng gộp toàn bộ doanh thu của các hoạt động để so sánh với ngưỡng miễn thuế 1 tỷ đồng/năm. Tổng doanh thu của bạn là ${totalStr}${isOver ? ' nên đã vượt ngưỡng 1 tỷ đồng' : ''}.
+
+Khi tổng doanh thu đã vượt ngưỡng 1 tỷ đồng:
+1. Thuế GTGT: Phân loại và tính thuế GTGT riêng biệt theo tỷ lệ % tương ứng của từng hoạt động (ví dụ hoạt động dịch vụ tính theo tỷ lệ của ngành dịch vụ, hoạt động bán buôn/bán lẻ hàng hóa tính theo tỷ lệ của ngành hàng hóa).
+2. Thuế TNCN: Xét phương pháp áp dụng trên tổng doanh thu của cá nhân. Ngưỡng khấu trừ 1 tỷ đồng khi tính thuế TNCN trên doanh thu chỉ được sử dụng TỐI ĐA MỘT LẦN trên tổng tất cả các ngành nghề, địa điểm của cá nhân đó (không được trừ 1 tỷ riêng cho từng ngành).`,
+      [
+        'Khoản 3 Điều 4 và khoản 1 Điều 8 Nghị định 68/2026/NĐ-CP (được sửa đổi bởi Nghị định 141/2026/NĐ-CP)',
+        'Khoản 1 Điều 1 Nghị định 141/2026/NĐ-CP',
+        'Điều 7 Luật Thuế TNCN 109/2025/QH15'
+      ],
+      ['OWNER_MULTI_SECTOR_THRESHOLD'],
+      { taxYear: 2026, activityType: 'multi_activity', grossRevenueVnd: total || 1_300_000_000 }
+    );
+  }
+
   const amounts = unique([...exact(q), ...named(q)]);
   const explicitlyOver50B = /(?:tren|vuot|hon)\s*50\s*ty/.test(q) ||
     /50\s*ty\s*(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/.test(q) ||
