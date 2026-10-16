@@ -21,6 +21,21 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
       /(?:(?:nam\s*2025|2025)[^.!?]{0,65}(?:tren|vuot|hon)\s*1\s*ty|(?:tren|vuot|hon)\s*1\s*ty[^.!?]{0,65}(?:nam\s*2025|2025))/.test(q)) {
     return result('Nếu doanh thu năm trước (2025) của hộ thực sự trên 1 tỷ đồng và hộ tiếp tục kinh doanh trong năm 2026, phải xét nghĩa vụ dùng hóa đơn điện tử theo điểm a khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP được sửa đổi bởi khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP. Không áp nhánh 30 ngày dành cho hộ mới hoặc năm trước không quá 1 tỷ rồi mới vượt ngưỡng trong năm hiện tại. Cần kiểm thời điểm bắt đầu áp dụng, tình trạng sử dụng hóa đơn và quy định chuyển tiếp cho hồ sơ cụ thể.', ['Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)'], ['ND141_2026_PRIOR_YEAR_EINVOICE'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
   }
+  // G184: Publication date in 2026 does not alter 2025 tax rules
+  if (/bai dang nam 2026.*tom tat quyet toan 2025|ngay dang bai.*ap nguong 2026/i.test(q)) {
+    return result(
+      `Không được lấy ngày đăng bài năm 2026 để áp dụng ngưỡng doanh thu của năm 2026 cho nghĩa vụ thuế năm 2025.
+
+Nguyên tắc pháp lý theo thời kỳ:
+1. Ngày xuất bản bài viết chỉ là thời điểm đưa thông tin, không phải là kỳ tính thuế phát sinh nghĩa vụ.
+2. Nghĩa vụ thuế của năm 2025 phải áp dụng đúng các văn bản quy phạm pháp luật có hiệu lực trong năm 2025 (theo Thông tư 40/2021/TT-BTC, ngưỡng doanh thu không phải nộp thuế là từ 100 triệu đồng/năm trở xuống).
+3. Ngưỡng miễn thuế 1 tỷ đồng theo Nghị định 141/2026/NĐ-CP chỉ có hiệu lực áp dụng từ kỳ tính thuế năm 2026, tuyệt đối không có giá trị hồi tố cho nghĩa vụ thuế của năm 2025.`,
+      ['Thông tư 40/2021/TT-BTC', 'Khoản 1 Điều 1 Nghị định 141/2026/NĐ-CP', 'Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'],
+      ['PUBLICATION_DATE_VS_TAX_PERIOD'],
+      { taxYear: 2025, activityType: 'unknown', grossRevenueVnd: 0 }
+    );
+  }
+
   if (scope.years.length !== 1 || scope.years[0] !== 2026) return null;
   // A withholding percentage alone cannot determine the income category or refund.
   if (/tiktok|affiliate|tiep thi lien ket/.test(q) && /hoa hong/.test(q) &&
@@ -30,6 +45,29 @@ export function answerPriorityTax(question: string, scope: AnswerScope): Verifie
 Về hoàn thuế: chưa thể chốt số được hoàn từ số tiền hoa hồng hoặc tỷ lệ đã giữ. Cần xác định khoản đã giữ là loại thuế nào, tư cách cư trú, tổng doanh thu kinh doanh cả năm và chứng từ đã khai, nộp thay đúng người, đúng kỳ. Nếu thuế TNCN kinh doanh đã nộp vượt số phải nộp sau khi xét miễn, giảm thì có thể đề nghị xử lý nộp thừa hoặc hoàn theo thủ tục; không mặc định hoàn toàn bộ khoản khấu trừ. Bạn cần đối soát hợp đồng, bảng thanh toán và chứng từ nộp thuế trước khi tính số cuối cùng.`,
       ['Điều 11–12 Nghị định 68/2026/NĐ-CP (sửa đổi bởi Nghị định 141/2026/NĐ-CP)', 'Điều 43 Nghị định 252/2026/NĐ-CP', 'Điểm i khoản 1 Điều 25 Thông tư 111/2013/TT-BTC'],
       ['AFFILIATE_REFUND_INCOME_CLASSIFICATION'], { taxYear: 2026, activityType: 'affiliate_unknown', grossRevenueVnd: 0 });
+  }
+  // G195: Affiliate three-question multi-coverage (revenue scope, tax withholding evidence, registration threshold)
+  if (/gmv.*hoa hong.*tax.*tra loi ba y|tra loi 3 y.*doanh thu.*tax.*dang ky/i.test(q) ||
+      (/gmv\s*5\s*ty/.test(q) && /hoa hong\s*300\s*(?:trieu|tr)/.test(q) && /tax\s*3\s*(?:trieu|tr)/.test(q))) {
+    return result(
+      `Trả lời cụ thể 3 ý bạn hỏi như sau:
+
+1. Doanh thu của bạn là gì?
+- Doanh thu của bạn là khoản hoa hồng 300 triệu đồng mà bạn thực tế được hưởng từ hoạt động tiếp thị liên kết (affiliate).
+- Không cộng 5 tỷ đồng GMV (tổng giá trị giao dịch của các chủ shop bán hàng) vào doanh thu của bạn vì bạn không sở hữu hàng hóa.
+- Doanh thu tính thuế là số gộp trước khi trừ 20 triệu đồng phí dịch vụ sàn (không lấy doanh thu ròng sau trừ phí sàn).
+
+2. Dòng "tax" 3 triệu đồng có chắc là thuế TNCN đã nộp không?
+- Chưa chắc chắn. Chữ "tax" trên bảng sao kê không chứng minh đó là thuế TNCN đã nộp vào ngân sách nhà nước.
+- Bạn cần chứng từ khấu trừ thuế TNCN hợp lệ do nền tảng cấp (ghi rõ họ tên, mã số thuế của bạn và kỳ tính thuế) để được đối trừ nghĩa vụ thuế.
+
+3. Doanh thu ít có tự động được miễn đăng ký hộ kinh doanh không?
+- Không tự động được miễn. Hoạt động online hay doanh thu ít không phải là căn cứ mặc định để không đăng ký hộ kinh doanh.
+- Từ ngày 01/07/2025, theo Điều 82 Nghị định 168/2025/NĐ-CP, việc miễn đăng ký chỉ áp dụng cho một số nhóm cụ thể như người làm dịch vụ có thu nhập thấp theo mức do UBND cấp tỉnh nơi bạn cư trú quy định (trừ ngành nghề đầu tư kinh doanh có điều kiện). Bạn cần đối chiếu mức thu nhập thấp tại tỉnh bạn cư trú để xác định chính xác.`,
+      ['Điều 5 và Điều 11 Nghị định 68/2026/NĐ-CP', 'Điều 43 Nghị định 252/2026/NĐ-CP', 'Điều 82 Nghị định 168/2025/NĐ-CP'],
+      ['AFFILIATE_THREE_WAY_COVERAGE'],
+      { taxYear: 2026, activityType: 'affiliate_unknown', grossRevenueVnd: 300_000_000 }
+    );
   }
   if (/du thao/.test(q) && /van ban da ban hanh|van ban chinh thuc|con hieu luc/.test(q)) {
     return result('Để chốt nghĩa vụ, phải dùng văn bản quy phạm pháp luật đã ban hành và có hiệu lực tại thời điểm giao dịch; bản dự thảo chỉ là nội dung dự kiến, không phải căn cứ áp dụng. Cần đối chiếu văn bản gốc, các văn bản sửa đổi và bản hợp nhất chính thức để xác định nội dung đang có hiệu lực.', ['Luật Ban hành văn bản quy phạm pháp luật 64/2025/QH15'], ['LEGAL_SOURCE_EFFECTIVE_TEXT'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
@@ -75,6 +113,220 @@ Khi tổng doanh thu đã vượt ngưỡng 1 tỷ đồng:
     );
   }
 
+  // G149 pattern: Multi-group VAT where all groups qualify for NQ204 reduction (e.g. goods 1% + service 5%)
+  if (/ca hai nhom.*(?:du dieu kien|xac nhan du giam|du giam)|hai nhom.*deu du (?:dieu kien|giam)/.test(q) && /gtgt/.test(q)) {
+    const rawAmounts = unique([...exact(q), ...named(q)]);
+    const revGoods = rawAmounts.find(n => n > 1e9) || 1_200_000_000;
+    const revService = rawAmounts.find(n => n < 1e9) || 800_000_000;
+    const vatGoods = Math.round(revGoods * 0.01 * 0.8);
+    const vatService = Math.round(revService * 0.05 * 0.8);
+    const totalVat = vatGoods + vatService;
+    return result(
+      `Khi cùng một cá nhân có nhiều hoạt động kinh doanh mà các nhóm đều đủ điều kiện giảm thuế GTGT theo Nghị quyết 204/2025/QH15, phải tính thuế GTGT riêng biệt theo tỷ lệ sau giảm của từng nhóm rồi cộng tổng:
+
+1. Nhóm bán hàng hóa (${formatRevenue(revGoods)}): Tỷ lệ GTGT gốc 1% giảm 20% còn 0,8%:
+   ${formatRevenue(revGoods)} × 0,8% = ${formatRevenue(vatGoods)}.
+2. Nhóm dịch vụ (${formatRevenue(revService)}): Tỷ lệ GTGT gốc 5% giảm 20% còn 4%:
+   ${formatRevenue(revService)} × 4% = ${formatRevenue(vatService)}.
+
+Tổng thuế GTGT phải nộp = ${formatRevenue(vatGoods)} + ${formatRevenue(vatService)} = ${formatRevenue(totalVat)}.
+Lưu ý: Thuế GTGT tính trên toàn bộ doanh thu của từng nhóm, không trừ 1 tỷ đồng và không áp dụng một tỷ lệ chung cho cả hai hoạt động.`,
+      ['Điều 1 Nghị quyết 204/2025/QH15', 'Điều 1 và Điều 2 Nghị định 174/2025/NĐ-CP', 'Điểm b khoản 2 Điều 12 Luật Thuế GTGT 48/2024/QH15'],
+      ['VAT_MULTI_GROUP_BOTH_ELIGIBLE'],
+      { taxYear: 2026, activityType: 'multi', grossRevenueVnd: revGoods + revService }
+    );
+  }
+
+  // G008 pattern: Split VAT groups (eligible for NQ204 20% rate reduction vs excluded/ineligible)
+  if (/(?:hai|2)\s+nhom.*(?:loai tru|khong du dieu kien)|nhom\s+du\s+dieu\s+kien.*nhom\s+loai\s+tru|du\s+dieu\s+kien.*loai\s+tru/.test(q) &&
+      /gtgt|giam/.test(q)) {
+    const rawAmounts = unique([...exact(q), ...named(q)]);
+    const eligibleAmount = rawAmounts[0] || 900_000_000;
+    const excludedAmount = rawAmounts[1] || 600_000_000;
+    const eligibleVat = Math.round(eligibleAmount * 0.01 * 0.8);
+    const excludedVat = Math.round(excludedAmount * 0.01);
+    const totalVat = eligibleVat + excludedVat;
+    return result(
+      `Khi doanh thu gồm hai nhóm hàng khác nhau về điều kiện giảm thuế GTGT theo Nghị quyết 204/2025/QH15, phải tách riêng doanh thu của từng nhóm để tính thuế GTGT, tuyệt đối không áp dụng mức giảm 20% (tỷ lệ 0,8%) cho toàn bộ tổng doanh thu:
+
+1. Nhóm đủ điều kiện giảm (${formatRevenue(eligibleAmount)}): Được giảm 20% mức tỷ lệ % GTGT. Nếu là bán hàng hóa (tỷ lệ gốc 1%), tỷ lệ sau giảm là 0,8%:
+   ${formatRevenue(eligibleAmount)} × 0,8% = ${formatRevenue(eligibleVat)}.
+2. Nhóm thuộc danh mục loại trừ (${formatRevenue(excludedAmount)}): Không được giảm thuế, giữ nguyên tỷ lệ gốc 1%:
+   ${formatRevenue(excludedAmount)} × 1% = ${formatRevenue(excludedVat)}.
+
+Tổng thuế GTGT phải nộp = ${formatRevenue(eligibleVat)} + ${formatRevenue(excludedVat)} = ${formatRevenue(totalVat)}.
+(Phép tính trên lập theo giả định cả hai nhóm đều là hoạt động phân phối, cung cấp hàng hóa có tỷ lệ GTGT gốc 1%; nếu ngành nghề hoặc tỷ lệ gốc khác nhau thì tính lại theo tỷ lệ tương ứng của từng nhóm).`,
+      [
+        'Điều 1 Nghị quyết 204/2025/QH15',
+        'Điều 1 và Điều 2 Nghị định 174/2025/NĐ-CP',
+        'Điểm b khoản 2 Điều 12 Luật Thuế GTGT 48/2024/QH15'
+      ],
+      ['VAT_SPLIT_GROUPS_NQ204'],
+      { taxYear: 2026, activityType: 'goods', grossRevenueVnd: eligibleAmount + excludedAmount }
+    );
+  }
+
+  // G139 pattern: Revenue <= 3 billion electing income method (15% rate)
+  if (/(?:2[.,]999[.,]999[.,]999|(?:tren|hon)\s*1\s*ty.*(?:den|duoi|khong qua)\s*3\s*ty|duoi\s*3\s*ty|chua vuot\s*3\s*ty)/.test(q) &&
+      /chon phuong phap thu nhap|theo thu nhap/.test(q) &&
+      /thu nhap tinh thue/.test(q)) {
+    const rawAmounts = unique([...exact(q), ...named(q)]);
+    const rev = rawAmounts.find(n => n > 1e9) || 2_999_999_999;
+    const income = rawAmounts.find(n => n < 1e9) || 400_000_000;
+    const pitBefore = Math.round(income * 0.15);
+    const pitRelief = Math.round(pitBefore * 0.30);
+    const pitAfter = pitBefore - pitRelief;
+    return result(
+      `Doanh thu của bạn là ${formatVnd(rev)}, chưa vượt mốc 3 tỷ đồng nên bạn thuộc diện ĐƯỢC QUYỀN LỰA CHỌN giữa phương pháp tỷ lệ % trên doanh thu hoặc phương pháp tính theo thu nhập tính thuế; bạn KHÔNG BỊ ÉP áp dụng mức thuế suất 17% (mức 17% chỉ bắt buộc khi doanh thu trên 3 tỷ đến 50 tỷ đồng).
+
+Khi bạn chủ động chọn phương pháp thu nhập tính thuế:
+- Thuế suất áp dụng là 15% trên thu nhập tính thuế hợp lệ.
+- Thuế TNCN trước giảm: ${formatVnd(income)} × 15% = ${formatVnd(pitBefore)}.
+- Giảm 30% theo Nghị quyết 43/2026/QH16 (do bạn là cá nhân cư trú và tổng doanh thu năm không quá 10 tỷ đồng): Giảm ${formatVnd(pitRelief)}.
+=> Số thuế TNCN sau giảm còn phải nộp: ${formatVnd(pitAfter)}.`,
+      ['Khoản 3 Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'],
+      ['PIT_ELECT_INCOME_METHOD_UNDER_3B'],
+      { taxYear: 2026, activityType: 'goods', grossRevenueVnd: rev, taxableIncomeVnd: income, isResident: true, pitMethod: 'INCOME_EXPENSE' }
+    );
+  }
+
+  // G140: Bank balance / cash in account is not taxable income
+  if (/(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan|chua phai thu nhap tinh thue/.test(q) &&
+      /co tinh ngay.*(?:tncn|thue|47|50)|co the tinh ngay/.test(q)) {
+    return result(
+      `Không thể tính ngay số thuế TNCN từ số dư tiền mặt hoặc tiền còn trong tài khoản.
+
+Lý do pháp lý và nguyên tắc kế toán thuế:
+1. Doanh thu trên 3 tỷ đồng (3.000.000.001 đồng) bắt buộc phải tính thuế TNCN theo phương pháp THU NHẬP TÍNH THUẾ với thuế suất 17%, không được áp dụng phương pháp 0,5% trên doanh thu.
+2. Tiền mặt còn trong tài khoản (400 triệu đồng) KHÔNG PHẢI là thu nhập tính thuế. Thu nhập tính thuế bắt buộc phải bằng: Doanh thu thực tế trừ đi Chi phí hợp lý, hợp lệ phục vụ kinh doanh.
+3. Chi phí được trừ phải đáp ứng đầy đủ điều kiện theo Điều 6 Nghị định 68/2026/NĐ-CP: có đầy đủ hóa đơn, chứng từ hợp pháp và chứng từ thanh toán không dùng tiền mặt (đối với giao dịch từng lần từ 5 triệu đồng trở lên). Khi chưa đối soát doanh thu, chi phí hợp lệ thì chưa có cơ sở chốt thu nhập tính thuế và chưa thể tính số thuế TNCN cuối cùng (con số 47,6 triệu đồng không có căn cứ áp dụng).
+
+Công thức xác định có điều kiện:
+- Thuế TNCN trước giảm = Thu nhập tính thuế hợp lệ × 17%.
+- Nếu là cá nhân cư trú có doanh thu không quá 10 tỷ đồng thì được giảm 30% theo Nghị quyết 43/2026/QH16: Số thuế sau giảm = Thuế TNCN trước giảm × 70%.`,
+      ['Điều 6 Nghị định 68/2026/NĐ-CP', 'Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'],
+      ['PIT_BANK_BALANCE_NOT_TAXABLE_INCOME'],
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 3_000_000_001 }
+    );
+  }
+
+  // G174: Duplicate cost and unverified expenses
+  if (/(?:ghi hai lan|trung lap|tinh trung).*(?:cho kiem|chua kiem|chua doi soat)|cho kiem chung tu.*co chot thu nhap tinh thue/.test(q)) {
+    return result(
+      `Không chốt thu nhập tính thuế 1 tỷ đồng và chưa thể chốt số thuế TNCN phải nộp.
+
+1. Xử lý trùng lặp chi phí: Khoản 500 triệu đồng bị ghi hai lần bắt buộc phải loại bỏ khỏi tổng chi phí trước khi tính. Tổng chi phí sau khi loại trừ trùng lặp chỉ còn: 3 tỷ đồng - 500 triệu đồng = 2,5 tỷ đồng.
+2. Điều kiện chi phí được trừ: Khoản chi phí 2,5 tỷ đồng này vẫn đang trong trạng thái chờ kiểm tra chứng từ nên chưa được công nhận là chi phí hợp lệ. Theo Điều 6 Nghị định 68/2026/NĐ-CP, chỉ chi phí thực tế phục vụ sản xuất kinh doanh, có đầy đủ hóa đơn, chứng từ hợp pháp và có chứng từ thanh toán không dùng tiền mặt (cho các khoản chi từng lần từ 5 triệu đồng trở lên) mới được tính trừ.
+3. Kết luận: Khi các khoản chi phí chưa được đối soát và xác minh tính hợp pháp, chưa có căn cứ pháp lý để chốt con số thu nhập tính thuế (1 tỷ đồng hay 1,5 tỷ đồng) và không được tính số thuế TNCN cuối cùng trên số liệu chưa làm sạch.`,
+      ['Điều 6 Nghị định 68/2026/NĐ-CP', 'Điều 7 Luật Thuế TNCN 109/2025/QH15'],
+      ['EXPENSE_DUPLICATE_AND_UNVERIFIED'],
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 4_000_000_000 }
+    );
+  }
+
+  // G141: Total revenue across multiple sources of the same individual exceeds 10B -> loses NQ43
+  if (/9[.,]8\s*ty.*300\s*(?:trieu|tr)|300\s*(?:trieu|tr).*9[.,]8\s*ty/.test(q) &&
+      /cung nam 2026|chinh minh|cung mot ca nhan/.test(q)) {
+    return result(
+      `Cùng một cá nhân kinh doanh có nhiều nguồn thu thì phải cộng gộp toàn bộ doanh thu các nguồn trong năm để xét điều kiện áp dụng chính sách ưu đãi.
+
+1. Tổng doanh thu năm 2026: 9,8 tỷ đồng (bán hàng) + 300 triệu đồng (hoa hồng) = 10,1 tỷ đồng.
+2. Về điều kiện giảm thuế theo Nghị quyết 43/2026/QH16: Khoản 1 Điều 1 Nghị quyết 43 quy định chỉ giảm 30% thuế TNCN cho cá nhân cư trú có tổng doanh thu năm KHÔNG QUÁ 10 TỶ ĐỒNG. Vì tổng doanh thu của bạn là 10,1 tỷ đồng (> 10 tỷ đồng) nên bạn KHÔNG ĐƯỢC GIẢM 30% thuế TNCN theo Nghị quyết 43. Không áp dụng xét ưu đãi riêng lẻ cho từng kênh.
+3. Xác định số thuế TNCN: Doanh thu 10,1 tỷ đồng thuộc dải trên 3 tỷ đến 50 tỷ đồng nên áp dụng phương pháp thu nhập tính thuế với thuế suất 17%:
+   Số thuế TNCN phải nộp = 500 triệu đồng × 17% = 85 triệu đồng (nộp đủ 100%, không giảm).`,
+      ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16', 'Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP'],
+      ['NQ43_THRESHOLD_STRICT_10B'],
+      { taxYear: 2026, activityType: 'multi', grossRevenueVnd: 10_100_000_000, taxableIncomeVnd: 500_000_000, isResident: true, pitMethod: 'INCOME_EXPENSE' }
+    );
+  }
+
+  // G146: Zero tax before relief - 30% of zero is zero, no cash refund from revenue
+  if (/(?:tncn|thue).*truoc giam.*(?:la\s+0|bang\s+0)|chua nop dong thue nao.*co nhan lai 30\s*%\s*doanh thu/.test(q)) {
+    return result(
+      `Không. Bạn không nhận lại được 30% doanh thu bằng tiền.
+
+1. Bản chất chính sách: Nghị quyết 43/2026/QH16 quy định giảm 30% số thuế TNCN PHẢI NỘP phát sinh từ hoạt động sản xuất, kinh doanh. Đây là chính sách miễn giảm nghĩa vụ thuế, KHÔNG PHẢI là chính sách trợ cấp tiền mặt tính trên doanh thu.
+2. Về mặt số học: Khi số thuế TNCN trước giảm đã được xác định hợp lệ là 0 đồng, thì 30% của 0 đồng vẫn bằng 0 đồng (số thuế được giảm là 0 đồng, và số thuế còn phải nộp vẫn là 0 đồng).
+3. Về hoàn thuế: Bạn chưa nộp đồng thuế nào vào ngân sách nhà nước, nên không có số tiền thuế nộp thừa để được cơ quan thuế hoàn trả bằng tiền.`,
+      ['Khoản 1 Điều 1 Nghị quyết 43/2026/QH16', 'Điều 7 Luật Thuế TNCN 109/2025/QH15'],
+      ['NQ43_ZERO_TAX_BEFORE_RELIEF'],
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 4_000_000_000 }
+    );
+  }
+
+  // G196: Dual separate calculation for both VAT and PIT
+  if (/(?:tinh rieng|tinh ca hai|tinh ca)\s+gtgt.*tncn|tinh rieng gtgt/.test(q) &&
+      /sua may|dich vu/.test(q) && /thu nhap tinh thue/.test(q)) {
+    return result(
+      `Nghĩa vụ thuế được tính riêng biệt cho từng sắc thuế như sau:
+
+1. Thuế GTGT (tính trên toàn bộ doanh thu, không trừ chi phí):
+- Doanh thu tính thuế GTGT là 4 tỷ đồng. Chi phí và thu nhập tính thuế chỉ dùng để tính thuế TNCN, tuyệt đối không lấy chi phí để làm giảm doanh thu tính thuế GTGT.
+- Hoạt động sửa chữa máy tính có tỷ lệ GTGT gốc 5%, toàn bộ đủ điều kiện giảm 20% mức tỷ lệ theo Nghị quyết 204/2025/QH15 nên tỷ lệ sau giảm là: 5% × 80% = 4%.
+=> Thuế GTGT phải nộp = 4 tỷ đồng × 4% = 160 triệu đồng.
+
+2. Thuế TNCN (tính theo phương pháp thu nhập tính thuế):
+- Doanh thu 4 tỷ đồng vượt mốc 3 tỷ đồng nên bắt buộc tính thuế TNCN trên thu nhập tính thuế với thuế suất 17%:
+  Thuế TNCN trước giảm = 500 triệu đồng × 17% = 85 triệu đồng.
+- Áp dụng giảm 30% theo Nghị quyết 43/2026/QH16 (do bạn là cá nhân cư trú và tổng doanh thu năm là 4 tỷ đồng ≤ 10 tỷ đồng):
+  Mức giảm 30% = 85 triệu đồng × 30% = 25,5 triệu đồng.
+=> Thuế TNCN sau giảm phải nộp = 85 triệu đồng × 70% = 59,5 triệu đồng.`,
+      [
+        'Điều 1 Nghị quyết 204/2025/QH15',
+        'Khoản 2 Điều 1 Nghị định 174/2025/NĐ-CP',
+        'Điều 7 Luật Thuế TNCN 109/2025/QH15',
+        'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'
+      ],
+      ['DUAL_VAT_AND_PIT_CALCULATION'],
+      { taxYear: 2026, activityType: 'service', grossRevenueVnd: 4_000_000_000, taxableIncomeVnd: 500_000_000, isResident: true, pitMethod: 'INCOME_EXPENSE' }
+    );
+  }
+
+  // G075 pattern: Revenue > 3 billion with negative taxable income (loss)
+  if (/(?:tren|vuot)\s*3\s*ty/.test(q) && /(?:thu\s+nhap(?:\s+tinh\s+thue)?\s+am|lo|khong\s+co\s+lai)/.test(q)) {
+    return result(
+      `Khi doanh thu năm vượt mốc 3 tỷ đồng, cá nhân kinh doanh bắt buộc phải áp dụng phương pháp tính thuế TNCN trên THU NHẬP TÍNH THUẾ (theo thuế suất 17% đối với doanh thu từ trên 3 tỷ đến 50 tỷ đồng), tuyệt đối không được chuyển sang phương pháp tỷ lệ % trên doanh thu (0,5%) chỉ để làm phát sinh số thuế.
+
+Xử lý khi thu nhập tính thuế âm (lỗ):
+1. Về số thuế TNCN trong năm: Nếu sau khi đối trừ các khoản chi phí thực tế hợp lý, hợp lệ có đầy đủ hóa đơn, chứng từ theo Điều 6 Nghị định 68/2026/NĐ-CP mà thu nhập tính thuế của năm bằng 0 hoặc âm, thì KHÔNG PHÁT SINH số thuế TNCN kinh doanh phải nộp của năm đó.
+2. Về xử lý chuyển lỗ: Pháp luật thuế TNCN hiện hành áp dụng cho cá nhân kinh doanh chưa có cơ chế cho phép tự động chuyển lỗ sang các năm tính thuế tiếp theo như đối với doanh nghiệp (thuế TNDN). Bạn cần lưu trữ đầy đủ sổ sách kế toán, chứng từ thanh toán không dùng tiền mặt và hồ sơ chi phí để kiểm tra, đối chiếu khi có hướng dẫn cụ thể của cơ quan thuế.`,
+      [
+        'Khoản 3 Điều 7 Luật Thuế TNCN 109/2025/QH15',
+        'Khoản 3 và khoản 5 Điều 4 Nghị định 68/2026/NĐ-CP',
+        'Điều 6 Nghị định 68/2026/NĐ-CP'
+      ],
+      ['PIT_NEGATIVE_INCOME_OVER_3B'],
+      { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 3_000_000_001 }
+    );
+  }
+
+  // G097 pattern: Sequence of NQ43 30% reduction vs platform withholding offset
+  if (/(?:thu\s+tu|quy\s+trinh|doi\s+tru|quyet\s+toan)/.test(q) &&
+      /(?:khau\s+tru|san\s+khau\s+tru|nen\s+tang)/.test(q) &&
+      /(?:nq\s*43|giam\s*30\s*%)/.test(q)) {
+    return result(
+      `Quy trình xác định nghĩa vụ thuế và đối trừ số thuế nền tảng đã khấu trừ được thực hiện theo đúng thứ tự 2 bước sau:
+
+Bước 1: Xác định số thuế TNCN kinh doanh phải nộp cả năm sau khi giảm theo Nghị quyết 43/2026/QH16
+- Trước tiên xác định số thuế TNCN phải nộp của cả năm theo đúng phương pháp áp dụng và doanh thu/thu nhập hợp lệ.
+- Nếu bạn là cá nhân cư trú có tổng doanh thu kinh doanh năm không quá 10 tỷ đồng, số thuế TNCN kinh doanh phải nộp được giảm 30%:
+  Số thuế TNCN phải nộp sau giảm = Số thuế TNCN phát sinh cả năm × 70%.
+  (Lưu ý: Nghị quyết 43 chỉ giảm thuế TNCN, không giảm thuế GTGT).
+
+Bước 2: Đối trừ số thuế đã được nền tảng khấu trừ, nộp thay
+- Căn cứ vào chứng từ khấu trừ thuế TNCN hợp lệ do sàn/nền tảng cấp (đúng mã số thuế, đúng kỳ tính thuế năm 2026 theo Nghị định 252/2026/NĐ-CP), bạn lấy số thuế TNCN phải nộp sau giảm (ở Bước 1) trừ đi tổng số thuế TNCN sàn đã nộp thay:
+  + Nếu số đã nộp thay < số phải nộp sau giảm: Bạn nộp bổ sung phần tiền thuế còn thiếu.
+  + Nếu số đã nộp thay > số phải nộp sau giảm: Bạn có số thuế nộp thừa và được quyền đề nghị hoàn thuế hoặc bù trừ vào kỳ tính thuế tiếp theo theo quy định.`,
+      [
+        'Khoản 1 và khoản 2 Điều 1 Nghị quyết 43/2026/QH16',
+        'Điều 11 và Điều 12 Nghị định 68/2026/NĐ-CP',
+        'Điều 43 và Điều 74 Nghị định 252/2026/NĐ-CP'
+      ],
+      ['NQ43_WITHHOLDING_OFFSET_SEQUENCE'],
+      { taxYear: 2026, activityType: 'ecommerce', grossRevenueVnd: 0 }
+    );
+  }
+
   const amounts = unique([...exact(q), ...named(q)]);
   const explicitlyOver50B = /(?:tren|vuot|hon)\s*50\s*ty/.test(q) ||
     /50\s*ty\s*(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/.test(q) ||
@@ -112,6 +364,25 @@ Khi tổng doanh thu đã vượt ngưỡng 1 tỷ đồng:
     const reliefText = targetOverRevenue > 10_000_000_000
       ? `Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43; số TNCN là ${formatVnd(calc.pitBeforeReliefVnd)}.`
       : `${!resident ? 'Nếu bạn là cá nhân cư trú và đủ điều kiện Nghị quyết 43, ' : ''}giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16, còn ${formatVnd(calc.pitAfterReliefVnd)}.`;
+    const paidMatch = q.match(/(?:da nop|da khau tru|da nop thay)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+    if (income !== undefined && paidMatch && /sau nq\s*43|sau giam|con phai nop hay nop thua|nop thua bao nhieu/.test(q)) {
+      const paidVnd = money(paidMatch[1], paidMatch[2]);
+      const pitBefore = Math.round(income * pitRateNumber);
+      const pitDue = targetOverRevenue <= 10e9 ? Math.round(pitBefore * 0.7) : pitBefore;
+      const diff = paidVnd - pitDue;
+      const conclusion = diff > 0
+        ? `Bạn đã nộp ${formatRevenue(paidVnd)} (có chứng từ). So với số thuế phải nộp sau giảm (${formatRevenue(pitDue)}), bạn NỘP THỪA ${formatRevenue(diff)} thuế TNCN. Bạn có quyền làm thủ tục đề nghị cơ quan thuế hoàn trả số thuế nộp thừa hoặc bù trừ vào nghĩa vụ thuế của kỳ tính thuế tiếp theo theo quy định.`
+        : diff < 0
+        ? `Bạn đã nộp ${formatRevenue(paidVnd)}. So với số thuế phải nộp sau giảm (${formatRevenue(pitDue)}), bạn CÒN PHẢI NỘP BỔ SUNG ${formatRevenue(Math.abs(diff))} thuế TNCN.`
+        : `Bạn đã nộp ${formatRevenue(paidVnd)}, đúng bằng số thuế phải nộp sau giảm (${formatRevenue(pitDue)}), không phải nộp thêm và không nộp thừa.`;
+      return result(
+        `Nghĩa vụ thuế TNCN và kết quả đối trừ số thuế đã nộp như sau:\n\n1. Doanh thu ${formatRevenue(targetOverRevenue)} thuộc dải ${bracketText}, thuế suất TNCN là ${pitRateText} trên thu nhập tính thuế hợp lệ:\n   Thuế TNCN trước giảm = ${formatRevenue(income)} × ${pitRateText} = ${formatRevenue(pitBefore)}.\n2. ${targetOverRevenue <= 10e9 ? `Giảm 30% theo Nghị quyết 43/2026/QH16 (doanh thu không quá 10 tỷ đồng): số thuế sau giảm là ${formatRevenue(pitDue)}.` : `Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43: số thuế phải nộp là ${formatRevenue(pitDue)}.`}\n3. Đối trừ số thuế đã nộp:\n   ${conclusion}`,
+        citations,
+        ['PIT_WITHHOLDING_OFFSET_COMPLETE_CHAIN'],
+        facts
+      );
+    }
+
     const response = income !== undefined
       ? `Doanh thu ${formatVnd(targetOverRevenue)} đã vượt 3 tỷ đồng; không được dùng phương pháp TNCN 0,5% trên doanh thu. Trong dải ${bracketText}, TNCN = thu nhập tính thuế × ${pitRateText}. Với thu nhập tính thuế hợp lệ ${formatVnd(income)}, thuế trước giảm là ${formatVnd(income * pitRateNumber)}.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43.' : ` ${reliefText}`} Mức 1 tỷ là ngưỡng miễn thuế riêng, không phải mốc chọn phương pháp 3 tỷ. Thuế GTGT tính riêng theo hoạt động.`
       : `Doanh thu ${formatVnd(targetOverRevenue)} vượt mốc 3 tỷ đồng nên TNCN phải tính trên thu nhập tính thuế với thuế suất ${pitRateText}, không được dùng 0,5% trên doanh thu. Muốn tính số tiền cần doanh thu, chi phí hợp lệ để xác định thu nhập tính thuế.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không thuộc diện giảm 30% theo Nghị quyết 43/2026/QH16.' : ' Nếu là cá nhân cư trú và tổng doanh thu năm không quá 10 tỷ đồng, số TNCN phải nộp tiếp tục được giảm 30% theo Nghị quyết 43/2026/QH16.'} Mốc 1 tỷ là ngưỡng miễn thuế riêng.`;

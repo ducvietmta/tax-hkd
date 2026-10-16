@@ -182,8 +182,10 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     let revGoods: number | null = null;
     let revService: number | null = null;
 
-    const goodsMatch = positiveActivityText.match(/(?:ban hang|ban le|shopee|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
-    const serviceMatch = q.match(/(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
+    const goodsMatch = positiveActivityText.match(/(?:ban hang|ban le|shopee|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/) ||
+      positiveActivityText.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:ban hang|ban le|shopee|hang hoa|tap hoa)/);
+    const serviceMatch = q.match(/(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/) ||
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua)/);
 
     if (goodsMatch && serviceMatch) {
       revGoods = parseMoneyWithUnit(goodsMatch[1], goodsMatch[2] || (goodsMatch[1].includes('.') ? 'trieu' : 'ty'));
@@ -210,16 +212,22 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
   }
 
   // 6. Doanh thu đơn lẻ
-  // Lọc ra các số tiền không phải là đơn hoàn, phí sàn hay tiền ship
+  // Lọc ra các số tiền không phải là đơn hoàn, phí sàn, tiền ship hoặc thu nhập tính thuế
   let primaryRevenue: number | undefined = specialRevenue;
   if (!primaryRevenue && allAmounts.length > 0) {
-    // Ưu tiên số tiền lớn nhất hoặc số tiền gắn liền với từ khóa "doanh thu", "ban duoc"
-    const revenueCandidates = [...q.matchAll(/(?:doanh thu|hoa hong|ban duoc|thu nhap|tong thu|kiem duoc)(?:\s+nam\s+(?:19|20)\d{2})?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/g)];
-    const revExplicitMatch = revenueCandidates.find(m => !/bao nhieu|\btax\b|khau tru|giu lai/.test(m[0]));
-    if (revExplicitMatch) {
-      primaryRevenue = parseMoneyWithUnit(revExplicitMatch[1], revExplicitMatch[2] || (Number(revExplicitMatch[1]) >= 10 ? 'trieu' : 'ty'));
+    // Ưu tiên số tiền gắn liền với từ khóa "doanh thu", "ban duoc", "tong thu", "hoa hong" (loại trừ thu nhập tính thuế)
+    const revExplicitRegex = /(?:doanh thu|tong doanh thu|ban duoc|tong thu|kiem duoc)(?:\s+nam\s+(?:19|20)\d{2})?[^\d]{0,25}(?:(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?|(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b)/g;
+    const revCandidates = [...q.matchAll(revExplicitRegex)];
+    const revMatch = revCandidates.find(m => !/bao nhieu|\btax\b|khau tru|giu lai|thu nhap tinh thue/.test(m[0]));
+    if (revMatch) {
+      if (revMatch[1]) {
+        primaryRevenue = parseVndFromDigits(revMatch[1]);
+      } else if (revMatch[2]) {
+        primaryRevenue = parseMoneyWithUnit(revMatch[2], revMatch[3] || (Number(revMatch[2]) >= 10 ? 'trieu' : 'ty'));
+      }
     } else {
-      primaryRevenue = allAmounts[0].vnd;
+      const nonTaxableIncome = allAmounts.filter(a => a.vnd !== taxableIncomeVnd && a.vnd !== refundDeductedVnd && a.vnd !== platformFeeVnd);
+      primaryRevenue = nonTaxableIncome.length > 0 ? nonTaxableIncome[0].vnd : allAmounts[0].vnd;
     }
   }
 
