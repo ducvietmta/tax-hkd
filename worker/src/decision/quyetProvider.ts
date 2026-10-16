@@ -42,7 +42,7 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
   name = 'Quyet-1.0-Large';
   businessDiagnostics: Array<{ task: string; received: boolean; validFormat: boolean }> = [];
   failureCode?: string;
-  constructor(private apiKey: string, private endpoint = 'https://mkp-api.fptcloud.com/v1/systemone', private timeoutMs = 12000) {}
+  constructor(private apiKey: string, private endpoint = 'https://mkp-api.fptcloud.com/v1/systemone', private timeoutMs = 30000) {}
 
   private state(message: string, history: ConversationTurn[]) {
     return { question: message, history: history.slice(-4).map(t => ({ role: t.role, content: t.content.slice(0, 800) })) };
