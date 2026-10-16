@@ -71,7 +71,7 @@ Khi tổng doanh thu đã vượt ngưỡng 1 tỷ đồng:
         'Điều 7 Luật Thuế TNCN 109/2025/QH15'
       ],
       ['OWNER_MULTI_SECTOR_THRESHOLD'],
-      { taxYear: 2026, activityType: 'multi_activity', grossRevenueVnd: total || 1_300_000_000 }
+      { taxYear: 2026, activityType: 'multi', grossRevenueVnd: total || 1_300_000_000 }
     );
   }
 
