@@ -22,7 +22,7 @@ INITIAL_FREE_CREDITS = 3
 VIP_CREDITS = 1000
 SEPAY_PATTERN = "SP-LIVE-TD295786"
 DECISION_MODE = "enforce"
-# VECTORIZE_ENABLED = "0"  # Bật "1" sau khi đã tạo index + nạp vectors (xem scripts/backfill_vectorize.mjs)
+VECTORIZE_ENABLED = "1"
 # Secrets — KHÔNG commit giá trị thật vào git. Cấu hình bằng:
 #   wrangler secret put MUSE_API_KEY
 #   wrangler secret put FPT_AI_KEY
@@ -30,9 +30,9 @@ DECISION_MODE = "enforce"
 #   (tùy chọn) wrangler secret put VIP_PHONE
 # Đọc trong code qua env.MUSE_API_KEY / env.FPT_AI_KEY / env.SEPAY_API_KEY / env.VIP_PHONE.
 
-# DENSE RETRIEVAL OPT-IN (mặc định tắt — mở sau khi tạo Vectorize index):
-# [ai]
-# binding = "AI"
-# [[vectorize]]
-# binding = "VECTORIZE"
-# index_name = "tax-kb-v1"
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "tax-kb-v1"

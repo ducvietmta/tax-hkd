@@ -11,6 +11,7 @@ export interface Env {
   VECTORIZE_ENABLED?: string;
   VECTORIZE?: {
     query(vector: number[], opts?: { topK?: number }): Promise<{ matches: Array<{ id: string; score: number }> }>;
+    upsert(vectors: Array<{ id: string; values: number[]; metadata?: Record<string, string> }>): Promise<unknown>;
   };
   ENVIRONMENT?: string;
   CORS_ALLOW_ORIGIN?: string;

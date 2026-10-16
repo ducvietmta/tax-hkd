@@ -4,6 +4,8 @@
 
 import { buildMuseRequest } from './museRequest';
 import { QuyetDecisionProvider } from './decision/quyetProvider';
+import { CANONICAL_CHUNKS } from './ragEngine';
+import { vectorSearch } from './vectorRetriever';
 import { jsonResponse, type Env } from './http';
 
 export function handleHealth(env: Env, corsHeaders: Headers): Response {
@@ -11,11 +13,12 @@ export function handleHealth(env: Env, corsHeaders: Headers): Response {
     {
       status: 'ok',
       service: 'Cloudflare Workers API',
-      platform: 'Cloudflare Edge (Pages + Workers + D1 + R2)',
+      platform: 'Cloudflare Edge (Pages + Workers + D1 + R2 + Vectorize)',
       aiModel: 'Muse Spark 1.3 (Meta AI)',
       decisionModel: 'Quyet-1.0-Large (FPT Cloud AI)',
       hasMuse: !!env.MUSE_API_KEY,
       hasQuyet: !!env.FPT_AI_KEY,
+      vectorizeEnabled: env.VECTORIZE_ENABLED === '1' && !!env.VECTORIZE && !!env.AI,
       decisionMode: env.DECISION_MODE || 'enforce',
       timestamp: new Date().toISOString(),
     },
@@ -86,6 +89,46 @@ export async function handleTestAi(request: Request, env: Env, corsHeaders: Head
     return jsonResponse({ success: false, error: 'Forbidden: Endpoint này chỉ dành riêng cho kiểm thử nội bộ.' }, 403, corsHeaders);
   }
   try {
+    const vectorizeAction = url.searchParams.get('vectorize');
+    if (vectorizeAction === 'backfill') {
+      if (!env.AI || !env.VECTORIZE) {
+        return jsonResponse({ success: false, error: 'Thiếu binding AI hoặc VECTORIZE.' }, 500, corsHeaders);
+      }
+      const items = CANONICAL_CHUNKS.map((c) => ({
+        id: String(c.ref_id || c.id),
+        text: `${c.section || ''}\n${c.text.slice(0, 3500)}`.trim(),
+        tier: c.tier,
+      }));
+      const batchSize = 25;
+      const allVectors: Array<{ id: string; values: number[]; metadata: Record<string, string> }> = [];
+      for (let i = 0; i < items.length; i += batchSize) {
+        const batch = items.slice(i, i + batchSize);
+        const emb = await env.AI.run('@cf/baai/bge-m3', { text: batch.map((b) => b.text) });
+        const vectors = emb?.data;
+        if (!Array.isArray(vectors) || vectors.length !== batch.length) {
+          throw new Error(`Batch embedding failed at offset ${i}: ${JSON.stringify(emb).slice(0, 200)}`);
+        }
+        for (let idx = 0; idx < batch.length; idx++) {
+          allVectors.push({
+            id: batch[idx].id,
+            values: vectors[idx],
+            metadata: { tier: batch[idx].tier },
+          });
+        }
+      }
+      const mutation = await env.VECTORIZE.upsert(allVectors);
+      return jsonResponse({ success: true, index: 'tax-kb-v1', upserted: allVectors.length, totalChunks: items.length, mutation }, 200, corsHeaders);
+    }
+    if (vectorizeAction === 'query') {
+      const q = url.searchParams.get('q') || 'Ngưỡng doanh thu miễn thuế hộ kinh doanh năm 2026';
+      const hits = await vectorSearch(q, env, 6);
+      return jsonResponse({
+        success: true,
+        query: q,
+        vectorizeEnabled: env.VECTORIZE_ENABLED === '1',
+        hits,
+      }, 200, corsHeaders);
+    }
     const museKey = env.MUSE_API_KEY;
     if (!museKey) {
       return jsonResponse({ success: false, error: 'MUSE_API_KEY chưa được cấu hình.' }, 200, corsHeaders);

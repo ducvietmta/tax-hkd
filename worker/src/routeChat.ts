@@ -391,7 +391,10 @@ export async function handleChat(
       ? `CHỦ ĐỀ CHƯA XÁC MINH: ${pendingTopics.map((t) => t.disclaimer).join(' ')} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.\n`
       : '';
     const retrievalTrace = {
-      method: routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25',
+      method: vectorHits?.length
+        ? (routeId ? 'Hybrid (BM25 + Vectorize + Định tuyến)' : 'Hybrid (BM25 + Vectorize)')
+        : (routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25'),
+      vectorHitsCount: vectorHits?.length || 0,
       period: { years: answerScope.years, source: answerScope.periodSource },
       pendingTopics: pendingTopics.map((t) => t.id),
       decision: decisionFrame ? {

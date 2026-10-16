@@ -21,16 +21,18 @@ export interface VectorHit {
 export async function vectorSearch(query: string, env: Env, topK = 6): Promise<VectorHit[] | null> {
   try {
     if (env.VECTORIZE_ENABLED !== '1' || !env.VECTORIZE || !env.AI) return null;
-    const text = query.slice(0, 1500);
-    if (!text.trim()) return null;
-    const embedding: unknown = await env.AI.run('@cf/baai/bge-m3', { text });
+    const text = query.slice(0, 1500).trim();
+    if (!text) return null;
+    const embedding: unknown = await env.AI.run('@cf/baai/bge-m3', { text: [text] });
     const vector = (embedding as { data?: number[][] })?.data?.[0];
     if (!Array.isArray(vector) || !vector.length) return null;
     const res = await env.VECTORIZE.query(vector, { topK });
     const matches = (res as { matches?: Array<{ id?: string; score?: number }> })?.matches || [];
     const hits: VectorHit[] = [];
     for (const m of matches) {
-      if (typeof m.id === 'string' && typeof m.score === 'number') hits.push({ refId: m.id, score: m.score });
+      if (typeof m.id === 'string' && typeof m.score === 'number' && m.score >= 0.45) {
+        hits.push({ refId: m.id, score: m.score });
+      }
     }
     return hits.length ? hits : null;
   } catch (e: unknown) {
