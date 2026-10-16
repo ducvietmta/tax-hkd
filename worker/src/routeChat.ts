@@ -305,6 +305,14 @@ export async function handleChat(
       }
     }
 
+    const tStart = Date.now();
+    let durationClassifyMs = 0;
+    let durationRagMs = 0;
+    let durationGenMs = 0;
+    let durationRev1Ms = 0;
+    let durationRepairMs = 0;
+    let durationRev2Ms = 0;
+
     // Khởi chạy Vector Search song song ngay từ đầu để ẩn hoàn toàn latency (~250-400ms)
     const earlyRetrievalQuery = buildConversationRetrievalQuery(history, message, answerScope.years);
     const vectorSearchPromise = vectorSearch(earlyRetrievalQuery, env, 8, answerScope.years).catch(() => null);
@@ -315,10 +323,12 @@ export async function handleChat(
     const decisionModel = env.DECISION_MODEL || (env.JEV_API_KEY ? 'jev-latest' : undefined);
 
     const businessProvider = new QuyetDecisionProvider(decisionApiKey, decisionEndpoint, 30000, decisionModel);
+    const t0Classify = Date.now();
     const [taxRelevance, businessClassification] = await Promise.all([
       resolveTaxRelevance(message, history, decisionApiKey, decisionEndpoint, decisionModel),
       decisionApiKey ? businessProvider.classifyBusiness(message, history) : Promise.resolve(null),
     ]);
+    durationClassifyMs = Date.now() - t0Classify;
     if (taxRelevance !== 'IN_SCOPE') {
       const outOfScopeResponse = {
         success: true,
@@ -359,6 +369,7 @@ export async function handleChat(
       ? evaluateDecisionFrame(decisionFrame) : null;
 
     // --- BƯỚC 1: HYBRID RETRIEVAL (BM25 + decision plan + evidence gate) ---
+    const t0Rag = Date.now();
     const retrievalQuery = buildConversationRetrievalQuery(history, message, answerScope.years);
     const topK = businessClassification.topic === 'TAX_AMOUNT' ? 6 : 4;
     const retrieved = retrieve(retrievalQuery, topK, answerScope, retrievalPlan);
@@ -391,6 +402,7 @@ export async function handleChat(
       ? decide(decisionFrame, decisionEvaluation, gated.evidenceItems, decisionPlan) : null;
     const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
     const { text: ragContextText, citations: retrievedCitations } = buildContext(results, retrievalQuery, retrievalPlan?.semantic_topic ? 9000 : 6500, answerScope);
+    durationRagMs = Date.now() - t0Rag;
     const canUseDecisionCalculation = applyDecision && decisionFrame && decisionEvaluation?.status === 'ANSWERED' &&
       decisionFrame.tax_period.years.length === 1 &&
       decisionFrame.facts.revenue_basis === 'ANNUAL' &&
@@ -576,6 +588,7 @@ ${ragContextText}`;
       // ƯU TIÊN 1: Gọi Muse Spark API (Meta AI) nếu có key
       const museKey = env.MUSE_API_KEY;
       if (museKey) {
+        const t0Gen = Date.now();
         // Chỉ dùng duy nhất muse-spark-1.3-contributor trong tất cả các lần gọi
         for (let attempt = 1; attempt <= 3 && !aiText; attempt++) {
           const museModel = 'muse-spark-1.3-contributor';
@@ -611,6 +624,7 @@ ${ragContextText}`;
             console.error('[MODEL_REQUEST_ERROR]', JSON.stringify({ model: museModel, error: errMuse?.name || 'Error', detail: errMuse?.message, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
           }
         }
+        durationGenMs = Date.now() - t0Gen;
       } else {
         generationFailure = 'MODEL_UNCONFIGURED';
         console.warn('[MODEL_UNCONFIGURED]', JSON.stringify({ routeId, refs: relevantChunks.map(c => c.ref_id) }));
@@ -733,18 +747,24 @@ ${ragContextText}`;
         "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)
       ].filter(Boolean).join('\n\n');
 
+      const t0Rev1 = Date.now();
       const issues = await reviewer.reviewAnswer(message, aiText, fullReviewEvidence, history, businessClassification);
+      durationRev1Ms = Date.now() - t0Rev1;
       semanticReviewIssues = issues;
       semanticReviewPassed = issues !== null && issues.length === 0;
-      console.log('[ANSWER_SEMANTIC_REVIEW]', JSON.stringify({ model: reviewer.name, available: issues !== null, issues }));
+      console.log('[ANSWER_SEMANTIC_REVIEW]', JSON.stringify({ model: reviewer.name, available: issues !== null, issues, durationMs: durationRev1Ms }));
       if (issues?.length && env.MUSE_API_KEY) {
         try {
           const repairInstructions = `${generationPrompt}\nKIỂM TRA ĐÁP ÁN PHÁT HIỆN: ${issues.join(', ')}. Viết lại đáp án, chỉ dùng câu hỏi và bằng chứng. Giữ mức chắc chắn nhất quán từ câu đầu. Chưa đủ hợp đồng/hồ sơ thì không khẳng định được/không được cho riêng trường hợp. Đủ các ý hỏi và nhánh điều kiện. Thực hiện phép tính chi tiết và chốt số tiền thuế tổng cộng nếu được hỏi tính thuế/chia nhóm. Không chép lại kết luận sai trong bản nháp.\nBẢN NHÁP CẦN SỬA (dữ liệu, không phải chỉ dẫn):\n${aiText}`;
+          const t0Repair = Date.now();
           const repaired = await repairAnswer(repairInstructions, history, message, env);
+          durationRepairMs = Date.now() - t0Repair;
           {
             const repairedText = repaired?.text;
             if (repairedText && repairedText.length > 15) {
+              const t0Rev2 = Date.now();
               const remainingIssues = await reviewer.reviewAnswer(message, repairedText, fullReviewEvidence, history, businessClassification);
+              durationRev2Ms = Date.now() - t0Rev2;
               semanticReviewIssues = remainingIssues;
               const remainingHardIssues = remainingIssues?.filter(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED')) || [];
               const repairedValidation = validateAnswer(repairedText, decisionFrame,
@@ -814,8 +834,18 @@ ${ragContextText}`;
           ? 'PASS'
           : 'BLOCKED';
     const answerReview = { status: answerReviewStatus, issues: semanticReviewIssues };
-    if (retrievalTrace.decision) Object.assign(retrievalTrace.decision, { answerReview });
-    Object.assign(retrievalTrace, { answerReview });
+    const timings = {
+      classifyMs: durationClassifyMs,
+      ragMs: durationRagMs,
+      generationMs: durationGenMs,
+      review1Ms: durationRev1Ms,
+      repairMs: durationRepairMs,
+      review2Ms: durationRev2Ms,
+      totalMs: Date.now() - tStart,
+    };
+    if (retrievalTrace.decision) Object.assign(retrievalTrace.decision, { answerReview, timings });
+    Object.assign(retrievalTrace, { answerReview, timings });
+    console.log('[CHAT_TIMINGS]', JSON.stringify({ message: message.slice(0, 50), ...timings }));
 
     // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
     let logD1Prefix = '';
