@@ -35,6 +35,8 @@ import { jsonResponse, type Env } from './http';
 import { isChatRateLimited } from './rateLimit';
 import { logRetrieval } from './retrievalStats';
 
+export const PIPELINE_VERSION = 'v2.2-tax-hkd-prod';
+
 let kbVersionPromise: Promise<string> | undefined;
 function knowledgeVersion(): Promise<string> {
   if (!kbVersionPromise) {
@@ -193,7 +195,7 @@ export async function handleChat(
         : Promise.resolve(null),
       crypto.subtle.digest(
         'SHA-256',
-        new TextEncoder().encode(`${CURRENT_RULESET_VERSION}|frame:18-registration-coverage|${await knowledgeVersion()}|${env.DECISION_MODE || 'enforce'}|${answerScope.today}|${normMsg}|${JSON.stringify(history)}`)
+        new TextEncoder().encode(`${PIPELINE_VERSION}|rules:${CURRENT_RULESET_VERSION}|kb:${await knowledgeVersion()}|mode:${env.DECISION_MODE || 'enforce'}|today:${answerScope.today}|years:${answerScope.years.join(',')}|q:${normMsg}|hist:${JSON.stringify(history)}`)
       ),
     ]);
 
@@ -325,7 +327,7 @@ export async function handleChat(
         citations: [],
         legal_citations: [],
       };
-      return respondWithAnswer(outOfScopeResponse, 99);
+      return respondWithAnswer(outOfScopeResponse, userRecord?.credits ?? 99);
     }
 
     console.log('[QUYET_BUSINESS]', JSON.stringify({ model: 'Quyet-1.0-Large',
@@ -333,7 +335,7 @@ export async function handleChat(
     if (!businessClassification) {
       return respondWithAnswer({ success: true,
         response: 'Mình chưa phân loại được câu hỏi lúc này, bạn thử lại sau ít phút nhé.',
-        source: 'classification_unavailable', diagnostic_code: businessProvider.failureCode || 'INVALID_CLASSIFICATION', citations: [], legal_citations: [] }, 99);
+        source: 'classification_unavailable', diagnostic_code: businessProvider.failureCode || 'INVALID_CLASSIFICATION', citations: [], legal_citations: [] }, userRecord?.credits ?? 99);
     }
 
     // answerScope scope refinement
@@ -764,18 +766,34 @@ ${ragContextText}`;
     }
     // Enforce checks the FINAL text. Only block on fatal, unresolvable hard violations.
     if (applyDecision && !semanticReviewPassed && !isSystemError) {
-      const hasFatalViolation = semanticReviewIssues === null || semanticReviewIssues.some(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED'));
-      if (hasFatalViolation || !validationPass) {
+      if (semanticReviewIssues === null) {
+        // Operational failure from review provider (HTTP 503, timeout, network failure)
+        // In enforce mode, do not release unreviewed AI draft, but do not blame it as a content violation
         aiText = UNVERIFIED_ANSWER;
         legalCitations = [];
-        source = 'Answer review blocked';
+        source = 'Review provider unavailable';
         if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
       } else {
-        semanticReviewPassed = true;
-        source = `Conditional review pass (${semanticReviewIssues?.join(',') || 'soft_issues'}) + ${source}`;
+        const hasFatalViolation = semanticReviewIssues.some(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED'));
+        if (hasFatalViolation || !validationPass) {
+          aiText = UNVERIFIED_ANSWER;
+          legalCitations = [];
+          source = 'Answer review blocked';
+          if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
+        } else {
+          semanticReviewPassed = true;
+          source = `Conditional review pass (${semanticReviewIssues.join(',') || 'soft_issues'}) + ${source}`;
+        }
       }
     }
-    const answerReview = { status: isSystemError ? 'SKIPPED_GENERATION_ERROR' : semanticReviewPassed ? 'PASS' : 'BLOCKED', issues: semanticReviewIssues };
+    const answerReviewStatus = isSystemError
+      ? 'SKIPPED_GENERATION_ERROR'
+      : semanticReviewIssues === null
+        ? 'SKIPPED_PROVIDER_ERROR'
+        : semanticReviewPassed
+          ? 'PASS'
+          : 'BLOCKED';
+    const answerReview = { status: answerReviewStatus, issues: semanticReviewIssues };
     if (retrievalTrace.decision) Object.assign(retrievalTrace.decision, { answerReview });
     Object.assign(retrievalTrace, { answerReview });
 
