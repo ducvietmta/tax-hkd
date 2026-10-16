@@ -16,9 +16,10 @@ export function handleHealth(env: Env, corsHeaders: Headers): Response {
       service: 'Cloudflare Workers API',
       platform: 'Cloudflare Edge (Pages + Workers + D1 + R2 + Vectorize)',
       aiModel: 'Muse Spark 1.3 (Meta AI)',
-      decisionModel: 'Quyet-1.0-Large (FPT Cloud AI)',
+      decisionModel: env.JEV_API_KEY ? 'jev-latest (TypeSafe AI)' : 'Quyet-1.0-Large (FPT Cloud AI)',
       hasMuse: !!env.MUSE_API_KEY,
-      hasQuyet: !!env.FPT_AI_KEY,
+      hasQuyet: !!(env.JEV_API_KEY || env.FPT_AI_KEY),
+      hasJev: !!env.JEV_API_KEY,
       vectorizeEnabled: env.VECTORIZE_ENABLED === '1' && !!env.VECTORIZE && !!env.AI,
       decisionMode: env.DECISION_MODE || 'enforce',
       timestamp: new Date().toISOString(),
@@ -236,9 +237,11 @@ export async function handleTestAi(request: Request, env: Env, corsHeaders: Head
 
 export async function handleTestQuyet(env: Env, corsHeaders: Headers, url: URL): Promise<Response> {
   try {
-    const key = env.FPT_AI_KEY;
-    if (!key) return jsonResponse({ success: false, error: 'FPT_AI_KEY missing' }, 200, corsHeaders);
-    const provider = new QuyetDecisionProvider(key);
+    const key = env.JEV_API_KEY || env.FPT_AI_KEY;
+    if (!key) return jsonResponse({ success: false, error: 'JEV_API_KEY or FPT_AI_KEY missing' }, 200, corsHeaders);
+    const endpoint = env.DECISION_ENDPOINT || (env.JEV_API_KEY ? 'https://api.typesafe.ai/v1/systemone' : undefined);
+    const model = env.DECISION_MODEL || (env.JEV_API_KEY ? 'jev-latest' : undefined);
+    const provider = new QuyetDecisionProvider(key, endpoint, 30000, model);
     const start = Date.now();
     const fixtures: Record<string, string> = {
       repair: 'Người bán gói dịch vụ sửa chữa có kèm phụ tùng miễn phí trên quảng cáo nhưng giá đã bao gồm phụ tùng. Tính nhóm nào?',

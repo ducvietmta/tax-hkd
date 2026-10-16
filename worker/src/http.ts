@@ -16,7 +16,10 @@ export interface Env {
   ENVIRONMENT?: string;
   CORS_ALLOW_ORIGIN?: string;
   MUSE_API_KEY?: string;
+  JEV_API_KEY?: string;
   FPT_AI_KEY?: string;
+  DECISION_ENDPOINT?: string;
+  DECISION_MODEL?: string;
   DECISION_MODE?: string;
   DECISION_L2?: string;
   VIP_PHONE?: string;
