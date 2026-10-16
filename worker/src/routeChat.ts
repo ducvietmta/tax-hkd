@@ -721,10 +721,10 @@ ${ragContextText}`;
     let semanticReviewPassed = isSystemError || !!verifiedTaxAnswer;
     let semanticReviewIssues: string[] | null = null;
     if (!isSystemError && !verifiedTaxAnswer && aiText && generationPrompt && env.FPT_AI_KEY) {
-      const reviewer = new QuyetDecisionProvider(env.FPT_AI_KEY);
+      const reviewer = new QuyetDecisionProvider(env.FPT_AI_KEY, undefined, 25000);
       const fullReviewEvidence = [
+        `KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')} (xác định tại thời điểm ngày ${answerScope.today}). Chỉ áp dụng các văn bản và ngưỡng có hiệu lực trong kỳ này.`,
         ragContextText,
-        scopeInstructions(answerScope),
         analyzeAmounts(message),
         "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)
       ].filter(Boolean).join('\n\n');

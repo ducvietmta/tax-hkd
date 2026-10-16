@@ -88,7 +88,11 @@ export class QuyetDecisionProvider implements DecisionModelProvider {
       if (data.partial_failures && Object.keys(data.partial_failures).length) { this.failureCode = 'PARTIAL_FAILURE'; return null; }
       if (!data.answers || typeof data.answers !== 'object' || Array.isArray(data.answers)) return null;
       return data.answers;
-    } catch (e: any) { console.warn('[QUYET_CALL_ERR]', e?.name || 'request_failed'); return null; }
+    } catch (e: any) {
+      this.failureCode = e?.name || 'request_failed';
+      console.warn('[QUYET_CALL_ERR]', this.failureCode);
+      return null;
+    }
     finally { clearTimeout(timer); }
   }
 
