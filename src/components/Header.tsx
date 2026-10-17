@@ -208,14 +208,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
           </button>
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Mobile Header Actions */}
+        <div className="md:hidden flex items-center gap-1.5">
+          <button
+            onClick={() => onOpenAIChat()}
+            className="inline-flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/90 text-[11.5px] font-bold px-2.5 py-1.5 rounded-xl transition-all shadow-2xs"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Hỏi AI</span>
+          </button>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-1.5 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
