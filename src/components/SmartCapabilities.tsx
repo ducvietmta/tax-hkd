@@ -1,5 +1,4 @@
-import React from 'react';
-import { Store, Shield, Smartphone, FileSpreadsheet, Sparkles, CheckCircle2, FileCheck2, ArrowRight } from 'lucide-react';
+import { Store, Shield, Smartphone, FileSpreadsheet, Sparkles, CheckCircle2 } from 'lucide-react';
 
 interface CapabilityItem {
   icon: React.ReactNode;
@@ -94,35 +93,6 @@ export const SmartCapabilities: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-        {/* Banner CTA dẫn vào trang Đăng ký HKD */}
-        <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
-          <div className="flex items-start sm:items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/10 ring-1 ring-white/20 flex items-center justify-center shrink-0">
-              <FileCheck2 className="w-6 h-6 text-emerald-300" />
-            </div>
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-300 mb-1">
-                <span>Tính năng mới 2026</span>
-                <span>·</span>
-                <span>Miễn 100% lệ phí môn bài</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-                Chưa biết bắt đầu từ đâu? Xem Hướng dẫn Đăng ký HKD từng bước
-              </h3>
-              <p className="text-sm text-emerald-100/90 mt-1 max-w-xl">
-                Trắc nghiệm 4 câu nhanh xác định đúng loại hình (Cá nhân KD, Hộ kinh doanh hay Gian hàng TMĐT), checklist hồ sơ và link nộp online.
-              </p>
-            </div>
-          </div>
-
-          <a
-            href="#/dang-ky"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm transition-all shadow-md hover:shadow-lg shrink-0 w-full md:w-auto"
-          >
-            <span>Bắt đầu hướng dẫn</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
         </div>
       </div>
     </section>

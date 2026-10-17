@@ -85,12 +85,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
             <span>Tính thuế nhanh</span>
           </a>
           <a
-            href="#risk-audit"
-            className="hover:text-emerald-600 transition-colors"
-          >
-            <span>Rà soát dòng tiền</span>
-          </a>
-          <a
             href="#legal-base"
             className="hover:text-emerald-600 transition-colors"
           >
@@ -296,13 +290,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
             className="block text-sm font-semibold text-slate-800 py-1"
           >
             Tính thuế nhanh
-          </a>
-          <a
-            href="#risk-audit"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-sm font-semibold text-slate-800 py-1"
-          >
-            Rà soát dòng tiền
           </a>
           <a
             href="#legal-base"

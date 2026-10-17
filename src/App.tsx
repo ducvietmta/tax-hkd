@@ -3,7 +3,6 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { TechShowcase } from './components/TechShowcase';
 import { TaxCalculatorInteractive } from './components/TaxCalculatorInteractive';
-import { TaxRiskAuditDemo } from './components/TaxRiskAuditDemo';
 import { SmartCapabilities } from './components/SmartCapabilities';
 import { LegalKnowledgeBase } from './components/LegalKnowledgeBase';
 import { Footer } from './components/Footer';
@@ -87,10 +86,6 @@ function MainApp() {
 
             <Reveal>
               <TaxCalculatorInteractive />
-            </Reveal>
-
-            <Reveal>
-              <TaxRiskAuditDemo />
             </Reveal>
 
             <Reveal>

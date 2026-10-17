@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
               <li><a href="#ai-assistant" className="hover:text-emerald-600 transition-colors">Thuế bán hàng Shopee/Lazada</a></li>
               <li><a href="#tax-calculator" className="hover:text-emerald-600 transition-colors">Tính thuế Cho thuê nhà</a></li>
               <li><a href="#tax-calculator" className="hover:text-emerald-600 transition-colors">Tính thuế KOC & Affiliate</a></li>
-              <li><a href="#risk-audit" className="hover:text-emerald-600 transition-colors">Rà soát chênh lệch dòng tiền</a></li>
+              <li><a href="#/dang-ky" className="hover:text-emerald-600 transition-colors">Hướng dẫn Đăng ký HKD 2026</a></li>
             </ul>
           </div>
 
