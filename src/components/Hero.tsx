@@ -253,11 +253,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
   const words = ['Tra cứu', '&', 'Tính', 'thuế'];
 
   return (
-    <section id="ai-assistant" className="relative pt-24 pb-6 md:pt-40 md:pb-28">
+    <section id="ai-assistant" className="tax-home-hero relative pt-24 pb-6 md:pt-32 md:pb-20">
       <div className="relative max-w-[1000px] mx-auto px-3.5 sm:px-6 w-full">
 
         {/* Floating tech chips */}
-        <div className="pointer-events-none absolute inset-0 hidden lg:block">
+        <div className="tax-decorations pointer-events-none absolute inset-0 hidden lg:block">
           {FLOATING.map((f, i) => (
             <motion.div
               key={f.label}
@@ -287,7 +287,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           <div className="md:hidden mb-5 px-1">
             <p className="text-xs font-semibold text-emerald-700 mb-1.5 uppercase tracking-wider">Trợ lý AI TaxHKD</p>
             <h1 className="text-[27px] font-extrabold leading-tight tracking-tight text-slate-900">Tra cứu &amp; Tính thuế<br /><span className="text-emerald-700">Hộ kinh doanh</span></h1>
-            <p className="mt-2 text-xs text-slate-500">Hỏi dễ hiểu theo ngôn ngữ tự nhiên. Trả lời chuẩn căn cứ pháp lý 2026.</p>
+            <p className="mt-2 text-sm text-slate-500">Hỏi điều bạn cần, xem căn cứ và chọn bước tiếp theo.</p>
           </div>
           <motion.div
             initial={{ opacity: 0, y: -12 }}
@@ -327,10 +327,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
             transition={{ delay: 0.8 }}
             className="hidden md:block text-[16px] text-slate-600 leading-relaxed"
           >
-            Hỏi bằng ngôn ngữ tự nhiên, nhận câu trả lời kèm <strong className="text-slate-900">căn cứ pháp lý</strong> theo kỳ tính thuế. Cập nhật ngưỡng doanh thu 1 tỷ đồng/năm theo Nghị định 141/2026/NĐ-CP và chính sách giảm thuế năm 2026.
+            Từ câu hỏi đầu tiên đến bước kê khai tiếp theo. Tra cứu với <strong className="text-slate-900">căn cứ pháp lý</strong>, tính thuế và chuẩn bị đăng ký trong cùng một nơi.
           </motion.p>
         </div>
 
+        <nav className="tax-task-grid" aria-label="Chọn việc bạn muốn làm">
+          <a href="#/dang-ky"><span className="tax-task-icon">01</span><span><strong>Đăng ký kinh doanh</strong><small>Hướng dẫn từng bước, chọn mã ngành</small></span><span aria-hidden="true">↗</span></a>
+          <a href="#tax-calculator"><span className="tax-task-icon">02</span><span><strong>Tính thuế của tôi</strong><small>Nhập số liệu, xem cách tính</small></span><span aria-hidden="true">↗</span></a>
+          <a href="#legal-base"><span className="tax-task-icon">03</span><span><strong>Tìm văn bản pháp luật</strong><small>Đọc và đối chiếu căn cứ</small></span><span aria-hidden="true">↗</span></a>
+        </nav>
+        <p className="tax-question-label">Hoặc đặt câu hỏi cho trợ lý AI</p>
         {/* Search with animated glow border */}
         <motion.form
           onSubmit={handleSearch}

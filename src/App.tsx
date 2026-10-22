@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense, type ReactNode } from 'react';
 import { MobileNavigation, type MobileSection } from './components/MobileNavigation';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -7,19 +7,27 @@ import { TaxCalculatorInteractive } from './components/TaxCalculatorInteractive'
 import { SmartCapabilities } from './components/SmartCapabilities';
 import { LegalKnowledgeBase } from './components/LegalKnowledgeBase';
 import { Footer } from './components/Footer';
-import { AIChatModal } from './components/AIChatModal';
-import { ConsultationModal } from './components/ConsultationModal';
 import { AuthModal } from './components/AuthModal';
 import { DepositModal } from './components/DepositModal';
 import { AuroraBackground } from './components/AuroraBackground';
 import { Reveal } from './components/Reveal';
-import { HistoryModal } from './components/HistoryModal';
-import { PolicyModal, type PolicyType } from './components/PolicyModal';
+import type { PolicyType } from './components/PolicyModal';
 import { AuthProvider } from './context/AuthContext';
 import { useHashRoute } from './features/registration/hooks/useHashRoute';
 import type { ChatHistoryItem } from './services/api';
 
 const RegistrationPage = lazy(() => import('./features/registration/TaxRegistrationPage'));
+const AIChatModal = lazy(() => import('./components/AIChatModal').then(m => ({ default: m.AIChatModal })));
+const ConsultationModal = lazy(() => import('./components/ConsultationModal').then(m => ({ default: m.ConsultationModal })));
+const HistoryModal = lazy(() => import('./components/HistoryModal').then(m => ({ default: m.HistoryModal })));
+const PolicyModal = lazy(() => import('./components/PolicyModal').then(m => ({ default: m.PolicyModal })));
+
+// Load on first use, then retain the mounted component and its conversation state.
+function OnDemand({ active, children }: { active: boolean; children: ReactNode }) {
+  const [visited, setVisited] = useState(active);
+  useEffect(() => { if (active) setVisited(true); }, [active]);
+  return active || visited ? <Suspense fallback={active ? <div role="status" className="fixed bottom-24 left-1/2 z-[100] -translate-x-1/2 rounded-xl bg-slate-900 px-5 py-3 text-sm text-white shadow-lg">Đang mở…</div> : null}>{children}</Suspense> : null;
+}
 
 function MainApp() {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
@@ -157,7 +165,7 @@ function MainApp() {
       )}
 
       {/* Interactive AI Chat Modal */}
-      <AIChatModal
+      <OnDemand active={isAIChatOpen}><AIChatModal
         isOpen={isAIChatOpen}
         onClose={() => {
           setIsAIChatOpen(false);
@@ -166,13 +174,13 @@ function MainApp() {
         }}
         initialQuery={initialAIChatQuery}
         resumeTurn={resumeTurn}
-      />
+      /></OnDemand>
 
       {/* Consultation Modal */}
-      <ConsultationModal
+      <OnDemand active={isConsultationOpen}><ConsultationModal
         isOpen={isConsultationOpen}
         onClose={() => setIsConsultationOpen(false)}
-      />
+      /></OnDemand>
 
       {/* Auth & OTP Login Modal */}
       <AuthModal />
@@ -181,14 +189,14 @@ function MainApp() {
       <DepositModal />
 
       {/* History Modal for Questions & Answers */}
-      <HistoryModal
+      <OnDemand active={isHistoryOpen}><HistoryModal
         isOpen={isHistoryOpen}
         onClose={() => setIsHistoryOpen(false)}
         onSelectQuery={handleContinueChat}
-      />
+      /></OnDemand>
 
       {/* Legally Compliant Policy Modal (BCT) */}
-      <PolicyModal
+      <OnDemand active={isPolicyOpen}><PolicyModal
         isOpen={isPolicyOpen}
         onClose={() => {
           setIsPolicyOpen(false);
@@ -198,7 +206,7 @@ function MainApp() {
           }
         }}
         initialPolicy={activePolicy}
-      />
+      /></OnDemand>
     </div>
   );
 }

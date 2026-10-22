@@ -1,0 +1,11 @@
+{
+  "version": "2026-10-22-draft",
+  "offices": [
+    {
+      "id": "ha-noi-co-so-25",
+      "name": "Thuế cơ sở 25 Thành phố Hà Nội",
+      "aliases": ["Thuế cơ sở 25 Hà Nội"],
+      "email": null
+    }
+  ]
+}

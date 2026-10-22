@@ -8,16 +8,21 @@ export const AuroraBackground: React.FC = () => {
   const spotlight = useMotionTemplate`radial-gradient(420px circle at ${x}px ${y}px, rgba(16,185,129,0.13), transparent 70%)`;
 
   React.useEffect(() => {
+    if (!window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
+    let frame = 0;
+    let latestX = -500, latestY = -500;
     const move = (e: MouseEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
+      latestX = e.clientX; latestY = e.clientY;
+      if (!frame) frame = requestAnimationFrame(() => {
+        x.set(latestX); y.set(latestY); frame = 0;
+      });
     };
     window.addEventListener('mousemove', move);
-    return () => window.removeEventListener('mousemove', move);
+    return () => { window.removeEventListener('mousemove', move); cancelAnimationFrame(frame); };
   }, [x, y]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#F7FAFC]" aria-hidden>
+    <div className="tax-aurora pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#F7FAFC]" aria-hidden>
       <div
         className="absolute -top-40 -left-32 h-[520px] w-[520px] rounded-full bg-emerald-300/40 blur-[110px]"
         style={{ animation: 'blob 18s ease-in-out infinite' }}

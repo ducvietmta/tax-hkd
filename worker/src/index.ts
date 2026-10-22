@@ -30,6 +30,7 @@ import {
 import { handleSePayWebhook, handlePaymentCheck } from './routesPayments';
 import { handleChat } from './routeChat';
 import { handleRegistrationAdvisor } from './registrationAdvisor';
+import { handleRegistrationOffice } from './registrationOffice';
 import { handleRegistrationIndustry } from './registrationIndustry';
 import { handleConsultation, handleFileUpload, handleFileGet } from './routesFiles';
 
@@ -109,6 +110,7 @@ export default {
 
       if (path === '/api/registration-guide/industry') return handleRegistrationIndustry(request, env, corsHeaders);
       if (path === '/api/registration-guide/chat') return handleRegistrationAdvisor(request, env, ctx, corsHeaders);
+      if (path === '/api/registration-guide/office') return handleRegistrationOffice(request, env, ctx, corsHeaders);
 
       if ((path === '/api/chat' || path === '/api/chatgpt/tax-qa') && request.method === 'POST') {
         return handleChat(request, env, ctx, corsHeaders);

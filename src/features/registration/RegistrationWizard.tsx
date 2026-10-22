@@ -15,6 +15,7 @@ import {
   Smartphone,
 } from 'lucide-react';
 import PortalMockup from './PortalMockup';
+import RegistrationTroubleshooter from './components/RegistrationTroubleshooter';
 import TaxOnlineGuide from './TaxOnlineGuide';
 import TaxAppGuide from './TaxAppGuide';
 import { openETaxMobileApp } from './etaxDeepLink';
@@ -277,6 +278,8 @@ export default function RegistrationWizard({
           <div><span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700">Mới · Hướng dẫn 2 kênh Web &amp; App eTax Mobile</span><h2 className="text-sm font-bold mt-1">Đăng ký thuế cá nhân kinh doanh online</h2><p className="text-xs mt-1">TAX HKD hỗ trợ 2 kênh nộp online chính thức: qua Web (Dịch Vụ Công Thuế Nhà Nước) hoặc qua App (eTax Mobile trên điện thoại).</p></div>
           <span className="shrink-0 rounded-xl bg-emerald-700 px-4 py-3 text-xs font-bold text-white">▶ Xem ảnh &amp; GIF 17 bước ↗</span>
         </a>
+
+        <RegistrationTroubleshooter />
 
         {/* Active Procedure Status Bar */}
         <div className="rw-status flex flex-wrap items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-white/80 backdrop-blur-md border border-slate-200/80 shadow-sm mb-6">
