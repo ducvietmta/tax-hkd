@@ -31,7 +31,7 @@ export async function repairAnswer(instructions: string, history: ConversationTu
         } else console.warn('[ANSWER_REPAIR_HTTP_ZENMUX]', response.status);
       } else {
         const modelRequest = buildMuseRequest(instructions,history,question,false,'muse-spark-1.3-contributor','low');
-        modelRequest.max_output_tokens = 6000;
+        modelRequest.max_output_tokens = 16000;
         const response = await fetch('https://api.meta.ai/v1/responses', {
           method:'POST', headers:{Authorization:`Bearer ${env.MUSE_API_KEY}`,'Content-Type':'application/json'},
           body:JSON.stringify(modelRequest),signal:AbortSignal.timeout(timeoutMs),

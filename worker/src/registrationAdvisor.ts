@@ -107,7 +107,7 @@ export async function handleRegistrationAdvisor(request: Request, env: Env, ctx:
           method: 'POST',
           headers: { Authorization: `Bearer ${env.MUSE_API_KEY}`, 'Content-Type': 'application/json', Accept: 'text/event-stream' },
           body: JSON.stringify({ model: 'muse-spark-1.3-contributor', instructions: INSTRUCTIONS, input,
-            reasoning: { effort: 'minimal' }, max_output_tokens: 2600, stream: true, store: false }),
+            reasoning: { effort: 'minimal' }, max_output_tokens: 4000, stream: true, store: false }),
           signal: abort.signal,
         });
         answer = await readRegistrationModelStream(upstream, delta => {

@@ -714,7 +714,7 @@ ${ragContextText}`;
               if (zRes.status !== 429 && zRes.status !== 404 && zRes.status < 500) break;
             } else {
               const modelRequest = buildMuseRequest(systemPrompt+scopeRetry, history, message, false, genModel, reasoningEffort);
-              modelRequest.max_output_tokens = 6000;
+              modelRequest.max_output_tokens = 16000;
               const museRes = await fetch(genEndpoint, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
