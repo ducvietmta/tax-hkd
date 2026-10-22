@@ -9,6 +9,7 @@
 import type { RagChunk } from '../ragEngine';
 import type { TaxDecisionFrame, EvidenceItem, ConflictEvent } from './types';
 import chunkMetaJson from '../kb/chunkMeta.json';
+import { periodFits } from '../kb/periodApplicability';
 
 interface ChunkMetaEntry {
   id: string;
@@ -18,6 +19,8 @@ interface ChunkMetaEntry {
   legal_status: string;
   applies_from_year: number;
   applies_to_year: number | null;
+  effective_from?:string;
+  effective_to?:string;
 }
 
 const rawMeta: any = chunkMetaJson;
@@ -27,6 +30,14 @@ export interface EvidenceGateResult {
   passedChunks: RagChunk[];
   evidenceItems: EvidenceItem[];
   conflicts: ConflictEvent[];
+}
+
+/** Subject scope is source metadata, not an inference from question words. */
+export function isSubjectCompatible(chunk:RagChunk,frame:TaxDecisionFrame):boolean{
+  const context=frame.semantic?.subjectContext&&frame.semantic.subjectContext!=='UNKNOWN'?frame.semantic.subjectContext:
+    frame.semantic?.registrationStatus==='DIRECT_TAX_ONLY'?'INDIVIDUAL_ACTIVITY':undefined;
+  return !chunk.subject_scope?.length||!context||
+    chunk.subject_scope.includes(context)||frame.semantic?.registrationStatus==='HOUSEHOLD_REGISTERED';
 }
 
 export function filterAndGateEvidence(
@@ -47,11 +58,15 @@ export function filterAndGateEvidence(
     let periodMatch: 'EXACT' | 'PARTIAL' | 'MISMATCH' = 'EXACT';
 
     if (meta) {
-      const fromYear = meta.applies_from_year || 2026;
-      const toYear = meta.applies_to_year;
+      // Year-level metadata cannot establish day-level applicability. Keep the
+      // evidence conditional so semantic review must read transition clauses.
+      if(frame.tax_period.event_date&&!meta.effective_from)periodMatch='PARTIAL';
+      // Year-level metadata cannot establish day-level applicability. Keep the
+      // evidence conditional so semantic review must read transition clauses.
+      if(frame.tax_period.event_date&&!meta.effective_from)periodMatch='PARTIAL';
 
       // Kiểm tra khớp kỳ tính thuế
-      if (queryYears.length && !queryYears.some(y => y >= fromYear && (toYear === null || y <= toYear))) {
+      if (queryYears.length && !periodFits(meta,frame.tax_period)) {
         relation = 'NOT_RELEVANT';
         periodMatch = 'MISMATCH';
       }
@@ -67,6 +82,7 @@ export function filterAndGateEvidence(
       periodMatch = 'PARTIAL';
     }
 
+    if(!isSubjectCompatible(chunk,frame))relation='NOT_RELEVANT';
     const item: EvidenceItem = {
       ref_id: chunk.ref_id || chunk.id,
       chunk_id: chunk.id,

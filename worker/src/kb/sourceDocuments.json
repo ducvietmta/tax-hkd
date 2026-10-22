@@ -1,0 +1,69 @@
+{
+  "schema": "taxhkd-source-documents-v1",
+  "documents": [
+    {
+      "id": "VBHN-114-2026-VPQH",
+      "code": "Văn bản hợp nhất 114/VBHN-VPQH",
+      "source_url": "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm",
+      "source_type": "CONSOLIDATED_TEXT",
+      "access": "EXTERNAL_PRIMARY_SOURCE",
+      "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "DTA-VN-SG-MLI-2023",
+      "code": "Hiệp định Việt Nam–Singapore (bản tổng hợp MLI công bố 01/09/2023)",
+      "source_url": "https://www.iras.gov.sg/media/docs/default-source/dtas/singapore-vietnam-dta-(ratified)(mli)(01092023).pdf",
+      "source_type": "TREATY_SYNTHESISED_TEXT",
+      "access": "EXTERNAL_PRIMARY_SOURCE",
+      "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "NQ-198-2025-QH15",
+      "code": "Nghị quyết 198/2025/QH15",
+      "source_url": "https://xaydungchinhsach.chinhphu.vn/nghi-quyet-198-2025-qh15-ve-mot-so-co-che-chinh-sach-dac-biet-phat-trien-kinh-te-tu-nhan-119250517191622422.htm",
+      "source_type": "PRIMARY_TEXT",
+      "access": "EXTERNAL_PRIMARY_SOURCE",
+      "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ND-362-2025-ND-CP",
+      "code": "Nghị định 362/2025/NĐ-CP",
+      "source_url": "https://chinhphu.vn/?classid=0&docid=216389&pageid=27160",
+      "source_type": "PRIMARY_DOCUMENT_RECORD",
+      "access": "EXTERNAL_PRIMARY_SOURCE",
+      "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ND-139-2016-ND-CP",
+      "code": "Nghị định 139/2016/NĐ-CP",
+      "source_url": "https://vbpl.moj.gov.vn/bonoivu/Pages/vbpq-toanvan.aspx?ItemID=114261",
+      "source_type": "HISTORICAL_TEXT",
+      "access": "EXTERNAL_PRIMARY_SOURCE",
+      "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ND-22-2020-ND-CP",
+      "code": "Nghị định 22/2020/NĐ-CP",
+      "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-22-2020-nd-cp-30787.htm",
+      "source_type": "HISTORICAL_TEXT",
+      "access": "EXTERNAL_PRIMARY_SOURCE",
+      "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "ND-126-2020-ND-CP",
+      "code": "Nghị định 126/2020/NĐ-CP",
+      "source_url": "https://vanban.chinhphu.vn/?docid=201402&pageid=27160",
+      "source_type": "HISTORICAL_TEXT",
+      "access": "EXTERNAL_PRIMARY_SOURCE",
+      "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "7403-CT-TMDT-2026",
+      "code": "Công văn 7403/CT-TMĐT",
+      "source_url": "/documents/7403-CT-TMDT-2026.docx",
+      "source_type": "SUPPLIED_OFFICIAL_DOCUMENT",
+      "access": "LOCAL_PUBLIC_FILE",
+      "source_checked_on": "2026-10-20"
+    }
+  ]
+}

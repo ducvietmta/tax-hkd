@@ -1,0 +1,207 @@
+[
+  {
+    "ref_id": "16.39",
+    "policy_focus": [
+      "PIT_RELIEF"
+    ],
+    "eligibility_topics": [
+      "REVENUE_THRESHOLD",
+      "REVENUE_OWNERSHIP"
+    ],
+    "topics": [
+      "TAX_AMOUNT",
+      "PLATFORM_WITHHOLDING"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "intents": [
+      "PLATFORM_WITHHOLDING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.40",
+    "topics": [
+      "TAX_AMOUNT",
+      "PLATFORM_WITHHOLDING"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "intents": [
+      "PLATFORM_WITHHOLDING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.41",
+    "policy_focus": [
+      "EINVOICE"
+    ],
+    "eligibility_topics": [
+      "REVENUE_THRESHOLD",
+      "REVENUE_OWNERSHIP"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.42",
+    "topics": [
+      "PLATFORM_WITHHOLDING",
+      "TAX_PAYMENT_RECONCILIATION"
+    ],
+    "intents": [
+      "PLATFORM_WITHHOLDING"
+    ],
+    "applies_from_year": 2025,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.50",
+    "policy_focus": [
+      "VAT_RELIEF"
+    ],
+    "applies_from_year": 2025,
+    "applies_to_year": 2026
+  },
+  {
+    "ref_id": "16.54",
+    "topics": [
+      "REVENUE_TIMING"
+    ],
+    "applies_from_year": 2021,
+    "applies_to_year": 2025
+  },
+  {
+    "ref_id": "16.56",
+    "topics": [
+      "TAX_AMOUNT",
+      "BUSINESS_EXPENSES",
+      "PLATFORM_WITHHOLDING"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "intents": [
+      "PLATFORM_WITHHOLDING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.60",
+    "policy_focus": [
+      "ANNUAL_EXEMPTION"
+    ],
+    "eligibility_topics": [
+      "REVENUE_THRESHOLD",
+      "REVENUE_OWNERSHIP"
+    ],
+    "revenue_contexts": [
+      "PROJECTED",
+      "PARTIAL_PERIOD"
+    ],
+    "applies_from_year": 2021,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.77",
+    "topics": [
+      "TAX_AMOUNT",
+      "VAT_METHOD_CLASSIFICATION",
+      "REVENUE_COMPOSITION",
+      "BUSINESS_EXPENSES",
+      "PLATFORM_WITHHOLDING"
+    ],
+    "intents": [
+      "PLATFORM_WITHHOLDING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.95",
+    "topics": [
+      "TAX_AMOUNT",
+      "PLATFORM_WITHHOLDING",
+      "REVENUE_THRESHOLD",
+      "REVENUE_COMPOSITION"
+    ],
+    "income_types": [
+      "AFFILIATE_COMMISSION",
+      "CONTENT_ADS"
+    ],
+    "intents": [
+      "PLATFORM_WITHHOLDING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.97",
+    "policy_focus": [
+      "PIT_RELIEF"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.154",
+    "topics": [
+      "TAX_REGISTRATION",
+      "BUSINESS_REGISTRATION",
+      "REGISTRATION_COMPARISON",
+      "REGISTRATION_REQUIREMENTS",
+      "TAX_REGISTRATION_CHANGE"
+    ],
+    "subject_contexts": [
+      "INDIVIDUAL_ACTIVITY",
+      "COMPARISON"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.155",
+    "subject_contexts": [
+      "HOUSEHOLD_FORM"
+    ],
+    "answer_purposes": [
+      "PROCEDURE",
+      "ELIGIBILITY",
+      "OTHER"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.156",
+    "topics": [
+      "REVENUE_COMPOSITION",
+      "VAT_METHOD_CLASSIFICATION",
+      "TAX_AMOUNT"
+    ],
+    "tax_focuses": [
+      "vat",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  }
+]

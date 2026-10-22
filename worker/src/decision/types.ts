@@ -46,6 +46,7 @@ export interface MultiActivityItem {
 
 export interface TaxFactsFrame {
   revenue_vnd?: number;
+  revenue_lower_bound_vnd?: number; // Exclusive bound, never an exact amount for arithmetic.
   revenue_basis: RevenueBasis;
   taxable_income_vnd?: number;      // Thu nhập tính thuế (đối với phương pháp thu nhập)
   pit_method_elected?: 'REVENUE' | 'INCOME'; // Phương pháp tính TNCN người dùng chủ động chọn
@@ -74,7 +75,8 @@ export interface MissingFact {
  * Đầu ra của bước understandQuery (L1/L2)
  */
 export interface TaxDecisionFrame {
-  semantic?: { topic?: string; revenueContext?: string; taxFocus?: 'vat' | 'pit' | 'both' | 'unspecified'; invoicePeriod?: 'H1_2026' | 'H2_2026' | 'MIXED_OR_UNKNOWN' };
+  requests?: TaxSubrequest[];
+  semantic?: { topic?: string; subjectContext?:'INDIVIDUAL_ACTIVITY'|'HOUSEHOLD_FORM'|'COMPARISON'|'UNKNOWN';registrationStatus?:'HOUSEHOLD_REGISTERED'|'DIRECT_TAX_ONLY'|'NOT_REGISTERED'|'UNKNOWN'; policyFocus?: 'PIT_RELIEF'|'VAT_RELIEF'|'ANNUAL_EXEMPTION'|'EINVOICE'|'MULTIPLE'|'UNSPECIFIED'; answerPurpose?:string; revenueContext?: string; taxFocus?: 'vat' | 'pit' | 'both' | 'unspecified'; invoicePeriod?: 'H1_2026' | 'H2_2026' | 'MIXED_OR_UNKNOWN'; calculationShape?:'SINGLE'|'COMPOSITE'|'METHOD_COMPARISON'|'SCENARIOS'|'UNSPECIFIED'; methodContext?:'UNSPECIFIED'|'TURNOVER_ACTIVE'|'INCOME_ACTIVE' };
   schema_version: '1.0';
   tax_period: TaxPeriodFrame;
   taxpayer_type: Provenance<TaxpayerType>;
@@ -99,7 +101,20 @@ export interface TaxDecisionFrame {
   };
 }
 
+export interface TaxSubrequest {
+  scenario?: {id:string;condition_quote:string;source:'question'|'history'};
+  id: string;
+  intent: TaxIntent;
+  tax_focus: 'vat' | 'pit' | 'unspecified';
+  period: TaxPeriodFrame;
+  taxpayer: Provenance<TaxpayerType>;
+  activities: Array<Provenance<IncomeType>>;
+  facts: TaxFactsFrame;
+  assumptions: Array<{ name: string; value: unknown; source: ValueSource; confirmed: boolean }>;
+}
+
 export interface RetrievalPlan {
+  period_fallback?: boolean;
   semantic_topic?: string;
   allowed_refs?: string[];
   strategy: RetrievalStrategy;

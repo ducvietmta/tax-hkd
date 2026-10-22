@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { ArrowRight, Menu, X, Calculator, Search, Store, Sparkles, User, Zap, LogOut, PlusCircle, History, FileCheck2 } from 'lucide-react';
+import { ArrowRight, Menu, X, Calculator, Search, Sparkles, User, Zap, LogOut, PlusCircle, History, FileCheck2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useHashRoute } from '../features/registration/hooks/useHashRoute';
 
@@ -31,36 +31,30 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/80 py-3 shadow-sm'
-          : 'bg-white/80 backdrop-blur-sm border-b border-slate-100 py-4'
+          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200/80 py-2.5 md:py-3 shadow-sm'
+          : 'bg-white/95 backdrop-blur-sm border-b border-slate-100 py-2.5 md:py-4'
       }`}
     >
       <motion.div
         style={{ scaleX: progress }}
         className="absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500"
       />
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 xl:px-8 flex items-center justify-between gap-4 xl:gap-6 [&_svg]:shrink-0">
         {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-sm">
-            <Store className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-[19px] tracking-tight text-slate-900">
-                Tax<span className="text-emerald-600">HKD</span>
-              </span>
-              <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">
-                Hộ & Cá nhân KD
-              </span>
-            </div>
-          </div>
+        <a href="#" className="flex items-center gap-2.5 group shrink-0 py-0.5">
+          <img
+            src="/images/logo-horizontal.png"
+            alt="TaxHKD — Trợ lý AI Tra cứu & Tính thuế Hộ kinh doanh"
+            className="w-[148px] sm:w-[172px] xl:w-[180px] h-auto max-h-11 object-contain group-hover:scale-[1.02] transition-transform"
+          />
         </a>
 
         {/* Minimal Navigation */}
-        <nav className="hidden md:flex items-center gap-6 text-[14px] font-semibold text-slate-600">
+        <nav aria-label="Điều hướng chính" className="hidden xl:flex items-center gap-1 text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
           <a
             href="#/dang-ky"
+            title="Hướng dẫn đăng ký"
+            aria-label="Hướng dẫn đăng ký"
             className={`transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-xl ${
               isRegRoute
                 ? 'text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 shadow-2xs'
@@ -68,45 +62,46 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
             }`}
           >
             <FileCheck2 className="w-4 h-4 text-emerald-600" />
-            <span>Đăng ký HKD</span>
+            <span>Đăng ký</span>
           </a>
           <a
             href="#ai-assistant"
-            className="hover:text-emerald-600 transition-colors flex items-center gap-1"
+            className="hover:text-emerald-600 hover:bg-slate-50 transition-colors flex items-center gap-1.5 px-3 py-2.5 rounded-xl"
           >
             <Search className="w-4 h-4 text-emerald-600" />
             <span>Tra cứu AI</span>
           </a>
           <a
             href="#tax-calculator"
-            className="hover:text-emerald-600 transition-colors flex items-center gap-1"
+            className="hover:text-emerald-600 hover:bg-slate-50 transition-colors flex items-center gap-1.5 px-3 py-2.5 rounded-xl"
           >
             <Calculator className="w-4 h-4 text-emerald-600" />
-            <span>Tính thuế nhanh</span>
+            <span>Tính thuế</span>
           </a>
           <a
             href="#legal-base"
-            className="hover:text-emerald-600 transition-colors"
+            className="hover:text-emerald-600 hover:bg-slate-50 transition-colors px-3 py-2.5 rounded-xl"
           >
             <span>Thư viện luật</span>
           </a>
         </nav>
 
         {/* Action Buttons */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden xl:flex items-center gap-2 whitespace-nowrap shrink-0 [&>button]:h-10">
           {/* User Credits & Auth status */}
           {isAuthenticated && user ? (
             <div className="relative">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 [&>button]:h-10 [&>button]:shrink-0">
                 {/* History button shortcut */}
                 {onOpenHistory && (
                   <button
                     onClick={onOpenHistory}
                     className="inline-flex items-center gap-1.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-700 hover:text-emerald-800 text-[12px] font-bold px-3 py-1.5 rounded-xl transition-all shadow-xs"
                     title="Xem lịch sử câu hỏi"
+                    aria-label="Xem lịch sử câu hỏi"
                   >
                     <History className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="hidden lg:inline">Lịch sử</span>
+                    <span className="hidden 2xl:inline">Lịch sử</span>
                   </button>
                 )}
 
@@ -123,7 +118,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
                 {/* Account button */}
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[12px] font-bold px-3 py-1.5 rounded-xl transition-all max-w-[140px]"
+                  className="inline-flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 text-[12px] font-bold px-3 py-1.5 rounded-xl transition-all w-[132px]"
+                  aria-label="Mở menu tài khoản"
+                  aria-expanded={userDropdownOpen}
                 >
                   <User className="w-3.5 h-3.5 text-slate-600 shrink-0" />
                   <span className="truncate">{user.name || user.email?.split('@')[0] || user.phone || 'Tài khoản'}</span>
@@ -209,18 +206,20 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
         </div>
 
         {/* Mobile Header Actions */}
-        <div className="md:hidden flex items-center gap-1.5">
+        <div className="xl:hidden flex items-center gap-1.5 whitespace-nowrap shrink-0">
+          {isAuthenticated && user && <button onClick={openDepositModal} className="hidden sm:inline-flex items-center gap-1.5 min-h-10 rounded-xl border border-emerald-200 bg-emerald-50 px-3 text-xs font-bold text-emerald-800" title="Nạp thêm lượt hỏi"><Zap size={14}/>{user.credits} lượt</button>}
           <button
             onClick={() => onOpenAIChat()}
-            className="inline-flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/90 text-[11.5px] font-bold px-2.5 py-1.5 rounded-xl transition-all shadow-2xs"
+            className="inline-flex min-h-11 items-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold px-3 rounded-xl transition-all"
           >
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Hỏi AI</span>
+            <span>Chat mới</span>
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-1.5 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
-            aria-label="Toggle Menu"
+            className="h-11 w-11 flex items-center justify-center text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+            aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu tài khoản'}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -229,7 +228,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-5 py-4 space-y-3 shadow-lg">
+        <div className="xl:hidden bg-white border-b border-slate-200 px-5 py-4 space-y-3 shadow-lg max-h-[calc(100dvh-80px)] overflow-y-auto">
           {/* User Info on Mobile */}
           {isAuthenticated && user ? (
             <div className="space-y-2">
@@ -284,7 +283,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
             }`}
           >
             <FileCheck2 className="w-4 h-4 text-emerald-600" />
-            <span>Đăng ký HKD (Mới 2026)</span>
+            <span>Hướng dẫn đăng ký thuế</span>
           </a>
           <a
             href="#ai-assistant"

@@ -12,7 +12,7 @@ const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ACCOUNT = process.env.CLOUDFLARE_ACCOUNT_ID || '';
 const TOKEN = process.env.CLOUDFLARE_API_TOKEN || '';
 const INDEX = process.env.VECTORIZE_INDEX || 'tax-kb-v1';
-export const INDEX_VERSION = 'tax-kb-v1-bge-m3-1024';
+export const INDEX_VERSION = 'tax-kb-v1-bge-m3-1024-kb-20261019-depth';
 const WORKER_URL = process.env.WORKER_URL || 'https://tax-agent-worker.ducviet-mta.workers.dev';
 
 async function main() {

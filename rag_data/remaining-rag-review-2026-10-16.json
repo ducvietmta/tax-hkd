@@ -1,0 +1,1649 @@
+{
+  "as_of": "2026-10-16",
+  "scope": "Toàn bộ103 mục canonical đang hoạt động; đọc nội dung90 mục còn lại, xác minh nguồn cho các sửa đổi và các nhóm rủi ro. Không chứng nhận đã tái thẩm định mọi điều khoản của103mục.",
+  "counts": {
+    "canonical": 103,
+    "previously_reviewed": 13,
+    "read_this_review": 90,
+    "changed_this_review": 29,
+    "unchanged_this_review": 61
+  },
+  "limits": [
+    "Đọc nội dung không đồng nghĩa xác minh độc lập toàn bộ pháp luật và hiệu lực của mục đó. Trạng thái source_review ghi chính xác phạm vi đã làm.",
+    "59 PDF đã được kiểm kê/trích xuất; có bản scan không có lớp text. Trang được render/đọc được ghi riêng, không coi file tồn tại là đã xác minh.",
+    "ND-310-2025-ND-CP.pdf trong public/documents thực tế là12trang trình chiếu của Thuế Hải Phòng, không phải bản nguyên văn nghị định. Chưa đổi/xóa file nguồn.",
+    "Thông tin trên bài giải đáp có thể dùng số cũ hoặc lỗi biên tập: ví dụ bài cho thuê tháng4 còn500triệu/15%; không sao chép toàn bài làm luật hiện hành.",
+    "Chưa xác minh đủ toàn bộ phụ lục TT89/QĐ2551, ngoại lệ hóa đơn TT91 và thủ tục hiệp định hiện hành; nội dung có điều kiện phải giữ giới hạn này.",
+    "Không chạy model trả phí, chưa kiểm thử live, chưa cập nhật D1/Vectorize/Worker production."
+  ],
+  "previous_audits": [
+    "rag_data/legal-review-2026-10-16.json",
+    "rag_data/cv7403-source-review-2026-10-16.json"
+  ],
+  "verification": {
+    "kb_sync": "PASS 103chunks/55routes",
+    "rag_regressions": "PASS",
+    "decision_suite": "PASS including52/52legacycases",
+    "production_build": "PASS (existing bundle size warning)"
+  },
+  "entries": [
+    {
+      "ref_id": "16.1",
+      "title": "16.1. Cầm đồ: doanh thu không phải toàn bộ dòng tiền gốc vay",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-181-2025-nd-cp-quy-dinh-chi-tiet-thi-hanh-mot-so-dieu-cua-luat-thue-gia-tri-gia-tang-119250707172930626.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm"
+      ],
+      "note": "Phân biệt gốc vay, lãi/phí và xử lý tài sản; giữ điều kiện khi tính TNCN. Đã kiểm nguồn NĐ144 về hiệu lực, chưa đọc lại toàn văn Điều11 NĐ181.",
+      "text_sha256": "f41cf054b01abbbb290acf74effb68271b34b1dec6e51ff217d5da10218c3278"
+    },
+    {
+      "ref_id": "16.2",
+      "title": "16.2. Mua nông sản rồi sơ chế/chế biến",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-48-2024-QH15.pdf (Điều5,12; còn cần chuỗi sửa đổi đúng kỳ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm"
+      ],
+      "note": "Giữ phân biệt trực tiếp sản xuất, mua lại, sơ chế và chế biến; chưa tái đối chiếu toàn văn VAT hợp nhất cho từng sản phẩm.",
+      "text_sha256": "dfdacd1b86de9d0167fa7ff3f67539eca0c4d5eba2fa5482d84d942544ed977e"
+    },
+    {
+      "ref_id": "16.3",
+      "title": "16.3. Mua heo hơi, thuê lò mổ rồi bán thịt",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "INTERNAL_REFERENCE_OR_SCOPE_FIX",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm"
+      ],
+      "note": "Sửa tham chiếu nhầm bảng tỷ lệ ngành 16.49 thành 16.77.",
+      "text_sha256": "5c231089752315038463d56091e55e076ad39df8c7d16691633999b91906c676",
+      "before_sha256": "d67cef39a716c553382d459a9597dceb35d7b2da319e378e45c2d068c5c1610e",
+      "after_sha256": "5c231089752315038463d56091e55e076ad39df8c7d16691633999b91906c676"
+    },
+    {
+      "ref_id": "16.4",
+      "title": "16.4. Cung cấp nhân công/nhân lực cho công trình",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/thue-suat-doi-voi-cac-hoat-dong-kinh-doanhcua-ho-kinh-doanh-119260407103211289.htm"
+      ],
+      "note": "Giữ ngành cung cấp nhân công; không biến thành xây dựng bao vật tư. Cần xác định hợp đồng trước khi chọn tỷ lệ.",
+      "text_sha256": "4b4fd447b4e45b4a8c9e69f17633165c451e8c8752c444bdf65ee7a5e8699278"
+    },
+    {
+      "ref_id": "16.5",
+      "title": "16.5. Sang nhượng sạp/quyền kinh doanh tại chợ",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/truong-hop-nao-khong-phai-su-dung-hoa-don-dien-tu-119260716095423868.htm"
+      ],
+      "note": "Quyền thuê/kinh doanh sạp không tự là chuyển nhượng BĐS; còn cần hồ sơ quyền và nghĩa vụ chuyển giao.",
+      "text_sha256": "b57af63688be6b28a084250272c3cc0975431cc97b1e8c352d7000c767b3b502"
+    },
+    {
+      "ref_id": "16.6",
+      "title": "16.6. Chủ HKD có được giảm trừ gia cảnh vào thu nhập kinh doanh?",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-giam-tru-gia-canh-trong-thue-thu-nhap-ca-nhan-119260327071750084.htm"
+      ],
+      "note": "Giảm trừ gia cảnh chỉ nhánh tiền lương; không đem trừ doanh thu kinh doanh.",
+      "text_sha256": "93afdfd482601d1a31b6afea0e5a1d6bd2259b8ddbf570a7f8f8b32498422908"
+    },
+    {
+      "ref_id": "16.7",
+      "title": "16.7. Một cá nhân có được đứng tên 2 HKD?",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm (Điều82–85)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
+      ],
+      "note": "Đã đọc Điều82–85 NĐ168 trên Cổng Chính phủ: một cá nhân/thành viên chỉ một HKD, khác nhiều địa điểm; giữ nguyên.",
+      "text_sha256": "01372c134818556532d497f06a1385692cc752d87f566506250b57db35b79908"
+    },
+    {
+      "ref_id": "16.8",
+      "title": "16.8. Vợ và chồng mỗi người một HKD tại cùng địa chỉ",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm (Điều82–85)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
+      ],
+      "note": "Đã đọc Điều82–85 NĐ168: không từ quan hệ hôn nhân suy thành một chủ thể; hoạt động độc lập thực chất còn cần chứng cứ, điều khoản đăng ký không tự giải quyết mọi vấn đề thuế.",
+      "text_sha256": "88f241646dc2eebc2766ca273db235df5af4ea374e4bb3a47b7a945192ae2d20"
+    },
+    {
+      "ref_id": "16.9",
+      "title": "16.9. Tài khoản ngân hàng/ví điện tử của HKD",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-co-the-su-dung-nhieu-tai-khoan-ngan-hang-nhan-tien-tu-cac-kenh-ban-hang-khac-nhau-11926072216591801.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-co-the-su-dung-nhieu-tai-khoan-ngan-hang-nhan-tien-tu-cac-kenh-ban-hang-khac-nhau-11926072216591801.htm",
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-ho-kinh-doanh-thong-bao-so-tai-khoan-ngan-hang-so-hieu-vi-dien-tu-tren-ung-dung-etax-mobile-119260413154428966.htm"
+      ],
+      "note": "Hỏi đáp Cục Thuế ngày22/7 xác nhận nhiều tài khoản/ví được phép nhưng phải thông báo và tổng hợp doanh thu.",
+      "text_sha256": "bbe3804298811b2b897f9d0b1eea1bdf3476efe1936323dc8bfb37fd14ef2945"
+    },
+    {
+      "ref_id": "16.10",
+      "title": "16.10. Hợp đồng cho thuê dài hạn chấm dứt trước thời hạn",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/chinh-sach-moi-ve-thue-voi-ho-ca-nhan-cho-thue-bat-dong-san-119260312092953897.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm"
+      ],
+      "note": "Hoàn/điều chỉnh thuê trả trước phải theo hợp đồng và hồ sơ chấm dứt; chưa xác minh đầy đủ điều khoản thủ tục hiện hành.",
+      "text_sha256": "b8c39accc5e82f13cae289ab413f0e10d187a63473c998e95e15e33f1280b9b2"
+    },
+    {
+      "ref_id": "16.11",
+      "title": "16.11. HKD mua SaaS/tool/quảng cáo của nhà cung cấp nước ngoài",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "https://vanban.chinhphu.vn/?classid=1&docid=218974&orggroupid=4&pageid=27160",
+        "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm"
+      ],
+      "note": "Giữ điều kiện nhà cung cấp nước ngoài tự khai/nộp và bản chất phần mềm/SaaS; không chốt thuế nhà thầu5+5. Chưa đọc đủ Điều40–46 và TT20 để chứng nhận toàn mục.",
+      "text_sha256": "22e7c9d9d14f8f0c59876f74f584c0c5bb71b9dd5a52173f249e4a52a977a3a9"
+    },
+    {
+      "ref_id": "16.12",
+      "title": "16.12. Đăng ký/thay đổi người phụ thuộc trên eTax Mobile",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-dang-ky-moi-thay-doi-thong-tin-nguoi-phu-thuoc-tren-etax-mobile-119260317091940213.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-dang-ky-moi-thay-doi-thong-tin-nguoi-phu-thuoc-tren-etax-mobile-119260317091940213.htm",
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-cap-nhat-thong-tin-nguoi-phu-thuoc-tren-etax-mobile-119260316170710976.htm"
+      ],
+      "note": "Bỏ tháng công bố không khớp nguồn và phân biệt hướng dẫn công bố với giao diện live.",
+      "text_sha256": "84080c90aa51b3c8fc457899a4ca026fc5785fe412ef28c2601e893e00e3f099",
+      "before_sha256": "3ba4ac17e8096fc6170fe78423ca5496eeee1740cbc60d1a23750500beb5589e",
+      "after_sha256": "84080c90aa51b3c8fc457899a4ca026fc5785fe412ef28c2601e893e00e3f099"
+    },
+    {
+      "ref_id": "16.13",
+      "title": "16.13. Mua bán điện thoại cũ",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/thue-suat-doi-voi-cac-hoat-dong-kinh-doanhcua-ho-kinh-doanh-119260407103211289.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-mua-hang-tu-ca-nhan-kinh-doanh-co-doanh-thu-duoi-500-trieu-dong-nam-khong-hoa-don-co-duoc-phep-lap-bang-ke-mua-hang-119260312204259799.htm"
+      ],
+      "note": "Mua bán điện thoại cũ là kinh doanh; bảng kê không tự hợp thức hóa nguồn gốc. Đã đối chiếu hướng dẫn bảng kê nhưng chưa xác minh pháp luật chuyên ngành hàng hóa.",
+      "text_sha256": "58be3761743850f0184589ceef03abdf5050ba56350454cacc5fd81101a72d45"
+    },
+    {
+      "ref_id": "16.14",
+      "title": "16.14. HKD/cá nhân trực tiếp chăn nuôi lợn thịt",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-48-2024-QH15.pdf (Điều5,12; còn cần chuỗi sửa đổi đúng kỳ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm"
+      ],
+      "note": "Miễn cho trực tiếp chăn nuôi khác mua đi bán lại; giữ điều kiện sản phẩm và người sản xuất.",
+      "text_sha256": "bb048eccf1e556a0a38ed57901dc2147a960eadaa2cbed567965cadb1a1e9146"
+    },
+    {
+      "ref_id": "16.15",
+      "title": "16.15. Homestay/lưu trú",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/luu-y-ve-thue-voi-ho-kinh-doanh-cho-thue-bat-dong-san-119251201163934708.htm (chỉ dùng phân biệt lưu trú/cho thuê, không áp số thuế cũ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/luu-y-ve-thue-voi-ho-kinh-doanh-cho-thue-bat-dong-san-119251201163934708.htm",
+        "https://xaydungchinhsach.chinhphu.vn/thue-suat-doi-voi-cac-hoat-dong-kinh-doanhcua-ho-kinh-doanh-119260407103211289.htm"
+      ],
+      "note": "Lưu trú khác cho thuê BĐS; không tự dùng công thức thuê nhà. Cần phân loại thực tế dịch vụ.",
+      "text_sha256": "c7791c2581b8a26918464a6542c547fb075a0cc5ca5ce101bd26218c62216b32"
+    },
+    {
+      "ref_id": "16.16",
+      "title": "16.16. Hóa đơn GTGT đầu vào của HKD có được khấu trừ/hoàn?",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-48-2024-QH15.pdf (Điều5,12; còn cần chuỗi sửa đổi đúng kỳ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-181-2025-nd-cp-quy-dinh-chi-tiet-thi-hanh-mot-so-dieu-cua-luat-thue-gia-tri-gia-tang-119250707172930626.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm"
+      ],
+      "note": "Phương pháp GTGT trực tiếp không có cơ chế khấu trừ đầu vào như khấu trừ; chưa tái xác minh mọi ngoại lệ hoàn.",
+      "text_sha256": "3f96c2c61aff9b4ca87660011c52bf973150b681e8c460050aac74d17ccbd634"
+    },
+    {
+      "ref_id": "16.17",
+      "title": "16.17. Giao dịch cũ chưa lập hóa đơn / lập hóa đơn muộn",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "note": "Không áp tự động luật hóa đơn mới cho mọi giao dịch cũ.",
+      "text_sha256": "647381afb828a007259ced327ac24da41dc3c4d87b95f44936cb3cfa8f946033",
+      "before_sha256": "c01712c49e8090b7ccec0bbbb15f3ef302f9cfec97d18709d3abe5c3312e5822",
+      "after_sha256": "647381afb828a007259ced327ac24da41dc3c4d87b95f44936cb3cfa8f946033"
+    },
+    {
+      "ref_id": "16.18",
+      "title": "16.18. Khách trả lại hàng sau khi đã lập hóa đơn",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://chinhsachonline.chinhphu.vn/hoa-don-tu-may-tinh-tien-sai-ten-dia-chi-co-phai-lap-lai-90814.htm (Điều10 TT91, chưa đối chiếu đủ mọi nhánh)"
+      ],
+      "existing_source_links": [
+        "https://vanban.chinhphu.vn/?docid=219006&pageid=27160",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "note": "Giữ điều kiện ngày hóa đơn/trả hàng; chưa đọc ảnh toàn Điều10 TT91. Không coi nội dung đã được pháp lý chứng nhận toàn bộ.",
+      "text_sha256": "6794913cd3e51f467ca3931c7cd034783eeb11999ed388b55e0c7a30e47df397"
+    },
+    {
+      "ref_id": "16.19",
+      "title": "16.19. Mua hàng từ người dân/cá nhân không có hóa đơn",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-thong-tu-152-2025-tt-bt-huong-dan-ke-toan-cho-cac-ho-kinh-doanh-ca-nhan-kinh-doanh-119260112105136458.htm",
+        "public/documents/7403-CT-TMDT-2026.docx"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-mua-hang-tu-ca-nhan-kinh-doanh-co-doanh-thu-duoi-500-trieu-dong-nam-khong-hoa-don-co-duoc-phep-lap-bang-ke-mua-hang-119260312204259799.htm",
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-moi-ve-thue-va-hoa-don-dien-tu-trong-thuong-mai-dien-tu-va-ban-hang-da-kenh-119260717133903995.htm"
+      ],
+      "note": "Tách bảng kê chi phí HKD khỏi quy tắc TNDN của bên mua và không thay 500 triệu trong mọi văn bản.",
+      "text_sha256": "9fe0f761f6b97dca3db3d4ad35aef3daa950699b884d141bb66ef48fa2d81dc9",
+      "before_sha256": "e11b48ceeb13201e6bfc3ce77c549d30931571017396c6937e0478795066ed7c",
+      "after_sha256": "9fe0f761f6b97dca3db3d4ad35aef3daa950699b884d141bb66ef48fa2d81dc9"
+    },
+    {
+      "ref_id": "16.20",
+      "title": "16.20. Affiliate: phân loại theo quan hệ lao động và bản chất kinh doanh theo mục 1 Công văn 7403/CT-TMĐT",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "cf1eb2ec930531c3a26e4b7230b9c5f783cce1d0ef7493e6f1cedc55116d24d3"
+    },
+    {
+      "ref_id": "16.21",
+      "title": "16.21. HĐĐT điều chỉnh/thay thế sau 01/07/2026",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://chinhsachonline.chinhphu.vn/hoa-don-tu-may-tinh-tien-sai-ten-dia-chi-co-phai-lap-lai-90814.htm (Điều10 TT91, chưa đối chiếu đủ mọi nhánh)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "note": "Tách sai giá với sai tên và trả hàng; phần viện dẫn chi tiết TT91 cần đối chiếu lại bản gốc.",
+      "text_sha256": "5a67f308ca34cf99adf52e8db8f67b048641e32cfeb48de4fbd62c4d16faa1f0"
+    },
+    {
+      "ref_id": "16.22",
+      "title": "16.22. COD và phí ship thu hộ",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_AND_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)",
+        "https://xaydungchinhsach.chinhphu.vn/truong-hop-nao-khong-phai-su-dung-hoa-don-dien-tu-119260716095423868.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "note": "Thu hộ vận chuyển khác tiền công vận chuyển; đã kiểm nguyên tắc doanh thu/hóa đơn nhưng chưa xác minh đúng toàn bộ cách ghi hóa đơn từng mô hình.",
+      "text_sha256": "6038af84c8733d1f5c2db5dc80389510ee89a622a9fb4e450a559ff1914044f8"
+    },
+    {
+      "ref_id": "16.23",
+      "title": "16.23. HKD mới ra kinh doanh giữa năm: ngưỡng 1 tỷ",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-khai-thue-tinh-thue-va-su-dung-hoa-don-119260309113415826.htm"
+      ],
+      "note": "Ngưỡng năm không tự chia theo tháng kinh doanh; giữ phạm vi2026. Cần hồ sơ mới ra kinh doanh và quy định thông báo.",
+      "text_sha256": "a9564c6aef5752479600d88dd915736c4ac53cfaefac816ccf6e506728bab71a"
+    },
+    {
+      "ref_id": "16.24",
+      "title": "16.24. Hồ sơ thuế điện tử: “đã gửi/ghi nhận” khác với “tiếp nhận hồ sơ hợp lệ”",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218974&orggroupid=4&pageid=27160"
+      ],
+      "note": "Giữ khác biệt gửi, tiếp nhận và hợp lệ; chưa xác minh toàn bộ quy trình TT89 nên không xác nhận hiệu lực hồ sơ chỉ từ ảnh gửi thành công.",
+      "text_sha256": "0663e8b340c945f259f42304ee7dca541e147af89c4add823652e2357e8c54f5"
+    },
+    {
+      "ref_id": "16.25",
+      "title": "16.25. Trạng thái MST 03/06 và tạm hoãn xuất cảnh",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-cac-truong-hop-tam-hoan-xuat-canh-do-no-thue-119260703100941028.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-cac-truong-hop-tam-hoan-xuat-canh-do-no-thue-119260703100941028.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm"
+      ],
+      "note": "Đã đọc nguồn Chính phủ: nhánh50triệu+120ngày+cưỡng chế khác nhánh không hoạt động địa chỉ120ngày sau thông báo; không tự hoãn chỉ từ trạng thái MST.",
+      "text_sha256": "fb4405812082f24f187061bf7b14766f504b782b0fe63c5708414770ee06cad7"
+    },
+    {
+      "ref_id": "16.26",
+      "title": "16.26. Dạy học/đào tạo",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-48-2024-QH15.pdf (Điều5,12; còn cần chuỗi sửa đổi đúng kỳ)"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-Thue-gia-tri-gia-tang-2024-so-48-2024-QH15-556390.aspx?anchor=dieu_14"
+      ],
+      "note": "Dạy học/đào tạo chỉ miễn GTGT đúng phạm vi luật; không suy miễn TNCN. Chưa tái đọc toàn văn khoản tương ứng VAT hợp nhất.",
+      "text_sha256": "3d5c7ebdc5e97a9662536965e8206563d3cbdab21730477b001a93bdf45dff1a"
+    },
+    {
+      "ref_id": "16.27",
+      "title": "16.27. Gỗ tròn mua về cưa xẻ thành thanh/ván rồi bán",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-48-2024-QH15.pdf (Điều5,12; còn cần chuỗi sửa đổi đúng kỳ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm",
+        "https://xaydungchinhsach.chinhphu.vn/thue-suat-doi-voi-cac-hoat-dong-kinh-doanhcua-ho-kinh-doanh-119260407103211289.htm"
+      ],
+      "note": "Mua gỗ cưa xẻ cần xét sản xuất/chế biến; không lấy miễn cho trực tiếp sản xuất lâm nghiệp. Chưa tái xác minh mã ngành từng hoạt động.",
+      "text_sha256": "8cf4d76b89605180002b95db0b93d1afb4311799184404e1fe551a9de15e6bfc"
+    },
+    {
+      "ref_id": "16.28",
+      "title": "16.28. Mua cà phê tươi của dân rồi bán lại",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-48-2024-QH15.pdf (Điều5,12; còn cần chuỗi sửa đổi đúng kỳ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm"
+      ],
+      "note": "Cà phê mua lại khác tự sản xuất; chỉ sơ chế khác chế biến. Cần quy trình và chủ thể, chưa chứng nhận tỷ lệ cho từng biến thể.",
+      "text_sha256": "43bbd3771dd2445e5955a1e3c8073f1bc3982defd227a208bc7b2258de5c3c18"
+    },
+    {
+      "ref_id": "16.29",
+      "title": "16.29. Vừa kinh doanh thông thường vừa cho thuê bất động sản: tách riêng ngưỡng và mức trừ",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-ho-kinh-doanh-ke-khai-thue-khi-vua-cho-thue-bat-dong-san-vua-cho-thue-tai-san-119260323160131075.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-ho-kinh-doanh-ke-khai-thue-khi-vua-cho-thue-bat-dong-san-vua-cho-thue-tai-san-119260323160131075.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "https://xaydungchinhsach.chinhphu.vn/truong-hop-nao-khong-phai-su-dung-hoa-don-dien-tu-119260716095423868.htm"
+      ],
+      "note": "Giới hạn tách nhóm 1 tỷ, không suy tách ngưỡng 10 tỷ NQ43; sửa hạn chế nguồn cũ.",
+      "text_sha256": "95ff3b366894a9c9ad5bebe43385980a913e3d6cab7baa915f4c32334c7c403c",
+      "before_sha256": "95745193fcc71c0064b19c6bd33942691b03d1eeb66c32825ed117429e2184a2",
+      "after_sha256": "95ff3b366894a9c9ad5bebe43385980a913e3d6cab7baa915f4c32334c7c403c"
+    },
+    {
+      "ref_id": "16.30",
+      "title": "16.30. Thời điểm doanh thu ≠ thời điểm lập hóa đơn; tiền đặt cọc/trả trước phải phân loại theo giao dịch",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/nhan-tien-hoa-hong-tu-nuoc-ngoai-ve-qua-chuyen-khoan-thoi-diem-ghi-nhan-doanh-thu-va-xuat-hoa-don-duoc-xac-dinh-khi-nao-119260722103856073.htm",
+        "https://xaydungchinhsach.chinhphu.vn/thoi-diem-lap-hoa-don-khi-thuc-hien-kinh-doanh-hang-hoa-dich-vu-co-gi-moi-119260728152001421.htm"
+      ],
+      "note": "Doanh thu TNCN và thời điểm hóa đơn là hai phép thử; đã đọc Điều5 NĐ68 và giải đáp đặt cọc/trả trước; không chỉ dựa ngày tiền về.",
+      "text_sha256": "9f286d124b0f608268e19dddb8ea6242843ac29afad1f65d0d256092f770d366"
+    },
+    {
+      "ref_id": "16.31",
+      "title": "16.31. Hợp đồng hỗn hợp: phải tách cấu phần hàng hóa, dịch vụ, xây dựng/lắp đặt; không được mở rộng dữ kiện",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm"
+      ],
+      "note": "Tách cấu phần theo bản chất hợp đồng; không từ một dòng hóa đơn tự suy gộp/tách. Đã đối chiếu cơ sở Điều5 NĐ68, chưa đủ cho mọi ngành.",
+      "text_sha256": "d4b1fa9e6ead1ca2e3c4ee6e1534e510521623ba48b3a58b108bbf4b7e9dabed"
+    },
+    {
+      "ref_id": "16.32",
+      "title": "16.32. Voucher, trợ giá, chiết khấu và phí sàn: xác định ai chịu khoản giảm cuối cùng",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "note": "Giữ đối soát ai chịu voucher/trợ giá và phí; doanh thu không tự là tiền ròng. Đã đọc cơ sở Điều5 NĐ68.",
+      "text_sha256": "851aabbbefa0f6858ed15887cda13c1ac5d22851702a8548250b61b6268201b6"
+    },
+    {
+      "ref_id": "16.33",
+      "title": "16.33. Tiền vào tài khoản không phát sinh từ kinh doanh: tự chuyển tiền, tiền vay, chuyển nhầm",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm"
+      ],
+      "note": "Tiền vay/tự chuyển/chuyển nhầm không tự thành doanh thu; cần hồ sơ, không mặc định mọi dòng tiền là kinh doanh.",
+      "text_sha256": "56a7a08487494f25eb26e85edf907d88a30be9b63803dfa2a073a40e9acc4773"
+    },
+    {
+      "ref_id": "16.34",
+      "title": "16.34. TNCN có “doanh thu khác”: thưởng, hỗ trợ, chiết khấu thanh toán, bồi thường liên quan kinh doanh",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm"
+      ],
+      "note": "Thưởng/hỗ trợ/bồi thường kinh doanh có phạm vi doanh thu khác; không nhập mọi tiền bồi thường cá nhân; đã đọc Điều5 NĐ68.",
+      "text_sha256": "e2212133d6ebef9e388529e47515feaf8398dd0aa4dfbe0b615005c9a44d3a7a"
+    },
+    {
+      "ref_id": "16.35",
+      "title": "16.35. Sàn khấu trừ: tổng doanh thu, khoản đã nộp và nghĩa vụ còn lại là ba lớp khác nhau",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ban-hang-da-kenh-hieu-dung-de-thuc-hien-dung-nghia-vu-thue-119260727151911181.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "912d9e2ac22326576c38a1673c5adde6267c59848aea2e2262e0bffa5f02b01b"
+    },
+    {
+      "ref_id": "16.36",
+      "title": "16.36. Thanh lý/bán tài sản kinh doanh, tài sản cá nhân và phế liệu phải phân loại riêng",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_AND_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)",
+        "https://xaydungchinhsach.chinhphu.vn/truong-hop-nao-khong-phai-su-dung-hoa-don-dien-tu-119260716095423868.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-su-dung-hoa-don-dien-tu-voi-ho-kinh-doanh-co-doanh-thu-duoi-1-ty-dong-nam-119260727150121544.htm",
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm"
+      ],
+      "note": "Tài sản kinh doanh/cá nhân/phế liệu cần phân loại; không suy tất cả tài sản thanh lý là cùng một tỷ lệ. Ngoại lệ hóa đơn cần nguồn trực tiếp theo hồ sơ.",
+      "text_sha256": "dcdbbb65d6637616b9de13c85f5a1d47845a826e33fd06da1bd47fbb67711b66"
+    },
+    {
+      "ref_id": "16.37",
+      "title": "16.37. “Doanh thu” phải xác định theo mục đích pháp lý: TNCN, GTGT và HĐĐT không được dùng chung máy móc",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_AND_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)",
+        "https://xaydungchinhsach.chinhphu.vn/truong-hop-nao-khong-phai-su-dung-hoa-don-dien-tu-119260716095423868.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm",
+        "https://xaydungchinhsach.chinhphu.vn/truong-hop-nao-khong-phai-su-dung-hoa-don-dien-tu-119260716095423868.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+      ],
+      "note": "Giữ ba phạm vi doanh thu TNCN/GTGT/HĐĐT; Điều5 NĐ68 chỉ chứng minh nhánh TNCN, chưa tái chứng nhận toàn bộ phạm vi hóa đơn.",
+      "text_sha256": "54c852b3babc89fbee5011e7e927bab186a141b3d41483bda3d9970555e90b55"
+    },
+    {
+      "ref_id": "16.38",
+      "title": "16.38. Hộ kinh doanh doanh thu dưới 1 tỷ năm 2026 có bắt buộc dùng hóa đơn điện tử không? — Không bắt buộc (với hoạt độn",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-su-dung-hoa-don-dien-tu-voi-ho-kinh-doanh-co-doanh-thu-duoi-1-ty-dong-nam-119260727150121544.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ban-hang-qua-facebook-doanh-thu-tren-1-3-ty-dong-khong-co-hoa-don-dau-vao-co-the-lua-chon-phuong-phap-tinh-thue-nao-119260721164211413.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "https://xaydungchinhsach.chinhphu.vn/truong-hop-nao-khong-phai-su-dung-hoa-don-dien-tu-119260716095423868.htm"
+      ],
+      "note": "Giữ ngoại lệ tài sản phải đăng ký quyền; câu hỏi đúng1tỷ phải đọc kết hợp khoản5 Điều8 sửa đổi và quy định hóa đơn. Chưa tái đọc toàn văn NĐ254.",
+      "text_sha256": "10505008bf55c91488cd7954ff5163e6505beee482d981dffd19f299621e23c1"
+    },
+    {
+      "ref_id": "16.39",
+      "title": "16.39. Nghị quyết 43/2026/QH16: giảm 30% số thuế TNCN phải nộp kỳ 2026–2027",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/hoan-thanh-xay-dung-02-chi-tieu-tong-hop-cap-xa-trong-thang-10-2026-119261008055915953.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-43-2026-qh16-ve-giam-thue-thu-nhap-ca-nhan-thue-thu-nhap-doanh-nghiep-119260830184758301.htm"
+      ],
+      "note": "Không biến tình trạng dự thảo ở ngày cũ thành khẳng định hiện tại chưa có nghị định.",
+      "text_sha256": "0b84685796eb5b12050f60b256a4827323e03d5bb6311498dfd6f7340c10c00a",
+      "before_sha256": "5d31c5b8cdfefa61d6ec22ca08eace78f56856a02d0be61966631bdc153b0521",
+      "after_sha256": "0b84685796eb5b12050f60b256a4827323e03d5bb6311498dfd6f7340c10c00a"
+    },
+    {
+      "ref_id": "16.40",
+      "title": "16.40. Chỉ tiêu [14] Mẫu 01/CNKD (TT 50/2026): được CHỌN ngành/địa điểm áp mức trừ 1 tỷ theo phương án có lợi nhất",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm",
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm"
+      ],
+      "note": "Phân biệt quy tắc mức trừ với phiên bản mẫu và số chỉ tiêu có thể thay đổi.",
+      "text_sha256": "cf4cccac3a501d7e356fc2de7f7dec95f64d3a6c551458a9fd118658ed38e265",
+      "before_sha256": "d59b42b8f7bca0204593bd422ec209235b34629219218e8c0dad69b7f7cd3b4b",
+      "after_sha256": "cf4cccac3a501d7e356fc2de7f7dec95f64d3a6c551458a9fd118658ed38e265"
+    },
+    {
+      "ref_id": "16.41",
+      "title": "16.41. HĐĐT bắt buộc khi doanh thu năm hiện tại >1 tỷ; doanh thu năm trước chỉ dùng xác định nhánh chuyển ngưỡng và thời",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-su-dung-hoa-don-dien-tu-voi-ho-kinh-doanh-co-doanh-thu-duoi-1-ty-dong-nam-119260727150121544.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ban-hang-qua-facebook-doanh-thu-tren-1-3-ty-dong-khong-co-hoa-don-dau-vao-co-the-lua-chon-phuong-phap-tinh-thue-nao-119260721164211413.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+      ],
+      "note": "Giữ mốc30ngày sau cuối kỳ vượt ngưỡng và phân biệt nghĩa vụ/hạn. Đã có đối chiếu chi tiết ở16.105 đợt trước; không suy miễn nghĩa vụ từ dự kiến thấp.",
+      "text_sha256": "57a2f1ec08b3a3fff1963a46a330f126a85996b929bc4dee3742bcdc61a04ed2"
+    },
+    {
+      "ref_id": "16.42",
+      "title": "16.42. Sàn khấu trừ/nộp thay: không nộp trùng giao dịch nhưng vẫn xét nghĩa vụ tổng hợp năm",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm"
+      ],
+      "note": "Bỏ lệnh cấm tổng hợp quyết toán; tách không nộp trùng giao dịch khỏi nghĩa vụ năm.",
+      "text_sha256": "887be96da5e100f31ccde76f41b0cb16c9eb0334e87720e84ed4766988ad17a3",
+      "before_sha256": "fab68a3d1243fe210649613efa686294a0896ae5cb9b6dd8408f4355443fb369",
+      "after_sha256": "887be96da5e100f31ccde76f41b0cb16c9eb0334e87720e84ed4766988ad17a3"
+    },
+    {
+      "ref_id": "16.43",
+      "title": "16.43. Đặt cọc vs tạm ứng: thời điểm lập hóa đơn dịch vụ",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://chinhsachonline.chinhphu.vn/thoi-diem-lap-hoa-don-khoan-tam-ung-hop-dong-91876.htm"
+      ],
+      "existing_source_links": [
+        "https://chinhsachonline.chinhphu.vn/thoi-diem-lap-hoa-don-khoan-tam-ung-hop-dong-91876.htm"
+      ],
+      "note": "Đã đọc trả lời cơ quan thuế: Điều328 BLDS, Điều37 NĐ21, khoản2 Điều9 NĐ254; đặt cọc bảo đảm khác tạm ứng thanh toán.",
+      "text_sha256": "97dd11f9e035d1f308032e5393ade2d5e42ec8b96488d67da06caf55d5d302c7"
+    },
+    {
+      "ref_id": "16.44",
+      "title": "16.44. Nghị định 141/2026/NĐ-CP nâng ngưỡng doanh thu lên 1 tỷ đồng: phân biệt mức trừ TNCN và cơ sở GTGT",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "510ad242d43c98b354557cca749f6f16db696d656de8bb02451da9ebd82e64b8"
+    },
+    {
+      "ref_id": "16.45",
+      "title": "16.45. Thuật ngữ đúng theo phương pháp tính thuế TNCN",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm"
+      ],
+      "note": "Giữ thuật ngữ doanh thu tính thuế và thu nhập tính thuế theo phương pháp; không suy cùng công thức.",
+      "text_sha256": "fd00c5a9fd3ee254abc940195d7a12985b8fa99f49a7df77bae3a90b3ae274f3"
+    },
+    {
+      "ref_id": "16.46",
+      "title": "16.46. Ví dụ phân bổ mức trừ, giảm TNCN và đối chiếu sàn đã nộp thay",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm"
+      ],
+      "note": "Minh họa theo thứ tự xác định nghĩa vụ, giảm rồi đối trừ, không gắn mã test.",
+      "text_sha256": "f0dd409639caeccad960e1689f85633c69e47615a0be6743f2f5e9e0701cce89",
+      "before_sha256": "0e1db23904a8d4f5740fb25e8c5abae96515ee98c279cd141424ede6e35ad4e0",
+      "after_sha256": "f0dd409639caeccad960e1689f85633c69e47615a0be6743f2f5e9e0701cce89"
+    },
+    {
+      "ref_id": "16.48",
+      "title": "16.48. Mức trừ 1 tỷ TNCN với doanh thu qua sàn đã nộp thay: tính trên tổng gộp, đối trừ sau — VERIFIED (đóng U-Q2)",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "ab01e6718bc5fd4725056a5f4204bf03800b95e547e53946a97dc3ac68b06c66"
+    },
+    {
+      "ref_id": "16.49",
+      "title": "16.49. Nhóm thuế suất của khoản \"thưởng\" chưa rõ bản chất: xác định bản chất trước, cấm áp máy móc — VERIFIED_CONDITIONA",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm"
+      ],
+      "note": "Giữ phân loại thưởng theo bản chất thay vì chỉ tên tiền thưởng; đã đối chiếu cơ sở doanh thu Điều5 NĐ68.",
+      "text_sha256": "dbfb83d5b5da47d59903b08b1dcd97a968432cc3d186faab1515e463d6d7a067"
+    },
+    {
+      "ref_id": "16.50",
+      "title": "16.50. Giảm GTGT theo NQ204/NĐ174: đúng phương pháp, đối tượng và giai đoạn",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://baochinhphu.vn/giam-thue-gia-tri-gia-tang-tu-01-7-2025-den-het-31-12-2026-10225070118590677.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "a247c1e21c9cd503ed74f02acb3511b1d0352c4ed86a2a50b1d50570b9027f90"
+    },
+    {
+      "ref_id": "16.51",
+      "title": "16.51. Biểu mẫu HKD và hoàn nộp thừa: xác định đúng phương pháp, kỳ và thủ tục",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "public/documents/ND-252-2026-ND-CP.pdf (trang 57–60)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm"
+      ],
+      "note": "Sửa tên mẫu quyết toán; bỏ mốc 40 ngày cũ, đọc Điều31 NĐ252; không suy mẫu thông báo là hồ sơ hoàn vạn năng.",
+      "text_sha256": "fbfaa67030a18544589c48d9108d66179679dbf52561405ecbea20e5a0ac42f7",
+      "before_sha256": "cae315360c3703ff29dee7a00fa0ac5c5328cd4614f5eeac767da343aaa24469",
+      "after_sha256": "fbfaa67030a18544589c48d9108d66179679dbf52561405ecbea20e5a0ac42f7"
+    },
+    {
+      "ref_id": "16.52",
+      "title": "16.52. Chọn sổ kế toán 2026: S1a/S2a/S2b–S2e theo trạng thái và phương pháp thuế; không bắt buộc mua “sổ in sẵn” — VERIF",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-thong-tu-152-2025-tt-bt-huong-dan-ke-toan-cho-cac-ho-kinh-doanh-ca-nhan-kinh-doanh-119260112105136458.htm",
+        "public/documents/TT-152-2025-TT-BTC.pdf (trang 2, 3, 6, 14)"
+      ],
+      "existing_source_links": [
+        "https://www.mof.gov.vn/bo-tai-chinh/thong-tin-tham-dinh-gia/huong-dan-ke-toan-cho-ho-va-ca-nhan-kinh-doanh-tu-nam-2026",
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-ke-toan-cho-ho-kinh-doanh-ca-nhan-kinh-doanh-khong-chiu-thue-gtgt-khong-phai-nop-thue-tncn-11926011214502446.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-thong-tu-152-2025-tt-bt-huong-dan-ke-toan-cho-cac-ho-kinh-doanh-ca-nhan-kinh-doanh-119260112105136458.htm"
+      ],
+      "note": "Bổ sung hiệu lực thay TT88 và nghĩa vụ lưu trữ thực tế Điều3.",
+      "text_sha256": "1ef251f25a98bdf8d4bd102b9910b593eebb5d2097a6159e6b8a8a0219b6a5d4",
+      "before_sha256": "50cb2ea9f3d2b726b637c954a826057873de7fed56a22bd1bc1e65fe9424fde1",
+      "after_sha256": "1ef251f25a98bdf8d4bd102b9910b593eebb5d2097a6159e6b8a8a0219b6a5d4"
+    },
+    {
+      "ref_id": "16.53",
+      "title": "16.53. Vượt ngưỡng 1 tỷ trong năm 2026: bắt đầu khai từ quý phát sinh vượt; sau đó xác định chu kỳ tháng/quý theo dải do",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/lam-video-dang-tai-len-nen-tang-youtube-va-co-phat-sinh-doanh-thu-co-can-ke-khai-thue-119260723152359049.htm (chưa tái xác minh đủ dải50tỷ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/lam-video-dang-tai-len-nen-tang-youtube-va-co-phat-sinh-doanh-thu-co-can-ke-khai-thue-119260723152359049.htm",
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm",
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-so-141-2026-nd-cp-quy-dinh-moi-ve-chinh-sach-thue-doi-voi-ho-kinh-doanh-doanh-nghiep-119260430091642895.htm"
+      ],
+      "note": "Giữ quý bắt đầu vượt1tỷ; cần xác định phương pháp và dải doanh thu khi chọn kỳ; chưa tái đọc đầy đủ quy định50tỷ tháng/quý.",
+      "text_sha256": "850b074c08d8d49b5cfa8bea2bd86e890fa2c871071729602fd19a98779150e8"
+    },
+    {
+      "ref_id": "16.54",
+      "title": "16.54. Kỳ 2022–2025: ngưỡng 100 triệu/năm; trường hợp lịch sử không trọn năm phải xác định đúng phương pháp trước khi “q",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/TT-100-2021-TT-BTC.pdf",
+        "public/documents/TT-92-2015-TT-BTC.pdf"
+      ],
+      "existing_source_links": [
+        "https://binhduong.gdt.gov.vn/wps/portal/home/documents/detail?1dmy=&current=true&urile=wcm%3Apath%3AGDT+Content%2Fsa_gdt%2Fcctthc%2Ftthchh%2Fsa_tthc_vanban%2Fsa_tthc_vb_vbqd%2Fbad3a9ff-6e52-4bb5-a14b-293ae4d44026",
+        "https://chinhsachonline.chinhphu.vn/kinh-doanh-thuong-mai-dien-tu-xac-dinh-doanh-thu-tinh-thue-the-nao-79191.htm",
+        "https://portal.mof.gov.vn/hoidapcstc/home/cthoidap/152386"
+      ],
+      "note": "Đã đọc TT100 sửa khoản3 Điều7 TT40: hộ khoán mới kinh doanh từ2022 xét doanh thu thực tế; không kéo quy đổi12tháng của2021 sang.",
+      "text_sha256": "5ce7cd6bb0ac223b4fdaf8ba90f82b8afeb0fd52957cb065742ed104511eb73c"
+    },
+    {
+      "ref_id": "16.55",
+      "title": "16.55. HTKK/eTax/phần mềm tự tính ra số thuế không tự chứng minh nghĩa vụ cuối cùng — VERIFIED_CONDITIONAL",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [],
+      "note": "Giữ kết quả phần mềm chỉ là phép tính theo đầu vào, không chứng minh đúng nghĩa vụ; ví dụ số học đã đối chiếu.",
+      "text_sha256": "0af6eb511c2a878648bccb1b021b234061b8e042be2dd3df17c899e77a68f549"
+    },
+    {
+      "ref_id": "16.56",
+      "title": "16.56. Phương pháp TNCN theo dải doanh thu và ngoại lệ chuyển từ năm tiếp theo",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
+        "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-du-kien-dau-nam-doanh-thu-duoi-3-ty-dong-cuoi-nam-vuot-3-ty-dong-ap-dung-phuong-phap-tinh-thue-tncn-nao-119260722111045417.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "545468db77d4ff7d2a026d27255d0a7e90a25dab3a6f0cff4d4a55d4139d2291"
+    },
+    {
+      "ref_id": "16.57",
+      "title": "16.57. Sàn đã khấu trừ theo giao dịch nhưng doanh thu năm >3 tỷ: vẫn quyết toán TNCN theo phương pháp thu nhập; số sàn n",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-du-kien-dau-nam-doanh-thu-duoi-3-ty-dong-cuoi-nam-vuot-3-ty-dong-ap-dung-phuong-phap-tinh-thue-tncn-nao-119260722111045417.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-tren-san-thuong-mai-dien-tu-co-doanh-thu-tren-3-50-ty-dong-nam-cuoi-nam-co-phai-quyet-toan-thue-tncn-theo-loi-nhuan-11926072106422835.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-qua-thuong-mai-dien-tu-co-doanh-thu-tren-3-ti-dong-phi-san-va-phi-quang-cao-co-duoc-tru-khi-tinh-thue-tncn-119260722171402469.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-du-kien-dau-nam-doanh-thu-duoi-3-ty-dong-cuoi-nam-vuot-3-ty-dong-ap-dung-phuong-phap-tinh-thue-tncn-nao-119260722111045417.htm"
+      ],
+      "note": "Bổ sung chuyển phương pháp tránh xung đột với16.56; giữ nghĩa vụ năm khi đã thuộc diện.",
+      "text_sha256": "1acb1491830c1cdb1d8ef7d8066f24e27960aad9354cf5fefc87c685650bc541",
+      "before_sha256": "2fab612e5a010a61f57208b78b8fc69e7a4d67d3d35d61aae725a5dcb55be1fa",
+      "after_sha256": "1acb1491830c1cdb1d8ef7d8066f24e27960aad9354cf5fefc87c685650bc541"
+    },
+    {
+      "ref_id": "16.58",
+      "title": "16.58. HĐĐT tự nguyện ở nhóm ≤1 tỷ và trường hợp không có hóa đơn đầu vào: tách quyền dùng HĐĐT khỏi nghĩa vụ thuế và ch",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-su-dung-hoa-don-dien-tu-voi-ho-kinh-doanh-co-doanh-thu-duoi-1-ty-dong-nam-119260727150121544.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ban-hang-qua-facebook-doanh-thu-tren-1-3-ty-dong-khong-co-hoa-don-dau-vao-co-the-lua-chon-phuong-phap-tinh-thue-nao-119260721164211413.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-su-dung-hoa-don-dien-tu-voi-ho-kinh-doanh-co-doanh-thu-duoi-1-ty-dong-nam-119260727150121544.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ban-hang-qua-facebook-doanh-thu-tren-1-3-ty-dong-khong-co-hoa-don-dau-vao-co-the-lua-chon-phuong-phap-tinh-thue-nao-119260721164211413.htm"
+      ],
+      "note": "Đăng ký hóa đơn tự nguyện không tự tạo thuế; thiếu đầu vào không miễn lập đầu ra, khác điều kiện chi phí; chưa tái đối chiếu toàn bộ hướng dẫn.",
+      "text_sha256": "b9ef176e022f89f1454466da209181ddf46a71051177abece8950a931498a5cd"
+    },
+    {
+      "ref_id": "16.59",
+      "title": "16.59. Quên kỳ / nộp trùng tháng-quý: giữ nguyên ranh giới kỳ tính thuế; chưa nộp thì nộp đúng kỳ bị thiếu, đã nộp sai t",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-108-2025-QH15.pdf (Điều12,24,44)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thoi-han-nop-ho-so-khai-thue-119260703120801722.htm",
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-khai-bo-sung-ho-so-khai-thue-khoan-thu-khac-119260716102235462.htm"
+      ],
+      "note": "Nộp thiếu kỳ khác khai bổ sung kỳ sai; không cộng gộp quý để chữa thiếu hồ sơ. Đã đọc Luật108, chưa đọc toàn Điều thủ tục chi tiết NĐ252.",
+      "text_sha256": "9e533efb233156317637cfe219a37bef022bc27befb292dc4cefb662c5abe17c"
+    },
+    {
+      "ref_id": "16.60",
+      "title": "16.60. Temporal canonical: ngưỡng GTGT/TNCN của hộ/cá nhân kinh doanh theo từng kỳ 2021–2026 — VERIFIED_HISTORICAL + VER",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/TT-100-2021-TT-BTC.pdf",
+        "public/documents/TT-92-2015-TT-BTC.pdf"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Circular-40-2021-TT-BTC-value-added-tax-personal-income-tax-479507.aspx"
+      ],
+      "note": "Giữ bảng thời kỳ100triệu/1tỷ, phân biệt thay đổi và ngưỡng trung gian; đã đọc TT100 lịch sử, chuỗi ngưỡng2026 dựa đợt trước.",
+      "text_sha256": "fc2637387d7fae9fff1567f69584bbf55b43816d19dafdaeca34a415d06a514a"
+    },
+    {
+      "ref_id": "16.61",
+      "title": "16.61. Temporal canonical: từ 01/07/2026, thời hạn khai bổ sung chuyển từ 10 năm xuống 05 năm — VERIFIED_CURRENT",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-108-2025-QH15.pdf (Điều12,24,44)"
+      ],
+      "existing_source_links": [],
+      "note": "Đã đọc khoản5 Điều12 Luật108:05năm; không đồng nhất thời hạn bổ sung với truy thu/xử phạt; giữ điều kiện chuyển tiếp.",
+      "text_sha256": "503818e1f1b6b88680aa4bbbe4f6e605d6d7a4c8f05863361ee1e8abf2850041"
+    },
+    {
+      "ref_id": "16.62",
+      "title": "16.62. Năm 2021: ngưỡng 100 triệu đồng không bị mất khi chuyển từ TT 92 sang TT 40 — VERIFIED_HISTORICAL",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/TT-100-2021-TT-BTC.pdf",
+        "public/documents/TT-92-2015-TT-BTC.pdf"
+      ],
+      "existing_source_links": [],
+      "note": "Đã đọc ngưỡng100triệu tại TT92 và TT100; TT40 bản trong kho không có lớp text nên chưa tái đọc toàn Điều20. Giữ phân biệt chuyển tiếp và không đánh dấu đã xác minh toàn mục.",
+      "text_sha256": "47a607a92c125f18f92619b4887c03cb4ed287fb06fd828a5cd38bac8b27a0b8"
+    },
+    {
+      "ref_id": "16.63",
+      "title": "16.63. Thời hạn nộp hồ sơ khai thuế tháng/quý từ 01/07/2026 (Điều 10 NĐ 252/2026): ngày cuối cùng của tháng đầu quý sau,",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thoi-han-nop-ho-so-khai-thue-119260703120801722.htm"
+      ],
+      "existing_source_links": [],
+      "note": "Ngày cuối tháng đầu quý sau khác ngày30; chưa đọc lại toàn Điều10 NĐ252, giữ ghi chú nguồn cũ thay vì chứng nhận mới.",
+      "text_sha256": "e23d49835e874b38b41700cd81e8962177b4cbbb3a1022a823dfe11adb954a50"
+    },
+    {
+      "ref_id": "16.64",
+      "title": "16.64. Thời hạn đăng ký thuế lần đầu từ 01/07/2026 (NĐ 252/2026, Điều 6)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-252-2026-ND-CP.pdf (trang12–13)",
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thoi-han-dang-ky-thue-119260703104520919.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thoi-han-dang-ky-thue-119260703104520919.htm",
+        "https://luatvietnam.vn/thue-phi-le-phi/thoi-han-dang-ky-thue-565-111315-article.html",
+        "https://www.myvietnamtax.com/2026/07/cau-hoi-FAQs-thue-ho-kinh-doanh-2026.html",
+        "https://www.meinvoice.vn/tin-tuc/18392/dang-ky-thue-la-gi/",
+        "https://thuvienphapluat.vn/hoi-dap-phap-luat/khi-nao-ho-kinh-doanh-phai-dang-ky-thue-138096388.html"
+      ],
+      "note": "Nguồn Chính phủ cho Điều6 chỉ nêu nhánh không thuộc diện đăng ký kinh doanh; bỏ mốc tự gán cho người chưa được cấp giấy và mẫu chưa được xác minh.",
+      "text_sha256": "1ffaea9f87d34de94c4db0428972e830a17d540d1c9503cc4fc946bbef13f043",
+      "before_sha256": "d1878a257f475eb26330ca02c7522be3f49f010d56a6ba000d32fad463b233ff",
+      "after_sha256": "1ffaea9f87d34de94c4db0428972e830a17d540d1c9503cc4fc946bbef13f043"
+    },
+    {
+      "ref_id": "16.65",
+      "title": "16.65. Chế tài chậm đăng ký thuế KHÔNG áp dụng cho trường hợp đăng ký thuế liên thông",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-125-2020-ND-CP.pdf (Điều1,5,10,12,16)"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Nghi-dinh-125-2020-ND-CP-xu-phat-vi-pham-hanh-chinh-ve-thue-hoa-don-455646.aspx"
+      ],
+      "note": "Đã đọc khoản1 Điều1 NĐ125: thủ tục đăng ký liên thông ngoài phạm vi nghị định; không suy miễn chế tài kinh doanh khác.",
+      "text_sha256": "5d63bb68e0f32e20d1c87542e7f9121c26071e4bf01feecdf13c49b3ad4734fb"
+    },
+    {
+      "ref_id": "16.66",
+      "title": "16.66. Khung phạt chậm đăng ký thuế lần đầu (Điều 10 NĐ 125/2020) — mức tổ chức và mức cá nhân",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-125-2020-ND-CP.pdf (Điều1,5,10,12,16)"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Nghi-dinh-125-2020-ND-CP-xu-phat-vi-pham-hanh-chinh-ve-thue-hoa-don-455646.aspx",
+        "https://thuvienphapluat.vn/van-ban/Thuong-mai/Nghi-dinh-310-2025-ND-CP-sua-doi-Nghi-dinh-125-2020-ND-CP-xu-phat-hanh-chinh-linh-vuc-thue-478004.aspx"
+      ],
+      "note": "Đã đọc khung Điều10 và quy tắc cá nhân Điều5 NĐ125; NĐ310 bản trong kho là slide, chưa dùng nó làm nguyên văn nghị định. Cần kiểm nguyên văn sửa đổi chi tiết và tình tiết.",
+      "text_sha256": "91f68781adcb6dcb5a1b58b2fb590026e3edfebbcef40fd475008d24c7ba0f30"
+    },
+    {
+      "ref_id": "16.67",
+      "title": "16.67. Khai sai hồ sơ thuế nhưng không làm thiếu thuế (Điều 12 NĐ 125/2020)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-125-2020-ND-CP.pdf (Điều1,5,10,12,16)"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Nghi-dinh-125-2020-ND-CP-xu-phat-vi-pham-hanh-chinh-ve-thue-hoa-don-455646.aspx"
+      ],
+      "note": "Đã đọc Điều12 NĐ125 và quy tắc nửa mức cá nhân; phải xác định chỉ tiêu nghĩa vụ, không áp khung chỉ từ tên lỗi.",
+      "text_sha256": "4fed3ef44573886b2d45d027aafab4be6659f7396bc50fc28e2e0821787b6da0"
+    },
+    {
+      "ref_id": "16.68",
+      "title": "16.68. Khai sai dẫn đến thiếu số thuế phải nộp (Điều 16 NĐ 125/2020)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-125-2020-ND-CP.pdf (Điều1,5,10,12,16)"
+      ],
+      "existing_source_links": [],
+      "note": "Đã đọc Điều16 NĐ125 và Luật108 phần tự bổ sung; điều kiện miễn phạt không đồng nhất mọi lỗi đăng ký. Cần kiểm lại nguyên văn sửa Điều9/16 NĐ310.",
+      "text_sha256": "c2183c90c3dcf8892a9a7a7b0c93ba04d213950c4bafd75eb5482d1ddcae2047"
+    },
+    {
+      "ref_id": "16.69",
+      "title": "16.69. Không lập hóa đơn khi bán hàng hóa, cung cấp dịch vụ (Điều 24 NĐ 125/2020, sửa bởi NĐ 310/2025)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_AND_AMENDMENT_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/hanh-vi-khong-lap-hoa-don-theo-quy-dinh-bi-xu-phat-nhu-the-nao-11925120512122051.htm",
+        "public/documents/ND-291-2026-ND-CP.pdf"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thuong-mai/Nghi-dinh-310-2025-ND-CP-sua-doi-Nghi-dinh-125-2020-ND-CP-xu-phat-hanh-chinh-linh-vuc-thue-478004.aspx"
+      ],
+      "note": "Bảng số lượng hóa đơn khớp giải thích Chính phủ; đã đọc NĐ291 thấy chỉ bổ sung trao đổi thông tin, không sửa bảng này. Bản ND310 trong kho là slide, không phải toàn văn.",
+      "text_sha256": "48e51b0b31a6f63ab8a801930bb2f8046a2267ee3e374058358578c4d8575b61"
+    },
+    {
+      "ref_id": "16.70",
+      "title": "16.70. Các trường hợp bị ấn định thuế từ 01/07/2026 (khoản 2 Điều 24 Luật Quản lý thuế 108/2025)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-108-2025-QH15.pdf (Điều12,24,44)"
+      ],
+      "existing_source_links": [],
+      "note": "Đã đọc khoản2 Điều24 Luật108; chênh lệch đầu vào/đầu ra tự thân chưa đủ căn cứ ấn định. Giữ khác biệt dữ liệu và căn cứ pháp lý.",
+      "text_sha256": "a68cb53f2cdaf5db704254276148e727c56f0f68683716e0ec9fc97e12f3818a"
+    },
+    {
+      "ref_id": "16.71",
+      "title": "16.71. Sổ sách và lưu trữ của nhóm không chịu GTGT, không phải nộp TNCN",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-thong-tu-152-2025-tt-bt-huong-dan-ke-toan-cho-cac-ho-kinh-doanh-ca-nhan-kinh-doanh-119260112105136458.htm",
+        "public/documents/TT-152-2025-TT-BTC.pdf (trang 2–3,14)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-thong-tu-152-2025-tt-bt-huong-dan-ke-toan-cho-cac-ho-kinh-doanh-ca-nhan-kinh-doanh-119260112105136458.htm"
+      ],
+      "note": "Sửa sai TT88, bỏ việc hạ nghĩa vụ ghi/lưu sổ thành khuyến nghị.",
+      "text_sha256": "b8ff3420c4123e01b3bf21fcaed03c2ed5812d111fe8f0f9290dd297435f5cfe",
+      "before_sha256": "1607b806d70bd187c3194423042895dd583b8deab89033c8ee9a0c5fed6d699f",
+      "after_sha256": "b8ff3420c4123e01b3bf21fcaed03c2ed5812d111fe8f0f9290dd297435f5cfe"
+    },
+    {
+      "ref_id": "16.72",
+      "title": "16.72. Doanh thu năm: quyền được hưởng, phạm vi chủ thể và số liệu cần đối soát",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm",
+        "https://xaydungchinhsach.chinhphu.vn/ban-hang-da-kenh-hieu-dung-de-thuc-hien-dung-nghia-vu-thue-119260727151911181.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "41f4f79a0a7d4052aa40a16b1d496fc89afe7808bd8540f67ae3f813fdf7c478"
+    },
+    {
+      "ref_id": "16.73",
+      "title": "16.73. Affiliate: giới hạn nguồn lịch sử và dữ kiện phân loại thu nhập",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "fa82f87b4e1a7560e44bdc277cbfeee286952360d630aeac08ffb573b7e05433"
+    },
+    {
+      "ref_id": "16.74",
+      "title": "16.74. Doanh thu YouTube/AdSense: hoạt động kinh doanh, tự kê khai TNCN và GTGT",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/lam-video-dang-tai-len-nen-tang-youtube-va-co-phat-sinh-doanh-thu-co-can-ke-khai-thue-119260723152359049.htm (chưa tái xác minh đủ dải50tỷ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/lam-video-dang-tai-len-nen-tang-youtube-va-co-phat-sinh-doanh-thu-co-can-ke-khai-thue-119260723152359049.htm"
+      ],
+      "note": "YouTube kinh doanh nhưng còn xét quan hệ và nguồn thu khác; mốc thông báo/quyết toán cần đúng phương pháp. Nguồn hỏi đáp cũ chưa được tái chứng nhận đủ.",
+      "text_sha256": "b3ab416b02645142f03b2f5c5d71b39a59df5630c8de9c48b2e5804bd272331d"
+    },
+    {
+      "ref_id": "16.75",
+      "title": "16.75. Ngưỡng 1 tỷ xét theo từng cá nhân kinh doanh; vợ chồng hai HKD không tự động cộng doanh thu",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/ma-so-thue/phap-luat-thue/thuc-hu-quy-dinh-nang-nguong-chiu-thue-ho-kinh-doanh-tu-3-ty-tro-len-moi-phai-dong-thue-co-dung-kho-114775-224607.html",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
+      ],
+      "note": "Ngưỡng theo cá nhân, không tự cộng vợ chồng độc lập; không chấp nhận tách hình thức. Cơ sở chủ thể dựa NĐ68 và đợt CV7403 trước.",
+      "text_sha256": "14eaf88592957b9840194339612d5ba0c27198ef89547fb36ebbdc21810c6a04"
+    },
+    {
+      "ref_id": "16.77",
+      "title": "16.77. Bảng tỷ lệ % GTGT và TNCN trên doanh thu theo nhóm ngành 2026 — ĐÃ CÓ NGUỒN (điền từ nguyên văn luật ngày 2026-10",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "public/documents/7403-CT-TMDT-2026.docx",
+        "https://xaydungchinhsach.chinhphu.vn/ho-kinh-doanh-du-kien-dau-nam-doanh-thu-duoi-3-ty-dong-cuoi-nam-vuot-3-ty-dong-ap-dung-phuong-phap-tinh-thue-tncn-nao-119260722111045417.htm"
+      ],
+      "existing_source_links": [],
+      "note": "Bỏ ví dụ phân loại affiliate cũ và pending trỏ mục đã bỏ; tách tỷ lệ GTGT khỏi phạm vi phương pháp TNCN.",
+      "text_sha256": "66a5b1d73e70cced1934c4ef41fca8a5da130a2ebf4cc53d000ad34ad0a12799",
+      "before_sha256": "d4a30d32af245778d55d0936a8a85476c6930b6d5340d532150b711cd0fef201",
+      "after_sha256": "66a5b1d73e70cced1934c4ef41fca8a5da130a2ebf4cc53d000ad34ad0a12799"
+    },
+    {
+      "ref_id": "16.78",
+      "title": "16.78. NQ43: tách quyền giảm thuế khỏi thủ tục triển khai",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/hoan-thanh-xay-dung-02-chi-tieu-tong-hop-cap-xa-trong-thang-10-2026-119261008055915953.htm"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/hoan-thanh-xay-dung-02-chi-tieu-tong-hop-cap-xa-trong-thang-10-2026-119261008055915953.htm"
+      ],
+      "note": "Hoàn thiện mục thủ tục chỉ có một dòng, không tuyên bố dự thảo là pháp luật.",
+      "text_sha256": "f9c8116e04d423333ac1787170b0d583d8fe735df808b050454ec0e41592c399",
+      "before_sha256": "2074bc7f3f75910cc118282043f7013f9f51ed40babbe283756ba1ceb4a09f73",
+      "after_sha256": "f9c8116e04d423333ac1787170b0d583d8fe735df808b050454ec0e41592c399"
+    },
+    {
+      "ref_id": "16.79",
+      "title": "16.79. Phạm vi doanh thu xét ngưỡng HĐĐT 1 tỷ: nguyên tắc và giới hạn khi có doanh thu đặc thù",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "INTERNAL_REFERENCE_OR_SCOPE_FIX",
+      "checked_sources": [],
+      "existing_source_links": [],
+      "note": "Bổ sung phần giới hạn bị thiếu thay cho tiêu đề hứa ba tình huống không có nội dung.",
+      "text_sha256": "bedeee16e24c02bea7990dd500aa01681b9a54d4ef13aae7253b910cf8a6b6ed",
+      "before_sha256": "391a3dea44caa7a45b6578d1853a9fa4b9e6c4c694a549519b5287b0903a2f3c",
+      "after_sha256": "bedeee16e24c02bea7990dd500aa01681b9a54d4ef13aae7253b910cf8a6b6ed"
+    },
+    {
+      "ref_id": "16.81",
+      "title": "16.81. Biểu thuế lũy tiến tiền lương, tiền công 2026 (Điều 9 Luật 109/2025/QH15)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-Thue-thu-nhap-ca-nhan-2025-so-109-2025-QH15-665870.aspx",
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf"
+      ],
+      "note": "Giới hạn mức giảm trừ11/4.4 vào kỳ phù hợp, không áp mọi năm cũ.",
+      "text_sha256": "245a05cd8d5e66777db0103e6f5f319b0ef2580dcdbb92024335016f6fa26e3b",
+      "before_sha256": "237a1c500fda8c8554cb31f72b26a5b83d9d0f28e88ea1b495804ad2560ca898",
+      "after_sha256": "245a05cd8d5e66777db0103e6f5f319b0ef2580dcdbb92024335016f6fa26e3b"
+    },
+    {
+      "ref_id": "16.82",
+      "title": "16.82. Giảm trừ gia cảnh và thu nhập tính thuế tiền lương (Điều 8, 10 Luật 109/2025/QH15)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://baochinhphu.vn/quy-dinh-moi-ve-thue-thu-nhap-ca-nhan-102260707165524772.htm"
+      ],
+      "existing_source_links": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/87-btc.signed.pdf,",
+        "https://thuvienphapluat.vn/ma-so-thue/phap-luat-thue/nam-2026-nguoi-phu-thuoc-co-thu-nhap-bao-nhieu-thi-duoc-dang-ky-giam-tru-gia-canh-238632-230086.html",
+        "https://baochinhphu.vn/quy-dinh-moi-ve-thue-thu-nhap-ca-nhan-102260707165524772.htm"
+      ],
+      "note": "Đã có nguồn Chính phủ về mức thu nhập NPT3triệu, không còn chỉ ba nguồn thứ cấp.",
+      "text_sha256": "0b8ed5309f87d3118fda78c5d3d35cdb6c2f59c047c4ce22e64f4783108810d5",
+      "before_sha256": "49bb1885a02b28af3341237471b83dc4cf20f23027d2b8d0f8aa9702fe4fa0a0",
+      "after_sha256": "0b8ed5309f87d3118fda78c5d3d35cdb6c2f59c047c4ce22e64f4783108810d5"
+    },
+    {
+      "ref_id": "16.83",
+      "title": "16.83. Khấu trừ thuế khi trả thu nhập (Điều 50 NĐ 253/2026/NĐ-CP)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-253-2026-ND-CP.pdf (trang35–36)"
+      ],
+      "existing_source_links": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/87-btc.signed.pdf",
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Nghi-dinh-253-2026-ND-CP-huong-dan-Luat-Thue-thu-nhap-ca-nhan-699193.aspx",
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/253m-ndcp.signed.pdf"
+      ],
+      "note": "Đã đọc Điều50 NĐ253 trang35–36:5triệu/lần,10%, cam kết và HĐLĐ>=3tháng. Số hiệu cam kết hiện hành vẫn chưa xác minh, không nhập theo trí nhớ.",
+      "text_sha256": "28ce0751b77b131fc753428e80d71cfd6ea1aaea2cf0caa7f5e8bdb66a736334"
+    },
+    {
+      "ref_id": "16.84",
+      "title": "16.84. Freelancer/thù lao dịch vụ: phân loại bằng quan hệ và hoạt động thực tế",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-253-2026-nd-cp-huong-dan-thi-hanh-luat-thue-thu-nhap-ca-nhan-119260713171348107.htm",
+        "public/documents/7403-CT-TMDT-2026.docx",
+        "public/documents/ND-253-2026-ND-CP.pdf (trang 4)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-253-2026-nd-cp-huong-dan-thi-hanh-luat-thue-thu-nhap-ca-nhan-119260713171348107.htm"
+      ],
+      "note": "Đọc Điều8 NĐ253 và bỏ suy diễn đăng ký là yếu tố duy nhất; giữ hướng dẫn chuyên biệt CV7403.",
+      "text_sha256": "d99a62c22f88fc5ab509351181ecd49fb4ed41e8489478707e34d5ce4b073365",
+      "before_sha256": "76f58f3a1756987381cb70c9a4ad2f875b7a89e9c4e2aeb578fc941ec68ccc60",
+      "after_sha256": "d99a62c22f88fc5ab509351181ecd49fb4ed41e8489478707e34d5ce4b073365"
+    },
+    {
+      "ref_id": "16.85",
+      "title": "16.85. Quyết toán và ủy quyền quyết toán thuế TNCN (Điều 51 NĐ 253/2026/NĐ-CP)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "public/documents/ND-253-2026-ND-CP.pdf (trang38–39)"
+      ],
+      "existing_source_links": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/253m-ndcp.signed.pdf"
+      ],
+      "note": "Đọc khoản3 Điều51: bỏ pending sai, bổ sung dịch bệnh và tự quyết toán khi yêu cầu giảm trừ Điều49; không khẳng định mẫu cũ là hiện hành.",
+      "text_sha256": "bf5a6168937270dd39a050d7d73cce0f64485cefcc872dda4e6bee37080e7709",
+      "before_sha256": "f7b25ce53521cc4701a89f0d0a818950bafc017290133a25cf14203e67e427eb",
+      "after_sha256": "bf5a6168937270dd39a050d7d73cce0f64485cefcc872dda4e6bee37080e7709"
+    },
+    {
+      "ref_id": "16.86",
+      "title": "16.86. Hoàn thuế TNCN (Điều 6 Luật 109/2025; Điều 15 Luật 108/2025)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "public/documents/ND-252-2026-ND-CP.pdf (trang57–60)"
+      ],
+      "existing_source_links": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "https://xcyber.vn/cong-ty-hoan-thue-thu-nhap-ca-nhan-cho-nhan-vien/"
+      ],
+      "note": "Thay thủ tục thứ cấp3ngày bằng nguồn Điều29–31 NĐ252; bổ sung ngoại lệ<=50k.",
+      "text_sha256": "17acf8c6e117e6274316ff8d7c717fa3701af9cd8deb9adf7fb058f3b3b2d7dd",
+      "before_sha256": "7999060a3d43d2328a9ff4e6f5b16a55039aa36dd0a4cdb980b73ce293ac3ccd",
+      "after_sha256": "17acf8c6e117e6274316ff8d7c717fa3701af9cd8deb9adf7fb058f3b3b2d7dd"
+    },
+    {
+      "ref_id": "16.87",
+      "title": "16.87. Cư trú thuế: ngày hiện diện, nơi ở thường xuyên và chứng nhận cư trú nước ngoài",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-253-2026-nd-cp-huong-dan-thi-hanh-luat-thue-thu-nhap-ca-nhan-119260713171348107.htm",
+        "public/documents/ND-253-2026-ND-CP.pdf (trang2–3)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-253-2026-nd-cp-huong-dan-thi-hanh-luat-thue-thu-nhap-ca-nhan-119260713171348107.htm"
+      ],
+      "note": "Bổ sung183ngày thuê và chứng minh cư trú nước ngoài, tránh kết luận chỉ bằng hợp đồng12tháng.",
+      "text_sha256": "2d27b3a6ab7dbccff4d321247779c7c73e9e9ced56256da4b13b9a4e584d2dd3",
+      "before_sha256": "cb68fb6a05b312d741fa076a3894873b3c8552aa31da72d86f48a07bb1e3caba",
+      "after_sha256": "2d27b3a6ab7dbccff4d321247779c7c73e9e9ced56256da4b13b9a4e584d2dd3"
+    },
+    {
+      "ref_id": "16.88",
+      "title": "16.88. Chuyển nhượng bất động sản: thuế suất và miễn thuế (Điều 14, Điều 4 Luật 109/2025/QH15)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/ca-nhan-chuyen-nhuong-co-duy-nhat-mot-nha-o-quyen-su-dung-dat-o-tai-viet-nam-duoc-mien-thue-thu-nhap-ca-nhan-11926070309365282.htm"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-Thue-thu-nhap-ca-nhan-2025-so-109-2025-QH15-665870.aspx",
+        "https://doanhnhan.baophapluat.vn/ban-nha-duy-nhat-duoc-mien-thue-thu-nhap-ca-nhan-trong-truong-hop-nao-744f8fa2.html",
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf",
+        "https://xaydungchinhsach.chinhphu.vn/ca-nhan-chuyen-nhuong-co-duy-nhat-mot-nha-o-quyen-su-dung-dat-o-tai-viet-nam-duoc-mien-thue-thu-nhap-ca-nhan-11926070309365282.htm"
+      ],
+      "note": "Thay pending chỉ dựa thứ cấp bằng điều kiện nhà duy nhất trong giải thích Chính phủ; bổ sung nhà hình thành trong tương lai và chuyển toàn bộ.",
+      "text_sha256": "b48a50cf78e23ed7f9a8c92e645c8306052e0da815601ec4029593d246f45e18",
+      "before_sha256": "00e4b3373925893a6342a4e1eced5652734376c68da0cfc7122a5b412ae8090c",
+      "after_sha256": "b48a50cf78e23ed7f9a8c92e645c8306052e0da815601ec4029593d246f45e18"
+    },
+    {
+      "ref_id": "16.89",
+      "title": "16.89. Chứng khoán, chuyển nhượng vốn, đầu tư vốn (Điều 12, 13 Luật 109/2025/QH15)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-109-2025-QH15.pdf (trang10)",
+        "public/documents/ND-253-2026-ND-CP.pdf (trang39–42)"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-Thue-thu-nhap-ca-nhan-2025-so-109-2025-QH15-665870.aspx",
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf"
+      ],
+      "note": "Đã đọc trực tiếp Luật109 Điều13 và NĐ253 Điều52–54: chuyển nhượng vốn khác chứng khoán, không khấu trừ lỗ chứng khoán theo công thức lợi nhuận.",
+      "text_sha256": "8b8ccd2218f49234c253ef455f7e18c330484c38bc7b632d4c7207938dd28eae"
+    },
+    {
+      "ref_id": "16.90",
+      "title": "16.90. Thừa kế, quà tặng, trúng thưởng, bản quyền, thu nhập khác (Điều 15, 18, 19, 27 Luật 109/2025/QH15)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf",
+        "public/documents/Luat-109-2025-QH15.pdf (trang11–12)",
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thu-nhap-chiu-thue-thu-nhap-ca-nhan-119260327062624382.htm"
+      ],
+      "existing_source_links": [
+        "https://thuvienphapluat.vn/van-ban/Thue-Phi-Le-Phi/Luat-Thue-thu-nhap-ca-nhan-2025-so-109-2025-QH15-665870.aspx",
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf"
+      ],
+      "note": "Bổ sung phần bản quyền bị bỏ sót và điều kiện triển khai riêng của vàng miếng.",
+      "text_sha256": "4347fe6fbaf2b950bcfbb293bde58cf6dabbe279084563d1cbef6d629d845a19",
+      "before_sha256": "69f489268282a75eb5c8c9ba000192b3e0d89a28c5761fa55c0efea5034f13b8",
+      "after_sha256": "4347fe6fbaf2b950bcfbb293bde58cf6dabbe279084563d1cbef6d629d845a19"
+    },
+    {
+      "ref_id": "16.91",
+      "title": "16.91. Cho thuê BĐS — công thức và hiệu lực (khoản 4 Điều 7 Luật 109/2025; Luật 09/2026/QH16; NĐ 141/2026)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-ho-kinh-doanh-ke-khai-thue-khi-vua-cho-thue-bat-dong-san-vua-cho-thue-tai-san-119260323160131075.htm"
+      ],
+      "existing_source_links": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf",
+        "https://xdcs.cdnchinhphu.vn/446259493575335936/2026/5/4/141-ndcp-signed-1777883675606599215477.pdf",
+        "https://congbaocdn.chinhphu.vn/180507251028987904/2026/3/18/cong-bao-so-152-ngay-19-03-47065_1773803455_signed.pdf"
+      ],
+      "note": "Bỏ pending dẫn mục16.92 không còn, dùng hướng dẫn tách nhóm đã có.",
+      "text_sha256": "7c006cada5dfec37f097bd10b3bd8d5267696ba066c55cce93f0bf44ee83fde5",
+      "before_sha256": "aba28a9ddf21ca9edf46a1e999db50105a5bc81c1e89b9c9164c7c92fa1ba970",
+      "after_sha256": "7c006cada5dfec37f097bd10b3bd8d5267696ba066c55cce93f0bf44ee83fde5"
+    },
+    {
+      "ref_id": "16.93",
+      "title": "16.93. Chuyển tiếp 2025→2026 cho thuế TNCN tiền lương (Điều 29 Luật 109/2025/QH15)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-109-2025-QH15.pdf (trang15, Điều29 khoản2–3)"
+      ],
+      "existing_source_links": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/luat109-2025.pdf"
+      ],
+      "note": "Kỳ2025 quyết toán trong2026 vẫn áp luật kỳ2025; thời điểm khấu trừ từng lần khác quyết toán năm. Giữ nguyên.",
+      "text_sha256": "276616248069b64cc6ecccb5f08ad42d79cccdcf6d01e4c8b247b22e48702bfe"
+    },
+    {
+      "ref_id": "16.94",
+      "title": "16.94. Hiệp định tránh đánh thuế hai lần Việt Nam–Singapore (Điều 4, 14, 15, 24)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "https://www.iras.gov.sg/media/docs/default-source/dtas/singapore-vietnam-dta-(ratified)(mli)(01092023).pdf (trang22, ĐiềuVIII)"
+      ],
+      "existing_source_links": [
+        "https://www.iras.gov.sg/media/docs/default-source/dtas/singapore-vietnam-dta-(ratified"
+      ],
+      "note": "Sửa biên hiện diện hiệp định dịch vụ độc lập từ >=183 thành >183 theo nguyên văn IRAS, khác cư trú nội luật.",
+      "text_sha256": "6c6b2328814508e1304a85e37d3a9bdc462953824bb70ea0d02fad9893c4f5d1",
+      "before_sha256": "2f89e0cd0a35e267fe6f6a38a45643734041aeacdd97f8cb4f96b7b370658e5a",
+      "after_sha256": "6c6b2328814508e1304a85e37d3a9bdc462953824bb70ea0d02fad9893c4f5d1"
+    },
+    {
+      "ref_id": "16.95",
+      "title": "16.95. Công văn 7403/CT-TMĐT ngày 06/10/2026: phân loại thu nhập, khấu trừ và chứng từ affiliate",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "c7b1f24e1f453dbc9fdd6a97fac18272e61926d4f299898b1db086939dcf7be2"
+    },
+    {
+      "ref_id": "16.96",
+      "title": "16.96. Mã đuôi888 và số định danh cá nhân: phân biệt mã quản lý với nghĩa vụ thuế",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "public/documents/311-TCT-DNNCN-2025-goc.pdf",
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm"
+      ],
+      "existing_source_links": [],
+      "note": "Bỏ suy diễn CCCD12số+888 là mã13số; tách hướng dẫn cổng2025 khỏi nghĩa vụ2026.",
+      "text_sha256": "84f15fc50b483e58f1ac03360a045f5d5c214799d126821623371e1409d7b49c",
+      "before_sha256": "4bae5a5c149a365aae73b08803d5fe067fbfd66db2135f196a4b64504983c205",
+      "after_sha256": "84f15fc50b483e58f1ac03360a045f5d5c214799d126821623371e1409d7b49c"
+    },
+    {
+      "ref_id": "16.97",
+      "title": "16.97. Lệ phí môn bài (thuế môn bài) hộ kinh doanh và cá nhân kinh doanh",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/tu-thang-1-2026-nguoi-nop-thue-khong-phai-nop-le-phi-mon-bai-119260126110926562.htm (xác nhận2026 và nợ cũ; chưa tái đọc toàn bộ biểu lịch sử)"
+      ],
+      "existing_source_links": [],
+      "note": "Đã đọc giải thích Chính phủ/CV645: chấm dứt thu/khai môn bài2026, không xóa nợ2025trởvềtrước; biểu mức lịch sử chưa tái đối chiếu toàn bộ.",
+      "text_sha256": "82fe13d1da0c7cbdf22882700a70d4720c567269717d71262a6dbd04690c5bbd"
+    },
+    {
+      "ref_id": "16.98",
+      "title": "16.98. Biểu mức lệ phí môn bài cho năm 2025 trở về trước (Nghị định 139/2016/NĐ-CP)",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://xaydungchinhsach.chinhphu.vn/tu-thang-1-2026-nguoi-nop-thue-khong-phai-nop-le-phi-mon-bai-119260126110926562.htm (xác nhận2026 và nợ cũ; chưa tái đọc toàn bộ biểu lịch sử)"
+      ],
+      "existing_source_links": [],
+      "note": "Bảng lịch sử không áp2026; miễn năm đầu có thời kỳ áp dụng riêng, cần kiểm khi trả lời các năm xa trước2020.",
+      "text_sha256": "a5bf03ac58e43a4d2a3da95b0a3e7faaca15c845ff9d33a84fdce2c10abb3d3c"
+    },
+    {
+      "ref_id": "16.99",
+      "title": "16.99. Trình tự xác định GTGT, phương pháp TNCN và giảm thuế — không dùng một công thức cho mọi trường hợp",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
+        "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-43-2026-qh16-ve-giam-thue-thu-nhap-ca-nhan-thue-thu-nhap-doanh-nghiep-119260830184758301.htm",
+        "https://baochinhphu.vn/giam-thue-gia-tri-gia-tang-tu-01-7-2025-den-het-31-12-2026-10225070118590677.htm",
+        "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "6a97ca3773b17fd2928d1145ccbaba621f8d9fd197f75d3277a11f1cb8068261"
+    },
+    {
+      "ref_id": "16.100",
+      "title": "16.100. Đăng ký thuế TMĐT: quy trình CV311 và giới hạn khi giao diện thay đổi",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": true,
+      "source_review": "SOURCES_FOR_SPECIFIC_CHANGE_READ",
+      "checked_sources": [
+        "public/documents/311-TCT-DNNCN-2025-goc.pdf"
+      ],
+      "existing_source_links": [],
+      "note": "Bỏ tên nút tự suy đoán và khẳng định cấu trúc13số sauCCCD; chỉ hướng dẫn thao tác có trong CV311.",
+      "text_sha256": "eb5c803c6da95190a321efeff0af08f581f34f5e9c69c390b01be82a780ced0c",
+      "before_sha256": "d221d16bc631db9ed93d7f36dad9fd1cceb95c224f7dad2a88875f75e9d0544f",
+      "after_sha256": "eb5c803c6da95190a321efeff0af08f581f34f5e9c69c390b01be82a780ced0c"
+    },
+    {
+      "ref_id": "16.101",
+      "title": "16.101. Doanh thu và kỳ ghi nhận — Điều 5 Nghị định 68/2026/NĐ-CP",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "RELEVANT_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/ND-68-2026-ND-CP.pdf (Điều5)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm"
+      ],
+      "note": "Đã đọc Điều5 NĐ68: ngày chuyển quyền/nghiệm thu, tiền vào không tự là doanh thu; hoàn phí cần chứng từ/kỳ gốc.",
+      "text_sha256": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a"
+    },
+    {
+      "ref_id": "16.102",
+      "title": "16.102. Điều kiện và loại trừ chi phí — Điều 6 Nghị định 68/2026/NĐ-CP",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm",
+        "https://portal.mof.gov.vn/hoidapcstc/home/cthoidap/160835"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "96dbf3ef96a15d0d9caa25fb4916c376da09672e6a73fb0061d33a773db5c8fd"
+    },
+    {
+      "ref_id": "16.103",
+      "title": "16.103. Phân loại lỗi hóa đơn — Điều 10 Thông tư 91/2026/TT-BTC từ 01/07/2026",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_OFFICIAL_EXPLANATION_READ",
+      "checked_sources": [
+        "https://chinhsachonline.chinhphu.vn/hoa-don-tu-may-tinh-tien-sai-ten-dia-chi-co-phai-lap-lai-90814.htm (Điều10 TT91, chưa đối chiếu đủ mọi nhánh)"
+      ],
+      "existing_source_links": [
+        "https://dnieza.dongnai.gov.vn/Pages/newsdetail.aspx?CatId=105&NewsId=5066",
+        "https://chinhsachonline.chinhphu.vn/hoa-don-tu-may-tinh-tien-sai-ten-dia-chi-co-phai-lap-lai-90814.htm",
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "note": "Giữ đúng nhánh sai giá/sai tên và chuyển tiếp; nguồn hỏi đáp chính thức chưa thay việc đọc đầy đủ Điều10 TT91.",
+      "text_sha256": "cf57e954b12eb6b7d87d5941bc767ee39ab8587168f52e682ef03be6574a12b4"
+    },
+    {
+      "ref_id": "16.104",
+      "title": "16.104. Phương pháp GTGT và cấu phần hợp đồng — Điều 5, Điều 12 Luật 48/2024/QH15",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "PARTIAL_PRIMARY_TEXT_READ",
+      "checked_sources": [
+        "public/documents/Luat-48-2024-QH15.pdf (Điều5,12; còn cần chuỗi sửa đổi đúng kỳ)"
+      ],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm",
+        "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm"
+      ],
+      "note": "Giữ khác phương pháp khấu trừ/trực tiếp và linh kiện trong gói; chưa tái đọc toàn bộ danh mục giảm/loại trừ NĐ174.",
+      "text_sha256": "c24e93d848f46d4b1621e9c28fa04f1629e7b68d7c435a3cf818de71f44df951"
+    },
+    {
+      "ref_id": "16.105",
+      "title": "16.105. Điều kiện hồ sơ áp dụng ngưỡng và hạn HĐĐT — khoản 5 Điều 8 NĐ68 sửa bởi khoản 2 Điều 1 NĐ141",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "b932410db19f7417c6cf3002fd0321d12a76169f780e1eeadd91e955b5f0a827"
+    },
+    {
+      "ref_id": "16.106",
+      "title": "16.106. Hóa đơn tháng 3/4 năm 2026 — Điều 19 NĐ123 sửa bởi khoản 13 Điều 1 NĐ70/2025",
+      "content_review": "READ_THIS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "NOT_FULLY_RECHECKED_THIS_REVIEW",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://baochinhphu.vn/nhung-noi-dung-moi-cua-nghi-dinh-so-70-2025-nd-cp-ve-hoa-don-chung-tu-102250903091616929.htm",
+        "https://dnieza.dongnai.gov.vn/Pages/newsdetail.aspx?CatId=105&NewsId=5066"
+      ],
+      "note": "Giữ phạm vi trước01/07/2026; chưa đọc lại nguyên văn toàn Điều19 NĐ123 sửa bởi NĐ70 nên chưa chứng nhận mọi ngoại lệ.",
+      "text_sha256": "6fb4a3de460e0828559f36f0947b8f75b4952068854336e3d8d666811df72fbb"
+    },
+    {
+      "ref_id": "16.107",
+      "title": "16.107. Đăng ký kinh doanh: trường hợp không bắt buộc đăng ký và hoạt động affiliate, online, thu nhập thấp",
+      "content_review": "PREVIOUS_REVIEW",
+      "changed_this_review": false,
+      "source_review": "SEE_PREVIOUS_AUDIT",
+      "checked_sources": [],
+      "existing_source_links": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
+      ],
+      "note": "Xem nhật ký targeted/CV7403 trước đó; không tự đánh dấu đã tái thẩm định.",
+      "text_sha256": "2a595be1388159ce60f25d308951976d84b29e6e8ecf81cb19a3ff90617b01f2"
+    }
+  ]
+}

@@ -54,6 +54,17 @@ if (QUERY_ROUTES.length !== routes.length) {
 // 3. chunkMeta phải bao phủ mọi ref đang phục vụ evidence gate.
 const metaRaw = JSON.parse(fs.readFileSync(path.join(ROOT, 'worker', 'src', 'kb', 'chunkMeta.json'), 'utf8'));
 const meta = metaRaw.default || metaRaw;
+const policyIndex=JSON.parse(fs.readFileSync(path.join(ROOT,'worker/src/kb/policyRetrievalIndex.json'),'utf8'));
+const expectedPolicyIndex=srcChunks.filter(c=>c.ref_id&&c.retrieval_facets).map(c=>({ref_id:c.ref_id,...c.retrieval_facets,
+  applies_from_year:meta[c.ref_id]?.applies_from_year,applies_to_year:meta[c.ref_id]?.applies_to_year??null}));
+if(JSON.stringify(policyIndex)!==JSON.stringify(expectedPolicyIndex))errors.push('policy retrieval index differs from source facets/period metadata');
+for(const c of srcChunks){const compiled=CANONICAL_CHUNKS.find(row=>row.id===c.id);
+  if(JSON.stringify(compiled?.retrieval_facets)!==JSON.stringify(c.retrieval_facets))errors.push(`retrieval facets drift: ${c.ref_id}`);
+  if(JSON.stringify(compiled?.subject_scope)!==JSON.stringify(c.subject_scope))errors.push(`subject scope drift: ${c.ref_id}`);
+  if(compiled?.context_passage!==c.context_passage)errors.push(`context excerpt drift: ${c.ref_id}`);
+  if(JSON.stringify(compiled?.context_passage_period)!==JSON.stringify(c.context_passage_period))errors.push(`context excerpt period drift: ${c.ref_id}`);
+  if(c.context_passage&&!c.text.includes(c.context_passage))errors.push(`context excerpt not part of canonical source: ${c.ref_id}`);
+}
 for (const c of CANONICAL_CHUNKS) {
   const key = c.ref_id || c.id;
   if (!meta[key]) errors.push(`chunkMeta thiếu: ${key}`);

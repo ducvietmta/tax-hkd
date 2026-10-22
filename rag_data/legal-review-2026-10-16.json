@@ -152,5 +152,10 @@
       "length_before": 2842,
       "length_after": 3236
     }
-  ]
+  ],
+  "follow_up": {
+    "reviewed_on": "2026-10-16",
+    "superseding_review": "cv7403-source-review-2026-10-16.json",
+    "note": "CV7403 full text was subsequently supplied by the user and retained in public/documents/7403-CT-TMDT-2026.docx; 16.20 and 16.73 updated further and 16.95 reviewed. Original changes/hashes above describe the earlier review snapshot."
+  }
 }

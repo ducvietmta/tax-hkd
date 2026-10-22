@@ -50,8 +50,9 @@ export const LegalKnowledgeBase: React.FC<LegalKnowledgeBaseProps> = ({ onOpenAI
             <span>KHO VĂN BẢN GỐC PHÁP LUẬT THUẾ HKD</span>
           </div>
           <h2 className="text-[20px] sm:text-[32px] font-extrabold text-slate-900 tracking-tight leading-tight mb-2">
-            Thư viện Thông tư & Nghị định Thuế HKD <br className="hidden sm:inline" />
-            <span className="text-emerald-700">tra cứu theo văn bản và kỳ áp dụng</span>
+            <span className="md:hidden">Thư viện văn bản</span>
+            <span className="hidden md:inline">Thư viện Thông tư & Nghị định Thuế HKD <br />
+            <span className="text-emerald-700">tra cứu theo văn bản và kỳ áp dụng</span></span>
           </h2>
           <p className="text-slate-500 text-[12.5px] sm:text-[14.5px] max-w-xl mx-auto leading-relaxed">
             Gõ tên hoặc số hiệu để xem {LEGAL_DOCS.length} văn bản gốc. Thư viện giữ cả văn bản cũ để đối chiếu kỳ trước; cần đọc cùng văn bản sửa đổi, thay thế và quy định chuyển tiếp.

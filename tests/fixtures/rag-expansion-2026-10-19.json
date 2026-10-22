@@ -1,0 +1,22 @@
+[
+ {"ref":"16.80","topic":"INVOICE_REGISTRATION","question":"Tôi muốn đăng ký sử dụng hóa đơn điện tử, nộp mẫu gì và đã có thông báo tiếp nhận là đã được xuất chưa?","must":["01/ĐKTĐ-HĐĐT","01/TB-TNĐT","01/TB-ĐKĐT"]},
+ {"ref":"16.110","topic":"BUSINESS_SUSPENSION","question":"Cá nhân đăng ký thuế trực tiếp muốn tạm nghỉ rồi bán tiếp, gửi mẫu nào?","must":["23/ĐKT","02 ngày làm việc","không phải chấm dứt"]},
+ {"ref":"16.111","topic":"TAX_REGISTRATION_CHANGE","question":"Chuyển trụ sở sang tỉnh khác làm đổi cơ quan thuế, nơi đi nơi đến cần giấy gì và có phải xóa mã cũ không?","must":["08-MST","09-MST","30/ĐKT","không xóa nợ"]},
+ {"ref":"16.112","topic":"TAX_STATUS_RESTORATION","question":"Tôi bị báo không hoạt động tại địa chỉ, muốn khôi phục mã số thuế để kinh doanh lại phải làm sao?","must":["25/ĐKT","19.1/TB-ĐKT","không phải cam kết"]},
+ {"ref":"16.113","topic":"TAX_REGISTRATION_CHANGE","question":"Tên CCCD và mã thuế cũ không khớp dữ liệu, có nên xin thêm mã để dùng hóa đơn không?","must":["không tự tạo nhiều ngưỡng","10 ngày làm việc","không khuyên đóng mã"]},
+ {"ref":"16.114","topic":"INVOICE_USAGE","question":"Tờ đăng ký thay đổi thông tin hóa đơn bị yêu cầu giải trình do rủi ro, có phải cứ nộp lại là duyệt?","must":["Khoản 4 Điều 6","03 ngày làm việc","không tự sửa"]},
+ {"ref":"16.115","topic":"INVOICE_USAGE","question":"Đang bị tạm ngừng sử dụng hóa đơn, nộp hết tiền là xuất tiếp được ngay phải không?","must":["Điều 8","Khoản 3","không hứa"]},
+ {"ref":"16.116","topic":"INVOICE_USAGE","question":"Sàn khấu trừ thuế rồi thì tự lập hóa đơn thay cho tôi hay còn phải ủy nhiệm bằng hợp đồng?","must":["Điều 9","bằng văn bản","phương pháp GTGT"]},
+ {"ref":"16.117","topic":"INVOICE_USAGE","question":"Tôi đã đăng ký hóa đơn có mã, bán lẻ trực tiếp thì có bắt buộc chuyển sang máy tính tiền không?","must":["Điểm c khoản 1 Điều 6","không bắt buộc","ngoại lệ"]},
+ {"ref":"16.118","topic":"INVOICE_USAGE","question":"Tôi tạm ngừng nhưng cần hóa đơn thực hiện hợp đồng ký trước khi nghỉ, có thể xin cấp từng lần không?","must":["Khoản 2 Điều 6","đã ký trước","không phải quyền tự xuất"]},
+ {"ref":"16.119","topic":"INVOICE_USAGE","question":"Tôi cung cấp quảng cáo nội dung số cho tổ chức ở nước ngoài, không phải dùng hóa đơn có phải cũng miễn thuế không?","must":["Khoản 2 Điều 7","không tự miễn","Freelance"]},
+ {"ref":"16.120","topic":"TAX_PAYMENT_RECONCILIATION","question":"Tiền chậm nộp 0,03% mỗi ngày tính trên doanh thu hay trên số thuế nợ? Có giống phạt nộp tờ khai trễ không?","must":["0,03%/ngày","Không tính tỷ lệ này trên doanh thu","gia hạn"]},
+ {"ref":"16.121","topic":"TAX_PAYMENT_RECONCILIATION","question":"Nộp thuế đã bị ngân hàng trừ hai lần nhưng ứng dụng báo lỗi và còn nợ, tôi có cần nộp lần ba không?","must":["chứng từ nộp tiền","tra soát","không tự trừ khỏi doanh thu"]},
+ {"ref":"16.122","topic":"TAXPAYER_RIGHTS","question":"Tôi phản đối quyết định ấn định nợ thuế, nộp đơn khiếu nại có được tự dừng nộp tiền không?","must":["khiếu nại","vẫn thực hiện nghĩa vụ","tạm đình chỉ"]},
+ {"ref":"16.123","topic":"TAX_EXTENSION","question":"Hộ thuộc ngành được gia hạn NĐ245 có được lùi tờ khai quý II và quý III năm 2026 không, nộp tiền ngày nào?","must":["02/11/2026","30/12/2026","vẫn khai","Phụ lục I"]},
+ {"ref":"16.124","topic":"ACCOUNTING_RETENTION","question":"Hộ lưu sổ kế toán trên máy được không, đủ 5 năm thì có thể hủy luôn mọi hóa đơn không?","must":["tối thiểu 05 năm","riêng thời hạn lưu hóa đơn","điện tử hoặc giấy"]},
+ {"ref":"16.125","topic":"TAXPAYER_RIGHTS","question":"Ngân hàng có dòng tiền lớn, thuế có thể tự ấn định toàn bộ là doanh thu không cần phân biệt tiền vay và thu hộ sao?","must":["Điều 24","thu hộ, vay","không bịa công thức"]},
+ {"ref":"16.126","topic":"TAXPAYER_RIGHTS","question":"Doanh thu dưới ngưỡng thì có quyền từ chối mọi cuộc kiểm tra và yêu cầu sao kê không?","must":["Điều 22","quyết định","Không mở rộng"]},
+ {"ref":"16.127","topic":"TAXPAYER_RIGHTS","question":"Đã thuê đại lý khai thuế nhưng người làm khai sai, trách nhiệm thuế có chuyển hết cho họ không?","must":["Điểm i khoản 2 Điều 37","chịu trách nhiệm","ủy quyền"]},
+ {"ref":"16.128","topic":"TAXPAYER_RIGHTS","question":"Tài khoản thuế xuất hiện hồ sơ lạ, có người gọi đòi OTP để gỡ nợ, tôi nên xử lý thông tin thế nào?","must":["Điều 7","Điều 8","Không cung cấp mật khẩu"]}
+]

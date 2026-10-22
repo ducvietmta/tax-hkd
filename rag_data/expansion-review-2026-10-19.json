@@ -1,0 +1,604 @@
+{
+  "as_of": "2026-10-19",
+  "scope": "45 source-backed operational and detailed rules; corpus inventory is not independent certification of every case",
+  "added": [
+    {
+      "ref_id": "16.80",
+      "title": "16.80. Đăng ký sử dụng HĐĐT: mẫu 01/ĐKTĐ-HĐĐT và tiếp nhận khác chấp thuận",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+      ],
+      "local_file": "public/documents/TT-91-2026-TT-BTC.pdf",
+      "pages": "6–9",
+      "topic": "INVOICE_REGISTRATION",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "fce5f8ec8373bc6af88bfc587225168c6c350f64d0ed450e587f5f2368517dde"
+    },
+    {
+      "ref_id": "16.110",
+      "title": "16.110. Tạm ngừng và tiếp tục kinh doanh: trực tiếp với thuế khác liên thông",
+      "source_urls": [
+        "https://chinhphu.vn/?classid=1&docid=218839&orggroupid=4&pageid=27160"
+      ],
+      "local_file": "public/documents/TT-90-2026-TT-BTC.pdf",
+      "pages": "60–61",
+      "topic": "BUSINESS_SUSPENSION",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "176b8a26c3520433ae5f65cea750495f4490b3bf13b5d3e9459adc54825fedcc"
+    },
+    {
+      "ref_id": "16.111",
+      "title": "16.111. Chuyển địa chỉ và thay đổi cơ quan thuế: hồ sơ nơi đi/nơi đến",
+      "source_urls": [
+        "https://chinhphu.vn/?classid=1&docid=218839&orggroupid=4&pageid=27160"
+      ],
+      "local_file": "public/documents/TT-90-2026-TT-BTC.pdf",
+      "pages": "56–60",
+      "topic": "TAX_REGISTRATION_CHANGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "4b93b3359a6e30fd72427fb2e81c19faedb771c9c686c6f64e77d79a210fd81b"
+    },
+    {
+      "ref_id": "16.112",
+      "title": "16.112. Khôi phục mã thuế khi bị thông báo không hoạt động tại địa chỉ",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/huong-dan-doanh-nghiep-ho-kinh-doanh-khong-hoat-dong-tai-dia-chi-da-dang-ky-khoi-phuc-ma-so-thue-11926080611345084.htm"
+      ],
+      "local_file": "Hướng dẫn chính thức Cục Thuế công bố 06/08/2026",
+      "pages": "",
+      "topic": "TAX_STATUS_RESTORATION",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "8928923d120691babd2b27627ba32a496846064c680442216558ebe6ae8bed48"
+    },
+    {
+      "ref_id": "16.113",
+      "title": "16.113. Mã thuế cũ, số định danh và thông tin không khớp: sửa dữ liệu trước khi đăng ký lại",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+      ],
+      "local_file": "public/documents/TT-91-2026-TT-BTC.pdf",
+      "pages": "12; đọc cùng Luật108 Điều11 và TT90 Điều23–24",
+      "topic": "TAX_REGISTRATION_CHANGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "15cdc74af826c0a80b45b79d88395bc1622cdec3399445db0eecd00f0d870c8e"
+    },
+    {
+      "ref_id": "16.114",
+      "title": "16.114. Thay đổi đăng ký hóa đơn và lý do hồ sơ bị yêu cầu giải trình",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+      ],
+      "local_file": "public/documents/TT-91-2026-TT-BTC.pdf",
+      "pages": "7–11",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "227ee2bc0f0436ef33473aedd9e331ea1a11528d2e109f557c5f2068fe9836fc"
+    },
+    {
+      "ref_id": "16.115",
+      "title": "16.115. Ngừng/tạm ngừng hóa đơn và điều kiện tiếp tục sử dụng",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+      ],
+      "local_file": "public/documents/TT-91-2026-TT-BTC.pdf",
+      "pages": "11–14",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "26bd7f221871b6bb26456676d12e2bb6da13aedc5762303071cfd1198d23454d"
+    },
+    {
+      "ref_id": "16.116",
+      "title": "16.116. Ủy nhiệm lập HĐĐT cho bên thứ ba/nền tảng khác với sàn nộp thuế thay",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+      ],
+      "local_file": "public/documents/TT-91-2026-TT-BTC.pdf",
+      "pages": "15–16",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "c7c797abd00661bd2b3a0783944dae652154ba24376189be87492772a5c956b9"
+    },
+    {
+      "ref_id": "16.117",
+      "title": "16.117. Hóa đơn máy tính tiền và hóa đơn có mã thông thường: xác định đúng đối tượng",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "8–9",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "7e004da80278b587a49e69b2a4d8deda5ebc751f4d8cb2993ac9216bf2f47bd7"
+    },
+    {
+      "ref_id": "16.118",
+      "title": "16.118. Hóa đơn theo từng lần khi tạm ngừng hoặc đang chấm dứt hoạt động",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "9–10",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "19e570892ebd38059f4b9e743712fe5520bfa9279bacb8e22568bdf38490281e"
+    },
+    {
+      "ref_id": "16.119",
+      "title": "16.119. Nội dung số cung cấp cho nước ngoài: ngoại lệ HĐĐT không đồng nghĩa miễn thuế",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "13",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "ede73e6319e21041fe3eb2a81f64a9ee1a3a5697dc9583c4c0aef6d02edf426e"
+    },
+    {
+      "ref_id": "16.120",
+      "title": "16.120. Tiền chậm nộp thuế: cơ sở 0,03%/ngày khác tiền phạt vi phạm",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "Điều14,16",
+      "topic": "TAX_PAYMENT_RECONCILIATION",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "3bf64fef4c84b0172ab09aca482832b2c5c06de21e831191533a0b778951a8a3"
+    },
+    {
+      "ref_id": "16.121",
+      "title": "16.121. Nộp tiền sai MST, trùng hoặc ngân hàng đã trừ nhưng thuế còn báo nợ",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "Điều14,15,37",
+      "topic": "TAX_PAYMENT_RECONCILIATION",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "01ef500290f00c0797975ea77bd0164d11739251a069934997ef5fe50838f427"
+    },
+    {
+      "ref_id": "16.122",
+      "title": "16.122. Không đồng ý thông báo nợ/ấn định: quyền giải thích, khiếu nại và nghĩa vụ nộp",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "Điều14,37",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "37ec3f4e282cd7b268c0f255b1b79b1378381648c9d195528403ad1114556aa3"
+    },
+    {
+      "ref_id": "16.123",
+      "title": "16.123. Gia hạn thuế năm 2026 theo NĐ245: đúng đối tượng, đúng kỳ và vẫn khai đúng hạn",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-245-2026-nd-cp-gia-han-thoi-han-nop-thue-tien-thue-dat-trong-nam-2026-119260627180925528.htm"
+      ],
+      "local_file": "public/documents/ND-245-2026-ND-CP.pdf",
+      "pages": "1–4",
+      "topic": "TAX_EXTENSION",
+      "effective_from_date": "2026-06-27",
+      "effective_to_date": "2026-12-30",
+      "content_sha256": "a81dcff0edcb63cef1d9b3bb7569cc3ec2096a9893b1a310897441322178611c"
+    },
+    {
+      "ref_id": "16.124",
+      "title": "16.124. Lưu trữ sổ và chứng từ hộ kinh doanh: tối thiểu 5 năm không áp máy móc cho mọi hóa đơn",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?docid=216533&pageid=27160&typegroupid=6"
+      ],
+      "local_file": "public/documents/TT-152-2025-TT-BTC.pdf",
+      "pages": "2",
+      "topic": "ACCOUNTING_RETENTION",
+      "effective_from_date": "2026-01-01",
+      "effective_to_date": null,
+      "content_sha256": "3c7864f1c4a4583dd91c191cd19e209c59a0696c2c1eb2bd8ad0cc1823291d44"
+    },
+    {
+      "ref_id": "16.125",
+      "title": "16.125. Ấn định thuế phải có căn cứ: không tự lấy tiền vào tài khoản làm số thuế",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "Điều24,37",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "f73c51c930e59bec9acd85514e6ce3bac24b1fa9b40fe93c646026400c4f3be0"
+    },
+    {
+      "ref_id": "16.126",
+      "title": "16.126. Doanh thu dưới ngưỡng vẫn có thể kiểm tra: quyền và hồ sơ liên quan",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "Điều22,37",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "71e6bca1d6537c838609cb18410450e50e1022bf056518efdf944935808ff478"
+    },
+    {
+      "ref_id": "16.127",
+      "title": "16.127. Thuê dịch vụ/ủy quyền làm thuế: trách nhiệm không tự chuyển hết cho người làm hộ",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "Điều37",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "9b8695384da0079547e08d2fe389d84d3cb7da6b563f61cf5d1fdca603aada77"
+    },
+    {
+      "ref_id": "16.128",
+      "title": "16.128. Bảo mật dữ liệu thuế, hồ sơ lạ và quyền yêu cầu giải thích",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "Điều7,8,37",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "b5acdf9c518687cd8d22b6806af8bb92c0e5972b6ed5b5a8e1755cae0f7e8aea"
+    },
+    {
+      "ref_id": "16.129",
+      "title": "16.129. Hóa đơn bán hàng của hộ tính GTGT trực tiếp khác hóa đơn GTGT",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "14–15",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "73ab2fca33563c99814d63595834afd8265c9ab80d160a0541d263a87ce4b496"
+    },
+    {
+      "ref_id": "16.130",
+      "title": "16.130. Thời điểm hóa đơn bán hàng hóa: chuyển giao, không chờ sàn trả tiền",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "16",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "805da4a8dd03a463758c8aee80289ddaaae06f43cf5861a8c3fc8c4a976aa051"
+    },
+    {
+      "ref_id": "16.131",
+      "title": "16.131. Thời điểm hóa đơn dịch vụ: hoàn thành hoặc thu tiền trước/trong khi cung cấp",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "16",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "f0be9502a98ac1839afbd84f0a3f919b39774e7c25d168c2fe6f0d7641b5cc4e"
+    },
+    {
+      "ref_id": "16.132",
+      "title": "16.132. Giao hàng nhiều lần, nghiệm thu từng phần: hóa đơn theo từng khối lượng",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "16",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "d9807c51690d295840ab6147c298d11e9eb2e7a8eb3ae8cacd05920690b538e2"
+    },
+    {
+      "ref_id": "16.133",
+      "title": "16.133. Lập hóa đơn sau đối soát: chỉ nhóm đủ điều kiện, không áp cho mọi cửa hàng",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "17",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "d5b80617f17b940f8f2390ddb8743cb2bfbc24b4cf602f09e19490f6acd324de"
+    },
+    {
+      "ref_id": "16.134",
+      "title": "16.134. Xây dựng, lắp đặt: nghiệm thu/bàn giao thay vì ngày khách thanh toán",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "18",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "535fdfa6c796b95b8acb009f0c1954755f0139d09b480d1559e74dce84078a1e"
+    },
+    {
+      "ref_id": "16.135",
+      "title": "16.135. Hóa đơn máy tính tiền: thông tin người mua và chữ ký khác hóa đơn thường",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "16, 22",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "0b5d63b92fe18200b4f779f65ced1f57a116812c0998ebb2dedab598fd49efad"
+    },
+    {
+      "ref_id": "16.136",
+      "title": "16.136. Hóa đơn bán hàng không trình bày thuế suất và giá trị XML khác bản hiển thị",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "22",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "8b6aa33777db385d6bddf001b4333c6ad8d1eedee14e0716d310950e56d7be2c"
+    },
+    {
+      "ref_id": "16.137",
+      "title": "16.137. Sự cố hóa đơn điện tử: tách lỗi người bán, nhà cung cấp và hệ thống thuế",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "24–25",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "30761a3342a118f04828dd29c9413252389f770f656e565d9667b6f6679cd9ae"
+    },
+    {
+      "ref_id": "16.138",
+      "title": "16.138. Dịch vụ hóa đơn miễn phí: điều kiện địa bàn và tự lựa chọn gói thương mại",
+      "source_urls": [
+        "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+      ],
+      "local_file": "public/documents/ND-254-2026-ND-CP.pdf",
+      "pages": "23",
+      "topic": "INVOICE_USAGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "2b824e950929aca9c19abd019ff322688bee6dd25d18c7cd68ab75cb93e4a189"
+    },
+    {
+      "ref_id": "16.139",
+      "title": "16.139. Khấu hao máy móc: đã hết giá trị không trích tiếp, không trừ cả giá mua ngay",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+      ],
+      "local_file": "public/documents/ND-68-2026-ND-CP.pdf",
+      "pages": "4–5 (Điều 6)",
+      "topic": "BUSINESS_EXPENSES",
+      "effective_from_date": "2026-01-01",
+      "effective_to_date": null,
+      "content_sha256": "d608e953eaa350b3b7fbaaa58f151c9182b185164dae93034d69e5d5febedfa4"
+    },
+    {
+      "ref_id": "16.140",
+      "title": "16.140. Tiền lương chủ hộ, thành viên hộ và lao động thuê: không chỉ xét quan hệ họ hàng",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+      ],
+      "local_file": "public/documents/ND-68-2026-ND-CP.pdf",
+      "pages": "4–5 (Điều 6)",
+      "topic": "BUSINESS_EXPENSES",
+      "effective_from_date": "2026-01-01",
+      "effective_to_date": null,
+      "content_sha256": "e0d10ef99e4fbbdb14d31ca285cca9a391cfdb9757910188b5379a1efb8bd0d9"
+    },
+    {
+      "ref_id": "16.141",
+      "title": "16.141. Lãi vay: ngân hàng khác người cho vay cá nhân và không phải toàn bộ gốc trả nợ",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+      ],
+      "local_file": "public/documents/ND-68-2026-ND-CP.pdf",
+      "pages": "4–5 (Điều 6)",
+      "topic": "BUSINESS_EXPENSES",
+      "effective_from_date": "2026-01-01",
+      "effective_to_date": null,
+      "content_sha256": "89a26e97b2307b84fe8fb41c856e104f801a8765ba80297b33f05ce1b2efa999"
+    },
+    {
+      "ref_id": "16.142",
+      "title": "16.142. Thanh toán từng lần từ 5 triệu: điều kiện chi phí, không phải ngưỡng miễn thuế",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+      ],
+      "local_file": "public/documents/ND-68-2026-ND-CP.pdf",
+      "pages": "4–5 (Điều 6)",
+      "topic": "BUSINESS_EXPENSES",
+      "effective_from_date": "2026-01-01",
+      "effective_to_date": null,
+      "content_sha256": "d5c6751b6c050f3d77168a6086e4c6f1b4b401b204bdf659d49d52067b82edb1"
+    },
+    {
+      "ref_id": "16.143",
+      "title": "16.143. Nhà ở, xe và tài sản mang tên cá nhân: điều kiện riêng ngoài mục đích sử dụng",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+      ],
+      "local_file": "public/documents/ND-68-2026-ND-CP.pdf",
+      "pages": "4–5 (Điều 6)",
+      "topic": "BUSINESS_EXPENSES",
+      "effective_from_date": "2026-01-01",
+      "effective_to_date": null,
+      "content_sha256": "ad7a1ae8f8238c0ebad056b852ed0c349d982ccd7d022a9c886b54d52e7b9ad6"
+    },
+    {
+      "ref_id": "16.144",
+      "title": "16.144. Tiền phạt và bồi thường do lỗi cá nhân kinh doanh: trả thật vẫn có thể không được trừ",
+      "source_urls": [
+        "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+      ],
+      "local_file": "public/documents/ND-68-2026-ND-CP.pdf",
+      "pages": "4–5 (Điều 6)",
+      "topic": "BUSINESS_EXPENSES",
+      "effective_from_date": "2026-01-01",
+      "effective_to_date": null,
+      "content_sha256": "f14e8f14fe00c1c5c048884a858b22a19bce0496e34fe0c1da4b854f64633561"
+    },
+    {
+      "ref_id": "16.145",
+      "title": "16.145. Nộp thừa: bù trừ khác trừ chi phí, thời hạn 10 năm khác khai bổ sung 5 năm",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "16–17",
+      "topic": "TAX_PAYMENT_RECONCILIATION",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "7e68ade0e9d2f3a012eff8be7647920db72740d57d00517fe4b246d2330c2623"
+    },
+    {
+      "ref_id": "16.146",
+      "title": "16.146. Gia hạn hồ sơ do bất khả kháng khác gia hạn nộp tiền thuế",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "9–10",
+      "topic": "TAX_EXTENSION",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "3b167ff34e2d32ca85036919c09c6fc14e68ec8e2b6caa99dabd1a3f5bae2b9f"
+    },
+    {
+      "ref_id": "16.147",
+      "title": "16.147. Hết thời hiệu phạt không tự hết nghĩa vụ truy thu",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "56–57",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "e92d733c16a86a5e99e6e802a4c0957dc99927e797e0c0bbfe279dbe7da49028"
+    },
+    {
+      "ref_id": "16.148",
+      "title": "16.148. Tự khai sửa trước khi phát hiện và quyết toán cá nhân được hoàn: giới hạn không xử phạt",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "56–57",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "7a6b51eb5ecc87c4cd9c58f41d138bf8c68740f492ff28ec06444953d7ca786a"
+    },
+    {
+      "ref_id": "16.149",
+      "title": "16.149. Trốn thuế khác chậm thủ tục: không kết luận tội chỉ từ nợ thuế hoặc dòng tiền",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "58–59",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "ffe278f628178994fdc099a465e81445fa8380bebe27e8b2f5f01c12017616ff"
+    },
+    {
+      "ref_id": "16.150",
+      "title": "16.150. Cưỡng chế thuế: điều kiện, quyết định và nộp dần có bảo lãnh",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "61–63",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "f1954252bd757ed89e279e47a4c3233b572c84ba0f9bc2ee57f02544b3fee64b"
+    },
+    {
+      "ref_id": "16.151",
+      "title": "16.151. Khoanh nợ và xóa nợ: đóng cửa lâu năm không tự xóa thuế",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "24–26",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "4007d408e9e35d0ce5a37136fc98bc7f25ea682f148a3aaefd1427d747afa787"
+    },
+    {
+      "ref_id": "16.152",
+      "title": "16.152. Chủ hộ qua đời: nghĩa vụ từ di sản và người nhận tiền thuế hoàn",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "19–21",
+      "topic": "TAX_REGISTRATION_CHANGE",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "9278dbb286254832820cba0f00b87d6c0e3a69bba4842a8b389120f7c788c1a7"
+    },
+    {
+      "ref_id": "16.153",
+      "title": "16.153. Hiệu lực Luật Quản lý thuế 108 và chuyển tiếp nợ, kiểm tra trước tháng 7/2026",
+      "source_urls": [
+        "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+      ],
+      "local_file": "public/documents/Luat-108-2025-QH15.pdf",
+      "pages": "64–65",
+      "topic": "TAXPAYER_RIGHTS",
+      "effective_from_date": "2026-07-01",
+      "effective_to_date": null,
+      "content_sha256": "29b7ce7c306165ad5f232e031e3bb68f64fce849adec55d034b5a50b8280d92c"
+    }
+  ],
+  "superseded": [
+    "KB/16E-va-lo-hong-p0.md#1103",
+    "KB/16C-dang-ky-thue-va-xu-phat.md#1085"
+  ],
+  "structural_corrections": {
+    "control_records": 6,
+    "pending_record": "KB/16D-da-nguon-pham-vi-nguong.md#1094"
+  },
+  "limits": [
+    "CASE_EVIDENCE records remain unverified; lexical candidate matches do not establish legal coverage.",
+    "No blanket promotion of PENDING/SPLIT, no invention of new NQ43 filing procedures.",
+    "Local scanned sources were visually read at the pages recorded; existence of other PDF files is not verification."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "original": "Năm 2026, tôi là cá nhân cư trú, có ba hoạt động: sửa máy tính doanh thu 2,4 tỷ đồng; bán linh kiện doanh thu 600 triệu đồng; affiliate có GMV 8 tỷ đồng nhưng hoa hồng được hưởng chỉ 200 triệu đồng. Trong doanh thu sửa máy có 200 triệu đồng bị ghi trùng, đã đối soát xác nhận. Chi phí kê khai là 2,5 tỷ đồng, nhưng gồm 100 triệu chi tiêu gia đình và 50 triệu ghi trùng; giả định phần còn lại đủ điều kiện được trừ và liên quan toàn bộ các hoạt động trên. Nền tảng đã giữ 20 triệu đồng ghi tax, chưa có chứng từ xác định loại thuế. Hãy xác định tổng doanh thu kinh doanh, phương pháp và số thuế TNCN trước/sau giảm theo NQ43, đồng thời cho biết có được trừ ngay khoản tax không. Sau đó tính lại nếu 200 triệu doanh thu sửa chữa thực tế không bị ghi trùng, mà chỉ là khách chưa thanh toán. Không lấy GMV làm doanh thu của tôi và không tính GTGT.",
+  "variant": "Cá nhân cư trú năm 2026 có tiền sửa máy 2,2 tỷ, bán linh kiện 700 triệu và hoa hồng tiếp thị được hưởng 200 triệu; GMV là 9 tỷ. Phần sửa máy đã xác nhận bị ghi trùng 100 triệu. Chi phí ghi 2,6 tỷ gồm 150 triệu gia đình và 50 triệu trùng, phần còn lại hợp lệ. Bị giữ tax 15 triệu chưa rõ loại. Tính riêng TNCN trước/sau NQ43 và khoản có thể đối trừ. Tính lại nếu 100 triệu là công nợ của dịch vụ đã hoàn thành năm 2026 chứ không phải trùng. Chưa xác định phương pháp đang áp dụng; nêu nhánh điều kiện cần thiết, không tính GTGT.",
+  "knownTransition": "Tôi là cá nhân cư trú, năm 2026 đang áp dụng phương pháp TNCN tỷ lệ trên doanh thu theo hồ sơ đã đăng ký. Đến hết năm tổng doanh thu thực tế mới xác định là 3,2 tỷ, gồm sửa máy 2,4 tỷ, bán linh kiện 600 triệu, hoa hồng dịch vụ tiếp thị 200 triệu. Giả định tỷ lệ tương ứng 2%, 0,5%, 2% và đủ NQ43. Tôi phải chuyển phương pháp ngay trong 2026 hay từ năm sau? Tính TNCN 2026 trước/sau giảm, chỉ xét TNCN.",
+  "expected": {
+    "originalRevenue": [3000000000, 3200000000],
+    "originalValidExpenses": 2350000000,
+    "originalConditionalIncomeTax": [[97500000, 68250000], [144500000, 101150000]],
+    "variantRevenue": [3000000000, 3100000000],
+    "variantValidExpenses": 2400000000,
+    "variantConditionalIncomeTax": [[90000000, 63000000], [119000000, 83300000]],
+    "knownTransitionTurnoverTax": [35000000, 24500000],
+    "requirements": ["Không lấy GMV làm doanh thu", "Không gọi hoa hồng được hưởng là chỉ tiền thực nhận", "Không đối trừ tax chưa rõ loại", "Các số thuế theo thu nhập là có điều kiện về phương pháp", "Không kết luận cách có lợi hơn khi chưa so sánh", "Không chốt chuyển phương pháp ngay trong kỳ khi chưa xét ngoại lệ", "Không tính GTGT bị loại trừ"]
+  }
+}

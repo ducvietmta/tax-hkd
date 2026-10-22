@@ -11,7 +11,14 @@ function loadModule(relativePath, dependencies = {}) {
   const module = { exports: {} };
   new Function('require', 'module', 'exports', compiled)(
     (id) => {
-      if (!(id in dependencies)) throw new Error(`Unexpected import: ${id}`);
+      if (!(id in dependencies)) {
+ if(id.endsWith('/periodApplicability')||id.endsWith('/conversationHistory')) {
+  const p=path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id+'.ts');
+  const mod={exports:{}};new Function('module','exports',ts.transpileModule(fs.readFileSync(p,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(mod,mod.exports);return mod.exports;
+ }
+ if(id.endsWith('.json'))return {default:JSON.parse(fs.readFileSync(path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id),'utf8'))};
+ throw new Error(`Unexpected import: ${id}`);
+}
       return dependencies[id];
     },
     module,
@@ -36,6 +43,40 @@ assert.match(reviewed('16.72'), /GMV.*không tự là doanh thu/);
 assert.match(reviewed('16.102'), /người nhà.*nhân viên.*thành viên hộ/);
 assert.match(reviewed('16.107'), /địa phương/);
 for (const ref of ['16.20','16.73']) assert.match(reviewed(ref), /KHÔNG phải quy tắc phân loại chung/);
+for (const ref of ['16.20','16.73','16.95']) {
+  assert.match(reviewed(ref), /lao động/, 'Platform affiliate must retain the employment-income branch');
+  assert.match(reviewed(ref), /7403-CT-TMDT-2026\.docx/, 'Affiliate guidance must point to the supplied source');
+}
+assert.match(reviewed('16.95'), /khoản 12 Điều 3 Luật Thương mại điện tử 122\/2025/);
+assert.match(reviewed('16.95'), /trong NGÀY của TỪNG người bán/,'Buyer expense threshold is per seller per day, not each individual payment');
+assert.match(reviewed('16.95'), /không tự thay thế việc xác định phương pháp/,'The affiliate rate must not override the annual tax method');
+// Cross-topic content checks: these protect legal conditions shared by many
+// questions, rather than matching the wording or IDs of an evaluation case.
+assert.match(reviewed('16.51'), /02\/QTT-TNCN-CNKD/);
+assert.doesNotMatch(reviewed('16.51'), /\*\*Mẫu 02\/CNKD-TNCN-QTT\*\*/);
+assert.match(reviewed('16.51'), /10 ngày làm việc từ ngày ban hành kết luận/,
+  'Inspection-first refund deadline starts after the inspection result, not submission');
+assert.match(reviewed('16.51'), /Không dùng mốc 40 ngày/);
+assert.match(reviewed('16.71'), /tối thiểu \*\*05 năm\*\*/);
+assert.match(reviewed('16.71'), /không đồng nghĩa miễn ghi sổ/);
+assert.doesNotMatch(reviewed('16.71'), /loại trừ nhóm tự chọn phương pháp kê khai/);
+assert.match(reviewed('16.87'), /chứng nhận cư trú nước ngoài/);
+assert.match(reviewed('16.87'), /không phải bất kỳ hợp đồng có thời hạn nào cũng đủ/);
+assert.match(reviewed('16.90'), /vàng miếng.*thời điểm áp dụng thu/);
+assert.match(reviewed('16.90'), /Bản quyền.*từng hợp đồng/);
+assert.match(reviewed('16.85'), /dịch bệnh.*Điều40.*Điều49.*tự quyết toán/);
+assert.doesNotMatch(reviewed('16.77'), /affiliate chưa đăng ký kinh doanh\/đăng ký thuế/);
+assert.match(reviewed('16.84'), /không có đăng ký không tự biến mọi khoản thành tiền công/);
+assert.match(reviewed('16.42'), /không miễn thông báo doanh thu năm/);
+assert.match(reviewed('16.57'), /năm tiếp theo/);
+assert.match(reviewed('16.46'), /630.000.*Sau đó mới đối chiếu\/trừ/);
+assert.ok(reviewed('16.96').length <= 1200,
+  'Identifier definition, transition limits and annual duties must fit together in context');
+assert.doesNotMatch(reviewed('16.91'), /16\.92\b/);
+assert.doesNotMatch(reviewed('16.64'), /chưa được cấp giấy chứng nhận — đăng ký thuế trực tiếp/);
+assert.match(reviewed('16.88'), /hình thành trong tương lai/);
+assert.match(reviewed('16.94'), /\*\*trên 183 ngày\*\*/);
+assert.doesNotMatch(reviewed('16.94'), /hiện diện tại đó ít nhất 183 ngày/);
 const conversation = loadModule('worker/src/conversation.ts');
 const textUtils = loadModule('worker/src/utils/text.ts');
 const scope = loadModule('shared/taxScope.ts');
@@ -43,6 +84,7 @@ const retrievalPlan = loadModule('worker/src/decision/retrievalPlan.ts');
 const taxEngine = loadModule('worker/src/taxEngine.ts');
 const factExtractor = loadModule('worker/src/decision/factExtractor.ts', { '../utils/text': textUtils });
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
+  './kb/provenance': loadModule('worker/src/kb/provenance.ts',{'./chunkMeta.json':{default:JSON.parse(fs.readFileSync(path.join(__dirname,'../worker/src/kb/chunkMeta.json'),'utf8'))}}),
   './ragEngine': engine,
   './answerScope': scope,
   './taxEngine': taxEngine,
@@ -61,6 +103,15 @@ function resultsFor(query) {
 
 assert.equal(resultsFor('abc xyz completely unrelated question').results.length, 0);
 assert.equal(buildContext([], 'abc xyz').citations.length, 0);
+for (const [ref, question, expected] of [
+  ['16.51', 'Năm 2026 kiểm tra trước hoàn thuế tính hạn từ khi nào?', /10 ngày làm việc từ ngày ban hành kết luận/],
+  ['16.71', 'Hộ kinh doanh dưới 1 tỷ năm 2026 có cần lưu sổ sách không?', /05 năm/],
+  ['16.87', 'Ở Việt Nam 150 ngày, có nhà thuê, chứng nhận cư trú nước ngoài thì sao?', /chứng nhận cư trú nước ngoài/],
+]) {
+  const chunk = engine.CANONICAL_CHUNKS.find(c => c.ref_id === ref);
+  const packed = buildContext([{ chunk, score: 100 }], question, 1200).text;
+  assert.match(packed, expected, `Critical condition lost from packed evidence: ${ref}`);
+}
 assert.notEqual(resultsFor('Doanh thu 800 triệu bán Shopee có phải nộp thuế không?').routeId, 'PLATFORM_WITHHELD');
 assert.notEqual(resultsFor('Hộ kinh doanh có cần xuất hóa đơn điện tử không?').routeId, 'NO_INVOICE_PENALTY');
 assert.equal(resultsFor('Sàn đã khấu trừ thuế của tôi').routeId, 'PLATFORM_WITHHELD');

@@ -47,6 +47,7 @@ const { evaluateDecisionFrame } = loadModule('worker/src/rules/evaluator.ts', {
   '../decision/types': {},
   './types': {},
   './registry': registry,
+  './integrity': loadModule('worker/src/rules/integrity.ts'),
 });
 
 const testCases = [

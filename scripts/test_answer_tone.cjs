@@ -45,7 +45,7 @@ const calc = renderDeterministicAnswer({
   effective_revenue_vnd: 1500000000, total_tax_payable_vnd: 57500000,
   vat_rate: 0.01, vat_due_vnd: 15000000, pit_rate: 0.005,
   pit_before_relief_vnd: 2500000, pit_relief_vnd: 0, pit_after_relief_vnd: 2500000,
-  taxable_pit_revenue_vnd: 500000000, taxableVatRevenueVnd: 1500000000,
+  taxable_pit_revenue_vnd: 500000000, taxable_vat_revenue_vnd: 1500000000,
   citations: ['Điều 12 Luật Thuế GTGT 48/2024/QH15'],
 }, frame).response;
 assert.match(calc, /Mình tính cho trường hợp của bạn/);

@@ -12,4 +12,6 @@ worker/.dev.vars*
 Thumbs.db
 outputs/
 scratch/
+__pycache__/
+*.pyc
 

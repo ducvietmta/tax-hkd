@@ -15,7 +15,8 @@ import { getChunksByRefs, type RagChunk } from './ragEngine';
 import type { Env } from './http';
 import chunkMetaRaw from './kb/chunkMeta.json';
 
-export const VECTORIZE_INDEX_VERSION = 'tax-kb-v1-bge-m3-1024';
+export const VECTORIZE_INDEX_VERSION = 'tax-kb-v1-bge-m3-1024-kb-20261019-depth';
+export const reciprocalRankScore=(rank:number,weight=1,k=60)=>rank>0?weight/(k+rank):0;
 
 const rawData: any = chunkMetaRaw;
 const chunkMeta: Record<string, { applies_from_year?: number | null; applies_to_year?: number | null }> =
@@ -30,6 +31,7 @@ export interface ScoredChunk {
   chunk: RagChunk;
   score: number;
   viaRoute: boolean;
+  required?: 'DOCUMENT_REFERENCE' | 'RETRIEVAL_PLAN';
 }
 
 // In-memory isolate LRU cache cho vector search (tối đa 256 mục)
@@ -63,7 +65,22 @@ export function rewriteQueryForDense(query: string, years?: number[]): string {
     expansions.push('chấm dứt thu nộp lệ phí môn bài từ năm 2026');
   }
   if (/dang ky kinh doanh|mo ho kinh doanh|cnkd|hkd|khong co dia diem/.test(norm)) {
-    expansions.push('đăng ký hộ kinh doanh cá nhân kinh doanh Nghị định 01/2021 địa điểm kinh doanh');
+    expansions.push('đăng ký hộ kinh doanh cá nhân kinh doanh Nghị định 168/2025 địa điểm kinh doanh');
+  }
+  if (/nguoi phu thuoc|giam tru gia canh|1\.008499/.test(norm)) {
+    expansions.push('đăng ký người phụ thuộc giảm trừ gia cảnh mã thủ tục 1.008499 eTax Mobile Cổng TTĐT Cục Thuế');
+  }
+  if (/tai khoan ngan hang|vi dien tu|thong bao tai khoan/.test(norm)) {
+    expansions.push('thông báo tài khoản ngân hàng ví điện tử phục vụ kinh doanh eTax Mobile Điều 13 Nghị định 68/2026');
+  }
+  if (/khong tiep nhan|da ghi nhan|thong bao tiep nhan|nop to khai|thuedientu/.test(norm)) {
+    expansions.push('Thông báo tiếp nhận hồ sơ khai thuế điện tử Thông tư 89/2026/TT-BTC cổng thuế điện tử');
+  }
+  if (/sai sot hoa don|hoa don sai|04\/ss-hddt|dieu chinh hoa don|thay the hoa don/.test(norm)) {
+    expansions.push('xử lý hóa đơn điện tử có sai sót Mẫu 04/SS-HĐĐT điều chỉnh thay thế Nghị định 70/2025 Nghị định 68/2026');
+  }
+  if (/trang thai 03|trang thai 06|khoa mst|bo dia chi|ngung hoat dong|cham dut hieu luc/.test(norm)) {
+    expansions.push('tạm ngừng hoạt động chấm dứt hiệu lực mã số thuế trạng thái 03 06 Điều 19 Điều 20 Luật Quản lý thuế 108/2025');
   }
 
   const yearNotice = (years && years.length && !norm.includes(String(years[0])))
@@ -182,6 +199,7 @@ export interface HybridFusionOptions {
   query?: string;
   years?: number[];
   pinnedRefs?: Iterable<string>;
+  allowedRefs?: Iterable<string>;
   rrfK?: number;
   wBm25?: number;
   wDense?: number;
@@ -205,15 +223,32 @@ export function mergeVectorHits(
   const years = options?.years;
   const query = options?.query || '';
   const pinnedSet = new Set<string>(options?.pinnedRefs || []);
+  const allowedSet = options?.allowedRefs ? new Set(options.allowedRefs) : null;
+  // An explicit document reference is independent of the broad semantic topic.
+  // Carry its provenance from lexical retrieval, never infer it from score.
+  // Period applicability still gates every branch.
+  for(const r of results){
+    const ref=r.chunk.ref_id;
+    if(ref&&r.required&&isPeriodCompatible(ref,years)){
+      pinnedSet.add(ref);
+      if(r.required==='DOCUMENT_REFERENCE')allowedSet?.add(ref);
+    }
+  }
+  // A semantic plan constrains BOTH retrieval branches. Dense similarity must
+  // never reintroduce evidence excluded by the business operation/period plan.
+  results = results.filter(r => isPeriodCompatible(r.chunk.ref_id||r.chunk.id,years)&&(!allowedSet || allowedSet.has(r.chunk.ref_id || '')));
+  const retainedCap=Math.max(cap,results.filter(r=>r.required).length);
 
   // Lọc vector hits theo ngưỡng điểm và năm hiệu lực
   const validHits = (hits || []).filter((h) => {
     if (!h.refId || typeof h.score !== 'number' || h.score < minScore) return false;
+    if (allowedSet && !allowedSet.has(h.refId)) return false;
     return isPeriodCompatible(h.refId, years);
   });
 
   if (!validHits.length) {
-    return results.slice(0, cap);
+    const required=results.filter(r=>r.required);
+    return [...required,...results.filter(r=>!r.required)].slice(0,retainedCap);
   }
 
   // Tiền xử lý từ khóa cho lightweight cross-feature reranking
@@ -231,6 +266,7 @@ export function mergeVectorHits(
     viaRoute: boolean;
     isPinned: boolean;
     pinOrder: number;
+    required?: ScoredChunk['required'];
   }>();
 
   // 1. Ghi nhận BM25 results
@@ -248,6 +284,7 @@ export function mergeVectorHits(
       viaRoute: r.viaRoute,
       isPinned,
       pinOrder: isPinned ? idx : 999,
+      required:r.required,
     });
   });
 
@@ -277,8 +314,8 @@ export function mergeVectorHits(
 
   // 3. Tính toán Weighted RRF + Rerank score
   const scoredList = Array.from(candidateMap.values()).map((c) => {
-    const rrfBm25 = c.bm25Rank > 0 ? wBm25 / (rrfK + c.bm25Rank) : 0;
-    const rrfDense = c.denseRank > 0 ? wDense / (rrfK + c.denseRank) : 0;
+    const rrfBm25 = reciprocalRankScore(c.bm25Rank,wBm25,rrfK);
+    const rrfDense = reciprocalRankScore(c.denseRank,wDense,rrfK);
     let finalScore = rrfBm25 + rrfDense;
 
     // Điểm thưởng cho dense score cao
@@ -318,9 +355,10 @@ export function mergeVectorHits(
       chunk: c.chunk,
       score: finalScore,
       viaRoute: c.viaRoute,
+      ...(c.required?{required:c.required}:{}),
     };
   });
 
   scoredList.sort((a, b) => b.score - a.score);
-  return scoredList.slice(0, cap);
+  return scoredList.slice(0, retainedCap);
 }

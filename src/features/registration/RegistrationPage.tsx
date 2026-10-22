@@ -1,418 +1,118 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import {
-  Sparkles,
-  RotateCcw,
-  Store,
-  UserCheck,
-  ShoppingBag,
-  Calculator,
-  CalendarDays,
-  CheckCircle2,
-  Info,
-} from 'lucide-react';
-import type { PathId, RegPath, RegStep } from './types';
-import { REG_PATHS } from './data/paths';
-import { REG_STEPS } from './data/steps';
-import type { PathDecision } from './data/quiz';
-import { useRegistrationState } from './hooks/useRegistrationState';
-import { useHashRoute } from './hooks/useHashRoute';
-import { RegHero } from './components/RegHero';
-import { SituationQuiz } from './components/SituationQuiz';
-import { PathResult } from './components/PathResult';
-import { StepRail } from './components/StepRail';
-import { StepCard } from './components/StepCard';
-import { ProgressSummary } from './components/ProgressSummary';
-import { RegFAQ } from './components/RegFAQ';
-import { AICompanion } from './components/AICompanion';
-import { RegistrationChatAdvisor } from './components/RegistrationChatAdvisor';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowLeft, ArrowRight, Check, CheckCheck, ChevronDown, ExternalLink, FileText, HelpCircle, ListChecks, MessageCircle, RotateCcw, ShieldCheck, Sparkles, Store, Users } from 'lucide-react';
 import { PdfViewerModal } from '../../components/PdfViewerModal';
+import { buildRegistrationGuide, GUIDE_STORAGE_KEY, readGuideSaved, type GuideProfile, type GuideSaved, type RegistrationGoal } from './data/smartGuide';
 
-interface RegistrationPageProps {
-  onOpenAIChat?: (query: string) => void;
-  onOpenConsultation?: () => void;
-}
+interface Props { onOpenAIChat?:(query:string)=>void; onOpenConsultation?:()=>void }
+const defaultProfile:GuideProfile={goal:'new',founder:'self',submission:'online'};
+function loadSaved(){try{return readGuideSaved(localStorage.getItem(GUIDE_STORAGE_KEY));}catch{return null;}}
+const primary='inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white hover:bg-emerald-700';
 
-export const RegistrationPage: React.FC<RegistrationPageProps> = ({
-  onOpenAIChat,
-  onOpenConsultation,
-}) => {
-  const {
-    state,
-    setPath,
-    setQuizAnswer,
-    setStep,
-    toggleStepDone,
-    toggleDocChecked,
-    resetAll,
-  } = useRegistrationState();
+export default function RegistrationPage({onOpenAIChat,onOpenConsultation}:Props){
+  const [saved]=useState(loadSaved);
+  const [profile,setProfile]=useState<GuideProfile>(saved?.profile||defaultProfile);
+  const [screen,setScreen]=useState<'questions'|'guide'>(saved?'guide':'questions');
+  const [question,setQuestion]=useState(0);
+  const [checked,setChecked]=useState<string[]>(saved?.checked||[]);
+  const [activeId,setActiveId]=useState(saved?.activeStep||'');
+  const [docId,setDocId]=useState<string|null>(null);
+  const [situation,setSituation]=useState(''),[area,setArea]=useState('');
+  const [saveUnavailable,setSaveUnavailable]=useState(false);
+  const cardRef=useRef<HTMLElement>(null),headingRef=useRef<HTMLHeadingElement>(null);
+  const steps=buildRegistrationGuide(profile);
+  const activeIndex=Math.max(0,steps.findIndex(step=>step.id===activeId)),current=steps[activeIndex];
+  const isDone=(id:string)=>{const step=steps.find(s=>s.id===id);return !!step&&step.tasks.every(t=>checked.includes(t.id));};
+  const completed=steps.filter(step=>isDone(step.id)).length,allDone=steps.length>0&&completed===steps.length;
+  useEffect(()=>{
+    if(screen!=='guide')return;
+    const value:GuideSaved={version:2,profile,checked,activeStep:current?.id||''};
+    try{localStorage.setItem(GUIDE_STORAGE_KEY,JSON.stringify(value));setSaveUnavailable(false);}catch{setSaveUnavailable(true);}
+  },[screen,profile,checked,current?.id]);
+  const openStep=(id:string)=>{setActiveId(id);requestAnimationFrame(()=>{cardRef.current?.scrollIntoView({behavior:'smooth',block:'start'});headingRef.current?.focus({preventScroll:true});});};
+  const chooseGoal=(goal:RegistrationGoal)=>{setProfile(p=>({...p,goal}));if(goal==='new')setQuestion(1);else{setChecked([]);setActiveId('');setScreen('guide');}};
+  const begin=()=>{const plan=buildRegistrationGuide(profile),allowed=new Set(plan.flatMap(s=>s.tasks.map(t=>t.id)));setChecked(p=>p.filter(id=>allowed.has(id)));setActiveId(plan[0]?.id||'');setScreen('guide');};
+  const edit=()=>{setQuestion(0);setScreen('questions');};
+  const ask=()=>onOpenAIChat?.(`Tôi đang dùng hướng dẫn đăng ký hộ kinh doanh. ${profile.goal==='existing'?'Tôi đã có hộ.':profile.goal==='new'?`Tôi muốn đăng ký hộ do ${profile.founder==='self'?'một cá nhân':'các thành viên hộ gia đình'} thành lập, dự định ${profile.submission==='online'?'nộp trực tuyến':profile.submission==='counter'?'nộp tại bộ phận tiếp nhận':'chưa chọn cách nộp'}.`:'Tôi chưa rõ hoạt động của mình cần đăng ký hộ hay đăng ký thuế.'} ${area.trim()?`Địa phương: ${area.trim()}.`:''} ${situation.trim()?`Hoạt động: ${situation.trim()}.`:''} ${current?`Tôi đang ở bước “${current.title}”. Cần lưu ý gì để làm đúng?`:'Hãy xác định những dữ kiện còn thiếu trước khi kết luận tôi cần đăng ký gì; không suy miễn đăng ký chỉ vì doanh thu thấp hoặc bán online.'} Trả lời ngắn theo quy định hiện hành, phân biệt đăng ký hộ với đăng ký thuế.`);
 
-  const { pathParam, stepParam, navigateTo } = useHashRoute();
-  const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
-  const [quizDecision, setQuizDecision] = useState<PathDecision | null>(null);
-  const [isQuizActive, setIsQuizActive] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<'advisor' | 'catalog'>('advisor');
-  const wizardTopRef = useRef<HTMLDivElement>(null);
+  return <div className="min-h-screen bg-[#f5f8f7] pb-24 pt-20 sm:pt-28">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <a href="#" className="mb-6 inline-flex min-h-10 items-center gap-2 text-sm text-slate-500 hover:text-emerald-700"><ArrowLeft size={15}/> Trang chủ</a>
+      <header className="mb-7 flex items-start justify-between gap-4 sm:mb-10">
+        <div><p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-emerald-700"><Store size={15}/> Bắt đầu kinh doanh</p>
+          <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl">Đăng ký hộ kinh doanh,<br/><span className="text-emerald-700">từng việc một.</span></h1>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500 sm:text-base">Chọn tình huống của bạn. Nhận lộ trình rõ ràng và chỉ chuẩn bị những gì cần thiết.</p></div>
+        <div className="hidden rounded-2xl border border-emerald-100 bg-white p-5 text-emerald-600 sm:block"><ListChecks size={35} strokeWidth={1.5}/></div>
+      </header>
 
-  // Sync route query params if user visited #/dang-ky?path=household
-  useEffect(() => {
-    if (pathParam && ['individual', 'household', 'platform'].includes(pathParam)) {
-      if (state.pathId !== pathParam) {
-        const p = REG_PATHS[pathParam];
-        const initialStep = stepParam && p.stepIds.includes(stepParam) ? stepParam : p.stepIds[0];
-        setPath(pathParam as PathId, initialStep);
-        setIsQuizActive(false);
-        setViewMode('catalog');
-      }
-    }
-  }, [pathParam, stepParam, state.pathId, setPath]);
-
-  // Current active path & steps
-  const activePathId: PathId = state.pathId || 'household';
-  const currentPath: RegPath = REG_PATHS[activePathId];
-  const steps: RegStep[] = useMemo(() => {
-    return currentPath.stepIds.map((id) => REG_STEPS[id]).filter(Boolean);
-  }, [currentPath]);
-
-  // Active step ID fallback
-  const activeStepId = state.currentStepId && currentPath.stepIds.includes(state.currentStepId)
-    ? state.currentStepId
-    : currentPath.stepIds[0];
-
-  const currentStep = REG_STEPS[activeStepId] || steps[0];
-  const currentStepIndex = steps.findIndex((s) => s.id === activeStepId);
-
-  // Completion calculation
-  const completedCount = steps.filter((s) => state.doneSteps.includes(s.id)).length;
-  const isAllStepsCompleted = completedCount === steps.length && steps.length > 0;
-
-  // Handlers
-  const handleStartQuiz = () => {
-    setViewMode('advisor');
-    setIsQuizActive(false);
-    setTimeout(() => {
-      wizardTopRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
-
-  const handleFinishQuiz = (decision: PathDecision) => {
-    setQuizDecision(decision);
-  };
-
-  const handleSelectPathAndStart = (pathId: PathId) => {
-    const p = REG_PATHS[pathId];
-    setPath(pathId, p.stepIds[0]);
-    setIsQuizActive(false);
-    setQuizDecision(null);
-    navigateTo(`#/dang-ky?path=${pathId}`);
-    setTimeout(() => {
-      wizardTopRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
-
-  const handleSelectStep = (stepId: string) => {
-    setStep(stepId);
-    navigateTo(`#/dang-ky?path=${activePathId}&step=${stepId}`);
-    setTimeout(() => {
-      wizardTopRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
-  };
-
-  const handlePrevStep = () => {
-    if (currentStepIndex > 0) {
-      handleSelectStep(steps[currentStepIndex - 1].id);
-    }
-  };
-
-  const handleNextStep = () => {
-    if (currentStepIndex < steps.length - 1) {
-      handleSelectStep(steps[currentStepIndex + 1].id);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-50/60 pb-20">
-      {/* 1. Hero Section */}
-      <RegHero
-        onStartQuiz={handleStartQuiz}
-        onOpenAIChat={onOpenAIChat}
-        onBackToHome={() => navigateTo('#')}
-      />
-
-      <div ref={wizardTopRef} className="max-w-[1200px] mx-auto px-4 sm:px-6 space-y-8">
-        {/* Chuyển đổi chế độ: Chatbot Tư Vấn Thông Minh vs Cẩm Nang Tra Cứu */}
-        <div className="flex items-center justify-center pt-2">
-          <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs gap-1.5">
-            <button
-              type="button"
-              onClick={() => {
-                setViewMode('advisor');
-                setIsQuizActive(false);
-              }}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-                viewMode === 'advisor'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-              }`}
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Chatbot Tư vấn Đăng ký (Đề xuất)</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setViewMode('catalog');
-                setIsQuizActive(false);
-              }}
-              className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
-                viewMode === 'catalog'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-              }`}
-            >
-              <Store className="w-4 h-4" />
-              <span>Cẩm nang tra cứu từng bước</span>
-            </button>
+      {screen==='questions'?<section aria-label="Tìm lộ trình đăng ký" className="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-9">
+        <div className="mb-6 flex justify-between gap-3 text-xs"><span className="font-semibold text-emerald-700">{question===0?'Bắt đầu từ tình huống của bạn':`Câu ${question+1} / 3`}</span><span className="text-slate-400">Không cần đăng nhập</span></div>
+        <div className="mb-7 flex gap-1.5" aria-hidden="true">{[0,1,2].map(i=><span key={i} className={`h-1 flex-1 rounded-full ${i<=question?'bg-emerald-500':'bg-slate-100'}`}/>)}</div>
+        <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">{question===0?'Bạn đang cần làm gì?':question===1?'Ai sẽ thành lập hộ kinh doanh?':'Bạn muốn nộp hồ sơ bằng cách nào?'}</h2>
+        <p className="mb-6 mt-2 text-sm leading-6 text-slate-500">{question===0?'Không cần biết trước tên thủ tục hay mã số hồ sơ.':question===1?'Thông tin này giúp chọn đúng giấy tờ, tránh chuẩn bị thừa.':'Bạn có thể thay đổi sau. Cách tiếp nhận cụ thể theo địa phương.'}</p>
+        <div className="space-y-3">
+          {question===0&&<>
+            <Choice title="Tôi muốn đăng ký hộ mới" description="Chuẩn bị hồ sơ và theo dõi từ đầu đến khi nhận kết quả." icon={<Store size={20}/>} onClick={()=>chooseGoal('new')}/>
+            <Choice title="Tôi đã có hộ kinh doanh" description="Kiểm tra thông tin thuế và những việc cần làm tiếp." icon={<CheckCheck size={20}/>} onClick={()=>chooseGoal('existing')}/>
+            <Choice title="Tôi chưa biết có cần đăng ký hộ không" description="Làm rõ trường hợp trước khi chọn thủ tục." icon={<HelpCircle size={20}/>} onClick={()=>chooseGoal('unsure')}/>
+          </>}
+          {question===1&&<>
+            <Choice title="Một mình tôi" description="Hộ do một cá nhân thành lập." selected={profile.founder==='self'} icon={<Store size={20}/>} onClick={()=>{setProfile(p=>({...p,founder:'self'}));setQuestion(2);}}/>
+            <Choice title="Các thành viên trong gia đình" description="Có thêm giấy tờ ủy quyền thành viên làm chủ hộ." selected={profile.founder==='family'} icon={<Users size={20}/>} onClick={()=>{setProfile(p=>({...p,founder:'family'}));setQuestion(2);}}/>
+          </>}
+          {question===2&&<>
+            {([['online','Nộp trực tuyến','Chuẩn bị hồ sơ điện tử, theo dõi qua cổng dịch vụ công.'],['counter','Đến bộ phận tiếp nhận','Kiểm tra nơi tiếp nhận và chuẩn bị hồ sơ theo địa phương.'],['undecided','Tôi chưa chọn','Xem lộ trình trước, chọn cách nộp sau.']] as const).map(([value,title,description])=><Choice key={value} title={title} description={description} selected={profile.submission===value} icon={<FileText size={20}/>} onClick={()=>setProfile(p=>({...p,submission:value}))}/>)}
+            <button type="button" onClick={begin} className={`${primary} mt-4 w-full`}>Xem lộ trình của tôi <ArrowRight size={17}/></button>
+          </>}
+        </div>
+        {question>0&&<button type="button" onClick={()=>setQuestion(q=>q-1)} className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm text-slate-500"><ArrowLeft size={15}/> Quay lại</button>}
+        {saved&&<button type="button" onClick={()=>{setProfile(saved.profile);setScreen('guide');}} className="mt-5 block min-h-10 text-sm font-semibold text-emerald-700">Tiếp tục lộ trình đã lưu</button>}
+      </section>:profile.goal==='unsure'?<section className="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-9">
+        <HelpCircle className="mb-4 text-emerald-600" size={30}/><h2 className="text-2xl font-bold">Làm rõ trước khi chuẩn bị hồ sơ</h2>
+        <p className="mt-3 text-sm leading-6 text-slate-600">Đăng ký hộ kinh doanh và đăng ký thuế là hai việc khác nhau. Bán online, không có cửa hàng hoặc doanh thu thấp chưa đủ để kết luận được miễn đăng ký hộ.</p>
+        <label className="mt-6 block text-sm font-semibold" htmlFor="guide-activity">Bạn kinh doanh gì, thường xuyên hay thời vụ?</label>
+        <textarea id="guide-activity" rows={3} maxLength={1000} value={situation} onChange={e=>setSituation(e.target.value)} placeholder="Ví dụ: Làm affiliate tại nhà, nhận hoa hồng hằng tháng…" className="mt-2 w-full rounded-xl border border-slate-200 p-3 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"/>
+        <label className="mt-4 block text-sm font-semibold" htmlFor="guide-area">Tỉnh/thành phố <span className="font-normal text-slate-400">(nếu biết)</span></label>
+        <input id="guide-area" maxLength={100} value={area} onChange={e=>setArea(e.target.value)} placeholder="Nơi dự định kinh doanh" className="mt-2 min-h-12 w-full rounded-xl border border-slate-200 px-3 text-sm outline-none focus:border-emerald-500"/>
+        {onOpenAIChat&&<button type="button" onClick={ask} className={`${primary} mt-5 w-full`}><Sparkles size={17}/> Hỏi AI về trường hợp của tôi</button>}
+        <button type="button" onClick={edit} className="mt-4 min-h-10 text-sm font-semibold text-slate-500">Quay lại chọn tình huống</button>
+      </section>:<>
+        <section aria-label="Lộ trình của bạn" className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4">
+          <div><p className="text-sm font-bold">{profile.goal==='existing'?'Tiếp tục với hộ đã đăng ký':`Hộ do ${profile.founder==='self'?'một cá nhân':'gia đình'} thành lập`}</p><p className="mt-1 text-xs text-slate-500">{completed}/{steps.length} bước đã chuẩn bị · {saveUnavailable?'Tiến độ chỉ giữ trong phiên này':'Tự lưu trên thiết bị này'}</p></div>
+          <button type="button" onClick={edit} aria-label="Đổi thông tin" className="inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-slate-500 hover:text-emerald-700"><RotateCcw size={14}/><span className="hidden sm:inline">Đổi thông tin</span><span className="sm:hidden">Sửa</span></button>
+        </section>
+        <div className="grid items-start gap-5 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-7">
+          <nav aria-label="Các bước đăng ký" className="flex gap-2 overflow-x-auto pb-2 lg:sticky lg:top-28 lg:flex-col lg:overflow-visible">
+            {steps.map((step,index)=><button key={step.id} type="button" aria-current={current?.id===step.id?'step':undefined} onClick={()=>openStep(step.id)} className={`flex min-h-12 shrink-0 items-center gap-2.5 rounded-xl border px-3 py-3 text-left text-sm lg:gap-3 lg:px-4 ${current?.id===step.id?'border-emerald-200 bg-emerald-50 font-bold text-emerald-800':'border-transparent text-slate-500 hover:bg-white'}`}><span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs ${isDone(step.id)||current?.id===step.id?'bg-emerald-600 text-white':'bg-white text-slate-500'}`}>{isDone(step.id)?<Check size={14}/>:index+1}</span>{step.short}</button>)}
+          </nav>
+          <div className="min-w-0 space-y-5">
+            {current&&<section ref={cardRef} aria-label="Bước đang xem" className="scroll-mt-28 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+              <div className="p-5 sm:p-8"><p className="mb-3 text-xs font-bold uppercase tracking-widest text-emerald-700">Bước {activeIndex+1} / {steps.length}</p>
+                <h2 ref={headingRef} tabIndex={-1} className="text-2xl font-bold leading-tight tracking-tight outline-none">{current.title}</h2><p className="mt-3 text-sm leading-6 text-slate-500">{current.description}</p>
+                <div className="mt-7 space-y-3" aria-label="Việc cần chuẩn bị">{current.tasks.map(task=><label key={task.id} className={`flex cursor-pointer items-start gap-3 rounded-2xl border p-4 ${checked.includes(task.id)?'border-emerald-200 bg-emerald-50/60':'border-slate-200 hover:border-emerald-200'}`}><input type="checkbox" checked={checked.includes(task.id)} onChange={()=>setChecked(p=>p.includes(task.id)?p.filter(id=>id!==task.id):[...p,task.id])} className="mt-0.5 h-5 w-5 shrink-0 accent-emerald-600"/><span><span className="block text-sm font-semibold leading-6 text-slate-800">{task.label}</span>{task.note&&<span className="mt-1 block text-xs leading-5 text-slate-500">{task.note}</span>}</span></label>)}</div>
+                {current.link&&<a href={current.link.url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:text-emerald-700">{current.link.label}<ExternalLink size={14}/></a>}
+                <details className="mt-5 border-t border-slate-100 pt-4"><summary className="flex cursor-pointer list-none items-center justify-between gap-2 text-sm font-semibold text-slate-600">Điều cần lưu ý ở bước này <ChevronDown size={15}/></summary><p className="mt-3 text-sm leading-6 text-slate-500">{current.tip}</p><button type="button" onClick={()=>setDocId(current.source)} className="mt-3 inline-flex min-h-10 items-center gap-2 text-xs font-semibold text-emerald-700"><FileText size={14}/> Xem văn bản liên quan</button></details>
+                {onOpenAIChat&&<button type="button" onClick={ask} className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-emerald-700"><MessageCircle size={16}/> Tôi cần giải thích thêm bước này</button>}
+              </div>
+              <div className="flex items-center justify-between gap-3 border-t border-slate-100 bg-slate-50/60 px-5 py-4 sm:px-8"><button type="button" disabled={activeIndex===0} onClick={()=>openStep(steps[activeIndex-1].id)} className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-slate-500 disabled:opacity-30"><ArrowLeft size={15}/> Trước</button>{activeIndex<steps.length-1?<button type="button" onClick={()=>openStep(steps[activeIndex+1].id)} className={primary}>Bước tiếp theo <ArrowRight size={15}/></button>:<span className="flex items-center gap-2 text-sm font-semibold text-emerald-700"><ShieldCheck size={17}/>{allDone?'Đã đánh dấu đủ các việc':'Bạn đang ở bước cuối'}</span>}</div>
+            </section>}
+            {allDone&&<div role="status" className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5"><h3 className="font-bold text-emerald-900">Bạn đã đánh dấu hoàn tất lộ trình</h3><p className="mt-2 text-sm leading-6 text-emerald-800">Kết quả đăng ký và quyền hoạt động vẫn căn cứ hồ sơ, thông báo của cơ quan có thẩm quyền và điều kiện ngành nghề.</p></div>}
+            <p className="px-1 text-xs leading-5 text-slate-400">Có thể xem trước bước sau mà không cần đánh dấu đã làm. Dấu tích chỉ ghi nhận tiến độ của bạn.</p>
           </div>
         </div>
-
-        {/* 2. CHATBOT TƯ VẤN THÔNG MINH (ACTIVE BY DEFAULT) */}
-        {viewMode === 'advisor' && (
-          <section className="space-y-6">
-            <RegistrationChatAdvisor
-              onOpenAIChat={onOpenAIChat}
-              onSelectDocId={(docId) => setSelectedDocId(docId)}
-              onOpenConsultation={onOpenConsultation}
-            />
-          </section>
-        )}
-
-        {/* 2b. Situation Quiz or Path Result View (Nếu chọn trắc nghiệm riêng) */}
-        {viewMode === 'catalog' && isQuizActive && (
-          <section className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-xs">
-            {quizDecision ? (
-              <PathResult
-                decision={quizDecision}
-                onStartPath={handleSelectPathAndStart}
-                onSelectOtherPath={handleSelectPathAndStart}
-                onRetakeQuiz={handleStartQuiz}
-              />
-            ) : (
-              <SituationQuiz
-                answers={state.quizAnswers}
-                onAnswer={setQuizAnswer}
-                onFinishQuiz={handleFinishQuiz}
-                onReset={handleStartQuiz}
-              />
-            )}
-          </section>
-        )}
-
-        {/* 3. Main Wizard Mode (Cẩm nang từng bước) */}
-        {viewMode === 'catalog' && !isQuizActive && (
-          <section className="space-y-6">
-            {/* Path Selection Tabs */}
-            <div className="bg-white rounded-2xl border border-slate-200/90 p-2 sm:p-2.5 shadow-2xs">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                {(['household', 'platform', 'individual'] as PathId[]).map((pid) => {
-                  const p = REG_PATHS[pid];
-                  const isActive = pid === activePathId;
-                  return (
-                    <button
-                      key={pid}
-                      type="button"
-                      onClick={() => handleSelectPathAndStart(pid)}
-                      className={`flex items-center gap-3 p-3 sm:p-3.5 rounded-xl text-left transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-emerald-600 text-white shadow-xs'
-                          : 'bg-transparent text-slate-700 hover:bg-slate-50 border border-transparent hover:border-slate-200'
-                      }`}
-                    >
-                      <div
-                        className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
-                          isActive ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700'
-                        }`}
-                      >
-                        {pid === 'household' ? (
-                          <Store className="w-4 h-4" />
-                        ) : pid === 'platform' ? (
-                          <ShoppingBag className="w-4 h-4" />
-                        ) : (
-                          <UserCheck className="w-4 h-4" />
-                        )}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-xs sm:text-sm font-bold truncate">{p.shortName}</div>
-                        <div
-                          className={`text-[11px] truncate ${
-                            isActive ? 'text-emerald-100' : 'text-slate-500'
-                          }`}
-                        >
-                          {p.estimatedFee}
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Path description summary bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-3.5 bg-white rounded-2xl border border-slate-200/80 text-xs text-slate-600 shadow-2xs">
-              <div className="flex items-center gap-2">
-                <Info className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>
-                  Đang xem: <strong className="font-bold text-slate-900">{currentPath.name}</strong> · {currentPath.tagline}
-                </span>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <button
-                  type="button"
-                  onClick={handleStartQuiz}
-                  className="font-bold text-emerald-700 hover:text-emerald-800 cursor-pointer inline-flex items-center gap-1"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Trắc nghiệm lại</span>
-                </button>
-                <span className="text-slate-300">|</span>
-                <button
-                  type="button"
-                  onClick={resetAll}
-                  className="font-semibold text-slate-400 hover:text-slate-600 cursor-pointer inline-flex items-center gap-1"
-                  title="Đặt lại toàn bộ tiến độ và checklist"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                  <span>Làm lại từ đầu</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Two-Column Wizard Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left Column: AI Companion + Step Rail */}
-              <div className="lg:col-span-4 space-y-4">
-                <AICompanion
-                  currentStep={currentStep}
-                  stepIndex={currentStepIndex}
-                  totalSteps={steps.length}
-                  isQuizActive={isQuizActive}
-                  isAllDone={isAllStepsCompleted}
-                  pathName={currentPath.shortName}
-                  onOpenAIChat={onOpenAIChat}
-                  position="inline"
-                />
-
-                <StepRail
-                  steps={steps}
-                  currentStepId={activeStepId}
-                  doneStepIds={state.doneSteps}
-                  onSelectStep={handleSelectStep}
-                />
-              </div>
-
-              {/* Right Column: StepCard + Progress Summary */}
-              <div className="lg:col-span-8 space-y-6">
-                <StepCard
-                  step={currentStep}
-                  stepIndex={currentStepIndex}
-                  totalSteps={steps.length}
-                  isDone={state.doneSteps.includes(activeStepId)}
-                  checkedDocIds={state.checkedDocs}
-                  onToggleDone={() => toggleStepDone(activeStepId)}
-                  onToggleDoc={toggleDocChecked}
-                  onSelectDocId={(docId) => setSelectedDocId(docId)}
-                  onOpenAIChat={onOpenAIChat}
-                />
-
-                <ProgressSummary
-                  totalSteps={steps.length}
-                  completedCount={completedCount}
-                  onPrev={handlePrevStep}
-                  onNext={handleNextStep}
-                  isFirst={currentStepIndex === 0}
-                  isLast={currentStepIndex === steps.length - 1}
-                />
-
-                {/* Final Completion Congratulations Card */}
-                {isAllStepsCompleted && (
-                  <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white space-y-4 shadow-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
-                        <CheckCircle2 className="w-7 h-7 text-white" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold uppercase tracking-widest text-emerald-200">
-                          Chúc mừng bạn
-                        </span>
-                        <h4 className="text-xl sm:text-2xl font-black">
-                          Bạn đã hoàn thành đủ các bước hồ sơ!
-                        </h4>
-                      </div>
-                    </div>
-
-                    <p className="text-sm text-emerald-50 leading-relaxed max-w-xl">
-                      Cơ sở của bạn đã sẵn sàng đi vào hoạt động chính thức. Đừng quên đối chiếu doanh thu với ngưỡng 1 tỷ đồng/năm để hưởng trọn vẹn chính sách miễn thuế theo Nghị định 141/2026/NĐ-CP.
-                    </p>
-
-                    <div className="flex flex-wrap items-center gap-3 pt-2">
-                      <a
-                        href="#tax-calculator"
-                        onClick={() => navigateTo('#tax-calculator')}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white text-emerald-800 text-xs font-bold hover:bg-emerald-50 transition-colors shadow-xs"
-                      >
-                        <Calculator className="w-4 h-4 text-emerald-600" />
-                        <span>Dự tính số thuế phát sinh</span>
-                      </a>
-
-                      {onOpenConsultation && (
-                        <button
-                          type="button"
-                          onClick={onOpenConsultation}
-                          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-800/60 hover:bg-emerald-800 text-white border border-white/20 text-xs font-bold transition-colors cursor-pointer"
-                        >
-                          <CalendarDays className="w-4 h-4 text-emerald-300" />
-                          <span>Đặt lịch tư vấn chuyên gia 1-1</span>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* 4. FAQ Section */}
-        <RegFAQ onSelectDocId={(docId) => setSelectedDocId(docId)} />
-
-        {/* 5. Legal Disclaimer Notice */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-slate-100/80 border border-slate-200 text-center text-xs text-slate-500 leading-relaxed max-w-3xl mx-auto space-y-1">
-          <p className="font-semibold text-slate-700">Miễn trừ trách nhiệm & Lưu ý pháp lý:</p>
-          <p>
-            Nội dung hướng dẫn được TaxHKD rà soát và đối chiếu căn cứ theo các văn bản quy phạm pháp luật hiện hành của Nước CHXHCN Việt Nam (Nghị định 168/2025/NĐ-CP, Nghị định 141/2026/NĐ-CP, Thông tư 86/2024/TT-BTC, Công văn 311/TCT-DNNCN). Quy định cụ thể về biểu mẫu và tiếp nhận hồ sơ có thể có hướng dẫn chi tiết theo từng địa phương. Vui lòng đối chiếu với Chi cục Thuế và cơ quan ĐKKD có thẩm quyền khi thực hiện thủ tục.
-          </p>
-        </div>
-      </div>
-
-      {/* 6. Trợ lý AI đồng hành xuyên suốt (Floating Companion theo chân người dùng) */}
-      <AICompanion
-        currentStep={currentStep}
-        stepIndex={currentStepIndex}
-        totalSteps={steps.length}
-        isQuizActive={isQuizActive}
-        isAllDone={isAllStepsCompleted}
-        pathName={currentPath.shortName}
-        onOpenAIChat={onOpenAIChat}
-        position="floating"
-      />
-
-      {/* 7. Modal xem tài liệu PDF gốc dùng chung */}
-      <PdfViewerModal
-        docId={selectedDocId}
-        onClose={() => setSelectedDocId(null)}
-        onOpenAIChat={onOpenAIChat}
-      />
+      </>}
+      <section className="mx-auto mt-10 max-w-3xl border-t border-slate-200 pt-6"><h2 className="mb-3 text-sm font-bold text-slate-700">Biết thêm khi cần</h2>
+        {[
+          ['Bán online có phải là một loại đăng ký riêng?','Kênh bán hàng không phải một loại giấy phép thay cho hộ kinh doanh. Phân biệt đăng ký hộ với đăng ký thuế và phần nghĩa vụ sàn thực hiện thay.'],
+          ['Lệ phí và thời gian có giống nhau ở mọi nơi?','Lệ phí, miễn/giảm và cách tiếp nhận theo quy định địa phương. Thời gian giải quyết không bao gồm mọi tình huống cần sửa, bổ sung hồ sơ.'],
+          ['Tôi chưa rõ có phải đăng ký hộ không.','Cần biết hoạt động thực tế và trường hợp miễn đăng ký theo quy định. Chọn “Tôi chưa biết có cần đăng ký hộ không” để làm rõ.'],
+        ].map(([title,body])=><details key={title} className="rounded-xl px-2 py-3"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-medium text-slate-600">{title}<ChevronDown size={15} className="shrink-0"/></summary><p className="mt-3 text-sm leading-6 text-slate-500">{body}</p></details>)}
+        {onOpenConsultation&&<button type="button" onClick={onOpenConsultation} className="mt-4 min-h-11 text-sm font-semibold text-emerald-700">Trao đổi với chuyên gia <ArrowRight size={14} className="ml-1 inline"/></button>}
+        <p className="pt-5 text-xs leading-5 text-slate-400">Theo Nghị định 168/2025, các sửa đổi liên quan và Thông tư 90/2026 về đăng ký thuế. Kiểm tra hướng dẫn tiếp nhận tại địa phương khi nộp.</p>
+      </section>
     </div>
-  );
-};
-
-export default RegistrationPage;
+    <PdfViewerModal docId={docId} onClose={()=>setDocId(null)} onOpenAIChat={onOpenAIChat}/>
+  </div>;
+}
+function Choice({title,description,icon,selected,onClick}:{title:string;description:string;icon:ReactNode;selected?:boolean;onClick:()=>void}){
+  return <button type="button" onClick={onClick} aria-pressed={selected} className={`group flex min-h-20 w-full items-center gap-4 rounded-2xl border p-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 ${selected?'border-emerald-400 bg-emerald-50':'border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/40'}`}><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">{icon}</span><span className="min-w-0 flex-1"><span className="block text-sm font-bold leading-6 text-slate-800">{title}</span><span className="mt-0.5 block text-xs leading-5 text-slate-500">{description}</span></span>{selected?<Check size={18} className="shrink-0 text-emerald-600"/>:<ArrowRight size={17} className="shrink-0 text-slate-300 group-hover:text-emerald-600"/>}</button>;
+}

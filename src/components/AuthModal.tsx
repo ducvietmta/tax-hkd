@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Phone, KeyRound, ArrowRight, ShieldCheck, Sparkles, RefreshCw,
-  CheckCircle2, AlertCircle, Info, ArrowLeft
+  CheckCircle2, AlertCircle, ArrowLeft
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { auth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult } from '../services/firebase';
@@ -102,22 +102,22 @@ export const AuthModal: React.FC = () => {
     const message = err?.message || '';
 
     if (code === 'auth/invalid-phone-number') {
-      return 'Số điện thoại không hợp lệ. Vui lòng nhập đúng định dạng 10 chữ số (VD: 0943219594).';
+      return 'Số điện thoại không hợp lệ. Vui lòng nhập đúng định dạng 10 chữ số (VD: 0965999594).';
     }
     if (code === 'auth/missing-phone-number') {
       return 'Vui lòng nhập số điện thoại.';
     }
     if (code === 'auth/quota-exceeded') {
-      return 'Dự án đã sử dụng hết hạn mức SMS hôm nay. Mẹo: Hãy thêm số này vào "Phone numbers for testing" trong Firebase Console để đăng nhập miễn phí không giới hạn.';
+      return 'Hệ thống tạm thời đạt giới hạn gửi tin SMS hôm nay. Vui lòng thử lại sau hoặc liên hệ hỗ trợ.';
     }
     if (code === 'auth/operation-not-allowed') {
-      return 'Phương thức Phone Auth chưa được bật trong Firebase Console (Vào Authentication > Sign-in method > Phone > Bật Enable).';
+      return 'Phương thức đăng nhập bằng số điện thoại tạm thời gián đoạn. Vui lòng thử lại sau.';
     }
     if (code === 'auth/unauthorized-domain') {
-      return `Tên miền (${window.location.hostname}) chưa được thêm vào Authorized Domains trong Firebase Console.`;
+      return 'Tên miền chưa được cấp phép xác thực. Vui lòng liên hệ quản trị viên.';
     }
     if (code === 'auth/too-many-requests') {
-      return 'Quá nhiều yêu cầu trong thời gian ngắn. Vui lòng thử lại sau vài phút hoặc dùng số thử nghiệm cấu hình sẵn.';
+      return 'Quá nhiều yêu cầu trong thời gian ngắn. Vui lòng thử lại sau ít phút.';
     }
     if (code === 'auth/captcha-check-failed') {
       return 'Xác thực reCAPTCHA không thành công. Vui lòng thử lại.';
@@ -129,7 +129,7 @@ export const AuthModal: React.FC = () => {
       return 'Mã OTP đã hết hạn. Vui lòng nhấn "Gửi lại mã SMS".';
     }
     if (message.includes('Identity Platform') || code === 'auth/billing-not-enabled') {
-      return 'Firebase yêu cầu kích hoạt Identity Platform / gói trả phí để gửi SMS quốc tế thật. Mẹo: Bạn có thể thêm số điện thoại này vào mục "Phone numbers for testing" trong Firebase Console để nhận mã tức thì!';
+      return 'Dịch vụ gửi tin nhắn SMS đang được bảo trì. Vui lòng thử lại sau ít phút.';
     }
     return message || 'Đã có lỗi xảy ra. Vui lòng thử lại.';
   };
@@ -142,7 +142,7 @@ export const AuthModal: React.FC = () => {
     const localPhone = getCleanLocalPhone(phone);
     const phoneRegex = /^0[35789]\d{8}$/;
     if (!phoneRegex.test(localPhone)) {
-      setError('Số điện thoại không đúng định dạng Việt Nam (10 số, ví dụ: 0943 219 594).');
+      setError('Số điện thoại không đúng định dạng Việt Nam (10 số, ví dụ: 0965 999 594).');
       return;
     }
 
@@ -243,11 +243,11 @@ export const AuthModal: React.FC = () => {
                 {step === 'phone' ? <Phone className="w-6 h-6" /> : <KeyRound className="w-6 h-6" />}
               </div>
               <h3 className="text-[22px] font-extrabold text-slate-900 tracking-tight">
-                {step === 'phone' ? 'Đăng nhập bằng Số điện thoại' : 'Xác thực mã OTP Firebase'}
+                {step === 'phone' ? 'Đăng nhập bằng Số điện thoại' : 'Xác thực mã OTP'}
               </h3>
               <p className="mt-1 text-[13px] sm:text-[14px] text-slate-500">
                 {step === 'phone'
-                  ? 'Mã OTP SMS sẽ được gửi trực tiếp qua Firebase Authentication'
+                  ? 'Mã OTP SMS sẽ được gửi đến số điện thoại của bạn'
                   : `Mã xác thực đã được gửi tới ${phone}`}
               </p>
             </div>
@@ -257,7 +257,7 @@ export const AuthModal: React.FC = () => {
               <div className="mb-5 flex items-center gap-3 p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-emerald-900">
                 <Sparkles className="w-5 h-5 text-emerald-600 shrink-0" />
                 <div className="text-[12px] font-medium leading-relaxed">
-                  Xác thực trực tiếp bằng <strong className="font-extrabold text-emerald-700">Firebase Phone OTP</strong>. Tặng ngay 3 lượt hỏi AI tư vấn thuế, lưu trữ an toàn trên Cloudflare D1 Database!
+                  Tặng ngay <strong className="font-extrabold text-emerald-700">3 lượt hỏi AI tư vấn thuế</strong> cho tài khoản mới!
                 </div>
               </div>
             )}
@@ -293,7 +293,7 @@ export const AuthModal: React.FC = () => {
                       autoFocus
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="0943 219 594"
+                      placeholder="0965 999 594"
                       className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-20 pr-4 py-3 text-[15px] text-slate-900 font-medium focus:bg-white focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all font-mono"
                     />
                   </div>
@@ -316,14 +316,6 @@ export const AuthModal: React.FC = () => {
                     </>
                   )}
                 </button>
-
-                {/* Testing Note Helper */}
-                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[12px] text-slate-500 flex items-start gap-2">
-                  <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
-                  <div className="leading-relaxed">
-                    Nếu bạn đã cấu hình số điện thoại thử nghiệm trong Firebase Console (vd: <span className="font-semibold text-slate-700">+84943219594</span> với mã OTP kiểm tra), bạn có thể đăng nhập ngay mà không cần chờ SMS nhà mạng.
-                  </div>
-                </div>
               </form>
             )}
 
@@ -403,7 +395,7 @@ export const AuthModal: React.FC = () => {
             {/* Privacy Footer */}
             <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Xác thực bởi Google Firebase Auth & đồng bộ Cloudflare D1 Database.</span>
+              <span>Bảo mật thông tin & xác thực an toàn qua mã SMS OTP.</span>
             </div>
           </div>
         </motion.div>

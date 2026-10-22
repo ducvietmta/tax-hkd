@@ -1,0 +1,7 @@
+# robots.txt for thuehkd.com
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://thuehkd.com/sitemap.xml

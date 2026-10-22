@@ -2,10 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Check, Zap, ArrowRight, ShieldCheck,
-  Copy, Download, ArrowLeft, Building2, CreditCard, RefreshCw
+  Copy, Download, ArrowLeft, Building2, CreditCard, RefreshCw,
+  Lock, Clock, Phone, MessageCircle
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { CloudflareApi } from '../services/api';
+
+// Tạm khóa tính năng nạp lượt câu hỏi trong thời gian hoàn tất thủ tục thông báo website với Bộ Công Thương.
+// Sau khi Bộ Công Thương xét duyệt xong, đổi thành false để mở lại thanh toán bình thường.
+export const IS_PAYMENT_LOCKED = true;
 
 interface PricingPackage {
   id: string;
@@ -66,7 +71,7 @@ export const DepositModal: React.FC = () => {
   const formatVND = (num: number) =>
     new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num);
 
-  const transferPhone = user?.phone ? user.phone.replace(/\s+/g, '') : '0943219594';
+  const transferPhone = user?.phone ? user.phone.replace(/\s+/g, '') : '0965999594';
   const transferContent = `${BANK_CONFIG.pattern} TAX ${transferPhone}`;
 
   // Link ảnh VietQR chuẩn Napas 247 tự động điền số tiền và nội dung
@@ -84,7 +89,7 @@ export const DepositModal: React.FC = () => {
   // Polling tự động kiểm tra biến động số dư SePay mỗi 2 giây
   useEffect(() => {
     let interval: any;
-    if (isDepositModalOpen && paymentStep === 'qr' && !isSuccess) {
+    if (isDepositModalOpen && paymentStep === 'qr' && !isSuccess && !IS_PAYMENT_LOCKED) {
       interval = setInterval(async () => {
         try {
           const res = await CloudflareApi.checkPaymentStatus(transferPhone);
@@ -121,6 +126,109 @@ export const DepositModal: React.FC = () => {
   };
 
   if (!isDepositModalOpen) return null;
+
+  if (IS_PAYMENT_LOCKED) {
+    return (
+      <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          className="relative w-full max-w-lg rounded-3xl bg-white border border-slate-200 shadow-2xl overflow-hidden"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Top border accent */}
+          <div className="h-2 w-full bg-gradient-to-r from-amber-400 via-emerald-400 to-teal-500" />
+
+          {/* Close Button */}
+          <button
+            onClick={closeDepositModal}
+            className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+            aria-label="Đóng"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <div className="p-6 sm:p-8 text-center space-y-5">
+            {/* Lock Icon */}
+            <div className="mx-auto w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 shadow-md">
+              <Lock className="w-8 h-8" />
+            </div>
+
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/90 text-amber-800 text-[11px] font-bold uppercase tracking-wider mb-2.5">
+                <Clock className="w-3.5 h-3.5" />
+                <span>Tạm dừng nạp phí · Đang thông báo Bộ Công Thương</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                Tính năng Nạp lượt hỏi đang tạm đóng
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                Để tuân thủ đầy đủ quy định của <strong>Nghị định 52/2013/NĐ-CP</strong> và <strong>Nghị định 85/2021/NĐ-CP</strong>, website đang trong quá trình thực hiện thủ tục thông báo website thương mại điện tử bán hàng với <strong>Bộ Công Thương</strong>.
+              </p>
+            </div>
+
+            {/* Free Experience Note */}
+            <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200/80 text-left space-y-2 text-xs sm:text-sm text-emerald-950">
+              <div className="font-bold text-emerald-900 flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Trải nghiệm hoàn toàn miễn phí</span>
+              </div>
+              <p className="text-xs text-emerald-800 leading-relaxed">
+                Trong thời gian này, bạn vẫn được sử dụng <strong>3 lượt hỏi AI miễn phí</strong> được tặng khi đăng nhập bằng số điện thoại để tra cứu và tính toán thuế.
+              </p>
+              {user && (
+                <div className="pt-1 text-xs text-slate-600">
+                  Tài khoản của bạn ({user.phone}) hiện có: <strong className="text-emerald-700 font-extrabold">{user.credits} lượt hỏi</strong>.
+                </div>
+              )}
+            </div>
+
+            {/* Need More Assistance Box */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-2 text-xs text-slate-600">
+              <p className="leading-relaxed">
+                Nếu bạn cần thêm lượt hỏi để tra cứu công việc kinh doanh gấp, vui lòng liên hệ Admin để được <strong>hỗ trợ cấp thêm lượt hỏi hoàn toàn miễn phí</strong>:
+              </p>
+              <div className="flex flex-col sm:flex-row items-center gap-2 pt-1">
+                <a
+                  href="https://zalo.me/0965999594"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Nhắn Zalo: 0965.999.594</span>
+                </a>
+                <a
+                  href="tel:0965999594"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-slate-500" />
+                  <span>Gọi hotline</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Close Button */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={closeDepositModal}
+                className="w-full py-3 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-colors cursor-pointer"
+              >
+                Đã hiểu và quay lại
+              </button>
+            </div>
+
+            {/* Safe badge */}
+            <div className="pt-1 text-[11px] text-slate-400">
+              <span>Hệ thống thanh toán tự động sẽ mở lại ngay sau khi hoàn tất thủ tục Bộ Công Thương.</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-200">
@@ -447,7 +555,7 @@ export const DepositModal: React.FC = () => {
           {/* Safe badge */}
           <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 text-center">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <span>Xác thực tự động bởi SePay Gateway & Lưu trữ trên Cloudflare D1 Database.</span>
+            <span>Xác thực tự động bởi SePay Gateway · Bảo mật thông tin giao dịch.</span>
           </div>
         </div>
       </motion.div>

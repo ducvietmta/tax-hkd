@@ -16,7 +16,14 @@ function loadModule(relativePath, dependencies = {}) {
   const module = { exports: {} };
   new Function('require', 'module', 'exports', compiled)(
     (id) => {
-      if (!(id in dependencies)) throw new Error(`Unexpected import: ${id}`);
+      if (!(id in dependencies)) {
+ if(id.endsWith('/periodApplicability')||id.endsWith('/conversationHistory')) {
+  const p=path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id+'.ts');
+  const mod={exports:{}};new Function('module','exports',ts.transpileModule(fs.readFileSync(p,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(mod,mod.exports);return mod.exports;
+ }
+ if(id.endsWith('.json'))return {default:JSON.parse(fs.readFileSync(path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id),'utf8'))};
+ throw new Error(`Unexpected import: ${id}`);
+}
       return dependencies[id];
     },
     module,
@@ -40,6 +47,7 @@ const taxEngine = loadModule('worker/src/taxEngine.ts');
 const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine, './utils/text': textUtils, './sectorIntent': sectorIntent });
 const retrievalPlan = loadModule('worker/src/decision/retrievalPlan.ts');
 const { retrieve, buildContext, analyzeAmounts } = loadModule('worker/src/retriever.ts', {
+  './kb/provenance': loadModule('worker/src/kb/provenance.ts',{'./chunkMeta.json':{default:JSON.parse(fs.readFileSync(path.join(__dirname,'../worker/src/kb/chunkMeta.json'),'utf8'))}}),
   './ragEngine': engine,
   './answerScope': scope,
   './taxEngine': taxEngine,

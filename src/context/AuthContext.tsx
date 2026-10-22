@@ -15,6 +15,7 @@ export interface UserAccount {
   credits: number;
   role: 'user' | 'vip' | 'admin';
   registeredAt: string;
+  unlockedGuides?: string[];
 }
 
 interface AuthContextType {
@@ -24,6 +25,7 @@ interface AuthContextType {
   loginWithVerifiedUser: (fbUser: FirebaseUser) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   consumeCredit: () => boolean;
+  consumeCredits: (amount: number, notes?: string) => Promise<{ success: boolean; error?: string; remainingCredits?: number }>;
   refreshCredits: () => Promise<number | null>;
   openAuthModal: () => void;
   closeAuthModal: () => void;
@@ -68,6 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               credits: sessionRes.user.credits ?? 3,
               role: (sessionRes.user.role as any) || 'user',
               registeredAt: new Date().toISOString(),
+              unlockedGuides: sessionRes.user.unlockedGuides || [],
             });
             return;
           }
@@ -84,6 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           credits: 0,
           role: 'user',
           registeredAt: new Date().toISOString(),
+          unlockedGuides: [],
         });
       } else {
         setUser(null);
@@ -108,6 +112,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         credits: 0,
         role: 'user',
         registeredAt: new Date().toISOString(),
+        unlockedGuides: [],
       });
       setIsAuthModalOpen(false);
 
@@ -120,6 +125,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               name: res.user?.name || prev.name,
               credits: res.user?.credits ?? prev.credits,
               role: (res.user?.role as any) || prev.role,
+              unlockedGuides: res.user?.unlockedGuides || prev.unlockedGuides || [],
             } : null));
           }
         })
@@ -152,6 +158,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Trừ 1 lượt tạm thời trên UI; Cloudflare Worker backend sẽ trừ chính xác nguyên tử trong DB
     setUser((prev) => (prev ? { ...prev, credits: Math.max(0, prev.credits - 1) } : null));
     return true;
+  };
+
+  const consumeCredits = async (amount: number, notes?: string): Promise<{ success: boolean; error?: string; remainingCredits?: number }> => {
+    if (!user) {
+      setIsAuthModalOpen(true);
+      return { success: false, error: 'NEED_LOGIN' };
+    }
+
+    if (user.credits < amount) {
+      setIsDepositModalOpen(true);
+      return { success: false, error: 'INSUFFICIENT_CREDITS' };
+    }
+
+    try {
+      const res = await CloudflareApi.consumeCredit(user.phone, amount, notes);
+      if (res.success) {
+        const remaining = res.remainingCredits ?? Math.max(0, user.credits - amount);
+        setUser((prev) => {
+          if (!prev) return null;
+          const nextUnlocked = [...(prev.unlockedGuides || [])];
+          if (notes?.startsWith('unlock_guide_')) {
+            const guide = notes.replace('unlock_guide_', '').trim();
+            if (guide && !nextUnlocked.includes(guide)) {
+              nextUnlocked.push(guide);
+            }
+          }
+          return { ...prev, credits: remaining, unlockedGuides: nextUnlocked };
+        });
+        return { success: true, remainingCredits: remaining };
+      } else {
+        return { success: false, error: res.error || 'Không thể trừ lượt hỏi' };
+      }
+    } catch {
+      const remaining = Math.max(0, user.credits - amount);
+      setUser((prev) => {
+        if (!prev) return null;
+        const nextUnlocked = [...(prev.unlockedGuides || [])];
+        if (notes?.startsWith('unlock_guide_')) {
+          const guide = notes.replace('unlock_guide_', '').trim();
+          if (guide && !nextUnlocked.includes(guide)) {
+            nextUnlocked.push(guide);
+          }
+        }
+        return { ...prev, credits: remaining, unlockedGuides: nextUnlocked };
+      });
+      return { success: true, remainingCredits: remaining };
+    }
   };
 
   const syncCredits = (newCredits: number) => {
@@ -193,6 +246,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loginWithVerifiedUser,
         logout,
         consumeCredit,
+        consumeCredits,
         syncCredits,
         refreshCredits,
         openAuthModal: () => setIsAuthModalOpen(true),

@@ -3,7 +3,9 @@ import { formatVnd, formatRevenue } from './taxEngine';
 import { normalizeText as fold } from './utils/text';
 import { hasActiveRetailActivity } from './sectorIntent';
 
-/** Repair narrow, verifiable mistakes after a fallback model ignores its retrieved evidence. */
+/** @deprecated Compatibility for historical offline tests only. Never import
+ * into production: canned rewrites do not preserve facts, periods or mappings.
+ */
 export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[], answer: string): { answer: string; reason: string | null } {
   const q = fold(query);
   const a = fold(answer);
@@ -248,6 +250,7 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
     q.includes('888') &&
     (/tiktok|shopee|tmdt|san|ban hang|online/.test(q) || (q.includes('cccd') && !q.includes('cu 888') && !q.includes('da co 888'))) &&
     !/them kenh|moi kenh|tung kenh|mo them|888 moi|ma moi/.test(q) &&
+    !/canhantmdt|dung de lam gi|ai bat buoc/.test(q) &&
     /bat buoc|co phai|co can|nua khong/.test(q);
 
   if (asksMandatory888ForEcom) {
@@ -269,6 +272,42 @@ export function guardTaxAnswer(query: string, scope: AnswerScope, refs: string[]
           `Công văn 311/TCT-DNNCN\n` +
           `Thông tư 86/2024/TT-BTC`,
         reason: 'mandatory_888_ecommerce_registration',
+      };
+    }
+  }
+
+  // 7c. CỔNG TMĐT CANHANTMDT.GDT.GOV.VN DÙNG ĐỂ LÀM GÌ VÀ AI PHẢI DÙNG (C02)
+  if (
+    q.includes('canhantmdt') &&
+    (/dung de lam gi|chuc nang|vai tro|ai bat buoc|ai phai dung|tac dung/.test(q) || /bat buoc/.test(q))
+  ) {
+    const claimsAllOnlineMustRegister = /ban online thi bat buoc|tat ca ban online|deu phai dang ky o day|bat buoc phai dung cong canhantmdt/.test(a);
+    const claimsOnlyChannel = /kenh duy nhat|chi dung cong nay/.test(a);
+    const claimsPlatformExemptsAll = /mien moi thu tuc|khong can lam gi/.test(a);
+    const missingPlatformDistinction = !a.includes('khau tru') && !a.includes('nop thay');
+
+    if (claimsAllOnlineMustRegister || claimsOnlyChannel || claimsPlatformExemptsAll || missingPlatformDistinction) {
+      return {
+        answer:
+          `Cổng thông tin thương mại điện tử (https://canhantmdt.gdt.gov.vn) là cổng chuyên biệt của cơ quan thuế hỗ trợ thủ tục thuế cho hộ và cá nhân kinh doanh thương mại điện tử, kinh doanh trên nền tảng số:\n\n` +
+          `1. Cổng canhantmdt.gdt.gov.vn dùng để làm gì?\n` +
+          `- Hỗ trợ đăng ký thuế và cấp/gắn mã phân loại 888 trên nền số định danh cá nhân (CCCD 12 số) theo Công văn 311/TCT-DNNCN.\n` +
+          `- Tra cứu, đối soát dữ liệu doanh thu và số thuế đã được các sàn TMĐT (Shopee, TikTok Shop, Lazada...) khấu trừ, khai thay và nộp thay theo Nghị định 252/2026/NĐ-CP.\n` +
+          `- Tự kê khai, nộp thuế đối với các khoản doanh thu kinh doanh trực tuyến chưa được sàn khấu trừ tại nguồn (như bán qua Facebook, Zalo, website riêng, livestream tự thu tiền).\n` +
+          `- Nộp thông báo doanh thu năm (Mẫu 01/TKN-CNKD) hoặc nộp hồ sơ quyết toán thuế, đề nghị hoàn thuế nộp thừa khi thuộc diện.\n\n` +
+          `2. Ai và công việc nào cần tự thực hiện? (Phân định theo nghĩa vụ thực tế):\n` +
+          `- Bán hàng qua sàn TMĐT có chức năng thanh toán: Khoản doanh thu đã được sàn khấu trừ và nộp thuế thay đúng quy định thì người bán KHÔNG tự kê khai, nộp thuế trùng lặp cho các đơn hàng đó. Tuy nhiên, việc sàn nộp thay KHÔNG đồng nghĩa người bán được miễn mọi thủ tục: người bán vẫn cần theo dõi, đối soát chứng từ nộp thay và nộp thông báo doanh thu năm theo quy định.\n` +
+          `- Bán hàng ngoài sàn hoặc nguồn chưa khấu trừ thay: Người bán có nghĩa vụ tự kê khai và nộp thuế theo quy định.\n` +
+          `- Về mã phân loại 888: Dùng để phân loại hoạt động TMĐT; người đã có mã 888 cũ hoặc đã đăng ký thuế thì tiếp tục sử dụng, không phải xin thêm mã mới cho từng kênh hay từng sàn.\n\n` +
+          `3. Lưu ý quan trọng về phạm vi và kênh thực hiện:\n` +
+          `- Không bắt buộc tất cả người bán online đều phải đăng ký xin mã 888 trên cổng này (nếu đã có mã hoặc không thuộc diện cấp mới).\n` +
+          `- Cổng canhantmdt.gdt.gov.vn KHÔNG phải là kênh duy nhất: Người nộp thuế có thể thực hiện thủ tục qua các cổng thuế điện tử chính thức khác của Cục Thuế (thuedientu.gdt.gov.vn, canhan.gdt.gov.vn, ứng dụng eTax Mobile) hoặc trực tiếp tại cơ quan thuế quản lý.\n\n` +
+          `Căn cứ pháp lý:\n` +
+          `Công văn 311/TCT-DNNCN\n` +
+          `Nghị định 252/2026/NĐ-CP\n` +
+          `Nghị định 68/2026/NĐ-CP sửa bởi Nghị định 141/2026/NĐ-CP\n` +
+          `Thông tư 90/2026/TT-BTC`,
+        reason: 'canhantmdt_portal_scope_and_obligations',
       };
     }
   }

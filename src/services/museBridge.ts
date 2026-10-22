@@ -30,16 +30,14 @@ export { isTaxRelatedQuery } from './guard';
 export function parseTaxResponse(rawText: string): ParsedTaxResponse {
   if (!rawText) return { answer: '', legalBasis: '' };
 
-  // Dọn dẹp nếu mô hình vô tình lặp lại dòng prompt chỉ dẫn
-  const cleaned = rawText
-    .replace(/(?:---|Yêu cầu định dạng câu trả lời:?|\[QUY TẮC PHẠM VI.*?\])[\s\S]*?(?:BẮT BUỘC.*?:\s*)/gi, '')
-    .trim();
+  // Presentation must never remove substantive conditions from the answer.
+  const cleaned = rawText.trim();
 
   // Kiểm tra nếu câu trả lời thông báo nằm ngoài phạm vi hỗ trợ
   const isOutOfScope = /nằm ngoài phạm vi hỗ trợ|nằm ngoài hỗ trợ/i.test(cleaned);
 
   // Tìm vị trí của tiêu đề Căn cứ pháp lý / Cơ sở pháp lý
-  const regex = /(?:^|\n)\s*(?:#+\s*)?(?:\*{1,3})?(?:Căn cứ pháp lý|Cơ sở pháp lý|Căn cứ pháp luật|Văn bản pháp luật áp dụng|Căn cứ)(?:\*{1,3})?:?\s*/i;
+  const regex = /(?:^|\n)[ \t]*(?:#{1,6}[ \t]*)?(?:\*{1,3})?(?:Căn cứ pháp lý|Cơ sở pháp lý|Căn cứ pháp luật|Văn bản pháp luật áp dụng|Văn bản áp dụng|Căn cứ)(?:\*{1,3})?[ \t]*(?::[ \t]*(?:\*{1,3})?[ \t]*|(?=\r?$))/im;
   const matchIndex = cleaned.search(regex);
 
   if (matchIndex !== -1) {
@@ -58,27 +56,6 @@ export function parseTaxResponse(rawText: string): ParsedTaxResponse {
     return {
       answer: cleaned.trim(),
       legalBasis: 'Không áp dụng (Câu hỏi không thuộc phạm vi tư vấn thuế HKD & CNKD)',
-    };
-  }
-
-  // Phương án dự phòng: nếu mô hình không in tiêu đề, quét các dòng chứa tên văn bản luật
-  const lines = cleaned.split('\n');
-  const legalLines: string[] = [];
-  const answerLines: string[] = [];
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (/^(?:-|\*|\d+\.)?\s*(?:Thông tư|Nghị định|Luật|Điều\s+\d+|Khoản\s+\d+)/i.test(trimmed)) {
-      legalLines.push(trimmed);
-    } else {
-      answerLines.push(line);
-    }
-  }
-
-  if (legalLines.length > 0 && answerLines.length > 0) {
-    return {
-      answer: answerLines.join('\n').trim(),
-      legalBasis: legalLines.join('\n').trim(),
     };
   }
 

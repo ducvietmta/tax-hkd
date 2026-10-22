@@ -3,6 +3,7 @@ export interface ConversationTurn {
   content: string;
 }
 
+import { completeHistory } from '../../shared/conversationHistory';
 interface ContextMessage {
   sender: 'user' | 'ai';
   text: string;
@@ -15,8 +16,8 @@ export function selectConversationHistory(messages: ContextMessage[]): Conversat
     .filter((message) => message.contextual && message.text.trim())
     .map((message) => ({
       role: message.sender === 'user' ? 'user' as const : 'assistant' as const,
-      content: message.text.trim().slice(0, 1000),
+      content: message.text.trim(),
     }));
 
-  return turns.length <= 20 ? turns : [...turns.slice(0, 2), ...turns.slice(-18)];
+  return completeHistory(turns);
 }

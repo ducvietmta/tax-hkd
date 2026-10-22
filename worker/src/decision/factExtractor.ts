@@ -41,6 +41,12 @@ export interface ExtractedAmount {
   isPerMonth?: boolean;
 }
 
+/** Monetary syntax, independent of any tax threshold or question intent. */
+function compositeAmounts(q:string):ExtractedAmount[]{
+ return [...q.matchAll(/(\d+(?:[.,]\d+)?|mot)\s*(ty|trieu)\s*(?:dong\s*)?(?:(le|cong them|cong|them|\+|dung|chi co|chi hon|hon|tru|thieu|kem|bot|-)\s*)?(mot|\d+)\s*dong\b/g)]
+  .map(m=>({raw:m[0],vnd:parseMoneyWithUnit(m[1]==='mot'?'1':m[1],m[2])+(/^(tru|thieu|kem|bot|-)$/.test(m[3]||'')?-1:1)*(m[4]==='mot'?1:Number(m[4])),index:m.index??0,unit:m[2]}));
+}
+
 /**
  * Trích xuất toàn bộ các số tiền xuất hiện trong câu hỏi
  */
@@ -49,9 +55,7 @@ export function extractAllAmounts(text: string): ExtractedAmount[] {
   const results: ExtractedAmount[] = [];
 
   // Keep the complete amount before shorter unit matches at the same position.
-  for (const m of q.matchAll(/(\d+(?:[.,]\d+)?)\s*(ty|trieu)\s*(?:dong\s*)?(?:(?:le|cong them|cong|them|\+)\s*)?(?:mot|1)\s*dong\b/g)) {
-    results.push({ raw: m[0], vnd: parseMoneyWithUnit(m[1], m[2]) + 1, index: m.index ?? 0, unit: m[2] });
-  }
+  results.push(...compositeAmounts(q));
 
   // 1. Số đầy đủ hàng nghìn: "1.010.000.000 dong", "500.000.000", "1,000,000,001"
   const exactMatches = q.matchAll(/(?<!\d)(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?/g);
@@ -127,20 +131,11 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
 
   // 2. Preserve a one-dong boundary exactly; never round it back to billions.
   let specialRevenue: number | undefined;
-  const composite = q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu)\s*(?:dong\s*)?(?:(?:le|cong them|cong|them|\+)\s*)?(?:mot|1)\s*dong\b/);
-  const strictlyOverBoundary = q.match(/\b(?:tren|vuot|hon)\s+(1|3|10|50)\s*ty\b(?!\s*(?:dong\s*)?(?:le|cong|\+|\d))/);
+  const composite = compositeAmounts(q)[0];
+  const revenueRange=q.match(/\b(?:tong\s+)?doanh thu(?:\s+nam\s+(?:19|20)\d{2})?\s+(?:da\s+)?(?:tren|vuot|hon)\s+(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+  const revenueLowerBound=revenueRange?parseMoneyWithUnit(revenueRange[1],revenueRange[2]):undefined;
   if (composite) {
-    specialRevenue = parseMoneyWithUnit(composite[1], composite[2]) + 1;
-  } else if (strictlyOverBoundary) {
-    specialRevenue = parseMoneyWithUnit(strictlyOverBoundary[1], 'ty') + 1;
-  } else if (q.includes('50.000.000.001')) {
-    specialRevenue = 50_000_000_001;
-  } else if (q.includes('10.000.000.001')) {
-    specialRevenue = 10_000_000_001;
-  } else if (q.includes('1.000.000.001') || (q.includes('1 ty') && q.includes('1 dong'))) {
-    specialRevenue = 1_000_000_001;
-  } else if (q.includes('3.000.000.001') || (q.includes('3 ty') && (q.includes('1 dong') || q.includes('+') || q.includes('cong them')))) {
-    specialRevenue = 3_000_000_001;
+    specialRevenue = composite.vnd;
   }
 
   // 3. Trích xuất đơn hoàn (refund) và chi phí
@@ -269,7 +264,7 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     // Ưu tiên số tiền gắn liền với từ khóa "doanh thu", "ban duoc", "tong thu", "hoa hong" (loại trừ thu nhập tính thuế)
     const revExplicitRegex = /(?:doanh thu|tong doanh thu|ban duoc|tong thu|kiem duoc|hoa hong)(?:\s+nam\s+(?:19|20)\d{2})?[^\d]{0,25}(?:(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?|(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b)/g;
     const revCandidates = [...q.matchAll(revExplicitRegex)];
-    const revMatch = revCandidates.find(m => !/bao nhieu|\btax\b|khau tru|giu lai|thu nhap tinh thue/.test(m[0]));
+    const revMatch = revCandidates.find(m => !/bao nhieu|\btax\b|khau tru|giu lai|thu nhap tinh thue|\b(tren|vuot|hon)\b/.test(m[0]));
     if (revMatch) {
       if (revMatch[1]) {
         primaryRevenue = parseVndFromDigits(revMatch[1]);
@@ -288,10 +283,12 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
           reportedExpenseVnd,
           duplicateExpenseVnd,
           gmvVnd,
+          revenueLowerBound,
         ].filter((v): v is number => v !== undefined)
       );
       const nonTaxableIncome = allAmounts.filter(a => !nonRevenueValues.has(a.vnd));
-      primaryRevenue = nonTaxableIncome.length > 0 ? nonTaxableIncome[0].vnd : allAmounts[0].vnd;
+      // Never promote an expense, balance or GMV to revenue just because it is the only number.
+      primaryRevenue = nonTaxableIncome.length > 0 ? nonTaxableIncome[0].vnd : undefined;
     }
   }
 
@@ -300,12 +297,13 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     !/khong (?:duoc|du dieu kien) giam (?:thue )?gtgt/.test(q) &&
     /(du dieu kien|thuoc dien|duoc giam|gia dinh)[^.!?]{0,90}(20\s*%|gtgt)|(?:hang hoa|mat hang)[^.!?]{0,90}(du dieu kien|duoc giam)/.test(q);
   // Numeric extraction only: never infer a business sector from this number.
-  const explicitRates = [...q.matchAll(/ty le\s+(?:thue\s+)?gtgt(?:\s+[a-z]+){0,8}\s+(\d+(?:[.,]\d+)?)\s*%/g)]
+  const explicitRates = [...q.matchAll(/(?:ty\s*le\s*(?:thue\s*)?gtgt(?:\s*[a-z]+){0,8}|gtgt\s*goc)\s*(\d+(?:[.,]\d+)?)\s*%/g)]
     .map(m => Number(m[1].replace(',', '.')) / 100);
   const vatRateExplicit = explicitRates.length === 1 && [0.01, 0.02, 0.03, 0.05].includes(explicitRates[0]) ? explicitRates[0] : undefined;
 
   return {
     revenue_vnd: primaryRevenue,
+    revenue_lower_bound_vnd:revenueLowerBound,
     revenue_basis: revenueBasis,
     is_resident: isResident,
     taxable_income_vnd: taxableIncomeVnd,

@@ -9,7 +9,7 @@
 import type { Env } from './http';
 
 const WINDOW_SECONDS = 3600;
-const LIMIT_PER_HOUR = 100;
+const LIMIT_PER_HOUR = 10000;
 
 function scopeFor(ip: string, windowId: number): string {
   return `chat:${ip}:${windowId}`;
@@ -47,7 +47,7 @@ export async function isChatRateLimited(ip: string, env: Env, ctx: ExecutionCont
 
   // Fallback cũ: caches.default theo IP/giờ.
   try {
-    const key = new Request(`https://rl.internal/chat/${ip}/${windowId}`);
+    const key = new Request(`https://rl.internal/v2/chat/${ip}/${windowId}`);
     const hit = await caches.default.match(key);
     const count = hit ? parseInt((await hit.text()) || '0', 10) : 0;
     if (count >= LIMIT_PER_HOUR) return true;

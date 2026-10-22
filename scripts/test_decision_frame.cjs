@@ -11,7 +11,13 @@ function loadModule(relativePath, dependencies = {}) {
   const module = { exports: {} };
   new Function('require', 'module', 'exports', compiled)(
     (id) => {
-      if (!(id in dependencies)) throw new Error(`Unexpected import: ${id}`);
+      if (!(id in dependencies)) {
+ if(id.endsWith('/periodApplicability')||id.endsWith('/conversationHistory')) {
+  const p=path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id+'.ts');
+  const mod={exports:{}};new Function('module','exports',ts.transpileModule(fs.readFileSync(p,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(mod,mod.exports);return mod.exports;
+ }
+ throw new Error(`Unexpected import: ${id}`);
+}
       return dependencies[id];
     },
     module,

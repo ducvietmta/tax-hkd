@@ -4,6 +4,8 @@ export interface PendingTopic {
   groups: string[][];
   /** số nhóm tối thiểu phải match (mặc định = tất cả các nhóm) */
   minGroups?: number;
+  /** Mandatory semantic anchors, even when other groups use a minimum count. */
+  requiredGroups?: number[];
   disclaimer: string;
 }
 
@@ -20,6 +22,7 @@ export const PENDING_TOPICS: PendingTopic[] = [
       ['nguong', '1 ty', '1ty', 'moi thu', '600 trieu'],
     ],
     minGroups: 2,
+    requiredGroups: [0],
     disclaimer:
       'Cách cộng/tách doanh thu cho thuê tài sản với doanh thu kinh doanh khác khi xét ngưỡng 1 tỷ ' +
       'hiện chưa có hướng dẫn chính thức rõ ràng trong tài liệu hệ thống.',
@@ -30,6 +33,7 @@ export const PENDING_TOPICS: PendingTopic[] = [
 export function matchPendingTopics(message: string): PendingTopic[] {
   const f = ' ' + normalize(message) + ' ';
   return PENDING_TOPICS.filter((t) => {
+    if (t.requiredGroups?.some(index => !t.groups[index].some(k => f.includes(k)))) return false;
     const matched = t.groups.filter((g) => g.some((k) => f.includes(k))).length;
     return matched >= (t.minGroups ?? t.groups.length);
   });

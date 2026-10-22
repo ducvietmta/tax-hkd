@@ -12,6 +12,9 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 # HTML no-cache to ensure users get the latest app version immediately
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+
 /index.html
   Cache-Control: no-cache, no-store, must-revalidate
 
@@ -21,4 +24,5 @@
 
 # API CORS & no-cache headers
 /api/*
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, no-transform
+  X-Accel-Buffering: no

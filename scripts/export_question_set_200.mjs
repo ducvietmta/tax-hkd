@@ -1,0 +1,22 @@
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const original=JSON.parse(await fs.readFile('outputs/testcases/tax-hkd-200-20261016/tax_hkd_200_test_cases.json','utf8'));
+const current=JSON.parse(await fs.readFile('tests/fixtures/tax-hkd-191.json','utf8'));
+assert.equal(original.cases.length,200);assert.equal(current.cases.length,191);
+assert.equal(new Set(original.cases.map(c=>c.id)).size,200);
+const retained=new Set(current.cases.map(c=>c.id));
+const archived=original.cases.filter(c=>!retained.has(c.id));assert.equal(archived.length,9);
+const out='outputs/exports/taxhkd-200-20261021';await fs.mkdir(out,{recursive:true});
+const heading='TAXHKD — BỘ 200 CÂU HỎI GỐC\nXuất lại ngày 21/10/2026. Giữ nguyên mã và nội dung; 9 ca đã bỏ được đánh dấu LƯU TRỮ.\nNgữ cảnh ngày kiểm thử giữ nguyên 16/10/2026; không đổi thành ngày xuất file.\n';
+const blocks=original.cases.map(c=>{
+ const history=(c.input.history||[]).map(t=>`${t.role==='user'?'Người dùng':'Trợ lý'}: ${t.content}`).join('\n\n');
+ return `${c.id} — ${c.title}${retained.has(c.id)?'':' [LƯU TRỮ — ĐÃ LOẠI KHỎI KIỂM THỬ]'}\n\n${history?'Lịch sử cần giữ khi kiểm thử:\n'+history+'\n\n':''}Câu hỏi:\n${c.input.message}`;
+});
+await fs.writeFile(out+'/200_cau_hoi.txt','\uFEFF'+heading+'\n'+blocks.join('\n\n'+'─'.repeat(64)+'\n\n')+'\n','utf8');
+await fs.writeFile(out+'/200_cau_hoi_va_dap_an.json',JSON.stringify({...original,original_exported_on:original.exported_on,exported_on:'2026-10-21',archived_case_ids:archived.map(c=>c.id)},null,2)+'\n');
+await fs.writeFile(out+'/191_test_case_hien_hanh.json',JSON.stringify(current,null,2)+'\n');
+await fs.writeFile(out+'/README.txt','\uFEFF'+`BỘ CÂU HỎI TAXHKD — XUẤT LẠI 21/10/2026\n\n200_cau_hoi.txt: đủ G001–G200, có lịch sử hội thoại khi cần; không kèm đáp án.\n200_cau_hoi_va_dap_an.json: bản gốc 200 test case gồm câu hỏi, đáp án, tiêu chí chấm và ngữ cảnh.\n191_test_case_hien_hanh.json: bộ hiện hành sau khi bỏ 9 ca.\n\n9 ca lưu trữ: ${archived.map(c=>c.id).join(', ')}. Không khôi phục chúng vào hệ thống kiểm thử.\nGiữ ngày ngữ cảnh 16/10/2026 và nguyên văn câu hỏi/đáp án. Đây là xuất lại dữ liệu, không phải lần xác minh pháp luật hoặc chấm model mới. 70 đáp án mới của bản gốc vẫn có trạng thái đề xuất như nguồn ban đầu.\n`);
+const reread=JSON.parse(await fs.readFile(out+'/200_cau_hoi_va_dap_an.json','utf8'));
+assert.deepEqual(reread.cases,original.cases);
+assert.equal(blocks.filter(b=>b.includes('LƯU TRỮ')).length,9);
+console.log(JSON.stringify({directory:out,questions:200,currentCases:191,archived:archived.map(c=>c.id),apiCalls:0},null,2));

@@ -88,8 +88,30 @@ assert.deepEqual(scopeFor('Thu nhập năm 2025').years, [2025]);
 assert.deepEqual(scopeFor('So sánh năm 2025 và 2026').years, [2025, 2026]);
 assert.deepEqual(scopeFor('Thu nhập phát sinh tháng 12/2025, chi trả tháng 1/2026; áp năm nào?').years, [2025, 2026]);
 assert.deepEqual(scopeFor('Nghị định số 68/2026 và Luật 109/2025').years, [2026]);
+for (const text of [
+  'Theo Luật Quản lý thuế 108/2025, hết thời hiệu phạt có tự hết nghĩa vụ truy thu không?',
+  'Luật Thuế giá trị gia tăng số 48/2024 quy định phương pháp trực tiếp thế nào?',
+  'Áp dụng Nghị định của Chính phủ số 310/2025 về xử phạt.',
+]) assert.deepEqual(scopeFor(text).years,[2026],text);
+assert.deepEqual(scopeFor('Theo Luật Quản lý thuế 108/2025, tôi hỏi doanh thu năm 2024.').years,[2024]);
+assert.deepEqual(scopeFor('Luật Thuế thu nhập cá nhân 109/2025; thu nhập tháng 12/2025 và 1/2026.').years,[2025,2026]);
 assert.deepEqual(scopeFor('Năm nay').years, [2026]);
 assert.deepEqual(scopeFor('Năm ngoái').years, [2025]);
+// Calendar/publication/effective dates must not replace the requested period.
+for (const [text, years] of [
+  ['Doanh thu năm 2024, giờ 2026 mới hỏi nghĩa vụ năm đó.', [2024]],
+  ['Bây giờ là tháng 10/2026; tôi hỏi doanh thu năm ngoái.', [2025]],
+  ['Bài đăng năm2026 nói về quyết toán2024. Tôi hỏi nghĩa vụ2024.', [2024]],
+  ['NQ43 áp cho2026–2027. Tôi hỏi nghĩa vụ2028.', [2028]],
+  ['Văn bản ban hành cuối 2025 nhưng hiệu lực từ 2026; tôi hỏi giao dịch ngày 20/12/2025.', [2025]],
+  ['Tôi hỏi quy định tháng 6/2025; tài liệu hiệu lực từ 2026.', [2025]],
+  ['Đổi sang năm nay và giữ mọi số khác.', [2026]],
+  ['Doanh thu năm 25 và năm 26, so sánh hai năm.', [2025,2026]],
+  ['Hỏi thuế năm 2024 và năm 2025.', [2024,2025]],
+  ['Tôi hỏi thuế năm ngoái và năm 2026.', [2025,2026]],
+  ['Bài đăng năm 2026 tóm tắt quyết toán 2024; tôi hỏi nghĩa vụ 2025.', [2025]],
+  ['https://example.com/news2025/nguon chỉ là nguồn, không nêu năm doanh thu.', [2026]],
+]) assert.deepEqual(scopeFor(text).years,years,text);
 assert.deepEqual(resolveAnswerScope([], 'năm nay', new Date('2026-12-31T18:00:00Z')).years, [2027]);
 assert.deepEqual(scopeFor('30 triệu', [assistant('Nếu năm 2025 thì...')]).years, [2026]);
 const history = [user('Bán Shopee năm 2025 có nộp thuế không?'), assistant('Doanh thu bao nhiêu?')];
@@ -150,12 +172,12 @@ async function testWorkerPaths() {
           taxpayer: fixture.taxpayer_type.value, primaryIntent: fixture.tax_intent.primary.value,
           secondaryIntents: fixture.tax_intent.secondary, incomeTypes: fixture.income_type.map(x => x.value),
         };
-        return Response.json(value ? require('./fixtures/quyet_native.cjs')(input, scopeLabel, value) : {});
+        return Response.json(value ? require('./fixtures/jev_native.cjs')(input, scopeLabel, value) : {});
       }
       scopeRequests.push(input);
       if (scopeLabel === 'HTTP_ERROR') return new Response('', { status: 503 });
       if (scopeLabel === 'TIMEOUT') throw new DOMException('timeout', 'AbortError');
-      return Response.json(require('./fixtures/quyet_native.cjs')(input, scopeLabel));
+      return Response.json(require('./fixtures/jev_native.cjs')(input, scopeLabel));
     }
     captured.push(input);
     if (input.stream) {
@@ -284,7 +306,7 @@ async function testWorkerPaths() {
     assert.equal(captured.length, museCallsBeforeBoundary, 'Verified 10 billion boundary must bypass model generation');
     const priorityCases = [
       ['G021', question, /không mặc định hoàn toàn bộ/],
-      ['T84', 'Năm 2026 bán tạp hóa doanh thu 1,5 tỷ, tỷ lệ GTGT 1%. Giả định hàng hóa đủ điều kiện giảm GTGT 20% theo Nghị quyết 204/2025, tính thuế GTGT bao nhiêu?', /12\.000\.000 đồng/],
+      ['T84', 'Năm 2026 bán tạp hóa doanh thu 1,5 tỷ, tỷ lệ GTGT 1%. Giả định hàng hóa đủ điều kiện giảm GTGT 20% theo Nghị quyết 204/2025, tính thuế GTGT bao nhiêu?', /12(?:\.000\.000| triệu) đồng/],
       ['T86', 'Tôi là cá nhân cư trú năm 2026 có doanh thu 3.000.000.001 đồng, thu nhập tính thuế hợp lệ 400 triệu đồng. TNCN sau giảm 30% theo Nghị quyết 43 là bao nhiêu?', /47\.600\.000 đồng/],
       ['T91', 'Năm 2026 doanh thu hoa hồng TikTok 500 triệu, TikTok giữ lại dòng tax 5 triệu. Doanh thu là bao nhiêu và tax đó chắc là TNCN đã nộp thay không?', /chưa đủ/],
       ['T95', 'Năm 2026 vợ chồng làm affiliate độc lập, mỗi người 600 triệu doanh thu. Có cộng gộp không, nếu một người đứng tên hộ thì sao?', /đứng tên hộ/],
@@ -302,14 +324,20 @@ async function testWorkerPaths() {
       assert.ok(mcp.result.content[0].text.startsWith(web.response), `${id}: MCP/web parity`);
     }
     assert.equal(captured.length, beforePriority, 'All priority answers must be deterministic and shared across transports');
+    // Supplied semantic eligibility; this is a calculation/focus test, not an
+    // accuracy test for the old keyword-derived native provider fixture.
+    businessReply = JSON.stringify({taxpayer:'HOUSEHOLD_BUSINESS',primaryIntent:'TAX_CALCULATION',secondaryIntents:['RELIEF_REDUCTION'],incomeTypes:['GOODS_SALES'],topic:'TAX_AMOUNT',revenueContext:'ACTUAL_YEAR',taxFocus:'vat',vatRelief:'ELIGIBLE'});
     const vatOnly = await (await worker.fetch(request(false, 'Bán tạp hóa 1,5 tỷ, chỉ hỏi GTGT được giảm, không hỏi TNCN.'), semanticEnv, ctx)).json();
-    assert.match(vatOnly.response, /12\.000\.000 đồng/);
-    assert.match(vatOnly.response, /loại trừ/);
+    businessReply = undefined;
+    assert.match(vatOnly.response, /12(?:\.000\.000| triệu) đồng/);
+    assert.match(vatOnly.response, /0,8%/);
     assert.doesNotMatch(vatOnly.response, /TNCN trước|TNCN sau|1\.750\.000/);
     const beforeCompound = captured.length;
     const compound = await (await worker.fetch(request(false, 'Dịch vụ sửa máy tính 1,5 tỷ: GTGT theo NQ204? TNCN theo NQ43? Khoản nền tảng giữ lại có được trừ?'), semanticEnv, ctx)).json();
     assert.ok(captured.length > beforeCompound, 'An incomplete verified answer must not bypass generation');
-    assert.match(compound.response, /phí dịch vụ với tiền thuế/);
+    assert.match(compound.response, /chưa xác minh/,'An ungrounded mock draft must not pass just because the mock reviewer says COMPLETE');
+    assert.equal(compound.retrieval.answerReview.status,'BLOCKED');
+    assert(compound.retrieval.answerReview.issues.some(issue=>issue.startsWith('claim_')));
     const fallback = await worker.fetch(request(false), { FPT_AI_KEY: 'scope-fixture', DECISION_L2: 'off' }, ctx);
     assert.equal(fallback.status, 200);
     assert.match((await fallback.json()).response, /không mặc định hoàn toàn bộ/);

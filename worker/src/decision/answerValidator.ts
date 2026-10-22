@@ -14,7 +14,7 @@ export interface ValidationReport {
   repairedText?: string;
 }
 
-export function validateAnswer(
+function inspectAnswer(
   answerText: string,
   frame: TaxDecisionFrame,
   evalResult?: EvaluationResult,
@@ -78,7 +78,7 @@ export function validateAnswer(
     /máy tính tiền|hóa đơn điện tử/i.test(text)
   ) {
     status = 'REPAIR';
-    reasons.push('Phát hiện trích dẫn sai Luật 38/2019 cho HĐĐT 2026');
+    reasons.push('Cần đối chiếu kỳ giao dịch và căn cứ Luật 38/2019 khi giải thích HĐĐT năm 2026');
     text = text.replace(/Luật (?:Quản lý thuế|QLT)\s*38\/2019\/QH14/g, 'Nghị định 68/2026/NĐ-CP');
   }
 
@@ -95,8 +95,9 @@ export function validateAnswer(
 
   // 3. Kiểm tra các câu hỏi về HĐĐT máy tính tiền có nêu mốc 30 ngày không
   if (
-    frame.tax_intent.primary.value === 'E_INVOICE' ||
-    frame.tax_intent.secondary.includes('E_INVOICE')
+    !['PROJECTED','PARTIAL_PERIOD'].includes(frame.semantic?.revenueContext||'') &&
+    (frame.tax_intent.primary.value === 'E_INVOICE' ||
+    frame.tax_intent.secondary.includes('E_INVOICE'))
   ) {
     if (/trên 1 tỷ|vượt 1 tỷ|hơn 1 tỷ/i.test(text) && !/30 ngày/i.test(text)) {
       status = 'REPAIR';
@@ -175,4 +176,11 @@ export function validateAnswer(
     reasons,
     repairedText: text,
   };
+}
+
+/** Validation reports issues; it cannot replace law names, append unverified
+ * COD exemptions, or allocate an unidentified payment to PIT. Text edits belong
+ * to the grounded repair path and require a fresh independent review. */
+export function validateAnswer(answerText:string,frame:TaxDecisionFrame,evalResult?:EvaluationResult,userMessage?:string):ValidationReport{
+  return {...inspectAnswer(answerText,frame,evalResult,userMessage),repairedText:answerText};
 }

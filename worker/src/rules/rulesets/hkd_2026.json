@@ -1,6 +1,6 @@
 {
   "ruleset_id": "HKD_2026",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "Chính sách thuế Hộ & Cá nhân kinh doanh năm 2026 - 2027",
   "effective_from": "2026-01-01",
   "effective_to": "2027-12-31",
@@ -77,7 +77,14 @@
     "e_invoice": {
       "doc_id": "ND-68-2026-ND-CP",
       "name": "Nghị định 68/2026/NĐ-CP",
-      "article": "Điều 6"
+      "article": "Điều 8",
+      "clause": "Khoản 5"
+    },
+    "e_invoice_amendment": {
+      "doc_id": "ND-141-2026-ND-CP",
+      "name": "Nghị định 141/2026/NĐ-CP",
+      "article": "Điều 1",
+      "clause": "Khoản 2"
     }
   }
 }

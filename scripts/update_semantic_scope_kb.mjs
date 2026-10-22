@@ -1,0 +1,24 @@
+import fs from 'node:fs/promises';
+const file='rag_data/rag-kb-export-2026-10-12/chunks.jsonl';
+const chunks=(await fs.readFile(file,'utf8')).trim().split(/\r?\n/).map(JSON.parse);
+const byRef=ref=>{const c=chunks.find(c=>c.ref_id===ref);if(!c)throw Error('Missing source '+ref);return c;};
+const relief=byRef('16.39');
+relief.retrieval_facets={policy_focus:['PIT_RELIEF'],eligibility_topics:['REVENUE_THRESHOLD','REVENUE_OWNERSHIP']};
+relief.evidence_mode='COMPLETE_RULE';
+if(!relief.text.includes('[RANH GIỚI CHÍNH SÁCH]'))relief.text+='\n[RANH GIỚI CHÍNH SÁCH] Khoản 1 Điều 1 xét quyền giảm một phần số TNCN phải nộp, khác với ngưỡng không phải nộp thuế và nghĩa vụ sử dụng hóa đơn. Tổng doanh thu dùng đối chiếu phải thuộc đúng cá nhân và đúng kỳ; số đúng trần thuộc điều kiện doanh thu, số lớn hơn trần không thuộc điều kiện này. Không làm tròn số tiền trước khi so sánh. Đạt tiêu chí doanh thu chưa xác nhận điều kiện cư trú hoặc loại thu nhập. Khi chưa biết người hỏi muốn xét chính sách nào, tổng doanh thu vẫn tính được, còn kết luận quyền lợi phải giữ giả định về chính sách. Đây là diễn giải phạm vi, không phải câu trả lời sẵn cho một tình huống. Nguồn: khoản 1 Điều 1 và khoản 1 Điều 2 Nghị quyết 43/2026/QH16; đã đối chiếu Cổng Chính phủ ngày 21/10/2026.';
+byRef('16.50').retrieval_facets={policy_focus:['VAT_RELIEF']};
+const invoice=byRef('16.41');
+invoice.retrieval_facets={policy_focus:['EINVOICE'],eligibility_topics:['REVENUE_THRESHOLD','REVENUE_OWNERSHIP']};
+invoice.evidence_mode='COMPLETE_RULE';
+invoice.text=invoice.text.split('\n').map(line=>line.startsWith('- **Guardrail áp dụng (26/09/2026')?
+  '- **Phạm vi dữ kiện:** quy định sử dụng doanh thu năm và doanh thu lũy kế của kỳ; một dự báo cả năm chưa chứng minh doanh thu thực tế đã vượt ngưỡng. Khi số thực tế đã đủ căn cứ, đối chiếu nghĩa vụ sử dụng hóa đơn; để xác định nhánh và thời điểm đăng ký phải kiểm tra thêm tình trạng hoạt động, năm trước và đăng ký tự nguyện theo đúng khoản 5. Không lấy số tiền mới thu được làm doanh thu ghi nhận nếu chưa đối chiếu bản chất giao dịch.':line).join('\n');
+if(!invoice.text.includes('[DỰ BÁO VÀ NGHĨA VỤ]'))invoice.text+='\n[DỰ BÁO VÀ NGHĨA VỤ] Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP sửa khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP không quy định cứ dự báo doanh thu vượt ngưỡng là đã bắt đầu thời hạn đăng ký thực tế. Có thể lập kế hoạch chuẩn bị theo giả định, nhưng kết luận nghĩa vụ và mốc hạn phải gắn đúng dữ kiện thực tế và nhánh áp dụng trong nguồn. Đây là giới hạn suy luận từ văn bản, không phải miễn nghĩa vụ cho người đã thuộc diện áp dụng. Nguồn toàn văn: https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm ; đối chiếu ngày 21/10/2026.';
+const threshold=byRef('16.60');
+threshold.retrieval_facets={policy_focus:['ANNUAL_EXEMPTION'],eligibility_topics:['REVENUE_THRESHOLD','REVENUE_OWNERSHIP'],revenue_contexts:['PROJECTED','PARTIAL_PERIOD']};
+if(!threshold.text.includes('[VAI TRÒ SỐ LIỆU]'))threshold.text+='\n[VAI TRÒ SỐ LIỆU] Mỗi số phải giữ vai trò trong câu hỏi: dự kiến cả năm, thực tế đủ kỳ, lũy kế một phần năm hoặc tiền đã thu. Không dùng dự kiến làm xác nhận doanh thu thực tế, không mặc định tiền đã thu là doanh thu phải ghi nhận. Có thể tính số dự báo theo giả định nhưng nghĩa vụ cuối kỳ cần cơ sở thực tế của đúng kỳ. Ngưỡng trong mục này dùng xét không phải nộp thuế; không thay trần giảm một phần thuế hay điều kiện hóa đơn. Xem phạm vi riêng tại NQ43 và khoản 5 Điều 8 NĐ68 được NĐ141 sửa đổi.';
+await fs.writeFile(file,chunks.map(c=>JSON.stringify(c)).join('\n')+'\n');
+const metaFile='worker/src/kb/chunkMeta.json';
+const meta=JSON.parse(await fs.readFile(metaFile,'utf8'));
+meta['16.39'].applies_to_year=2027;
+await fs.writeFile(metaFile,JSON.stringify(meta,null,2)+'\n');
+console.log('Updated source explanations and retrieval facets; no test IDs or stored case answers.');

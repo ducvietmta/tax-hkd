@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';
+const cases={definition:'Cá nhân kinh doanh là gì',example:'Cá nhân kinh doanh là gì? Giải thích dễ hiểu và cho một ví dụ.'};
+const tag=process.argv[2]||'definition';if(!cases[tag])throw Error('Unknown synthetic test');
+const start=Date.now();
+const response=await fetch('https://tax-hkd.pages.dev/api/chat?nocache=1',{method:'POST',headers:{'Content-Type':'application/json','X-Internal-Caller':'mcp'},body:JSON.stringify({message:cases[tag]}),signal:AbortSignal.timeout(150000)});
+const body=await response.json();
+await fs.mkdir('outputs/generated-explanations-2026-10-21',{recursive:true});
+await fs.writeFile(`outputs/generated-explanations-2026-10-21/live-${tag}.json`,JSON.stringify({question:cases[tag],http:response.status,elapsedMs:Date.now()-start,...body},null,2));
+const paragraphs=(body.response||'').split(/\n\s*\n/).filter(Boolean);
+console.log(JSON.stringify({question:cases[tag],answer:body.response,status:body.retrieval?.answerReview,source:body.source,paragraphs:paragraphs.length,reviewers:body.retrieval?.reviewRounds?.map(r=>({provider:r.provider,issues:r.issues})),timings:body.retrieval?.timings}));
+if(!response.ok||body.retrieval?.answerReview?.status!=='PASS'||body.retrieval?.sourceDefinitionVerification||paragraphs.length<2||!body.retrieval?.reviewRounds?.some(r=>r.provider==='Muse evidence reviewer'))process.exitCode=1;

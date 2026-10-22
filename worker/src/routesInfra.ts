@@ -3,16 +3,19 @@
  */
 
 import { buildMuseRequest } from './museRequest';
-import { QuyetDecisionProvider } from './decision/quyetProvider';
+import { JevDecisionProvider } from './decision/jevProvider';
 import { CANONICAL_CHUNKS } from './ragEngine';
 import { vectorSearch, VECTORIZE_INDEX_VERSION } from './vectorRetriever';
 import chunkMetaRaw from './kb/chunkMeta.json';
 import { jsonResponse, type Env } from './http';
+import { PIPELINE_VERSION, ASSURANCE_CAPABILITIES } from './buildInfo';
 
 export function handleHealth(env: Env, corsHeaders: Headers): Response {
   return jsonResponse(
     {
       status: 'ok',
+      pipelineVersion: PIPELINE_VERSION,
+      assurance: ASSURANCE_CAPABILITIES,
       service: 'Cloudflare Workers API',
       platform: 'Cloudflare Edge (Pages + Workers + D1 + R2 + Vectorize)',
       aiModel: 'Muse Spark 1.3 (Meta AI)',
@@ -241,7 +244,7 @@ export async function handleTestQuyet(env: Env, corsHeaders: Headers, url: URL):
     if (!key) return jsonResponse({ success: false, error: 'JEV_API_KEY or FPT_AI_KEY missing' }, 200, corsHeaders);
     const endpoint = env.DECISION_ENDPOINT || (env.JEV_API_KEY ? 'https://api.typesafe.ai/v1/systemone' : undefined);
     const model = env.DECISION_MODEL || (env.JEV_API_KEY ? 'jev-latest' : undefined);
-    const provider = new QuyetDecisionProvider(key, endpoint, 30000, model);
+    const provider = new JevDecisionProvider(key, endpoint, 30000, model);
     const start = Date.now();
     const fixtures: Record<string, string> = {
       repair: 'Người bán gói dịch vụ sửa chữa có kèm phụ tùng miễn phí trên quảng cáo nhưng giá đã bao gồm phụ tùng. Tính nhóm nào?',

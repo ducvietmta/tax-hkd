@@ -1,0 +1,12 @@
+const fs=require('node:fs'),assert=require('node:assert/strict'),ts=require('typescript');
+const m={exports:{}};
+new Function('module','exports',ts.transpileModule(fs.readFileSync('shared/taxRegistrationWorkflow.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText)(m,m.exports);
+const data=m.exports;
+assert.equal(data.TAX_FORM_FIELDS.length,9);
+assert.equal(data.INDUSTRY_REFERENCE.find(r=>r[0]==='9510')[1],'95100');
+assert.match(data.taxRegistrationInstructions(),/03-ĐKT/);
+const form=fs.readFileSync('public/documents/Mau-03-DKT-TT90-2026.doc');
+assert(form.length>5000);assert.equal(form.subarray(0,8).toString('hex'),'d0cf11e0a1b11ae1');
+assert.match(fs.readFileSync('src/features/registration/TaxRegistrationPage.tsx','utf8'),/RegistrationWizard/);
+assert.match(fs.readFileSync('src/App.tsx','utf8'),/import\('\.\/features\/registration\/TaxRegistrationPage'\)/);
+console.log('PASS: curated tax registration evidence, nine official form groups, original binary form and active wizard route.');

@@ -114,8 +114,8 @@ Về nghĩa vụ thuế:
       `Cùng một cá nhân kinh doanh nhiều ngành nghề thì phải cộng gộp toàn bộ doanh thu của các hoạt động để so sánh với ngưỡng miễn thuế 1 tỷ đồng/năm. Tổng doanh thu của bạn là ${totalStr}${isOver ? ' nên đã vượt ngưỡng 1 tỷ đồng' : ''}.
 
 Khi tổng doanh thu đã vượt ngưỡng 1 tỷ đồng:
-1. Thuế GTGT: Phân loại và tính thuế GTGT riêng biệt theo tỷ lệ % tương ứng của từng hoạt động (ví dụ hoạt động dịch vụ tính theo tỷ lệ của ngành dịch vụ, hoạt động bán buôn/bán lẻ hàng hóa tính theo tỷ lệ của ngành hàng hóa).
-2. Thuế TNCN: Xét phương pháp áp dụng trên tổng doanh thu của cá nhân. Ngưỡng khấu trừ 1 tỷ đồng khi tính thuế TNCN trên doanh thu chỉ được sử dụng TỐI ĐA MỘT LẦN trên tổng tất cả các ngành nghề, địa điểm của cá nhân đó (không được trừ 1 tỷ riêng cho từng ngành).`,
+1. Thuế GTGT: Phân loại và tính thuế GTGT riêng biệt theo tỷ lệ % tương ứng của từng hoạt động (ví dụ hoạt động dịch vụ tính theo tỷ lệ của ngành dịch vụ, hoạt động bán buôn/bán lẻ hàng hóa tính theo tỷ lệ của ngành hàng hóa), không trừ 1 tỷ đồng.
+2. Thuế TNCN: Xét phương pháp áp dụng trên tổng doanh thu của cá nhân. Ngưỡng trừ 1 tỷ đồng khi tính thuế TNCN trên doanh thu chỉ được sử dụng TỐI ĐA MỘT LẦN trên tổng tất cả các ngành nghề, địa điểm của cá nhân đó (không được trừ 1 tỷ riêng cho từng ngành, không chia theo tỷ trọng pro-rata; được lựa chọn ưu tiên trừ vào ngành có tỷ lệ thuế TNCN cao hơn trước, chưa trừ hết 1 tỷ mới trừ tiếp sang ngành còn lại).`,
       [
         'Khoản 3 Điều 4 và khoản 1 Điều 8 Nghị định 68/2026/NĐ-CP (được sửa đổi bởi Nghị định 141/2026/NĐ-CP)',
         'Khoản 1 Điều 1 Nghị định 141/2026/NĐ-CP',
@@ -124,6 +124,71 @@ Khi tổng doanh thu đã vượt ngưỡng 1 tỷ đồng:
       ['OWNER_MULTI_SECTOR_THRESHOLD'],
       { taxYear: 2026, activityType: 'multi', grossRevenueVnd: total }
     );
+  }
+
+  // Pattern: Multi-sector 1 billion deduction allocation and tax calculation (e.g., L09: retail + transport/service)
+  if (/tru nguong 1 ty|tru 1 ty|muc tru 1 ty|phan bo.*1 ty|cach tru.*1 ty/.test(q) &&
+      /(?:vua\s+ban|ban\s+hang|tap\s+hoa|ban\s+le)/.test(q) &&
+      /(?:van\s+tai|van\s+chuyen|xe\s+tai|dich\s+vu|san\s+xuat|gia\s+cong|an\s+uong|sua\s+chua)/.test(q)) {
+    const goodsM =
+      q.match(/(?:ban hang tap hoa|tap hoa|ban le|ban hang(?:\s+hoa)?)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:ban hang tap hoa|tap hoa|ban le|ban hang(?:\s+hoa)?)/);
+    const isTransportOrMfg = /(?:van tai|van chuyen|xe tai|san xuat|gia cong|an uong)/.test(q);
+    const otherM =
+      q.match(/(?:dich vu van tai|van tai|van chuyen(?:\s+hang hoa)?|xe tai|san xuat|gia cong|an uong|dich vu|sua chua)[^\d]{0,35}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,35}(?:dich vu van tai|van tai|van chuyen(?:\s+hang hoa)?|xe tai|san xuat|gia cong|an uong|dich vu|sua chua)/);
+    if (goodsM && otherM) {
+      const revGoods = money(goodsM[1], goodsM[2]);
+      const revOther = money(otherM[1], otherM[2]);
+      const totalRev = revGoods + revOther;
+      if (totalRev > 1_000_000_000 && totalRev <= 3_000_000_000) {
+        const otherLabel = /(?:van tai|van chuyen|xe tai)/.test(q) ? 'dịch vụ vận tải' : isTransportOrMfg ? 'sản xuất/gia công/ăn uống' : 'dịch vụ';
+        const vatRateOther = isTransportOrMfg ? 0.03 : 0.05;
+        const vatPctOther = isTransportOrMfg ? '3%' : '5%';
+        const pitRateOther = isTransportOrMfg ? 0.015 : 0.02;
+        const pitPctOther = isTransportOrMfg ? '1,5%' : '2%';
+
+        const vatGoods = Math.round(revGoods * 0.01);
+        const vatOther = Math.round(revOther * vatRateOther);
+        const totalVat = vatGoods + vatOther;
+
+        const deductOther = Math.min(1_000_000_000, revOther);
+        const remOther = revOther - deductOther;
+        const remDeduct = 1_000_000_000 - deductOther;
+        const deductGoods = Math.min(remDeduct, revGoods);
+        const remGoods = revGoods - deductGoods;
+
+        const pitBefore = Math.round(remOther * pitRateOther + remGoods * 0.005);
+        const pitAfterNq43 = Math.round(pitBefore * 0.7);
+        const pitReliefNq43 = pitBefore - pitAfterNq43;
+
+        return result(
+          `Với tổng doanh thu năm 2026 từ hai ngành là ${formatRevenue(revGoods)} + ${formatRevenue(revOther)} = ${formatRevenue(totalRev)} (vượt ngưỡng 1 tỷ đồng/năm và thuộc dải trên 1 tỷ đến 3 tỷ đồng), cách trừ ngưỡng 1 tỷ đồng và tính thuế được thực hiện như sau:
+
+1. Về thuế GTGT (tính riêng theo tỷ lệ % từng ngành trên toàn bộ doanh thu, KHÔNG trừ 1 tỷ đồng):
+- Bán hàng tạp hóa (phân phối, cung cấp hàng hóa — tỷ lệ GTGT 1%): ${formatRevenue(revGoods)} × 1% = ${formatRevenue(vatGoods)}.
+- Hoạt động ${otherLabel} (tỷ lệ GTGT ${vatPctOther}): ${formatRevenue(revOther)} × ${vatPctOther} = ${formatRevenue(vatOther)}.
+=> Tổng thuế GTGT trước giảm = ${formatRevenue(vatGoods)} + ${formatRevenue(vatOther)} = ${formatRevenue(totalVat)} (trường hợp hàng hóa, dịch vụ đủ điều kiện giảm 20% mức tỷ lệ % GTGT theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP thì nhân 80% mức tỷ lệ tương ứng).
+
+2. Cách trừ ngưỡng 1 tỷ đồng và tính thuế TNCN (khi chọn phương pháp tỷ lệ % trên doanh thu):
+- Nguyên tắc phân bổ (khoản 3 Điều 4 Nghị định 68/2026/NĐ-CP sửa đổi bởi Nghị định 141/2026/NĐ-CP và hướng dẫn Mẫu 01/CNKD): Mức trừ 1 tỷ đồng/năm chỉ được áp dụng TỐI ĐA MỘT LẦN chung cho tổng các hoạt động kinh doanh của cá nhân (không trừ 1 tỷ cho từng ngành và không chia theo tỷ trọng doanh thu pro-rata). Người nộp thuế được lựa chọn ngành/nghề để áp dụng mức trừ 1 tỷ đồng theo phương án có lợi nhất — tức ƯU TIÊN TRỪ VÀO NGÀNH CÓ TỶ LỆ THUẾ TNCN CAO HƠN TRƯỚC, phần chưa trừ hết mới trừ tiếp sang ngành còn lại:
+  + Bước 1: Ưu tiên trừ vào ngành ${otherLabel} (có tỷ lệ TNCN ${pitPctOther} cao hơn mức 0,5% của bán hàng tạp hóa): trừ ${formatRevenue(deductOther)} vào doanh thu ${otherLabel} (${formatRevenue(revOther)}) -> doanh thu tính thuế TNCN của ngành ${otherLabel} còn ${formatRevenue(remOther)}.
+  + Bước 2: Phần mức trừ 1 tỷ đồng còn lại là 1.000.000.000 đồng - ${formatRevenue(deductOther)} = ${formatRevenue(remDeduct)}, tiếp tục trừ vào doanh thu bán hàng tạp hóa (${formatRevenue(revGoods)}) -> doanh thu tính thuế TNCN của bán hàng tạp hóa còn ${formatRevenue(revGoods)} - ${formatRevenue(deductGoods)} = ${formatRevenue(remGoods)}.
+  + Bước 3: Tính số thuế TNCN phải nộp:
+    • Thuế TNCN trước giảm = ${remOther > 0 ? `${formatRevenue(remOther)} × ${pitPctOther} + ` : ''}${formatRevenue(remGoods)} × 0,5% = ${formatRevenue(pitBefore)}.
+    • Nếu là cá nhân cư trú đủ điều kiện giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 (tổng doanh thu năm không quá 10 tỷ đồng): được giảm ${formatRevenue(pitReliefNq43)}, số thuế TNCN còn phải nộp sau giảm là ${formatRevenue(pitBefore)} × 70% = ${formatRevenue(pitAfterNq43)}.
+(Lưu ý: ở dải doanh thu trên 1 tỷ đến 3 tỷ đồng, nếu có đầy đủ hóa đơn, chứng từ chi phí hợp lệ thì bạn cũng có quyền chọn phương pháp tính thuế TNCN 15% trên thu nhập tính thuế).`,
+          [
+            'Khoản 3 Điều 4 Nghị định 68/2026/NĐ-CP (sửa đổi bởi khoản 1 Điều 1 Nghị định 141/2026/NĐ-CP)',
+            'Khoản 3 Điều 7 Luật Thuế TNCN 109/2025/QH15',
+            'Điểm b khoản 2 Điều 12 Luật Thuế GTGT 48/2024/QH15',
+            'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16',
+          ],
+          ['MULTI_SECTOR_1B_DEDUCTION_CALC'],
+          { taxYear: 2026, activityType: 'multi', grossRevenueVnd: totalRev, isResident: true }
+        );
+      }
+    }
   }
 
   // Pattern: Multi-group VAT where all groups qualify for NQ204 reduction (e.g. goods 1% + service 5%)
@@ -437,12 +502,18 @@ Bước 2: Đối trừ số thuế đã được nền tảng khấu trừ, n�
         ['Điều 6 Nghị định 68/2026/NĐ-CP', 'Điều 7 Luật Thuế TNCN 109/2025/QH15'], ['PIT_UNVERIFIED_COSTS'],
         { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: targetOverRevenue, isResident: null, pitMethod: 'INCOME_EXPENSE' });
     }
-    const income = incomeMatch ? money(incomeMatch[1], incomeMatch[2]) : undefined;
+    const validExpenseMatch = !incomeMatch && !/(?:khong|chua)\s+co\s+chung tu|co the coi|coi ngay|chi phi[^.!?]{0,40}(?:khong|chua)\s+hop le|ghi hai lan|trung lap|cho kiem/.test(q)
+      ? q.match(/chi phi hop le[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/)
+      : null;
+    const validExpenseVnd = validExpenseMatch ? money(validExpenseMatch[1], validExpenseMatch[2]) : undefined;
+    const income = incomeMatch
+      ? money(incomeMatch[1], incomeMatch[2])
+      : (validExpenseVnd !== undefined && targetOverRevenue >= validExpenseVnd ? targetOverRevenue - validExpenseVnd : undefined);
     const resident = /\b(ca nhan cu tru|nguoi cu tru|toi cu tru|cu tru du dieu kien)\b/.test(q);
     const facts: TaxFacts = { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: targetOverRevenue,
       taxableIncomeVnd: income, isResident: resident ? true : null, pitMethod: 'INCOME_EXPENSE' };
     const calc = calculateTax(facts);
-    const citations = ['Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'];
+    const citations = ['Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điểm d khoản 5 Điều 4 Nghị định 68/2026/NĐ-CP', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16'];
     if (/chi (?:hoi )?thue suat|khong hoi (?:so )?tien/.test(q)) {
       return result(`Thuế suất TNCN trên thu nhập tính thuế là ${pitRateText} vì doanh thu ${formatVnd(targetOverRevenue)} thuộc dải ${bracketText}.`, citations.slice(0, 2), ['PIT_METHOD_3B'], facts);
     }
@@ -468,9 +539,15 @@ Bước 2: Đối trừ số thuế đã được nền tảng khấu trừ, n�
       );
     }
 
+    const expenseDerivationText = validExpenseVnd !== undefined
+      ? ` Với doanh thu ${formatVnd(targetOverRevenue)} và chi phí hợp lệ ${formatVnd(validExpenseVnd)}, thu nhập tính thuế hợp lệ là ${formatVnd(targetOverRevenue)} - ${formatVnd(validExpenseVnd)} = ${formatVnd(income!)}.`
+      : ` Với thu nhập tính thuế hợp lệ ${formatVnd(income!)},`;
+    const transitionNotice = validExpenseVnd !== undefined
+      ? ' Lưu ý điều kiện chuyển tiếp tại điểm d khoản 5 Điều 4 Nghị định 68/2026/NĐ-CP: nếu đầu năm bạn đang áp dụng phương pháp tỷ lệ % trên doanh thu ở dải được lựa chọn mà đến cuối năm mới xác định thực tế vượt 3 tỷ đồng thì chuyển sang phương pháp thu nhập tính thuế từ năm tiếp theo (không mặc nhiên hồi tố 17% cho năm đang xét nếu thuộc diện chuyển tiếp cuối năm).'
+      : '';
     const response = income !== undefined
-      ? `Doanh thu ${formatVnd(targetOverRevenue)} đã vượt 3 tỷ đồng; không được dùng phương pháp TNCN 0,5% trên doanh thu. Trong dải ${bracketText}, TNCN = thu nhập tính thuế × ${pitRateText}. Với thu nhập tính thuế hợp lệ ${formatVnd(income)}, thuế trước giảm là ${formatVnd(income * pitRateNumber)}.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43.' : ` ${reliefText}`} Mức 1 tỷ là ngưỡng miễn thuế riêng, không phải mốc chọn phương pháp 3 tỷ. Thuế GTGT tính riêng theo hoạt động.`
-      : `Doanh thu ${formatVnd(targetOverRevenue)} vượt mốc 3 tỷ đồng nên TNCN phải tính trên thu nhập tính thuế với thuế suất ${pitRateText}, không được dùng 0,5% trên doanh thu. Muốn tính số tiền cần doanh thu, chi phí hợp lệ để xác định thu nhập tính thuế.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không thuộc diện giảm 30% theo Nghị quyết 43/2026/QH16.' : ' Nếu là cá nhân cư trú và tổng doanh thu năm không quá 10 tỷ đồng, số TNCN phải nộp tiếp tục được giảm 30% theo Nghị quyết 43/2026/QH16.'} Mốc 1 tỷ là ngưỡng miễn thuế riêng.`;
+      ? `Doanh thu ${formatVnd(targetOverRevenue)} đã vượt 3 tỷ đồng; không được dùng phương pháp TNCN 0,5% trên doanh thu. Trong dải ${bracketText}, TNCN = thu nhập tính thuế × ${pitRateText}.${expenseDerivationText} Thuế TNCN trước giảm là ${formatVnd(income * pitRateNumber)}.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không được giảm 30% theo Nghị quyết 43.' : ` ${reliefText}`}${transitionNotice} Mức 1 tỷ là ngưỡng miễn thuế riêng, không phải mốc chọn phương pháp 3 tỷ. Thuế GTGT tính riêng theo hoạt động.`
+      : `Doanh thu ${formatVnd(targetOverRevenue)} vượt mốc 3 tỷ đồng nên TNCN phải tính trên thu nhập tính thuế với thuế suất ${pitRateText}, không được dùng 0,5% trên doanh thu. Muốn tính số tiền cần doanh thu, chi phí hợp lệ để xác định thu nhập tính thuế.${targetOverRevenue > 10e9 ? ' Doanh thu vượt 10 tỷ đồng nên không thuộc diện giảm 30% theo Nghị quyết 43/2026/QH16.' : ' Nếu là cá nhân cư trú và tổng doanh thu năm không quá 10 tỷ đồng, số TNCN phải nộp tiếp tục được giảm 30% theo Nghị quyết 43/2026/QH16.'} Lưu ý theo điểm d khoản 5 Điều 4 Nghị định 68/2026/NĐ-CP: nếu đầu năm đang nộp theo tỷ lệ doanh thu mà cuối năm mới xác định vượt 3 tỷ thì chuyển phương pháp thu nhập tính thuế từ năm tiếp theo. Mốc 1 tỷ là ngưỡng miễn thuế riêng.`;
     const aggregateNotice = /tung mang|tung hoat dong|gom[^.!?]{0,80}(ban hang|dich vu)/.test(q)
       ? ' Với tổng doanh thu của cùng một cá nhân, không tách từng mảng để áp riêng phương pháp theo tỷ lệ doanh thu; GTGT vẫn phân loại riêng theo hoạt động.' : '';
     return result(response + aggregateNotice, citations, ['PIT_METHOD_3B', 'NQ43_2026_ART1_1'], facts);
@@ -542,8 +619,8 @@ Bước 2: Đối trừ số thuế đã được nền tảng khấu trừ, n�
 
     // 3. Công văn 311/TCT-DNNCN (Mã 888)
     if (/311(?:\/tct|\/2025)?/.test(q) || /311-tct/.test(q)) {
-      const resp = `Công văn 311/TCT-DNNCN của Tổng cục Thuế hướng dẫn quy trình cấp và quản lý mã số thuế phân loại 888 cho hộ, cá nhân kinh doanh trên sàn thương mại điện tử qua tài khoản định danh VNeID mức 2:\n\n1. Hiệu lực trong năm 2026: Hậu tố 888 VẪN ĐƯỢC SỬ DỤNG trong năm 2026 để phân loại hoạt động TMĐT và kinh doanh nền tảng số. Từ 01/07/2025, CCCD/số định danh thay thế 10 số đầu làm định danh gốc, còn hậu tố 888 vẫn giữ để phân loại.\n2. Bắt buộc đăng ký: Hộ, cá nhân kinh doanh trên sàn TMĐT (Shopee, TikTok Shop...), mạng xã hội BẮT BUỘC phải đăng ký trên Cổng TMĐT HKD (https://canhantmdt.gdt.gov.vn) để được cấp/gắn mã 888.\n3. Quy trình 3 bước theo CV 311:\n- Bước 1: Truy cập Cổng TMĐT (canhantmdt.gdt.gov.vn).\n- Bước 2: Đăng nhập bằng tài khoản Định danh điện tử (VNeID mức 2).\n- Bước 3: Hệ thống tự động kiểm tra:\n  + Nếu chưa có MST: Kê khai mẫu 03-ĐK-TCT để được cấp MST gắn đuôi 888;\n  + Nếu đã có MST 10 số (hoặc CCCD) nhưng chưa có 888: Hiển thị form đăng ký bổ sung phân loại 888;\n  + Nếu đã có mã 888: Tự động đăng nhập vào cổng để thực hiện kê khai, nộp thuế.`;
-      return result(resp, ['Công văn 311/TCT-DNNCN', 'Thông tư 86/2024/TT-BTC'], ['DOC_CV311_TCT'], { taxYear: 2026, activityType: 'ecommerce', grossRevenueVnd: 0 });
+      const resp = `Công văn 311/TCT-DNNCN của Tổng cục Thuế hướng dẫn quy trình cấp và quản lý mã số thuế phân loại 888 cho hộ, cá nhân kinh doanh trên sàn thương mại điện tử qua tài khoản định danh VNeID mức 2:\n\n1. Hiệu lực trong năm 2026: Hậu tố 888 VẪN ĐƯỢC SỬ DỤNG trong năm 2026 để phân loại hoạt động TMĐT và kinh doanh nền tảng số. Từ 01/07/2025, CCCD/số định danh thay thế 10 số đầu làm định danh gốc, còn hậu tố 888 vẫn giữ để phân loại.\n2. Đối tượng và phạm vi áp dụng: Hoạt động kinh doanh TMĐT thực hiện đăng ký thông tin để được cấp/gắn mã phân loại 888 (nếu đã có mã 888 cũ thì không phải xin thêm mã mới). Đối với các đơn hàng sàn đã khấu trừ và nộp thay đúng quy định thì người bán không tự khai nộp trùng, nhưng vẫn dùng cổng để đối soát và thông báo doanh thu năm.\n3. Quy trình 3 bước theo CV 311:\n- Bước 1: Truy cập Cổng TMĐT (canhantmdt.gdt.gov.vn).\n- Bước 2: Đăng nhập bằng tài khoản Định danh điện tử (VNeID mức 2).\n- Bước 3: Hệ thống tự động kiểm tra:\n  + Nếu chưa có MST: Kê khai đăng ký thuế để được cấp MST gắn đuôi 888;\n  + Nếu đã có MST 10 số (hoặc CCCD) nhưng chưa có 888: Hiển thị form đăng ký bổ sung phân loại 888;\n  + Nếu đã có mã 888: Tự động đăng nhập vào cổng để thực hiện kê khai, nộp thuế.`;
+      return result(resp, ['Công văn 311/TCT-DNNCN', 'Thông tư 90/2026/TT-BTC'], ['DOC_CV311_TCT'], { taxYear: 2026, activityType: 'ecommerce', grossRevenueVnd: 0 });
     }
 
     // 4. Nghị định 123/2020/NĐ-CP
@@ -560,8 +637,8 @@ Bước 2: Đối trừ số thuế đã được nền tảng khấu trừ, n�
 
     // 6. Thông tư 86/2024/TT-BTC
     if (/86\/2024/.test(q)) {
-      const resp = `Thông tư 86/2024/TT-BTC của Bộ Tài Chính hướng dẫn về đăng ký thuế và sử dụng số định danh cá nhân:\n\n1. Từ ngày 01/07/2025: Số định danh cá nhân (CCCD 12 số) được sử dụng chính thức thay thế cho mã số thuế 10 số của cá nhân và người đại diện hộ kinh doanh.\n2. Đối với mã phụ 888: Hậu tố 888 vẫn được giữ nguyên và gắn liền với số CCCD để phân loại hoạt động kinh doanh thương mại điện tử trên hệ thống quản lý thuế điện tử.`;
-      return result(resp, ['Thông tư 86/2024/TT-BTC', 'Công văn 311/TCT-DNNCN'], ['DOC_TT86_2024'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
+      const resp = `Thông tư 86/2024/TT-BTC của Bộ Tài Chính hướng dẫn về đăng ký thuế và sử dụng số định danh cá nhân (từ 01/07/2026 được thay thế bởi Thông tư 90/2026/TT-BTC):\n\n1. Từ ngày 01/07/2025: Số định danh cá nhân (CCCD 12 số) được sử dụng chính thức thay thế cho mã số thuế 10 số của cá nhân và người đại diện hộ kinh doanh.\n2. Đối với mã phụ 888: Hậu tố 888 vẫn được giữ nguyên để phân loại hoạt động kinh doanh thương mại điện tử trên hệ thống quản lý thuế điện tử.`;
+      return result(resp, ['Thông tư 90/2026/TT-BTC', 'Thông tư 86/2024/TT-BTC', 'Công văn 311/TCT-DNNCN'], ['DOC_TT86_2024'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
     }
 
     // 7. Thông tư 40/2021/TT-BTC
@@ -580,6 +657,150 @@ Bước 2: Đối trừ số thuế đã được nền tảng khấu trừ, n�
     if (/6480(?:\/ct|\/2026)?/.test(q) || /6480-ct/.test(q)) {
       const resp = `Công văn 6480/CT-QLNT của Cục Thuế trả lời kiến nghị về quản lý nợ thuế và cưỡng chế thuế đối với cá nhân, hộ kinh doanh:\n\n1. Biện pháp tạm hoãn xuất cảnh: Áp dụng đối với cá nhân kinh doanh, người đại diện theo pháp luật của hộ kinh doanh thuộc diện chưa hoàn thành nghĩa vụ nộp thuế theo Luật Quản lý thuế.\n2. Quy trình rà soát: Cơ quan thuế gửi thông báo nhắc nợ, đôn đốc nộp thuế trước khi ban hành thông báo tạm hoãn xuất cảnh hoặc áp dụng các biện pháp cưỡng chế tài khoản.\n3. Hoàn thành nghĩa vụ thuế: Người nộp thuế nộp đủ tiền thuế, tiền phạt, tiền chậm nộp sẽ được cơ quan thuế ban hành văn bản hủy bỏ tạm hoãn xuất cảnh trong thời hạn quy định.`;
       return result(resp, ['Công văn 6480/CT-QLNT', 'Luật Quản lý thuế 108/2025/QH15'], ['DOC_CV6480_QLNT'], { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 });
+    }
+  }
+
+  // ==== GROUP A VERIFIED PROCEDURAL TEMPLATES (MỤC 4.2) ====
+  // Chỉ kích hoạt cho câu hỏi thuần thủ tục đăng ký nhóm A (không hỏi tính số tiền thuế cụ thể)
+  const asksTaxCalcInProcedural = /\b(tinh thue|nop bao nhieu tien|thue suat bao nhieu)\b/.test(q) || /\b\d+\s*(ty|trieu)\b/.test(q);
+  if (!asksTaxCalcInProcedural) {
+    // Template A1: Thủ tục đăng ký mã số thuế 888 trên Cổng TMĐT HKD (Nguồn: 16.100, 16.96)
+    if (/\b888\b/.test(q) && /\b(dang ky|thu tuc|cach|huong dan|lam the nao|lam sao|o dau|buoc)\b/.test(q)) {
+      return result(
+        `Hướng dẫn thủ tục đăng ký mã số thuế phân loại 888 cho hộ, cá nhân kinh doanh thương mại điện tử:
+
+1. Điều kiện áp dụng và nguyên tắc quản lý:
+- Áp dụng cho hộ kinh doanh, cá nhân kinh doanh bán hàng hóa, cung cấp dịch vụ trên sàn thương mại điện tử (Shopee, TikTok Shop, Lazada...) hoặc nền tảng số.
+- Số định danh cá nhân (CCCD 12 số) là định danh thuế của cá nhân, còn mã phân loại 888 dùng để quản lý hoạt động kinh doanh TMĐT (không tự ghép 12 số CCCD + 888 rồi gọi là MST 13 số, và không xin cấp thêm MST cá nhân mới độc lập). Mỗi cá nhân chỉ đăng ký một mã 888 cho hoạt động TMĐT.
+
+2. Các bước thực hiện (theo Công văn 311/TCT-DNNCN, đối chiếu quy định đăng ký thuế hiện hành tại Thông tư 90/2026/TT-BTC):
+- Bước 1: Truy cập Cổng Thông tin điện tử dành cho hộ, cá nhân kinh doanh TMĐT tại địa chỉ https://canhantmdt.gdt.gov.vn.
+- Bước 2: Chọn đăng nhập bằng tài khoản Định danh điện tử (VNeID mức độ 2).
+- Bước 3: Hệ thống kiểm tra trạng thái đăng ký thuế và điều hướng theo 3 trường hợp:
+  + Trường hợp 1 (Chưa có MST cá nhân): Hệ thống hiển thị tờ khai đăng ký thuế theo quy định hiện hành (từ 01/07/2026 đối chiếu Mẫu 03-ĐKT theo Thông tư 90/2026/TT-BTC; trong hướng dẫn cổng năm 2025 tại CV 311 từng gọi là Mẫu 03-ĐK-TCT) để kê khai và cấp mã phân loại 888.
+  + Trường hợp 2 (Đã có MST 10 số hoặc số định danh cá nhân nhưng chưa có mã 888): Hệ thống hiển thị biểu mẫu đăng ký bổ sung thông tin hoạt động TMĐT để gắn mã 888.
+  + Trường hợp 3 (Đã có mã 888): Dùng thông tin hiện có để kê khai, tra cứu, nộp thuế mà không phải đăng ký lại.`,
+        [
+          'Công văn 311/TCT-DNNCN',
+          'Thông tư 90/2026/TT-BTC',
+          'Hướng dẫn trên Cổng Thông tin điện tử dành cho hộ, cá nhân kinh doanh TMĐT (canhantmdt.gdt.gov.vn)',
+        ],
+        ['PROC_REG_TAX_ID_888'],
+        { taxYear: 2026, activityType: 'ecommerce', grossRevenueVnd: 0 }
+      );
+    }
+
+    // Template A2: Thủ tục đăng ký người phụ thuộc trên eTax Mobile (Mã TTHC 1.008499) (Nguồn: 16.12)
+    if (/\b(nguoi phu thuoc|1\.008499|giam tru gia canh)\b/.test(q) &&
+        /\b(dang ky|thu tuc|cach|huong dan|lam the nao|lam sao|etax|buoc)\b/.test(q)) {
+      return result(
+        `Hướng dẫn thủ tục đăng ký người phụ thuộc giảm trừ gia cảnh (Mã thủ tục hành chính 1.008499):
+
+1. Điều kiện áp dụng và biểu mẫu từ 01/07/2026 (Thông tư 90/2026/TT-BTC):
+- Áp dụng cho cá nhân có thu nhập từ tiền lương, tiền công thực hiện đăng ký người phụ thuộc (mức giảm trừ người phụ thuộc năm 2026 là 6,2 triệu đồng/tháng theo Luật Thuế TNCN 109/2025/QH15; cần phân biệt thủ tục đăng ký định danh người phụ thuộc với điều kiện được tính giảm trừ gia cảnh thực tế).
+- Từ 01/07/2026 theo Thông tư 90/2026/TT-BTC (thay thế Thông tư 86/2024/TT-BTC): cá nhân tự đăng ký trực tiếp dùng **Mẫu số 20-ĐKT**; trường hợp ủy quyền đăng ký tổng hợp qua cơ quan chi trả thu nhập dùng **Mẫu số 20-ĐKT-TH**. Người nộp thuế chỉ chọn 1 luồng (tự nộp trên eTax Mobile hoặc ủy quyền cho công ty) để tránh nộp trùng hồ sơ.
+- Đối với con dưới 14 tuổi chưa có thẻ căn cước: nếu trẻ đã có **số định danh cá nhân 12 số trên Giấy khai sinh** thì dùng ngay số định danh cá nhân 12 số đó để đăng ký, **không phải chờ trẻ đủ 14 tuổi**.
+
+2. Các bước thực hiện trên ứng dụng eTax Mobile:
+- Bước 1: Đăng nhập ứng dụng eTax Mobile bằng tài khoản giao dịch thuế điện tử hoặc tài khoản VNeID mức 2.
+- Bước 2: Chọn mục "Đăng ký thuế" -> "Kê khai hồ sơ đăng ký thuế" – mã TTHC 1.008499 (chọn "Đăng ký người phụ thuộc").
+- Bước 3: Chọn hình thức "Đăng ký mới" (hoặc "Thay đổi thông tin đăng ký thuế" nếu người phụ thuộc đã từng được cấp MST/định danh người phụ thuộc trước đó).
+- Bước 4: Kê khai thông tin người phụ thuộc theo Mẫu 20-ĐKT: họ tên, ngày sinh, số định danh cá nhân 12 số (trên CCCD hoặc Giấy khai sinh), quan hệ với người nộp thuế, thời gian tính giảm trừ và hồ sơ chứng minh theo quy định.
+- Bước 5: Xác nhận mã OTP gửi về điện thoại và kiểm tra thông báo tiếp nhận hồ sơ từ cơ quan thuế.`,
+        [
+          'Hướng dẫn thủ tục đăng ký người phụ thuộc (Mã TTHC 1.008499) trên ứng dụng eTax Mobile',
+          'Thông tư 90/2026/TT-BTC',
+          'Luật Thuế TNCN 109/2025/QH15',
+        ],
+        ['PROC_REG_DEPENDENT_ETAX'],
+        { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 }
+      );
+    }
+
+    // Template A3: Thủ tục thông báo tài khoản ngân hàng / ví điện tử kinh doanh trên eTax Mobile (Nguồn: 16.9)
+    if (/\b(tai khoan ngan hang|so tai khoan|vi dien tu)\b/.test(q) &&
+        /\b(thong bao|dang ky|cap nhat|ke khai)\b/.test(q) &&
+        /\b(etax|co quan thue|ho kinh doanh|hkd|kinh doanh|thu tuc|cach|huong dan|lam the nao|thoi han|10 ngay)\b/.test(q) &&
+        !/\b(khau tru|uy nhiem|phong toa|cuong che)\b/.test(q)) {
+      return result(
+        `Hướng dẫn thủ tục thông báo số tài khoản ngân hàng, ví điện tử phục vụ sản xuất, kinh doanh:
+
+1. Căn cứ pháp lý và phạm vi nghĩa vụ:
+- Theo **khoản 4 Điều 13 Nghị định 68/2026/NĐ-CP**, hộ kinh doanh và cá nhân kinh doanh có trách nhiệm thông báo bằng phương thức điện tử cho cơ quan thuế tất cả các số tài khoản ngân hàng mở tại tổ chức cung ứng dịch vụ thanh toán và số hiệu ví điện tử mở tại tổ chức trung gian thanh toán liên quan đến hoạt động sản xuất, kinh doanh (hộ kinh doanh được phép dùng nhiều tài khoản/ví điện tử, không bắt buộc chỉ dùng một tài khoản duy nhất).
+- Phân biệt rõ 2 chức năng trên eTax Mobile: chức năng **liên kết tài khoản ngân hàng để nộp thuế điện tử** chỉ là kết nối phương thức thanh toán với ngân hàng, **không thay thế** thủ tục **thông báo tài khoản phục vụ sản xuất, kinh doanh** theo khoản 4 Điều 13 Nghị định 68/2026/NĐ-CP.
+
+2. Biểu mẫu và các bước thực hiện trên ứng dụng eTax Mobile:
+- Biểu mẫu: Hướng dẫn trên Cổng Chính phủ tháng 4/2026 nêu thao tác theo mẫu **01/BK-STK** trên eTax Mobile; đối với hồ sơ từ ngày 01/07/2026 cần đối chiếu hệ thống biểu mẫu hiện hành theo **Thông tư 89/2026/TT-BTC**.
+- Trình tự thực hiện:
+  + Bước 1: Đăng nhập ứng dụng eTax Mobile (hoặc Hệ thống thông tin giải quyết thủ tục hành chính của Cục Thuế) bằng tài khoản thuế điện tử / VNeID mức 2.
+  + Bước 2: Chọn chức năng thông báo số tài khoản ngân hàng, số hiệu ví điện tử phục vụ hoạt động kinh doanh.
+  + Bước 3: Kê khai đầy đủ tên ngân hàng/tổ chức trung gian thanh toán, số tài khoản/số hiệu ví điện tử, xác thực OTP và gửi thông báo điện tử tới cơ quan thuế quản lý.
+
+Lưu ý (chưa có tài liệu hướng dẫn chính thức trong kho tri thức): Kho tri thức hiện đã có quy định tại khoản 4 Điều 13 Nghị định 68/2026/NĐ-CP và hướng dẫn mẫu 01/BK-STK trên eTax Mobile, nhưng chưa có tài liệu chụp màn hình giao diện cập nhật sau ngày 01/07/2026 theo Thông tư 89/2026/TT-BTC; bạn cần đối chiếu trực tiếp tên mục hiển thị trên ứng dụng eTax Mobile hiện hành và kiểm tra Thông báo tiếp nhận của cơ quan thuế.`,
+        [
+          'Khoản 4 Điều 13 Nghị định 68/2026/NĐ-CP',
+          'Thông tư 89/2026/TT-BTC',
+        ],
+        ['PROC_REG_BANK_ACCOUNT_ETAX'],
+        { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 }
+      );
+    }
+
+    // Template A4: Thủ tục và thời hạn đăng ký thuế lần đầu (liên thông vs trực tiếp 10 ngày) (Nguồn: 16.64, 16.65, 16.108)
+    if (/\b(dang ky thue lan dau|thoi han dang ky thue lan dau|03-dk-tct|03dkt|03-dkt)\b/.test(q) &&
+        !/\b(phat|cham|muon|qua han)\b/.test(q)) {
+      return result(
+        `Hướng dẫn thủ tục và thời hạn đăng ký thuế lần đầu đối với hộ kinh doanh, cá nhân kinh doanh:
+
+1. Phân biệt 2 luồng thủ tục (Luật Quản lý thuế 108/2025/QH15, Điều 6 Nghị định 252/2026/NĐ-CP và Điều 21 Thông tư 90/2026/TT-BTC):
+- Luồng 1 — Đăng ký thuế liên thông cùng đăng ký hộ kinh doanh: Áp dụng khi bạn thành lập Hộ kinh doanh (theo Điều 82, Điều 85 và Điều 99 Nghị định 168/2025/NĐ-CP, đọc cùng Nghị định 296/2026/NĐ-CP). Hồ sơ nộp tại Cơ quan đăng ký kinh doanh cấp xã nơi đặt trụ sở (hoặc trực tuyến qua Cổng dịch vụ công quốc gia), được giải quyết trong **03 ngày làm việc** kể từ ngày nhận hồ sơ hợp lệ; Giấy chứng nhận đăng ký hộ kinh doanh đồng thời là Giấy chứng nhận đăng ký thuế (không tính thêm hạn 10 ngày đăng ký thuế trực tiếp riêng).
+- Luồng 2 — Đăng ký thuế trực tiếp với cơ quan thuế: Áp dụng cho cá nhân kinh doanh không thuộc diện phải đăng ký hộ kinh doanh (theo khoản 3 Điều 82 Nghị định 168/2025/NĐ-CP), cá nhân cho thuê bất động sản hoặc kinh doanh TMĐT.
+
+2. Thời hạn, biểu mẫu và nơi nộp (đối với Luồng 2 - Đăng ký thuế trực tiếp từ 01/07/2026):
+- Thời hạn bắt buộc: Trong vòng **10 ngày làm việc** kể từ ngày bắt đầu hoạt động kinh doanh hoặc ngày phát sinh nghĩa vụ với ngân sách nhà nước (điểm a khoản 3 Điều 6 Nghị định 252/2026/NĐ-CP).
+- Biểu mẫu và các bước thực hiện (Điều 21 Thông tư 90/2026/TT-BTC, hiệu lực từ 01/07/2026 thay thế Thông tư 86/2024/TT-BTC):
+  + Bước 1: Lập tờ khai đăng ký thuế **Mẫu số 03-ĐKT** (hoặc hồ sơ khai thuế tích hợp đăng ký thuế theo quy định).
+  + Bước 2: Nộp hồ sơ trực tuyến qua Cổng thông tin điện tử của Cục Thuế / eTax Mobile (hoặc canhantmdt.gdt.gov.vn nếu kinh doanh TMĐT) hoặc nộp trực tiếp: nếu có địa điểm kinh doanh cố định thì nộp tại Thuế cơ sở nơi đặt địa điểm; nếu không có địa điểm cố định thì nộp tại Thuế cơ sở nơi cá nhân cư trú; nếu chỉ cho thuê bất động sản thì nộp tại Thuế cơ sở nơi có bất động sản cho thuê.
+  + Bước 3: Cơ quan thuế tiếp nhận và xử lý hồ sơ đăng ký thuế theo số định danh cá nhân 12 số (hoặc gắn mã phân loại 888 đối với hoạt động TMĐT).`,
+        [
+          'Khoản 3 Điều 10 Luật Quản lý thuế 108/2025/QH15',
+          'Điểm a khoản 3 Điều 6 Nghị định 252/2026/NĐ-CP',
+          'Điều 21 Thông tư 90/2026/TT-BTC',
+          'Điều 82, Điều 85 và Điều 99 Nghị định 168/2025/NĐ-CP',
+        ],
+        ['PROC_REG_FIRST_TIME_TAX'],
+        { taxYear: 2026, activityType: 'unknown', grossRevenueVnd: 0 }
+      );
+    }
+
+    // Template C02: Cổng thông tin thương mại điện tử canhantmdt.gdt.gov.vn dùng để làm gì và ai bắt buộc phải dùng (Nguồn: 16.100, 16.96)
+    if (/\bcanhantmdt\b/.test(q) && /\b(dung de lam gi|ai bat buoc|chuc nang|vai tro|muc dich|tac dung|ai phai dung)\b/.test(q)) {
+      return result(
+        `Cổng thông tin thương mại điện tử (https://canhantmdt.gdt.gov.vn) là cổng chuyên biệt của cơ quan thuế hỗ trợ thủ tục thuế cho hộ và cá nhân kinh doanh thương mại điện tử, kinh doanh trên nền tảng số:
+
+1. Cổng canhantmdt.gdt.gov.vn dùng để làm gì?
+- Hỗ trợ đăng ký thuế và cấp/gắn mã phân loại 888 trên nền số định danh cá nhân (CCCD 12 số) theo Công văn 311/TCT-DNNCN.
+- Tra cứu, đối soát dữ liệu doanh thu và số thuế đã được các sàn TMĐT (Shopee, TikTok Shop, Lazada...) khấu trừ, khai thay và nộp thay theo Nghị định 252/2026/NĐ-CP.
+- Tự kê khai, nộp thuế đối với các khoản doanh thu kinh doanh trực tuyến chưa được sàn khấu trừ tại nguồn (như bán qua Facebook, Zalo, website riêng, livestream tự thu tiền).
+- Nộp thông báo doanh thu năm (Mẫu 01/TKN-CNKD) hoặc nộp hồ sơ quyết toán thuế, đề nghị hoàn thuế nộp thừa khi thuộc diện.
+
+2. Ai và công việc nào cần tự thực hiện? (Phân định theo nghĩa vụ thực tế):
+- Bán hàng qua sàn TMĐT có chức năng thanh toán: Khoản doanh thu đã được sàn khấu trừ và nộp thuế thay đúng quy định thì người bán KHÔNG tự kê khai, nộp thuế trùng lặp cho các đơn hàng đó. Tuy nhiên, việc sàn nộp thay KHÔNG đồng nghĩa người bán được miễn mọi thủ tục: người bán vẫn cần theo dõi, đối soát chứng từ nộp thay và nộp thông báo doanh thu năm theo quy định.
+- Bán hàng ngoài sàn hoặc nguồn chưa khấu trừ thay: Người bán có nghĩa vụ tự kê khai và nộp thuế theo quy định.
+- Về mã phân loại 888: Dùng để phân loại hoạt động TMĐT; người đã có mã 888 cũ hoặc đã đăng ký thuế thì tiếp tục sử dụng, không phải xin thêm mã mới cho từng kênh hay từng sàn.
+
+3. Lưu ý quan trọng về phạm vi và kênh thực hiện:
+- Không bắt buộc tất cả người bán online đều phải đăng ký xin mã 888 trên cổng này (nếu đã có mã hoặc không thuộc diện cấp mới).
+- Cổng canhantmdt.gdt.gov.vn KHÔNG phải là kênh duy nhất: Người nộp thuế có thể thực hiện thủ tục qua các cổng thuế điện tử chính thức khác của Cục Thuế (thuedientu.gdt.gov.vn, canhan.gdt.gov.vn, ứng dụng eTax Mobile) hoặc trực tiếp tại cơ quan thuế quản lý.`,
+        [
+          'Công văn 311/TCT-DNNCN',
+          'Nghị định 252/2026/NĐ-CP',
+          'Nghị định 68/2026/NĐ-CP sửa bởi Nghị định 141/2026/NĐ-CP',
+          'Thông tư 90/2026/TT-BTC',
+        ],
+        ['PROC_PORTAL_CANHANTMDT_USAGE'],
+        { taxYear: 2026, activityType: 'ecommerce', grossRevenueVnd: 0 }
+      );
     }
   }
 

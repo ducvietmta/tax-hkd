@@ -3,21 +3,12 @@ export interface ConversationTurn {
   content: string;
 }
 
-export function normalizeConversationHistory(input: unknown): ConversationTurn[] {
-  if (!Array.isArray(input)) return [];
-  const turns = input
-    .filter((turn): turn is ConversationTurn =>
-      turn && (turn.role === 'user' || turn.role === 'assistant') && typeof turn.content === 'string'
-    )
-    .map((turn) => ({ role: turn.role, content: turn.content.trim().slice(0, 1000) }))
-    .filter((turn) => turn.content);
-  return turns.length <= 20 ? turns : [...turns.slice(0, 2), ...turns.slice(-18)];
-}
+export { completeHistory as normalizeConversationHistory } from '../../shared/conversationHistory';
 
 export function isContextualFollowUp(message: string): boolean {
   const f = message.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').trim();
   return f.length < 160 && !/\b(cau hoi moi|chuyen chu de|hoi viec khac)\b/.test(f) &&
-    /^(con\b|vay\b|the\b|neu\b|dung\b|vang\b|nam\b|ky\b|\d|doanh thu\b|thu nhap\b|em (co|chua|da)\b|toi (co|chua|da)\b)/.test(f);
+    /^(con\b|vay\b|the\b|neu\b|dung\b|vang\b|doi\b|giu\b|nam\b|ky\b|\d|doanh thu\b|thu nhap\b|em (co|chua|da)\b|toi (co|chua|da)\b)/.test(f);
 }
 
 /** Retrieve the active topic; preserve short follow-ups without mixing unrelated questions. */

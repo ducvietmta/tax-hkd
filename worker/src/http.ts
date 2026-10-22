@@ -16,6 +16,8 @@ export interface Env {
   ENVIRONMENT?: string;
   CORS_ALLOW_ORIGIN?: string;
   MUSE_API_KEY?: string;
+  MUSE_ENDPOINT?: string;
+  MUSE_MODEL?: string;
   JEV_API_KEY?: string;
   FPT_AI_KEY?: string;
   DECISION_ENDPOINT?: string;
@@ -41,6 +43,8 @@ export function handleCors(request: Request, env: Env): Headers {
       if (
         host === 'tax-hkd.pages.dev' ||
         host.endsWith('.tax-hkd.pages.dev') ||
+        host === 'thuehkd.com' ||
+        host.endsWith('.thuehkd.com') ||
         host === 'localhost' ||
         host === '127.0.0.1' ||
         origin === configuredOrigin

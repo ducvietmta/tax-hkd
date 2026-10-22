@@ -1079,6 +1079,142 @@
         "16.107"
       ],
       "priority": 80
+    },
+    {
+      "id": "DEPENDENT_REG_ETAX",
+      "any": [
+        "người phụ thuộc",
+        "nguoi phu thuoc",
+        "1.008499",
+        "đăng ký giảm trừ gia cảnh",
+        "dang ky giam tru gia canh"
+      ],
+      "refs": [
+        "16.12",
+        "16.82"
+      ],
+      "expand": [
+        "thủ tục đăng ký người phụ thuộc trên eTax Mobile mã 1.008499"
+      ],
+      "priority": 90
+    },
+    {
+      "id": "BANK_ACCOUNT_ETAX",
+      "any": [
+        "thông báo tài khoản ngân hàng",
+        "thong bao tai khoan ngan hang",
+        "đăng ký tài khoản ngân hàng",
+        "dang ky tai khoan ngan hang",
+        "tài khoản ngân hàng kinh doanh",
+        "tai khoan ngan hang kinh doanh",
+        "ví điện tử kinh doanh"
+      ],
+      "refs": [
+        "16.9"
+      ],
+      "expand": [
+        "thông báo tài khoản ngân hàng ví điện tử trên eTax Mobile trong 10 ngày Điều 13 NĐ 68/2026"
+      ],
+      "priority": 88
+    },
+    {
+      "id": "MST_STATUS_03_06",
+      "any": [
+        "trạng thái 03",
+        "trang thai 03",
+        "trạng thái 06",
+        "trang thai 06",
+        "khóa mã số thuế",
+        "khoa ma so thue",
+        "khóa mst",
+        "khoa mst",
+        "khôi phục mst",
+        "khoi phuc mst",
+        "đóng mã số thuế",
+        "dong ma so thue",
+        "chấm dứt hiệu lực mã số thuế",
+        "tự ý nghỉ kinh doanh"
+      ],
+      "refs": [
+        "16.25"
+      ],
+      "expand": [
+        "tạm ngừng hoạt động chấm dứt hiệu lực MST trạng thái 03 06 Điều 19 20 Luật 108/2025"
+      ],
+      "priority": 88
+    },
+    {
+      "id": "PORTAL_EINVOICE_OUTAGE",
+      "any": [
+        "cổng lỗi",
+        "cong loi",
+        "lỗi cổng",
+        "loi cong",
+        "sập cổng",
+        "sap cong",
+        "quá tải",
+        "qua tai",
+        "ngày cuối hạn",
+        "ngay cuoi han"
+      ],
+      "refs": [
+        "16.105",
+        "16.41",
+        "16.24"
+      ],
+      "expand": [
+        "sự cố vận hành cổng thuế ngày cuối hạn 30 ngày lưu bằng chứng"
+      ],
+      "priority": 88
+    },
+    {
+      "id": "INVOICE_ERROR_04SS",
+      "any": [
+        "04/ss-hđđt",
+        "04/ss-hddt",
+        "sai sót hóa đơn",
+        "sai sot hoa don",
+        "hóa đơn viết sai",
+        "hoa don viet sai",
+        "điều chỉnh hóa đơn",
+        "dieu chinh hoa don",
+        "thay thế hóa đơn",
+        "thay the hoa don"
+      ],
+      "refs": [
+        "16.103",
+        "16.106",
+        "16.21"
+      ],
+      "expand": [
+        "xử lý hóa đơn điện tử có sai sót Mẫu 04/SS-HĐĐT điều chỉnh thay thế"
+      ],
+      "priority": 88
+    },
+    {
+      "id": "TAX_PORTAL_SYSTEMS",
+      "any": [
+        "thuedientu",
+        "canhantmdt",
+        "etax mobile",
+        "itaxviewer",
+        "01/cnkd",
+        "01/tkn-cnkd",
+        "chỉ tiêu 14",
+        "chi tieu 14"
+      ],
+      "refs": [
+        "16.100",
+        "16.12",
+        "16.9",
+        "16.55",
+        "16.40",
+        "16.52"
+      ],
+      "expand": [
+        "hệ thống phần mềm cơ quan thuế eTax Mobile canhantmdt HTKK 01/CNKD"
+      ],
+      "priority": 72
     }
   ],
   "route_priority_order": "descending",

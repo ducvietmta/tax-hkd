@@ -55,12 +55,12 @@ async function main() {
   assert.equal(unknown.income_type[0].value, 'UNKNOWN');
   assert.equal(unknown.tax_intent.primary.value, 'OTHER_TAX');
   assert.throws(() => understandClassifiedQuery('Bán hàng', scope, [], null), /required/);
-  const { QuyetDecisionProvider } = load('worker/src/decision/quyetProvider.ts', { './labels': labels });
+  const { JevDecisionProvider, QuyetDecisionProvider } = load('worker/src/decision/jevProvider.ts', { './labels': labels });
   const oldFetch = global.fetch;
   try {
     let corrupt;
     let captured;
-    const fixture = require('./fixtures/quyet_native.cjs');
+    const fixture = require('./fixtures/jev_native.cjs');
     global.fetch = async (url, init) => {
       assert.equal(url, 'https://mkp-api.fptcloud.com/v1/systemone');
       const input = JSON.parse(init.body);
@@ -76,10 +76,36 @@ async function main() {
     const history = [{ role: 'user', content: 'Tôi làm affiliate và có lương.' }];
     const classified = await provider.classifyBusiness('Có hoàn được không?', history);
     const { confidence, ...semanticLabels } = classified;
-    assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR', taxFocus: 'unspecified', vatRelief: 'UNKNOWN',invoicePeriod:'MIXED_OR_UNKNOWN' });
+    assert.deepEqual(semanticLabels, { ...semantic, topic: 'TAX_AMOUNT', revenueContext: 'ACTUAL_YEAR', answerPurpose:'OTHER', taxFocus: 'unspecified', vatRelief: 'UNKNOWN',invoicePeriod:'MIXED_OR_UNKNOWN', calculationShape:'SINGLE', methodContext:'UNSPECIFIED' });
     assert.deepEqual(confidence, { taxpayer: 0.95, intent: 0.99, income: 0.97 });
     assert.deepEqual(captured.state.history, history);
     assert.ok(captured.questions.business_registration, 'The classifier must be able to choose the registration route within provider option limits');
+    assert.ok(captured.questions.policy_focus, 'Policy target must be independent of the broad topic');
+    for(const [choice,confidence,expected] of [['PIT_RELIEF',.99,'PIT_RELIEF'],['PIT_RELIEF',.4,undefined],['UNRECOGNIZED',.99,undefined]]){
+      corrupt=r=>{r.answers.policy_focus={type:'choice',choice,confidence};};
+      const parsed=await provider.classifyBusiness('Xét điều kiện giảm thuế cho trường hợp đã nêu.',history);
+      assert.equal(parsed?.policyFocus,expected);
+      if(choice==='UNRECOGNIZED')assert.equal(parsed,null,'Malformed provider choices must not enter the frame');
+    }
+    for (const topic of ['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS']) {
+      corrupt = r => { r.answers.business_registration = { type: 'choice', choice: topic, confidence: .99 }; };
+      const result = await provider.classifyBusiness('Tôi nên đăng ký như thế nào?', history);
+      assert.equal(result.topic, topic, 'Keep the model-selected registration meaning');
+      const frame = understandClassifiedQuery('đăng ký hkd hay đăng ký cá nhân kinh doanh?', scope, [], result);
+      assert.equal(frame.semantic.topic, topic);
+      assert.equal(frame.tax_intent.primary.value, 'REGISTRATION');
+    }
+    const modelOther = understandClassifiedQuery('đăng ký hkd chỉ là bối cảnh, tôi hỏi thuế', scope, [], { ...semantic, topic: 'OTHER' });
+    assert.equal(modelOther.semantic.topic, 'OTHER', 'Words must not override semantic classification');
+    assert.equal(modelOther.tax_intent.primary.value, 'REFUND');
+    corrupt = undefined;
+    const compactQuestion = 'doanh thu4 tỷ,tỷ lệGTGTgốc5%,tính TNCNtrước/sauNQ43';
+    await provider.classifyBusiness(compactQuestion);
+    assert.equal(captured.state.original_question, compactQuestion);
+    assert.match(captured.state.question, /doanh thu 4/);
+    assert.match(captured.state.question, /GTGT gốc 5%/);
+    assert.match(captured.state.question, /TNCN trước/);
+    assert.match(captured.state.question, /NQ 43/);
     assert.equal(await provider.classifyTaxRelevance('Có hoàn được không?', history), 'IN_SCOPE');
     corrupt = r => { r.answers.tax_period = { type: 'choice', choice: '2025', confidence: 0.98 }; };
     assert.deepEqual((await provider.classifyBusiness('Năm 2025 bán hàng, giờ 2026 hỏi nghĩa vụ năm đó')).taxYears, [2025], 'Separate the tax year from the year a question is asked');
@@ -98,7 +124,7 @@ async function main() {
         assert.deepEqual(payload.state.history,history,'Review must retain follow-up context');
         return Response.json({answers:{facts:{type:'choice',choice:'FAITHFUL',confidence:.99},evidence:{type:'choice',choice,confidence},coverage:{type:'choice',choice:'COMPLETE',confidence:.99}}});
       };
-      assert.deepEqual(await provider.reviewAnswer('Câu nối tiếp','Đáp án','x'.repeat(8000),history),[issue]);
+      assert.deepEqual(await provider.reviewAnswer('Câu nối tiếp','Đáp án','x'.repeat(8000),history),[choice === 'CONTRADICTED' ? 'evidence:CONTRADICTED' : issue]);
     }
     assert.equal(await provider.reviewAnswer('Câu hỏi','a'.repeat(12001),'Nguồn'),null,'Oversized draft must not be silently certified after truncation');
     global.fetch=async (_url,init)=>{
@@ -109,9 +135,22 @@ async function main() {
       return Response.json(output);
     };
     assert.deepEqual(await provider.reviewAnswer('Chi phí lãi vay và đổi tên?', 'Chưa đủ chứng từ.', 'Nguồn', [], {topic:'BUSINESS_EXPENSES'}),['contract_change:INCOMPLETE']);
+    for (const topic of ['TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS']) {
+      global.fetch = async (_url, init) => {
+        const input = JSON.parse(init.body);
+        assert.ok(input.questions.registration_scope, 'Review must check registration scope, not just exemption conditions');
+        const output = fixture(input, 'IN_SCOPE');
+        output.answers.registration_scope.choice = 'INCOMPLETE';
+        return Response.json(output);
+      };
+      assert.deepEqual(await provider.reviewAnswer('HKD với CNKD khác nhau thế nào?',
+        'Bán hàng rong được miễn đăng ký hộ.', 'Nguồn', [], { topic }), ['registration_scope:INCOMPLETE']);
+    }
     global.fetch = originalMock;
     for (const invalid of [
       r => { delete r.answers.taxpayer; },
+      r => { r.answers.business_registration.choice = 'FAKE'; },
+      r => { r.answers.business_registration.type = 'noul'; },
       r => { r.answers.taxpayer.choice = 'FAKE'; },
       r => { r.answers.taxpayer.confidence = -1; },
       r => { r.answers.income_SERVICE.noul = 1.5; },

@@ -124,6 +124,12 @@ export interface RagChunk {
   ref_id: string | null;
   tier: string;
   text: string;
+  purpose_passages?: Record<string, string>;
+  context_passage?: string;
+  context_passage_period?: {applies_from_year?:number;applies_to_year?:number|null};
+  evidence_mode?: 'COMPLETE_RULE';
+  retrieval_facets?: {policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[]};
+  subject_scope?: string[];
 }
 
 export interface QueryRoute {
@@ -226,6 +232,13 @@ export function searchKnowledgeBase(query: string, limit = 4): RagChunk[] {
 `;
 
   fs.writeFileSync('worker/src/ragEngine.ts', compiledCode, 'utf8');
+  const metadata=JSON.parse(fs.readFileSync('worker/src/kb/chunkMeta.json','utf8'));
+  const policyIndex=verifiedChunks.filter(c=>c.ref_id&&c.retrieval_facets).map(c=>{
+    const period=metadata[c.ref_id];
+    if(!period)throw new Error(`Missing period metadata for retrieval facets: ${c.ref_id}`);
+    return {ref_id:c.ref_id,...c.retrieval_facets,applies_from_year:period.applies_from_year,applies_to_year:period.applies_to_year??null};
+  });
+  fs.writeFileSync('worker/src/kb/policyRetrievalIndex.json',JSON.stringify(policyIndex,null,2)+'\n','utf8');
   console.log('✅ Đã tạo engine RAG Cloudflare Worker: worker/src/ragEngine.ts');
 }
 

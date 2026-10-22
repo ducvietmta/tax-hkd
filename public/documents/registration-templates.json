@@ -1,0 +1,13 @@
+{
+  "version": "2026-10-17.1",
+  "household": {
+    "source": "https://dangkykinhdoanh.gov.vn/Images/editor/files/01_7_2025_%20Ph%E1%BB%A5%20l%E1%BB%A5c%20Th%C3%B4ng%20t%C6%B0%2068%202025%20TT%20BTC.docx",
+    "scope": "Mẫu số 1 Phụ lục II TT68/2025; TT121/2026 chỉ sửa Phụ lục I",
+    "originalSha256": "3f3a655ae1f10b718da51774ddb7348f51332ce4de30853b863d2b7a1876e752"
+  },
+  "individual": {
+    "source": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/90-btc.rar",
+    "scope": "03-ĐKT; công dân Việt Nam có dữ liệu dân cư; Wordconv giữ bố cục gốc",
+    "originalSha256": "f816553fc956cf8bb467e35e47c6dde39a0309a5032e92ff9bad503fd8cf724a"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "taxhkd-legal-relations-v1",
+  "relations": [
+    {
+      "id": "ND141-2026-A1-C2-AMENDS-ND68-2026-A8-C5",
+      "relation": "AMENDS_PROVISION",
+      "source": {"doc_id": "ND-141-2026-ND-CP", "article": "Điều 1", "clause": "Khoản 2"},
+      "target": {"doc_id": "ND-68-2026-ND-CP", "article": "Điều 8", "clause": "Khoản 5"},
+      "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+      "source_checked_on": "2026-10-20",
+      "review_status": "SOURCE_TEXT_CHECKED_NOT_INDEPENDENT_LEGAL_CERTIFICATION",
+      "summary": "Khoản 2 Điều 1 sửa đổi, bổ sung khoản 5 Điều 8 về sử dụng hóa đơn điện tử. Quan hệ này chỉ áp dụng cho điều khoản được chỉ rõ, không có nghĩa thay thế toàn bộ nghị định."
+    }
+  ]
+}

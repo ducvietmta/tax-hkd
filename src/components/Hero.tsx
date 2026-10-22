@@ -8,6 +8,8 @@ import { parseTaxResponse } from '../services/museBridge';
 import { CloudflareApi } from '../services/api';
 import { RetrievalTrace, type RetrievalTraceData } from './RetrievalTrace';
 import { useAuth } from '../context/AuthContext';
+import { AnswerProgress, appendProgress } from './AnswerProgress';
+import type { ChatProgress } from '../../shared/chatProgress';
 
 interface HeroProps {
   onOpenConsultation: () => void;
@@ -95,6 +97,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
   const [focused, setFocused] = useState(false);
   const { user, isAuthenticated, consumeCredit, openAuthModal, openDepositModal, syncCredits } = useAuth();
   const [currentResult, setCurrentResult] = useState<TaxResult>(DEFAULT_RESULT);
+  const [progressSteps, setProgressSteps] = useState<ChatProgress[]>([]);
 
   const placeholder = useTypingPlaceholder(PLACEHOLDERS, !searchQuery && !focused && !isSearching && !isStreaming);
 
@@ -135,6 +138,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
     setIsSearching(true);
     setIsStreaming(false);
     setModelStatus('searching');
+    setProgressSteps([{ stage: 'connecting' }]);
     setCurrentResult({
       query,
       answer: '',
@@ -189,7 +193,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
         (delta) => setCurrentResult((prev) => ({
           ...prev,
           reasoningSummary: (prev.reasoningSummary || '') + delta,
-        }))
+        })),
+        (progress) => setProgressSteps(prev => appendProgress(prev, progress)),
       );
 
       if (typeof cfRes.remainingCredits === 'number') {
@@ -248,7 +253,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
   const words = ['Tra cứu', '&', 'Tính', 'thuế'];
 
   return (
-    <section id="ai-assistant" className="relative pt-20 pb-12 sm:pt-28 sm:pb-16 md:pt-40 md:pb-28">
+    <section id="ai-assistant" className="relative pt-24 pb-6 md:pt-40 md:pb-28">
       <div className="relative max-w-[1000px] mx-auto px-3.5 sm:px-6 w-full">
 
         {/* Floating tech chips */}
@@ -278,17 +283,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
         </div>
 
         {/* Header */}
-        <div className="relative text-center max-w-2xl mx-auto mb-6 sm:mb-10">
+        <div className="relative text-left md:text-center max-w-2xl mx-auto mb-5 md:mb-10">
+          <div className="md:hidden mb-5 px-1">
+            <p className="text-xs font-semibold text-emerald-700 mb-1.5 uppercase tracking-wider">Trợ lý AI TaxHKD</p>
+            <h1 className="text-[27px] font-extrabold leading-tight tracking-tight text-slate-900">Tra cứu &amp; Tính thuế<br /><span className="text-emerald-700">Hộ kinh doanh</span></h1>
+            <p className="mt-2 text-xs text-slate-500">Hỏi dễ hiểu theo ngôn ngữ tự nhiên. Trả lời chuẩn căn cứ pháp lý 2026.</p>
+          </div>
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass inline-flex items-center gap-1.5 sm:gap-2 text-emerald-800 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[11px] sm:text-[12px] font-bold uppercase tracking-wider mb-3 sm:mb-6 shadow-clean"
+            className="glass hidden md:inline-flex items-center gap-2 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 shadow-clean"
           >
             <Radio className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" />
             <span>Trợ lý tra cứu thuế HKD</span>
           </motion.div>
 
-          <h1 className="text-[26px] sm:text-[42px] md:text-[56px] font-extrabold tracking-tight leading-[1.15] sm:leading-[1.08] mb-3 sm:mb-5">
+          <h1 className="hidden md:block text-[56px] font-extrabold tracking-tight leading-[1.08] mb-5">
             {words.map((w, i) => (
               <motion.span
                 key={i}
@@ -315,7 +325,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="text-[13.5px] sm:text-[16px] text-slate-600 leading-relaxed px-1 sm:px-0"
+            className="hidden md:block text-[16px] text-slate-600 leading-relaxed"
           >
             Hỏi bằng ngôn ngữ tự nhiên, nhận câu trả lời kèm <strong className="text-slate-900">căn cứ pháp lý</strong> theo kỳ tính thuế. Cập nhật ngưỡng doanh thu 1 tỷ đồng/năm theo Nghị định 141/2026/NĐ-CP và chính sách giảm thuế năm 2026.
           </motion.p>
@@ -326,7 +336,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           onSubmit={handleSearch}
           initial={{ opacity: 0, y: 30, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.9, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.1, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="glow-wrap mb-3.5 sm:mb-4 max-w-[820px] mx-auto"
         >
           <div className="flex items-center gap-2 sm:gap-3 bg-white rounded-2xl sm:rounded-[1.1rem] pl-3 sm:pl-4 pr-1.5 sm:pr-2 py-1.5 sm:py-2">
@@ -347,7 +357,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
                 }
               }}
               placeholder={placeholder || 'Nhập câu hỏi về thuế (hỗ trợ nhập văn bản dài, nhiều kênh)...'}
-              className="w-full bg-transparent text-slate-900 placeholder-slate-400 text-[13.5px] sm:text-[16px] focus:outline-none font-medium py-1.5 sm:py-3 resize-none overflow-y-auto leading-relaxed"
+              className="w-full bg-transparent text-slate-900 placeholder-slate-400 text-[16px] focus:outline-none font-medium py-3 resize-none overflow-y-auto leading-relaxed"
               style={{ minHeight: '40px', maxHeight: '160px' }}
             />
             {searchQuery.length > 200 && (
@@ -360,7 +370,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
               disabled={isSearching}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
-              className="relative overflow-hidden inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-bold text-[13px] sm:text-[14px] px-3.5 py-2 sm:px-6 sm:py-3 rounded-xl shadow-md sm:shadow-lg shadow-emerald-500/25 flex-shrink-0 disabled:opacity-80"
+              className="relative min-h-11 overflow-hidden inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-bold text-[13px] sm:text-[14px] px-3.5 py-2 sm:px-6 sm:py-3 rounded-xl shadow-md sm:shadow-lg shadow-emerald-500/25 flex-shrink-0 disabled:opacity-80"
             >
               {isSearching ? (
                 <>
@@ -408,6 +418,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           )}
         </div>
 
+        {!currentResult.fresh && !isSearching && (
+          <div className="md:hidden space-y-3 mb-8">
+            <p className="px-1 text-xs font-semibold text-slate-500">Bạn có thể bắt đầu với</p>
+            {['Bán hàng online có phải nộp thuế không?', 'Làm TikTok affiliate cần đăng ký gì?', 'Doanh thu bao nhiêu phải xuất hóa đơn?'].map((question) => (
+              <button key={question} type="button" onClick={() => { setSearchQuery(question); textareaRef.current?.focus(); }} className="w-full min-h-14 text-left rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 flex items-center justify-between gap-3">
+                <span>{question}</span><ArrowRight className="w-4 h-4 text-emerald-600 shrink-0" />
+              </button>
+            ))}
+            <a href="#/dang-ky" className="flex min-h-12 items-center justify-between rounded-2xl bg-emerald-50 px-4 text-sm font-semibold text-emerald-800">Hướng dẫn đăng ký kinh doanh <ArrowRight className="w-4 h-4" /></a>
+          </div>
+        )}
+
         {/* Result card */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -423,7 +445,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
             mx.set(0);
             my.set(0);
           }}
-          className="glass rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 md:p-8 shadow-floating space-y-3.5 sm:space-y-5"
+          className={`${currentResult.fresh || isSearching ? '' : 'hidden md:block'} glass rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 md:p-8 shadow-floating space-y-3.5 sm:space-y-5`}
         >
           <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-200/70">
             <div className="flex items-center gap-2">
@@ -458,7 +480,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
                 )}
               </div>
 
-              {isSearching && !currentResult.answer ? (
+              {isSearching && !currentResult.answer && progressSteps.length > 0 ? (
+                <AnswerProgress steps={progressSteps} />
+              ) : isSearching && !currentResult.answer ? (
                 <div className="py-3 flex items-center gap-2 text-[13px] sm:text-[14px]">
                   <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping shrink-0" />
                   <span className="font-semibold text-emerald-800">
@@ -489,6 +513,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
                   {currentResult.legalBasis}
                 </div>
               </div>
+            )}
+            {!isSearching && currentResult.successful && progressSteps.length > 0 && (
+              <details className="text-xs text-slate-500">
+                <summary className="cursor-pointer py-2">Xem các bước đã xử lý</summary>
+                <AnswerProgress steps={progressSteps} complete />
+              </details>
             )}
             <RetrievalTrace
               trace={currentResult.retrieval}

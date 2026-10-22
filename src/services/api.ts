@@ -1,4 +1,6 @@
 import { auth } from './firebase';
+import { CHAT_PROGRESS_LABELS, type ChatProgress } from '../../shared/chatProgress';
+import type { RegistrationPanelContext } from '../../shared/registrationAdvisor';
 /**
  * ====================================================================
  * CLOUDFLARE API CLIENT SERVICE
@@ -32,6 +34,7 @@ export interface ApiUser {
   role?: string;
   transactions?: any[];
   chatLogs?: ChatHistoryItem[];
+  unlockedGuides?: string[];
 }
 
 export interface UploadResult {
@@ -76,14 +79,14 @@ export const CloudflareApi = {
   },
 
   /**
-   * Trừ 1 lượt hỏi trong Cloudflare D1
+   * Trừ lượt hỏi trong Cloudflare D1
    */
-  async consumeCredit(phone: string): Promise<{ success: boolean; remainingCredits?: number; error?: string }> {
+  async consumeCredit(phone: string, amount: number = 1, notes?: string): Promise<{ success: boolean; remainingCredits?: number; error?: string }> {
     try {
       const res = await fetch(`${API_BASE}/api/user/credits/consume`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...await authorizationHeaders() },
-        body: JSON.stringify({ phone }),
+        body: JSON.stringify({ phone, amount, notes }),
       });
       return await res.json();
     } catch {
@@ -123,15 +126,27 @@ export const CloudflareApi = {
     onDelta: (textChunk: string) => void,
     onMeta?: (meta: { source?: string; citations?: string[]; retrieval?: { method: string; evidence: { title: string; conditional: boolean }[] }; remainingCredits?: number }) => void,
     onStatus?: (status: 'generating' | 'thinking') => void,
-    onReasoningSummary?: (textChunk: string) => void
+    onReasoningSummary?: (textChunk: string) => void,
+    onProgress?: (progress: ChatProgress) => void,
+    workflow?: 'tax_registration',
+    panelContext?: RegistrationPanelContext,
+    signal?: AbortSignal,
   ): Promise<{ success: boolean; response: string; source?: string; error?: string; requireLogin?: boolean; requireDeposit?: boolean; remainingCredits?: number }> {
+    let remainingCredits: number | undefined;
     try {
-      const res = await fetch(`${API_BASE}/api/chat`, {
+      const requestStarted = Date.now();
+      onProgress?.({ stage: 'connecting' });
+      // Only the SSE transport is shared. Registration has its own server route,
+      // source pack, conversation and one-call model path, independent of tax QA.
+      const endpoint = workflow === 'tax_registration' ? '/api/registration-guide/chat' : '/api/chat';
+      const res = await fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...await authorizationHeaders() },
-        body: JSON.stringify({ message, phone, fileKey, history, stream: true }),
+        headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream', ...await authorizationHeaders() },
+        body: JSON.stringify({ message, phone, fileKey, history, stream: true, ...(workflow === 'tax_registration' ? { panelContext } : {}) }),
+        signal,
       });
 
+      console.debug('[CHAT_STREAM_CONNECTED] ' + JSON.stringify({ elapsedMs: Date.now() - requestStarted, serverTiming: res.headers.get('Server-Timing') }));
       if (!res.ok) {
         const errorBody = await res.json().catch(() => null);
         return {
@@ -140,6 +155,7 @@ export const CloudflareApi = {
           error: errorBody?.error || `Lỗi kết nối máy chủ (${res.status})`,
           requireLogin: !!errorBody?.requireLogin,
           requireDeposit: !!errorBody?.requireDeposit,
+          remainingCredits: typeof errorBody?.remainingCredits === 'number' ? errorBody.remainingCredits : undefined,
         };
       }
       if (!res.body) {
@@ -150,50 +166,84 @@ export const CloudflareApi = {
       const decoder = new TextDecoder();
       let fullText = '';
       let source = 'Muse Spark 1.3 (Meta AI)';
-      let remainingCredits: number | undefined;
-
+      let firstRegistrationDelta = false;
+      let completed = false;
+      let terminal = false;
+      let eventData: string[] = [];
       let buffer = '';
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || '';
-        for (const rawLine of lines) {
-          const line = rawLine.trim();
-          if (line.startsWith('data: ')) {
-            const dataStr = line.slice(6).trim();
-            if (dataStr === '[DONE]') break;
-            try {
-              const json = JSON.parse(dataStr);
-              if (json.type === 'meta') {
-                if (json.source) source = json.source;
-                if (typeof json.remainingCredits === 'number') remainingCredits = json.remainingCredits;
-                if (onMeta) onMeta(json);
-              } else if (json.type === 'thinking' && json.status === 'in_progress') {
-                onStatus?.('thinking');
-              } else if (json.type === 'status' && json.status === 'generating') {
-                onStatus?.('generating');
-              } else if (json.type === 'reasoning_summary' && typeof json.delta === 'string') {
-                onReasoningSummary?.(json.delta);
-              } else if (json.type === 'delta' && json.delta) {
-                fullText += json.delta;
-                onDelta(json.delta);
-              } else if (json.type === 'done') {
-                if (json.fullText) fullText = json.fullText;
-                if (typeof json.remainingCredits === 'number') remainingCredits = json.remainingCredits;
-              }
-            } catch {}
+      const dispatchEvent = () => {
+        if (!eventData.length || terminal) return;
+        const data = eventData.join('\n').trim();
+        eventData = [];
+        if (data === '[DONE]') {
+          terminal = true;
+          return;
+        }
+        let json;
+        try { json = JSON.parse(data); }
+        catch { throw new Error('Dữ liệu trả lời bị gián đoạn hoặc không hợp lệ. Vui lòng thử lại.'); }
+        if (json.type === 'error') throw new Error(json.error || json.message || 'Dịch vụ trả lời gặp lỗi.');
+        if (completed) return;
+        if (json.type === 'progress' && typeof json.stage === 'string' && Object.hasOwn(CHAT_PROGRESS_LABELS, json.stage)) {
+          console.debug('[CHAT_PROGRESS] ' + JSON.stringify({ stage: json.stage, elapsedMs: Date.now() - requestStarted }));
+          onProgress?.({ stage: json.stage as ChatProgress['stage'] });
+        } else if (json.type === 'meta') {
+          if (json.source) source = json.source;
+          if (typeof json.remainingCredits === 'number') remainingCredits = json.remainingCredits;
+          onMeta?.(json);
+        } else if (json.type === 'thinking' && json.status === 'in_progress') {
+          onStatus?.('thinking');
+        } else if (json.type === 'status' && json.status === 'generating') {
+          onStatus?.('generating');
+        } else if (json.type === 'reasoning_summary' && typeof json.delta === 'string') {
+          onReasoningSummary?.(json.delta);
+        } else if (json.type === 'delta' && typeof json.delta === 'string') {
+          if (workflow === 'tax_registration' && !firstRegistrationDelta && json.delta) {
+            firstRegistrationDelta = true;
+            console.debug('[REGISTRATION_FIRST_TEXT] ' + JSON.stringify({ elapsedMs: Date.now() - requestStarted }));
+          }
+          fullText += json.delta;
+          onDelta(json.delta);
+        } else if (json.type === 'done') {
+          if (typeof json.fullText !== 'string' || !json.fullText.trim()) {
+            throw new Error('Máy chủ chưa trả về đáp án hoàn chỉnh. Vui lòng thử lại.');
+          }
+          fullText = json.fullText;
+          completed = true;
+          if (workflow === 'tax_registration') console.debug('[REGISTRATION_DONE] ' + JSON.stringify({ elapsedMs: Date.now() - requestStarted }));
+          if (typeof json.remainingCredits === 'number') remainingCredits = json.remainingCredits;
+        }
+      };
+      const acceptLine = (rawLine: string) => {
+        const line = rawLine.replace(/\r$/, '');
+        if (!line) dispatchEvent();
+        else if (line.startsWith('data:')) eventData.push(line.slice(5).replace(/^ /, ''));
+      };
+      try {
+        while (!terminal) {
+          const { done, value } = await reader.read();
+          buffer += done ? decoder.decode() : decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+          for (const line of lines) acceptLine(line);
+          if (done) {
+            if (buffer) acceptLine(buffer);
+            dispatchEvent();
+            break;
           }
         }
+      } finally {
+        // [DONE] may arrive before the connection closes. Stop reading it;
+        // malformed/truncated responses must also release their stream.
+        try { await reader.cancel(); } catch {}
+        reader.releaseLock();
       }
-
-      if (!fullText.trim()) {
-        throw new Error('Hệ thống chưa tạo được câu trả lời. Vui lòng thử lại.');
+      if (!completed) {
+        throw new Error('Câu trả lời bị gián đoạn trước khi hoàn tất. Vui lòng thử lại.');
       }
       return { success: true, response: fullText, source, remainingCredits };
     } catch (err: any) {
-      return { success: false, response: '', error: err.message };
+      return { success: false, response: '', error: err.message, remainingCredits };
     }
   },
 

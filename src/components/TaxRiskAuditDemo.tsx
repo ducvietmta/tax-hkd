@@ -16,16 +16,16 @@ const SAMPLE_HKD_CHECKS: AuditCheck[] = [
     id: 'bank-vs-seller',
     name: 'Đối soát dòng tiền Tài khoản Ngân hàng & Báo cáo Sàn TMĐT',
     status: 'warning',
-    details: 'Dòng tiền ghi có vào tài khoản cá nhân trong năm là 1,2 tỷ đồng, nhưng doanh thu kê khai trên thuế khoán chỉ 200 triệu đồng (Chênh lệch 1 tỷ đồng).',
-    recommendation: 'Cần phân loại rõ các khoản chuyển tiền cá nhân không mang tính chất kinh doanh (vay mượn, người thân chuyển) và chủ động chuyển sang phương pháp kê khai để tránh bị phạt trốn thuế từ 1-3 lần.',
-    lawCite: 'Khoản 7 Điều 1 Nghị định 91/2022/NĐ-CP & Luật Quản lý Thuế số 38',
+    details: 'Dòng tiền ghi có là 1,2 tỷ đồng, doanh thu đã kê khai là 200 triệu đồng. Chênh lệch cần đối soát, chưa đủ căn cứ kết luận là doanh thu bỏ sót.',
+    recommendation: 'Tách tiền vay, chuyển khoản nội bộ, tiền người thân và doanh thu kinh doanh; đối chiếu chứng từ trước khi khai bổ sung.',
+    lawCite: 'Luật Quản lý thuế 108/2025/QH15; Nghị định 252/2026/NĐ-CP',
   },
   {
     id: 'threshold-1b',
     name: 'Kiểm tra Ngưỡng miễn thuế 1 Tỷ đồng / Năm (Nghị định 141/2026/NĐ-CP)',
     status: 'passed',
-    details: 'Doanh thu năm 2026 đạt 1,2 tỷ đồng (Vượt ngưỡng miễn thuế 1 tỷ đồng), phần doanh thu vượt ngưỡng thuộc diện kê khai chịu thuế theo tỷ lệ 1.5% và được sàn TMĐT hỗ trợ khấu trừ nộp thay.',
-    recommendation: 'Đối soát báo cáo khấu trừ của sàn TMĐT qua ứng dụng eTax Mobile để theo dõi số thuế đã nộp thay theo Nghị định 141/2026/NĐ-CP.',
+    details: 'Doanh thu năm 2026 là 1,2 tỷ đồng: GTGT tính trên toàn bộ doanh thu chịu thuế. Nếu chọn TNCN theo doanh thu, mức trừ 1 tỷ chỉ áp dụng khi xác định cơ sở TNCN; xét riêng điều kiện giảm từng sắc thuế.',
+    recommendation: 'Đối soát số sàn đã khấu trừ, nộp thay theo Nghị định 252/2026/NĐ-CP với nghĩa vụ cuối cùng; không dùng tỷ lệ gộp trên phần vượt ngưỡng.',
     lawCite: 'Nghị định 141/2026/NĐ-CP & Luật Thuế GTGT 48/2024/QH15',
   },
   {
@@ -33,24 +33,24 @@ const SAMPLE_HKD_CHECKS: AuditCheck[] = [
     name: 'Điều kiện Hóa đơn điện tử máy tính tiền (Quán ăn / Bán lẻ)',
     status: 'passed',
     details: 'Hộ kinh doanh đã đăng ký thành công Mẫu 01/ĐKTĐ-HĐĐT và kết nối máy tính tiền trực tiếp với hệ thống cơ quan thuế.',
-    recommendation: 'Xuất hóa đơn theo từng lần bán hàng cho khách hàng để được hưởng chính sách thuế minh bạch.',
-    lawCite: 'Điều 90 Luật Quản lý Thuế & Nghị định 123/2020/NĐ-CP',
+    recommendation: 'Lập hóa đơn đúng thời điểm và nội dung; kiểm tra diện bắt buộc và thời hạn đăng ký theo quy định áp dụng.',
+    lawCite: 'Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP; Nghị định 254/2026/NĐ-CP; Thông tư 91/2026/TT-BTC',
   },
   {
     id: 'affiliate-tax-withholding',
     name: 'Hồ sơ Hoàn thuế TNCN 10% bị khấu trừ tại nguồn (Affiliate / KOC)',
     status: 'warning',
-    details: 'Đã bị Shopee/TikTok khấu trừ 10% tiền thuế TNCN (Tổng 24 triệu), trong khi mức thuế thực tế phải nộp của HKD chỉ là 7% (16.8 triệu).',
-    recommendation: 'Yêu cầu sàn cấp Chứng từ khấu trừ thuế điện tử và làm hồ sơ đề nghị hoàn trả 7.2 triệu đồng tiền thuế nộp thừa.',
-    lawCite: 'Điều 28 Thông tư 111/2013/TT-BTC',
+    details: 'Nền tảng giữ lại 10% hoa hồng: chưa thể xác định đây là TNCN đã nộp thay hay tính số được hoàn chỉ từ tên khoản giữ lại.',
+    recommendation: 'Thu thập chứng từ, đối soát loại thuế và kỳ nộp, xác định bản chất thu nhập kinh doanh hay tiền công trước khi xét hoàn hoặc bù trừ.',
+    lawCite: 'Luật Quản lý thuế 108/2025/QH15; Nghị định 252/2026/NĐ-CP; Nghị định 254/2026/NĐ-CP',
   },
   {
     id: 'rental-contract-check',
     name: 'Hồ sơ pháp lý Hợp đồng Cho thuê nhà & Nghĩa vụ nộp thuế',
     status: 'passed',
-    details: 'Hợp đồng thuê ghi rõ bên cho thuê trực tiếp kê khai và nộp thuế 10% theo từng quý.',
+    details: 'Hợp đồng cần xác định doanh thu cho thuê bất động sản, thời gian thuê và bên thực hiện khai, nộp thay nếu có. Không mặc định tổng thuế bằng 10% tiền thuê.',
     recommendation: 'Lưu trữ bản sao hợp đồng và biên lai nộp tiền điện tử trên eTax Mobile để xuất trình khi cơ quan thuế yêu cầu.',
-    lawCite: 'Điều 9 Thông tư 40/2021/TT-BTC',
+    lawCite: 'Nghị định 68/2026/NĐ-CP được sửa bởi Nghị định 141/2026/NĐ-CP; Nghị quyết 43/2026/QH16',
   },
 ];
 
@@ -120,7 +120,7 @@ export const TaxRiskAuditDemo: React.FC = () => {
                   </div>
                   <div className="min-w-0">
                     <div className="text-[13px] sm:text-[14px] font-bold text-slate-900 truncate">BANGKE_DOANHTHU_TIKTOK_2026.xlsx</div>
-                    <div className="text-[12px] text-slate-500">Doanh thu sàn: 1.200.000.000 đ • Thuế khoán cũ: 200tr</div>
+                    <div className="text-[12px] text-slate-500">Dòng tiền: 1.200.000.000 đ • Doanh thu kê khai: 200tr</div>
                   </div>
                   {isScanning && (
                     <motion.div

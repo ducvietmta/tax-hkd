@@ -15,7 +15,40 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "dfdacd1b86de9d0167fa7ff3f67539eca0c4d5eba2fa5482d84d942544ed977e",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "VBHN-114-2026-VPQH",
+        "code": "Văn bản hợp nhất 114/VBHN-VPQH",
+        "locator": "Điều 5; Điều 12",
+        "scope": "Đối tượng không chịu GTGT và phương pháp trực tiếp; ưu đãi trực tiếp sản xuất phải đủ điều kiện.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm",
+        "source_type": "CONSOLIDATED_TEXT"
+      },
+      {
+        "doc_id": "Luat-109-2025-QH15",
+        "code": "Luật Thuế TNCN 109/2025/QH15",
+        "locator": "Quy định thu nhập được miễn thuế",
+        "scope": "Chỉ nhánh cá nhân trực tiếp sản xuất nông nghiệp đáp ứng điều kiện; không miễn cho người mua đi bán lại.",
+        "source_url": "/documents/Luat-109-2025-QH15.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.3": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1010",
@@ -24,7 +57,40 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "5c231089752315038463d56091e55e076ad39df8c7d16691633999b91906c676",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "VBHN-114-2026-VPQH",
+        "code": "Văn bản hợp nhất 114/VBHN-VPQH",
+        "locator": "Điều 5; Điều 12",
+        "scope": "Đối tượng không chịu GTGT và phương pháp trực tiếp; ưu đãi trực tiếp sản xuất phải đủ điều kiện.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm",
+        "source_type": "CONSOLIDATED_TEXT"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.4": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1011",
@@ -33,7 +99,24 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "4b4fd447b4e45b4a8c9e69f17633165c451e8c8752c444bdf65ee7a5e8699278",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.5": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1012",
@@ -42,7 +125,33 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "b57af63688be6b28a084250272c3cc0975431cc97b1e8c352d7000c767b3b502",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-254-2026-ND-CP",
+        "code": "Nghị định 254/2026/NĐ-CP",
+        "locator": "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT",
+        "scope": "Chỉ phần hóa đơn từ kỳ áp dụng; không quyết định riêng doanh thu TNCN.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE",
+        "applies_from_year": 2026
+      }
+    ]
   },
   "16.6": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1013",
@@ -87,7 +196,32 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "b8c39accc5e82f13cae289ab413f0e10d187a63473c998e95e15e33f1280b9b2",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Điều 29–31",
+        "scope": "Xử lý nộp thừa và hồ sơ hoàn sau điều chỉnh hợp đồng; không tự động hoàn khi chưa có hồ sơ.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.11": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1018",
@@ -114,7 +248,48 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "58be3761743850f0184589ceef03abdf5050ba56350454cacc5fd81101a72d45",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 6",
+        "scope": "Điều kiện chi phí được trừ của TNCN theo thu nhập; không phải chi phí TNDN của bên mua.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "TT-152-2025-TT-BTC",
+        "code": "Thông tư 152/2025/TT-BTC",
+        "locator": "Hướng dẫn chứng từ và bảng kê mua hàng",
+        "scope": "Chứng minh giao dịch mua hàng theo chế độ kế toán; không hợp thức hóa hàng không rõ nguồn gốc.",
+        "source_url": "/documents/TT-152-2025-TT-BTC.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.14": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1021",
@@ -132,7 +307,32 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "c7791c2581b8a26918464a6542c547fb075a0cc5ca5ce101bd26218c62216b32",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 4, Điều 5",
+        "scope": "Phân biệt dịch vụ lưu trú với cho thuê bất động sản; không áp cùng tỷ lệ chỉ vì sử dụng nhà.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.16": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1023",
@@ -141,7 +341,40 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "3f96c2c61aff9b4ca87660011c52bf973150b681e8c460050aac74d17ccbd634",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "Luat-48-2024-QH15",
+        "code": "Luật Thuế GTGT 48/2024/QH15",
+        "locator": "Điều 11–12",
+        "scope": "Phân biệt khấu trừ và trực tiếp; đọc cùng các văn bản sửa đổi.",
+        "source_url": "/documents/Luat-48-2024-QH15.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-181-2025-ND-CP",
+        "code": "Nghị định 181/2025/NĐ-CP",
+        "locator": "Quy định khấu trừ và hoàn GTGT",
+        "scope": "Không suy có hóa đơn đầu vào thì HKD theo trực tiếp được hoàn/khấu trừ.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-181-2025-nd-cp-quy-dinh-chi-tiet-thi-hanh-mot-so-dieu-cua-luat-thue-gia-tri-gia-tang-119250707172930626.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 6",
+        "scope": "Điều kiện chi phí được trừ của TNCN theo thu nhập; không phải chi phí TNDN của bên mua.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.17": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1024",
@@ -150,7 +383,42 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "647381afb828a007259ced327ac24da41dc3c4d87b95f44936cb3cfa8f946033",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-254-2026-ND-CP",
+        "code": "Nghị định 254/2026/NĐ-CP",
+        "locator": "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT",
+        "scope": "Chỉ phần hóa đơn từ kỳ áp dụng; không quyết định riêng doanh thu TNCN.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE",
+        "applies_from_year": 2026
+      },
+      {
+        "doc_id": "TT-91-2026-TT-BTC",
+        "code": "Thông tư 91/2026/TT-BTC",
+        "locator": "Quy định hóa đơn theo Nghị định 254",
+        "scope": "Thao tác theo loại hóa đơn, thời điểm phát sinh và chuyển tiếp.",
+        "source_url": "/documents/TT-91-2026-TT-BTC.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-123-2020-ND-CP",
+        "code": "Nghị định 123/2020/NĐ-CP",
+        "locator": "Quy định thời điểm lập hóa đơn của kỳ cũ",
+        "scope": "Nguồn lịch sử; đọc cùng văn bản sửa đổi, không hồi tố quy định mới.",
+        "source_url": "/documents/ND-123-2020-ND-CP.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT",
+        "applies_to_year": 2026
+      }
+    ]
   },
   "16.18": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1025",
@@ -168,21 +436,60 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "9fe0f761f6b97dca3db3d4ad35aef3daa950699b884d141bb66ef48fa2d81dc9",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 6",
+        "scope": "Điều kiện chi phí được trừ của TNCN theo thu nhập; không phải chi phí TNDN của bên mua.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "TT-152-2025-TT-BTC",
+        "code": "Thông tư 152/2025/TT-BTC",
+        "locator": "Chứng từ kế toán và bảng kê mua hàng",
+        "scope": "Bảng kê không thay điều kiện thực tế, nguồn gốc và thanh toán.",
+        "source_url": "/documents/TT-152-2025-TT-BTC.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.20": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1027",
     "ref_id": "16.20",
-    "section": "16.20. Affiliate: phân loại theo nền tảng — ưu tiên CV 7403 cho affiliate trên TMĐT",
+    "section": "16.20. Affiliate: phân loại theo quan hệ lao động và bản chất kinh doanh theo mục 1 Công văn 7403/CT-TMĐT",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "855ff6fe992f8e38192334cfece2af6a180bb4a9ee1579ff7627af78d500a44b",
+    "content_sha256": "cf1eb2ec930531c3a26e4b7230b9c5f783cce1d0ef7493e6f1cedc55116d24d3",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm"
-    ]
+    ],
+    "reviewed_local_sources": [
+      "public/documents/7403-CT-TMDT-2026.docx",
+      "public/documents/Luat-122-2025-QH15.pdf"
+    ],
+    "source_verification": "Compared with user-provided DOCX; no digital-signature authentication",
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.21": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1028",
@@ -209,7 +516,32 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "a9564c6aef5752479600d88dd915736c4ac53cfaefac816ccf6e506728bab71a",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 8",
+        "scope": "Khai theo doanh thu thực tế và nghĩa vụ hóa đơn.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.24": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1031",
@@ -227,7 +559,32 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "fb4405812082f24f187061bf7b14766f504b782b0fe63c5708414770ee06cad7",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "TT-90-2026-TT-BTC",
+        "code": "Thông tư 90/2026/TT-BTC",
+        "locator": "Trạng thái người nộp thuế và chấm dứt hiệu lực mã số thuế",
+        "scope": "Phân biệt trạng thái 03 với 06; mã trạng thái không tự xác định hoãn xuất cảnh.",
+        "source_url": "/documents/TT-90-2026-TT-BTC.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Quy định tạm hoãn xuất cảnh",
+        "scope": "Tách căn cứ nợ bị cưỡng chế với căn cứ không hoạt động tại địa chỉ đăng ký; phải đủ điều kiện.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.26": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1033",
@@ -245,7 +602,32 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "8cf4d76b89605180002b95db0b93d1afb4311799184404e1fe551a9de15e6bfc",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "VBHN-114-2026-VPQH",
+        "code": "Văn bản hợp nhất 114/VBHN-VPQH",
+        "locator": "Điều 5; Điều 12",
+        "scope": "Đối tượng không chịu GTGT và phương pháp trực tiếp; ưu đãi trực tiếp sản xuất phải đủ điều kiện.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm",
+        "source_type": "CONSOLIDATED_TEXT"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.28": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1035",
@@ -254,7 +636,32 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "43bbd3771dd2445e5955a1e3c8073f1bc3982defd227a208bc7b2258de5c3c18",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "VBHN-114-2026-VPQH",
+        "code": "Văn bản hợp nhất 114/VBHN-VPQH",
+        "locator": "Điều 5; Điều 12",
+        "scope": "Đối tượng không chịu GTGT và phương pháp trực tiếp; ưu đãi trực tiếp sản xuất phải đủ điều kiện.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/van-ban-hop-nhat-114-vbhn-vpqh-hop-nhat-luat-thue-gia-tri-gia-tang-119260605094756577.htm",
+        "source_type": "CONSOLIDATED_TEXT"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.29": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1036",
@@ -272,7 +679,33 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "9f286d124b0f608268e19dddb8ea6242843ac29afad1f65d0d256092f770d366",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-254-2026-ND-CP",
+        "code": "Nghị định 254/2026/NĐ-CP",
+        "locator": "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT",
+        "scope": "Chỉ phần hóa đơn từ kỳ áp dụng; không quyết định riêng doanh thu TNCN.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE",
+        "applies_from_year": 2026
+      }
+    ]
   },
   "16.31": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1038",
@@ -281,7 +714,32 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "d4b1fa9e6ead1ca2e3c4ee6e1534e510521623ba48b3a58b108bbf4b7e9dabed",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.32": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1039",
@@ -290,7 +748,33 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "851aabbbefa0f6858ed15887cda13c1ac5d22851702a8548250b61b6268201b6",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-254-2026-ND-CP",
+        "code": "Nghị định 254/2026/NĐ-CP",
+        "locator": "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT",
+        "scope": "Chỉ phần hóa đơn từ kỳ áp dụng; không quyết định riêng doanh thu TNCN.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE",
+        "applies_from_year": 2026
+      }
+    ]
   },
   "16.33": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1040",
@@ -299,7 +783,24 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "56a7a08487494f25eb26e85edf907d88a30be9b63803dfa2a073a40e9acc4773",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.34": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1041",
@@ -308,7 +809,24 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "e2212133d6ebef9e388529e47515feaf8398dd0aa4dfbe0b615005c9a44d3a7a",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.35": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1042",
@@ -332,7 +850,33 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "dcdbbb65d6637616b9de13c85f5a1d47845a826e33fd06da1bd47fbb67711b66",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-254-2026-ND-CP",
+        "code": "Nghị định 254/2026/NĐ-CP",
+        "locator": "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT",
+        "scope": "Chỉ phần hóa đơn từ kỳ áp dụng; không quyết định riêng doanh thu TNCN.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE",
+        "applies_from_year": 2026
+      }
+    ]
   },
   "16.37": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1044",
@@ -341,7 +885,50 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-22",
+      "content_sha256": "aa698983075524447d3e67ded3c1048e76ff25ce046c6bfb07974501963e0ed4",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3; khoản 5 Điều 8",
+        "scope": "Tách cơ sở GTGT, doanh thu TNCN và nghĩa vụ HĐĐT.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-254-2026-ND-CP",
+        "code": "Nghị định 254/2026/NĐ-CP",
+        "locator": "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT",
+        "scope": "Chỉ phần hóa đơn từ kỳ áp dụng; không quyết định riêng doanh thu TNCN.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE",
+        "applies_from_year": 2026
+      }
+    ],
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.38": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1045",
@@ -359,7 +946,7 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": 2027
   },
   "16.40": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1047",
@@ -368,7 +955,32 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-22",
+      "content_sha256": "fa91286d79f34d52cdbbadd0a14a3ed52894e78532a33b935c94a8ad20ea1ff9",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "TT-50-2026-TT-BTC",
+        "code": "Thông tư 50/2026/TT-BTC",
+        "locator": "Mẫu 01/CNKD và hướng dẫn chỉ tiêu [14]",
+        "scope": "Phân bổ mức trừ và thuật ngữ theo mẫu, dùng phiên bản đúng kỳ.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.41": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1048",
@@ -377,16 +989,58 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.42": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1049",
     "ref_id": "16.42",
-    "section": "16.42. Sàn thương mại điện tử khấu trừ/nộp thay (NĐ 117/2025 → NĐ 252/2026 từ 01/7/2026): HKD không khai/nộp lại; hàng b",
+    "section": "16.42. Sàn khấu trừ/nộp thay: không nộp trùng giao dịch nhưng vẫn xét nghĩa vụ tổng hợp năm",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2025,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-22",
+      "content_sha256": "60ec17972ad72c98b06fd1a3e8312a5d8b23a1b2b63c8c388ef9b3872e845363",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Khoản 1 Điều 8",
+        "scope": "Không khai nộp trùng giao dịch đã được nền tảng thực hiện thay.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Điều 43",
+        "scope": "Khấu trừ, khai thay và nộp thay theo giao dịch.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "TT-89-2026-TT-BTC",
+        "code": "Thông tư 89/2026/TT-BTC",
+        "locator": "Mẫu 01/TKN-CNKD; Mẫu 02/QTT-TNCN-CNKD",
+        "scope": "Thông báo doanh thu/quyết toán và đối trừ khoản nền tảng đã nộp thay.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      }
+    ]
   },
   "16.43": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1050",
@@ -419,16 +1073,100 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "fd00c5a9fd3ee254abc940195d7a12985b8fa99f49a7df77bae3a90b3ae274f3",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "TT-50-2026-TT-BTC",
+        "code": "Thông tư 50/2026/TT-BTC",
+        "locator": "Mẫu 01/CNKD và hướng dẫn chỉ tiêu [14]",
+        "scope": "Phân bổ mức trừ và thuật ngữ theo mẫu, dùng phiên bản đúng kỳ.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 4",
+        "scope": "Phân biệt doanh thu tính thuế với thu nhập tính thuế.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.46": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1053",
     "ref_id": "16.46",
-    "section": "16.46. Ví dụ minh họa hiệu chỉnh sau 3 case: pipeline tính đầy đủ (không phải nghĩa vụ cuối cùng)",
+    "section": "16.46. Ví dụ phân bổ mức trừ, giảm TNCN và đối chiếu sàn đã nộp thay",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "f0dd409639caeccad960e1689f85633c69e47615a0be6743f2f5e9e0701cce89",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "TT-50-2026-TT-BTC",
+        "code": "Thông tư 50/2026/TT-BTC",
+        "locator": "Mẫu 01/CNKD và hướng dẫn chỉ tiêu [14]",
+        "scope": "Phân bổ mức trừ và thuật ngữ theo mẫu, dùng phiên bản đúng kỳ.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "NQ-43-2026-QH16",
+        "code": "Nghị quyết 43/2026/QH16",
+        "locator": "Khoản 1 Điều 1",
+        "scope": "Giảm TNCN kinh doanh cho cá nhân cư trú đủ điều kiện; không giảm GTGT.",
+        "source_url": "/documents/NQ-43-2026-QH16.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT",
+        "applies_from_year": 2026,
+        "applies_to_year": 2027
+      },
+      {
+        "doc_id": "ND-174-2025-ND-CP",
+        "code": "Nghị định 174/2025/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Giảm tỷ lệ GTGT độc lập với giảm TNCN; ví dụ số học không phải điều khoản luật.",
+        "source_url": "/documents/ND-174-2025-ND-CP.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "TT-89-2026-TT-BTC",
+        "code": "Thông tư 89/2026/TT-BTC",
+        "locator": "Mẫu 01/TKN-CNKD; Mẫu 02/QTT-TNCN-CNKD",
+        "scope": "Thông báo doanh thu/quyết toán và đối trừ khoản nền tảng đã nộp thay.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      }
+    ]
   },
   "16.48": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1055",
@@ -443,6 +1181,47 @@
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
       "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
+    ],
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "ab01e6718bc5fd4725056a5f4204bf03800b95e547e53946a97dc3ac68b06c66",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Điều 43",
+        "scope": "Phân biệt số nền tảng nộp thay với nghĩa vụ tổng hợp.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "TT-89-2026-TT-BTC",
+        "code": "Thông tư 89/2026/TT-BTC",
+        "locator": "Mẫu 01/TKN-CNKD; Mẫu 02/QTT-TNCN-CNKD",
+        "scope": "Thông báo doanh thu/quyết toán và đối trừ khoản nền tảng đã nộp thay.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      }
     ]
   },
   "16.49": {
@@ -466,16 +1245,44 @@
     "content_sha256": "a247c1e21c9cd503ed74f02acb3511b1d0352c4ed86a2a50b1d50570b9027f90",
     "reviewed_source_urls": [
       "https://baochinhphu.vn/giam-thue-gia-tri-gia-tang-tu-01-7-2025-den-het-31-12-2026-10225070118590677.htm"
-    ]
+    ],
+    "effective_from": "2025-07-01",
+    "effective_to": "2026-12-31",
+    "effective_date_source": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-204-2025-qh15-ve-giam-thue-gia-tri-gia-tang-119250628082120511.htm"
   },
   "16.51": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1059",
     "ref_id": "16.51",
-    "section": "16.51. Chuỗi thay thế mẫu 01/TKN-CNKD (TT 18 → TT 50 → TT 89) và quy tắc hồ sơ đề nghị hoàn thuế nộp thừa — VERIFIED (ki",
+    "section": "16.51. Biểu mẫu HKD và hoàn nộp thừa: xác định đúng phương pháp, kỳ và thủ tục",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED",
+    "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "fbfaa67030a18544589c48d9108d66179679dbf52561405ecbea20e5a0ac42f7",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "TT-89-2026-TT-BTC",
+        "code": "Thông tư 89/2026/TT-BTC",
+        "locator": "Mẫu 01/TKN-CNKD; Mẫu 02/QTT-TNCN-CNKD",
+        "scope": "Thông báo doanh thu/quyết toán và đối trừ khoản nền tảng đã nộp thay.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Điều 29–31",
+        "scope": "Điều kiện, tiếp nhận và thời hạn xử lý hoàn nộp thừa; không hứa ngày tiền về.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.52": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1060",
@@ -493,7 +1300,40 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "850b074c08d8d49b5cfa8bea2bd86e890fa2c871071729602fd19a98779150e8",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 8",
+        "scope": "Khai từ kỳ phát sinh vượt ngưỡng, xác định chu kỳ tháng/quý theo điều kiện.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "TT-50-2026-TT-BTC",
+        "code": "Thông tư 50/2026/TT-BTC",
+        "locator": "Mẫu 01/CNKD và hướng dẫn chỉ tiêu [14]",
+        "scope": "Phân bổ mức trừ và thuật ngữ theo mẫu, dùng phiên bản đúng kỳ.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/huong-dan-thu-tuc-khai-thue-doi-voi-ho-kinh-doanh-ca-nhan-kinh-doanh-119260530072620314.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      }
+    ]
   },
   "16.54": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1062",
@@ -502,7 +1342,8 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_to_year": 2025,
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.55": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1063",
@@ -511,7 +1352,42 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "0af6eb511c2a878648bccb1b021b234061b8e042be2dd3df17c899e77a68f549",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Không xác nhận giao diện hoặc hành vi của phiên bản phần mềm."
+    },
+    "source_links": [
+      {
+        "doc_id": "TT-40-2021-TT-BTC",
+        "code": "Thông tư 40/2021/TT-BTC",
+        "locator": "Khoản 2 Điều 4",
+        "scope": "Ngưỡng lịch sử năm 2023 trong ví dụ; số phần mềm hiển thị không thay nghĩa vụ theo luật.",
+        "source_url": "/documents/TT-40-2021-TT-BTC.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT",
+        "applies_from_year": 2021,
+        "applies_to_year": 2025
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4, Điều 8",
+        "scope": "Nghĩa vụ pháp lý theo kỳ hiện hành, không chứng nhận hành vi cụ thể của HTKK/eTax.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.56": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1064",
@@ -521,8 +1397,8 @@
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
     "applies_to_year": null,
-    "content_reviewed_at": "2026-10-16",
-    "content_sha256": "545468db77d4ff7d2a026d27255d0a7e90a25dab3a6f0cff4d4a55d4139d2291",
+    "content_reviewed_at": "2026-10-22",
+    "content_sha256": "bdd790a1951545e5f4daf4b20f8aae5b10be635d2eb461143a4e2602a02c6af0",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/quy-dinh-thue-thu-nhap-ca-nhan-doi-voi-thu-nhap-tu-kinh-doanh-119260327063731539.htm",
       "https://xaydungchinhsach.chinhphu.vn/phuong-phap-tinh-thue-voi-ca-nhan-kinh-doanh-ho-kinh-doanh-119260309100708724.htm",
@@ -537,7 +1413,48 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "1acb1491830c1cdb1d8ef7d8066f24e27960aad9354cf5fefc87c685650bc541",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 4, Điều 8",
+        "scope": "Phương pháp và thời điểm chuyển; không hồi tố chỉ từ doanh thu cuối năm.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Điều 43",
+        "scope": "Khấu trừ theo giao dịch không thay quyết toán của người thuộc phương pháp thu nhập.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 6",
+        "scope": "Điều kiện chi phí được trừ của TNCN theo thu nhập; không phải chi phí TNDN của bên mua.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "TT-89-2026-TT-BTC",
+        "code": "Thông tư 89/2026/TT-BTC",
+        "locator": "Mẫu 01/TKN-CNKD; Mẫu 02/QTT-TNCN-CNKD",
+        "scope": "Thông báo doanh thu/quyết toán và đối trừ khoản nền tảng đã nộp thay.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/co-can-khai-bao-doanh-thu-khi-ban-hang-qua-shopee-grab-be-cac-san-da-khau-tru-thue-119260721055834808.htm",
+        "source_type": "OFFICIAL_GUIDANCE_AND_LOCAL_TEXT"
+      }
+    ]
   },
   "16.58": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1066",
@@ -546,7 +1463,41 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "b9ef176e022f89f1454466da209181ddf46a71051177abece8950a931498a5cd",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-254-2026-ND-CP",
+        "code": "Nghị định 254/2026/NĐ-CP",
+        "locator": "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT",
+        "scope": "Chỉ phần hóa đơn từ kỳ áp dụng; không quyết định riêng doanh thu TNCN.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE",
+        "applies_from_year": 2026
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4, Điều 6",
+        "scope": "HĐĐT tự nguyện không tự phát sinh thuế; thiếu đầu vào không xóa nghĩa vụ đầu ra.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.59": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1067",
@@ -555,7 +1506,32 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "9e533efb233156317637cfe219a37bef022bc27befb292dc4cefb662c5abe17c",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "Luat-108-2025-QH15",
+        "code": "Luật Quản lý Thuế 108/2025/QH15",
+        "locator": "Quy định thời hạn khai thuế và khai bổ sung",
+        "scope": "Kê khai/bổ sung đúng kỳ sai sót; thao tác hủy hồ sơ phải kiểm trạng thái.",
+        "source_url": "/documents/Luat-108-2025-QH15.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Quy định khai bổ sung hồ sơ khai thuế",
+        "scope": "Không cộng kỳ thiếu vào kỳ khác để thay hồ sơ chưa nộp.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.60": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1068",
@@ -564,7 +1540,8 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2021,
-    "applies_to_year": 2026
+    "applies_to_year": null,
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.61": {
     "id": "KB/16-kien-thuc-da-xac-minh-v5.1.md#1069",
@@ -654,12 +1631,29 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "a68cb53f2cdaf5db704254276148e727c56f0f68683716e0ec9fc97e12f3818a",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "Luat-108-2025-QH15",
+        "code": "Luật Quản lý Thuế 108/2025/QH15",
+        "locator": "Khoản 2 Điều 24",
+        "scope": "Căn cứ ấn định thuế; chênh lệch đầu vào/đầu ra không tự đủ điều kiện.",
+        "source_url": "/documents/Luat-108-2025-QH15.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      }
+    ]
   },
   "16.71": {
     "id": "KB/16C-dang-ky-thue-va-xu-phat.md#1087",
     "ref_id": "16.71",
-    "section": "16.71. Sổ sách, chứng từ và lưu trữ của nhóm ≤1 tỷ (thông báo doanh thu 01/TKN-CNKD)",
+    "section": "16.71. Sổ sách và lưu trữ của nhóm không chịu GTGT, không phải nộp TNCN",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
@@ -678,21 +1672,27 @@
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm",
       "https://xaydungchinhsach.chinhphu.vn/ban-hang-da-kenh-hieu-dung-de-thuc-hien-dung-nghia-vu-thue-119260727151911181.htm"
-    ]
+    ],
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.73": {
     "id": "KB/16D-da-nguon-pham-vi-nguong.md#1090",
     "ref_id": "16.73",
-    "section": "16.73. Affiliate: căn cứ pháp lý của decision tree phân loại (bổ sung 16.20)",
+    "section": "16.73. Affiliate: giới hạn nguồn lịch sử và dữ kiện phân loại thu nhập",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "d678a81a9eb3df9a453cfb8a6b58dbc629eaabef6e2ed634436b35341be8c3e6",
+    "content_sha256": "fa82f87b4e1a7560e44bdc277cbfeee286952360d630aeac08ffb573b7e05433",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm"
-    ]
+    ],
+    "reviewed_local_sources": [
+      "public/documents/7403-CT-TMDT-2026.docx",
+      "public/documents/Luat-122-2025-QH15.pdf"
+    ],
+    "source_verification": "Compared with user-provided DOCX; no digital-signature authentication"
   },
   "16.74": {
     "id": "KB/16D-da-nguon-pham-vi-nguong.md#1091",
@@ -701,7 +1701,48 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "b3ab416b02645142f03b2f5c5d71b39a59df5630c8de9c48b2e5804bd272331d",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 3, Điều 4",
+        "scope": "Phân loại hoạt động và tỷ lệ theo phương pháp; không xác định thay bản chất hợp đồng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-68-2026-ND-CP",
+        "code": "Nghị định 68/2026/NĐ-CP",
+        "locator": "Điều 5",
+        "scope": "Doanh thu được hưởng, khoản loại trừ và thời điểm ghi nhận; không đồng nhất với dòng tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-68-2026-nd-cp-quy-dinh-ve-chinh-sach-thue-quan-ly-thue-voi-ho-kinh-doanh-119260306102906789.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Điều 43",
+        "scope": "Chỉ nhánh nền tảng có thuộc diện khấu trừ, khai/nộp thay; không mặc định mọi nguồn nước ngoài đã nộp thay.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "ND-141-2026-ND-CP",
+        "code": "Nghị định 141/2026/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Sửa ngưỡng và quy định liên quan của Nghị định 68; không thay mọi ngưỡng trong luật khác.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.75": {
     "id": "KB/16D-da-nguon-pham-vi-nguong.md#1092",
@@ -719,16 +1760,36 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.78": {
     "id": "KB/16E-va-lo-hong-p0.md#1098",
     "ref_id": "16.78",
     "section": "16.78. Giảm 30% số thuế TNCN phải nộp 2026–2027: cổng thủ tục (chính sách xem 16.39)",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED",
+    "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "f9c8116e04d423333ac1787170b0d583d8fe735df808b050454ec0e41592c399",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Không xác minh tình trạng văn bản hướng dẫn sau 08/10/2026."
+    },
+    "source_links": [
+      {
+        "doc_id": "NQ-43-2026-QH16",
+        "code": "Nghị quyết 43/2026/QH16",
+        "locator": "Khoản 1 Điều 1",
+        "scope": "Giảm TNCN kinh doanh cho cá nhân cư trú đủ điều kiện; không giảm GTGT.",
+        "source_url": "/documents/NQ-43-2026-QH16.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT",
+        "applies_from_year": 2026,
+        "applies_to_year": 2027
+      }
+    ]
   },
   "16.79": {
     "id": "KB/16E-va-lo-hong-p0.md#1101",
@@ -769,11 +1830,36 @@
   "16.84": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1108",
     "ref_id": "16.84",
-    "section": "16.84. Phân loại thu nhập freelancer/thù lao dịch vụ (điểm c khoản 2 Điều 8 NĐ 253/2026/NĐ-CP)",
+    "section": "16.84. Freelancer/thù lao dịch vụ: phân loại bằng quan hệ và hoạt động thực tế",
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "d99a62c22f88fc5ab509351181ecd49fb4ed41e8489478707e34d5ce4b073365",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-253-2026-ND-CP",
+        "code": "Nghị định 253/2026/NĐ-CP",
+        "locator": "Điều 7; điểm c khoản 2 Điều 8",
+        "scope": "Phân loại kinh doanh/tiền lương theo quan hệ thực tế và điều kiện điều khoản.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-253-2026-nd-cp-huong-dan-thi-hanh-luat-thue-thu-nhap-ca-nhan-119260713171348107.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      },
+      {
+        "doc_id": "7403-CT-TMDT-2026",
+        "code": "Công văn 7403/CT-TMĐT",
+        "locator": "Phần hướng dẫn tiếp thị liên kết, quảng cáo và nội dung trên nền tảng",
+        "scope": "Hướng dẫn chuyên biệt; không mở rộng mọi freelancer thành kinh doanh hoặc tiền công.",
+        "source_url": "/documents/7403-CT-TMDT-2026.docx",
+        "source_type": "SUPPLIED_OFFICIAL_DOCUMENT"
+      }
+    ]
   },
   "16.85": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1109",
@@ -791,16 +1877,74 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "17acf8c6e117e6274316ff8d7c717fa3701af9cd8deb9adf7fb058f3b3b2d7dd",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "Luat-109-2025-QH15",
+        "code": "Luật Thuế TNCN 109/2025/QH15",
+        "locator": "Điều 6",
+        "scope": "Điều kiện hoàn thuế TNCN.",
+        "source_url": "/documents/Luat-109-2025-QH15.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "Luat-108-2025-QH15",
+        "code": "Luật Quản lý Thuế 108/2025/QH15",
+        "locator": "Điều 15; Điều 18",
+        "scope": "Xử lý nộp thừa khác với quy trình hoàn thuế.",
+        "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-252-2026-ND-CP",
+        "code": "Nghị định 252/2026/NĐ-CP",
+        "locator": "Khoản 4 Điều 29; Điều 31",
+        "scope": "Mức nộp thừa nhỏ và thời hạn thủ tục; không đồng nhất tiếp nhận với nhận tiền.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.87": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1111",
     "ref_id": "16.87",
-    "section": "16.87. Cá nhân cư trú / không cư trú (Điều 2 Luật 109/2025/QH15)",
+    "section": "16.87. Cư trú thuế: ngày hiện diện, nơi ở thường xuyên và chứng nhận cư trú nước ngoài",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED",
+    "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "2d27b3a6ab7dbccff4d321247779c7c73e9e9ced56256da4b13b9a4e584d2dd3",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "Luat-109-2025-QH15",
+        "code": "Luật Thuế TNCN 109/2025/QH15",
+        "locator": "Điều 2",
+        "scope": "Cư trú và phạm vi thu nhập chịu thuế.",
+        "source_url": "/documents/Luat-109-2025-QH15.pdf",
+        "source_type": "LOCAL_OFFICIAL_TEXT"
+      },
+      {
+        "doc_id": "ND-253-2026-ND-CP",
+        "code": "Nghị định 253/2026/NĐ-CP",
+        "locator": "Điều 3–6",
+        "scope": "Ngày hiện diện, nơi ở, chứng nhận cư trú và phạm vi thu nhập; hiệp định xét riêng.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-253-2026-nd-cp-huong-dan-thi-hanh-luat-thue-thu-nhap-ca-nhan-119260713171348107.htm",
+        "source_type": "PRIMARY_TEXT_AND_OFFICIAL_GUIDANCE"
+      }
+    ]
   },
   "16.88": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1112",
@@ -854,23 +1998,48 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "6c6b2328814508e1304a85e37d3a9bdc462953824bb70ea0d02fad9893c4f5d1",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Chưa xác minh thủ tục hồ sơ áp dụng hiệp định sau TT 89."
+    },
+    "source_links": [
+      {
+        "doc_id": "DTA-VN-SG-MLI-2023",
+        "code": "Hiệp định Việt Nam–Singapore (bản tổng hợp MLI công bố 01/09/2023)",
+        "locator": "Điều 4, 14, 15, 24; Điều VIII Nghị định thư thứ hai",
+        "scope": "Nội dung hiệp định và phép thử riêng; không xác minh thủ tục hồ sơ tại Việt Nam sau TT 89.",
+        "source_url": "https://www.iras.gov.sg/media/docs/default-source/dtas/singapore-vietnam-dta-(ratified)(mli)(01092023).pdf",
+        "source_type": "TREATY_SYNTHESISED_TEXT"
+      }
+    ]
   },
   "16.95": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#1119",
     "ref_id": "16.95",
-    "section": "16.95. Công văn 7403/CT-TMĐT (06/10/2026): thuế TNCN với tiếp thị liên kết và nội dung số trên TMĐT",
+    "section": "16.95. Công văn 7403/CT-TMĐT ngày 06/10/2026: phân loại thu nhập, khấu trừ và chứng từ affiliate",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "content_reviewed_at": "2026-10-22",
+    "content_sha256": "bf0e3d9ded136c1fedd703dbc428e1f484f5b9d897b61cc34bc02125231f24c3",
+    "reviewed_local_sources": [
+      "public/documents/7403-CT-TMDT-2026.docx",
+      "public/documents/Luat-122-2025-QH15.pdf"
+    ],
+    "source_verification": "Compared with user-provided DOCX; no digital-signature authentication",
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.96": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#affiliate-888-2026",
     "ref_id": "16.96",
-    "section": "16.96. Mã đuôi 888 cho TMĐT năm 2026 (gắn với CCCD)",
+    "section": "16.96. Mã đuôi888 và số định danh cá nhân: phân biệt mã quản lý với nghĩa vụ thuế",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED",
+    "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
     "applies_to_year": null
   },
@@ -881,7 +2050,60 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "source_link_review": {
+      "checked_on": "2026-10-22",
+      "content_sha256": "6153949eb3867e17d6dc401292df0c66b66b017adf0403fbbd9ac7e7e55bf7fc",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "NQ-198-2025-QH15",
+        "code": "Nghị quyết 198/2025/QH15",
+        "locator": "Khoản 7 Điều 10",
+        "scope": "Chấm dứt thu, nộp lệ phí môn bài từ 01/01/2026.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/nghi-quyet-198-2025-qh15-ve-mot-so-co-che-chinh-sach-dac-biet-phat-trien-kinh-te-tu-nhan-119250517191622422.htm",
+        "source_type": "PRIMARY_TEXT",
+        "applies_from_year": 2026
+      },
+      {
+        "doc_id": "ND-362-2025-ND-CP",
+        "code": "Nghị định 362/2025/NĐ-CP",
+        "locator": "Khoản 4 Điều 6",
+        "scope": "Bãi bỏ Nghị định 139/2016 và Nghị định 22/2020.",
+        "source_url": "https://chinhphu.vn/?classid=0&docid=216389&pageid=27160",
+        "source_type": "PRIMARY_DOCUMENT_RECORD"
+      },
+      {
+        "doc_id": "ND-139-2016-ND-CP",
+        "code": "Nghị định 139/2016/NĐ-CP",
+        "locator": "Điều 3; khoản 2 Điều 4",
+        "scope": "Chỉ biểu mức lịch sử và miễn của các năm trước.",
+        "source_url": "https://vbpl.moj.gov.vn/bonoivu/Pages/vbpq-toanvan.aspx?ItemID=114261",
+        "source_type": "HISTORICAL_TEXT",
+        "applies_to_year": 2025
+      },
+      {
+        "doc_id": "ND-22-2020-ND-CP",
+        "code": "Nghị định 22/2020/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Miễn năm đầu theo quy định lịch sử.",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-22-2020-nd-cp-30787.htm",
+        "source_type": "HISTORICAL_TEXT",
+        "applies_to_year": 2025
+      },
+      {
+        "doc_id": "ND-126-2020-ND-CP",
+        "code": "Nghị định 126/2020/NĐ-CP",
+        "locator": "Khoản 4 Điều 10",
+        "scope": "Hạn nộp lệ phí môn bài của kỳ trước 2026.",
+        "source_url": "https://vanban.chinhphu.vn/?docid=201402&pageid=27160",
+        "source_type": "HISTORICAL_TEXT",
+        "applies_to_year": 2025
+      }
+    ]
   },
   "16.98": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#bieu-muc-le-phi-mon-bai-lich-su",
@@ -890,7 +2112,52 @@
     "tier": "VERIFIED",
     "legal_status": "VERIFIED",
     "applies_from_year": 2021,
-    "applies_to_year": 2025
+    "applies_to_year": 2025,
+    "source_link_review": {
+      "checked_on": "2026-10-20",
+      "content_sha256": "a5bf03ac58e43a4d2a3da95b0a3e7faaca15c845ff9d33a84fdce2c10abb3d3c",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
+    },
+    "source_links": [
+      {
+        "doc_id": "ND-139-2016-ND-CP",
+        "code": "Nghị định 139/2016/NĐ-CP",
+        "locator": "Điều 3; khoản 2 Điều 4",
+        "scope": "Biểu mức và miễn lịch sử; không áp cho 2026.",
+        "source_url": "https://vbpl.moj.gov.vn/bonoivu/Pages/vbpq-toanvan.aspx?ItemID=114261",
+        "source_type": "HISTORICAL_TEXT",
+        "applies_to_year": 2025
+      },
+      {
+        "doc_id": "ND-22-2020-ND-CP",
+        "code": "Nghị định 22/2020/NĐ-CP",
+        "locator": "Điều 1",
+        "scope": "Miễn năm đầu theo quy định lịch sử.",
+        "source_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-22-2020-nd-cp-30787.htm",
+        "source_type": "HISTORICAL_TEXT",
+        "applies_to_year": 2025
+      },
+      {
+        "doc_id": "ND-126-2020-ND-CP",
+        "code": "Nghị định 126/2020/NĐ-CP",
+        "locator": "Khoản 4 Điều 10",
+        "scope": "Hạn nộp lệ phí môn bài lịch sử.",
+        "source_url": "https://vanban.chinhphu.vn/?docid=201402&pageid=27160",
+        "source_type": "HISTORICAL_TEXT",
+        "applies_to_year": 2025
+      },
+      {
+        "doc_id": "NQ-198-2025-QH15",
+        "code": "Nghị quyết 198/2025/QH15",
+        "locator": "Khoản 7 Điều 10",
+        "scope": "Nguồn chuyển tiếp: từ 2026 chấm dứt thu nộp, không áp biểu cũ.",
+        "source_url": "https://xaydungchinhsach.chinhphu.vn/nghi-quyet-198-2025-qh15-ve-mot-so-co-che-chinh-sach-dac-biet-phat-trien-kinh-te-tu-nhan-119250517191622422.htm",
+        "source_type": "PRIMARY_TEXT",
+        "applies_from_year": 2026
+      }
+    ]
   },
   "16.99": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#giam-30-phan-tram-tncn-nq43",
@@ -914,9 +2181,9 @@
   "16.100": {
     "id": "KB/16F-thue-tncn-ca-nhan-mo-rong.md#dang-ky-mst-888-cv-311-2025",
     "ref_id": "16.100",
-    "section": "16.100. Thủ tục đăng ký mã số thuế 888 trên Cổng thông tin điện tử TMĐT (Công văn 311/TCT-DNNCN-2025)",
+    "section": "16.100. Đăng ký thuế TMĐT: quy trình CV311 và giới hạn khi giao diện thay đổi",
     "tier": "VERIFIED",
-    "legal_status": "VERIFIED",
+    "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2025,
     "applies_to_year": null
   },
@@ -951,7 +2218,8 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.104": {
     "id": "KB/semantic-topic-supplements#vat-method-and-components",
@@ -983,7 +2251,8 @@
     "tier": "VERIFIED_CONDITIONAL",
     "legal_status": "VERIFIED_CONDITIONAL",
     "applies_from_year": 2026,
-    "applies_to_year": null
+    "applies_to_year": null,
+    "evidence_mode": "COMPLETE_RULE"
   },
   "16.107": {
     "id": "KB/business-registration#exemption-and-online-freelance",
@@ -999,5 +2268,766 @@
       "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm"
     ],
     "effective_from_date": "2025-07-01"
+  },
+  "16.108": {
+    "id": "KB/semantic-topic-supplements#registration-subject-and-tax-path",
+    "ref_id": "16.108",
+    "section": "16.108. Hộ kinh doanh và cá nhân kinh doanh: khái niệm, đăng ký hộ và đăng ký thuế",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-21",
+    "content_sha256": "edfb4040e8835334d36fb093e912f38b93e376e140cd2de2bb1e2d40a2a95152",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm",
+      "https://baochinhphu.vn/ke-khai-thue-doi-voi-ca-nhan-kinh-doanh-da-linh-vuc-102260929171744114.htm",
+      "https://xaydungchinhsach.chinhphu.vn/chinh-sach-thue-gia-tri-gia-tang-thue-thu-nhap-ca-nhan-cac-khoan-thue-khac-119260316093129828.htm"
+    ]
+  },
+  "16.109": {
+    "id": "KB/business-lifecycle#cessation",
+    "ref_id": "16.109",
+    "section": "16.109. Chấm dứt hoạt động cá nhân/hộ kinh doanh: hồ sơ, nghĩa vụ, thời hạn và mã thuế cá nhân",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-18",
+    "content_sha256": "0a471e6a8461db046e300458bf35e8fac3a7c3ff00f36d101aa443aa3ba98a92",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/90-btc.signed.pdf"
+    ]
+  },
+  "16.80": {
+    "id": "KB/operational-expansion#16.80",
+    "ref_id": "16.80",
+    "section": "16.80. Đăng ký sử dụng HĐĐT: mẫu 01/ĐKTĐ-HĐĐT và tiếp nhận khác chấp thuận",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "fce5f8ec8373bc6af88bfc587225168c6c350f64d0ed450e587f5f2368517dde",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+    ]
+  },
+  "16.110": {
+    "id": "KB/operational-expansion#16.110",
+    "ref_id": "16.110",
+    "section": "16.110. Tạm ngừng và tiếp tục kinh doanh: trực tiếp với thuế khác liên thông",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "176b8a26c3520433ae5f65cea750495f4490b3bf13b5d3e9459adc54825fedcc",
+    "reviewed_source_urls": [
+      "https://chinhphu.vn/?classid=1&docid=218839&orggroupid=4&pageid=27160"
+    ]
+  },
+  "16.111": {
+    "id": "KB/operational-expansion#16.111",
+    "ref_id": "16.111",
+    "section": "16.111. Chuyển địa chỉ và thay đổi cơ quan thuế: hồ sơ nơi đi/nơi đến",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "4b93b3359a6e30fd72427fb2e81c19faedb771c9c686c6f64e77d79a210fd81b",
+    "reviewed_source_urls": [
+      "https://chinhphu.vn/?classid=1&docid=218839&orggroupid=4&pageid=27160"
+    ]
+  },
+  "16.112": {
+    "id": "KB/operational-expansion#16.112",
+    "ref_id": "16.112",
+    "section": "16.112. Khôi phục mã thuế khi bị thông báo không hoạt động tại địa chỉ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "8928923d120691babd2b27627ba32a496846064c680442216558ebe6ae8bed48",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/huong-dan-doanh-nghiep-ho-kinh-doanh-khong-hoat-dong-tai-dia-chi-da-dang-ky-khoi-phuc-ma-so-thue-11926080611345084.htm"
+    ]
+  },
+  "16.113": {
+    "id": "KB/operational-expansion#16.113",
+    "ref_id": "16.113",
+    "section": "16.113. Mã thuế cũ, số định danh và thông tin không khớp: sửa dữ liệu trước khi đăng ký lại",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "15cdc74af826c0a80b45b79d88395bc1622cdec3399445db0eecd00f0d870c8e",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?docid=219006&pageid=27160",
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.114": {
+    "id": "KB/operational-expansion#16.114",
+    "ref_id": "16.114",
+    "section": "16.114. Thay đổi đăng ký hóa đơn và lý do hồ sơ bị yêu cầu giải trình",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "227ee2bc0f0436ef33473aedd9e331ea1a11528d2e109f557c5f2068fe9836fc",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+    ]
+  },
+  "16.115": {
+    "id": "KB/operational-expansion#16.115",
+    "ref_id": "16.115",
+    "section": "16.115. Ngừng/tạm ngừng hóa đơn và điều kiện tiếp tục sử dụng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "26bd7f221871b6bb26456676d12e2bb6da13aedc5762303071cfd1198d23454d",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+    ]
+  },
+  "16.116": {
+    "id": "KB/operational-expansion#16.116",
+    "ref_id": "16.116",
+    "section": "16.116. Ủy nhiệm lập HĐĐT cho bên thứ ba/nền tảng khác với sàn nộp thuế thay",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "c7c797abd00661bd2b3a0783944dae652154ba24376189be87492772a5c956b9",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?docid=219006&pageid=27160"
+    ]
+  },
+  "16.117": {
+    "id": "KB/operational-expansion#16.117",
+    "ref_id": "16.117",
+    "section": "16.117. Hóa đơn máy tính tiền và hóa đơn có mã thông thường: xác định đúng đối tượng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "7e004da80278b587a49e69b2a4d8deda5ebc751f4d8cb2993ac9216bf2f47bd7",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+    ]
+  },
+  "16.118": {
+    "id": "KB/operational-expansion#16.118",
+    "ref_id": "16.118",
+    "section": "16.118. Hóa đơn theo từng lần khi tạm ngừng hoặc đang chấm dứt hoạt động",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "19e570892ebd38059f4b9e743712fe5520bfa9279bacb8e22568bdf38490281e",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+    ]
+  },
+  "16.119": {
+    "id": "KB/operational-expansion#16.119",
+    "ref_id": "16.119",
+    "section": "16.119. Nội dung số cung cấp cho nước ngoài: ngoại lệ HĐĐT không đồng nghĩa miễn thuế",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "ede73e6319e21041fe3eb2a81f64a9ee1a3a5697dc9583c4c0aef6d02edf426e",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm"
+    ]
+  },
+  "16.120": {
+    "id": "KB/operational-expansion#16.120",
+    "ref_id": "16.120",
+    "section": "16.120. Tiền chậm nộp thuế: cơ sở 0,03%/ngày khác tiền phạt vi phạm",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "3bf64fef4c84b0172ab09aca482832b2c5c06de21e831191533a0b778951a8a3",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.121": {
+    "id": "KB/operational-expansion#16.121",
+    "ref_id": "16.121",
+    "section": "16.121. Nộp tiền sai MST, trùng hoặc ngân hàng đã trừ nhưng thuế còn báo nợ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "01ef500290f00c0797975ea77bd0164d11739251a069934997ef5fe50838f427",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.122": {
+    "id": "KB/operational-expansion#16.122",
+    "ref_id": "16.122",
+    "section": "16.122. Không đồng ý thông báo nợ/ấn định: quyền giải thích, khiếu nại và nghĩa vụ nộp",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "37ec3f4e282cd7b268c0f255b1b79b1378381648c9d195528403ad1114556aa3",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.123": {
+    "id": "KB/operational-expansion#16.123",
+    "ref_id": "16.123",
+    "section": "16.123. Gia hạn thuế năm 2026 theo NĐ245: đúng đối tượng, đúng kỳ và vẫn khai đúng hạn",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": 2026,
+    "effective_from_date": "2026-06-27",
+    "effective_to_date": "2026-12-30",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "a81dcff0edcb63cef1d9b3bb7569cc3ec2096a9893b1a310897441322178611c",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/nghi-dinh-245-2026-nd-cp-gia-han-thoi-han-nop-thue-tien-thue-dat-trong-nam-2026-119260627180925528.htm"
+    ]
+  },
+  "16.124": {
+    "id": "KB/operational-expansion#16.124",
+    "ref_id": "16.124",
+    "section": "16.124. Lưu trữ sổ và chứng từ hộ kinh doanh: tối thiểu 5 năm không áp máy móc cho mọi hóa đơn",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-01-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "3c7864f1c4a4583dd91c191cd19e209c59a0696c2c1eb2bd8ad0cc1823291d44",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?docid=216533&pageid=27160&typegroupid=6"
+    ]
+  },
+  "16.125": {
+    "id": "KB/operational-expansion#16.125",
+    "ref_id": "16.125",
+    "section": "16.125. Ấn định thuế phải có căn cứ: không tự lấy tiền vào tài khoản làm số thuế",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "f73c51c930e59bec9acd85514e6ce3bac24b1fa9b40fe93c646026400c4f3be0",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.126": {
+    "id": "KB/operational-expansion#16.126",
+    "ref_id": "16.126",
+    "section": "16.126. Doanh thu dưới ngưỡng vẫn có thể kiểm tra: quyền và hồ sơ liên quan",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "71e6bca1d6537c838609cb18410450e50e1022bf056518efdf944935808ff478",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.127": {
+    "id": "KB/operational-expansion#16.127",
+    "ref_id": "16.127",
+    "section": "16.127. Thuê dịch vụ/ủy quyền làm thuế: trách nhiệm không tự chuyển hết cho người làm hộ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "9b8695384da0079547e08d2fe389d84d3cb7da6b563f61cf5d1fdca603aada77",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.128": {
+    "id": "KB/operational-expansion#16.128",
+    "ref_id": "16.128",
+    "section": "16.128. Bảo mật dữ liệu thuế, hồ sơ lạ và quyền yêu cầu giải thích",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "b5acdf9c518687cd8d22b6806af8bb92c0e5972b6ed5b5a8e1755cae0f7e8aea",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.129": {
+    "id": "KB/depth-expansion#16.129",
+    "ref_id": "16.129",
+    "section": "16.129. Hóa đơn bán hàng của hộ tính GTGT trực tiếp khác hóa đơn GTGT",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "73ab2fca33563c99814d63595834afd8265c9ab80d160a0541d263a87ce4b496",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.130": {
+    "id": "KB/depth-expansion#16.130",
+    "ref_id": "16.130",
+    "section": "16.130. Thời điểm hóa đơn bán hàng hóa: chuyển giao, không chờ sàn trả tiền",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "805da4a8dd03a463758c8aee80289ddaaae06f43cf5861a8c3fc8c4a976aa051",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.131": {
+    "id": "KB/depth-expansion#16.131",
+    "ref_id": "16.131",
+    "section": "16.131. Thời điểm hóa đơn dịch vụ: hoàn thành hoặc thu tiền trước/trong khi cung cấp",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "f0be9502a98ac1839afbd84f0a3f919b39774e7c25d168c2fe6f0d7641b5cc4e",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.132": {
+    "id": "KB/depth-expansion#16.132",
+    "ref_id": "16.132",
+    "section": "16.132. Giao hàng nhiều lần, nghiệm thu từng phần: hóa đơn theo từng khối lượng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "d9807c51690d295840ab6147c298d11e9eb2e7a8eb3ae8cacd05920690b538e2",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.133": {
+    "id": "KB/depth-expansion#16.133",
+    "ref_id": "16.133",
+    "section": "16.133. Lập hóa đơn sau đối soát: chỉ nhóm đủ điều kiện, không áp cho mọi cửa hàng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "d5b80617f17b940f8f2390ddb8743cb2bfbc24b4cf602f09e19490f6acd324de",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.134": {
+    "id": "KB/depth-expansion#16.134",
+    "ref_id": "16.134",
+    "section": "16.134. Xây dựng, lắp đặt: nghiệm thu/bàn giao thay vì ngày khách thanh toán",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "535fdfa6c796b95b8acb009f0c1954755f0139d09b480d1559e74dce84078a1e",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.135": {
+    "id": "KB/depth-expansion#16.135",
+    "ref_id": "16.135",
+    "section": "16.135. Hóa đơn máy tính tiền: thông tin người mua và chữ ký khác hóa đơn thường",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "0b5d63b92fe18200b4f779f65ced1f57a116812c0998ebb2dedab598fd49efad",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.136": {
+    "id": "KB/depth-expansion#16.136",
+    "ref_id": "16.136",
+    "section": "16.136. Hóa đơn bán hàng không trình bày thuế suất và giá trị XML khác bản hiển thị",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "8b6aa33777db385d6bddf001b4333c6ad8d1eedee14e0716d310950e56d7be2c",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.137": {
+    "id": "KB/depth-expansion#16.137",
+    "ref_id": "16.137",
+    "section": "16.137. Sự cố hóa đơn điện tử: tách lỗi người bán, nhà cung cấp và hệ thống thuế",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "30761a3342a118f04828dd29c9413252389f770f656e565d9667b6f6679cd9ae",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.138": {
+    "id": "KB/depth-expansion#16.138",
+    "ref_id": "16.138",
+    "section": "16.138. Dịch vụ hóa đơn miễn phí: điều kiện địa bàn và tự lựa chọn gói thương mại",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "2b824e950929aca9c19abd019ff322688bee6dd25d18c7cd68ab75cb93e4a189",
+    "reviewed_source_urls": [
+      "https://vanban.chinhphu.vn/?classid=1&docid=218689&pageid=27160&typegroupid=4"
+    ]
+  },
+  "16.139": {
+    "id": "KB/depth-expansion#16.139",
+    "ref_id": "16.139",
+    "section": "16.139. Khấu hao máy móc: đã hết giá trị không trích tiếp, không trừ cả giá mua ngay",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-01-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "d608e953eaa350b3b7fbaaa58f151c9182b185164dae93034d69e5d5febedfa4",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+    ]
+  },
+  "16.140": {
+    "id": "KB/depth-expansion#16.140",
+    "ref_id": "16.140",
+    "section": "16.140. Tiền lương chủ hộ, thành viên hộ và lao động thuê: không chỉ xét quan hệ họ hàng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-01-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "e0d10ef99e4fbbdb14d31ca285cca9a391cfdb9757910188b5379a1efb8bd0d9",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+    ]
+  },
+  "16.141": {
+    "id": "KB/depth-expansion#16.141",
+    "ref_id": "16.141",
+    "section": "16.141. Lãi vay: ngân hàng khác người cho vay cá nhân và không phải toàn bộ gốc trả nợ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-01-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "89a26e97b2307b84fe8fb41c856e104f801a8765ba80297b33f05ce1b2efa999",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+    ]
+  },
+  "16.142": {
+    "id": "KB/depth-expansion#16.142",
+    "ref_id": "16.142",
+    "section": "16.142. Thanh toán từng lần từ 5 triệu: điều kiện chi phí, không phải ngưỡng miễn thuế",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-01-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "d5c6751b6c050f3d77168a6086e4c6f1b4b401b204bdf659d49d52067b82edb1",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+    ]
+  },
+  "16.143": {
+    "id": "KB/depth-expansion#16.143",
+    "ref_id": "16.143",
+    "section": "16.143. Nhà ở, xe và tài sản mang tên cá nhân: điều kiện riêng ngoài mục đích sử dụng",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-01-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "ad7a1ae8f8238c0ebad056b852ed0c349d982ccd7d022a9c886b54d52e7b9ad6",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+    ]
+  },
+  "16.144": {
+    "id": "KB/depth-expansion#16.144",
+    "ref_id": "16.144",
+    "section": "16.144. Tiền phạt và bồi thường do lỗi cá nhân kinh doanh: trả thật vẫn có thể không được trừ",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-01-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "f14e8f14fe00c1c5c048884a858b22a19bce0496e34fe0c1da4b854f64633561",
+    "reviewed_source_urls": [
+      "https://xaydungchinhsach.chinhphu.vn/chi-tiet-cac-khoan-chi-duoc-tru-va-khong-duoc-tru-trong-xac-dinh-thue-thu-nhap-ca-nhan-119260309111406444.htm"
+    ]
+  },
+  "16.145": {
+    "id": "KB/depth-expansion#16.145",
+    "ref_id": "16.145",
+    "section": "16.145. Nộp thừa: bù trừ khác trừ chi phí, thời hạn 10 năm khác khai bổ sung 5 năm",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "7e68ade0e9d2f3a012eff8be7647920db72740d57d00517fe4b246d2330c2623",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.146": {
+    "id": "KB/depth-expansion#16.146",
+    "ref_id": "16.146",
+    "section": "16.146. Gia hạn hồ sơ do bất khả kháng khác gia hạn nộp tiền thuế",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "3b167ff34e2d32ca85036919c09c6fc14e68ec8e2b6caa99dabd1a3f5bae2b9f",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.147": {
+    "id": "KB/depth-expansion#16.147",
+    "ref_id": "16.147",
+    "section": "16.147. Hết thời hiệu phạt không tự hết nghĩa vụ truy thu",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "e92d733c16a86a5e99e6e802a4c0957dc99927e797e0c0bbfe279dbe7da49028",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.148": {
+    "id": "KB/depth-expansion#16.148",
+    "ref_id": "16.148",
+    "section": "16.148. Tự khai sửa trước khi phát hiện và quyết toán cá nhân được hoàn: giới hạn không xử phạt",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "7a6b51eb5ecc87c4cd9c58f41d138bf8c68740f492ff28ec06444953d7ca786a",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.149": {
+    "id": "KB/depth-expansion#16.149",
+    "ref_id": "16.149",
+    "section": "16.149. Trốn thuế khác chậm thủ tục: không kết luận tội chỉ từ nợ thuế hoặc dòng tiền",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "ffe278f628178994fdc099a465e81445fa8380bebe27e8b2f5f01c12017616ff",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.150": {
+    "id": "KB/depth-expansion#16.150",
+    "ref_id": "16.150",
+    "section": "16.150. Cưỡng chế thuế: điều kiện, quyết định và nộp dần có bảo lãnh",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "f1954252bd757ed89e279e47a4c3233b572c84ba0f9bc2ee57f02544b3fee64b",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.151": {
+    "id": "KB/depth-expansion#16.151",
+    "ref_id": "16.151",
+    "section": "16.151. Khoanh nợ và xóa nợ: đóng cửa lâu năm không tự xóa thuế",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "4007d408e9e35d0ce5a37136fc98bc7f25ea682f148a3aaefd1427d747afa787",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.152": {
+    "id": "KB/depth-expansion#16.152",
+    "ref_id": "16.152",
+    "section": "16.152. Chủ hộ qua đời: nghĩa vụ từ di sản và người nhận tiền thuế hoàn",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "9278dbb286254832820cba0f00b87d6c0e3a69bba4842a8b389120f7c788c1a7",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.153": {
+    "id": "KB/depth-expansion#16.153",
+    "ref_id": "16.153",
+    "section": "16.153. Hiệu lực Luật Quản lý thuế 108 và chuyển tiếp nợ, kiểm tra trước tháng 7/2026",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from_date": "2026-07-01",
+    "content_reviewed_at": "2026-10-19",
+    "content_sha256": "29b7ce7c306165ad5f232e031e3bb68f64fce849adec55d034b5a50b8280d92c",
+    "reviewed_source_urls": [
+      "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/108-qh15.signed.pdf"
+    ]
+  },
+  "16.154": {
+    "id": "KB/semantic-topic-supplements#business-subject-boundary",
+    "ref_id": "16.154",
+    "section": "16.154. Ranh giới cá nhân kinh doanh và hộ kinh doanh; xác nhận trạng thái trước khi áp thủ tục",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.155": {
+    "id": "KB/semantic-topic-supplements#household-form-procedures",
+    "ref_id": "16.155",
+    "section": "16.155. Hồ sơ, địa điểm và tạm ngừng: thủ tục riêng của hình thức hộ kinh doanh",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  "16.156": {
+    "id": "KB/semantic-topic-supplements#vat-base-adjustments",
+    "ref_id": "16.156",
+    "section": "16.156. Cơ sở GTGT khi chiết khấu, trả hàng và thuế trực tiếp — tách khỏi cơ sở TNCN",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "source_links": [
+      {
+        "doc_id": "ND-181-2025-ND-CP",
+        "code": "Nghị định 181/2025/NĐ-CP",
+        "locator": "Khoản 2 Điều 14",
+        "scope": "Giá GTGT sau chiết khấu thương mại; không thay bằng cơ sở TNCN.",
+        "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/7/181nd.signed.pdf",
+        "source_type": "PRIMARY_TEXT"
+      },
+      {
+        "doc_id": "TT-91-2026-TT-BTC",
+        "code": "Thông tư 91/2026/TT-BTC",
+        "locator": "Điều 10 khoản 5, khoản 6; Điều 24 khoản 2",
+        "scope": "Chứng từ chiết khấu/trả hàng, kỳ điều chỉnh và chuyển tiếp từ01/07/2026.",
+        "source_url": "https://congbaocdn.chinhphu.vn/180507251028987904/2026/8/6/470171-1785986965_v1_1786011300_signed.pdf",
+        "source_type": "PRIMARY_TEXT"
+      }
+    ],
+    "source_link_review": {
+      "checked_on": "2026-10-22",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "limits": "Đã đọc nguyên văn Điều 14 NĐ181 và Điều 10, Điều 24 TT91; các liên kết hỗ trợ đúng phạm vi nêu, không xác nhận mọi giao dịch hay điều kiện giảm GTGT.",
+      "content_sha256": "f3653af5b8fe6a8085bdc186d8587194b0d44a1d94be16d6db096909242f8eab"
+    }
   }
 }

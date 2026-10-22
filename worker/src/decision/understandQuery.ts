@@ -10,10 +10,29 @@ import type {
   TaxDecisionFrame,
   MissingFact,
   Provenance,
+  TaxSubrequest,
 } from './types';
 import type { TaxpayerType, Residency, IncomeType, TaxIntent, TaxCategory, ConversationAct, JurisdictionType } from './labels';
 import { extractTaxFacts, extractResidency, fold } from './factExtractor';
-import type { BusinessClassification } from './quyetProvider';
+import type { BusinessClassification } from './jevProvider';
+
+/** Only semantic labels and extracted facts are used; no question keywords. */
+export function buildSubrequests(frame:TaxDecisionFrame):TaxSubrequest[]{
+  const intents=[...new Set([frame.tax_intent.primary.value,...frame.tax_intent.secondary])];
+  const taxIntents=new Set(['TAX_CALCULATION','RELIEF_REDUCTION','EXEMPTION_ELIGIBILITY','REFUND']);
+  const requests = intents.flatMap(intent=>{
+    const focus=frame.semantic?.taxFocus;
+    const focuses:TaxSubrequest['tax_focus'][]=taxIntents.has(intent)&&focus==='both'?['vat','pit']:[focus==='vat'||focus==='pit'?focus:'unspecified'];
+    return focuses.map(tax_focus=>({id:`${intent}:${tax_focus}`,intent,tax_focus,
+      period:{...frame.tax_period,years:[...frame.tax_period.years]},taxpayer:{...frame.taxpayer_type},activities:frame.income_type.map(a=>({...a})),facts:{...frame.facts},
+      assumptions:[{name:'tax_period',value:frame.tax_period.years,source:frame.tax_period.source==='current_default'?'default' as const:frame.tax_period.source==='user_history'?'history' as const:'user_text' as const,confirmed:frame.tax_period.source!=='current_default'},
+        ...(frame.facts.vat_relief_assumed?[{name:'vat_relief_eligibility',value:true,source:'llm' as const,confirmed:false}]:[])],
+    }));
+  });
+  return frame.semantic?.calculationShape==='METHOD_COMPARISON'
+    ? requests.flatMap(r=>['REVENUE','INCOME'].map(method=>({...r,id:`${method}:${r.id}`,
+      assumptions:[...r.assumptions,{name:'comparison_method',value:method,source:'inferred' as const,confirmed:false}]}))) : requests;
+}
 
 /** Legacy baseline for offline equivalence tests. Production uses understandClassifiedQuery. */
 export function understandQuery(
@@ -39,6 +58,8 @@ export function understandQuery(
 
   // 2. Phân loại taxpayer_type (Lớp S)
   let taxpayerType: TaxpayerType = classification?.taxpayer ?? 'UNKNOWN';
+  if(taxpayerType==='HOUSEHOLD_BUSINESS'&&classification?.registrationStatus!=='HOUSEHOLD_REGISTERED'&&
+    (classification?.subjectContext==='INDIVIDUAL_ACTIVITY'||(classification?.registrationStatus==='DIRECT_TAX_ONLY'&&(!classification.subjectContext||classification.subjectContext==='UNKNOWN'))))taxpayerType='INDIVIDUAL_BUSINESS';
   let taxpayerConfidence = classification ? (classification.confidence?.taxpayer ?? (taxpayerType === 'UNKNOWN' ? 0 : 0.8)) : 0.5;
   let taxpayerSource: Provenance<TaxpayerType>['source'] = classification ? 'llm' : 'default';
   let taxpayerSpan: string | undefined;
@@ -138,48 +159,84 @@ export function understandQuery(
   }
 
   }
-  // 7. Mục đích câu hỏi thuế (Tax Intent)
+  // 7. Mục đích câu hỏi thuế (Tax Intent) & Chủ đề ngữ nghĩa (Topic)
   let primaryIntent: TaxIntent = classification?.primaryIntent ?? 'TAX_CALCULATION';
   const secondaryIntents: TaxIntent[] = classification ? [...classification.secondaryIntents] : [];
+  let inferredTopic: string | undefined = classification?.topic;
 
   if (!classification) {
-  if (/\b(ma 888|mst 888|dinh danh|14 so|ma so thue 888)\b/.test(q)) {
-    primaryIntent = 'TAX_ID_888';
-    if (/\b(dang ky|thu tuc)\b/.test(q)) secondaryIntents.push('REGISTRATION');
-  } else if (/\b(so sanh|khac gi|2025 va 2026|2025 vs 2026)\b/.test(q)) {
-    primaryIntent = 'COMPARE_PERIODS';
-  } else if (/\b(hoa don|hddt|may tinh tien|30 ngay)\b/.test(q)) {
-    if (/\b(tinh thue|bao nhieu|phai nop)\b/.test(q)) {
-      primaryIntent = 'TAX_CALCULATION';
-      secondaryIntents.push('E_INVOICE');
-    } else {
-      primaryIntent = 'E_INVOICE';
-    }
-  } else if (/\b(giam thue|giam gtgt|nghi quyet 43|nq\s*43|giam 30|giam 20|nghi quyet 204|nq\s*204|174\/2025)\b/.test(q)) {
-    if (/\b(tinh thue|bao nhieu|phai nop)\b/.test(q)) {
-      primaryIntent = 'TAX_CALCULATION';
-      secondaryIntents.push('RELIEF_REDUCTION');
-    } else {
-      primaryIntent = 'RELIEF_REDUCTION';
-    }
-  } else if (/\b(dang ky|thanh lap|mo ho|thu tuc dang ky|dich vu cong)\b/.test(q)) {
-    primaryIntent = 'REGISTRATION';
-  } else if (/\b(ke khai|to khai|nop to khai|thang hay quy|han nop)\b/.test(q)) {
-    primaryIntent = 'DECLARATION_FILING';
-  } else if (/\b(phat|cham nop|xu phat|truy thu)\b/.test(q)) {
-    primaryIntent = 'PENALTY';
-  } else if (/\b(mon bai|le phi mon bai)\b/.test(q)) {
-    primaryIntent = 'LICENSE_FEE';
-  } else if (/\b(so sach|chung tu|ke toan)\b/.test(q)) {
-    primaryIntent = 'ACCOUNTING_BOOKS';
-  } else if (/\b(mien thue|nguong|duoi 1 ty|duoi 100|duoi 500|co phai nop)\b/.test(q)) {
-    primaryIntent = 'EXEMPTION_ELIGIBILITY';
-  }
+    const isAskingTaxAmount = /\b(tinh thue|nop thue bao nhieu|bao nhieu tien thue|thue suat bao nhieu)\b/.test(q);
+    const hasTroubleshootingSignal =
+      /\b(bi loi|gap loi|bao loi|ma loi|khong dang nhap duoc|khong vao duoc|khong nop duoc|khong ky duoc|khong nhan|khong tiep nhan|khong chap nhan ho so|tu nhay|nhay so|sai so thue|nop trung|treo no|bao no thue|khoa mst|khoa ma so thue|sap cong|sap mang|qua tai|vang app|treo app|loi chu ky so|loi usb token|loi esigner|loi xml|loi dinh dang|loi xac thuc|loi ket noi|mat ket noi|quen mat khau|mat mat khau|sai sot hoa don|hoa don sai|sai ma so thue|sai tien thue|04\/ss-hddt)\b/.test(q) ||
+      (/\b(loi|su co|khac phuc|xu ly|sua the nao)\b/.test(q) && /\b(etax|htkk|itaxviewer|thuedientu|canhantmdt|dichvucong|vneid|cong thue|to khai|hoa don|chu ky so|token|nop thue|pos|may tinh tien)\b/.test(q));
+    const hasSystemRegistrationSignal =
+      /\b(dang ky tai khoan|tai khoan thue dien tu|tai khoan giao dich thue|dang ky hoa don dien tu|dang ky su dung hoa don|01\/dktd|dang ky nguoi phu thuoc|1\.008499|1\.007565|thong bao(?:\s+so)?\s+tai khoan ngan hang|cap nhat(?:\s+so)?\s+tai khoan ngan hang|lien ket tai khoan|khoi phuc mst|khoi phuc ma so thue|khoi phuc lai|cham dut hieu luc|dong ma so thue|dong mst|tam ngung kinh doanh|03-dk|05-dk|20-dk)\b/.test(q) ||
+      (/\b(dang ky|kich hoat|tao tai khoan|nop ho so dang ky|mo them kho|mo them cua hang|dia diem kinh doanh)\b/.test(q) && /\b(thuedientu|etax|canhantmdt|hoadondientu|dichvucong|vneid|cong thue|he thong|dia diem kinh doanh|kho hang)\b/.test(q));
+    const hasSoftwareSystemSignal =
+      /\b(phan mem|ung dung|app thue|cong thue|he thong thue|he thong quan ly thue|he thong ke khai|he thong hoa don dien tu|he thong so ke toan|etax mobile|htkk|itaxviewer|thuedientu|canhantmdt|canhan\.gdt|dichvucong|hoadondientu\.gdt|so ke toan dien tu|so excel|mau s1a|mau s2a|s1a|s2b|s2c|s2d|s2e|chi tieu 14|01\/cnkd|01\/tkn|01\/tbdt)\b/.test(q) &&
+      !/\b(tinh thue|nop thue bao nhieu)\b/.test(q);
 
-  if (/\b(khau tru|nop thay|giu lai)\b/.test(q) && !secondaryIntents.includes('PLATFORM_WITHHOLDING')) {
-    secondaryIntents.push('PLATFORM_WITHHOLDING');
-  }
+    if (hasTroubleshootingSignal && !isAskingTaxAmount) {
+      primaryIntent = 'PORTAL_TROUBLESHOOTING';
+      inferredTopic = 'PORTAL_TROUBLESHOOTING';
+      if (/\b(hoa don|hddt|04\/ss-hddt)\b/.test(q)) secondaryIntents.push('E_INVOICE');
+      if (/\b(to khai|ke khai)\b/.test(q)) secondaryIntents.push('DECLARATION_FILING');
+    } else if (/\b(ma 888|mst 888|duoi 888|14 so|ma so thue 888)\b/.test(q)) {
+      primaryIntent = 'TAX_ID_888';
+      inferredTopic = 'SYSTEM_REGISTRATION';
+      if (/\b(dang ky|thu tuc)\b/.test(q)) secondaryIntents.push('REGISTRATION');
+    } else if (hasSystemRegistrationSignal && !isAskingTaxAmount) {
+      primaryIntent = 'SYSTEM_REGISTRATION';
+      inferredTopic = 'SYSTEM_REGISTRATION';
+      secondaryIntents.push('REGISTRATION');
+      if (/\b(hoa don|hddt|01\/dktd)\b/.test(q) && !secondaryIntents.includes('E_INVOICE')) {
+        secondaryIntents.push('E_INVOICE');
+      }
+    } else if (/\b(so sanh|khac gi|2025 va 2026|2025 vs 2026)\b/.test(q) && !hasSoftwareSystemSignal) {
+      primaryIntent = 'COMPARE_PERIODS';
+    } else if (/\b(hoa don|hddt|may tinh tien|30 ngay)\b/.test(q) && !hasSoftwareSystemSignal) {
+      if (/\b(tinh thue|bao nhieu|phai nop)\b/.test(q)) {
+        primaryIntent = 'TAX_CALCULATION';
+        secondaryIntents.push('E_INVOICE');
+      } else {
+        primaryIntent = 'E_INVOICE';
+        if (/\b(dang ky|30 ngay)\b/.test(q)) inferredTopic = 'INVOICE_REGISTRATION';
+      }
+    } else if (/\b(giam thue|giam gtgt|nghi quyet 43|nq\s*43|giam 30|giam 20|nghi quyet 204|nq\s*204|174\/2025)\b/.test(q)) {
+      if (/\b(tinh thue|bao nhieu|phai nop)\b/.test(q)) {
+        primaryIntent = 'TAX_CALCULATION';
+        secondaryIntents.push('RELIEF_REDUCTION');
+      } else {
+        primaryIntent = 'RELIEF_REDUCTION';
+      }
+    } else if (/\b(dang ky|thanh lap|mo ho|thu tuc dang ky|cap ma so thue|dang ky mst)\b/.test(q)) {
+      primaryIntent = 'REGISTRATION';
+      inferredTopic = /\b(khac nhau|phan biet|hay la|chon)\b/.test(q)
+        ? 'REGISTRATION_COMPARISON'
+        : /\b(thue|mst|ma so thue)\b/.test(q)
+        ? 'TAX_REGISTRATION'
+        : 'BUSINESS_REGISTRATION';
+    } else if (hasSoftwareSystemSignal) {
+      primaryIntent = 'TAX_SOFTWARE_SYSTEM';
+      inferredTopic = 'TAX_SOFTWARE_SYSTEM';
+      if (/\b(so ke toan|so excel|s1a|s2a|s2b|s2c|s2d|s2e)\b/.test(q)) {
+        secondaryIntents.push('ACCOUNTING_BOOKS');
+      }
+    } else if (/\b(ke khai|to khai|nop to khai|thang hay quy|han nop)\b/.test(q)) {
+      primaryIntent = 'DECLARATION_FILING';
+    } else if (/\b(phat|cham nop|xu phat|truy thu)\b/.test(q)) {
+      primaryIntent = 'PENALTY';
+    } else if (/\b(mon bai|le phi mon bai)\b/.test(q)) {
+      primaryIntent = 'LICENSE_FEE';
+    } else if (/\b(so sach|chung tu|ke toan)\b/.test(q)) {
+      primaryIntent = 'ACCOUNTING_BOOKS';
+    } else if (/\b(mien thue|nguong|duoi 1 ty|duoi 100|duoi 500|co phai nop)\b/.test(q)) {
+      primaryIntent = 'EXEMPTION_ELIGIBILITY';
+    }
 
+    if (/\b(khau tru|nop thay|giu lai)\b/.test(q) && !secondaryIntents.includes('PLATFORM_WITHHOLDING')) {
+      secondaryIntents.push('PLATFORM_WITHHOLDING');
+    }
   }
   // 8. Thuế suất / Danh mục thuế (Tax Categories)
   const taxCategories: TaxCategory[] = [];
@@ -187,6 +244,8 @@ export function understandQuery(
     taxCategories.push('LICENSE_FEE');
   } else if (primaryIntent === 'PENALTY') {
     taxCategories.push('ADMIN_PENALTY');
+  } else if (['SYSTEM_REGISTRATION', 'PORTAL_TROUBLESHOOTING', 'TAX_SOFTWARE_SYSTEM', 'REGISTRATION', 'TAX_ID_888'].includes(primaryIntent)) {
+    taxCategories.push('TAX_ADMIN');
   } else {
     taxCategories.push('VAT', 'PIT');
   }
@@ -194,6 +253,7 @@ export function understandQuery(
   // 9. Trích xuất dữ kiện số (Facts)
   const facts = extractTaxFacts(query, scope.years[0] || 2026, classification?.incomeTypes);
   if (classification) facts.vat_relief_assumed = classification.vatRelief === 'ELIGIBLE';
+  if (classification?.methodContext==='INCOME_ACTIVE')facts.pit_method_elected='INCOME';
 
   // 10. Missing facts & Cảnh báo dữ kiện thiếu
   const missingFacts: MissingFact[] = [];
@@ -217,7 +277,11 @@ export function understandQuery(
 
   return {
     schema_version: '1.0',
-    ...(classification ? { semantic: { topic: classification.topic, revenueContext: classification.revenueContext, taxFocus: classification.taxFocus, invoicePeriod: classification.invoicePeriod } } : {}),
+    ...(classification
+      ? { semantic: { topic: classification.topic,subjectContext:classification.subjectContext,registrationStatus:classification.registrationStatus, policyFocus:classification.policyFocus, answerPurpose:classification.answerPurpose, revenueContext: classification.revenueContext, taxFocus: classification.taxFocus, invoicePeriod: classification.invoicePeriod,calculationShape:classification.calculationShape,methodContext:classification.methodContext } }
+      : inferredTopic
+      ? { semantic: { topic: inferredTopic } }
+      : {}),
     tax_period: taxPeriod,
     taxpayer_type: {
       value: taxpayerType,
@@ -267,13 +331,26 @@ export function understandClassifiedQuery(
 ): TaxDecisionFrame {
   if (!classification) throw new Error('Quyet business classification is required');
   const normalized = { ...classification };
-  const qFold = fold(query);
-  const asksBusinessReg = /\b(dang ky kinh doanh|mo ho kinh doanh|dang ky hkd|thanh lap ho kinh doanh|thanh lap hkd|co (?:can|phai) dang ky (?:kinh doanh|hkd)?)\b/i.test(qFold);
-  if (asksBusinessReg && (!normalized.topic || normalized.topic === 'REVENUE_THRESHOLD' || normalized.topic === 'OTHER')) {
-    normalized.topic = 'BUSINESS_REGISTRATION';
+  if(normalized.answerPurpose==='DEFINITION'){
+    normalized.primaryIntent='LEGAL_TEXT_LOOKUP';normalized.topic='CONCEPT_EXPLANATION';
+  } else if (['BUSINESS_CESSATION','BUSINESS_SUSPENSION','TAX_REGISTRATION_CHANGE','TAX_STATUS_RESTORATION'].includes(normalized.topic || '')) {
+    normalized.primaryIntent = 'STATUS_CHANGE';
+  } else if (['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(normalized.topic || '')) {
     normalized.primaryIntent = 'REGISTRATION';
+  } else if (normalized.topic === 'SYSTEM_REGISTRATION' && normalized.primaryIntent !== 'TAX_ID_888') {
+    normalized.primaryIntent = 'SYSTEM_REGISTRATION';
+  } else if (normalized.topic === 'PORTAL_TROUBLESHOOTING') {
+    normalized.primaryIntent = 'PORTAL_TROUBLESHOOTING';
+  } else if (normalized.topic === 'TAX_SOFTWARE_SYSTEM') {
+    normalized.primaryIntent = 'TAX_SOFTWARE_SYSTEM';
   }
-  return understandQuery(query, scope, history, normalized);
+  const frame=understandQuery(query, scope, history, normalized);
+  if(normalized.obligationDate&&frame.tax_period.years.includes(Number(normalized.obligationDate.slice(0,4)))){
+    frame.tax_period.event_date=normalized.obligationDate;
+    frame.tax_period.granularity='EVENT_DATE';
+  }
+  frame.requests=buildSubrequests(frame);
+  return frame;
 }
 
 /**

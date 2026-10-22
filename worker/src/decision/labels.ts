@@ -45,6 +45,9 @@ export type IncomeType = typeof INCOME_TYPES[number];
 export const TAX_INTENTS = [
   'REGISTRATION',          // Đăng ký thuế, thành lập HKD/CNKD
   'TAX_ID_888',            // Mã số thuế 888 (định danh 14 số)
+  'SYSTEM_REGISTRATION',   // Nhóm A: Thủ tục đăng ký trên hệ thống điện tử (TK thuế điện tử, HĐĐT, NPT, TK ngân hàng...)
+  'PORTAL_TROUBLESHOOTING',// Nhóm B: Gỡ lỗi khi dùng hệ thống web/app thuế (đăng nhập, CKS, nộp tờ khai, eTax Mobile...)
+  'TAX_SOFTWARE_SYSTEM',   // Nhóm C: Giải đáp về phần mềm/hệ thống cơ quan thuế (thuedientu, canhan, canhantmdt, eTax Mobile, HTKK...)
   'DECLARATION_FILING',    // Kê khai thuế, thời hạn nộp tờ khai
   'TAX_CALCULATION',       // Tính số thuế phải nộp (số tiền, thuế suất)
   'EXEMPTION_ELIGIBILITY', // Ngưỡng miễn thuế, điều kiện không phải nộp
@@ -63,6 +66,37 @@ export const TAX_INTENTS = [
   'OUT_OF_SCOPE',          // Ngoài phạm vi
 ] as const;
 export type TaxIntent = typeof TAX_INTENTS[number];
+
+export type AbcCategory = 'A' | 'B' | 'C' | null;
+
+export const ABC_REGISTRATION_TOPICS = [
+  'BUSINESS_CESSATION',
+  'SYSTEM_REGISTRATION',
+  'BUSINESS_REGISTRATION',
+  'TAX_REGISTRATION',
+  'REGISTRATION_COMPARISON',
+  'REGISTRATION_REQUIREMENTS',
+  'INVOICE_REGISTRATION',
+] as const;
+
+export function resolveAbcCategory(topic?: string, primaryIntent?: TaxIntent, secondaryIntents: TaxIntent[] = []): AbcCategory {
+  if (topic === 'PORTAL_TROUBLESHOOTING' || primaryIntent === 'PORTAL_TROUBLESHOOTING' || secondaryIntents.includes('PORTAL_TROUBLESHOOTING')) {
+    return 'B';
+  }
+  if (topic === 'TAX_SOFTWARE_SYSTEM' || primaryIntent === 'TAX_SOFTWARE_SYSTEM' || secondaryIntents.includes('TAX_SOFTWARE_SYSTEM')) {
+    return 'C';
+  }
+  if (
+    (topic && (ABC_REGISTRATION_TOPICS as readonly string[]).includes(topic)) ||
+    primaryIntent === 'SYSTEM_REGISTRATION' ||
+    primaryIntent === 'REGISTRATION' ||
+    primaryIntent === 'TAX_ID_888' ||
+    secondaryIntents.includes('SYSTEM_REGISTRATION')
+  ) {
+    return 'A';
+  }
+  return null;
+}
 
 export const TAX_CATEGORIES = [
   'VAT',                   // Thuế Giá trị gia tăng

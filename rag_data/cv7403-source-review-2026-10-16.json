@@ -1,0 +1,38 @@
+{
+  "reviewed_on": "2026-10-16",
+  "source": {
+    "original_path": "C:/Users/engin/Downloads/7403_CT-TMDT_728099(1).docx",
+    "retained_path": "public/documents/7403-CT-TMDT-2026.docx",
+    "sha256": "8c8866fc21d6ff182236a84da3322aa7c2ee86633311954c2da53efc0e13a207",
+    "origin": "User supplied DOCX",
+    "document_number": "7403/CT-TMĐT",
+    "issued_on": "2026-10-06",
+    "authentication": "Content compared; signature/origin not independently authenticated"
+  },
+  "source_discrepancy": {
+    "description": "DOCX contains both clause 12 and clause 14 of Article 3 for the affiliate-service definition; local Law 122/2025/QH15 places the service definition in clause 12.",
+    "law_path": "public/documents/Luat-122-2025-QH15.pdf",
+    "resolution": "Cite clause 12 for the definition; preserve source DOCX unchanged."
+  },
+  "changed": [
+    {
+      "ref_id": "16.20",
+      "before_sha256": "855ff6fe992f8e38192334cfece2af6a180bb4a9ee1579ff7627af78d500a44b",
+      "after_sha256": "cf1eb2ec930531c3a26e4b7230b9c5f783cce1d0ef7493e6f1cedc55116d24d3",
+      "length": 2090
+    },
+    {
+      "ref_id": "16.73",
+      "before_sha256": "d678a81a9eb3df9a453cfb8a6b58dbc629eaabef6e2ed634436b35341be8c3e6",
+      "after_sha256": "fa82f87b4e1a7560e44bdc277cbfeee286952360d630aeac08ffb573b7e05433",
+      "length": 1904
+    },
+    {
+      "ref_id": "16.95",
+      "before_sha256": "64f0e41f7388452671b11ea3a4199d15f11cf13644c2b92db14cda27ca4c77e7",
+      "after_sha256": "c7b1f24e1f453dbc9fdd6a97fac18272e61926d4f299898b1db086939dcf7be2",
+      "length": 3099
+    }
+  ],
+  "supersedes_pending_item_in": "legal-review-2026-10-16.json: CV7403 now available as user-provided full text; independent official signed-copy authentication remains distinct."
+}

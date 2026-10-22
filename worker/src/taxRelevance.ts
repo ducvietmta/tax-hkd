@@ -1,5 +1,5 @@
 import type { ConversationTurn } from './conversation';
-import { QuyetDecisionProvider, type TaxRelevance } from './decision/quyetProvider';
+import { JevDecisionProvider, type TaxRelevance } from './decision/jevProvider';
 
 export async function resolveTaxRelevance(
   message: string,
@@ -9,7 +9,7 @@ export async function resolveTaxRelevance(
   modelName?: string
 ): Promise<TaxRelevance> {
   const started = Date.now();
-  const provider = apiKey ? new QuyetDecisionProvider(apiKey, endpoint, 30000, modelName) : null;
+  const provider = apiKey ? new JevDecisionProvider(apiKey, endpoint, 30000, modelName) : null;
   const result = provider
     ? await provider.classifyTaxRelevance(message, history)
     : 'UNAVAILABLE';

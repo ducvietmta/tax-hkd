@@ -104,11 +104,15 @@ export const TaxCalculatorInteractive: React.FC = () => {
           </div>
           <h2 className="text-[22px] sm:text-[38px] font-extrabold text-slate-900 tracking-tight leading-tight">
             Mô phỏng <span className="text-shimmer">số thuế phải nộp</span> <br className="hidden sm:block" />
-            cho từng mô hình kinh doanh
+            <span className="hidden md:inline">cho từng mô hình kinh doanh</span>
           </h2>
-          <p className="mt-2.5 sm:mt-4 text-[13px] sm:text-[15px] text-slate-600 leading-relaxed">
+          <p className="hidden md:block mt-4 text-[15px] text-slate-600 leading-relaxed">
             Minh họa một hoạt động kinh doanh của cá nhân cư trú, chưa có doanh thu khác. TNCN chọn phương pháp theo doanh thu trong dải được phép; chưa xét chuyển tiếp hoặc kỳ ổn định phương pháp. GTGT và TNCN có cơ sở tính riêng.
           </p>
+          <details className="md:hidden mt-3 text-sm text-slate-500">
+            <summary className="min-h-11 flex items-center cursor-pointer font-medium text-emerald-700">Mô phỏng năm 2026 · Xem giả định tính</summary>
+            <p className="pt-2 leading-relaxed">Một cá nhân cư trú, một hoạt động và chưa có doanh thu khác. TNCN chọn phương pháp theo doanh thu trong dải được phép; chưa xét chuyển tiếp, kỳ ổn định phương pháp. GTGT và TNCN tính riêng.</p>
+          </details>
         </div>
 
         {/* Tabs */}

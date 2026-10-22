@@ -54,13 +54,13 @@ export const RetrievalTrace: React.FC<{ trace?: RetrievalTraceData; summary?: st
         <ChevronDown className="ml-auto h-4 w-4" />
       </summary>
       <div className="mt-3 space-y-2.5 border-t border-slate-200 pt-3 leading-relaxed">
-        {/* Khung quyết định Decision Model (Quyet-1.0-Large) */}
+        {/* Khung quyết định Decision Model (JEV-1.0-Large) */}
         {trace?.decision && (
           <div className="rounded-xl border border-emerald-200/90 bg-emerald-50/80 p-3 text-xs text-slate-800 space-y-2 shadow-xs">
             <div className="flex items-center justify-between font-semibold text-emerald-950">
               <span className="flex items-center gap-1.5">
                 <Sparkles className="w-4 h-4 text-emerald-600 animate-pulse" />
-                <span>Decision Model: {trace.decision.model || 'Quyet-1.0-Large (FPT Cloud AI)'}</span>
+                <span>Decision Model: {trace.decision.model || 'JEV-1.0-Large (FPT Cloud AI)'}</span>
               </span>
               <span className="rounded-full bg-emerald-200 px-2 py-0.5 text-[10px] font-bold text-emerald-800 tracking-wide uppercase">
                 {trace.decision.layer || 'L2 Gated'}

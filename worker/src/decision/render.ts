@@ -31,22 +31,28 @@ export function renderDeterministicAnswer(
     }
     }
   } else {
-    const vatLine = `- Thuế GTGT (${percentage(evalResult.vat_rate)}% trên doanh thu): ${formatVnd(evalResult.vat_due_vnd)}`;
-    const usesIncomeMethod = taxYear >= 2026 && rev > 3_000_000_000;
+    const vatLine = evalResult.activities
+      ? evalResult.activities.map(a=>`- GTGT hoạt động ${a.id}: ${formatVnd(a.revenue_vnd)} × ${percentage(a.vat_rate)}% = ${formatVnd(a.vat_due_vnd)}.`).join('\n')+`\nTổng GTGT: ${formatVnd(evalResult.vat_due_vnd)}. Chi phí không làm giảm doanh thu tính GTGT.`
+      : `- Thuế GTGT: ${formatVnd(evalResult.taxable_vat_revenue_vnd)} × ${percentage(evalResult.vat_rate)}% = ${formatVnd(evalResult.vat_due_vnd)}. Chi phí không làm giảm doanh thu tính GTGT.`;
+    const usesIncomeMethod = evalResult.method==='INCOME'||(taxYear >= 2026 && rev > 3_000_000_000);
     const pitBaseLine = usesIncomeMethod
-      ? `- Thuế TNCN (${evalResult.pit_rate * 100}% trên thu nhập tính thuế ${formatVnd(evalResult.taxable_pit_revenue_vnd)}): ${formatVnd(evalResult.pit_before_relief_vnd)}`
+      ? `- Thuế TNCN trước giảm: thu nhập tính thuế ${formatVnd(evalResult.taxable_pit_revenue_vnd)} × ${percentage(evalResult.pit_rate)}% = ${formatVnd(evalResult.pit_before_relief_vnd)}`
+      : evalResult.activities
+      ? evalResult.activities.map(a=>`- TNCN hoạt động ${a.id}: (${formatVnd(a.revenue_vnd)} − mức trừ ${formatVnd(a.allowance_vnd)}) × ${percentage(a.pit_rate)}% = ${formatVnd(a.pit_before_relief_vnd)}.`).join('\n')+`\nTNCN trước giảm: ${formatVnd(evalResult.pit_before_relief_vnd)}. Mức trừ chỉ dùng một lần, phân bổ ưu tiên hoạt động có tỷ lệ cao hơn.`
       : taxYear >= 2026
       ? `- Thuế TNCN (${evalResult.pit_rate * 100}% trên phần doanh thu vượt 1 tỷ đồng): ${formatVnd(evalResult.pit_before_relief_vnd)}`
       : `- Thuế TNCN (${evalResult.pit_rate * 100}% trên toàn bộ doanh thu): ${formatVnd(evalResult.pit_before_relief_vnd)}`;
 
     let pitReliefLine = '';
     if (evalResult.pit_relief_vnd > 0) {
-      pitReliefLine = `\n- Giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16: -${formatVnd(evalResult.pit_relief_vnd)} (còn phải nộp ${formatVnd(evalResult.pit_after_relief_vnd)})`;
+      pitReliefLine = `\n- Khi là cá nhân cư trú, tổng doanh thu kinh doanh năm không quá 10 tỷ đồng và đủ điều kiện Nghị quyết 43/2026/QH16: TNCN sau giảm = ${formatVnd(evalResult.pit_before_relief_vnd)} × 70% = ${formatVnd(evalResult.pit_after_relief_vnd)} (giảm ${formatVnd(evalResult.pit_relief_vnd)}).${focus === 'pit' ? '' : ' Chính sách này không giảm thêm GTGT.'}`;
     }
 
     const assumption = frame.facts.vat_rate_explicit !== undefined && focus !== 'pit'
       ? `Theo tỷ lệ GTGT gốc ${percentage(frame.facts.vat_rate_explicit)}% bạn cung cấp${frame.facts.vat_relief_assumed ? ', với giả định toàn bộ doanh thu đủ điều kiện giảm 20% mức tỷ lệ' : ''}:\n` : '';
-    response = assumption + `Mình tính cho trường hợp của bạn (doanh thu ${formatVnd(rev)}, năm ${taxYear}) nhé:\n` +
+    const periodAssumption = frame.semantic?.revenueContext === 'UNSPECIFIED'
+      ? 'Mình tính với giả định số doanh thu bạn cho là tổng doanh thu kinh doanh cả năm. Nếu đây chỉ là số lũy kế hoặc của một cửa hàng thì cần xác định lại tổng năm trước khi chốt nghĩa vụ.\n' : '';
+    response = periodAssumption + assumption + `Mình tính cho trường hợp của bạn (doanh thu ${formatVnd(rev)}, năm ${taxYear}) nhé:\n` +
       (focus === 'pit' ? '' : `${vatLine}\n`) +
       (focus === 'vat' ? '' : `${pitBaseLine}${pitReliefLine}\n`) +
       (onlyTax ? `Số thuế ${onlyTax} phải nộp: ${formatVnd(focus === 'vat' ? evalResult.vat_due_vnd : evalResult.pit_after_relief_vnd)}.`

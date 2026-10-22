@@ -161,7 +161,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({ isOpen, on
                   disabled={isSubmitting}
                   className="w-full group inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-bold text-[15px] py-3.5 rounded-xl transition-all active:scale-[0.99] shadow-md"
                 >
-                  <span>{isSubmitting ? 'Đang gửi thông tin lên Cloudflare D1…' : 'Gửi yêu cầu nhận tư vấn 1-1'}</span>
+                  <span>{isSubmitting ? 'Đang gửi thông tin…' : 'Gửi yêu cầu nhận tư vấn 1-1'}</span>
                   {!isSubmitting && <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />}
                 </button>
               </div>

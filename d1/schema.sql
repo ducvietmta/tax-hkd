@@ -119,6 +119,15 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 );
 CREATE INDEX IF NOT EXISTS idx_rate_limits_scope_created ON rate_limits(scope, created_at);
 
+-- Isolated admission counters for the anonymous registration-industry helper.
+CREATE TABLE IF NOT EXISTS registration_industry_limits (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    scope TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_registration_industry_limits_scope_created ON registration_industry_limits(scope, created_at);
+CREATE INDEX IF NOT EXISTS idx_registration_industry_limits_created ON registration_industry_limits(created_at);
+
 -- 8. QUAN TRẮC RETRIEVAL (route miss / fallback) — chỉ diagnostics, không lưu câu hỏi/SĐT.
 CREATE TABLE IF NOT EXISTS retrieval_stats (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

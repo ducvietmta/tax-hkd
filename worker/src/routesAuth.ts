@@ -57,12 +57,24 @@ export async function handleAuthSession(request: Request, env: Env, corsHeaders:
       await env.DB.prepare(`UPDATE users SET credits = ? WHERE phone = ?`).bind(vipCredits, phone).run();
       (userRecord as { credits: number }).credits = vipCredits;
     }
+
+    let unlockedGuides: string[] = [];
+    if (env.DB) {
+      const unlockedRes = await env.DB.prepare(
+        `SELECT DISTINCT notes FROM transactions WHERE user_phone = ? AND notes LIKE 'unlock_guide_%' AND status = 'completed'`
+      ).bind(phone).all();
+      unlockedGuides = (unlockedRes.results || []).map((r: any) =>
+        String(r.notes).replace('unlock_guide_', '').trim()
+      );
+    }
+    userRecord = { ...(userRecord as object), unlockedGuides };
   } else {
     userRecord = {
       phone,
       name: isVip ? 'Tài khoản VIP Quản trị' : `Khách hàng ${phone.slice(-4)}`,
       credits: isVip ? vipCredits : 3,
       role: isVip ? 'vip' : 'user',
+      unlockedGuides: isVip ? ['household', 'individual'] : [],
     };
   }
 
@@ -78,6 +90,7 @@ export async function handleUserProfile(env: Env, corsHeaders: Headers, url: URL
   let userRecord: unknown = null;
   let txList: unknown[] = [];
   let chatList: unknown[] = [];
+  let unlockedGuides: string[] = [];
 
   if (env.DB) {
     userRecord = await env.DB.prepare(`SELECT * FROM users WHERE phone = ?`).bind(phone).first();
@@ -85,6 +98,13 @@ export async function handleUserProfile(env: Env, corsHeaders: Headers, url: URL
       `SELECT * FROM transactions WHERE user_phone = ? ORDER BY created_at DESC LIMIT 20`
     ).bind(phone).all();
     txList = txRes.results || [];
+
+    const unlockedRes = await env.DB.prepare(
+      `SELECT DISTINCT notes FROM transactions WHERE user_phone = ? AND notes LIKE 'unlock_guide_%' AND status = 'completed'`
+    ).bind(phone).all();
+    unlockedGuides = (unlockedRes.results || []).map((r: any) =>
+      String(r.notes).replace('unlock_guide_', '').trim()
+    );
 
     const chatRes = await env.DB.prepare(
       `SELECT id, message, response, source, created_at FROM chat_logs WHERE user_phone = ? ORDER BY created_at DESC LIMIT 30`
@@ -97,7 +117,7 @@ export async function handleUserProfile(env: Env, corsHeaders: Headers, url: URL
   }
 
   return jsonResponse(
-    { success: true, user: { ...(userRecord as object), transactions: txList, chatLogs: chatList } },
+    { success: true, user: { ...(userRecord as object), transactions: txList, chatLogs: chatList, unlockedGuides } },
     200, corsHeaders
   );
 }
@@ -139,11 +159,13 @@ export async function handleChatHistory(request: Request, env: Env, corsHeaders:
 }
 
 export async function handleConsumeCredit(request: Request, env: Env, corsHeaders: Headers): Promise<Response> {
-  const body: { phone?: string } = await request.json();
+  const body: { phone?: string; amount?: number; notes?: string } = await request.json().catch(() => ({}));
   const phone = (body.phone || '').trim();
+  const rawAmount = Number(body.amount);
+  const amount = Number.isFinite(rawAmount) && rawAmount > 0 ? Math.floor(rawAmount) : 1;
 
   if (!phone) {
-    return jsonResponse({ success: false, error: 'Vui lòng đăng nhập trước khi hỏi.' }, 401, corsHeaders);
+    return jsonResponse({ success: false, error: 'Vui lòng đăng nhập trước khi thực hiện.' }, 401, corsHeaders);
   }
 
   if (env.DB) {
@@ -151,15 +173,27 @@ export async function handleConsumeCredit(request: Request, env: Env, corsHeader
     if (!user) {
       return jsonResponse({ success: false, error: 'Tài khoản không tồn tại.' }, 404, corsHeaders);
     }
-    if (user.credits <= 0) {
-      return jsonResponse({ success: false, error: 'Bạn đã hết lượt hỏi. Vui lòng nạp thêm.' }, 403, corsHeaders);
+    if (user.credits < amount) {
+      return jsonResponse({ success: false, error: `Bạn không đủ lượt hỏi (cần ${amount} lượt, hiện có ${user.credits} lượt). Vui lòng nạp thêm.` }, 403, corsHeaders);
     }
 
     await env.DB.prepare(
-      `UPDATE users SET credits = credits - 1, updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
-    ).bind(phone).run();
+      `UPDATE users SET credits = MAX(0, credits - ?), updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
+    ).bind(amount, phone).run();
 
-    return jsonResponse({ success: true, remainingCredits: user.credits - 1 }, 200, corsHeaders);
+    const note = body.notes || (amount === 10 ? 'Mở khóa hướng dẫn đăng ký' : 'Sử dụng lượt hỏi');
+    await env.DB.prepare(
+      `INSERT INTO transactions (id, user_phone, amount, credits, payment_method, status, notes)
+       VALUES (?, ?, 0, ?, 'credits_consume', 'completed', ?)`
+    ).bind(
+      `tx_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+      phone,
+      -amount,
+      note
+    ).run().catch(() => {});
+
+    const remaining = Math.max(0, user.credits - amount);
+    return jsonResponse({ success: true, remainingCredits: remaining }, 200, corsHeaders);
   }
 
   return jsonResponse({ success: true, remainingCredits: 99 }, 200, corsHeaders);

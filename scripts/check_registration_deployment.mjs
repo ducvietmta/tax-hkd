@@ -1,0 +1,21 @@
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+const base='https://tax-hkd.pages.dev';
+const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
+const response=await fetch(`${base}/index.html`,{headers:{'Cache-Control':'no-cache'}});
+if(!response.ok)throw new Error(`Index HTTP ${response.status}`);
+const index=await response.text(),entry=index.match(/src="(\/assets\/index-[^"]+\.js)"/)?.[1];
+if(!entry)throw new Error('Missing app entry');
+await fs.access(`dist${entry}`);
+const files=(await fs.readdir('dist/assets')).filter(name=>/^TaxRegistrationPage-.*\.js$/.test(name));
+const paths=[...files.map(name=>`assets/${name}`),'documents/Template-01-HKD.docx','documents/Template-03-DKT.docx','documents/Template-01-HKD.html','documents/Template-03-DKT.html',...Array.from({length:17},(_,i)=>`images/registration/tax-online/scene_${String(i+1).padStart(2,'0')}.png`),'images/registration/tax-online/huong-dan-dang-ky-thue-17-buoc.gif'];
+const checks=await Promise.all(paths.map(async path=>{
+  const r=await fetch(`${base}/${path}`);if(!r.ok)throw new Error(`${path}: HTTP ${r.status}`);
+  const remote=Buffer.from(await r.arrayBuffer()),local=await fs.readFile(`dist/${path}`);
+  if(hash(remote)!==hash(local))throw new Error(`${path}: production differs from build`);
+  return {path,bytes:remote.length,sha256:hash(remote)};
+}));
+const report={production:`${base}/#/dang-ky`,entry,checks,industrySuggestion:'One bounded semantic call per activity submission or clarification; other wizard steps and exports are local',browserInteractionTested:false,images:'Individual online: 17 owner-supplied portal captures and on-demand GIF; household: labelled mockups'};
+await fs.mkdir('outputs/registration-wizard',{recursive:true});
+await fs.writeFile('outputs/registration-wizard/release.json',JSON.stringify(report,null,2));
+console.log(`PASS: production HTTP 200; wizard bundle, templates, 17 screenshots and GIF match the tested build (${checks.length} files).`);

@@ -36,6 +36,7 @@ const pendingTopics = loadModule('worker/src/pendingTopics.ts');
 const taxEngine = loadModule('worker/src/taxEngine.ts');
 const taxAnswerGuard = loadModule('worker/src/taxAnswerGuard.ts', { './taxEngine': taxEngine });
 const { retrieve, buildContext } = loadModule('worker/src/retriever.ts', {
+  './kb/provenance': loadModule('worker/src/kb/provenance.ts',{'./chunkMeta.json':{default:JSON.parse(fs.readFileSync(path.join(__dirname,'../worker/src/kb/chunkMeta.json'),'utf8'))}}),
   './ragEngine': engine,
   './answerScope': scope,
   './taxEngine': taxEngine,

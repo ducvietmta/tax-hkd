@@ -29,6 +29,8 @@ import {
 } from './routesAuth';
 import { handleSePayWebhook, handlePaymentCheck } from './routesPayments';
 import { handleChat } from './routeChat';
+import { handleRegistrationAdvisor } from './registrationAdvisor';
+import { handleRegistrationIndustry } from './registrationIndustry';
 import { handleConsultation, handleFileUpload, handleFileGet } from './routesFiles';
 
 export type { Env };
@@ -53,6 +55,17 @@ export default {
 
       if (path === '/api/test-ai') return handleTestAi(request, env, corsHeaders, url);
       if (path === '/api/test-quyet') return handleTestQuyet(env, corsHeaders, url);
+
+      if (path === '/api/etax-app' || path === '/app' || path === '/etax-app') {
+        const ua = request.headers.get('User-Agent') || '';
+        if (/android/i.test(ua)) {
+          return Response.redirect('https://play.google.com/store/apps/details?id=com.etaxmobile&hl=vi', 302);
+        }
+        if (/iphone|ipad|ipod/i.test(ua)) {
+          return Response.redirect('https://apps.apple.com/vn/app/etax-mobile/id1588647895', 302);
+        }
+        return Response.redirect('https://canhan.gdt.gov.vn', 302);
+      }
 
       if (path === '/' || path === '/api/health') return handleHealth(env, corsHeaders);
 
@@ -93,6 +106,9 @@ export default {
       if (path === '/api/payment/check' && request.method === 'GET') {
         return handlePaymentCheck(request, env, corsHeaders, url);
       }
+
+      if (path === '/api/registration-guide/industry') return handleRegistrationIndustry(request, env, corsHeaders);
+      if (path === '/api/registration-guide/chat') return handleRegistrationAdvisor(request, env, ctx, corsHeaders);
 
       if ((path === '/api/chat' || path === '/api/chatgpt/tax-qa') && request.method === 'POST') {
         return handleChat(request, env, ctx, corsHeaders);

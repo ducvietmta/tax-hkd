@@ -17,7 +17,14 @@ function loadModule(relativePath, dependencies = {}) {
   const module = { exports: {} };
   new Function('require', 'module', 'exports', compiled)(
     (id) => {
-      if (!(id in dependencies)) throw new Error(`Unexpected import: ${id}`);
+      if (!(id in dependencies)) {
+ if(id.endsWith('/periodApplicability')||id.endsWith('/conversationHistory')) {
+  const p=path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id+'.ts');
+  const mod={exports:{}};new Function('module','exports',ts.transpileModule(fs.readFileSync(p,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(mod,mod.exports);return mod.exports;
+ }
+ if(id.endsWith('.json'))return {default:JSON.parse(fs.readFileSync(path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id),'utf8'))};
+ throw new Error(`Unexpected import: ${id}`);
+}
       return dependencies[id];
     },
     module,
@@ -32,6 +39,7 @@ const scopeMod = loadModule('shared/taxScope.ts');
 const factExtractor = loadModule('worker/src/decision/factExtractor.ts', { '../utils/text': textUtils });
 const retrievalPlanMod = loadModule('worker/src/decision/retrievalPlan.ts');
 const { retrieve } = loadModule('worker/src/retriever.ts', {
+  './kb/provenance': loadModule('worker/src/kb/provenance.ts',{'./chunkMeta.json':{default:JSON.parse(fs.readFileSync(path.join(__dirname,'../worker/src/kb/chunkMeta.json'),'utf8'))}}),
   './ragEngine': engine,
   './answerScope': scopeMod,
   './taxEngine': loadModule('worker/src/taxEngine.ts'),
@@ -72,14 +80,37 @@ const choiceFrame = {
   income_type: [], facts: {}, missing_facts: [],
   semantic: { topic: 'BUSINESS_REGISTRATION', revenueContext: 'UNSPECIFIED' },
 };
-assert.deepEqual(retrievalPlanMod.buildRetrievalPlan(choiceFrame).must_include_refs, ['16.107', '16.7', '16.8']);
+assert.deepEqual(retrievalPlanMod.buildRetrievalPlan(choiceFrame).must_include_refs, ['16.154','16.107', '16.7', '16.8']);
 const affFrame = { ...choiceFrame, income_type: [{ value: 'AFFILIATE_COMMISSION' }] };
-assert.deepEqual(retrievalPlanMod.buildRetrievalPlan(affFrame).must_include_refs, ['16.107', '16.73', '16.20']);
+assert.deepEqual(retrievalPlanMod.buildRetrievalPlan(affFrame).must_include_refs, ['16.154','16.107', '16.73', '16.20']);
 const choiceRes = retrieve('khi nào nên đăng ký cnkd và khi nào nên đăng ký hkd', 4,
   resolveAnswerScope([], 'khi nào nên đăng ký cnkd và khi nào nên đăng ký hkd', new Date('2026-10-15T00:00:00Z')),
   retrievalPlanMod.buildRetrievalPlan(choiceFrame));
-assert.deepEqual(refsOf(choiceRes), ['16.107', '16.7', '16.8']);
+assert.deepEqual(refsOf(choiceRes), ['16.154','16.107', '16.7', '16.8']);
 assert.ok(!refsOf(choiceRes).includes('16.73'));
+
+// Comparison/tax registration must retrieve definitions and the tax path,
+// rather than only business-registration exemptions or spouse ownership.
+{
+  const frame = { ...choiceFrame, semantic: { ...choiceFrame.semantic, topic: 'REGISTRATION_REQUIREMENTS' } };
+  const plan = retrievalPlanMod.buildRetrievalPlan(frame);
+  assert.deepEqual(plan.must_include_refs, ['16.154','16.108', '16.107', '16.64']);
+  for (const question of ['Làm TikTok affiliate cần đăng ký gì?', 'Tôi mới bán hàng online, cần chuẩn bị những đăng ký nào?']) {
+    const result = retrieve(question, 4, resolveAnswerScope([], question, new Date('2026-10-17T00:00:00Z')), plan);
+    for (const ref of plan.must_include_refs) assert.ok(refsOf(result).includes(ref), `Registration evidence missing: ${ref}`);
+  }
+}
+for (const topic of ['REGISTRATION_COMPARISON', 'TAX_REGISTRATION']) {
+  const frame = { ...choiceFrame, semantic: { ...choiceFrame.semantic, topic } };
+  const plan = retrievalPlanMod.buildRetrievalPlan(frame);
+  assert.deepEqual(plan.must_include_refs, ['16.154','16.108', '16.64', '16.107']);
+  for (const question of ['trường hợp nào đăng ký hộ kinh doanh và trường hợp nào đăng ký cá nhân kinh doanh',
+    'Một người làm riêng thì đăng ký thuế theo diện gì?', 'HKD với CNKD khác nhau ở đâu?']) {
+    const result = retrieve(question, 4, resolveAnswerScope([], question, new Date('2026-10-17T00:00:00Z')), plan);
+    assert.deepEqual(refsOf(result).slice(0, plan.must_include_refs.length), plan.must_include_refs);
+    assert.ok(!refsOf(result).includes('16.73'));
+  }
+}
 
 // 3. Thứ tự ghim legacy ổn định.
 const scope2026 = resolveAnswerScope([], 'năm 2026', new Date('2026-10-15T00:00:00Z'));

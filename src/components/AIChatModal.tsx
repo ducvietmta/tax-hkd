@@ -8,8 +8,12 @@ import {
 import { CloudflareApi, type ChatHistoryItem } from '../services/api';
 import { selectConversationHistory } from '../services/conversation';
 import { parseTaxResponse } from '../services/museBridge';
+import { AnswerProgress, appendProgress } from './AnswerProgress';
+import type { ChatProgress } from '../../shared/chatProgress';
 import { useAuth } from '../context/AuthContext';
 import { RetrievalTrace, type RetrievalTraceData } from './RetrievalTrace';
+import { REGISTRATION_PROMPTS, REGISTRATION_WELCOME } from '../features/registration/data/taxRegistration';
+import type { RegistrationPanelContext } from '../../shared/registrationAdvisor';
 
 interface AIChatModalProps {
   isOpen: boolean;
@@ -17,6 +21,9 @@ interface AIChatModalProps {
   initialQuery?: string;
   resumeTurn?: ChatHistoryItem | null;
   embeddedDocument?: { id: string; code: string; title: string };
+  registrationGuide?: boolean;
+  getRegistrationContext?: () => RegistrationPanelContext;
+  registrationPanelTitle?: string;
 }
 
 interface Message {
@@ -56,7 +63,8 @@ const QUICK_PROMPTS = [
   'Kê khai hóa đơn điện tử máy tính tiền thế nào?',
 ];
 
-export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initialQuery, resumeTurn, embeddedDocument }) => {
+export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initialQuery, resumeTurn, embeddedDocument, registrationGuide = false, getRegistrationContext, registrationPanelTitle }) => {
+  const inline = !!embeddedDocument || registrationGuide;
   const { user, isAuthenticated, consumeCredit, openDepositModal, openAuthModal, syncCredits } = useAuth();
   const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [loadedStorageKey, setLoadedStorageKey] = useState<string | null>(null);
@@ -66,16 +74,23 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
   const [modelStatus, setModelStatus] = useState<'searching' | 'generating' | 'thinking'>('searching');
   const [pendingTrace, setPendingTrace] = useState<RetrievalTraceData>();
   const [pendingReasoningSummary, setPendingReasoningSummary] = useState('');
+  const [progressSteps, setProgressSteps] = useState<ChatProgress[]>([]);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const messageListRef = useRef<HTMLDivElement>(null);
+  const registrationRequestRef = useRef<AbortController | null>(null);
   const handledInitialRef = useRef<string | null>(null);
   const pendingAuthQuestionRef = useRef<string | null>(null);
-  const storageKey = embeddedDocument
+  const storageKey = registrationGuide ? `tax_registration_chat_v1_${user?.uid || user?.phone || 'anonymous'}` : embeddedDocument
     ? `tax_document_chat_${user?.phone || 'anonymous'}_${embeddedDocument.id}`
     : `tax_active_chat_${user?.phone || 'anonymous'}`;
-  const welcomeMessage = embeddedDocument
+  const welcomeMessage = registrationGuide
+    ? { ...WELCOME_MESSAGE, text: REGISTRATION_WELCOME, source: 'Hướng dẫn đăng ký thuế trực tiếp' }
+    : embeddedDocument
     ? { ...WELCOME_MESSAGE, text: `Đang trao đổi về ${embeddedDocument.code}. Bạn có thể hỏi chi tiết và đối chiếu câu trả lời với PDF bên cạnh.` }
     : WELCOME_MESSAGE;
+
+  useEffect(()=>()=>{if(registrationGuide) registrationRequestRef.current?.abort();},[registrationGuide]);
 
   useEffect(() => {
     try {
@@ -112,7 +127,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
       handledInitialRef.current = initialId;
       return;
     }
-    if (embeddedDocument && initialQuery && !isAuthenticated) {
+    if (inline && initialQuery && !isAuthenticated) {
       setInputVal(initialQuery);
       return;
     }
@@ -140,7 +155,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
   }, [initialQuery, isOpen, resumeTurn, loadedStorageKey, isAuthenticated, embeddedDocument, messages]);
 
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (inline && messageListRef.current) {
+      messageListRef.current.scrollTo({ top: messageListRef.current.scrollHeight, behavior: 'smooth' });
+    } else chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isWaitingForAnswer]);
 
   if (!isOpen) return null;
@@ -155,7 +172,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     if (!text.trim() || isTyping) return;
 
     if (!user || !isAuthenticated) {
-      if (embeddedDocument) pendingAuthQuestionRef.current = text;
+      if (inline) { pendingAuthQuestionRef.current = text; setInputVal(text); }
       openAuthModal();
       return;
     }
@@ -185,6 +202,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     setModelStatus('searching');
     setPendingTrace(undefined);
     setPendingReasoningSummary('');
+    setProgressSteps([{ stage: 'connecting' }]);
 
     // Chỉ hiển thị câu trả lời từ backend RAG; không tự dựng kết luận thuế khi lỗi.
     const aiMsgId = `ai-${Date.now()}`;
@@ -194,7 +212,10 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     let reasoningSummary = '';
     let requestError = 'Không thể tra cứu căn cứ lúc này. Vui lòng thử lại sau.';
     try {
-      const history = selectConversationHistory(messages);
+      const conversation = selectConversationHistory(messages);
+      const history = conversation;
+      const requestAbort = registrationGuide ? new AbortController() : undefined;
+      if (requestAbort) registrationRequestRef.current = requestAbort;
 
       const cfRes = await CloudflareApi.askTaxAIStream(
         text,
@@ -209,7 +230,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
               id: aiMsgId,
               sender: 'ai',
               text: delta,
-              source: 'Quy chuẩn Pháp luật Thuế 2026',
+              source: registrationGuide ? 'Trợ lý đăng ký riêng · Muse Spark 1.3' : 'Quy chuẩn Pháp luật Thuế 2026',
               citations: retrievalCitations,
               retrieval: retrievalTrace,
               reasoningSummary,
@@ -249,7 +270,11 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
               ? { ...m, reasoningSummary }
               : m));
           }
-        }
+        },
+        (progress) => setProgressSteps(prev => appendProgress(prev, progress)),
+        registrationGuide ? 'tax_registration' : undefined,
+        registrationGuide ? getRegistrationContext?.() : undefined,
+        requestAbort?.signal,
       );
 
       if (typeof cfRes.remainingCredits === 'number') {
@@ -257,6 +282,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
       }
 
       if (cfRes.success && cfRes.response.trim()) {
+        registrationRequestRef.current = null;
         // The finalized answer is authoritative, even if no delta arrived or
         // it corrects/replaces the text shown while the request was pending.
         setMessages((prev) => hasCreatedAiMsg
@@ -268,7 +294,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
               timestamp: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) }]);
         setIsTyping(false);
         setIsWaitingForAnswer(false);
-        if (user?.phone || user?.uid) {
+        if (!registrationGuide && (user?.phone || user?.uid)) {
           try {
             const cacheKey = `tax_chat_history_${user.phone || user.uid}`;
             const existingStr = localStorage.getItem(cacheKey);
@@ -294,6 +320,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         }
       }
       requestError = cfRes.error || requestError;
+      if (registrationGuide && typeof cfRes.remainingCredits !== 'number') syncCredits(user.credits);
     } catch {
       requestError = 'Không thể kết nối với dịch vụ tra cứu. Vui lòng thử lại sau.';
     }
@@ -312,6 +339,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     }
     setIsTyping(false);
     setIsWaitingForAnswer(false);
+    registrationRequestRef.current = null;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -340,15 +368,18 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
 
   return (
     <AnimatePresence>
-      <div className={embeddedDocument ? 'h-full min-h-0 w-full flex' : 'fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-5 bg-slate-900/60 backdrop-blur-md'}>
+      <div className={inline ? 'h-full min-h-0 w-full flex' : 'fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-5 bg-slate-900/60 backdrop-blur-md'}>
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-          className={embeddedDocument
+          className={inline
             ? 'relative w-full h-full min-h-0 bg-white flex flex-col overflow-hidden'
-            : 'relative w-full sm:max-w-3xl h-[100dvh] sm:h-[680px] sm:max-h-[92vh] bg-white rounded-none sm:rounded-3xl shadow-2xl border-0 sm:border border-slate-200/90 flex flex-col overflow-hidden'}
+            : 'mobile-chat-dialog relative w-full sm:max-w-3xl h-[100dvh] sm:h-[680px] sm:max-h-[92vh] bg-white rounded-none sm:rounded-3xl shadow-2xl border-0 sm:border border-slate-200/90 flex flex-col overflow-hidden'}
+          role={inline ? undefined : 'dialog'}
+          aria-modal={inline ? undefined : true}
+          aria-label={inline ? undefined : 'Trợ lý AI Pháp lý Thuế'}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header cao cấp */}
@@ -369,17 +400,17 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <span className={`font-extrabold text-white tracking-tight truncate ${embeddedDocument ? 'text-xs sm:text-sm' : 'text-[14px] sm:text-[16px]'}`}>Trợ lý AI Pháp lý Thuế</span>
-                  <span className={`${embeddedDocument ? 'hidden' : 'hidden sm:inline-flex'} items-center gap-1 text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300`}>
+                  <span className={`font-extrabold text-white tracking-tight truncate ${inline ? 'text-xs sm:text-sm' : 'text-[14px] sm:text-[16px]'}`}>{registrationGuide ? 'Cùng chuẩn bị hồ sơ của bạn' : 'Trợ lý AI Pháp lý Thuế'}</span>
+                  <span className={`${inline ? 'hidden' : 'hidden sm:inline-flex'} items-center gap-1 text-[10px] font-bold tracking-wide uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300`}>
                     <Radio className="w-2.5 h-2.5 text-emerald-400 animate-pulse" />
-                    Quyet-1.0-Large Decision AI
+                    JEV-1.0-Large Decision AI
                   </span>
                 </div>
                 <div className="text-[11px] sm:text-[12px] text-slate-300 flex items-center gap-1.5 min-w-0">
-                  {embeddedDocument ? (
+                  {registrationGuide ? <span>Đăng ký thuế trực tiếp · Cá nhân kinh doanh</span> : embeddedDocument ? (
                     <span className="text-emerald-300 font-medium truncate" title={embeddedDocument.title}>{embeddedDocument.code}</span>
                   ) : (
-                    <><span>Tư vấn HKD & Cá nhân KD</span><span className="text-slate-500">·</span><span className="text-emerald-400/90 font-medium">Nghị định 141/2026/NĐ-CP</span></>
+                    <><span>Tư vấn HKD & Cá nhân KD</span><span className="hidden sm:inline text-slate-500">·</span><span className="hidden sm:inline text-emerald-400/90 font-medium">Nghị định 141/2026/NĐ-CP</span></>
                   )}
                 </div>
               </div>
@@ -405,17 +436,24 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 </button>
               )}
 
-              <button
+              {!registrationGuide && <button
                 onClick={onClose}
                 className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label={embeddedDocument ? 'Quay lại PDF' : 'Đóng cửa sổ'}
               >
                 <X className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
+              </button>}
             </div>
           </div>
 
           {/* Quick prompt suggestions strip */}
+          {registrationGuide && <div className="border-b border-emerald-100 bg-emerald-50 px-4 py-2 text-xs leading-5 text-emerald-900">
+            <span className="font-semibold">Đang xem: {registrationPanelTitle || 'Hướng dẫn đăng ký'}</span>
+            <div className="mt-1 flex flex-wrap gap-2">
+              <button type="button" disabled={isTyping} onClick={()=>setInputVal('Hướng dẫn tôi làm mục đang xem, từng bước một.')} className="min-h-8 rounded-lg border border-emerald-200 bg-white px-2 font-medium disabled:opacity-50">Hướng dẫn mục này</button>
+              <button type="button" disabled={isTyping} onClick={()=>setInputVal('Tôi đã làm xong bước vừa hướng dẫn. Tôi cần làm gì tiếp theo?')} className="min-h-8 rounded-lg border border-emerald-200 bg-white px-2 font-medium disabled:opacity-50">Tôi đã xong, bước tiếp?</button>
+            </div>
+          </div>}
           <div className="px-3 sm:px-4 py-2 sm:py-2.5 bg-slate-50 border-b border-slate-200/80 overflow-x-auto no-scrollbar flex items-center gap-1.5 sm:gap-2 text-[11.5px] sm:text-[12px] shrink-0">
             {messages.some((message) => message.contextual) && (
               <button
@@ -428,12 +466,13 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
               </button>
             )}
             <span className="text-slate-400 font-semibold whitespace-nowrap flex items-center gap-1 text-[10.5px] sm:text-[11px] uppercase tracking-wider pl-1">
-              {embeddedDocument ? <><BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" /> Hỏi {embeddedDocument.code}</> : <><HelpCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" /> Gợi ý:</>}
+              {embeddedDocument ? <><BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" /> Hỏi {embeddedDocument.code}</> : <><HelpCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" /> {registrationGuide ? 'Ví dụ:' : 'Gợi ý:'}</>}
             </span>
-            {!embeddedDocument && QUICK_PROMPTS.map((prompt, idx) => (
+            {!embeddedDocument && (registrationGuide ? REGISTRATION_PROMPTS : QUICK_PROMPTS).map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => {
+                  if (registrationGuide) { setInputVal(prompt); return; }
                   if (!user || !isAuthenticated) {
                     openAuthModal();
                     return;
@@ -443,14 +482,14 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 disabled={isTyping}
                 className="whitespace-nowrap px-2.5 py-1 sm:px-3 sm:py-1 rounded-full bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-slate-600 hover:text-emerald-700 font-medium transition-all shadow-2xs text-[11px] sm:text-[12px] flex items-center gap-1 disabled:opacity-50"
               >
-                <span>{prompt}</span>
+                <span>{registrationGuide ? ['Tôi làm affiliate', 'Tôi sửa máy tính', 'Đã có MST tiền lương'][idx] : prompt}</span>
                 <ArrowUpRight className="w-3 h-3 opacity-60" />
               </button>
             ))}
           </div>
 
           {/* Messages Container với nền grid mềm */}
-          <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3.5 sm:space-y-5 bg-gradient-to-b from-slate-50/70 via-white to-slate-50/40">
+          <div ref={messageListRef} className="flex-1 min-h-0 overflow-y-auto p-3 sm:p-6 space-y-3.5 sm:space-y-5 bg-gradient-to-b from-slate-50/70 via-white to-slate-50/40" aria-label={registrationGuide ? 'Hội thoại hướng dẫn đăng ký thuế' : undefined}>
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -490,7 +529,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                   <div className="pr-5 sm:pr-6">
                     {msg.sender === 'ai' ? renderMessageContent(msg.text, msg.citations) : <p className="whitespace-pre-line">{msg.text}</p>}
                   </div>
-                  {msg.sender === 'ai' && <div className="mt-2.5 sm:mt-3"><RetrievalTrace trace={msg.retrieval} summary={msg.reasoningSummary} /></div>}
+                  {msg.sender === 'ai' && !registrationGuide && <div className="mt-2.5 sm:mt-3"><RetrievalTrace trace={msg.retrieval} summary={msg.reasoningSummary} /></div>}
 
                   {/* Attachment if present */}
                   {msg.fileAttachment && (
@@ -507,9 +546,9 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                       <div className="flex items-center gap-1 sm:gap-1.5 text-emerald-700 font-semibold truncate">
                         <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0" />
                         <span className="truncate">{msg.source || 'Căn cứ pháp luật Việt Nam'}</span>
-                        {msg.source?.includes('Quyet') && (
+                        {(msg.source?.includes('JEV') || msg.source?.includes('Quyet')) && (
                           <span className="bg-emerald-100 text-emerald-800 text-[9.5px] sm:text-[10px] font-bold px-1.5 py-0.2 rounded border border-emerald-300 shrink-0 ml-1">
-                            Quyet-1.0
+                            JEV-1.0
                           </span>
                         )}
                       </div>
@@ -534,6 +573,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
 
             {isWaitingForAnswer && (
               <div className="space-y-2" role="status" aria-live="polite">
+                {registrationGuide ? <div className="flex items-center gap-2 rounded-xl bg-emerald-50 p-3 text-sm text-emerald-800"><RefreshCw size={15} className="animate-spin"/>Đang hướng dẫn bạn làm bước này…</div> : progressSteps.length > 0 ? <AnswerProgress steps={progressSteps} /> : <>
                 <div className="flex items-center gap-2 sm:gap-3">
                 <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl sm:rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center flex-shrink-0 shadow-md">
                   <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -550,7 +590,14 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 </div>
                 </div>
                 <RetrievalTrace trace={pendingTrace} summary={pendingReasoningSummary} live expanded />
+                </>}
               </div>
+            )}
+            {!registrationGuide && !isTyping && progressSteps.length > 0 && messages[messages.length - 1]?.contextual && (
+              <details className="text-xs text-slate-500">
+                <summary className="cursor-pointer py-2">Xem các bước xử lý câu vừa hỏi</summary>
+                <AnswerProgress steps={progressSteps} complete />
+              </details>
             )}
             <div ref={chatEndRef} />
           </div>
@@ -562,17 +609,17 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 type="text"
                 aria-label="Nhập câu hỏi cho trợ lý AI"
                 value={inputVal}
-                maxLength={2000}
+                maxLength={registrationGuide ? 1200 : 2000}
                 onChange={(e) => setInputVal(e.target.value)}
-                placeholder={embeddedDocument ? `Hỏi về ${embeddedDocument.code}...` : user ? "Hỏi về thuế Shopee, TikTok, cho thuê nhà, ngưỡng 1 tỷ..." : "Đăng nhập SĐT để tra cứu và hỏi đáp thuế..."}
-                className="flex-1 bg-transparent px-2 py-1.5 sm:py-2 text-[13px] sm:text-[14px] text-slate-900 placeholder:text-slate-400 font-medium focus:outline-none"
+                placeholder={registrationGuide ? 'Mô tả công việc bạn muốn làm…' : embeddedDocument ? `Hỏi về ${embeddedDocument.code}...` : user ? "Hỏi về thuế Shopee, TikTok, cho thuê nhà, ngưỡng 1 tỷ..." : "Đăng nhập SĐT để tra cứu và hỏi đáp thuế..."}
+                className="min-w-0 flex-1 bg-transparent px-2 py-3 sm:py-2 text-base sm:text-[14px] text-slate-900 placeholder:text-slate-400 font-medium focus:outline-none"
               />
 
               <button
                 type="submit"
                 aria-label="Gửi câu hỏi"
                 disabled={!inputVal.trim() || isTyping}
-                className="h-8 sm:h-10 px-3 sm:px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 disabled:opacity-40 text-white font-semibold rounded-lg sm:rounded-xl transition-all shadow-md shadow-emerald-600/20 flex items-center gap-1 sm:gap-1.5 focus:outline-none text-[12px] sm:text-[13px]"
+                className="h-11 sm:h-10 px-3 sm:px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 disabled:opacity-40 text-white font-semibold rounded-lg sm:rounded-xl transition-all shadow-md shadow-emerald-600/20 flex items-center gap-1 sm:gap-1.5 focus:outline-none text-[12px] sm:text-[13px]"
               >
                 <span>Gửi</span>
                 <Send className="w-3 h-3 sm:w-3.5 sm:h-3.5" aria-hidden="true" />

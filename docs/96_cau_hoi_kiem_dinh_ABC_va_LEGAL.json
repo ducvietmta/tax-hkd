@@ -1,0 +1,2621 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-17",
+  "total": 96,
+  "original": 48,
+  "added": 48,
+  "model_api_calls": 0,
+  "review_kind": "source_review_not_model_execution",
+  "scoring": "semantic meaning; no mandatory answer phrases; mixed intents must all be covered; legal gates apply to legal claims in every route",
+  "sources": {
+    "S01": {
+      "title": "Thông tư 90/2026/TT-BTC: đăng ký thuế, hiệu lực 01/07/2026",
+      "url": "https://chinhphu.vn/?classid=1&docid=218839&pageid=27160&typegroupid=6",
+      "local": "public/documents/TT-90-2026-TT-BTC.pdf",
+      "locator": "Điều 21 (trang 48–52), Điều 22 (trang 53–54); Điều 36, Phụ lục 2. Đã đọc ảnh các trang 48–50, 52, 54 cho các mẫu 03-ĐKT, 20-ĐKT, 20-ĐKT-TH."
+    },
+    "S02": {
+      "title": "Nghị định 252/2026/NĐ-CP: quản lý thuế",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-252-2026-nd-cp-huong-dan-thi-hanh-luat-quan-ly-thue-119260715155021635.htm",
+      "local": "public/documents/ND-252-2026-ND-CP.pdf",
+      "locator": "Điều 6 (đăng ký trực tiếp/liên thông); Điều 29–31 (nộp thừa/hoàn)."
+    },
+    "S03": {
+      "title": "Nghị định 168/2025/NĐ-CP về đăng ký doanh nghiệp, hộ kinh doanh",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm",
+      "local": "public/documents/ND-168-2025-ND-CP.pdf",
+      "locator": "Điều 99 (hồ sơ đăng ký hộ); khoản 1 Điều 103 (tạm ngừng từ 15 ngày; báo trước 03 ngày làm việc). Đọc cùng S15."
+    },
+    "S04": {
+      "title": "Nghị định 68/2026/NĐ-CP, bản chính thức đầy đủ 19 trang",
+      "url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/3/68-ndcp.signed.pdf",
+      "local": "outputs/abc-legal-review/ND68-official-full.pdf",
+      "locator": "Điều 4 khoản 5 điểm d (chuyển phương pháp từ năm tiếp theo); Điều 6; Điều 8 khoản 2 điểm đ (thông báo địa điểm về cơ quan thuế trụ sở, 10 ngày làm việc); Điều 13 khoản 4 (tài khoản/ví). Các ngưỡng 500 triệu trong bản gốc phải đọc cùng S05."
+    },
+    "S05": {
+      "title": "Nghị định 141/2026/NĐ-CP sửa Nghị định 68, áp dụng từ 01/01/2026",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm",
+      "local": "public/documents/ND-141-2026-ND-CP.pdf",
+      "locator": "Khoản 1 Điều 1 (ngưỡng 1 tỷ); khoản 2 Điều 1 sửa khoản 5 Điều 8 NĐ68 (HĐĐT và 30 ngày từ cuối kỳ vượt ngưỡng)."
+    },
+    "S06": {
+      "title": "Thông tư 89/2026/TT-BTC và bản đính chính",
+      "url": "https://vanban.chinhphu.vn/?classid=1&docid=218974&orggroupid=4&pageid=27160",
+      "local": "public/documents/TT-89-2026-TT-BTC.pdf",
+      "locator": "Giao dịch điện tử; thời điểm tiếp nhận hồ sơ hợp lệ; sự cố; khai, nộp, hoàn; biểu mẫu theo kỳ. Phải kiểm bản đính chính khi dùng mã chỉ tiêu."
+    },
+    "S07": {
+      "title": "Thông tư 91/2026/TT-BTC về hóa đơn điện tử",
+      "url": "https://chinhphu.vn/?classid=1&docid=219006&orggroupid=4&pageid=27160",
+      "local": "public/documents/TT-91-2026-TT-BTC.pdf",
+      "locator": "Điều 6 và Phụ lục III: 01/ĐKTĐ-HĐĐT; Điều 10: lỗi hóa đơn; đặc biệt điểm c khoản 1 (máy tính tiền: thay thế, có ngoại lệ tại điểm c.2 khoản 5). Đã đọc ảnh trang 7, 9, 18–19."
+    },
+    "S08": {
+      "title": "Nghị định 254/2026/NĐ-CP về hóa đơn, hiệu lực 01/07/2026",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-254-2026-nd-cp-ve-hoa-don-dien-tu-chung-tu-dien-tu-119260713164251972.htm",
+      "local": "public/documents/ND-254-2026-ND-CP.pdf",
+      "locator": "Khung hóa đơn hiện hành từ 01/07/2026; đọc cùng TT91, không gán Điều 19 NĐ123 cho mọi kỳ."
+    },
+    "S09": {
+      "title": "Thông tư 152/2025/TT-BTC về kế toán HKD/CNKD",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-thong-tu-152-2025-tt-bt-huong-dan-ke-toan-cho-cac-ho-kinh-doanh-ca-nhan-kinh-doanh-119260112105136458.htm",
+      "local": "public/documents/TT-152-2025-TT-BTC.pdf",
+      "locator": "Điều 3 (giấy/điện tử, tối thiểu 5 năm, hóa đơn theo luật thuế); Điều 4–6 (S1a/S2a/S2b–S2e). Đã đọc ảnh trang 2, 4–5."
+    },
+    "S10": {
+      "title": "Hướng dẫn đăng ký/thay đổi người phụ thuộc trên eTax Mobile",
+      "url": "https://xaydungchinhsach.chinhphu.vn/huong-dan-dang-ky-moi-thay-doi-thong-tin-nguoi-phu-thuoc-tren-etax-mobile-119260317091940213.htm",
+      "locator": "Hướng dẫn công bố 17/03/2026, không phải kiểm tra giao diện live 17/10/2026. Không dùng tuổi 14 để phủ nhận số định danh trẻ em."
+    },
+    "S11": {
+      "title": "Hướng dẫn thông báo tài khoản/ví trên eTax Mobile",
+      "url": "https://xaydungchinhsach.chinhphu.vn/huong-dan-ho-kinh-doanh-thong-bao-so-tai-khoan-ngan-hang-so-hieu-vi-dien-tu-tren-ung-dung-etax-mobile-119260413154428966.htm",
+      "locator": "Hướng dẫn công bố 13/04/2026: 01/BK-STK theo TT18 tại thời điểm hướng dẫn; mẫu hiện hành phải kiểm TT89 và chuyển tiếp, không dẫn TT86 cho thủ tục này."
+    },
+    "S12": {
+      "title": "Công văn 311/TCT-DNNCN ngày 20/01/2025",
+      "local": "public/documents/311-TCT-DNNCN-2025-goc.pdf",
+      "locator": "Trang 4–6: quy trình cổng TMĐT và mã 10 số + 888 tại thời điểm hướng dẫn. Không xác nhận giao diện/mã năm 2026 không thay đổi."
+    },
+    "S13": {
+      "title": "Luật Thuế TNCN 109/2025/QH15",
+      "url": "https://xaydungchinhsach.chinhphu.vn/gioi-thieu-luat-thue-thu-nhap-ca-nhan-so-109-2025-qh15-119260123145437408.htm",
+      "local": "public/documents/Luat-109-2025-QH15.pdf",
+      "locator": "Điều 7: cơ sở thu nhập/doanh thu, các dải 3 tỷ và 50 tỷ; đọc ngưỡng miễn cùng S05 và quy tắc ổn định phương pháp S04."
+    },
+    "S14": {
+      "title": "Nghị quyết 43/2026/QH16",
+      "url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-quyet-so-43-2026-qh16-ve-giam-thue-thu-nhap-ca-nhan-thue-thu-nhap-doanh-nghiep-119260830184758301.htm",
+      "local": "public/documents/NQ-43-2026-QH16.pdf",
+      "locator": "Khoản 1 Điều 1: cá nhân cư trú, thu nhập kinh doanh, doanh thu năm không quá 10 tỷ, kỳ 2026–2027. Không giảm GTGT, không giảm lương."
+    },
+    "S15": {
+      "title": "Nghị định 296/2026/NĐ-CP sửa NĐ168, hiệu lực 23/07/2026",
+      "url": "https://vanban.chinhphu.vn/?classid=1&docid=218986&pageid=27160&typegroupid=4",
+      "local": "outputs/abc-legal-review/ND296-official.pdf",
+      "locator": "Điều 16 bổ sung khoản 5 Điều 103; khoản 3 Điều 19 chỉ đổi 03 thành 02 ngày tại danh sách điều khoản cụ thể, không đổi khoản 1 Điều 103 hoặc Điều 99. Đã đọc ảnh trang 11–12."
+    },
+    "S16": {
+      "title": "Nghị quyết 198/2025/QH15",
+      "url": "https://xaydungchinhsach.chinhphu.vn/nghi-quyet-198-2025-qh15-ve-mot-so-co-che-chinh-sach-dac-biet-phat-trien-kinh-te-tu-nhan-119250517191622422.htm",
+      "locator": "Khoản 7 Điều 10: chấm dứt thu, nộp lệ phí môn bài từ 01/01/2026; không tự xóa nợ các kỳ trước."
+    },
+    "S17": {
+      "title": "Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP",
+      "url": "https://xaydungchinhsach.chinhphu.vn/truong-hop-duoc-giam-thue-gtgt-ho-kinh-doanh-lap-hoa-don-ke-khai-thue-nhu-the-nao-119260423055529827.htm",
+      "local": "public/documents/ND-174-2025-ND-CP.pdf",
+      "locator": "Giảm 20% mức tỷ lệ GTGT cho người nộp theo tỷ lệ doanh thu đối với hàng/dịch vụ đủ điều kiện, trong kỳ áp dụng; không phải trừ 20 điểm phần trăm."
+    },
+    "S18": {
+      "title": "Luật GTGT 48/2024/QH15 và các sửa đổi áp dụng theo kỳ",
+      "local": "public/documents/Luat-48-2024-QH15.pdf",
+      "locator": "Phân biệt thuế suất 0%, không chịu thuế, phương pháp trực tiếp và khấu trừ; không suy miễn chỉ vì khách ở nước ngoài."
+    },
+    "S19": {
+      "title": "Cục Thuế giới thiệu nội dung mới TT89/2026",
+      "url": "https://xaydungchinhsach.chinhphu.vn/noi-dung-moi-tai-thong-tu-89-2026-tt-btc-giam-thu-tuc-rut-ngan-thoi-gian-tao-thuan-loi-cho-nguoi-nop-thue-119260812152419765.htm",
+      "locator": "Phân biệt ghi nhận gửi/tiếp nhận; sự cố phía người nộp thuế có nhánh nộp giấy/bưu chính; tài khoản định danh và nhánh tài khoản khác; không bảo đảm miễn phạt chỉ bằng ảnh lỗi."
+    }
+  },
+  "cases": [
+    {
+      "id": "A01",
+      "question": "Cách đăng ký mã số thuế đuôi 888 để bán hàng trên Shopee, TikTok Shop như thế nào?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.100",
+        "16.96"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Hướng dẫn cổng TMĐT theo CV311 ở thời điểm 2025: đăng nhập bằng định danh phù hợp, kiểm tra thông tin/mã hiện có, khai hồ sơ hệ thống yêu cầu và lưu kết quả. Với hồ sơ hiện tại dùng TT90/2026; đã có định danh thuế thì đối chiếu, không xin thêm MST cá nhân. Hậu tố 888 là mã quản lý theo hướng dẫn lịch sử, không phải điều kiện tự tạo ra nghĩa vụ thuế.",
+      "must_not": [
+        "Khẳng định ai bán online cũng phải xin mới mã 888",
+        "ghép CCCD 12 số+888 và gọi 13 số",
+        "nói giao diện hiện tại đã được kiểm tra."
+      ],
+      "sources": [
+        "S01",
+        "S12"
+      ],
+      "review_change": "Đáp án cũ tuyệt đối hóa quy trình 2025 và viện TT86 như hiện hành.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A02",
+      "question": "Hướng dẫn các bước đăng ký người phụ thuộc giảm trừ gia cảnh trên app eTax Mobile?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.12"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Nêu luồng trong hướng dẫn eTax công bố: vào đăng ký thuế, kê khai hồ sơ người phụ thuộc, nhập thông tin đúng, xác nhận và kiểm tra kết quả. Từ 01/07/2026, trực tiếp dùng 20-ĐKT; qua đơn vị chi trả là 20-ĐKT-TH theo TT90. Phân biệt đăng ký định danh người phụ thuộc với đủ điều kiện giảm trừ.",
+      "must_not": [
+        "Bắt buộc dùng 20-ĐK-TCT/20-ĐK-TH-TCT hiện tại",
+        "mặc định trẻ dưới 14 không có số định danh",
+        "khẳng định đã xem giao diện mới nhất."
+      ],
+      "sources": [
+        "S01",
+        "S10"
+      ],
+      "review_change": "Sửa mẫu, bỏ quy tắc giấy tờ cứng theo tuổi; ghi rõ ngày của hướng dẫn thao tác.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A03",
+      "question": "Làm thế nào để thông báo số tài khoản ngân hàng phục vụ kinh doanh trên eTax Mobile?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.9"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Thông báo tất cả tài khoản/ví dùng cho sản xuất kinh doanh. Phân biệt thông báo với cơ quan thuế và liên kết ngân hàng để thanh toán. Khoản 4 Điều 13 NĐ68 là căn cứ nghĩa vụ; hướng dẫn công bố tháng 4 dùng 01/BK-STK, còn mẫu/kỳ hiện tại kiểm TT89 và bản đính chính.",
+      "must_not": [
+        "Gán nghĩa vụ này cho khoản 3 Điều 13",
+        "tự khẳng định hạn 10 ngày từ điều khoản không quy định",
+        "dùng mẫu TT86 hoặc coi liên kết ngân hàng là đã thông báo."
+      ],
+      "sources": [
+        "S04",
+        "S06",
+        "S11"
+      ],
+      "review_change": "Đáp án cũ dẫn sai khoản và tự gắn hạn 10 ngày.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A04",
+      "question": "Bán hàng online trên Facebook chưa có cửa hàng cố định thì đăng ký thuế lần đầu bằng mẫu nào và ở đâu?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.108",
+        "16.64",
+        "16.100",
+        "16.107"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Trước hết tách đăng ký hộ và đăng ký thuế: không có cửa hàng cố định không tự chứng minh miễn đăng ký hộ. Nếu đúng diện đăng ký thuế trực tiếp, TT90 Điều 21 cho mẫu 03-ĐKT hoặc hồ sơ khai tích hợp đăng ký; nơi không có địa điểm cố định là Thuế cơ sở nơi cư trú. Mốc 10 ngày làm việc áp đúng diện/mốc tại Điều 6 NĐ252.",
+      "must_not": [
+        "Mọi người bán Facebook chỉ cần 03-ĐK-TCT hoặc xin 888",
+        "coi không có mặt bằng là miễn đăng ký kinh doanh."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S03",
+        "S12"
+      ],
+      "review_change": "Sửa mẫu, thêm điều kiện đầu vào và loại bỏ nhánh miễn hộ suy diễn.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A05",
+      "question": "Thủ tục đăng ký hộ kinh doanh mới năm 2026 cần chuẩn bị giấy tờ gì và nộp trong bao lâu?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.7",
+        "16.8",
+        "16.64",
+        "16.108",
+        "16.107"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Giấy đề nghị đăng ký hộ; nếu do thành viên hộ gia đình thành lập thì có văn bản ủy quyền theo thành phần hồ sơ tại Điều 99, giấy tờ định danh/ủy quyền theo quy định hiện hành. Nộp cơ quan đăng ký kinh doanh cấp xã; thời hạn xử lý 03 ngày làm việc từ tiếp nhận hồ sơ theo Điều 99, hồ sơ thiếu phải bổ sung. Đăng ký thuế liên thông, không thêm hạn 10 ngày trực tiếp; đọc NĐ168 cùng NĐ296.",
+      "must_not": [
+        "Gán 10 ngày đăng ký thuế trực tiếp cho mọi hộ mới",
+        "nhầm hạn người nộp với thời gian giải quyết",
+        "áp mặc định cấp huyện."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S03",
+        "S15"
+      ],
+      "review_change": "Sửa nhầm liên thông/trực tiếp, bổ sung hồ sơ và hạn xử lý.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A06",
+      "question": "Hộ kinh doanh mở thêm kho hàng và cửa hàng thứ 2 khác quận thì thủ tục đăng ký địa điểm kinh doanh thế nào?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.7",
+        "16.8",
+        "16.108",
+        "16.64"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Hộ được có nhiều địa điểm, không phải lập hộ mới cho từng cửa hàng. Với địa điểm ngoài trụ sở, thông báo cơ quan thuế quản lý trực tiếp trụ sở trong 10 ngày làm việc từ khi hoạt động theo điểm đ khoản 2 Điều 8 NĐ68; kiểm tính chất kho, cửa hàng và thông tin địa điểm theo hồ sơ thực tế.",
+      "must_not": [
+        "Chỉ gửi cơ quan thuế nơi có cửa hàng mới",
+        "cấp một MST cá nhân mới mỗi cửa hàng",
+        "lấy quận/huyện cũ làm cơ quan hiện hành mặc định."
+      ],
+      "sources": [
+        "S03",
+        "S04",
+        "S01",
+        "S15"
+      ],
+      "review_change": "Sửa nơi nhận thông báo và bổ sung mốc 10 ngày làm việc đúng nghiệp vụ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A07",
+      "question": "Hộ kinh doanh doanh thu 1,2 tỷ đồng/năm đăng ký sử dụng hóa đơn điện tử theo mẫu nào?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.41",
+        "16.105",
+        "16.38"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "1, 2 tỷ vượt 1 tỷ nên thuộc diện bắt buộc HĐĐT theo khoản 5 Điều 8 NĐ68 đã sửa bởi khoản 2 Điều 1 NĐ141. Hồ sơ hiện tại dùng 01/ĐKTĐ-HĐĐT Phụ lục III TT91, nộp theo luồng đăng ký và theo dõi thông báo chấp nhận. Nếu hỏi hạn 30 ngày, cần xác định nhánh mới ra/chuyển ngưỡng và kỳ vượt.",
+      "must_not": [
+        "Viết từ 1 tỷ là ngưỡng chung",
+        "mặc định mọi hộ phải máy tính tiền",
+        "dùng duy nhất Phụ lục IA NĐ123 cho hồ sơ hiện tại."
+      ],
+      "sources": [
+        "S05",
+        "S07",
+        "S08"
+      ],
+      "review_change": "Sửa ranh giới ngưỡng và căn cứ mẫu hiện hành.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A08",
+      "question": "Muốn tạm ngừng kinh doanh hộ kinh doanh 6 tháng thì phải gửi thông báo trước mấy ngày?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.25",
+        "16.64",
+        "16.108"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Tạm ngừng 6 tháng thuộc diện từ 15 ngày: gửi hồ sơ cơ quan đăng ký kinh doanh cấp xã chậm nhất 03 ngày làm việc trước ngày nghỉ, theo khoản 1 Điều 103 NĐ168. Mỗi lần không quá 1 năm; phân biệt quy trình liên thông với cá nhân đăng ký thuế trực tiếp. NĐ296 không đổi khoản 1 Điều 103 thành 02 ngày.",
+      "must_not": [
+        "Chỉ nói trước ngày nghỉ mà không trả lời mấy ngày",
+        "tự đổi thành 02 ngày cho hộ",
+        "suy tạm ngừng xóa nợ thuế."
+      ],
+      "sources": [
+        "S03",
+        "S15",
+        "S01"
+      ],
+      "review_change": "Bổ sung đáp án định lượng 03 ngày làm việc thay câu chung chung.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A09",
+      "question": "Thủ tục chấm dứt hiệu lực mã số thuế (đóng mã số thuế trạng thái 03) của hộ kinh doanh cần hoàn thành những gì?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.25",
+        "16.64"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Trạng thái 03 nghĩa là đã ngừng hoạt động nhưng chưa hoàn thành thủ tục chấm dứt hiệu lực MST. Rà soát khai thuế, nợ/nộp thừa, hóa đơn và hồ sơ chấm dứt theo diện liên thông/trực tiếp TT90; theo dõi thông báo hoàn tất. Số định danh cá nhân không bị xóa khi chấm dứt một hoạt động kinh doanh.",
+      "must_not": [
+        "Trạng thái 03 là đã đóng xong",
+        "cứ ngừng bán là tự hết mọi nghĩa vụ",
+        "hủy toàn bộ số CCCD."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S06",
+        "S07"
+      ],
+      "review_change": "Sửa cách gọi trạng thái 03 và tách chấm dứt hoạt động khỏi xóa định danh.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A10",
+      "question": "Mã số thuế hộ kinh doanh đang ở trạng thái 06 (không hoạt động tại địa chỉ đã đăng ký) muốn khôi phục lại thì làm thế nào?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.25",
+        "16.64"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Trạng thái 06 là không hoạt động tại địa chỉ đã đăng ký; xác minh lý do/thông báo và tình trạng đăng ký hộ, liên hệ cơ quan thuế quản lý để khắc phục, nộp hồ sơ khôi phục theo diện TT90; thực hiện nghĩa vụ còn thiếu. Chỉ hoạt động/xuất hóa đơn lại khi đủ điều kiện và có kết quả phù hợp.",
+      "must_not": [
+        "Nộp tiền là tự chuyển sang 00",
+        "mọi trường hợp 06 đều khôi phục được cùng một hồ sơ",
+        "xin MST mới để né trạng thái."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S07"
+      ],
+      "review_change": "Bổ sung điều kiện, bỏ lời hứa tự khôi phục sau trả nợ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A11",
+      "question": "Cá nhân cho thuê nhà muốn đăng ký mã số thuế để tự kê khai trực tiếp trên cổng thuế điện tử thì làm sao?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.108",
+        "16.64",
+        "16.29",
+        "16.91"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Dùng/đối chiếu định danh thuế hiện có; nếu thuộc diện đăng ký trực tiếp thì TT90 Điều 21 quy định Thuế cơ sở nơi có bất động sản. Có nhiều bất động sản được lựa chọn một cơ quan nơi có tài sản theo điều kiện tương ứng; phân biệt nơi đăng ký và nơi khai/nộp theo từng địa điểm, không cấp MST mới cho mỗi nhà.",
+      "must_not": [
+        "Đã có MST lương vẫn phải xin MST cá nhân khác",
+        "nhiều nhà chỉ có một địa điểm nộp tiền bất kể quy định",
+        "miễn thuế là miễn mọi thủ tục."
+      ],
+      "sources": [
+        "S01",
+        "S04",
+        "S05"
+      ],
+      "review_change": "Làm rõ nhiều bất động sản và không đánh đồng đăng ký với kê khai.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A12",
+      "question": "Hướng dẫn chi tiết từng bước bấm nút đăng ký tài khoản giao dịch thuế điện tử lần đầu trên trang thuedientu.gdt.gov.vn?",
+      "original_group": "A",
+      "candidate_chunks": [
+        "16.100",
+        "16.12",
+        "16.9",
+        "16.64"
+      ],
+      "added": false,
+      "expected_groups": [
+        "A"
+      ],
+      "gold_answer": "Dẫn hướng dẫn chính thức phù hợp loại tài khoản; công dân Việt Nam thuộc diện định danh dùng VNeID mức 2 theo TT89, có nhánh tài khoản thuế riêng cho đối tượng không thuộc diện. Khi chưa có tài liệu giao diện mới, chỉ hướng dẫn luồng có nguồn và đề nghị ảnh lỗi đã che thông tin, không bịa từng nút.",
+      "must_not": [
+        "Mọi đối tượng đều buộc VNeID",
+        "bịa tên nút trên giao diện chưa kiểm",
+        "xin mật khẩu/OTP của người dùng."
+      ],
+      "sources": [
+        "S01",
+        "S06",
+        "S19"
+      ],
+      "review_change": "Giữ giới hạn thao tác có nguồn; bỏ tuyệt đối hóa VNeID.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A13",
+      "question": "Tôi đã có MST từ tiền lương và mới làm affiliate. Tôi cần xin một MST cá nhân thứ hai không?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Không xin MST cá nhân thứ hai chỉ vì thêm nguồn thu; đối chiếu định danh và thông tin hoạt động kinh doanh, thực hiện đăng ký/cập nhật đúng diện. Phân biệt quản lý thuế với đăng ký hộ, không tự ghép 888.",
+      "must_not": [
+        "Mỗi nguồn thu một MST cá nhân",
+        "ghép CCCD+888 là 13 số."
+      ],
+      "sources": [
+        "S01",
+        "S12"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A14",
+      "question": "Tôi thuộc diện không phải đăng ký hộ, bắt đầu kinh doanh ngày 05/10/2026. Hạn đăng ký thuế là 10 ngày thường hay 10 ngày làm việc?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Nhánh đăng ký thuế trực tiếp cá nhân kinh doanh không thuộc diện đăng ký kinh doanh: 10 ngày làm việc từ ngày bắt đầu. Không tự chốt ngày kết thúc cụ thể nếu chưa đối chiếu lịch nghỉ/lễ.",
+      "must_not": [
+        "Đếm là 10 ngày lịch rồi đưa ngày hạn chắc chắn",
+        "chờ có doanh thu 1 tỷ mới đăng ký."
+      ],
+      "sources": [
+        "S02",
+        "S01"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A15",
+      "question": "Tôi nộp đăng ký hộ theo một cửa rồi. Có phải tự nộp thêm hồ sơ đăng ký thuế trong 10 ngày làm việc không?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Đăng ký thuế liên thông theo hồ sơ đăng ký hộ, không mặc nhiên bắt nộp lần hai thuộc hạn 10 ngày trực tiếp. Kiểm kết quả liên thông/thông tin định danh, nếu vướng chỉ bổ sung theo thông báo.",
+      "must_not": [
+        "Mọi HKD đều phải nộp 03-ĐKT lần hai cho đủ hạn."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A16",
+      "question": "Chồng có hộ kinh doanh, vợ nhận affiliate độc lập. Vợ dùng luôn thông tin thuế của chồng để đăng ký được không?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Phải xác định chủ thể thực chất của hoạt động; độc lập thật sử dụng thông tin định danh của mình, không mượn CCCD/MST chồng. Không tự tách/cộng doanh thu chỉ vì kết hôn; đăng ký hộ/thuế xét riêng theo điều kiện.",
+      "must_not": [
+        "Vợ chồng luôn dùng 1 MST",
+        "chia đứng tên để né ngưỡng."
+      ],
+      "sources": [
+        "S01",
+        "S03",
+        "S04"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A17",
+      "question": "Tôi đổi địa chỉ vì sắp xếp phường xã, thông tin dân cư đã đồng bộ. Có bắt buộc đăng ký MST mới không?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Không cấp MST cá nhân mới chỉ vì đổi địa chỉ; kiểm dữ liệu đã đồng bộ và thông báo của cơ quan thuế, phân biệt thay đổi địa giới với chuyển cơ sở thực tế và các trường hợp phải bổ sung.",
+      "must_not": [
+        "Tất cả đều xin MST mới",
+        "tự khẳng định không cần làm bất kỳ hồ sơ nào."
+      ],
+      "sources": [
+        "S01",
+        "S02"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A18",
+      "question": "Tôi mở thêm điểm bán ở tỉnh khác. Tách hộ mới có làm mỗi cửa hàng được miễn 1 tỷ không?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Đăng ký địa điểm không tạo thêm mức trừ cho cùng cá nhân; phải tổng hợp doanh thu đúng chủ thể. Hướng dẫn thông báo địa điểm về cơ quan thuế trụ sở theo Điều 8 NĐ68; không tư vấn tách giả để né thuế.",
+      "must_not": [
+        "Mỗi cửa hàng một ngưỡng 1 tỷ",
+        "chỉ cần đổi MST là được."
+      ],
+      "sources": [
+        "S04",
+        "S05",
+        "S01"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A19",
+      "question": "Tôi đã nộp đăng ký hóa đơn và nhận thông báo tiếp nhận. Đã được xuất hóa đơn ngay chưa?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Phân biệt tiếp nhận hồ sơ với chấp nhận đăng ký sử dụng. Kiểm đúng loại thông báo/kết quả và điều kiện sử dụng theo TT91; không đồng nhất nộp hồ sơ với quyền phát hành.",
+      "must_not": [
+        "Có email đã gửi là được xuất",
+        "chưa có mã vẫn tự xuất bù."
+      ],
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A20",
+      "question": "Con 8 tuổi có số định danh trên giấy khai sinh, chưa có thẻ căn cước. Đăng ký người phụ thuộc có phải chờ đủ 14 tuổi không?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Không phải chờ đủ 14 chỉ vì chưa có thẻ; đối chiếu số định danh và thông tin trẻ. Dùng hồ sơ người phụ thuộc hiện hành và chứng minh điều kiện giảm trừ riêng; không số định danh tự đồng nghĩa được giảm trừ.",
+      "must_not": [
+        "Dưới 14 không được dùng số định danh",
+        "phải xin MST khác."
+      ],
+      "sources": [
+        "S01",
+        "S10"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A21",
+      "question": "Tôi nhờ công ty đăng ký người phụ thuộc và đồng thời tự đăng ký trên app cho chắc được không?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Chọn đúng luồng trực tiếp hoặc ủy quyền, đối chiếu hồ sơ đã có, tránh nộp trùng. Nếu thông tin đã đăng ký thì cập nhật thay vì tạo định danh mới; chỉ được tính giảm trừ đúng điều kiện/kỳ.",
+      "must_not": [
+        "Nộp càng nhiều càng tốt",
+        "2 luồng được 2 lần giảm trừ."
+      ],
+      "sources": [
+        "S01",
+        "S10"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A22",
+      "question": "Tôi muốn tạm ngừng hộ 14 tháng trong một lần. Đăng ký thế nào?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Mỗi lần đăng ký tạm ngừng không quá 1 năm; không duyệt nguyên 14 tháng một lần. Nếu cần nghỉ tiếp thì thực hiện đăng ký tiếp theo đúng hạn; nhánh 103 báo trước 03 ngày làm việc.",
+      "must_not": [
+        "Mỗi lần được 14 tháng",
+        "NĐ296 tự đổi 03 thành 02 ngày cho 103."
+      ],
+      "sources": [
+        "S03",
+        "S15"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A23",
+      "question": "Đang trạng thái 03 nhưng tôi muốn bán lại. Tôi đăng nhập được app là đã được kinh doanh lại chưa?",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Đăng nhập được không quyết định trạng thái pháp lý; 03 là chưa hoàn tất chấm dứt. Kiểm đúng hồ sơ/trạng thái đăng ký hộ và thuế, thực hiện nhánh khôi phục hợp lệ và điều kiện hóa đơn.",
+      "must_not": [
+        "Vào được app là tự khôi phục",
+        "03 là đã xóa thuế hoàn toàn."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S07"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "A24",
+      "question": "Tôi chỉ muốn biết cần đăng ký gì để làm affiliate khoảng 2 triệu/tháng, không hỏi tính thuế.",
+      "original_group": "A",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "A",
+        "LEGAL"
+      ],
+      "gold_answer": "Trả lời trực tiếp các nhánh đăng ký hộ và đăng ký thuế theo bản chất hoạt động, diện miễn đăng ký kinh doanh và thu nhập thấp theo địa phương nếu liên quan. 24 triệu/năm không tự miễn đăng ký; không lạc sang tính thuế dài hoặc từ chối vì không có chữ thuế.",
+      "must_not": [
+        "Dưới 1 tỷ không cần đăng ký gì",
+        "affiliate không liên quan thuế",
+        "chắc chắn phải lập hộ chỉ vì là affiliate."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B01",
+      "question": "Ngày cuối hạn nộp tờ khai mà cổng thuế điện tử và hệ thống hóa đơn điện tử bị lỗi sập mạng không nộp được thì xử lý thế nào để không bị phạt?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.105",
+        "16.24",
+        "16.41"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Phân biệt sự cố công bố phía cơ quan thuế, phía người nộp và hệ thống HĐĐT; lưu thời gian, mã hồ sơ, thông báo chính thức. Áp quy định sự cố của TT89 và kênh thay thế đủ điều kiện; gửi hồ sơ hợp lệ, kiểm thông báo tiếp nhận. Chưa đủ dữ kiện để bảo đảm không phạt; ảnh lỗi không tự gia hạn.",
+      "must_not": [
+        "Chỉ cần ảnh là chắc chắn không phạt",
+        "chờ vô thời hạn đến khi mạng được",
+        "nộp sai số liệu để giữ hạn."
+      ],
+      "sources": [
+        "S06",
+        "S08",
+        "S19"
+      ],
+      "review_change": "Đáp án cũ thiếu phân loại sự cố và điều kiện miễn/xử lý chậm.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B02",
+      "question": "Tờ khai trên cổng thuế điện tử tự nhảy số thuế phải nộp trong khi doanh thu cả năm dưới 1 tỷ đồng được miễn thuế thì xử lý thế nào?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.55",
+        "16.24"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Xác định năm và tổng doanh thu đúng chủ thể, loại hoạt động, không chỉ ô nhập. Nếu đúng diện kinh doanh 2026 tổng cả năm không quá 1 tỷ thì đối chiếu ngưỡng không chịu GTGT/không nộp TNCN; số phần mềm tự tính không thay luật. Kiểm đúng mẫu/kỳ/chỉ tiêu và hồ sơ đã nộp trước khi sửa hoặc khai bổ sung.",
+      "must_not": [
+        "Sửa doanh thu thật về 0 để số thuế về 0",
+        "dưới 1 tỷ là miễn mọi sắc thuế và thủ tục",
+        "lỗi phần mềm là chắc chắn đã nộp thừa."
+      ],
+      "sources": [
+        "S04",
+        "S05",
+        "S06"
+      ],
+      "review_change": "Thêm phạm vi năm, loại thuế và quy trình sửa hồ sơ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B03",
+      "question": "Tôi đã nộp tiền thuế trên eTax Mobile rồi nhưng hệ thống vẫn báo nợ thuế do chọn nhầm kỳ thuế hoặc nhầm tiểu mục thì khắc phục ra sao?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.59",
+        "16.55",
+        "16.24"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Kiểm chứng từ ngân hàng/Kho bạc, mã giao dịch, MST, kỳ, tiểu mục, cơ quan thu/địa bàn và trạng thái hạch toán. Sai kỳ/tiểu mục thì tra soát/điều chỉnh với ngân hàng/cơ quan thuế theo TT89; nộp thừa xem bù trừ/hoàn đúng điều kiện, không tự bỏ nghĩa vụ kỳ đúng.",
+      "must_not": [
+        "Nộp lại ngay mọi trường hợp",
+        "tự trừ GTGT sang TNCN",
+        "chắc chắn chỉ là cập nhật chậm."
+      ],
+      "sources": [
+        "S02",
+        "S06",
+        "S19"
+      ],
+      "review_change": "Bổ sung chứng từ/mã ID và không suy tự động bù trừ chéo.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B04",
+      "question": "Khi đăng ký người phụ thuộc trên eTax Mobile mà nhập sai số định danh cá nhân hoặc con dưới 14 tuổi chưa có CCCD báo lỗi thì sửa thế nào?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.12"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Xác minh số định danh, họ tên/ngày sinh và dữ liệu dân cư, phân biệt chưa có thẻ căn cước với chưa có số định danh. Chọn thay đổi thông tin nếu đã đăng ký; dùng hồ sơ hiện hành TT90 và chứng cứ hợp lệ theo trường hợp. Lỗi dữ liệu không chứng minh người phụ thuộc không đủ điều kiện giảm trừ.",
+      "must_not": [
+        "Trẻ dưới 14 không được khai số định danh",
+        "tạo người phụ thuộc/MST thứ hai để vượt lỗi",
+        "dùng mẫu cũ theo tuổi cứng."
+      ],
+      "sources": [
+        "S01",
+        "S10"
+      ],
+      "review_change": "Loại bỏ quy tắc CMND/CCCD theo tuổi đã bị áp cứng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B05",
+      "question": "Xuất hóa đơn điện tử bị sai mã số thuế người mua hoặc sai tiền thuế trên hệ thống hóa đơn điện tử thì xử lý lỗi thế nào?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.103",
+        "16.106",
+        "16.21"
+      ],
+      "added": false,
+      "expected_groups": [
+        "LEGAL",
+        "B"
+      ],
+      "gold_answer": "Xác định thời điểm xử lý, loại HĐĐT, lỗi cụ thể và trạng thái gửi/cấp mã. Sau 01/07/2026 áp TT91 Điều 10 và NĐ254; sai MST/số tiền/thuế suất không sửa trực tiếp hóa đơn gốc đã phát hành. Nhánh thông thường có điều chỉnh/thay thế theo điều kiện; hóa đơn máy tính tiền sai dùng nhánh thay thế tại điểm c khoản 1 Điều 10, trừ ngoại lệ được quy định. Kỳ cũ xét NĐ123/NĐ70.",
+      "must_not": [
+        "Mọi lỗi đều 04/SS",
+        "mọi loại hóa đơn đều tùy chọn điều chỉnh/thay thế",
+        "viện Điều 19 NĐ123 như luật hiện hành cho mọi kỳ."
+      ],
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "review_change": "Đổi trọng tâm sang xử lý pháp lý, tách kỳ và ngoại lệ máy tính tiền.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B06",
+      "question": "Đã nộp tờ khai trên cổng thuế điện tử nhưng trạng thái báo Không chấp nhận hồ sơ khai thuế thì phải làm gì?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.24",
+        "16.55"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Mở thông báo để phân biệt ghi nhận gửi với tiếp nhận/không tiếp nhận hồ sơ hợp lệ, xem mã/lý do, đúng kỳ và biểu mẫu; sửa và nộp lại đúng quy trình. Nếu thực tế ghi không chấp nhận cần xem đúng loại thông báo, không áp máy móc 2 bước của phiên bản cũ. Lưu cả thông báo và ngày tiếp nhận cuối.",
+      "must_not": [
+        "Ảnh đã gửi là bằng chứng hoàn thành dù bị từ chối",
+        "gửi lại bản lỗi để giữ hạn",
+        "luôn gọi là thông báo bước 2 hiện hành."
+      ],
+      "sources": [
+        "S06",
+        "S19"
+      ],
+      "review_change": "Sửa thuật ngữ/quy trình sau 01/07/2026 và ý nghĩa thời điểm nộp.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B07",
+      "question": "Cắm USB Token chữ ký số vào máy tính nhưng trang thuedientu.gdt.gov.vn báo lỗi chưa cài đặt công cụ ký điện tử eSigner hoặc không nhận chứng thư số?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.24",
+        "16.105",
+        "16.55"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Kiểm thông báo lỗi, hệ điều hành/trình duyệt, chứng thư còn hạn, dịch vụ/driver ký và hướng dẫn chính thức của cổng/nhà cung cấp. Chỉ tải bộ cài từ nguồn chính thức; thu thập ảnh đã che thông tin. Chưa có bằng chứng thì không bịa phiên bản hay mã lỗi chắc chắn.",
+      "must_not": [
+        "Yêu cầu gửi PIN token/khóa bí mật",
+        "tắt kiểm tra bảo mật",
+        "cung cấp link bộ cài không xác minh",
+        "khẳng định lỗi chỉ có 1 nguyên nhân."
+      ],
+      "sources": [
+        "S06",
+        "S19"
+      ],
+      "review_change": "Giữ giới hạn kỹ thuật, bổ sung an toàn thông tin và chẩn đoán theo chứng cứ.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B08",
+      "question": "Đăng nhập eTax Mobile bằng tài khoản VNeID bị lỗi xác thực hoặc báo tài khoản định danh chưa đồng bộ với mã số thuế thì xử lý sao?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.12",
+        "16.100",
+        "16.96",
+        "16.24"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Tách lỗi VNeID, dữ liệu định danh thuế và phiên kết nối; kiểm đúng tài khoản/định danh, đối chiếu thông báo cơ quan thuế. Nếu chưa khớp dùng quy trình chuẩn hóa theo TT90, không tạo MST mới; chuyển đúng đơn vị hỗ trợ theo loại lỗi. Không kết luận trạng thái thuế từ việc đăng nhập thất bại.",
+      "must_not": [
+        "Đăng nhập lỗi là MST 06",
+        "bảo đảm xóa app là hết",
+        "yêu cầu OTP/mật khẩu."
+      ],
+      "sources": [
+        "S01",
+        "S06",
+        "S19"
+      ],
+      "review_change": "Cập nhật TT90, tách xác thực khỏi nghĩa vụ/trạng thái MST.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B09",
+      "question": "Kết xuất tờ khai XML từ phần mềm HTKK tải lên cổng thuế điện tử báo lỗi cấu trúc tệp hồ sơ không đúng định dạng XSD?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.55",
+        "16.24"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Kiểm đúng mẫu/kỳ, phiên bản HTKK tương thích và tài liệu schema của cổng; kết xuất lại bằng chức năng chuẩn. Giữ tệp gốc và thông báo lỗi; có thể kê khai trực tuyến nếu phân hệ hỗ trợ. Không sửa tay XML để vượt kiểm tra hoặc hứa một phiên bản cụ thể khi chưa có nguồn.",
+      "must_not": [
+        "Đổi đuôi tệp là được",
+        "sửa XML để bỏ thuế",
+        "cài bản cũ không rõ nguồn",
+        "nói XSD là thiếu nộp thuế."
+      ],
+      "sources": [
+        "S06"
+      ],
+      "review_change": "Giữ giới hạn kỹ thuật và tách lỗi cấu trúc khỏi pháp lý số thuế.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B10",
+      "question": "Trên ứng dụng eTax Mobile liên kết ngân hàng để nộp thuế nhưng không nhận được mã OTP hoặc báo lỗi kết nối ngân hàng?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.9",
+        "16.12",
+        "16.24",
+        "16.55"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Kiểm ngân hàng hỗ trợ, thông tin chủ tài khoản/điện thoại, trạng thái liên kết và thông báo bảo trì; không chia sẻ OTP. Trước khi thử thanh toán lại phải kiểm tiền đã trừ, mã giao dịch và chứng từ để tránh nộp trùng; liên hệ đúng ngân hàng/eTax theo lỗi. Liên kết không đồng nghĩa thông báo tài khoản kinh doanh.",
+      "must_not": [
+        "OTP không đến là chưa trừ tiền chắc chắn",
+        "nộp lại nhiều lần",
+        "nhờ AI nhận OTP",
+        "liên kết xong là đã thông báo."
+      ],
+      "sources": [
+        "S06",
+        "S11"
+      ],
+      "review_change": "Bổ sung phòng nộp trùng và phân biệt 2 thủ tục tài khoản.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B11",
+      "question": "Máy tính tiền POS bị mất kết nối internet không truyền được dữ liệu hóa đơn điện tử lên cơ quan thuế thì xử lý thế nào?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.105",
+        "16.24",
+        "16.41"
+      ],
+      "added": false,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Tách lỗi mạng POS, nhà cung cấp và hệ thống cơ quan thuế; giữ log/mã hóa đơn, thông báo đơn vị cung cấp và cơ quan thuế theo nhánh sự cố, khôi phục/truyền lại đúng quy định. Không lập trùng hoặc lùi ngày để bù; nghĩa vụ lập hóa đơn và truyền dữ liệu là 2 việc. Muốn chốt hạn cụ thể phải có đúng nhánh nguồn.",
+      "must_not": [
+        "Mất mạng là được hoãn mọi nghĩa vụ",
+        "cứ xuất lại tất cả",
+        "tự cho phép hóa đơn giấy/lùi ngày."
+      ],
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "review_change": "Bổ sung nghĩa vụ và giới hạn của lời khuyên chờ mạng khôi phục.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B12",
+      "question": "Bị khóa mã số thuế trạng thái 06 nên hệ thống chặn không cho xuất hóa đơn điện tử và không nộp được tờ khai trên cổng thuế?",
+      "original_group": "B",
+      "candidate_chunks": [
+        "16.25"
+      ],
+      "added": false,
+      "expected_groups": [
+        "LEGAL",
+        "B"
+      ],
+      "gold_answer": "06 là trạng thái không hoạt động tại địa chỉ, không phải mã lỗi ứng dụng. Kiểm thông báo ngừng hóa đơn, lý do và hồ sơ khôi phục theo TT90; phối hợp cơ quan thuế để xử lý khai còn thiếu và tình trạng đăng ký. Việc không gửi được một hồ sơ phải chẩn đoán riêng, không suy mọi chức năng đều bị khóa.",
+      "must_not": [
+        "06 nghĩa là đã đóng MST",
+        "trả tiền là dùng hóa đơn ngay",
+        "đăng ký tài khoản/mã mới để lách."
+      ],
+      "sources": [
+        "S01",
+        "S02",
+        "S07"
+      ],
+      "review_change": "Không coi trạng thái pháp lý là lỗi mạng; bỏ kết luận khóa toàn bộ mặc định.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B13",
+      "question": "App báo lỗi nhưng ngân hàng đã trừ tiền thuế. Tôi có bấm nộp lại ngay không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Trước khi thử lại kiểm chứng từ và mã giao dịch, trạng thái gửi sang Kho bạc/cơ quan thuế và đối soát với ngân hàng. Không coi app báo lỗi là tiền chưa chuyển; giữ bằng chứng và tránh nộp trùng.",
+      "must_not": [
+        "Bấm nộp lại nhiều lần",
+        "AI khẳng định đã nộp thành công khi chưa có chứng từ."
+      ],
+      "sources": [
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B14",
+      "question": "Cổng báo hồ sơ đã ghi nhận lúc 23:58, hôm sau thông báo không tiếp nhận vì sai mẫu. Có chắc đã nộp đúng hạn không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Không chắc: phân biệt ghi nhận với tiếp nhận hồ sơ hợp lệ; kiểm quy định đúng kỳ và nộp lại hồ sơ hợp lệ. Không dùng giờ gửi bản lỗi tự động để giữ hạn.",
+      "must_not": [
+        "23: 58 luôn được giữ hạn",
+        "đã gửi đồng nghĩa đã hợp lệ."
+      ],
+      "sources": [
+        "S06",
+        "S19"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B15",
+      "question": "Chỉ máy nhà tôi mất mạng ngày cuối hạn, cơ quan thuế không thông báo sự cố. Có tự được gia hạn không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Không tự động gia hạn chỉ vì mạng cá nhân; kiểm nhánh TT89 cho sự cố phía người nộp, kênh giấy/bưu chính nếu đúng điều kiện, và lưu bằng chứng. Không hứa miễn phạt.",
+      "must_not": [
+        "Mất mạng cá nhân là sự cố toàn hệ thống",
+        "ảnh lỗi là giấy gia hạn."
+      ],
+      "sources": [
+        "S06",
+        "S19"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B16",
+      "question": "Hệ thống báo trùng số định danh khi đăng ký người phụ thuộc. Tôi đổi một số cho qua được không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Không thay đổi giả định danh; tra cứu hồ sơ đã đăng ký và luồng thay đổi thông tin, đối chiếu dữ liệu dân cư với cơ quan thuế/đơn vị chi trả.",
+      "must_not": [
+        "Sửa 1 chữ số để vượt kiểm tra",
+        "tạo người mới để được 2 lần."
+      ],
+      "sources": [
+        "S01",
+        "S10"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B17",
+      "question": "XML mở bình thường trên iTaxViewer nhưng cổng thuế từ chối. Vì sao?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B",
+        "C"
+      ],
+      "gold_answer": "Mở tệp chỉ chứng minh công cụ đọc được định dạng, nộp hồ sơ còn kiểm mẫu, kỳ, schema, chủ thể và điều kiện. Đọc lý do từ chối, kiểm phiên bản tương thích, kết xuất lại chuẩn; không đoán chắc 1 nguyên nhân.",
+      "must_not": [
+        "iTaxViewer mở được là cổng phải chấp nhận",
+        "sửa XML bỏ trường thuế."
+      ],
+      "sources": [
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B18",
+      "question": "Cổng báo chữ ký số hết hạn, nhưng hợp đồng mua token còn hiệu lực. Tôi phải kiểm tra gì?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Tách thời hạn hợp đồng dịch vụ với hiệu lực chứng thư; kiểm chứng thư đang được dùng, trạng thái hạn/thu hồi, cấu hình và hướng dẫn nhà cung cấp. Không đề nghị gửi PIN/khóa bí mật.",
+      "must_not": [
+        "Hợp đồng còn hạn thì chứng thư luôn hợp lệ",
+        "tắt kiểm tra chữ ký."
+      ],
+      "sources": [
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B19",
+      "question": "Tôi thấy số thuế phải nộp khác giữa eTax và sàn TikTok. Có lấy số thấp hơn không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Đối chiếu chủ thể, kỳ, sắc thuế, doanh thu gộp, thời điểm nộp thay và hạch toán; giữ chứng từ. Không chọn số thấp/cao chỉ vì giao diện; nghĩa vụ theo luật và hồ sơ hợp lệ.",
+      "must_not": [
+        "Luôn lấy số thấp hơn",
+        "sàn hiển tax là TNCN đã nộp."
+      ],
+      "sources": [
+        "S04",
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B20",
+      "question": "Cổng tra cứu không thấy hóa đơn vừa phát hành. Có kết luận là hóa đơn giả để loại chi phí ngay không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Không đủ căn cứ chỉ từ không thấy kết quả; kiểm thông tin mã, ký hiệu, ngày, MST, trạng thái cấp mã/gửi dữ liệu và đối soát người bán. Xét chi phí theo hồ sơ và quy định riêng.",
+      "must_not": [
+        "Không tìm thấy là giả",
+        "ảnh PDF tự động chứng minh đủ điều kiện chi phí."
+      ],
+      "sources": [
+        "S07",
+        "S08",
+        "S04"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B21",
+      "question": "Đổi điện thoại xong VNeID vẫn vào được nhưng eTax mất lịch sử. Thuế cũ có bị xóa không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Không suy dữ liệu hiển thị trống là nghĩa vụ/chứng từ đã xóa; kiểm đúng tài khoản/định danh, kỳ và đồng bộ, chuyển hỗ trợ nếu cần. Giữ chứng từ gốc.",
+      "must_not": [
+        "Đổi điện thoại xóa nợ",
+        "xin MST mới để khôi phục lịch sử."
+      ],
+      "sources": [
+        "S01",
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B22",
+      "question": "Hóa đơn tháng 03/2026 bị sai MST, nay tháng 10 mới phát hiện. Áp quy trình nào, có xóa hóa đơn cũ không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "B"
+      ],
+      "gold_answer": "Tách ngày lập, ngày phát hiện và ngày xử lý; kiểm điều khoản chuyển tiếp hiện hành NĐ254/TT91 với hóa đơn lập dưới chế độ cũ. Giữ liên kết và thông tin điều chỉnh/thay thế theo nhánh áp dụng; không xóa dấu vết hóa đơn gốc.",
+      "must_not": [
+        "Cứ hóa đơn cũ là luôn xử lý bằng luật cũ bất kể chuyển tiếp",
+        "xóa gốc rồi lập lại tùy ý."
+      ],
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B23",
+      "question": "Mã ngành trên hồ sơ điện tử khác dịch vụ thực tế. Tôi chọn ngành có tỷ lệ thuế thấp hơn để gửi được không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B",
+        "LEGAL"
+      ],
+      "gold_answer": "Không khai sai để vượt kiểm tra; đối chiếu hoạt động thực tế, đăng ký và phân loại thuế, thực hiện bổ sung thông tin hợp lệ. Cách giao diện phân loại không thay thế bản chất nghiệp vụ.",
+      "must_not": [
+        "Chọn ngành thấp hơn để gửi",
+        "app cho chọn là đương nhiên hợp pháp."
+      ],
+      "sources": [
+        "S01",
+        "S04",
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "B24",
+      "question": "Tôi gửi ảnh báo lỗi có CCCD, số tài khoản và OTP cho trợ lý để sửa hộ được không?",
+      "original_group": "B",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "B"
+      ],
+      "gold_answer": "Không cung cấp OTP, mật khẩu, PIN hoặc khóa bí mật. Đề nghị che định danh/số tài khoản không cần thiết, giữ mã lỗi và ngữ cảnh kỹ thuật, liên hệ kênh hỗ trợ chính thức; trợ lý không tự đăng nhập thay.",
+      "must_not": [
+        "Yêu cầu gửi OTP/nguyên tài khoản để sửa",
+        "chuyển ảnh nhạy cảm sang kênh không xác minh."
+      ],
+      "sources": [
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C01",
+      "question": "Ứng dụng eTax Mobile có những chức năng gì cho hộ kinh doanh và cá nhân kinh doanh?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.12",
+        "16.9",
+        "16.55",
+        "16.100"
+      ],
+      "added": false,
+      "expected_groups": [
+        "C"
+      ],
+      "gold_answer": "Giới thiệu theo tài liệu chính thức các chức năng hỗ trợ cá nhân/HKD như tra cứu, nộp thuế, đăng ký/cập nhật thông tin và nghiệp vụ được tích hợp. Tách tài khoản giao dịch, thông báo tài khoản và nộp thuế; chức năng thực tế tùy đối tượng/phiên bản. Không liệt kê những gì chưa có nguồn.",
+      "must_not": [
+        "Mọi chức năng đều khả dụng cho mọi tài khoản",
+        "app tự quyết định miễn thuế",
+        "cổng nào cũng giống nhau."
+      ],
+      "sources": [
+        "S06",
+        "S10",
+        "S11",
+        "S19"
+      ],
+      "review_change": "Giữ ý chính nhưng bỏ bảo đảm chức năng/giao diện hiện tại.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C02",
+      "question": "Cổng thông tin thương mại điện tử canhantmdt.gdt.gov.vn dùng để làm gì và ai bắt buộc phải dùng?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.100",
+        "16.96"
+      ],
+      "added": false,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "Cổng TMĐT hỗ trợ thủ tục thuế của hộ/cá nhân kinh doanh số theo hướng dẫn. Phải trả lời riêng ai/công việc nào cần tự thực hiện: sàn đã khấu trừ/nộp thay đúng thì không tự khai/nộp trùng; còn hoạt động/chủ thể khác xét nghĩa vụ tương ứng. Không suy mọi người bán online bắt buộc chỉ dùng cổng này.",
+      "must_not": [
+        "Tất cả bán online phải xin 888 và khai trên cổng",
+        "sàn nộp thay thì miễn mọi thủ tục",
+        "canhantmdt là kênh duy nhất."
+      ],
+      "sources": [
+        "S01",
+        "S04",
+        "S12"
+      ],
+      "review_change": "Bản cũ chưa trả lời ai bắt buộc; bổ sung phân biệt nghĩa vụ và công cụ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C03",
+      "question": "Phân biệt trang thuedientu.gdt.gov.vn, canhan.gdt.gov.vn và canhantmdt.gdt.gov.vn của cơ quan thuế?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.100",
+        "16.12",
+        "16.9",
+        "16.55"
+      ],
+      "added": false,
+      "expected_groups": [
+        "C"
+      ],
+      "gold_answer": "Phân biệt phân hệ thuế điện tử, dịch vụ cá nhân và cổng TMĐT theo hướng dẫn chính thức, chọn theo chủ thể/nghiệp vụ và liên kết hiện hành. Không suy ba địa chỉ tạo ba MST hay ba lần nộp thuế. Chưa kiểm giao diện live thì không khẳng định trạng thái chuyển hướng/tên menu.",
+      "must_not": [
+        "Địa chỉ canhan/canhantmdt là một giấy phép mới",
+        "hiện mọi phân hệ dùng chung chính xác từng nút",
+        "tự đổi URL để nhập thông tin nhạy cảm."
+      ],
+      "sources": [
+        "S06",
+        "S12"
+      ],
+      "review_change": "Giữ so sánh ở mức có nguồn, không gắn mã 888 như nghĩa vụ phổ qu át.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C04",
+      "question": "Hộ kinh doanh lập sổ kế toán trên phần mềm hoặc file Excel trên máy tính có phải in ra giấy đóng thành quyển cuối năm không?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.52",
+        "16.71"
+      ],
+      "added": false,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Điều 3 TT152 cho chọn lưu tài liệu kế toán trên phương tiện điện tử hoặc giấy, nên không bắt buộc chỉ vì dùng Excel mà phải in đóng quyển cuối năm. Vẫn bảo đảm nội dung, nhận diện/xác nhận, khả năng truy xuất, bảo quản và cung cấp theo yêu cầu; thời hạn kế toán tối thiểu 5 năm, hóa đơn theo luật thuế.",
+      "must_not": [
+        "Excel tự do mất cột vẫn hợp lệ",
+        "lưu điện tử là miễn chữ ký/chứng từ/lưu trữ",
+        "xếp C để bỏ kiểm định luật."
+      ],
+      "sources": [
+        "S09"
+      ],
+      "review_change": "Đổi nhãn chính sang LEGAL vì hỏi nghĩa vụ; bổ sung điều kiện lưu trữ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C05",
+      "question": "Hệ thống hóa đơn điện tử khởi tạo từ máy tính tiền kết nối với cơ quan thuế hoạt động theo nguyên tắc nào?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.41",
+        "16.38",
+        "16.105",
+        "16.24"
+      ],
+      "added": false,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "POS ghi giao dịch, lập HĐĐT theo chuẩn, gửi dữ liệu qua giải pháp kết nối được chấp nhận và lưu kết quả theo quy định NĐ254/TT91. Biên lai POS không tự là HĐĐT hợp pháp; mua máy không tự hoàn tất đăng ký và mất mạng không tự miễn lập/truyền.",
+      "must_not": [
+        "Mọi phiếu in POS là HĐĐT",
+        "chỉ cần máy kết nối là khỏi khai/đăng ký",
+        "dùng NĐ123 như khung hiện hành từ tháng 7."
+      ],
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "review_change": "Cập nhật khung hiện hành và tách thiết bị/chứng từ/nghĩa vụ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C06",
+      "question": "Hộ kinh doanh có bắt buộc phải mua phần mềm kế toán riêng của cơ quan thuế hay được dùng phần mềm miễn phí / Excel?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.52",
+        "16.71"
+      ],
+      "added": false,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Không có nghĩa vụ phải mua một phần mềm thương mại hoặc phần mềm riêng của cơ quan thuế chỉ để đúng chế độ sổ; TT152 cho lưu giấy/điện tử và biểu mẫu phù hợp. Excel/phần mềm miễn phí có thể dùng nếu đáp ứng yêu cầu sổ và lưu trữ. Tách khỏi yêu cầu kỹ thuật HĐĐT nếu có.",
+      "must_not": [
+        "Excel nào cũng hợp lệ",
+        "không cần chứng từ",
+        "có phần mềm là không cần sổ",
+        "bỏ LEGAL vì có từ phần mềm."
+      ],
+      "sources": [
+        "S09"
+      ],
+      "review_change": "Đổi nhãn chính sang LEGAL và thêm điều kiện sổ hợp lệ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C07",
+      "question": "Trên hệ thống kê khai thuế điện tử năm 2026, hộ kinh doanh dùng những mẫu tờ khai nào?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.40",
+        "16.51",
+        "16.55"
+      ],
+      "added": false,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Chọn mẫu theo đối tượng, phương pháp, nghĩa vụ và kỳ hồ sơ: thông báo doanh thu 01/TKN-CNKD không thay tờ khai thuế; quyết toán theo phương pháp thu nhập có 02/QTT-TNCN-CNKD theo TT89. Nếu dùng 01/CNKD phải đúng phiên bản và bản đính chính; không áp số chỉ tiêu[14] của mẫu TT50 cho mọi phiên bản.",
+      "must_not": [
+        "Mọi hộ dùng 01/CNKD cho mọi việc",
+        "luôn chỉ tiêu 14",
+        "mức trừ 1 tỷ là giảm doanh thu GTGT",
+        "dùng mẫu quyết toán sai tên."
+      ],
+      "sources": [
+        "S06",
+        "S04",
+        "S05"
+      ],
+      "review_change": "Đổi sang LEGAL+C, bỏ số chỉ tiêu cố định và bổ sung phiên bản.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C08",
+      "question": "Phần mềm HTKK và phần mềm đọc hồ sơ thuế iTaxViewer dùng để làm gì đối với hộ kinh doanh?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.55",
+        "16.24"
+      ],
+      "added": false,
+      "expected_groups": [
+        "C"
+      ],
+      "gold_answer": "HTKK hỗ trợ lập/kết xuất hồ sơ theo mẫu; iTaxViewer hỗ trợ xem/kiểm tra hồ sơ XML tương thích. Mở được XML không chứng minh đã nộp hoặc được chấp nhận; phải kiểm kết quả cổng. Chưa có tài liệu thì không bịa từng bước cài hoặc phiên bản mới nhất.",
+      "must_not": [
+        "iTaxViewer là cổng nộp thuế",
+        "mở XML là đã nộp",
+        "phần mềm tính ra là nghĩa vụ cuối."
+      ],
+      "sources": [
+        "S06"
+      ],
+      "review_change": "Bổ sung vai trò iTaxViewer và cặp mở tệp/tiếp nhận.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C09",
+      "question": "Cổng thông tin hóa đơn điện tử hoadondientu.gdt.gov.vn dùng để tra cứu hóa đơn như thế nào?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.41",
+        "16.105",
+        "16.24",
+        "16.100"
+      ],
+      "added": false,
+      "expected_groups": [
+        "C"
+      ],
+      "gold_answer": "Hướng dẫn tra cứu theo tài liệu chính thức của cổng/nhà cung cấp, dùng thông tin hóa đơn cần thiết, kiểm trạng thái và dữ liệu đối chiếu. Chưa kiểm UI thì không bịa trường nhập/nút; không có kết quả chưa đủ kết luận hóa đơn giả, cần kiểm mã/sự chậm đồng bộ và liên hệ bên phát hành.",
+      "must_not": [
+        "Không tìm thấy là giả",
+        "ảnh PDF một mình chứng minh hợp pháp",
+        "yêu cầu gửi OTP/mật khẩu để tra."
+      ],
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "review_change": "Chuyển từ trả luật chung sang đúng mục đích tra cứu và giới hạn kết luận.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C10",
+      "question": "Từ ngày 01/07/2025 hệ thống quản lý thuế chuyển sang dùng số CCCD 12 số thay cho mã số thuế cá nhân như thế nào?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.96",
+        "16.100"
+      ],
+      "added": false,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Từ 01/07/2025 dùng số định danh cá nhân thay MST theo điều kiện đối chiếu/đồng bộ. Hiện tại đọc TT90 và xử lý dữ liệu cũ; giữ liên kết hồ sơ/chứng từ trước đó. Không tự ghép CCCD+888, không cấp thêm MST cá nhân vì khác nguồn thu và không suy 888 quyết định nghĩa vụ.",
+      "must_not": [
+        "Mọi CCCD 12 số tự động đã khớp",
+        "CCCD+888 là 13 số",
+        "hóa đơn cũ phải sửa đồng loạt",
+        "tiếp tục TT86 như hiện hành."
+      ],
+      "sources": [
+        "S01",
+        "S12"
+      ],
+      "review_change": "Đổi nhãn sang LEGAL, bỏ khẳng định hậu tố 888 năm 2026 bất biến.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C11",
+      "question": "Hệ thống sổ kế toán điện tử của hộ kinh doanh năm 2026 gồm mấy loại sổ từ S1a đến S2e?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.52"
+      ],
+      "added": false,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Chọn sổ theo trạng thái/phương pháp: không chịu GTGT/không nộp TNCN dùng S1a; tỷ lệ doanh thu dùng S2a; GTGT tỷ lệ và TNCN theo thu nhập dùng S2b – S2e. Đây là 6 mẫu của 3 nhánh, không buộc mọi hộ dùng cả 6; nghĩa vụ thuế khác có theo dõi tương ứng.",
+      "must_not": [
+        "Ai cũng 6 sổ",
+        "phần mềm bắt buộc thì luật bắt buộc",
+        " S1a chỉ là dịch vụ miễn phí."
+      ],
+      "sources": [
+        "S09"
+      ],
+      "review_change": "Nhãn chính LEGAL, bổ sung cách chọn thay vì chỉ liệt kê mẫu.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C12",
+      "question": "Cổng Dịch vụ công của Tổng cục Thuế dichvucong.gdt.gov.vn tiếp nhận những thủ tục hành chính thuế nào?",
+      "original_group": "C",
+      "candidate_chunks": [
+        "16.12",
+        "16.100",
+        "16.24"
+      ],
+      "added": false,
+      "expected_groups": [
+        "C"
+      ],
+      "gold_answer": "Đây là câu hỏi tra cứu danh mục dịch vụ; phải xem danh mục/địa chỉ hiện hành từ cơ quan thuế/Cổng DVCQG. Chỉ liệt kê thủ tục có hướng dẫn nguồn, phân biệt đăng ký/khai/nộp/hoàn; nói rõ chưa xác nhận trạng thái truy cập của domain nêu trong câu.",
+      "must_not": [
+        "Dùng tên Tổng cục Thuế để khẳng định cơ cấu hiện nay",
+        "bịa danh mục đầy đủ",
+        "khẳng định domain đang hoạt động khi chưa kiểm."
+      ],
+      "sources": [
+        "S01",
+        "S06",
+        "S19"
+      ],
+      "review_change": "Giữ giới hạn nguồn; không coi tên/địa chỉ cũ là bảo đảm hiện hành.",
+      "legal_gate_required": false,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C13",
+      "question": "Liên kết ngân hàng để nộp thuế trong eTax và thông báo tài khoản kinh doanh có phải một việc không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "Là hai nghiệp vụ khác nhau: liên kết phục vụ thanh toán, thông báo phục vụ quản lý tài khoản/ví dùng kinh doanh; hoàn tất hai việc theo điều kiện tương ứng. Không lấy trạng thái liên kết thay kết quả thông báo.",
+      "must_not": [
+        "Liên kết xong tự động đã thông báo mọi tài khoản."
+      ],
+      "sources": [
+        "S04",
+        "S06",
+        "S11"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C14",
+      "question": "App eTax có tự động giảm 30% TNCN cho mọi hộ hiển thị doanh thu dưới 10 tỷ không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Không thể kết luận chỉ từ giao diện: kiểm đúng cá nhân cư trú, doanh thu năm cộng gộp, thu nhập kinh doanh và kỳ NQ43. Hệ thống hỗ trợ tính không thay điều kiện; chưa có nguồn phần mềm không hứa tự động.",
+      "must_not": [
+        "Dưới 10 tỷ trên 1 màn hình là đương nhiên giảm",
+        "NQ43 giảm GTGT."
+      ],
+      "sources": [
+        "S14",
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C15",
+      "question": "PDF hóa đơn tải về, file XML và ảnh chụp màn hình khác nhau thế nào khi lưu chứng từ?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "Phân biệt bản hiển thị với dữ liệu điện tử chuẩn và thông tin xác thực; giữ dữ liệu gốc/trạng thái/liên kết chứng từ theo quy định, không chỉ ảnh. Khả năng tra cứu và lưu trữ là điều kiện riêng, không tự kết luận chi phí được trừ.",
+      "must_not": [
+        "Ảnh chụp thay mọi dữ liệu gốc",
+        "PDF đẹp chứng minh hóa đơn hợp pháp."
+      ],
+      "sources": [
+        "S07",
+        "S08",
+        "S09"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C16",
+      "question": "Tôi dùng Excel theo mẫu S2a. Phần mềm nhà cung cấp bảo phải mở thêm S2b–S2e cho tất cả mọi hộ, có đúng không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Chọn sổ theo phương pháp thực tế tại Điều 4–6 TT152; không mở cả bộ chỉ vì nhà cung cấp yêu cầu. Nếu GTGT/TNCN theo doanh thu thì S2a; TNCN theo thu nhập mới đối chiếu bộ S2b – S2e.",
+      "must_not": [
+        "Nhà cung cấp nói là luật",
+        "mọi hộ phải dùng 6 sổ."
+      ],
+      "sources": [
+        "S09"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C17",
+      "question": "Có bắt buộc mua máy POS mới, hay phần mềm trên điện thoại đáp ứng chuẩn hóa đơn cũng dùng được?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "Yêu cầu là giải pháp HĐĐT đúng chuẩn/đăng ký/kết nối và phạm vi đối tượng, không mặc nhiên một thương hiệu/phần cứng mới. Kiểm giải pháp cụ thể với nhà cung cấp theo NĐ254/TT91 trước khẳng định đáp ứng.",
+      "must_not": [
+        "Cứ điện thoại là đạt",
+        "mọi hộ phải mua đúng 1 máy/thương hiệu."
+      ],
+      "sources": [
+        "S07",
+        "S08"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C18",
+      "question": "Cổng ghi “thành công” sau bước xác nhận OTP. Điều đó có nghĩa là hoàn thuế đã được duyệt và tiền sắp về chưa?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "Xác định thành công ở bước nào: gửi hồ sơ/tiếp nhận/quyết định hoàn/chi hoàn là các trạng thái khác nhau. Kiểm thông báo chính thức và mã hồ sơ; không hứa đã duyệt hoặc ngày tiền về chỉ từ OTP.",
+      "must_not": [
+        "OTP thành công là đã được duyệt hoàn",
+        "đã tiếp nhận là tiền đã về."
+      ],
+      "sources": [
+        "S02",
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C19",
+      "question": "Tôi thấy tờ khai cũ dùng chỉ tiêu [14]. Mẫu năm nay có cùng số chỉ tiêu thì nhập y hệt được không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Kiểm đúng mẫu phiên bản, phụ lục và bản đính chính cho kỳ; trùng số chỉ tiêu không bảo đảm cùng ý nghĩa. Giữ quy tắc ngưỡng/cơ sở tính, không chép máy móc từ TT50 sang TT89.",
+      "must_not": [
+        "Chỉ tiêu 14 mọi năm giống nhau",
+        "nhập giảm GTGT 1 tỷ vì cùng vị trí ô."
+      ],
+      "sources": [
+        "S06",
+        "S04",
+        "S05"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C20",
+      "question": "VNeID mức 2 đăng nhập được cổng thuế thì có thể bỏ chữ ký/xác thực mọi loại hồ sơ không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Phương thức xác nhận phụ thuộc đối tượng, loại hồ sơ và quy định giao dịch điện tử; đăng nhập thành công không thay mọi yêu cầu ký/xác thực. Kiểm TT89 và hướng dẫn của thủ tục.",
+      "must_not": [
+        "VNeID thay toàn bộ chữ ký với mọi chủ thể/mọi hồ sơ."
+      ],
+      "sources": [
+        "S06",
+        "S19"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C21",
+      "question": "Tôi là người nước ngoài không có VNeID mức 2. Có bị cấm mọi giao dịch thuế điện tử không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "Không cấm mặc định; TT89 có nhánh định danh đối với người nước ngoài và tài khoản giao dịch thuế cho đối tượng không thuộc diện cấp định danh. Xác định hồ sơ/đối tượng để chọn kênh hợp lệ.",
+      "must_not": [
+        "Mọi người phải có VNeID công dân Việt Nam",
+        "dùng CCCD người khác."
+      ],
+      "sources": [
+        "S06",
+        "S01",
+        "S19"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C22",
+      "question": "Tôi muốn đồng bộ doanh thu từ phần mềm bán hàng sang tờ khai. Số phần mềm tự đẩy sang có phải là số thuế cuối cùng không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "C",
+        "LEGAL"
+      ],
+      "gold_answer": "Đối chiếu doanh thu thực tế, kỳ, hoàn trả/chi phí phân biệt và các sắc thuế; dữ liệu đồng bộ không thay nghĩa vụ kiểm tra hồ sơ. Kiểm quyền kết nối và khả năng truy xuất; không tự giả định mọi kết nối được cơ quan thuế chấp nhận.",
+      "must_not": [
+        "Đồng bộ là tự động đúng luật",
+        "tiền ròng sàn là doanh thu GTGT luôn."
+      ],
+      "sources": [
+        "S04",
+        "S06",
+        "S09"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C23",
+      "question": "Website giới thiệu công cụ tính thuế ghi mức 500 triệu, trong khi tôi đang hỏi năm 2026. Dùng số trên công cụ luôn được không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Kiểm kỳ thuế và văn bản sửa đổi; ngưỡng thông thường 2026 đã được sửa thành 1 tỷ bởi NĐ141 áp dụng từ 01/01/2026. Không lấy giao diện chưa cập nhật thay luật; không hồi tố 1 tỷ cho kỳ 2025.",
+      "must_not": [
+        "Công cụ hiển thị là ngưỡng đúng",
+        "trước 29/4/2026 vẫn 500 triệu trong cùng năm."
+      ],
+      "sources": [
+        "S04",
+        "S05"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "C24",
+      "question": "Tôi hỏi luật khấu trừ chi phí nhưng có nhắc Excel, hệ thống chỉ trả lời cách dùng Excel. Có đúng trọng tâm không?",
+      "original_group": "C",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Không đúng nếu bỏ câu hỏi pháp lý. Phải trả điều kiện chi phí/phương pháp TNCN theo ngữ cảnh, Excel chỉ là công cụ; thiếu dữ kiện thì hỏi đúng dữ kiện quyết định.",
+      "must_not": [
+        "Gặp Excel thì chỉ xếp C",
+        "bỏ điều kiện khấu trừ vì công cụ."
+      ],
+      "sources": [
+        "S04",
+        "S09"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L01",
+      "question": "Bán hàng tạp hóa doanh thu 1,2 tỷ năm 2026 nộp thuế GTGT và TNCN bao nhiêu?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Nếu chọn TNCN theo doanh thu, chỉ một ngành bán lẻ và không có doanh thu khác trong năm: TNCN trước giảm=(1, 2 tỷ−1 tỷ)×0, 5%=1 triệu; nếu cá nhân cư trú đủ NQ43 thì còn 700 nghìn. GTGT gốc 1%=12 triệu trên cả 1, 2 tỷ; phần hàng đủ NQ204 giảm 20% mức tỷ lệ, nếu toàn bộ đủ thì 9, 6 triệu. Chưa rõ hàng thì không tự chốt GTGT giảm.",
+      "must_not": [
+        "Trừ 1 tỷ khi tính GTGT",
+        "tự giảm GTGT toàn bộ khi chưa rõ hàng",
+        "tự chọn phương pháp TNCN khi bị ràng buộc ổn định."
+      ],
+      "sources": [
+        "S04",
+        "S05",
+        "S13",
+        "S14",
+        "S17"
+      ],
+      "review_change": "Bổ sung đáp án có điều kiện; bản cũ chưa có đáp án.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L02",
+      "question": "Làm dịch vụ sửa chữa máy tính doanh thu 800 triệu năm 2026 có phải nộp thuế không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Nếu 800 triệu là tổng doanh thu kinh doanh cả năm 2026, thuộc phạm vi ngưỡng thông thường, không chịu GTGT/không nộp TNCN theo 1 tỷ. Vẫn xét đăng ký, thông báo doanh thu, sổ và các nghĩa vụ khác. Không tự biến ngành sửa máy thành bán lẻ.",
+      "must_not": [
+        "Tự tính 5% trên 800 triệu",
+        "miễn GTGT/TNCN nghĩa là miễn đăng ký hộ/thuế."
+      ],
+      "sources": [
+        "S04",
+        "S05"
+      ],
+      "review_change": "Bổ sung tổng doanh thu và giữ đúng ngành.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L03",
+      "question": "Doanh thu bán hàng online 2,5 tỷ đồng năm 2026 được giảm 30% thuế TNCN theo Nghị quyết 43 như thế nào?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "NQ43 giảm 30% số TNCN phải nộp của cá nhân cư trú có doanh thu năm không quá 10 tỷ trong 2026–2027; 2, 5 tỷ khớp mốc doanh thu nếu là tổng cá nhân. Phải xác định ngành/phương pháp và số TNCN trước giảm rồi nhân 70%; không đủ dữ kiện để chốt số tiền từ bán hàng online.",
+      "must_not": [
+        "Giảm 30% doanh thu",
+        "giảm GTGT theo NQ43",
+        "mặc định mọi bán online TNCN 0, 5%."
+      ],
+      "sources": [
+        "S13",
+        "S14",
+        "S04"
+      ],
+      "review_change": "Bổ sung điều kiện, không tự bịa ngành từ kênh online.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L04",
+      "question": "Hộ kinh doanh doanh thu 4 tỷ đồng/năm, chi phí hợp lệ 3 tỷ đồng thì tính thuế TNCN theo thuế suất mấy %?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Với phương pháp thu nhập áp dụng cho kỳ đang xét, 4 tỷ−3 tỷ chi phí hợp lệ=1 tỷ thu nhập tính thuế, áp 17% tức 170 triệu trước giảm; nếu đủ NQ43 thì 119 triệu. Nhưng nếu đang nộp theo doanh thu và cuối năm mới vượt 3 tỷ thì kiểm điểm d khoản 5 Điều 4 NĐ68: chuyển phương pháp từ năm sau, không mặc nhiên hồi tố 17%.",
+      "must_not": [
+        "17% trên 4 tỷ",
+        "0, 5% cho mọi ngành",
+        "doanh thu vượt 3 tỷ bất kể chuyển tiếp thì hồi tố 17%."
+      ],
+      "sources": [
+        "S04",
+        "S13",
+        "S14"
+      ],
+      "review_change": "Bổ sung đáp án và ngoại lệ chuyển phương pháp thường bị bỏ qua.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L05",
+      "question": "Năm 2026 hộ kinh doanh có còn phải nộp lệ phí môn bài không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Chấm dứt thu, nộp lệ phí môn bài từ 01/01/2026 theo khoản 7 Điều 10 NQ198. Không phát sinh lệ phí cho 2026; nợ các kỳ trước không tự được xóa.",
+      "must_not": [
+        "Chỉ miễn 3 năm đầu cho HKD mới",
+        "mọi khoản môn bài cũ được tự xóa."
+      ],
+      "sources": [
+        "S16"
+      ],
+      "review_change": "Bổ sung căn cứ và tách nợ cũ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L06",
+      "question": "Tiền lương trả cho vợ hoặc con ruột làm tại cửa hàng hộ kinh doanh có được tính vào chi phí được trừ không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Chỉ xét chi phí khi TNCN theo thu nhập. Điểm c khoản 2 Điều 6 NĐ68 loại lương/công của cá nhân kinh doanh/nhóm cá nhân/các thành viên trong HKD, trừ đóng góp bảo hiểm bắt buộc. Phải xác định vợ/con là thành viên HKD hay người lao động riêng thực chất; không suy từ quan hệ gia đình một mình. Nếu đúng lao động không thuộc loại trừ thì kiểm điều kiện chi thực tế, chứng từ, bảo hiểm/thanh toán.",
+      "must_not": [
+        "Có là vợ/con thì luôn được trừ",
+        "luôn không được trừ chỉ vì quan hệ ruột thịt",
+        "lấy điều kiện lao động doanh nghiệp áp máy móc."
+      ],
+      "sources": [
+        "S04"
+      ],
+      "review_change": "Bổ sung phân biệt thành viên hộ với lao động; bản gốc chỉ có nhãn.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L07",
+      "question": "Cho thuê nhà doanh thu 900 triệu đồng/năm thì tính thuế GTGT và TNCN như thế nào?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Nếu 900 triệu là toàn bộ doanh thu cho thuê cả năm 2026 của cá nhân và thuộc phạm vi ngưỡng, không chịu GTGT/không nộp TNCN. Phải xét tổng các hợp đồng/chủ thể, phân bổ kỳ nếu thuê trả trước nhiều năm; không tự xóa đăng ký/khai thuế.",
+      "must_not": [
+        "900 triệu mọi hợp đồng đều miễn riêng",
+        "tự tính 5%+5% khi biết đúng tổng dưới ngưỡng."
+      ],
+      "sources": [
+        "S04",
+        "S05"
+      ],
+      "review_change": "Bổ sung kỳ/tổng hợp đồng và không đánh đồng miễn thuế với thủ tục.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L08",
+      "question": "Sàn Shopee đã khấu trừ thuế tại nguồn thì cuối năm hộ kinh doanh đối trừ số thuế đã nộp ra sao?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Đối soát chứng từ sàn đã khấu trừ/nộp thay, đúng chủ thể, kỳ, sắc thuế và số tiền; xác định nghĩa vụ cả năm và phần còn thiếu/nộp thừa. Không kê khai phải nộp trùng khoản sàn đã làm đúng; bù trừ/hoàn theo đúng nhánh hiện hành, không tự bù chéo GTGT–TNCN.",
+      "must_not": [
+        "Sàn giữ tax là chắc chắn đã nộp TNCN",
+        "sàn giữ bao nhiêu hoàn bấy nhiêu",
+        "mọi khoản đều có thể bù chéo."
+      ],
+      "sources": [
+        "S04",
+        "S02",
+        "S06"
+      ],
+      "review_change": "Bổ sung các bước và điều kiện đối trừ.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L09",
+      "question": "Vừa bán hàng tạp hóa 800 triệu vừa làm dịch vụ vận tải 500 triệu trong năm 2026 thì trừ ngưỡng 1 tỷ như thế nào?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Tổng doanh thu 1, 3 tỷ; nếu dùng TNCN theo doanh thu và vận tải thuộc nhóm TNCN 1, 5%, chọn trừ 500 triệu vận tải trước rồi 500 triệu bán lẻ; còn 300 triệu bán lẻ×0, 5%=1, 5 triệu TNCN trước giảm; đủ NQ43 còn 1, 05 triệu. Một mức trừ 1 tỷ chung, không phân bổ theo tỷ trọng; GTGT không trừ 1 tỷ khi tổng vượt ngưỡng.",
+      "must_not": [
+        "Trừ 1 tỷ mỗi ngành",
+        "phân bổ pro-rata",
+        "trừ 1 tỷ vào cơ sở GTGT."
+      ],
+      "sources": [
+        "S04",
+        "S05",
+        "S13",
+        "S14"
+      ],
+      "review_change": "Bổ sung tính toán và điều kiện tỷ lệ ngành.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L10",
+      "question": "Doanh thu trên 50 tỷ đồng/năm thì áp dụng mức thuế suất thuế TNCN bao nhiêu phần trăm?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Với cá nhân cư trú thuộc phương pháp thu nhập tính thuế, doanh thu trên 50 tỷ áp 20% trên thu nhập; đúng 50 tỷ vẫn 17%. Doanh thu trên 50 tỷ không đủ mốc 10 tỷ của NQ43. Giữ ngoại lệ ổn định/chuyển phương pháp nếu có trong hồ sơ.",
+      "must_not": [
+        "20% trên doanh thu",
+        "đúng 50 tỷ đã 20%",
+        "vẫn giảm 30% NQ43 vì trừ chi phí xuống dưới 10 tỷ."
+      ],
+      "sources": [
+        "S13",
+        "S14",
+        "S04"
+      ],
+      "review_change": "Bổ sung cơ sở tính và hai ranh giới.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L11",
+      "question": "Hàng hóa thuộc diện giảm thuế GTGT theo Nghị quyết 204/2025/QH15 thì tỷ lệ GTGT của hộ kinh doanh giảm mấy %?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Đối tượng nộp GTGT theo tỷ lệ trên doanh thu được giảm 20% mức tỷ lệ cho hàng/dịch vụ đủ điều kiện trong kỳ áp dụng: 1%→0, 8%; 5%→4%. Không tự mở rộng ra hạng mục loại trừ hoặc giảm rồi đến NQ43 giảm GTGT lần nữa.",
+      "must_not": [
+        "Giảm 20 điểm phần trăm",
+        "chỉ nộp 20% thay vì 80%",
+        "NQ43 giảm thêm GTGT."
+      ],
+      "sources": [
+        "S17",
+        "S14"
+      ],
+      "review_change": "Bổ sung đáp án định lượng và phạm vi phương pháp.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L12",
+      "question": "Bán hàng hóa xuất khẩu hoặc dịch vụ tiêu dùng ở nước ngoài có được miễn thuế GTGT không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": false,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Phân biệt không chịu GTGT, thuế suất 0% và không phải kê khai; xác định phương pháp tính, hàng/dịch vụ xuất khẩu, điều kiện hợp đồng/thanh toán/chứng từ và nơi tiêu dùng. Khách ở nước ngoài hoặc trả USD không tự chứng minh miễn/0%; chưa rõ thì trả điều kiện chứ không kết luận tất cả miễn.",
+      "must_not": [
+        "Hễ xuất khẩu hoặc chuyển tiền từ nước ngoài là miễn GTGT",
+        "áp 0% của khấu trừ cho mọi hộ trực tiếp."
+      ],
+      "sources": [
+        "S18"
+      ],
+      "review_change": "Bổ sung đối chứng chống đồng nhất miễn, 0% và phương pháp.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L13",
+      "question": "eTax của tôi ghi doanh thu sửa máy 4 tỷ, thu nhập tính thuế hợp lệ 500 triệu, đã áp dụng phương pháp thu nhập; GTGT gốc 5%, toàn bộ đủ giảm. Cá nhân cư trú đủ NQ43. Tính riêng từng thuế.",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "GTGT=4 tỷ×(5%×80%)=160 triệu. TNCN trước giảm=500 triệu×17%=85 triệu; sau NQ43=85 triệu×70%=59, 5 triệu. Hai cơ sở và hai chính sách độc lập; không trừ chi phí vào doanh thu GTGT.",
+      "must_not": [
+        "Dùng 500 triệu tính GTGT",
+        "thiếu một phép tính",
+        "NQ43 giảm GTGT."
+      ],
+      "sources": [
+        "S04",
+        "S05",
+        "S13",
+        "S14",
+        "S17"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L14",
+      "question": "Đầu năm 2026 tôi hợp lệ nộp TNCN theo doanh thu, cuối năm doanh thu thực tế thành 3 tỷ cộng 1 đồng. Có phải tính lại cả năm theo 17% không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Kiểm điểm d khoản 5 Điều 4 NĐ68: đang áp dụng phương pháp doanh thu và hết năm xác định vượt 3 tỷ thì chuyển sang phương pháp thu nhập từ năm tiếp theo. Không mặc nhiên hồi tố 17% cho cả năm 2026; không làm tròn 3 tỷ+1 đồng.",
+      "must_not": [
+        "Hễ vượt 3 tỷ là hồi tố 17% cho 2026 bỏ qua chuyển tiếp",
+        "làm tròn 3 tỷ+1 thành 3 tỷ."
+      ],
+      "sources": [
+        "S04",
+        "S13"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L15",
+      "question": "Tôi đã áp dụng hợp lệ phương pháp thu nhập, doanh thu năm 2026 là 3.000.000.001 đồng, thu nhập tính thuế 400 triệu, cư trú và đủ NQ43. Thuế bao nhiêu?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Trong nhánh đã xác định phương pháp thu nhập, doanh thu vượt 3 tỷ thuộc dải 17%: 400 triệu×17%=68 triệu trước giảm; đủ NQ43 còn 47, 6 triệu. Giữ số chính xác.",
+      "must_not": [
+        "0, 5% trên doanh thu",
+        "làm tròn 3 tỷ",
+        "nhầm 15% vì sát mốc."
+      ],
+      "sources": [
+        "S04",
+        "S13",
+        "S14"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L16",
+      "question": "Trên app tôi thấy doanh thu 10 tỷ và 10 tỷ cộng 1 đồng. Chỉ xét NQ43, hai trường hợp khác nhau thế nào, 5 cửa hàng có cộng lại không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Đúng 10 tỷ đạt điều kiện doanh thu không quá 10 tỷ; 10 tỷ+1 không đạt. Tổng hợp theo cá nhân cả 5 cửa hàng, kênh khác nếu có; còn kiểm cá nhân cư trú, thu nhập kinh doanh, kỳ 2026/2027. Đây không phải ngưỡng miễn 1 tỷ.",
+      "must_not": [
+        "Mỗi cửa hàng 10 tỷ",
+        "lấy lợi nhuận thay doanh thu",
+        "trừ 1 tỷ trước khi so 10 tỷ."
+      ],
+      "sources": [
+        "S14",
+        "S04",
+        "S05"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L17",
+      "question": "Tổng doanh thu năm 2026 đúng 1 tỷ, chưa đăng ký hóa đơn tự nguyện. Có thể kết luận ngay bắt buộc HĐĐT chỉ vì “từ 1 tỷ” không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Không dùng câu “từ 1 tỷ” làm ngưỡng chung: đọc đủ khoản 5 Điều 8 đã sửa bởi NĐ141, câu đầu là trên 1 tỷ, diện tự nguyện là từ 1 tỷ trở xuống. Nhánh chuyển ngưỡng có câu chữ “trên 1 tỷ trở lên”; không bỏ khác biệt câu chữ khi phân loại trường hợp chạm đúng mốc. Phân biệt nghĩa vụ theo ngưỡng với trường hợp khác yêu cầu hóa đơn.",
+      "must_not": [
+        "Cứ đúng 1 tỷ là bắt buộc máy tính tiền",
+        "đúng 1 tỷ không bao giờ có trường hợp xuất hóa đơn nào."
+      ],
+      "sources": [
+        "S05",
+        "S07",
+        "S08"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L18",
+      "question": "Hộ khai theo quý, trước đây chưa trên 1 tỷ, lũy kế vượt ngưỡng ngày 20/08/2026. Hạn 30 ngày đăng ký hóa đơn tính từ 20/08 hay cuối quý?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Nhánh chuyển ngưỡng phù hợp thì 30 ngày từ ngày cuối cùng kỳ tính thuế có doanh thu lũy kế vượt 1 tỷ. Khai theo quý là mốc cuối quý III 30/09, không từ ngày 20/08; nếu nêu ngày nộp cuối cần kiểm quy tắc tính hạn/ngày nghỉ.",
+      "must_not": [
+        "30 ngày từ 20/08",
+        "nghĩa vụ phụ thuộc mới thu hết năm",
+        "dẫn sang Điều 9 NĐ141."
+      ],
+      "sources": [
+        "S05"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L19",
+      "question": "Tôi đang tự dùng S2a nhưng phương pháp thu nhập hợp lệ áp dụng năm nay. Doanh thu 50 tỷ đúng, thu nhập tính thuế 2 tỷ. Tôi phải áp 17% hay 20%?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Đúng 50 tỷ vẫn thuộc dải 17% trên thu nhập tính thuế, tức 340 triệu; không đủ mốc doanh thu 10 tỷ của NQ43. Việc tự chọn S2a không thay đổi phương pháp pháp lý, cần đối chiếu sổ theo TT152.",
+      "must_not": [
+        "20% tại đúng 50 tỷ",
+        "340 triệu còn giảm 30% NQ43",
+        " S2a là tự được theo 0, 5%."
+      ],
+      "sources": [
+        "S13",
+        "S14",
+        "S09"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L20",
+      "question": "Tờ khai hiển thị VAT 15 triệu trên doanh thu tạp hóa 1,5 tỷ. Giả định toàn bộ hàng đủ giảm 20% mức tỷ lệ 1%, con số đúng là bao nhiêu?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "B"
+      ],
+      "gold_answer": "GTGT=1, 5 tỷ×(1%×80%)=12 triệu. Số 15 triệu là trước giảm; đối chiếu chỉ tiêu và hồ sơ đúng kỳ, không chuyển sang TNCN để bỏ qua yêu cầu GTGT.",
+      "must_not": [
+        "Chỉ nói 15 triệu rồi TNCN",
+        "trừ 1 tỷ trước tính GTGT",
+        "yêu cầu chứng minh lại điều kiện đã giả định đúng."
+      ],
+      "sources": [
+        "S17",
+        "S04",
+        "S05"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L21",
+      "question": "Bảng TikTok ghi GMV 700 triệu, hoa hồng tôi được hưởng 70 triệu, tax giữ 5 triệu chưa rõ loại. Doanh thu của tôi là gì và chắc là đã nộp TNCN chưa?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL"
+      ],
+      "gold_answer": "Nếu bản chất affiliate là hoa hồng kinh doanh được hưởng, giữ doanh thu 70 triệu, không lấy GMV 700 triệu hoặc tiền ròng 65 triệu. Dòng tax 5 triệu chưa chứng minh loại thuế hay đã nộp thay; cần chứng từ/đối soát đúng chủ thể, kỳ, sắc thuế.",
+      "must_not": [
+        "Chỉ trả lời 70 triệu mà bỏ tax",
+        "5 triệu chắc chắn là TNCN đã nộp",
+        "GMV là doanh thu affiliate."
+      ],
+      "sources": [
+        "S04",
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L22",
+      "question": "Khoản tax 5 triệu trên sàn được chứng minh là GTGT. Tôi điền nó để giảm số TNCN phải nộp trên eTax được không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "B"
+      ],
+      "gold_answer": "Không tự trừ 5 triệu GTGT vào TNCN chỉ vì đều ở sàn. Đối chiếu nghĩa vụ và chứng từ từng sắc thuế; điều chỉnh/bù trừ khác loại chỉ theo thủ tục đủ điều kiện, có xử lý của hệ thống/cơ quan thuế, không nhập để giảm tùy ý.",
+      "must_not": [
+        "Gộp mọi tax để trừ TNCN",
+        "hướng dẫn sửa tờ khai sai sắc thuế."
+      ],
+      "sources": [
+        "S02",
+        "S06",
+        "S04"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L23",
+      "question": "Tôi đã nhập lương trả cho người vợ là thành viên hộ vào Excel, phần mềm chấp nhận chi phí. Như vậy chắc chắn được trừ TNCN chưa?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "C"
+      ],
+      "gold_answer": "Không: phần mềm chấp nhận không thay điểm c khoản 2 Điều 6 NĐ68 loại lương/công các thành viên HKD, trừ đóng góp bảo hiểm bắt buộc. Trong giả định vợ là thành viên, không lấy lương đã nhập vào chi phí được trừ chỉ vì có chuyển khoản.",
+      "must_not": [
+        "Có Excel/chuyển khoản là được trừ",
+        "bỏ qua đã xác định là thành viên."
+      ],
+      "sources": [
+        "S04",
+        "S09"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    },
+    {
+      "id": "L24",
+      "question": "eTax yêu cầu chọn mẫu hoàn nộp thừa. Tôi có dùng thông báo doanh thu 01/TKN-CNKD thay mọi hồ sơ hoàn hoặc quyết toán được không?",
+      "original_group": "LEGAL",
+      "candidate_chunks": [],
+      "added": true,
+      "expected_groups": [
+        "LEGAL",
+        "A"
+      ],
+      "gold_answer": "Không dùng 1 mẫu thay mọi nghĩa vụ; chọn nhánh theo phương pháp, kỳ, loại nộp thừa và hồ sơ theo TT89/NĐ252. Nếu quyết toán TNCN theo thu nhập dùng mẫu tương ứng 02/QTT-TNCN-CNKD; thông báo doanh thu độc lập, không hứa điền mẫu là hoàn ngay.",
+      "must_not": [
+        "01/TKN-CNKD thay toàn bộ hoàn/quyết toán",
+        "gửi thành công là đã duyệt hoàn."
+      ],
+      "sources": [
+        "S02",
+        "S06"
+      ],
+      "review_change": "Ca mới: kiểm tra một ranh giới/nghiệp vụ hoặc sự giao thoa riêng.",
+      "legal_gate_required": true,
+      "as_of": "2026-10-17",
+      "evaluation": "semantic_contract"
+    }
+  ]
+}

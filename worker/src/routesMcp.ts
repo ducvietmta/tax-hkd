@@ -100,12 +100,12 @@ export async function handleMcp(
           }, 200, corsHeaders);
         }
 
-        if (question.length > 4000) {
+        if (question.length > 50000) {
           return jsonResponse({
             jsonrpc: '2.0',
             id: rid,
             result: {
-              content: [{ type: 'text', text: 'Nội dung câu hỏi quá dài (tối đa 4.000 ký tự).' }],
+              content: [{ type: 'text', text: 'Nội dung câu hỏi quá dài (tối đa 50.000 ký tự).' }],
               isError: true
             }
           }, 200, corsHeaders);
@@ -113,17 +113,20 @@ export async function handleMcp(
 
         try {
           const chatRes = await handleChat(
-            new Request('https://internal/api/chat', {
+            new Request('https://tax-hkd.internal/api/chatgpt/tax-qa', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'X-Internal-Caller': 'mcp'
+                'X-Internal-Caller': 'mcp',
+                'CF-Connecting-IP': request.headers.get('CF-Connecting-IP') || 'unknown'
               },
               body: JSON.stringify({ message: question, history: toolArgs.history || [] })
             }),
             env,
             ctx,
-            corsHeaders
+            corsHeaders,
+            undefined,
+            'connector'
           );
 
           const chatData: any = await chatRes.json();
@@ -138,14 +141,15 @@ export async function handleMcp(
             }, 200, corsHeaders);
           }
 
+          const answerText = chatData.answer || chatData.response || 'Không tìm thấy câu trả lời phù hợp.';
           return jsonResponse({
             jsonrpc: '2.0',
             id: rid,
             result: {
-              content: [{ type: 'text', text: chatData.response || 'Không tìm thấy câu trả lời phù hợp.' }],
+              content: [{ type: 'text', text: answerText }],
               structuredContent: {
-                answer: chatData.response,
-                citations: chatData.citations || [],
+                answer: answerText,
+                citations: chatData.citations || chatData.legal_citations || [],
                 source: chatData.source,
                 retrieval: chatData.retrieval || null,
               },

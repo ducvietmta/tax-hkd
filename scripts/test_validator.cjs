@@ -11,7 +11,14 @@ function loadModule(relativePath, dependencies = {}) {
   const module = { exports: {} };
   new Function('require', 'module', 'exports', compiled)(
     (id) => {
-      if (!(id in dependencies)) throw new Error(`Unexpected import: ${id}`);
+      if (!(id in dependencies)) {
+ if(id.endsWith('/periodApplicability')||id.endsWith('/conversationHistory')) {
+  const p=path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id+'.ts');
+  const mod={exports:{}};new Function('module','exports',ts.transpileModule(fs.readFileSync(p,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(mod,mod.exports);return mod.exports;
+ }
+ if(id.endsWith('.json'))return {default:JSON.parse(fs.readFileSync(path.resolve(path.dirname(path.join(__dirname,'..',relativePath)),id),'utf8'))};
+ throw new Error(`Unexpected import: ${id}`);
+}
       return dependencies[id];
     },
     module,
@@ -119,22 +126,23 @@ runTest('Nq204_Shorthand_Pins_Current_Vat_Evidence', () => {
   assert.equal(filterAndGateEvidence([vatChunk], futureFrame).passedChunks.length, 0);
 });
 
-runTest('Validator_Repairs_30_Days_Invoice', () => {
+runTest('Validator_Flags_Invoice_Deadline_Without_Unmapped_Append', () => {
   const frame = understandQuery('Hộ kinh doanh khi nào phải dùng hóa đơn điện tử máy tính tiền?', { years: [2026], periodSource: 'current_default' });
   const rawAnswer = 'Hộ kinh doanh doanh thu trên 1 tỷ đồng phải sử dụng hóa đơn điện tử khởi tạo từ máy tính tiền.';
   const report = validateAnswer(rawAnswer, frame);
   assert.equal(report.status, 'REPAIR');
-  assert.ok(report.repairedText.includes('30 ngày'));
+  assert.equal(report.repairedText,rawAnswer);
+  assert.ok(report.reasons.some(reason=>reason.includes('30 ngày')));
 });
 
 // 4. Validator: Sửa Luật 38/2019
-runTest('Validator_Repairs_Luat38', () => {
+runTest('Validator_Flags_Luat38_Without_Inventing_Replacement', () => {
   const frame = understandQuery('Quy định hóa đơn điện tử máy tính tiền năm 2026', { years: [2026], periodSource: 'current_default' });
   const rawAnswer = 'Theo Luật Quản lý thuế 38/2019/QH14, hộ kinh doanh phải dùng hóa đơn điện tử máy tính tiền.';
   const report = validateAnswer(rawAnswer, frame);
   assert.equal(report.status, 'REPAIR');
-  assert.ok(!report.repairedText.includes('38/2019'));
-  assert.ok(report.repairedText.includes('Nghị định 68/2026/NĐ-CP'));
+  assert.equal(report.repairedText,rawAnswer);
+  assert.ok(report.reasons.some(reason=>reason.includes('38/2019')));
 });
 
 // 5. Validator: Cảnh báo bẫy phí sàn
@@ -143,7 +151,8 @@ runTest('Validator_Warns_Platform_Fee', () => {
   const rawAnswer = 'Thuế GTGT là 1% và TNCN là 0.5%.';
   const report = validateAnswer(rawAnswer, frame);
   assert.equal(report.status, 'REPAIR');
-  assert.ok(report.repairedText.includes('không được tự trừ khỏi doanh thu'));
+  assert.equal(report.repairedText,rawAnswer);
+  assert.ok(report.reasons.some(reason=>reason.includes('phí sàn')));
 });
 
 // 6. Validator: Cảnh báo tiền ship COD
@@ -152,7 +161,8 @@ runTest('Validator_Warns_COD_Shipping', () => {
   const rawAnswer = 'Doanh thu bán hàng tính thuế theo quy định.';
   const report = validateAnswer(rawAnswer, frame);
   assert.equal(report.status, 'REPAIR');
-  assert.ok(report.repairedText.includes('không tính vào doanh thu'));
+  assert.equal(report.repairedText,rawAnswer);
+  assert.ok(report.reasons.some(reason=>reason.includes('COD')));
 });
 
 // 7. Validator: Không phạt khi giải thích ngưỡng doanh thu GTGT lúc hỏi ranh giới TNCN (G071)
