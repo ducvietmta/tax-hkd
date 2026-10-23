@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 
 ROOT=Path(__file__).resolve().parents[1]
 data=json.loads((ROOT/'shared/websitePolicies.json').read_text(encoding='utf-8'))
-out=ROOT/'outputs/website-policies-final-2026-10-23';public=ROOT/'public/policies'
+out=ROOT/'outputs/website-policies-compact-2026-10-23';public=ROOT/'public/policies'
 out.mkdir(parents=True,exist_ok=True);public.mkdir(parents=True,exist_ok=True)
 owner=data['operator'];assert all(owner.get(k) for k in ['name','taxId','address','email','phone'])
 identity=[f"Chủ sở hữu {owner['name']} · Mã số thuế {owner['taxId']}",owner['address'],f"Email {owner['email']} · Hotline/Zalo {owner['phone']}",f"Website {data['website']} · Cập nhật 23/10/2026"]
@@ -26,7 +26,7 @@ styles={
  'body':ParagraphStyle('body',fontName='Arial',fontSize=10.5,leading=16,spaceAfter=8,allowWidows=0,allowOrphans=0),
 }
 def footer(canvas,doc):
- canvas.setFont('Arial',8);canvas.drawString(48,25,'TAX-HKD · Chính sách dịch vụ');canvas.drawRightString(A4[0]-48,25,f'Trang {doc.page}')
+ canvas.setFont('Arial',8);canvas.drawString(48,25,'Thuế HKD · Chính sách dịch vụ');canvas.drawRightString(A4[0]-48,25,f'Trang {doc.page}')
 paths=[];thumbs=[];report=[]
 for policy in data['policies']:
  stem=f"{policy['number']:02}-{policy['id']}";title=policy['title'];doc=Document();sec=doc.sections[0]
@@ -46,7 +46,7 @@ for policy in data['policies']:
  for i,section in enumerate(policy['sections'],1):
   heading=f"{i}. {section['heading']}";doc.add_heading(heading,level=1);story.append(Paragraph(escape(heading),styles['head']))
   for text in section['paragraphs']:doc.add_paragraph(text);story.append(Paragraph(escape(text),styles['body']))
- doc.sections[0].footer.paragraphs[0].text='TAX-HKD · '+title
+ doc.sections[0].footer.paragraphs[0].text='Thuế HKD · '+title
  docx_path=out/(stem+'.docx');pdf_path=out/(stem+'.pdf');doc.save(docx_path)
  SimpleDocTemplate(str(pdf_path),pagesize=A4,rightMargin=48,leftMargin=48,topMargin=42,bottomMargin=43).build(story,onFirstPage=footer,onLaterPages=footer)
  text='\n'.join(page.extract_text() for page in PdfReader(pdf_path).pages)
@@ -58,12 +58,14 @@ for policy in data['policies']:
  report.append({'file':stem,'pages':len(rendered),'characters':len(text)})
  files=[docx_path,pdf_path]
  contents=''.join('<section><h2>'+html.escape(str(i)+'. '+s['heading'])+'</h2>'+''.join('<p>'+html.escape(p)+'</p>' for p in s['paragraphs'])+'</section>' for i,s in enumerate(policy['sections'],1))
- page='<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+' | TAX-HKD</title><style>body{font:16px/1.75 Arial;margin:40px auto;padding:0 24px;max-width:850px;color:#17212b}h1{font-size:28px;line-height:1.35}h2{font-size:19px;margin-top:28px}small{color:#536170}a{color:#08775c}nav{display:flex;gap:16px;flex-wrap:wrap}@media print{nav{display:none}}</style><nav><a href="/">TAX-HKD</a><a href="'+stem+'.pdf">Tải PDF</a><a href="'+stem+'.docx">Tải Word</a><a href="TAX-HKD-6-chinh-sach.zip">Tải cả bộ</a></nav><h1>'+html.escape(title)+'</h1><small>'+'<br>'.join(map(html.escape,identity))+'</small>'+contents+'</html>'
+ page='<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+' | Thuế HKD</title><style>body{font:16px/1.75 Arial;margin:40px auto;padding:0 24px;max-width:850px;color:#17212b}h1{font-size:28px;line-height:1.35}h2{font-size:19px;margin-top:28px}small{color:#536170}a{color:#08775c}nav{display:flex;gap:16px;flex-wrap:wrap}@media print{nav{display:none}}</style><nav><a href="/">Thuế HKD</a><a href="'+stem+'.pdf">Tải PDF</a><a href="'+stem+'.docx">Tải Word</a><a href="THUE-HKD-6-chinh-sach.zip">Tải cả bộ</a></nav><h1>'+html.escape(title)+'</h1><small>'+'<br>'.join(map(html.escape,identity))+'</small>'+contents+'</html>'
  html_path=out/(stem+'.html');html_path.write_text(page,encoding='utf-8');files.append(html_path)
  for f in files:shutil.copy2(f,public/f.name);paths.append(f)
-with zipfile.ZipFile(out/'TAX-HKD-6-chinh-sach.zip','w',zipfile.ZIP_DEFLATED) as z:
+with zipfile.ZipFile(out/'THUE-HKD-6-chinh-sach.zip','w',zipfile.ZIP_DEFLATED) as z:
  for file in paths:z.write(file,file.name)
-shutil.copy2(out/'TAX-HKD-6-chinh-sach.zip',public/'TAX-HKD-6-chinh-sach.zip')
+shutil.copy2(out/'THUE-HKD-6-chinh-sach.zip',public/'THUE-HKD-6-chinh-sach.zip')
 sheet=Image.new('RGB',(960,480*((len(thumbs)+2)//3)),'#dddddd');draw=ImageDraw.Draw(sheet)
 for i,(label,pic) in enumerate(thumbs):x=(i%3)*320+10;y=(i//3)*480;draw.text((x,y+5),label,fill='black');sheet.paste(pic,(x,y+25))
 sheet.save(out/'visual-review.png');(out/'verification.json').write_text(json.dumps(report,indent=2),encoding='utf-8');print(json.dumps(report))
+
+shutil.copy2(public/'THUE-HKD-6-chinh-sach.zip',public/'TAX-HKD-6-chinh-sach.zip')

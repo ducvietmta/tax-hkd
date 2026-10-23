@@ -19,8 +19,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
           <div className="sm:col-span-2 space-y-4">
             <a href="#" className="inline-block">
               <img
-                src="/images/logo-horizontal.png"
-                alt="TaxHKD — Nền tảng AI Tư vấn Thuế Hộ kinh doanh thuehkd.com"
+                src="/images/logo-horizontal.png?v=20261023"
+                alt="Thuế HKD — Nền tảng AI Tư vấn Thuế Hộ kinh doanh thuehkd.com"
                 className="h-12 sm:h-14 md:h-16 w-auto object-contain"
               />
             </a>
@@ -134,10 +134,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
         <div className="pt-4 sm:pt-6 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 text-[11px] sm:text-[12px] text-slate-500">
           <div className="flex items-center gap-1.5 sm:gap-2">
             <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" />
-            <span>© 2026 TaxHKD Platform (thuehkd.com). AI GovTech cho Hộ kinh doanh.</span>
+            <span>© 2026 Thuế HKD Platform (thuehkd.com). AI GovTech cho Hộ kinh doanh.</span>
           </div>
           <p className="max-w-xl text-center md:text-right font-normal">
-            *Lưu ý: TaxHKD hỗ trợ tra cứu và tính toán nghĩa vụ thuế cho Hộ &amp; Cá nhân kinh doanh. Vui lòng đối chiếu với Thông tư gốc khi lập tờ khai chính thức.
+            *Lưu ý: Thuế HKD hỗ trợ tra cứu và tính toán nghĩa vụ thuế cho Hộ &amp; Cá nhân kinh doanh. Vui lòng đối chiếu với Thông tư gốc khi lập tờ khai chính thức.
           </p>
         </div>
       </div>

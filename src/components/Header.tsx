@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
         {/* Brand Logo */}
         <a href="#" className="flex items-center gap-2.5 group shrink-0 py-0.5">
           <img
-            src="/images/logo-horizontal.png"
+            src="/images/logo-horizontal.png?v=20261023"
             alt="TaxHKD — Trợ lý AI Tra cứu & Tính thuế Hộ kinh doanh"
             className="w-[148px] sm:w-[172px] xl:w-[180px] h-auto max-h-11 object-contain group-hover:scale-[1.02] transition-transform"
           />

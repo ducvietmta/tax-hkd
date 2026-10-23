@@ -48,11 +48,11 @@ function MainApp() {
       if (policy) {
         setActivePolicy(policy.id as PolicyType);
         setIsPolicyOpen(true);
-        document.title = policy.title + ' — TAX-HKD';
+        document.title = policy.title + ' — Thuế HKD';
       } else if (isRegRoute) {
-        document.title = 'Hướng dẫn Kê khai & Đăng ký Thuế Hộ kinh doanh (Mẫu 03-ĐKT) — TaxHKD';
+        document.title = 'Hướng dẫn Kê khai & Đăng ký Thuế Hộ kinh doanh (Mẫu 03-ĐKT) — Thuế HKD';
       } else {
-        document.title = 'TaxHKD — Trợ lý AI Tra cứu & Tính thuế Hộ kinh doanh, Cá nhân kinh doanh 2026';
+        document.title = 'Thuế HKD — Trợ lý AI Tra cứu & Tính thuế Hộ kinh doanh, Cá nhân kinh doanh 2026';
       }
     };
     handleHash();
