@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 
 ROOT=Path(__file__).resolve().parents[1]
 data=json.loads((ROOT/'shared/websitePolicies.json').read_text(encoding='utf-8'))
-out=ROOT/'outputs/website-policies-2026-10-23';public=ROOT/'public/policies'
+out=ROOT/'outputs/website-policies-final-2026-10-23';public=ROOT/'public/policies'
 out.mkdir(parents=True,exist_ok=True);public.mkdir(parents=True,exist_ok=True)
 owner=data['operator'];assert all(owner.get(k) for k in ['name','taxId','address','email','phone'])
 identity=[f"Chủ sở hữu {owner['name']} · Mã số thuế {owner['taxId']}",owner['address'],f"Email {owner['email']} · Hotline/Zalo {owner['phone']}",f"Website {data['website']} · Cập nhật 23/10/2026"]

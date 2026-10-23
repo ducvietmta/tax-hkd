@@ -1,6 +1,7 @@
 node_modules/
 dist/
 dist-policy-release/
+dist-policy-final/
 .wrangler/
 .agents/
 .env

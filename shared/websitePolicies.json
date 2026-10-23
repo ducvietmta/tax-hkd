@@ -1,48 +1,244 @@
 {
-  "version":"2026-10-23",
-  "operator":{"name":"Trần Đức Việt","taxId":"015094006404","address":"Số 9, ngách 52, ngõ 169 Đại Mỗ, Phường Nam Từ Liêm, Hà Nội","email":"contact@thuehkd.com","phone":"0965.999.594"},
-  "website":"https://thuehkd.com",
-  "policies":[
-    {"id":"privacy","number":1,"slug":"chinh-sach-bao-mat","title":"Chính sách bảo mật","sections":[
-      {"heading":"Phạm vi và mục đích","paragraphs":["TAX-HKD xử lý thông tin để cung cấp công cụ AI tra cứu thuế, hướng dẫn đăng ký, quản lý tài khoản và lượt hỏi, đối soát thanh toán, hỗ trợ khách hàng và bảo vệ hệ thống. Chính sách áp dụng cho website, các chức năng liên kết của TAX-HKD và yêu cầu hỗ trợ gửi qua kênh liên hệ công bố."]},
-      {"heading":"Thông tin được xử lý","paragraphs":["Dữ liệu có thể gồm số điện thoại đăng nhập, thông tin xác thực tài khoản, nội dung câu hỏi và hội thoại, tệp người dùng chủ động gửi, lựa chọn trong quy trình đăng ký, lịch sử lượt hỏi, nội dung yêu cầu tư vấn, dữ liệu giao dịch chuyển khoản và thông tin kỹ thuật như địa chỉ IP hoặc nhật ký lỗi. Một số tiến độ hướng dẫn và hội thoại có thể được lưu trong trình duyệt.","Không nhập mật khẩu ngân hàng, OTP, toàn bộ căn cước hoặc thông tin nhạy cảm không cần thiết vào chat. Khi cần đối soát giao dịch, chỉ cung cấp dữ liệu đủ nhận diện giao dịch qua kênh hỗ trợ chính thức. TAX-HKD không yêu cầu khách hàng cung cấp mật khẩu hay OTP ngân hàng."]},
-      {"heading":"Phạm vi sử dụng và bên tiếp nhận","paragraphs":["Nội dung cần thiết của câu hỏi, hội thoại và tài liệu liên quan có thể được chuyển tới nhà cung cấp AI để tạo hoặc kiểm tra câu trả lời. Hạ tầng phục vụ hiện tại gồm Meta Muse, nhà cung cấp phân loại/kiểm chứng JEV hoặc FPT khi áp dụng; Google Firebase cho xác thực; Cloudflare cho vận hành, lưu trữ; SePay và ngân hàng cho đối soát thanh toán. Một số dịch vụ có thể xử lý dữ liệu ngoài Việt Nam. Người dùng cần cân nhắc dữ liệu trước khi gửi; TAX-HKD có trách nhiệm thực hiện nghĩa vụ bảo vệ dữ liệu áp dụng.","Dữ liệu được tiếp cận bởi chủ sở hữu, nhân sự được giao xử lý hỗ trợ và các nhà cung cấp cần thiết trong phạm vi công việc. TAX-HKD không bán dữ liệu cá nhân; việc cung cấp theo yêu cầu hợp pháp của cơ quan có thẩm quyền được thực hiện theo quy định. Thông tin lấy từ danh bạ hỗ trợ được gắn nguồn và không được dùng để suy đoán người phụ trách hồ sơ."]},
-      {"heading":"Lưu trữ và bảo vệ","paragraphs":["Thông tin được giữ trong thời gian cần cho việc cung cấp dịch vụ, giải quyết yêu cầu và thực hiện nghĩa vụ lưu trữ theo pháp luật. Khi yêu cầu xóa được chấp nhận, dữ liệu không còn cần thiết được xóa hoặc hạn chế xử lý; chứng từ giao dịch và dữ liệu cần bảo lưu theo pháp luật có thể được giữ lại. Dữ liệu cục bộ trong trình duyệt cần được xóa tại thiết bị tương ứng.","TAX-HKD áp dụng xác thực tài khoản, phân quyền và các biện pháp bảo vệ đường truyền, hạ tầng phù hợp. Không có hệ thống nào bảo đảm an toàn tuyệt đối; khi có sự cố, TAX-HKD xử lý và thông báo theo nghĩa vụ áp dụng."]},
-      {"heading":"Quyền và cách gửi yêu cầu","paragraphs":["Người dùng có thể yêu cầu được biết, truy cập, sửa thông tin, rút lại sự đồng ý, hạn chế xử lý, xóa dữ liệu hoặc khiếu nại theo trường hợp pháp luật cho phép. Gửi yêu cầu đến contact@thuehkd.com hoặc hotline/Zalo 0965.999.594. TAX-HKD xác minh người yêu cầu bằng thông tin tối thiểu, thông báo phạm vi xử lý và lý do nếu chưa thể đáp ứng. Việc rút lại sự đồng ý có thể làm một số chức năng không tiếp tục cung cấp được.","Việc xử lý dữ liệu căn cứ vào mục đích đã thông báo, sự đồng ý hoặc căn cứ pháp luật phù hợp; không coi im lặng là đồng ý cho mục đích mới. Khi thay đổi mục đích hoặc phạm vi xử lý cần sự đồng ý, TAX-HKD thông báo và thực hiện thủ tục tương ứng trước khi áp dụng."]}
-    ]},
-    {"id":"complaints","number":2,"slug":"tiep-nhan-giai-quyet-khieu-nai","title":"Phương thức tiếp nhận và giải quyết phản ánh, yêu cầu, khiếu nại","sections":[
-      {"heading":"Kênh tiếp nhận","paragraphs":["Chủ sở hữu tiếp nhận phản ánh về tài khoản, thanh toán, lượt hỏi, chất lượng nội dung, dữ liệu cá nhân và việc cung cấp dịch vụ qua email contact@thuehkd.com hoặc hotline/Zalo 0965.999.594. Phản ánh về hồ sơ thuế đã nộp cần được cơ quan tiếp nhận hồ sơ xác nhận; TAX-HKD hỗ trợ tra cứu và chuẩn bị nội dung đề nghị, không giải quyết thay cơ quan thuế."]},
-      {"heading":"Thông tin cần cung cấp","paragraphs":["Nêu số điện thoại tài khoản hoặc cách liên hệ, chức năng gặp vấn đề, thời điểm, nội dung phản ánh và mong muốn xử lý. Với thanh toán: gửi mã giao dịch, số tiền và biên nhận đã che dữ liệu không liên quan. Với đáp án AI: gửi câu hỏi, nội dung cần kiểm tra và căn cứ hoặc ảnh lỗi nếu có. Không gửi mật khẩu hay OTP."]},
-      {"heading":"Trình tự xử lý","paragraphs":["Bước 1: tiếp nhận và xác nhận nội dung. Bước 2: đối chiếu dữ liệu tài khoản, lượt hỏi hoặc giao dịch; yêu cầu bổ sung đúng phần còn thiếu. Bước 3: thông báo nguyên nhân và phương án bằng email hoặc kênh khách hàng đã sử dụng. Bước 4: thực hiện khắc phục, ghi nhận ý kiến khách hàng và lưu kết quả đối soát."]},
-      {"heading":"Thời gian phản hồi","paragraphs":["Phản hồi tiếp nhận trong tối đa 4 giờ làm việc sau khi nhận được yêu cầu qua kênh công bố. Thời gian làm việc không bao gồm ngày nghỉ, ngày lễ theo quy định. Yêu cầu đơn giản được ưu tiên khắc phục trong 24–48 giờ làm việc sau khi đủ dữ liệu. Vụ việc cần xác minh thêm được thông báo tiến độ và thời gian dự kiến; việc thương lượng và thông báo kết quả tuân thủ thời hạn pháp luật áp dụng."]},
-      {"heading":"Thương lượng và quyền của khách hàng","paragraphs":["TAX-HKD tiếp nhận thiện chí, không thu phí tiếp nhận và không yêu cầu khách hàng từ bỏ quyền hợp pháp để được hỗ trợ. Nếu chưa thống nhất, các bên có thể tiếp tục thương lượng, đề nghị hòa giải, yêu cầu cơ quan bảo vệ người tiêu dùng hoặc cơ quan có thẩm quyền giải quyết. Chính sách không hạn chế quyền khởi kiện và các biện pháp bảo vệ khác được pháp luật cho phép."]}
-    ]},
-    {"id":"pricing","number":3,"slug":"chinh-sach-gia","title":"Chính sách giá","sections":[
-      {"heading":"Đơn vị tính và bảng giá","paragraphs":["Giá được công bố bằng đồng Việt Nam cho số lượt hỏi AI: Gói Cơ Bản 10 lượt — 49.000 đồng; Gói Chuyên Nghiệp 30 lượt — 99.000 đồng; Gói Doanh Nhân 100 lượt — 249.000 đồng. Gói 100 lượt không phải gói sử dụng không giới hạn. Tài khoản mới có 3 lượt trải nghiệm theo điều kiện hiển thị trên hệ thống.","Số tiền thanh toán là tổng giá trị gói hiển thị trước khi khách hàng chuyển khoản. TAX-HKD không thu thêm phí nền tảng ngoài giá gói; phí do ngân hàng hoặc nhà cung cấp của khách hàng thu, nếu có, áp dụng theo biểu phí của đơn vị đó. Nếu có khoản thuế hoặc chi phí phải cộng thêm, tổng phải trả phải được công bố trước khi khách hàng xác nhận; không thu bổ sung sau khi đã xác nhận giá."]},
-      {"heading":"Nội dung được mua","paragraphs":["Lượt hỏi là quyền sử dụng chức năng AI theo số dư tài khoản; không phải tiền gửi, ví điện tử, tài sản sinh lời hoặc khoản nộp thuế. Một lượt sử dụng được ghi nhận theo cơ chế của chức năng đang dùng. Lỗi kỹ thuật hoặc phản hồi không hoàn tất được đối soát và xử lý lượt theo chính sách cung cấp dịch vụ."]},
-      {"heading":"Thay đổi giá và ưu đãi","paragraphs":["Giá áp dụng cho giao dịch là mức được hiển thị khi khách hàng chọn gói và xác nhận thanh toán. Giá mới chỉ áp dụng cho giao dịch tiếp theo; không giảm số lượt đã mua chỉ vì thay đổi bảng giá. Ưu đãi, nếu có, phải công bố rõ thời gian, đối tượng và điều kiện. Mức giá gạch ngang hoặc so sánh chỉ sử dụng khi có căn cứ công bố phù hợp."]},
-      {"heading":"Hiệu lực lượt hỏi và dịch vụ khác","paragraphs":["Hiện hệ thống không áp dụng ngày hết hạn tự động đối với lượt hỏi đã cộng. Nếu thay đổi cách sử dụng hoặc dừng dịch vụ, TAX-HKD thông báo và xử lý quyền lợi còn lại theo chính sách cung cấp dịch vụ và quy định áp dụng. Yêu cầu hỗ trợ riêng hoặc tư vấn 1–1, nếu được cung cấp, cần được xác nhận rõ phạm vi và giá trước khi giao kết; không mặc nhiên nằm trong gói lượt hỏi."]}
-    ]},
-    {"id":"payment","number":4,"slug":"chinh-sach-thanh-toan","title":"Chính sách thanh toán","sections":[
-      {"heading":"Phương thức thanh toán","paragraphs":["Khách hàng thanh toán bằng chuyển khoản ngân hàng hoặc quét VietQR theo thông tin hiển thị tại chức năng nạp lượt. Hệ thống dùng SePay để đối soát giao dịch. Kiểm tra chủ tài khoản, ngân hàng, số tiền và nội dung chuyển khoản trên màn hình trước khi thực hiện. Không chuyển theo số tài khoản được gửi từ người tự xưng hỗ trợ nếu khác thông tin chính thức."]},
-      {"heading":"Quy trình","paragraphs":["Đăng nhập đúng tài khoản; chọn gói và kiểm tra số lượt, giá cùng chính sách; mở ứng dụng ngân hàng để quét QR/chuyển khoản; giữ nguyên nội dung nhận diện giao dịch; xác nhận trên ứng dụng ngân hàng; quay lại TAX-HKD kiểm tra số dư lượt và lưu biên nhận. Website không yêu cầu người dùng nhập mật khẩu, OTP hoặc thông tin thẻ ngân hàng."]},
-      {"heading":"Xác nhận thanh toán và cộng lượt","paragraphs":["Giao dịch được ghi nhận khi tiền đã vào tài khoản nhận và dữ liệu đối soát xác định được đúng tài khoản người dùng. Tốc độ cộng lượt phụ thuộc ngân hàng và hệ thống đối soát; không coi ảnh biên nhận riêng lẻ là đã hoàn tất cộng lượt. Nếu sau 15 phút chưa thấy số dư thay đổi, gửi mã giao dịch, thời điểm, số tiền và số điện thoại tài khoản cho kênh hỗ trợ; không chuyển lại ngay để tránh trùng."]},
-      {"heading":"Sai hoặc trùng giao dịch","paragraphs":["Sai nội dung, thiếu tiền hoặc chuyển thừa được kiểm tra theo dữ liệu thực nhận; TAX-HKD thông báo cách ghi nhận gói hoặc xử lý chênh lệch để khách hàng xác nhận. Khoản thu trùng, thu sai hoặc chưa hình thành giao dịch cung cấp dịch vụ được đối soát riêng, không tự coi toàn bộ là lượt đã sử dụng. Việc xử lý tiền áp dụng chính sách cung cấp, chấm dứt dịch vụ và các nghĩa vụ pháp luật liên quan."]},
-      {"heading":"Chứng từ và liên hệ","paragraphs":["Khách hàng lưu biên nhận ngân hàng và thông tin gói mua. Khi cần chứng từ giao dịch hoặc hóa đơn theo trường hợp áp dụng, liên hệ contact@thuehkd.com hoặc 0965.999.594 để cung cấp thông tin cần thiết. TAX-HKD không yêu cầu thanh toán thuế qua tài khoản nạp lượt và không thu hộ tiền thuế cho cơ quan nhà nước."]}
-    ]},
-    {"id":"terms","number":5,"slug":"dieu-khoan-su-dung","title":"Các điều kiện hoặc hạn chế trong việc cung cấp dịch vụ trên nền tảng","sections":[
-      {"heading":"Phạm vi dịch vụ","paragraphs":["TAX-HKD cung cấp công cụ AI hỗ trợ tra cứu kiến thức thuế, tính toán theo dữ kiện, hướng dẫn đăng ký và tra cứu liên hệ hỗ trợ. Website không phải cổng cơ quan nhà nước; không tự nộp, ký hồ sơ, cấp giấy phép hoặc bảo đảm cơ quan thuế chấp nhận kết quả. Các dịch vụ đại diện hoặc tư vấn riêng chỉ thực hiện nếu có thỏa thuận và điều kiện hợp pháp tương ứng."]},
-      {"heading":"Điều kiện truy cập","paragraphs":["Người dùng cần thiết bị, trình duyệt và kết nối Internet phù hợp; một số chức năng yêu cầu đăng nhập số điện thoại và số dư lượt. Người dùng chịu trách nhiệm về quyền sử dụng tài khoản và dữ liệu gửi; người chưa đủ năng lực giao dịch cần người đại diện phù hợp. Tài khoản không được sử dụng trái phép, chia sẻ thông tin đăng nhập công khai hoặc dùng để vượt giới hạn hệ thống."]},
-      {"heading":"Giới hạn của AI và dữ liệu","paragraphs":["Câu trả lời phụ thuộc dữ kiện, thời kỳ pháp luật và nguồn có thể truy xuất; AI có thể thiếu hoặc sai. Người dùng kiểm tra nội dung quan trọng, thời hạn và tình trạng hồ sơ trước khi hành động. Chức năng chỉ rõ phần chưa xác minh khi chưa đủ nguồn. Không cam kết độ chính xác tuyệt đối, kết quả tiết kiệm thuế hoặc thay thế quyết định của cơ quan có thẩm quyền. Giới hạn này không loại trừ trách nhiệm phải thực hiện của bên cung cấp theo pháp luật.","Mã ngành là gợi ý cần xác nhận theo hoạt động thực tế; danh bạ là dữ liệu tham khảo có nguồn, không chứng minh cán bộ được chỉ định xử lý hồ sơ. Nhánh chưa được hỗ trợ hoặc đang hoàn thiện được thông báo tại chức năng tương ứng."]},
-      {"heading":"Hành vi bị hạn chế","paragraphs":["Không khai thác trái phép dữ liệu người khác, gửi nội dung vi phạm pháp luật, giả mạo, phát tán mã độc, dò quét, phá hệ thống, vượt xác thực hoặc tự động hóa gây quá tải. Không dùng kết quả để lập hồ sơ giả hoặc che giấu giao dịch. TAX-HKD có thể giới hạn tần suất hoặc tạm dừng truy cập khi cần bảo vệ hệ thống; thông báo lý do và kênh phản hồi khi phù hợp, không tự tước các quyền hợp pháp của khách hàng."]},
-      {"heading":"Thay đổi và trách nhiệm","paragraphs":["Bảo trì, lỗi hạ tầng hoặc thay đổi nhà cung cấp có thể ảnh hưởng tạm thời. TAX-HKD thông báo khi có thể, tiếp nhận phản ánh và khắc phục. Thay đổi chính sách được công bố kèm thời điểm; không tự áp dụng hồi tố để giảm quyền lợi đã giao kết. Nghĩa vụ thanh toán, bảo vệ dữ liệu và giải quyết tranh chấp thực hiện theo các chính sách liên quan và pháp luật Việt Nam."]}
-    ]},
-    {"id":"refund","number":6,"slug":"chinh-sach-hoan-tien","title":"Phương thức cung cấp dịch vụ, chính sách chấm dứt dịch vụ và hoàn tiền","sections":[
-      {"heading":"Phương thức cung cấp","paragraphs":["TAX-HKD cung cấp dịch vụ số trực tuyến qua tài khoản người dùng: lượt hỏi được cộng sau khi đối soát thanh toán; nội dung AI được hiển thị trên website khi gửi yêu cầu. Không giao hàng vật lý và không phát sinh phí vận chuyển. Người dùng kiểm tra số dư, kết quả phản hồi và thông báo hệ thống; việc gửi câu hỏi chưa đồng nghĩa đã nhận dịch vụ hoàn tất."]},
-      {"heading":"Lỗi cung cấp và hoàn lượt","paragraphs":["Nếu bị gián đoạn kỹ thuật, không nhận được phản hồi hoàn tất hoặc số lượt bị trừ không phù hợp, khách hàng gửi thông tin qua kênh hỗ trợ để đối soát. Hệ thống có cơ chế hoàn lượt ở các trường hợp lỗi được xác định; khi chưa tự khôi phục, TAX-HKD kiểm tra và cộng bù phần bị trừ sai. Hoàn lượt là khôi phục quyền sử dụng, không đồng nghĩa hoàn tiền mặt. Nội dung có sai sót được tiếp nhận để kiểm tra, sửa và xử lý quyền lợi theo mức độ cùng quy định áp dụng."]},
-      {"heading":"Chính sách không hoàn tiền theo yêu cầu tự nguyện","paragraphs":["TAX-HKD không hỗ trợ đổi lượt đã mua thành tiền hoặc hoàn tiền chỉ vì khách hàng đổi ý, không còn nhu cầu hay chưa sử dụng hết, khi dịch vụ đã được cung cấp theo thỏa thuận. Lượt trải nghiệm hoặc được tặng không có giá trị quy đổi thành tiền. Khách hàng đọc giá, phạm vi và giới hạn trước khi thanh toán.","Quy định không hoàn tiền không áp dụng để giữ khoản thu trùng, thu sai hoặc loại bỏ nghĩa vụ xử lý khi dịch vụ không được cung cấp đúng thỏa thuận; cũng không hạn chế quyền bắt buộc của người tiêu dùng theo pháp luật. Các trường hợp này được đối soát và xử lý riêng, gồm hoàn trả khoản phải hoàn nếu phát sinh nghĩa vụ. Không bắt khách hàng nhận lượt bù thay tiền khi pháp luật yêu cầu hoàn tiền."]},
-      {"heading":"Chấm dứt sử dụng hoặc ngừng cung cấp","paragraphs":["Khách hàng có thể ngừng sử dụng và gửi yêu cầu đóng tài khoản; cần giải quyết giao dịch hoặc phản ánh còn tồn trước khi đóng. Việc khách hàng tự ngừng sử dụng không tự phát sinh quyền hoàn tiền ngoài trường hợp pháp luật hoặc thỏa thuận có quy định. Nếu TAX-HKD ngừng cung cấp vĩnh viễn hoặc không thể tiếp tục thực hiện phần dịch vụ đã bán, TAX-HKD thông báo và xử lý phần quyền lợi chưa thực hiện theo thỏa thuận hợp pháp và quy định áp dụng."]},
-      {"heading":"Cách yêu cầu xử lý","paragraphs":["Gửi số điện thoại tài khoản, mã giao dịch hoặc thời điểm sử dụng, số lượt/số tiền liên quan và nội dung đề nghị tới contact@thuehkd.com hoặc 0965.999.594. Không gửi OTP hay mật khẩu. Thời gian tiếp nhận, đối soát và phản hồi áp dụng chính sách phản ánh, yêu cầu, khiếu nại. Khi xác định có khoản phải hoàn, TAX-HKD xác nhận phương thức và thời gian thực hiện, ưu tiên trả về nguồn thanh toán đã xác minh."]}
-    ]}
+  "version": "2026-10-23",
+  "operator": {
+    "name": "Trần Đức Việt",
+    "taxId": "015094006404",
+    "address": "Số 9, ngách 52, ngõ 169 Đại Mỗ, Phường Nam Từ Liêm, Hà Nội",
+    "email": "contact@thuehkd.com",
+    "phone": "0965.999.594"
+  },
+  "website": "https://thuehkd.com",
+  "policies": [
+    {
+      "id": "privacy",
+      "number": 1,
+      "slug": "chinh-sach-bao-mat",
+      "title": "Chính sách bảo mật",
+      "sections": [
+        {
+          "heading": "Phạm vi và mục đích",
+          "paragraphs": [
+            "TAX-HKD xử lý thông tin để cung cấp công cụ AI tra cứu thuế, hướng dẫn đăng ký, quản lý tài khoản và lượt hỏi, đối soát thanh toán, hỗ trợ khách hàng và bảo vệ hệ thống. Chính sách áp dụng cho website, các chức năng liên kết của TAX-HKD và yêu cầu hỗ trợ gửi qua kênh liên hệ công bố."
+          ]
+        },
+        {
+          "heading": "Thông tin được xử lý",
+          "paragraphs": [
+            "Dữ liệu có thể gồm số điện thoại đăng nhập, thông tin xác thực tài khoản, nội dung câu hỏi và hội thoại, tệp người dùng chủ động gửi, lựa chọn trong quy trình đăng ký, lịch sử lượt hỏi, nội dung yêu cầu tư vấn, dữ liệu giao dịch chuyển khoản và thông tin kỹ thuật như địa chỉ IP hoặc nhật ký lỗi. Một số tiến độ hướng dẫn và hội thoại có thể được lưu trong trình duyệt.",
+            "Không nhập mật khẩu ngân hàng, OTP, toàn bộ căn cước hoặc thông tin nhạy cảm không cần thiết vào chat. Khi cần đối soát giao dịch, chỉ cung cấp dữ liệu đủ nhận diện giao dịch qua kênh hỗ trợ chính thức. TAX-HKD không yêu cầu khách hàng cung cấp mật khẩu hay OTP ngân hàng."
+          ]
+        },
+        {
+          "heading": "Phạm vi sử dụng và bên tiếp nhận",
+          "paragraphs": [
+            "Nội dung cần thiết của câu hỏi, hội thoại và tài liệu liên quan có thể được chuyển tới nhà cung cấp AI để tạo hoặc kiểm tra câu trả lời. Hạ tầng phục vụ hiện tại gồm Meta Muse, nhà cung cấp phân loại/kiểm chứng JEV hoặc FPT khi áp dụng; Google Firebase cho xác thực; Cloudflare cho vận hành, lưu trữ; SePay và ngân hàng cho đối soát thanh toán. Một số dịch vụ có thể xử lý dữ liệu ngoài Việt Nam. Người dùng cần cân nhắc dữ liệu trước khi gửi; TAX-HKD có trách nhiệm thực hiện nghĩa vụ bảo vệ dữ liệu áp dụng.",
+            "Dữ liệu được tiếp cận bởi chủ sở hữu, nhân sự được giao xử lý hỗ trợ và các nhà cung cấp cần thiết trong phạm vi công việc. TAX-HKD không bán dữ liệu cá nhân; việc cung cấp theo yêu cầu hợp pháp của cơ quan có thẩm quyền được thực hiện theo quy định. Thông tin lấy từ danh bạ hỗ trợ được gắn nguồn và không được dùng để suy đoán người phụ trách hồ sơ."
+          ]
+        },
+        {
+          "heading": "Lưu trữ và bảo vệ",
+          "paragraphs": [
+            "Thông tin được giữ trong thời gian cần cho việc cung cấp dịch vụ, giải quyết yêu cầu và thực hiện nghĩa vụ lưu trữ theo pháp luật. Khi yêu cầu xóa được chấp nhận, dữ liệu không còn cần thiết được xóa hoặc hạn chế xử lý; chứng từ giao dịch và dữ liệu cần bảo lưu theo pháp luật có thể được giữ lại. Dữ liệu cục bộ trong trình duyệt cần được xóa tại thiết bị tương ứng.",
+            "TAX-HKD áp dụng xác thực tài khoản, phân quyền và các biện pháp bảo vệ đường truyền, hạ tầng phù hợp. Không có hệ thống nào bảo đảm an toàn tuyệt đối; khi có sự cố, TAX-HKD xử lý và thông báo theo nghĩa vụ áp dụng."
+          ]
+        },
+        {
+          "heading": "Quyền và cách gửi yêu cầu",
+          "paragraphs": [
+            "Người dùng có thể yêu cầu được biết, truy cập, sửa thông tin, rút lại sự đồng ý, hạn chế xử lý, xóa dữ liệu hoặc khiếu nại theo trường hợp pháp luật cho phép. Gửi yêu cầu đến contact@thuehkd.com hoặc hotline/Zalo 0965.999.594. TAX-HKD xác minh người yêu cầu bằng thông tin tối thiểu, thông báo phạm vi xử lý và lý do nếu chưa thể đáp ứng. Việc rút lại sự đồng ý có thể làm một số chức năng không tiếp tục cung cấp được.",
+            "Việc xử lý dữ liệu căn cứ vào mục đích đã thông báo, sự đồng ý hoặc căn cứ pháp luật phù hợp; không coi im lặng là đồng ý cho mục đích mới. Khi thay đổi mục đích hoặc phạm vi xử lý cần sự đồng ý, TAX-HKD thông báo và thực hiện thủ tục tương ứng trước khi áp dụng."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "complaints",
+      "number": 2,
+      "slug": "tiep-nhan-giai-quyet-khieu-nai",
+      "title": "Phương thức tiếp nhận và giải quyết phản ánh, yêu cầu, khiếu nại",
+      "sections": [
+        {
+          "heading": "Kênh tiếp nhận",
+          "paragraphs": [
+            "Chủ sở hữu tiếp nhận phản ánh về tài khoản, thanh toán, lượt hỏi, chất lượng nội dung, dữ liệu cá nhân và việc cung cấp dịch vụ qua email contact@thuehkd.com hoặc hotline/Zalo 0965.999.594. Phản ánh về hồ sơ thuế đã nộp cần được cơ quan tiếp nhận hồ sơ xác nhận; TAX-HKD hỗ trợ tra cứu và chuẩn bị nội dung đề nghị, không giải quyết thay cơ quan thuế."
+          ]
+        },
+        {
+          "heading": "Thông tin cần cung cấp",
+          "paragraphs": [
+            "Nêu số điện thoại tài khoản hoặc cách liên hệ, chức năng gặp vấn đề, thời điểm, nội dung phản ánh và mong muốn xử lý. Với thanh toán: gửi mã giao dịch, số tiền và biên nhận đã che dữ liệu không liên quan. Với đáp án AI: gửi câu hỏi, nội dung cần kiểm tra và căn cứ hoặc ảnh lỗi nếu có. Không gửi mật khẩu hay OTP."
+          ]
+        },
+        {
+          "heading": "Trình tự xử lý",
+          "paragraphs": [
+            "Bước 1: tiếp nhận và xác nhận nội dung. Bước 2: đối chiếu dữ liệu tài khoản, lượt hỏi hoặc giao dịch; yêu cầu bổ sung đúng phần còn thiếu. Bước 3: thông báo nguyên nhân và phương án bằng email hoặc kênh khách hàng đã sử dụng. Bước 4: thực hiện khắc phục, ghi nhận ý kiến khách hàng và lưu kết quả đối soát."
+          ]
+        },
+        {
+          "heading": "Thời gian phản hồi",
+          "paragraphs": [
+            "Phản hồi tiếp nhận trong tối đa 4 giờ làm việc sau khi nhận được yêu cầu qua kênh công bố. Thời gian làm việc không bao gồm ngày nghỉ, ngày lễ theo quy định. Yêu cầu đơn giản được ưu tiên khắc phục trong 24–48 giờ làm việc sau khi đủ dữ liệu. Vụ việc cần xác minh thêm được thông báo tiến độ và thời gian dự kiến; việc thương lượng và thông báo kết quả tuân thủ thời hạn pháp luật áp dụng."
+          ]
+        },
+        {
+          "heading": "Thương lượng và quyền của khách hàng",
+          "paragraphs": [
+            "TAX-HKD tiếp nhận thiện chí, không thu phí tiếp nhận và không yêu cầu khách hàng từ bỏ quyền hợp pháp để được hỗ trợ. Nếu chưa thống nhất, các bên có thể tiếp tục thương lượng, đề nghị hòa giải, yêu cầu cơ quan bảo vệ người tiêu dùng hoặc cơ quan có thẩm quyền giải quyết. Chính sách không hạn chế quyền khởi kiện và các biện pháp bảo vệ khác được pháp luật cho phép."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pricing",
+      "number": 3,
+      "slug": "chinh-sach-gia",
+      "title": "Chính sách giá",
+      "sections": [
+        {
+          "heading": "Đơn vị tính và bảng giá",
+          "paragraphs": [
+            "Hiện chức năng nạp lượt đang tạm khóa trong thời gian hoàn thiện thủ tục website. Chỉ thanh toán khi chức năng được mở chính thức; không chuyển tiền theo đề nghị ngoài luồng. ",
+            "Giá được công bố bằng đồng Việt Nam cho số lượt hỏi AI: Gói Cơ Bản 10 lượt — 49.000 đồng; Gói Chuyên Nghiệp 30 lượt — 99.000 đồng; Gói Doanh Nhân 100 lượt — 249.000 đồng. Gói 100 lượt không phải gói sử dụng không giới hạn. Tài khoản mới có 3 lượt trải nghiệm theo điều kiện hiển thị trên hệ thống.",
+            "Số tiền thanh toán là tổng giá trị gói hiển thị trước khi khách hàng chuyển khoản. TAX-HKD không thu thêm phí nền tảng ngoài giá gói; phí do ngân hàng hoặc nhà cung cấp của khách hàng thu, nếu có, áp dụng theo biểu phí của đơn vị đó. Nếu có khoản thuế hoặc chi phí phải cộng thêm, tổng phải trả phải được công bố trước khi khách hàng xác nhận; không thu bổ sung sau khi đã xác nhận giá."
+          ]
+        },
+        {
+          "heading": "Nội dung được mua",
+          "paragraphs": [
+            "Lượt hỏi là quyền sử dụng chức năng AI theo số dư tài khoản; không phải tiền gửi, ví điện tử, tài sản sinh lời hoặc khoản nộp thuế. Một lượt sử dụng được ghi nhận theo cơ chế của chức năng đang dùng. Lỗi kỹ thuật hoặc phản hồi không hoàn tất được đối soát và xử lý lượt theo chính sách cung cấp dịch vụ."
+          ]
+        },
+        {
+          "heading": "Thay đổi giá và ưu đãi",
+          "paragraphs": [
+            "Giá áp dụng cho giao dịch là mức được hiển thị khi khách hàng chọn gói và xác nhận thanh toán. Giá mới chỉ áp dụng cho giao dịch tiếp theo; không giảm số lượt đã mua chỉ vì thay đổi bảng giá. Ưu đãi, nếu có, phải công bố rõ thời gian, đối tượng và điều kiện. Mức giá gạch ngang hoặc so sánh chỉ sử dụng khi có căn cứ công bố phù hợp."
+          ]
+        },
+        {
+          "heading": "Hiệu lực lượt hỏi và dịch vụ khác",
+          "paragraphs": [
+            "Hiện hệ thống không áp dụng ngày hết hạn tự động đối với lượt hỏi đã cộng. Nếu thay đổi cách sử dụng hoặc dừng dịch vụ, TAX-HKD thông báo và xử lý quyền lợi còn lại theo chính sách cung cấp dịch vụ và quy định áp dụng. Yêu cầu hỗ trợ riêng hoặc tư vấn 1–1, nếu được cung cấp, cần được xác nhận rõ phạm vi và giá trước khi giao kết; không mặc nhiên nằm trong gói lượt hỏi."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "number": 4,
+      "slug": "chinh-sach-thanh-toan",
+      "title": "Chính sách thanh toán",
+      "sections": [
+        {
+          "heading": "Phương thức thanh toán",
+          "paragraphs": [
+            "Hiện chức năng nạp lượt đang tạm khóa trong thời gian hoàn thiện thủ tục website. Chỉ thanh toán khi chức năng được mở chính thức; không chuyển tiền theo đề nghị ngoài luồng. ",
+            "Khách hàng thanh toán bằng chuyển khoản ngân hàng hoặc quét VietQR theo thông tin hiển thị tại chức năng nạp lượt. Hệ thống dùng SePay để đối soát giao dịch. Kiểm tra chủ tài khoản, ngân hàng, số tiền và nội dung chuyển khoản trên màn hình trước khi thực hiện. Không chuyển theo số tài khoản được gửi từ người tự xưng hỗ trợ nếu khác thông tin chính thức."
+          ]
+        },
+        {
+          "heading": "Quy trình",
+          "paragraphs": [
+            "Đăng nhập đúng tài khoản; chọn gói và kiểm tra số lượt, giá cùng chính sách; mở ứng dụng ngân hàng để quét QR/chuyển khoản; giữ nguyên nội dung nhận diện giao dịch; xác nhận trên ứng dụng ngân hàng; quay lại TAX-HKD kiểm tra số dư lượt và lưu biên nhận. Website không yêu cầu người dùng nhập mật khẩu, OTP hoặc thông tin thẻ ngân hàng."
+          ]
+        },
+        {
+          "heading": "Xác nhận thanh toán và cộng lượt",
+          "paragraphs": [
+            "Giao dịch được ghi nhận khi tiền đã vào tài khoản nhận và dữ liệu đối soát xác định được đúng tài khoản người dùng. Tốc độ cộng lượt phụ thuộc ngân hàng và hệ thống đối soát; không coi ảnh biên nhận riêng lẻ là đã hoàn tất cộng lượt. Nếu sau 15 phút chưa thấy số dư thay đổi, gửi mã giao dịch, thời điểm, số tiền và số điện thoại tài khoản cho kênh hỗ trợ; không chuyển lại ngay để tránh trùng."
+          ]
+        },
+        {
+          "heading": "Sai hoặc trùng giao dịch",
+          "paragraphs": [
+            "Sai nội dung, thiếu tiền hoặc chuyển thừa được kiểm tra theo dữ liệu thực nhận; TAX-HKD thông báo cách ghi nhận gói hoặc xử lý chênh lệch để khách hàng xác nhận. Khoản thu trùng, thu sai hoặc chưa hình thành giao dịch cung cấp dịch vụ được đối soát riêng, không tự coi toàn bộ là lượt đã sử dụng. Việc xử lý tiền áp dụng chính sách cung cấp, chấm dứt dịch vụ và các nghĩa vụ pháp luật liên quan."
+          ]
+        },
+        {
+          "heading": "Chứng từ và liên hệ",
+          "paragraphs": [
+            "Khách hàng lưu biên nhận ngân hàng và thông tin gói mua. Khi cần chứng từ giao dịch hoặc hóa đơn theo trường hợp áp dụng, liên hệ contact@thuehkd.com hoặc 0965.999.594 để cung cấp thông tin cần thiết. TAX-HKD không yêu cầu thanh toán thuế qua tài khoản nạp lượt và không thu hộ tiền thuế cho cơ quan nhà nước."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terms",
+      "number": 5,
+      "slug": "dieu-khoan-su-dung",
+      "title": "Các điều kiện hoặc hạn chế trong việc cung cấp dịch vụ trên nền tảng",
+      "sections": [
+        {
+          "heading": "Phạm vi dịch vụ",
+          "paragraphs": [
+            "TAX-HKD cung cấp công cụ AI hỗ trợ tra cứu kiến thức thuế, tính toán theo dữ kiện, hướng dẫn đăng ký và tra cứu liên hệ hỗ trợ. Website không phải cổng cơ quan nhà nước; không tự nộp, ký hồ sơ, cấp giấy phép hoặc bảo đảm cơ quan thuế chấp nhận kết quả. Các dịch vụ đại diện hoặc tư vấn riêng chỉ thực hiện nếu có thỏa thuận và điều kiện hợp pháp tương ứng."
+          ]
+        },
+        {
+          "heading": "Điều kiện truy cập",
+          "paragraphs": [
+            "Người dùng cần thiết bị, trình duyệt và kết nối Internet phù hợp; một số chức năng yêu cầu đăng nhập số điện thoại và số dư lượt. Người dùng chịu trách nhiệm về quyền sử dụng tài khoản và dữ liệu gửi; người chưa đủ năng lực giao dịch cần người đại diện phù hợp. Tài khoản không được sử dụng trái phép, chia sẻ thông tin đăng nhập công khai hoặc dùng để vượt giới hạn hệ thống."
+          ]
+        },
+        {
+          "heading": "Giới hạn của AI và dữ liệu",
+          "paragraphs": [
+            "Câu trả lời phụ thuộc dữ kiện, thời kỳ pháp luật và nguồn có thể truy xuất; AI có thể thiếu hoặc sai. Người dùng kiểm tra nội dung quan trọng, thời hạn và tình trạng hồ sơ trước khi hành động. Chức năng chỉ rõ phần chưa xác minh khi chưa đủ nguồn. Không cam kết độ chính xác tuyệt đối, kết quả tiết kiệm thuế hoặc thay thế quyết định của cơ quan có thẩm quyền. Giới hạn này không loại trừ trách nhiệm phải thực hiện của bên cung cấp theo pháp luật.",
+            "Mã ngành là gợi ý cần xác nhận theo hoạt động thực tế; danh bạ là dữ liệu tham khảo có nguồn, không chứng minh cán bộ được chỉ định xử lý hồ sơ. Nhánh chưa được hỗ trợ hoặc đang hoàn thiện được thông báo tại chức năng tương ứng."
+          ]
+        },
+        {
+          "heading": "Hành vi bị hạn chế",
+          "paragraphs": [
+            "Không khai thác trái phép dữ liệu người khác, gửi nội dung vi phạm pháp luật, giả mạo, phát tán mã độc, dò quét, phá hệ thống, vượt xác thực hoặc tự động hóa gây quá tải. Không dùng kết quả để lập hồ sơ giả hoặc che giấu giao dịch. TAX-HKD có thể giới hạn tần suất hoặc tạm dừng truy cập khi cần bảo vệ hệ thống; thông báo lý do và kênh phản hồi khi phù hợp, không tự tước các quyền hợp pháp của khách hàng."
+          ]
+        },
+        {
+          "heading": "Thay đổi và trách nhiệm",
+          "paragraphs": [
+            "Bảo trì, lỗi hạ tầng hoặc thay đổi nhà cung cấp có thể ảnh hưởng tạm thời. TAX-HKD thông báo khi có thể, tiếp nhận phản ánh và khắc phục. Thay đổi chính sách được công bố kèm thời điểm; không tự áp dụng hồi tố để giảm quyền lợi đã giao kết. Nghĩa vụ thanh toán, bảo vệ dữ liệu và giải quyết tranh chấp thực hiện theo các chính sách liên quan và pháp luật Việt Nam."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refund",
+      "number": 6,
+      "slug": "chinh-sach-hoan-tien",
+      "title": "Phương thức cung cấp dịch vụ, chính sách chấm dứt dịch vụ và hoàn tiền",
+      "sections": [
+        {
+          "heading": "Phương thức cung cấp",
+          "paragraphs": [
+            "TAX-HKD cung cấp dịch vụ số trực tuyến qua tài khoản người dùng: lượt hỏi được cộng sau khi đối soát thanh toán; nội dung AI được hiển thị trên website khi gửi yêu cầu. Không giao hàng vật lý và không phát sinh phí vận chuyển. Người dùng kiểm tra số dư, kết quả phản hồi và thông báo hệ thống; việc gửi câu hỏi chưa đồng nghĩa đã nhận dịch vụ hoàn tất."
+          ]
+        },
+        {
+          "heading": "Lỗi cung cấp và hoàn lượt",
+          "paragraphs": [
+            "Nếu bị gián đoạn kỹ thuật, không nhận được phản hồi hoàn tất hoặc số lượt bị trừ không phù hợp, khách hàng gửi thông tin qua kênh hỗ trợ để đối soát. Hệ thống có cơ chế hoàn lượt ở các trường hợp lỗi được xác định; khi chưa tự khôi phục, TAX-HKD kiểm tra và cộng bù phần bị trừ sai. Hoàn lượt là khôi phục quyền sử dụng, không đồng nghĩa hoàn tiền mặt. Nội dung có sai sót được tiếp nhận để kiểm tra, sửa và xử lý quyền lợi theo mức độ cùng quy định áp dụng."
+          ]
+        },
+        {
+          "heading": "Chính sách không hoàn tiền theo yêu cầu tự nguyện",
+          "paragraphs": [
+            "TAX-HKD không hỗ trợ đổi lượt đã mua thành tiền hoặc hoàn tiền chỉ vì khách hàng đổi ý, không còn nhu cầu hay chưa sử dụng hết, khi dịch vụ đã được cung cấp theo thỏa thuận. Lượt trải nghiệm hoặc được tặng không có giá trị quy đổi thành tiền. Khách hàng đọc giá, phạm vi và giới hạn trước khi thanh toán.",
+            "Quy định không hoàn tiền không áp dụng để giữ khoản thu trùng, thu sai hoặc loại bỏ nghĩa vụ xử lý khi dịch vụ không được cung cấp đúng thỏa thuận; cũng không hạn chế quyền bắt buộc của người tiêu dùng theo pháp luật. Các trường hợp này được đối soát và xử lý riêng, gồm hoàn trả khoản phải hoàn nếu phát sinh nghĩa vụ. Không bắt khách hàng nhận lượt bù thay tiền khi pháp luật yêu cầu hoàn tiền."
+          ]
+        },
+        {
+          "heading": "Chấm dứt sử dụng hoặc ngừng cung cấp",
+          "paragraphs": [
+            "Khách hàng có thể ngừng sử dụng và gửi yêu cầu đóng tài khoản; cần giải quyết giao dịch hoặc phản ánh còn tồn trước khi đóng. Việc khách hàng tự ngừng sử dụng không tự phát sinh quyền hoàn tiền ngoài trường hợp pháp luật hoặc thỏa thuận có quy định. Nếu TAX-HKD ngừng cung cấp vĩnh viễn hoặc không thể tiếp tục thực hiện phần dịch vụ đã bán, TAX-HKD thông báo và xử lý phần quyền lợi chưa thực hiện theo thỏa thuận hợp pháp và quy định áp dụng."
+          ]
+        },
+        {
+          "heading": "Cách yêu cầu xử lý",
+          "paragraphs": [
+            "Gửi số điện thoại tài khoản, mã giao dịch hoặc thời điểm sử dụng, số lượt/số tiền liên quan và nội dung đề nghị tới contact@thuehkd.com hoặc 0965.999.594. Không gửi OTP hay mật khẩu. Thời gian tiếp nhận, đối soát và phản hồi áp dụng chính sách phản ánh, yêu cầu, khiếu nại. Khi xác định có khoản phải hoàn, TAX-HKD xác nhận phương thức và thời gian thực hiện, ưu tiên trả về nguồn thanh toán đã xác minh."
+          ]
+        }
+      ]
+    }
   ]
 }
