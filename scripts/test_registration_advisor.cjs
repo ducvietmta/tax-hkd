@@ -12,7 +12,6 @@ function load(file){
 const {handleRegistrationAdvisor:handle}=load('worker/src/registrationAdvisor.ts');
 const {readRegistrationModelStream:parse}=load('worker/src/registrationModelStream.ts');
 const advisor=load('shared/registrationAdvisor.ts');
-const {SUBJECT_SCOPE_POLICY}=load('worker/src/decision/registrationScope.ts');
 const originalFetch=global.fetch;let credits=3,calls=[],pending=[];
 const env={MUSE_API_KEY:'offline-fixture',DB:{prepare(sql){
  return {bind(phone){
@@ -41,9 +40,18 @@ async function main(){
  assert.equal((await handle(request({message:'x'.repeat(64001)}),env,ctx,cors)).status,400);
  limited=true;assert.equal((await handle(request(),env,ctx,cors)).status,429);limited=false;
  credits=0;assert.equal((await handle(request(),env,ctx,cors)).status,403);credits=3;
- const response=await handle(request(),env,ctx,cors);assert.equal(response.headers.get('X-Assistant-Flow'),'registration-direct-v1');
- const events=await all(response);assert.equal(events.find(e=>e.type==='done').fullText,'Ghi hoạt động thực tế.');assert.equal(credits,2);assert.equal(calls.length,1);assert(calls[0].instructions.includes(SUBJECT_SCOPE_POLICY),'Independent advisor must preserve the same subject boundary without adding model calls');
+ const history=[{role:'user',content:'Tôi chọn đăng ký thuế cá nhân, nộp qua web, đã xác nhận ngành sửa máy tính.'},{role:'assistant',content:'Bạn đang xem phần điền ngành nghề.'}];
+ const response=await handle(request({history}),env,ctx,cors);assert.equal(response.headers.get('X-Assistant-Flow'),'registration-direct-v1');
+ const events=await all(response);assert.equal(events.find(e=>e.type==='done').fullText,'Ghi hoạt động thực tế.');assert.equal(credits,2);assert.equal(calls.length,1);
+ assert.equal(calls[0].instructions,advisor.registrationAdvisorInstructions(3),'Use compact wizard policy, independently of tax-chat review policies');
+ assert.match(calls[0].instructions,/Giữ riêng đăng ký thuế cá nhân và thành lập hộ/);
+ assert.match(calls[0].instructions,/KHÔNG bắt buộc dẫn điều luật/);
+ const compact=advisor.registrationAdvisorInstructions(0),form=advisor.registrationAdvisorInstructions(3);
+ assert(compact.length<3000&&form.length<5000,'Bound the repeated source pack');
+ assert(!compact.includes('Ô TRÊN MẪU THUẾ'));assert(form.includes('III.4'));
+ assert(!compact.includes('DANH MỤC')&&!form.includes('VÍ DỤ ĐIỀN CÁC NHÓM Ô'));
  const call=calls[0];assert.equal(call.stream,true);assert.equal(call.reasoning.effort,'minimal');assert.equal(call.store,false);assert.equal(call.max_output_tokens,2600);
+ assert.deepEqual(call.input.slice(0,-1).map(t=>({role:t.role,content:t.content[0].text})),history,'Token reduction must preserve previously confirmed choices');
  assert.match(call.instructions,/03-ĐKT/);assert.match(call.input.at(-1).content[0].text,/III\.4/);assert.equal(call.input.at(-1).content[1].text,'Ô này điền gì?');
  assert(!events.some(e=>e.type==='progress'&&['classifying','reviewing','repairing'].includes(e.stage)));
 

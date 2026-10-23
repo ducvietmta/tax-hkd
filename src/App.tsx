@@ -11,6 +11,7 @@ import { AuthModal } from './components/AuthModal';
 import { DepositModal } from './components/DepositModal';
 import { AuroraBackground } from './components/AuroraBackground';
 import { Reveal } from './components/Reveal';
+import websitePolicies from '../shared/websitePolicies.json';
 import type { PolicyType } from './components/PolicyModal';
 import { AuthProvider } from './context/AuthContext';
 import { useHashRoute } from './features/registration/hooks/useHashRoute';
@@ -43,22 +44,11 @@ function MainApp() {
   useEffect(() => {
     const handleHash = () => {
       const h = window.location.hash;
-      if (h === '#/chinh-sach-bao-mat' || h === '#/privacy') {
-        setActivePolicy('privacy');
+      const policy = websitePolicies.policies.find(p=>h==='#/'+p.slug||h==='#/'+p.id);
+      if (policy) {
+        setActivePolicy(policy.id as PolicyType);
         setIsPolicyOpen(true);
-        document.title = 'Chính sách bảo mật thông tin — TaxHKD (thuehkd.com)';
-      } else if (h === '#/dieu-khoan-su-dung' || h === '#/terms') {
-        setActivePolicy('terms');
-        setIsPolicyOpen(true);
-        document.title = 'Điều khoản dịch vụ & Quy chế hoạt động — TaxHKD';
-      } else if (h === '#/chinh-sach-thanh-toan' || h === '#/payment') {
-        setActivePolicy('payment');
-        setIsPolicyOpen(true);
-        document.title = 'Chính sách thanh toán — TaxHKD';
-      } else if (h === '#/chinh-sach-hoan-tien' || h === '#/refund') {
-        setActivePolicy('refund');
-        setIsPolicyOpen(true);
-        document.title = 'Chính sách hoàn tiền & Giải quyết khiếu nại — TaxHKD';
+        document.title = policy.title + ' — TAX-HKD';
       } else if (isRegRoute) {
         document.title = 'Hướng dẫn Kê khai & Đăng ký Thuế Hộ kinh doanh (Mẫu 03-ĐKT) — TaxHKD';
       } else {
@@ -201,7 +191,7 @@ function MainApp() {
         onClose={() => {
           setIsPolicyOpen(false);
           const h = window.location.hash;
-          if (['#/chinh-sach-bao-mat', '#/dieu-khoan-su-dung', '#/chinh-sach-thanh-toan', '#/chinh-sach-hoan-tien', '#/privacy', '#/terms', '#/payment', '#/refund'].includes(h)) {
+          if (websitePolicies.policies.some(p=>h==='#/'+p.slug||h==='#/'+p.id)) {
             history.replaceState(null, '', window.location.pathname + window.location.search);
           }
         }}

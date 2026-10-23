@@ -4,6 +4,7 @@ import { TAXPAYER_TYPES, TAX_INTENTS, INCOME_TYPES, type TaxpayerType, type TaxI
 import type { ConversationTurn } from '../conversation';
 import { reviewerPacket, type GroundingPacket } from './claimGrounding';
 import { REGISTRATION_SCOPE_POLICY,SUBJECT_SCOPE_POLICY } from './registrationScope';
+import { PROCEDURAL_EVIDENCE_POLICY } from './proceduralEvidencePolicy';
 import { SCOPE_CHECKS, evaluateScopeAssessment, type ScopeAssessment } from './scopeAssessment';
 import { auditGrounding, canReuseClaimReview, reviewContextKey, type PriorClaimReview } from './reviewIntegrity';
 
@@ -193,7 +194,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
     // Apply independently of topic: a mistaken registration label must not let
     // the reviewer certify an answer to a different procedure.
     questions.coverage.instructions += '\n' + REGISTRATION_SCOPE_POLICY + ' Nếu đáp án chỉ kết luận miễn đăng ký hộ mà chưa giải quyết đăng ký thuế cá nhân được hỏi thì INCOMPLETE. Tự gán tính chất hoạt động hoặc đổi thu nhập thành doanh thu là sai dữ kiện, không phải phần giải thích bổ sung.';
-    questions.evidence.instructions+='\n'+SUBJECT_SCOPE_POLICY;
+    questions.evidence.instructions+='\n'+SUBJECT_SCOPE_POLICY+' Kiểm viện dẫn nếu đáp án có nêu: đúng văn bản chưa đủ, phải đúng điều/khoản/điểm được viện dẫn. Không tự đổi hoặc bổ sung căn cứ để cứu bản nháp. Chỉ sử dụng bằng chứng được cung cấp.\n'+PROCEDURAL_EVIDENCE_POLICY;
     if(semantic?.answerPurpose==='DEFINITION'){
       questions.coverage.instructions='Kiểm đúng yêu cầu giải thích khái niệm: COMPLETE khi đã định nghĩa trực tiếp, đúng phạm vi trong nguồn. Không đòi tính thuế, hồ sơ, thời hạn hoặc ví dụ khi không được hỏi. Ranh giới giữa các chủ thể giúp hiểu khái niệm được chấp nhận; không thay định nghĩa bằng thủ tục.';
     }
@@ -245,9 +246,9 @@ export class JevDecisionProvider implements DecisionModelProvider {
       EXPENSE_BASIS: 'Chưa có chi phí/thu nhập tính thuế hợp lệ; không chọn khi người dùng đã giả định phần còn lại sau loại trùng/cá nhân là hợp lệ.',
       OTHER_EVIDENCE: 'Thiếu nguồn pháp luật để đối chiếu; hỏi thêm người dùng không giải quyết được.',
     } };
-    if (semantic) questions.citations = { type:'choice', instructions: isAbcGroup
+    if (semantic) questions.citations = { type:'choice', instructions: PROCEDURAL_EVIDENCE_POLICY+'\n'+(isAbcGroup
         ? 'Đối chiếu các viện dẫn trong đáp án với bằng chứng. Với câu hỏi thủ tục đăng ký/gỡ lỗi/phần mềm thuế (nhóm A/B/C), được phép viện dẫn tài liệu hướng dẫn, công văn (như 311/TCT-DNNCN, 7403/CT-TMĐT), mã thủ tục hành chính (như 1.008499), biểu mẫu hoặc tên cổng thuế/ứng dụng (eTax Mobile, canhantmdt.gdt.gov.vn, thuedientu.gdt.gov.vn) có trong bằng chứng mà KHÔNG bắt buộc phải có điều/khoản luật. Chỉ INCOMPLETE khi bịa tên văn bản/tài liệu không có trong bằng chứng hoặc dẫn sai điều khoản.'
-        : 'Đối chiếu TỪNG điều/khoản/điểm trong đáp án (kể cả mục căn cứ) với bằng chứng. Điều 10 khoản 2 dẫn Phụ lục I không có nghĩa khoản 2 Phụ lục I. Viện dẫn đúng văn bản nhưng sai điều/nhánh vẫn INCOMPLETE. Không có điều khoản tương ứng trong bằng chứng thì UNCERTAIN, không đoán theo kiến thức riêng.',
+        : 'Đối chiếu TỪNG điều/khoản/điểm nếu có trong đáp án (kể cả mục căn cứ) với bằng chứng. Viện dẫn đúng văn bản nhưng sai điều/nhánh vẫn INCOMPLETE. Có viện dẫn nhưng thiếu nguồn tương ứng thì UNCERTAIN, không đoán theo kiến thức riêng. Không có viện dẫn tường minh không tự là lỗi; nội dung vẫn được kiểm ở evidence.'),
       criteria:{COMPLETE:'Mọi viện dẫn (văn bản luật hoặc tài liệu hướng dẫn/cổng thuế) đúng cấu trúc và nội dung tương ứng trong bằng chứng.',INCOMPLETE:'Có viện dẫn sai điều/khoản/nhánh hoặc bịa tài liệu không có trong bằng chứng.',UNCERTAIN:'Không đủ nguồn đối chiếu.'} };
     for (const [key, instructions] of Object.entries(checks)) questions[key] = { type:'choice', instructions,
       criteria:{ COMPLETE:'Đã giải quyết đầy đủ theo nguồn.', INCOMPLETE:'Thiếu ý hoặc khẳng định trái nguồn.', NOT_APPLICABLE:'Câu hỏi không yêu cầu nghiệp vụ này.', UNCERTAIN:'Không đủ căn cứ đánh giá.' } };
@@ -279,6 +280,10 @@ export class JevDecisionProvider implements DecisionModelProvider {
         instructions:`Đối chiếu riêng yêu cầu ${requirement.id}: ${JSON.stringify(requirement)} với câu hỏi gốc, lịch sử, bằng chứng và đáp án. Kiểm nhánh điều kiện nguyên văn, từng dữ kiện, sắc thuế và trước/sau giảm. COMPLETE chỉ khi đã giải quyết đầy đủ nhánh này; không mượn kết quả của nhánh khác. Đối chiếu cả danh sách nhánh với câu hỏi gốc; nếu kế hoạch bỏ nhánh thực sự được hỏi thì INCOMPLETE.`,
         criteria:{COMPLETE:'Đã giải quyết riêng và đầy đủ với dữ kiện đúng nhánh hoặc nêu cụ thể căn cứ/dữ kiện còn thiếu.',INCOMPLETE:'Thiếu nhánh, phép tính hoặc trộn dữ kiện giữa các nhánh.',UNCERTAIN:'Không đủ căn cứ kiểm chứng.'}};
     }
+    // Shared policy appears once; per-claim questions retain independent verdicts.
+    if (grounding?.claims.some(claim => claim.kind !== 'CITATIONS')) {
+      questions.evidence.instructions += '\nCHÍNH SÁCH CHUNG CHO TẤT CẢ claim_*: ' + "Trước hết đối chiếu với chính câu hỏi và yêu cầu được ánh xạ: đoạn phải trực tiếp giải quyết điều người dùng hỏi. Một thông tin đúng nhưng lạc trọng tâm và không giúp giải quyết yêu cầu phải IRRELEVANT; không đủ để trả như đáp án một phần. Điều kiện áp dụng, định nghĩa thành phần và ranh giới chủ thể cần để hiểu câu trả lời vẫn có liên quan; kiểm nguồn như bình thường. Câu hỏi định nghĩa cần giải thích khái niệm, không thay bằng cách tính doanh thu/ngưỡng/thủ tục. Mapping do model sinh là KHÔNG TIN CẬY: đọc đúng evidence_id, kiểm toàn bộ điều kiện, ngoại lệ, kỳ và dữ kiện. COMPLETE chỉ khi đoạn độc lập, đúng mục đích, có nguồn và viện dẫn đúng; không chấm đúng chỉ vì số tiền hoặc tên văn bản đúng.";
+    }
     if(grounding)for(const claim of grounding.claims){
       if(claim.kind==='CITATIONS')continue; // The existing citations check reviews this whole block.
       if(semantic?.answerPurpose==='DEFINITION')questions[`role_${claim.id}`]={type:'choice',
@@ -288,7 +293,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
       if(!invalidClaims.has(claim.id)&&canReuseClaimReview(claim,prior,this.lastReviewContextKey!)){
         this.lastReviewClaims[claim.id]={choice:prior!.choice,confidence:prior!.confidence};continue;
       }
-      questions[`claim_${claim.id}`]={type:'choice',instructions:`Kiểm độc lập kết luận ${claim.id} trong grounding. Trước hết đối chiếu với chính câu hỏi và yêu cầu được ánh xạ: đoạn phải trực tiếp giải quyết điều người dùng hỏi. Một thông tin đúng nhưng lạc trọng tâm và không giúp giải quyết yêu cầu phải IRRELEVANT; không đủ để trả như đáp án một phần. Điều kiện áp dụng, định nghĩa thành phần và ranh giới chủ thể cần để hiểu câu trả lời vẫn có liên quan; kiểm nguồn như bình thường. Câu hỏi định nghĩa cần giải thích khái niệm, không thay bằng cách tính doanh thu/ngưỡng/thủ tục. Mapping do model sinh là KHÔNG TIN CẬY: đọc đúng evidence_id, kiểm toàn bộ điều kiện, ngoại lệ, kỳ và dữ kiện. COMPLETE chỉ khi đoạn độc lập, đúng mục đích, có nguồn và viện dẫn đúng; không chấm đúng chỉ vì số tiền hoặc tên văn bản đúng.`,criteria:{COMPLETE:'Trực tiếp giải quyết yêu cầu được hỏi; mọi khẳng định độc lập có căn cứ và đúng điều kiện/dữ kiện/kỳ.',IRRELEVANT:'Thông tin có thể đúng nhưng không giải quyết yêu cầu thực sự được hỏi.',CONTRADICTED:'Kết luận hoặc căn cứ trái nguồn/điều kiện/kỳ.',INVENTED:'Khẳng định dữ kiện thực không được cung cấp.',INCOMPLETE:'Không có mapping hợp lệ hoặc thiếu nguồn/điều kiện cần thiết.',UNCERTAIN:'Chưa đủ chắc chắn để xác minh.'}};
+      questions[`claim_${claim.id}`]={type:'choice',instructions:`Kiểm độc lập kết luận ${claim.id} trong grounding theo CHÍNH SÁCH CHUNG CHO TẤT CẢ claim_* ở questions.evidence.instructions. Trả phán quyết riêng cho claim này.`,criteria:{COMPLETE:'Trực tiếp giải quyết yêu cầu được hỏi; mọi khẳng định độc lập có căn cứ và đúng điều kiện/dữ kiện/kỳ.',IRRELEVANT:'Thông tin có thể đúng nhưng không giải quyết yêu cầu thực sự được hỏi.',CONTRADICTED:'Kết luận hoặc căn cứ trái nguồn/điều kiện/kỳ.',INVENTED:'Khẳng định dữ kiện thực không được cung cấp.',INCOMPLETE:'Không có mapping hợp lệ hoặc thiếu nguồn/điều kiện cần thiết.',UNCERTAIN:'Chưa đủ chắc chắn để xác minh.'}};
     }
     const answers = await this.ask({ ...this.state(question, history), answer, evidence,...(grounding?{grounding:reviewerPacket(grounding)}:{}) }, questions);
     if (!answers) return null;
@@ -364,7 +369,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
       ACCOUNTING_RETENTION: 'Hỏi lưu chứng từ/sổ bao lâu, giữ giấy hay điện tử, mất dữ liệu hoặc thuê người ghi sổ và bàn giao lưu trữ. Chọn sổ theo phương pháp hoặc điều kiện trừ chi phí là câu hỏi khác.',
       INVOICE_USAGE: 'Cách dùng/thay đổi/ngừng/ủy nhiệm hóa đơn; loại bán hàng hay GTGT, máy tính tiền/có mã, thời điểm lập khi giao hàng/cung cấp/nghiệm thu/đối soát, thông tin người mua/chữ ký/XML, dịch vụ miễn phí và xử lý nghĩa vụ khi sự cố. Gồm hóa đơn từng lần trong kỳ nghỉ và ngoại lệ nội dung số nước ngoài. Nghĩa vụ/hạn đăng ký khi vượt ngưỡng thuộc INVOICE_REGISTRATION; sửa hóa đơn đã sai thuộc INVOICE_CORRECTION; hỏi nút bấm/lỗi kỹ thuật trên cổng thuộc PORTAL_TROUBLESHOOTING.',
       NOT_APPLICABLE:'Không có trọng tâm thuộc các nghiệp vụ trên; không ép phân loại chỉ vì có từ tạm nghỉ, hóa đơn, nợ hoặc chi phí.'}};
-    questions.business_registration = { type: 'choice', instructions: 'Phân biệt đăng ký mới, chấm dứt hẳn và thao tác/gỡ lỗi hệ thống theo ngữ nghĩa toàn câu. Đổi địa chỉ, tạm nghỉ, khôi phục và nghiệp vụ chuyên biệt đã có trong operational_topic thì chọn NOT_APPLICABLE ở đây. Không dò từ khóa; miễn thuế và tính thuế là nghiệp vụ riêng.', criteria: {
+    questions.business_registration = { type: 'choice', instructions: 'Phân biệt đăng ký mới, chấm dứt hẳn và thao tác/gỡ lỗi hệ thống theo ngữ nghĩa toàn câu. Hỏi có cần cấp mã thuế mới khi đã có mã/định danh là TAX_REGISTRATION; việc mở hoạt động mới chỉ là bối cảnh, không tự đổi thành hỏi thành lập hộ hoặc hướng dẫn bấm nút. Đổi địa chỉ, tạm nghỉ, khôi phục và nghiệp vụ chuyên biệt đã có trong operational_topic thì chọn NOT_APPLICABLE ở đây. Không dò từ khóa; miễn thuế và tính thuế là nghiệp vụ riêng.', criteria: {
       BUSINESS_CESSATION: 'Muốn dừng hẳn hoạt động kinh doanh, hủy đăng ký hoạt động cá nhân/hộ, chấm dứt nghĩa vụ hoặc hiệu lực mã thuế kinh doanh; hỏi hồ sơ, độ khó, thời gian hay ảnh hưởng tới mã thuế cá nhân khi nghỉ kinh doanh. Hiểu mục đích kể cả diễn đạt đời thường, không dựa vào một từ đăng ký. Không chọn khi chỉ tạm nghỉ rồi bán lại, hủy một tờ khai/hóa đơn, hoặc muốn hủy hồ sơ đăng ký chưa hoàn tất. Lỗi kỹ thuật khi nộp hồ sơ vẫn là PORTAL_TROUBLESHOOTING.',
       REGISTRATION_REQUIREMENTS: 'Hỏi tổng quát cần đăng ký gì, chuẩn bị thủ tục gì để bắt đầu một hoạt động kiếm thu nhập; chưa giới hạn đăng ký kinh doanh hay thuế. Cần giải thích các luồng đăng ký và điều kiện trước khi hỏi làm rõ. Đây là nhu cầu thủ tục, không phải tính số tiền thuế.',
       BUSINESS_REGISTRATION: 'Hỏi có phải thành lập/đăng ký hộ, doanh nghiệp hay được miễn đăng ký kinh doanh không; trọng tâm là nghĩa vụ kinh doanh.',

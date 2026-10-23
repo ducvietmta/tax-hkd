@@ -1,11 +1,5246 @@
 {
-  "version": "2026-10-22-draft",
+  "version": "2026-10-23-import",
+  "source": "danhba_rag_export.json",
+  "quality": "Imported user-provided directory; not independently reverified.",
+  "inputRows": 10395,
+  "acceptedRows": 402,
+  "retainedRows": 9993,
   "offices": [
     {
+      "id": "tm-t-chi-cuc-thue-tm-t",
+      "name": "CHI CỤC THUẾ TMĐT",
+      "unit": "CHI CỤC THUẾ TMĐT",
+      "aliases": [
+        "CHI CỤC THUẾ TMĐT"
+      ],
+      "email": "chicucthuetmdt@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "chicucthuetmdt@gdt.gov.vn",
+          "phone": "0559541768",
+          "sourceFiles": [
+            "dot2_trang1a_tmdt_dnl_quangninh.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-1",
+      "name": "Thuế cơ sở 1 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 1 tỉnh An Giang"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "qlhtdn_rgi.kv20@gdt.gov.vn",
+          "phone": "02973815601",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "qlhtcnhkd_rgi.kv20@gdt.gov.vn",
+          "phone": "02973868307",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-2",
+      "name": "Thuế cơ sở 2 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 2 tỉnh An Giang"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ntcuong.kgi@gdt.gov.vn",
+          "phone": "0989799566",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ladung.kgi@gdt.gov.vn",
+          "phone": "0918123727",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "tkhung.kgi@gdt.gov.vn",
+          "phone": "0918499505",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "thphuong.kgi@gdt.gov.vn",
+          "phone": "0939009077",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "htdung01.kgi@gdt.gov.vn",
+          "phone": "0985013165",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "tahhanh.kgi@gdt.gov.vn",
+          "phone": "0988233531",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "nthuy1.kgi@gdt.gov.vn",
+          "phone": "0945091311",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-3",
+      "name": "Thuế cơ sở 3 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 3 tỉnh An Giang"
+      ],
+      "email": "thuecs3.agi@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs3.agi@gdt.gov.vn",
+          "phone": "02973950399",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-4",
+      "name": "Thuế cơ sở 4 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 4 tỉnh An Giang"
+      ],
+      "email": "thuecs4.agi@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs4.agi@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-5",
+      "name": "Thuế cơ sở 5 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 5 tỉnh An Giang"
+      ],
+      "email": "dvnhat01.kgi@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "dvnhat01.kgi@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-7",
+      "name": "Thuế cơ sở 7 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 7 tỉnh An Giang"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ToKTRA1_LXU_AGI@gdt.gov.vn",
+          "phone": "02963847067",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ToQLDN1_LXU_AGI@gdt.gov.vn",
+          "phone": "02963846690",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ToQLHKD1_LXU_AGI@gdt.gov.vn",
+          "phone": "02963931228",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-8",
+      "name": "Thuế cở sở 8 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cở sở 8 tỉnh An Giang"
+      ],
+      "email": "thueCS8.agi@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thueCS8.agi@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-9",
+      "name": "Thuế cơ sở 9 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 9 tỉnh An Giang"
+      ],
+      "email": "vhviet1.agi@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "vhviet1.agi@gdt.gov.vn",
+          "phone": "0918272262",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-co-so-11",
+      "name": "Thuế cơ sở 11 tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế cơ sở 11 tỉnh An Giang"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "htbngan.agi@gdt.gov.vn",
+          "phone": "0919929366",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "lttung.agi@gdt.gov.vn",
+          "phone": "0965065765",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ntbinh1.agi@gdt.gov.vn",
+          "phone": "0968074707",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "hvthanh1.agi@gdt.gov.vn",
+          "phone": "0918825333",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "an-giang-thue-tinh-an-giang",
+      "name": "Thuế tỉnh An Giang",
+      "unit": "THUẾ TỈNH AN GIANG",
+      "aliases": [
+        "Thuế tỉnh An Giang"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "pvdung.agi@gdt.gov.vn",
+          "phone": "0913779559",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "lqvu.kgi@gdt.gov.vn",
+          "phone": "0908030344",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "lvtam.kgi@gdt.gov.vn",
+          "phone": "0911191915",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ltson02.kgi@gdt.gov.vn",
+          "phone": "0977556848",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "qldnso1.kgi@gdt.gov.vn",
+          "phone": "02973863393",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ntmtuyen.agi@gdt.gov.vn",
+          "phone": "02963942258",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "htthao.agi@gdt.gov.vn",
+          "phone": "0983797194",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ntvy.agi@gdt.gov.vn",
+          "phone": "0908911915",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ottuan.agi@gdt.gov.vn",
+          "phone": "0915105681",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "nttruc.agi@gdt.gov.vn",
+          "phone": "0939854811",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ca-mau-co-so-5",
+      "name": "(đơn vị) Thuế cơ sở 5 tỉnh Cà Mau",
+      "unit": "THUẾ TỈNH CÀ MAU",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 5 tỉnh Cà Mau"
+      ],
+      "email": "thuecoso5.cma@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso5.cma@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cao-bang-co-so-1",
+      "name": "Thuế cơ sở 1 · THUẾ TỈNH CAO BẰNG",
+      "unit": "THUẾ TỈNH CAO BẰNG",
+      "aliases": [
+        "Thuế cơ sở 1"
+      ],
+      "email": "tthoa.cba@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tthoa.cba@gdt.gov.vn",
+          "phone": "0889756423",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cao-bang-co-so-2",
+      "name": "Thuế cơ sở 2 · THUẾ TỈNH CAO BẰNG",
+      "unit": "THUẾ TỈNH CAO BẰNG",
+      "aliases": [
+        "Thuế cơ sở 2"
+      ],
+      "email": "dthien.cba@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "dthien.cba@gdt.gov.vn",
+          "phone": "0347502616",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cao-bang-co-so-3",
+      "name": "Thuế cơ sở 3 · THUẾ TỈNH CAO BẰNG",
+      "unit": "THUẾ TỈNH CAO BẰNG",
+      "aliases": [
+        "Thuế cơ sở 3"
+      ],
+      "email": "hhoai.cba@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "hhoai.cba@gdt.gov.vn",
+          "phone": "0919774525",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cao-bang-co-so-4",
+      "name": "Thuế cơ sở 4 · THUẾ TỈNH CAO BẰNG",
+      "unit": "THUẾ TỈNH CAO BẰNG",
+      "aliases": [
+        "Thuế cơ sở 4"
+      ],
+      "email": "hvan.cba@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "hvan.cba@gdt.gov.vn",
+          "phone": "0972420945",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-1",
+      "name": "(đơn vị) Thuế cơ sở 1 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 1 tỉnh Đắk Lắk"
+      ],
+      "email": "vtha.dla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "vtha.dla@gdt.gov.vn",
+          "phone": "0905219287",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-2",
+      "name": "(đơn vị) Thuế cơ sở 2 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 2 tỉnh Đắk Lắk"
+      ],
+      "email": "btloan.dla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "btloan.dla@gdt.gov.vn",
+          "phone": "0987044397",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-3",
+      "name": "(đơn vị) Thuế cơ sở 3 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 3 tỉnh Đắk Lắk"
+      ],
+      "email": "ttphong.dla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ttphong.dla@gdt.gov.vn",
+          "phone": "0944989998",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-4",
+      "name": "(đơn vị) Thuế cơ sở 4 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 4 tỉnh Đắk Lắk"
+      ],
+      "email": "ttson.dla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ttson.dla@gdt.gov.vn",
+          "phone": "0985975002",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-5",
+      "name": "(đơn vị) Thuế cơ sở 5 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 5 tỉnh Đắk Lắk"
+      ],
+      "email": "tvthang.dla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tvthang.dla@gdt.gov.vn",
+          "phone": "0914487777",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-6",
+      "name": "(đơn vị) Thuế cơ sở 6 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 6 tỉnh Đắk Lắk"
+      ],
+      "email": "thuecoso6.dla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso6.dla@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-7",
+      "name": "(đơn vị) Thuế cơ sở 7 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 7 tỉnh Đắk Lắk"
+      ],
+      "email": "lptoan.phy@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "lptoan.phy@gdt.gov.vn",
+          "phone": "0914102708",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-8",
+      "name": "(đơn vị) Thuế cơ sở 8 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 8 tỉnh Đắk Lắk"
+      ],
+      "email": "tphuong1.phy@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tphuong1.phy@gdt.gov.vn",
+          "phone": "0986692271",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-9",
+      "name": "(đơn vị) Thuế cơ sở 9 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 9 tỉnh Đắk Lắk"
+      ],
+      "email": "nvtinh.phy@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nvtinh.phy@gdt.gov.vn",
+          "phone": "0905686286",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-10",
+      "name": "(đơn vị) Thuế cơ sở 10 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 10 tỉnh Đắk Lắk"
+      ],
+      "email": "nbay.phy@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nbay.phy@gdt.gov.vn",
+          "phone": "0392338362",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ak-lak-co-so-11",
+      "name": "(đơn vị) Thuế cơ sở 11 tỉnh Đắk Lắk",
+      "unit": "THUẾ TỈNH ĐẮK LẮK",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 11 tỉnh Đắk Lắk"
+      ],
+      "email": "nhomtcs11.dla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nhomtcs11.dla@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-2",
+      "name": "Thuế cơ sở 2 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 2"
+      ],
+      "email": "vlong.don@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "vlong.don@gdt.gov.vn",
+          "phone": "0908551008",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-3",
+      "name": "Thuế cơ sở 3 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 3"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ltlan.don@gdt.gov.vn",
+          "phone": "0973133263",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ntgiang.don@gdt.gov.vn",
+          "phone": "0933391802",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "nqsang.don@gdt.gov.vn",
+          "phone": "0989110010",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-4",
+      "name": "Thuế cơ sở 4 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 4"
+      ],
+      "email": "thuecs4.don@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs4.don@gdt.gov.vn",
+          "phone": "02513611570",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-5",
+      "name": "Thuế cơ sở 5 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 5"
+      ],
+      "email": "nvoanh.don@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nvoanh.don@gdt.gov.vn",
+          "phone": "0933009079",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-6",
+      "name": "Thuế cơ sở 6 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 6"
+      ],
+      "email": "ldphuoc.don@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ldphuoc.don@gdt.gov.vn",
+          "phone": "0909943250",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-7",
+      "name": "Thuế cơ sở 7 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 7"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nktuyen.bph@gdt.gov.vn",
+          "phone": "0918446129",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ntdung1.bph@gdt.gov.vn",
+          "phone": "0938990444",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-8",
+      "name": "Thuế cơ sở 8 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 8"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "vtnam.bph@gdt.gov.vn",
+          "phone": "0948262440",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "nvhoa.bph@gdt.gov.vn",
+          "phone": "0984630667",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-9",
+      "name": "Thuế cơ sở 9 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 9"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nvluan.bph@gdt.gov.vn",
+          "phone": "0908730456",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "vson.bph@gdt.gov.vn",
+          "phone": "0919620389",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "tvnam.bph@gdt.gov.vn",
+          "phone": "0779688645",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-co-so-10",
+      "name": "Thuế cơ sở 10 · THUẾ TỈNH ĐỒNG NAI",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế cơ sở 10"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ntlanh.bph@gdt.gov.vn",
+          "phone": "0906908333",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "mtan.bph@gdt.gov.vn",
+          "phone": "0918242087",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-nai-thue-tinh-ong-nai",
+      "name": "Thuế tỉnh Đồng Nai",
+      "unit": "THUẾ TỈNH ĐỒNG NAI",
+      "aliases": [
+        "Thuế tỉnh Đồng Nai"
+      ],
+      "email": "vtdung.don@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "vtdung.don@gdt.gov.vn",
+          "phone": "02513942557",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-thap-co-so-1",
+      "name": "Thuế cơ sở 1 · THUẾ TỈNH ĐỒNG THÁP",
+      "unit": "THUẾ TỈNH ĐỒNG THÁP",
+      "aliases": [
+        "Thuế cơ sở 1"
+      ],
+      "email": "thuecoso1.dth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso1.dth@gdt.gov.vn",
+          "phone": "02733950196",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-thap-co-so-2",
+      "name": "Thuế cơ sở 2 · THUẾ TỈNH ĐỒNG THÁP",
+      "unit": "THUẾ TỈNH ĐỒNG THÁP",
+      "aliases": [
+        "Thuế cơ sở 2"
+      ],
+      "email": "thuecoso2.dth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso2.dth@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-thap-co-so-5",
+      "name": "Thuế cơ sở 5 · THUẾ TỈNH ĐỒNG THÁP",
+      "unit": "THUẾ TỈNH ĐỒNG THÁP",
+      "aliases": [
+        "Thuế cơ sở 5"
+      ],
+      "email": "thuecs5.dth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs5.dth@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-thap-co-so-9",
+      "name": "Thuế cơ sở 9 · THUẾ TỈNH ĐỒNG THÁP",
+      "unit": "THUẾ TỈNH ĐỒNG THÁP",
+      "aliases": [
+        "Thuế cơ sở 9"
+      ],
+      "email": "thuecs9.dth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs9.dth@gdt.gov.vn",
+          "phone": "02773845127",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-thap-co-so-3",
+      "name": "Thuế cơ sở 3 tỉnh Đồng Tháp",
+      "unit": "THUẾ TỈNH ĐỒNG THÁP",
+      "aliases": [
+        "Thuế cơ sở 3 tỉnh Đồng Tháp"
+      ],
+      "email": "thuecoso3.dth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso3.dth@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-thap-co-so-6",
+      "name": "Thuế cơ sở 6 tỉnh Đồng Tháp",
+      "unit": "THUẾ TỈNH ĐỒNG THÁP",
+      "aliases": [
+        "Thuế cơ sở 6 tỉnh Đồng Tháp"
+      ],
+      "email": "thuecs6.dth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs6.dth@gdt.gov.vn",
+          "phone": "02773773869",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ong-thap-co-so-7",
+      "name": "Thuế cơ sở 7 tỉnh Đồng Tháp",
+      "unit": "THUẾ TỈNH ĐỒNG THÁP",
+      "aliases": [
+        "Thuế cơ sở 7 tỉnh Đồng Tháp"
+      ],
+      "email": "thuecs7.dth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs7.dth@gdt.gov.vn",
+          "phone": "02773562829",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-1",
+      "name": "(đơn vị) Thuế cơ sở 1 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 1 tỉnh Gia Lai"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "phphuc.bdi@gdt.gov.vn",
+          "phone": "0905141719",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "lvbuu.bdi@gdt.gov.vn",
+          "phone": "0914427477",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "vtkluat.bdi@gdt.gov.vn",
+          "phone": "0984524517",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "nphuong4.bdi@gdt.gov.vn",
+          "phone": "0905043007",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "ntthuy1.bdi@gdt.gov.vn",
+          "phone": "0934808932",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "ptsang.bdi@gdt.gov.vn",
+          "phone": "0987202024",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "ttahong.bdi@gdt.gov.vn",
+          "phone": "0982012257",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "ttbhue.bdi@gdt.gov.vn",
+          "phone": "0905796929",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "ttkthanh.bdi@gdt.gov.vn",
+          "phone": "0904560458",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "tttle.bdi@gdt.gov.vn",
+          "phone": "0987373436",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-2",
+      "name": "(đơn vị) Thuế cơ sở 2 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 2 tỉnh Gia Lai"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ptthang.bdi@gdt.gov.vn",
+          "phone": "0905143007",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "lvhoa.bdi@gdt.gov.vn",
+          "phone": "0935852977",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "nnvan.bdi@gdt.gov.vn",
+          "phone": "0919137039",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "nhcuong.bdi@gdt.gov.vn",
+          "phone": "0984909811",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "lvbich.bdi@gdt.gov.vn",
+          "phone": "0988493306",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-4",
+      "name": "(đơn vị) Thuế cơ sở 4 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 4 tỉnh Gia Lai"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "kxchinh.bdi@gdt.gov.vn",
+          "phone": "0944959041",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "pvthuc.bdi@gdt.gov.vn",
+          "phone": "0982077889",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-5",
+      "name": "(đơn vị) Thuế cơ sở 5 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 5 tỉnh Gia Lai"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ththuong.bdi@gdt.gov.vn",
+          "phone": "0947730999",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "pvhoa.bdi@gdt.gov.vn",
+          "phone": "0905367031",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-6",
+      "name": "(đơn vị) Thuế cơ sở 6 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 6 tỉnh Gia Lai"
+      ],
+      "email": "nttsuong.gla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nttsuong.gla@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-7",
+      "name": "(đơn vị) Thuế cơ sở 7 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 7 tỉnh Gia Lai"
+      ],
+      "email": "cctddo_mya.gla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "cctddo_mya.gla@gdt.gov.vn",
+          "phone": "02693505077",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-8",
+      "name": "(đơn vị) Thuế cơ sở 8 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 8 tỉnh Gia Lai"
+      ],
+      "email": "cctple.gla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "cctple.gla@gdt.gov.vn",
+          "phone": "02693888915",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-9",
+      "name": "(đơn vị) Thuế cơ sở 9 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 9 tỉnh Gia Lai"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ncthach.gla@gdt.gov.vn",
+          "phone": "0868617888",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "httuan.gla@gdt.gov.vn",
+          "phone": "0985103345",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "tmtuan.gla@gdt.gov.vn",
+          "phone": "0982444390",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-10",
+      "name": "(đơn vị) Thuế cơ sở 10 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 10 tỉnh Gia Lai"
+      ],
+      "email": "ndhoai.gla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ndhoai.gla@gdt.gov.vn",
+          "phone": "0987696448",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-co-so-11",
+      "name": "(đơn vị) Thuế cơ sở 11 tỉnh Gia Lai",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 11 tỉnh Gia Lai"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "dqdan.gla@gdt.gov.vn",
+          "phone": "0905852965",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "ttmchau.gla@gdt.gov.vn",
+          "phone": "0913458882",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gia-lai-thue-tinh-gia-lai-ong-gia-lai",
+      "name": "(đơn vị) Thuế tỉnh Gia Lai (Đông Gia Lai)",
+      "unit": "THUẾ TỈNH GIA LAI",
+      "aliases": [
+        "(đơn vị) Thuế tỉnh Gia Lai (Đông Gia Lai)"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "pdthanh.bdi@gdt.gov.vn",
+          "phone": "0913463213",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "cnbich.bdi@gdt.gov.vn",
+          "phone": "0982746016",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "nnsinh.bdi@gdt.gov.vn",
+          "phone": "0913454246",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        },
+        {
+          "email": "ntchung.bdi@gdt.gov.vn",
+          "phone": "0914209179",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-1",
+      "name": "Thuế cơ sở 1 - Thuế tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 1 - Thuế tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "tvngoc.hye@gdt.gov.vn",
+          "phone": "0904171456",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "nvhung.hye@gdt.gov.vn",
+          "phone": "0912589996",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "ctyen.hye@gdt.gov.vn",
+          "phone": "0917612973",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "ctatho.hye@gdt.gov.vn",
+          "phone": "0936184858",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "ltmien.hye@gdt.gov.vn",
+          "phone": "0942752941",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "bqphuoc.hye@gdt.gov.vn",
+          "phone": "0974821121",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "ntnghia.hye@gdt.gov.vn",
+          "phone": "0399838546",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-3",
+      "name": "Thuế cơ sở 3 - Thuế tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 3 - Thuế tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "dvvuong.hye@gdt.gov.vn",
+          "phone": "0982645979",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "bthhao.hye@gdt.gov.vn",
+          "phone": "0976655610",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-4",
+      "name": "Thuế cơ sở 4 - Thuế tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 4 - Thuế tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nddoanh.hye@gdt.gov.vn",
+          "phone": "0904256141",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "dxtinh.hye@gdt.gov.vn",
+          "phone": "0914283423",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "nmhung.hye@gdt.gov.vn",
+          "phone": "0961576999",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-2",
+      "name": "Thuế cơ sở 2 - Thuế tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 2 - Thuế tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ntnyen.hye@gdt.gov.vn",
+          "phone": "0979859168",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "lkthien.hye@gdt.gov.vn",
+          "phone": "0983016536",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-7",
+      "name": "Thuế cơ sở 7 - Thuế tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 7 - Thuế tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nnhuan.tbi@gdt.gov.vn",
+          "phone": "0948397937",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP CS7.xls"
+          ]
+        },
+        {
+          "email": "ntba.tbi@gdt.gov.vn",
+          "phone": "0969230569",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP CS7.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-5",
+      "name": "Thuế cơ sở 5 - Thuế tỉnh Hưng Yên (Đ/c Đức Tổ trưởng)",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 5 - Thuế tỉnh Hưng Yên (Đ/c Đức Tổ trưởng)",
+        "Thuế cơ sở 5 - Thuế tỉnh Hưng Yên (Đ/c Hải, Tổ trưởng)",
+        "Thuế cơ sở 5 - Thuế tỉnh Hưng Yên (Đ/c Long Tổ trưởng)"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "hbduc.hye@gdt.gov.vn",
+          "phone": "0976828225",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "dvhai.hye@gdt.gov.vn",
+          "phone": "0915148584",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "ntlong.hye@gdt.gov.vn",
+          "phone": "0988041278",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-6",
+      "name": "Thuế cơ sở 6 tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 6 tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ntlan.tbi@gdt.gov.vn",
+          "phone": "0976242967",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "ptcuc1.tbi@gdt.gov.vn",
+          "phone": "0976263536",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-9",
+      "name": "Thuế cơ sở 9 tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 9 tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "vtgiang.tbi@gdt.gov.vn",
+          "phone": "0934673111",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "nddai.tbi@gdt.gov.vn",
+          "phone": "0983241222",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        },
+        {
+          "email": "hlanh.tbi@gdt.gov.vn",
+          "phone": "0976973929",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP (QLDN1,2,3, KT1,2,3, CS 1).xls",
+            "extracted_HungYen/TONG HOP CS 2.xls",
+            "extracted_HungYen/TONG HOP CS 3.xls",
+            "extracted_HungYen/TONG HOP CS 4.xls",
+            "extracted_HungYen/TONG HOP CS 5,6.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hung-yen-co-so-8",
+      "name": "Thuế cơ sở 8 tỉnh Hưng Yên",
+      "unit": "THUẾ TỈNH HƯNG YÊN",
+      "aliases": [
+        "Thuế cơ sở 8 tỉnh Hưng Yên"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "vtquang.tbi@gdt.gov.vn",
+          "phone": "0989120686",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP CS8,9.xls"
+          ]
+        },
+        {
+          "email": "lthang.tbi@gdt.gov.vn",
+          "phone": "0988122688",
+          "sourceFiles": [
+            "extracted_HungYen/TONG HOP CS8,9.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "khanh-hoa-co-so-4",
+      "name": "(đơn vị) Thuế Cơ sở 4 tỉnh Khánh Hòa",
+      "unit": "THUẾ TỈNH KHÁNH HÒA",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 4 tỉnh Khánh Hòa"
+      ],
+      "email": "thuecoso4.khh@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso4.khh@gdt.gov.vn",
+          "phone": "02583862622",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lai-chau-co-so-1",
+      "name": "Thuế cơ sở 1 Tỉnh Lai Châu",
+      "unit": "THUẾ TỈNH LAI CHÂU",
+      "aliases": [
+        "Thuế cơ sở 1 Tỉnh Lai Châu"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "dttuan.lch@gdt.gov.vn",
+          "phone": "0914725125",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        },
+        {
+          "email": "nxkhanh.lch@gdt.gov.vn",
+          "phone": "0989271888",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        },
+        {
+          "email": "pccong.lch@gdt.gov.vn",
+          "phone": "0985726426",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        },
+        {
+          "email": "bthue.lch@gdt.gov.vn",
+          "phone": "0988341567",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        },
+        {
+          "email": "lvthuat.lch@gdt.gov.vn",
+          "phone": "0914655566",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        },
+        {
+          "email": "ntnam.lch@gdt.gov.vn",
+          "phone": "0977067706",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        },
+        {
+          "email": "ltmnguyet.lch@gdt.gov.vn",
+          "phone": "0989735300",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lai-chau-co-so-4",
+      "name": "Thuế cơ sở 4, tỉnh Lai Châu",
+      "unit": "THUẾ TỈNH LAI CHÂU",
+      "aliases": [
+        "Thuế cơ sở 4, tỉnh Lai Châu"
+      ],
+      "email": "lmhieu.lch@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "lmhieu.lch@gdt.gov.vn",
+          "phone": "0854840888",
+          "sourceFiles": [
+            "dot1_trang4_laocai_laichau_caobang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-4",
+      "name": "(đơn vị) Thuế cơ sở 4 Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 4 Lâm Đồng"
+      ],
+      "email": "htmo.ldo@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "htmo.ldo@gdt.gov.vn",
+          "phone": "0973238832",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-1",
+      "name": "(đơn vị) Thuế cơ sở 1 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 1 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ndviet.ldo@gdt.gov.vn",
+          "phone": "0919977839",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "hxquynh.ldo@gdt.gov.vn",
+          "phone": "0937249351",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "httnhung.ldo@gdt.gov.vn",
+          "phone": "0979435745",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "ttnminh.ldo@gdt.gov.vn",
+          "phone": "0976352670",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "nqmthuc.ldo@gdt.gov.vn",
+          "phone": "0933786238",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "ltnguyen.ldo@gdt.gov.vn",
+          "phone": "0989008502",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "ltttoan.ldo@gdt.gov.vn",
+          "phone": "0909779679",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "tktnhat.ldo@gdt.gov.vn",
+          "phone": "0945635279",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "tqhop.ldo@gdt.gov.vn",
+          "phone": "0937941879",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "tvthanh1.ldo@gdt.gov.vn",
+          "phone": "0946464639",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "mttthao.ldo@gdt.gov.vn",
+          "phone": "0961350606",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "dntvy.ldo@gdt.gov.vn",
+          "phone": "0911676892",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "ttbngoc.ldo@gdt.gov.vn",
+          "phone": "0977264488",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "hqdung.ldo@gdt.gov.vn",
+          "phone": "0903149010",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-2",
+      "name": "(đơn vị) Thuế cơ sở 2 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 2 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ntson.ldo@gdt.gov.vn",
+          "phone": "0945041041",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "ntldiep.ldo@gdt.gov.vn",
+          "phone": "0909651477",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "hthque.ldo@gdt.gov.vn",
+          "phone": "0919075115",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "ndthong.ldo@gdt.gov.vn",
+          "phone": "0903160232",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "txthe.ldo@gdt.gov.vn",
+          "phone": "0918438323",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "dmtruong.ldo@gdt.gov.vn",
+          "phone": "0982153545",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "plvien.ldo@gdt.gov.vn",
+          "phone": "0909267282",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-3",
+      "name": "(đơn vị) Thuế cơ sở 3 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 3 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "lmduc.ldo@gdt.gov.vn",
+          "phone": "0919195523",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "mvnguyen.ldo@gdt.gov.vn",
+          "phone": "0982018827",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-5",
+      "name": "(đơn vị) Thuế cơ sở 5 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 5 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "htphuong.ldo@gdt.gov.vn",
+          "phone": "0907647632",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "tktruong.ldo@gdt.gov.vn",
+          "phone": "0868967100",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-6",
+      "name": "(đơn vị) Thuế cơ sở 6 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 6 tỉnh Lâm Đồng"
+      ],
+      "email": "qktai.bth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "qktai.bth@gdt.gov.vn",
+          "phone": "0933477779",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-7",
+      "name": "(đơn vị) Thuế cơ sở 7 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 7 tỉnh Lâm Đồng"
+      ],
+      "email": "vanthuthuecoso7.ldo@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "vanthuthuecoso7.ldo@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-8",
+      "name": "(đơn vị) Thuế cơ sở 8 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 8 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ltvan.bth@gdt.gov.vn",
+          "phone": "0777715977",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "nvthuan.bth@gdt.gov.vn",
+          "phone": "0916823570",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-9",
+      "name": "(đơn vị) Thuế cơ sở 9 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 9 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "tvtrung1.bth@gdt.gov.vn",
+          "phone": "0985464614",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "lttxuan.bth@gdt.gov.vn",
+          "phone": "0982940334",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-10",
+      "name": "(đơn vị) Thuế cơ sở 10 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 10 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nvtrung.dno@gdt.gov.vn",
+          "phone": "0967884555",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "nvchung.dno@gdt.gov.vn",
+          "phone": "0942762535",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-11",
+      "name": "(đơn vị) Thuế cơ sở 11 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 11 tỉnh Lâm Đồng"
+      ],
+      "email": "thnghi.dno@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thnghi.dno@gdt.gov.vn",
+          "phone": "0905051018",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-12",
+      "name": "(đơn vị) Thuế cơ sở 12 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 12 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "pvtruc.dno@gdt.gov.vn",
+          "phone": "0914081084",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "pkchung.dno@gdt.gov.vn",
+          "phone": "0974838787",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "nxtruong.dno@gdt.gov.vn",
+          "phone": "0905869394",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-co-so-13",
+      "name": "(đơn vị) Thuế cơ sở 13 tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 13 tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nvhuan.dno@gdt.gov.vn",
+          "phone": "0905263018",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "tmduoc.dno@gdt.gov.vn",
+          "phone": "0905928999",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lam-ong-thue-tinh-lam-ong",
+      "name": "(đơn vị) Thuế tỉnh Lâm Đồng",
+      "unit": "THUẾ TỈNH LÂM ĐỒNG",
+      "aliases": [
+        "(đơn vị) Thuế tỉnh Lâm Đồng"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nthoa.dno@gdt.gov.vn",
+          "phone": "0912523555",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "phlvu.bth@gdt.gov.vn",
+          "phone": "0916897089",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "vmphuong.ldo@gdt.gov.vn",
+          "phone": "0972900003",
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        },
+        {
+          "email": "phongqldn1.ldo@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot5_trang2_lamdong_khanhhoa_daklak.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lang-son-co-so-1",
+      "name": "Thuế cơ sở 1 tỉnh Lạng Sơn",
+      "unit": "THUẾ TỈNH LẠNG SƠN",
+      "aliases": [
+        "Thuế cơ sở 1 tỉnh Lạng Sơn"
+      ],
+      "email": "ccthlung@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ccthlung@gdt.gov.vn",
+          "phone": "02053827457",
+          "sourceFiles": [
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lang-son-co-so-2",
+      "name": "Thuế cơ sở 2 tỉnh Lạng Sơn",
+      "unit": "THUẾ TỈNH LẠNG SƠN",
+      "aliases": [
+        "Thuế cơ sở 2 tỉnh Lạng Sơn"
+      ],
+      "email": "dvcuong.lso@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "dvcuong.lso@gdt.gov.vn",
+          "phone": "0902093868",
+          "sourceFiles": [
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lang-son-co-so-3",
+      "name": "Thuế cơ sở 3 tỉnh Lạng Sơn",
+      "unit": "THUẾ TỈNH LẠNG SƠN",
+      "aliases": [
+        "Thuế cơ sở 3 tỉnh Lạng Sơn"
+      ],
+      "email": "cctvlang.lso@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "cctvlang.lso@gdt.gov.vn",
+          "phone": "02053880846",
+          "sourceFiles": [
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lang-son-co-so-4",
+      "name": "Thuế cơ sở 4 tỉnh Lạng Sơn",
+      "unit": "THUẾ TỈNH LẠNG SƠN",
+      "aliases": [
+        "Thuế cơ sở 4 tỉnh Lạng Sơn"
+      ],
+      "email": "cctbgia.lso@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "cctbgia.lso@gdt.gov.vn",
+          "phone": "02053835596",
+          "sourceFiles": [
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lang-son-co-so-5",
+      "name": "Thuế cơ sở 5 tỉnh Lạng Sơn",
+      "unit": "THUẾ TỈNH LẠNG SƠN",
+      "aliases": [
+        "Thuế cơ sở 5 tỉnh Lạng Sơn"
+      ],
+      "email": "lmhung.lso@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "lmhung.lso@gdt.gov.vn",
+          "phone": "0912226771",
+          "sourceFiles": [
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lang-son-thue-tinh-lang-son",
+      "name": "Thuế tỉnh Lạng Sơn",
+      "unit": "THUẾ TỈNH LẠNG SƠN",
+      "aliases": [
+        "Thuế tỉnh Lạng Sơn"
+      ],
+      "email": "pttt.lso@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "pttt.lso@gdt.gov.vn",
+          "phone": "02053875906",
+          "sourceFiles": [
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lao-cai-co-so-1",
+      "name": "Thuế cơ sở 1 tỉnh Lào Cai",
+      "unit": "THUẾ TỈNH LÀO CAI",
+      "aliases": [
+        "Thuế cơ sở 1 tỉnh Lào Cai"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "tvthan.lca@gdt.gov.vn",
+          "phone": "0983479469",
+          "sourceFiles": [
+            "extracted_LaoCai/1. DSCC HO TRO NNT BC CV 2708 -THUE CO SO 1 LCA.xls"
+          ]
+        },
+        {
+          "email": "tmhoa.lca@gdt.gov.vn",
+          "phone": "0963287989",
+          "sourceFiles": [
+            "extracted_LaoCai/1. DSCC HO TRO NNT BC CV 2708 -THUE CO SO 1 LCA.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lao-cai-co-so-7",
+      "name": "Thuế cơ sở 7 tỉnh Lào Cai",
+      "unit": "THUẾ TỈNH LÀO CAI",
+      "aliases": [
+        "Thuế cơ sở 7 tỉnh Lào Cai"
+      ],
+      "email": "thuecoso7.lca@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso7.lca@gdt.gov.vn",
+          "phone": "02163825172",
+          "sourceFiles": [
+            "extracted_LaoCai/7. DSCC HO TRO NNT BC CV 2708 -THUE CO SO 7 LCA.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lao-cai-co-so-9",
+      "name": "Thuế cơ sở 9 tỉnh Lào Cai",
+      "unit": "THUẾ TỈNH LÀO CAI",
+      "aliases": [
+        "Thuế cơ sở 9 tỉnh Lào Cai"
+      ],
+      "email": "thuecoso9.lca@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso9.lca@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "extracted_LaoCai/9. DSCC HO TRO NNT BC CV 2708 -THUE CO SO 9 LCA.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nghe-an-thue-tinh-nghe-an-phong-qldn1",
+      "name": "(đơn vị) Thuế tỉnh Nghệ An - Phòng QLDN1",
+      "unit": "THUẾ TỈNH NGHỆ AN",
+      "aliases": [
+        "(đơn vị) Thuế tỉnh Nghệ An - Phòng QLDN1"
+      ],
+      "email": "nchuong.nan@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nchuong.nan@gdt.gov.vn",
+          "phone": "0942430567",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nghe-an-thue-tinh-nghe-an-phong-qldn2",
+      "name": "(đơn vị) Thuế tỉnh Nghệ An - Phòng QLDN2",
+      "unit": "THUẾ TỈNH NGHỆ AN",
+      "aliases": [
+        "(đơn vị) Thuế tỉnh Nghệ An - Phòng QLDN2"
+      ],
+      "email": "nvhungvi.nan@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nvhungvi.nan@gdt.gov.vn",
+          "phone": "0913700389",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quang-ngai-co-so-4",
+      "name": "(đơn vị) Thuế cơ sở 4 tỉnh Quảng Ngãi",
+      "unit": "THUẾ TỈNH QUẢNG NGÃI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 4 tỉnh Quảng Ngãi"
+      ],
+      "email": "vanthu_sha.qng@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "vanthu_sha.qng@gdt.gov.vn",
+          "phone": "02553882327",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quang-ngai-co-so-10",
+      "name": "(đơn vị) Thuế cơ sở 10 tỉnh Quảng Ngãi",
+      "unit": "THUẾ TỈNH QUẢNG NGÃI",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 10 tỉnh Quảng Ngãi"
+      ],
+      "email": "Tcs10.qng@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Tcs10.qng@gdt.gov.vn",
+          "phone": "02603881365",
+          "sourceFiles": [
+            "dot6_trang2_gialai_quangngai_danang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quang-ninh-co-so-3",
+      "name": "Thuế cơ sở 3 tỉnh Quảng Ninh",
+      "unit": "THUẾ TỈNH QUẢNG NINH",
+      "aliases": [
+        "Thuế cơ sở 3 tỉnh Quảng Ninh"
+      ],
+      "email": "Thuecs3.qni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Thuecs3.qni@gdt.gov.vn",
+          "phone": "02033862474",
+          "sourceFiles": [
+            "dot2_trang1a_tmdt_dnl_quangninh.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quang-ninh-co-so-7",
+      "name": "Thuế cơ sở 7 tỉnh Quảng Ninh",
+      "unit": "THUẾ TỈNH QUẢNG NINH",
+      "aliases": [
+        "Thuế cơ sở 7 tỉnh Quảng Ninh"
+      ],
+      "email": "Thuecs7.qni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Thuecs7.qni@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot2_trang1a_tmdt_dnl_quangninh.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quang-tri-co-so-10",
+      "name": "Thuế cơ sở 10 tỉnh Quảng Trị",
+      "unit": "THUẾ TỈNH QUẢNG TRỊ",
+      "aliases": [
+        "Thuế cơ sở 10 tỉnh Quảng Trị"
+      ],
+      "email": "tlhoang.qtr@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tlhoang.qtr@gdt.gov.vn",
+          "phone": "0913254111",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 10 TỈNH QUẢNG TRỊ.docx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quang-tri-co-so-2",
+      "name": "Thuế cơ sở 2 tỉnh Quảng Trị",
+      "unit": "THUẾ TỈNH QUẢNG TRỊ",
+      "aliases": [
+        "Thuế cơ sở 2 tỉnh Quảng Trị"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "hxdan.qtr@gdt.gov.vn",
+          "phone": "0916410777",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "nhha.qtr@gdt.gov.vn",
+          "phone": "0334345159",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "nkduong.qtr@gdt.gov.vn",
+          "phone": "0942122777",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "tqanh.qtr@gdt.gov.vn",
+          "phone": "0914018579",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "ttmle.qtr@gdt.gov.vn",
+          "phone": "0989157555",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "dvhien.qtr@gdt.gov.vn",
+          "phone": "0982456225",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "tvviet.qtr@gdt.gov.vn",
+          "phone": "0945456159",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "dxtien.qtr@gdt.gov.vn",
+          "phone": "0982618595",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        },
+        {
+          "email": "tvtu.qtr@gdt.gov.vn",
+          "phone": "0901994777",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 2 TỈNH QUẢNG TRỊ.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quang-tri-co-so-3",
+      "name": "Thuế cơ sở 3 tỉnh Quảng Trị",
+      "unit": "THUẾ TỈNH QUẢNG TRỊ",
+      "aliases": [
+        "Thuế cơ sở 3 tỉnh Quảng Trị"
+      ],
+      "email": "nlchi.qtr@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nlchi.qtr@gdt.gov.vn",
+          "phone": "0963480866",
+          "sourceFiles": [
+            "extracted_QuangTri/THUẾ CS 3 TỈNH QUẢNG TRỊ.xls"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "son-la-co-so-1",
+      "name": "Thuế cơ sở 1 tỉnh Sơn La",
+      "unit": "THUẾ TỈNH SƠN LA",
+      "aliases": [
+        "Thuế cơ sở 1 tỉnh Sơn La"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "pvthuy.sla@gdt.gov.vn",
+          "phone": "0912593595",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "tnha.sla@gdt.gov.vn",
+          "phone": "0979584991",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "son-la-co-so-2",
+      "name": "Thuế cơ sở 2 tỉnh Sơn La",
+      "unit": "THUẾ TỈNH SƠN LA",
+      "aliases": [
+        "Thuế cơ sở 2 tỉnh Sơn La"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "latuan.sla@gdt.gov.vn",
+          "phone": "0912893428",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "htklien.sla@gdt.gov.vn",
+          "phone": "0981280838",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "son-la-co-so-3",
+      "name": "Thuế cơ sở 3 tỉnh Sơn La",
+      "unit": "THUẾ TỈNH SƠN LA",
+      "aliases": [
+        "Thuế cơ sở 3 tỉnh Sơn La"
+      ],
+      "email": "ttdinh.sla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ttdinh.sla@gdt.gov.vn",
+          "phone": "0983718058",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "son-la-co-so-4",
+      "name": "Thuế cơ sở 4 tỉnh Sơn La",
+      "unit": "THUẾ TỈNH SƠN LA",
+      "aliases": [
+        "Thuế cơ sở 4 tỉnh Sơn La"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "Dcanh.sla@gdt.gov.vn",
+          "phone": "0865218388",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "Dcloi.sla@gdt.gov.vn",
+          "phone": "0366888023",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "dtsonpy.sla@gdt.gov.vn",
+          "phone": "0919110668",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "hvluong.sla@gdt.gov.vn",
+          "phone": "0987738235",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "dvchinh.sla@gdt.gov.vn",
+          "phone": "0982397677",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "lvsam.sla@gdt.gov.vn",
+          "phone": "0363716154",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "Cvthang01.sla@gdt.gov.vn",
+          "phone": "0911211666",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "hvhoang.sla@gdt.gov.vn",
+          "phone": "0978978989",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "hthai01.sla@gdt.gov.vn",
+          "phone": "0983510598",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "son-la-co-so-5",
+      "name": "Thuế cơ sở 5 tỉnh Sơn La",
+      "unit": "THUẾ TỈNH SƠN LA",
+      "aliases": [
+        "Thuế cơ sở 5 tỉnh Sơn La"
+      ],
+      "email": "cctsma.sla@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "cctsma.sla@gdt.gov.vn",
+          "phone": "02123836136",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "son-la-thue-tinh-son-la",
+      "name": "Thuế tỉnh Sơn La",
+      "unit": "THUẾ TỈNH SƠN LA",
+      "aliases": [
+        "Thuế tỉnh Sơn La"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ndchin.sla@gdt.gov.vn",
+          "phone": "0343646999",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        },
+        {
+          "email": "dthyen.sla@gdt.gov.vn",
+          "phone": "0979855462",
+          "sourceFiles": [
+            "SonLa.xlsx",
+            "dot9_trang3_phutho_sonla_langson.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-1",
+      "name": "Thuế cơ sở 1 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 1"
+      ],
+      "email": "tcs1.tni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs1.tni@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-2",
+      "name": "Thuế cơ sở 2 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 2"
+      ],
+      "email": "dtduong.lan@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "dtduong.lan@gdt.gov.vn",
+          "phone": "0975629127",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-3",
+      "name": "Thuế cơ sở 3 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 3"
+      ],
+      "email": "tcs3.tni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs3.tni@gdt.gov.vn",
+          "phone": "02723874493",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-4",
+      "name": "Thuế cơ sở 4 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 4"
+      ],
+      "email": "tcs4.tni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs4.tni@gdt.gov.vn",
+          "phone": "02723814134",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-6",
+      "name": "Thuế cơ sở 6 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 6"
+      ],
+      "email": "tcs6.tni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs6.tni@gdt.gov.vn",
+          "phone": "02723843950",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-7",
+      "name": "Thuế cơ sở 7 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 7"
+      ],
+      "email": "ntsc7.tni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ntsc7.tni@gdt.gov.vn",
+          "phone": "02763520565",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-8",
+      "name": "Thuế cơ sở 8 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 8"
+      ],
+      "email": "ptnhan.tni@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ptnhan.tni@gdt.gov.vn",
+          "phone": "0949462031",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-9",
+      "name": "Thuế cơ sở 9 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 9"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "vhvu.tni@gdt.gov.vn",
+          "phone": "0949467559",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "ntkhan.tni@gdt.gov.vn",
+          "phone": "0902391705",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tay-ninh-co-so-10",
+      "name": "Thuế cơ sở 10 · THUẾ TỈNH TÂY NINH",
+      "unit": "THUẾ TỈNH TÂY NINH",
+      "aliases": [
+        "Thuế cơ sở 10"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ptphong.tni@gdt.gov.vn",
+          "phone": "02763745705",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        },
+        {
+          "email": "tqtuan.tni@gdt.gov.vn",
+          "phone": "02763745705",
+          "sourceFiles": [
+            "dot10_trang1c_angiang_dongthap_tayninh_dongnai.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-11",
+      "name": "Thuế cơ sở 11 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 11 tỉnh Thanh Hóa"
+      ],
+      "email": "thuecoso11.tho@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecoso11.tho@gdt.gov.vn",
+          "phone": "02373875049",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-3",
+      "name": "Thuế cơ sở 3 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 3 tỉnh Thanh Hóa"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "hmhung.tho@gdt.gov.vn",
+          "phone": "0859217371",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "nbphuong.tho@gdt.gov.vn",
+          "phone": "0946731925",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "ndchau.tho@gdt.gov.vn",
+          "phone": "0946809798",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "vdtung.tho@gdt.gov.vn",
+          "phone": "0913698558",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-4",
+      "name": "Thuế cơ sở 4 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 4 tỉnh Thanh Hóa"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "Hatuan.tho@gdt.gov.vn",
+          "phone": "0946795611",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "nvdungbs.tho@gdt.gov.vn",
+          "phone": "0833073965",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "ntha03.tho@gdt.gov.vn",
+          "phone": "0384519648",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "mmtoan.tho@gdt.gov.vn",
+          "phone": "0918218580",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-5",
+      "name": "Thuế cơ sở 5 tỉnh Thanh Hoá",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 5 tỉnh Thanh Hoá"
+      ],
+      "email": "tmduc.tho@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tmduc.tho@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-6",
+      "name": "Thuế cơ sở 6 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 6 tỉnh Thanh Hóa"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "tnson.tho@gdt.gov.vn",
+          "phone": "0902243773",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "lttamth.tho@gdt.gov.vn",
+          "phone": "0948951586",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "lxkhoat.tho@gdt.gov.vn",
+          "phone": "0987981728",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "hdnguyen.tho@gdt.gov.vn",
+          "phone": "0944365222",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "dqdang.tho@gdt.gov.vn",
+          "phone": "0962384232",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "ntthoa1.tho@gdt.gov.vn",
+          "phone": "0967268768",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-7",
+      "name": "Thuế cơ sở 7 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 7 tỉnh Thanh Hóa"
+      ],
+      "email": "ctloan.tho@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ctloan.tho@gdt.gov.vn",
+          "phone": "0903211239",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-12",
+      "name": "Thuế cơ sở 12 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 12 tỉnh Thanh Hóa"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "lngiang.tho@gdt.gov.vn",
+          "phone": "0913309455",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "nvthinh.tho@gdt.gov.vn",
+          "phone": "0911256858",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "pvtrung.tho@gdt.gov.vn",
+          "phone": "0914281142",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "tvthe.tho@gdt.gov.vn",
+          "phone": "0969863377",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-13",
+      "name": "Thuế cơ sở 13 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 13 tỉnh Thanh Hóa"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ldtuan.tho@gdt.gov.vn",
+          "phone": "0912221861",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "ldhai.tho@gdt.gov.vn",
+          "phone": "0906292686",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "ltoanh01.tho@gdt.gov.vn",
+          "phone": "0372858288",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "Tsanh.tho@gdt.gov.vn",
+          "phone": "0815048888",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-8",
+      "name": "Thuế cơ sở 8 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 8 tỉnh Thanh Hóa"
+      ],
+      "email": "Hstung.tho@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Hstung.tho@gdt.gov.vn",
+          "phone": "0918259878",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-9",
+      "name": "Thuế cơ sở 9 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 9 tỉnh Thanh Hóa"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "cctkvcthbth.tho@gdt.gov.vn",
+          "phone": "02373525463",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "hvthang2.tho@gdt.gov.vn",
+          "phone": "02373525039",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "tvthach.tho@gdt.gov.vn",
+          "phone": "02373525184",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "ntthanh2.tho@gdt.gov.vn",
+          "phone": "02373880509",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thanh-hoa-co-so-1",
+      "name": "Thuế cơ sở 1 tỉnh Thanh Hóa",
+      "unit": "THUẾ TỈNH THANH HÓA",
+      "aliases": [
+        "Thuế cơ sở 1 tỉnh Thanh Hóa"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "tvtuyen.THO@gdt.gov.vn",
+          "phone": "0903438345",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "tmtuan.THO@gdt.gov.vn",
+          "phone": "0976246726",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "nxphuong.THO@gdt.gov.vn",
+          "phone": "0915245448",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "nvphuc.THO@gdt.gov.vn",
+          "phone": "0903407656",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        },
+        {
+          "email": "nktue.THO@gdt.gov.vn",
+          "phone": "0912582513",
+          "sourceFiles": [
+            "extracted_ThanhHoa/6. Thanh Hóa/Tổng hợp Thuế cơ sở.xlsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-1",
+      "name": "Thuế cơ sở 1 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 1"
+      ],
+      "email": "tcs1.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs1.tqu@gdt.gov.vn",
+          "phone": "02073822895",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-2",
+      "name": "Thuế cơ sở 2 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 2"
+      ],
+      "email": "tcs2.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs2.tqu@gdt.gov.vn",
+          "phone": "02073835638",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-3",
+      "name": "Thuế cơ sở 3 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 3"
+      ],
+      "email": "tcs3.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs3.tqu@gdt.gov.vn",
+          "phone": "02073852029",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-4",
+      "name": "Thuế cơ sở 4 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 4"
+      ],
+      "email": "tcs4.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs4.tqu@gdt.gov.vn",
+          "phone": "02073864178",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-5",
+      "name": "Thuế cơ sở 5 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 5"
+      ],
+      "email": "tcs5.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs5.tqu@gdt.gov.vn",
+          "phone": "0984515569",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-6",
+      "name": "Thuế cơ sở 6 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 6"
+      ],
+      "email": "tcs6.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs6.tqu@gdt.gov.vn",
+          "phone": "0941898228",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-7",
+      "name": "Thuế cơ sở 7 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 7"
+      ],
+      "email": "tcs7.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs7.tqu@gdt.gov.vn",
+          "phone": "02193836995",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuyen-quang-co-so-8",
+      "name": "Thuế cơ sở 8 · THUẾ TỈNH TUYÊN QUANG",
+      "unit": "THUẾ TỈNH TUYÊN QUANG",
+      "aliases": [
+        "Thuế cơ sở 8"
+      ],
+      "email": "tcs8.tqu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs8.tqu@gdt.gov.vn",
+          "phone": "0945034999",
+          "sourceFiles": [
+            "dot12_trang4_tuyenquang.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-1",
+      "name": "(đơn vị) Thuế cơ sở 1, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 1, tỉnh Vĩnh Long"
+      ],
+      "email": "bvnhanh.vlo@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "bvnhanh.vlo@gdt.gov.vn",
+          "phone": "0913843494",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-2",
+      "name": "(đơn vị) Thuế cơ sở 2, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 2, tỉnh Vĩnh Long"
+      ],
+      "email": "tcs2.vlo@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs2.vlo@gdt.gov.vn",
+          "phone": "02703890734",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-3",
+      "name": "(đơn vị) Thuế cơ sở 3, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 3, tỉnh Vĩnh Long"
+      ],
+      "email": "tcs3.vlo@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tcs3.vlo@gdt.gov.vn",
+          "phone": "02703860674",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-4",
+      "name": "(đơn vị) Thuế cơ sở 4, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 4, tỉnh Vĩnh Long"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "vtndung.vlo@gdt.gov.vn",
+          "phone": "0916255186",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "ttdung.vlo@gdt.gov.vn",
+          "phone": "0988453029",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-5",
+      "name": "(đơn vị) Thuế cơ sở 5, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 5, tỉnh Vĩnh Long"
+      ],
+      "email": "nthnhu.tvi@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nthnhu.tvi@gdt.gov.vn",
+          "phone": "02943753225",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-6",
+      "name": "(đơn vị) Thuế cơ sở 6, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 6, tỉnh Vĩnh Long"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nntho.tvi@gdt.gov.vn",
+          "phone": "0918704219",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "nthung.tvi@gdt.gov.vn",
+          "phone": "0946411299",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-7",
+      "name": "(đơn vị) Thuế cơ sở 7, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 7, tỉnh Vĩnh Long"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nvhoai.tvi@gdt.gov.vn",
+          "phone": "0913684816",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "nttung2.tvi@gdt.gov.vn",
+          "phone": "0919084004",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-8",
+      "name": "(đơn vị) Thuế cơ sở 8, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 8, tỉnh Vĩnh Long"
+      ],
+      "email": "ntdong.tvi@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ntdong.tvi@gdt.gov.vn",
+          "phone": "02943883201",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-9",
+      "name": "(đơn vị) Thuế cơ sở 9, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 9, tỉnh Vĩnh Long"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "hbloc.btr@gdt.gov.vn",
+          "phone": "02753839111",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "nthnhu.btr@gdt.gov.vn",
+          "phone": "0916817011",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-10",
+      "name": "(đơn vị) Thuế cơ sở 10, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 10, tỉnh Vĩnh Long"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "dtkiet.btr@gdt.gov.vn",
+          "phone": "02753897789",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "ltnmy.btr@gdt.gov.vn",
+          "phone": "0918407093",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-11",
+      "name": "(đơn vị) Thuế Cơ sở 11, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 11, tỉnh Vĩnh Long"
+      ],
+      "email": "lnthanh.btr@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "lnthanh.btr@gdt.gov.vn",
+          "phone": "02753711377",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vinh-long-co-so-12",
+      "name": "(đơn vị) Thuế cơ sở 12, tỉnh Vĩnh Long",
+      "unit": "THUẾ TỈNH VĨNH LONG",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 12, tỉnh Vĩnh Long"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "tvhong.btr@gdt.gov.vn",
+          "phone": "0965114304",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "pxthuong.btr@gdt.gov.vn",
+          "phone": "0919580679",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "thbinh.btr@gdt.gov.vn",
+          "phone": "0984371828",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "lttdieu.btr@gdt.gov.vn",
+          "phone": "0982606471",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "ntttruyen.btr@gdt.gov.vn",
+          "phone": "0914882772",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "dlthi.btr@gdt.gov.vn",
+          "phone": "0817557999",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-1",
+      "name": "(đơn vị) Thuế Cơ sở 1 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 1 TP Cần Thơ"
+      ],
+      "email": "tqduy.cth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tqduy.cth@gdt.gov.vn",
+          "phone": "02923819437",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-2",
+      "name": "(đơn vị) Thuế Cơ sở 2 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 2 TP Cần Thơ"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ntphuong.cth@gdt.gov.vn",
+          "phone": "02923911761",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "ptoanh.cth@gdt.gov.vn",
+          "phone": "02923846787",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "tmtruong.cth@gdt.gov.vn",
+          "phone": "02923847845",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-3",
+      "name": "(đơn vị) Thuế Cơ sở 3 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 3 TP Cần Thơ"
+      ],
+      "email": "duongdaynongbtom.cth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynongbtom.cth@gdt.gov.vn",
+          "phone": "02923887281",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-4",
+      "name": "(đơn vị) Thuế Cơ sở 4 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 4 TP Cần Thơ"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "tcs4.cth@gdt.gov.vn",
+          "phone": "02923612323",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "nptrang.cth@gdt.gov.vn",
+          "phone": "0907743114",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-5",
+      "name": "(đơn vị) Thuế Cơ sở 5 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 5 TP Cần Thơ"
+      ],
+      "email": "bdkhanh.cth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "bdkhanh.cth@gdt.gov.vn",
+          "phone": "0967777792",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-6",
+      "name": "(đơn vị) Thuế Cơ sở 6 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 6 TP Cần Thơ"
+      ],
+      "email": "thuecs6.hag@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs6.hag@gdt.gov.vn",
+          "phone": "02933580833",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-7",
+      "name": "(đơn vị) Thuế Cơ sở 7 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 7 TP Cần Thơ"
+      ],
+      "email": "Thuecs7.hag@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Thuecs7.hag@gdt.gov.vn",
+          "phone": "02933511728",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-8",
+      "name": "(đơn vị) Thuế Cơ sở 8 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 8 TP Cần Thơ"
+      ],
+      "email": "Thuecs8.hag@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Thuecs8.hag@gdt.gov.vn",
+          "phone": "02933960668",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-9",
+      "name": "(đơn vị) Thuế Cơ sở 9 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 9 TP Cần Thơ"
+      ],
+      "email": "ntpthao.hag@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ntpthao.hag@gdt.gov.vn",
+          "phone": "0938922681",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-10",
+      "name": "(đơn vị) Thuế Cơ sở 10 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 10 TP Cần Thơ"
+      ],
+      "email": "Thuecs10.cth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Thuecs10.cth@gdt.gov.vn",
+          "phone": "02993627833",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-11",
+      "name": "(đơn vị) Thuế Cơ sở 11 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 11 TP Cần Thơ"
+      ],
+      "email": "thuecs11.cth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "thuecs11.cth@gdt.gov.vn",
+          "phone": "02993834601",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-12",
+      "name": "(đơn vị) Thuế Cơ sở 12 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 12 TP Cần Thơ"
+      ],
+      "email": "Thuecs12.cth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "Thuecs12.cth@gdt.gov.vn",
+          "phone": "02993856579",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-co-so-13",
+      "name": "(đơn vị) Thuế Cơ sở 13 TP Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế Cơ sở 13 TP Cần Thơ"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "cctttri.cth@gdt.gov.vn",
+          "phone": "02993866307",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        },
+        {
+          "email": "lhbang.str@gdt.gov.vn",
+          "phone": "02993866630",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "can-tho-thue-thanh-pho-can-tho",
+      "name": "(đơn vị) Thuế thành phố Cần Thơ",
+      "unit": "THUẾ TP CẦN THƠ",
+      "aliases": [
+        "(đơn vị) Thuế thành phố Cần Thơ"
+      ],
+      "email": "lqvu.cth@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "lqvu.cth@gdt.gov.vn",
+          "phone": "0978960939",
+          "sourceFiles": [
+            "dot4_trang1b_camau_cantho_vinhlong.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-1",
+      "name": "Thuế cơ sở 1 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 1 TP Hà Nội"
+      ],
+      "email": "duongdaynonghki.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynonghki.han@gdt.gov.vn",
+          "phone": "02439264765",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-2",
+      "name": "Thuế cơ sở 2 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 2 TP Hà Nội"
+      ],
+      "email": "duongdaynongbdi.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynongbdi.han@gdt.gov.vn",
+          "phone": "02437473676",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-3",
+      "name": "Thuế cơ sở 3 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 3 TP Hà Nội"
+      ],
+      "email": "ccthbtrung.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ccthbtrung.han@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-4",
+      "name": "Thuế cơ sở 4 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 4 TP Hà Nội"
+      ],
+      "email": "ltavan.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ltavan.han@gdt.gov.vn",
+          "phone": "0914376468",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-5",
+      "name": "Thuế cơ sở 5 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 5 TP Hà Nội"
+      ],
+      "email": "duongdaynongcgi.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynongcgi.han@gdt.gov.vn",
+          "phone": "02437930236",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-12",
+      "name": "Thuế cơ sở 12 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 12 TP Hà Nội"
+      ],
+      "email": "duongdaynonggla.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynonggla.han@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-13",
+      "name": "Thuế cơ sở 13 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 13 TP Hà Nội"
+      ],
+      "email": "duongdaynonghma.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynonghma.han@gdt.gov.vn",
+          "phone": "02436342825",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-14",
+      "name": "Thuế cơ sở 14 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 14 TP Hà Nội"
+      ],
+      "email": "ptkoanh.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ptkoanh.han@gdt.gov.vn",
+          "phone": "0986158898",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-16",
+      "name": "Thuế cơ sở 16 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 16 TP Hà Nội"
+      ],
+      "email": "qldnsta.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "qldnsta.han@gdt.gov.vn",
+          "phone": "0911191965",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-17",
+      "name": "Thuế cơ sở 17 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 17 TP Hà Nội"
+      ],
+      "email": "pthoa03.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "pthoa03.han@gdt.gov.vn",
+          "phone": "0813288910",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-21",
+      "name": "Thuế cơ sở 21 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 21 TP Hà Nội"
+      ],
+      "email": "kttcmy.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "kttcmy.han@gdt.gov.vn",
+          "phone": "02433242009",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-23",
+      "name": "Thuế cơ sở 23 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 23 TP Hà Nội"
+      ],
+      "email": "duongdaynonghdu.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynonghdu.han@gdt.gov.vn",
+          "phone": "0964157969",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-co-so-24",
+      "name": "Thuế cơ sở 24 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 24 TP Hà Nội"
+      ],
+      "email": "duongdaynongdanphuong.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynongdanphuong.han@gdt.gov.vn",
+          "phone": "02466587590",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
       "id": "ha-noi-co-so-25",
-      "name": "Thuế cơ sở 25 Thành phố Hà Nội",
-      "aliases": ["Thuế cơ sở 25 Hà Nội"],
-      "email": null
+      "name": "Thuế cơ sở 25 TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế cơ sở 25 TP Hà Nội"
+      ],
+      "email": "duongdaynongpth.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "duongdaynongpth.han@gdt.gov.vn",
+          "phone": "0849816086",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ha-noi-thue-tp-ha-noi",
+      "name": "Thuế TP Hà Nội",
+      "unit": "THUẾ TP HÀ NỘI",
+      "aliases": [
+        "Thuế TP Hà Nội"
+      ],
+      "email": "nhanpaknnnt.han@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nhanpaknnnt.han@gdt.gov.vn",
+          "phone": "02435146452",
+          "sourceFiles": [
+            "dot13_hanoi.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-1",
+      "name": "Thuế cơ sở 1 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 1 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nhnghia.hcm@gdt.gov.vn",
+          "phone": "0945277174",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "ntngan2.hcm@gdt.gov.vn",
+          "phone": "0908560357",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-2",
+      "name": "Thuế cơ sở 2 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 2 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nthuong1.hcm@gdt.gov.vn",
+          "phone": "0779533887",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "hlmtrang.hcm@gdt.gov.vn",
+          "phone": "0793639891",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-3",
+      "name": "Thuế cơ sở 3 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 3 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "lmtri.hcm@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "tmnghia.hcm@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-4",
+      "name": "Thuế cơ sở 4 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 4 Thành phố Hồ Chí Minh"
+      ],
+      "email": "lntam.hcm@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "lntam.hcm@gdt.gov.vn",
+          "phone": "0364410538",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-5",
+      "name": "Thuế cơ sở 5 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 5 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "dqhung1.hcm@gdt.gov.vn",
+          "phone": "0911881999",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "ltnmai1.hcm@gdt.gov.vn",
+          "phone": "0903085879",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-6",
+      "name": "Thuế cơ sở 6 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 6 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "dthien.hcm@gdt.gov.vn",
+          "phone": "0902469768",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "hkphat.hcm@gdt.gov.vn",
+          "phone": "0909744787",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-7",
+      "name": "Thuế cơ sở 7 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 7 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "htthuy1.hcm@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "ttbngoc.hcm@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-8",
+      "name": "Thuế cơ sở 8 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 8 Thành phố Hồ Chí Minh"
+      ],
+      "email": "ntpoanh.hcm@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ntpoanh.hcm@gdt.gov.vn",
+          "phone": "0979225345",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-9",
+      "name": "Thuế cơ sở 9 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 9 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nmlinh1.hcm@gdt.gov.vn",
+          "phone": "0908540108",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "htntram.hcm@gdt.gov.vn",
+          "phone": "0964477204",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-10",
+      "name": "Thuế cơ sở 10 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 10 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "phttruc.hcm@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "ktnb_q10.hcm@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-11",
+      "name": "Thuế cơ sở 11 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 11 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "lvduyen.hcm@gdt.gov.vn",
+          "phone": "02839630823",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "tvlam.hcm@gdt.gov.vn",
+          "phone": "02839630823",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-12",
+      "name": "Thuế cơ sở 12 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 12 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nthtran4.hcm@gdt.gov.vn",
+          "phone": "0902755468",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "vtle.hcm@gdt.gov.vn",
+          "phone": "0902755468",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-13",
+      "name": "Thuế cơ sở 13 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 13 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "thuecoso13.hcm@gdt.gov.vn",
+          "phone": "0819807113",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "phuong35.hcm@gdt.gov.vn",
+          "phone": "0819807113",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-14",
+      "name": "Thuế cơ sở 14 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 14 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "htnhat.hcm@gdt.gov.vn",
+          "phone": "035109937",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "ntnang.hcm@gdt.gov.vn",
+          "phone": "035109937",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "ndphong1.hcm@gdt.gov.vn",
+          "phone": "035109937",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-15",
+      "name": "Thuế cơ sở 15 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 15 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "natuan.hcm@gdt.gov.vn",
+          "phone": "0989021731",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "nttvan5.hcm@gdt.gov.vn",
+          "phone": "0989021731",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-16",
+      "name": "Thuế cơ sở 16 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 16 Thành phố Hồ Chí Minh"
+      ],
+      "email": "ptdung4.hcm@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ptdung4.hcm@gdt.gov.vn",
+          "phone": "0918564555",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-17",
+      "name": "Thuế cơ sở 17 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 17 Thành phố Hồ Chí Minh"
+      ],
+      "email": "ltkha.hcm@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ltkha.hcm@gdt.gov.vn",
+          "phone": "0903661288",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-18",
+      "name": "Thuế cơ sở 18 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 18 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "thuecoso18.hcm@gdt.gov.vn",
+          "phone": "02837524923",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "hc_bchanh.hcm@gdt.gov.vn",
+          "phone": "02837523872",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-19",
+      "name": "Thuế cơ sở 19 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 19 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ntben.hcm@gdt.gov.vn",
+          "phone": "0911429099",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "nnlan1.hcm@gdt.gov.vn",
+          "phone": "0943560007",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-20",
+      "name": "Thuế cơ sở 20 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 20 Thành phố Hồ Chí Minh"
+      ],
+      "email": "pqhuy1.hcm@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "pqhuy1.hcm@gdt.gov.vn",
+          "phone": "02838740298",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-21",
+      "name": "Thuế cơ sở 21 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 21 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ttttruc.brv@gdt.gov.vn",
+          "phone": "02543717447",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "ntxdao.brv@gdt.gov.vn",
+          "phone": "02543651167",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-22",
+      "name": "Thuế cơ sở 22 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 22 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "lnguyen.brv@gdt.gov.vn",
+          "phone": "02543933109",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "phtthuy.brv@gdt.gov.vn",
+          "phone": "02543921991",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-23",
+      "name": "Thuế cơ sở 23 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 23 Thành phố Hồ Chí Minh"
+      ],
+      "email": "nklac.brv@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "nklac.brv@gdt.gov.vn",
+          "phone": "02543771804",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-24",
+      "name": "Thuế cơ sở 24 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 24 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "pvtien.brv@gdt.gov.vn",
+          "phone": "02543541667",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "dthuong4.brv@gdt.gov.vn",
+          "phone": "02543858938",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-25",
+      "name": "Thuế cơ sở 25 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 25 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ttphuong.bdu@gdt.gov.vn",
+          "phone": "0913175656",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "htthanh.bdu@gdt.gov.vn",
+          "phone": "0913889964",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "tdvinh.bdu@gdt.gov.vn",
+          "phone": "0913797567",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "nxthang.bdu@gdt.gov.vn",
+          "phone": "0913951351",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "cgtruyen.bdu@gdt.gov.vn",
+          "phone": "0915835777",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-26",
+      "name": "Thuế cơ sở 26 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 26 Thành phố Hồ Chí Minh"
+      ],
+      "email": "lsthien.bdu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "lsthien.bdu@gdt.gov.vn",
+          "phone": "0979353660",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-27",
+      "name": "Thuế cơ sở 27 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 27 Thành phố Hồ Chí Minh"
+      ],
+      "email": "ntphuong6.bdu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ntphuong6.bdu@gdt.gov.vn",
+          "phone": "02743755264",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-28",
+      "name": "Thuế cơ sở 28 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 28 Thành phố Hồ Chí Minh"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nhhong.bdu@gdt.gov.vn",
+          "phone": "0918597012",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        },
+        {
+          "email": "pmhoa02.bdu@gdt.gov.vn",
+          "phone": "0918597012",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-co-so-29",
+      "name": "Thuế cơ sở 29 Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế cơ sở 29 Thành phố Hồ Chí Minh"
+      ],
+      "email": "tmha.bdu@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "tmha.bdu@gdt.gov.vn",
+          "phone": "0933683441",
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ho-chi-minh-thue-thanh-pho-ho-chi-minh",
+      "name": "Thuế Thành phố Hồ Chí Minh",
+      "unit": "THUẾ TP HỒ CHÍ MINH",
+      "aliases": [
+        "Thuế Thành phố Hồ Chí Minh"
+      ],
+      "email": "ddnong.thuetp.hcm@gdt.gov.vn",
+      "contacts": [
+        {
+          "email": "ddnong.thuetp.hcm@gdt.gov.vn",
+          "phone": null,
+          "sourceFiles": [
+            "dot15_hcm_bangB.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hue-co-so-1",
+      "name": "(đơn vị) Thuế cơ sở 1 thành phố Huế",
+      "unit": "THUẾ TP HUẾ",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 1 thành phố Huế"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "lmhung.tth@gdt.gov.vn",
+          "phone": "0914172996",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        },
+        {
+          "email": "ddly.tth@gdt.gov.vn",
+          "phone": "0906499555",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hue-co-so-2",
+      "name": "(đơn vị) Thuế cơ sở 2 thành phố Huế",
+      "unit": "THUẾ TP HUẾ",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 2 thành phố Huế"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "lvcuong.tth@gdt.gov.vn",
+          "phone": "0903591626",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        },
+        {
+          "email": "nttham01.tth@gdt.gov.vn",
+          "phone": "0905772550",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hue-co-so-3",
+      "name": "(đơn vị) Thuế cơ sở 3 thành phố Huế",
+      "unit": "THUẾ TP HUẾ",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 3 thành phố Huế"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ldthuan.tth@gdt.gov.vn",
+          "phone": "0914546645",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        },
+        {
+          "email": "Lttuan1.tth@gdt.gov.vn",
+          "phone": "0934902368",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hue-co-so-4",
+      "name": "(đơn vị) Thuế cơ sở 4 Thành phố Huế",
+      "unit": "THUẾ TP HUẾ",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 4 Thành phố Huế"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nchung.tth@gdt.gov.vn",
+          "phone": "02343676405",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        },
+        {
+          "email": "htphuc.tth@gdt.gov.vn",
+          "phone": "02343676990",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hue-co-so-5",
+      "name": "(đơn vị) Thuế cơ sở 5 Thành phố Huế",
+      "unit": "THUẾ TP HUẾ",
+      "aliases": [
+        "(đơn vị) Thuế cơ sở 5 Thành phố Huế"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "ndnghia.tth@gdt.gov.vn",
+          "phone": "0868344678",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        },
+        {
+          "email": "bcluan.tth@gdt.gov.vn",
+          "phone": "0328889868",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hue-thue-thanh-pho-hue",
+      "name": "(đơn vị) Thuế thành phố Huế",
+      "unit": "THUẾ TP HUẾ",
+      "aliases": [
+        "(đơn vị) Thuế thành phố Huế"
+      ],
+      "email": null,
+      "contacts": [
+        {
+          "email": "nthvan.tth@gdt.gov.vn",
+          "phone": "0901539568",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        },
+        {
+          "email": "tlpthao.tth@gdt.gov.vn",
+          "phone": "0947678196",
+          "sourceFiles": [
+            "dot7_trang2_hue_quangtri_hatinh_nghean.md"
+          ]
+        }
+      ]
     }
-  ]
+  ],
+  "contacts": 402,
+  "skipped": {
+    "not_identifiable_agency": 9964,
+    "email_missing_or_needs_review": 29
+  },
+  "invalidPhones": 25,
+  "sourceSha256": "14995eb596d0ebe570483b187330b453b06a7ad428162107d3976137ae02134e"
 }

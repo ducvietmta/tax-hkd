@@ -3,7 +3,6 @@ import type { BusinessClassification } from './decision/jevProvider';
 
 const fold = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd')
   .replace(/([a-z])(?=\d)|(\d)(?=[a-z])/g, '$1$2 ');
-const EINVOICE_CITATION = 'Khoản 2 Điều 1 Nghị định 141/2026/NĐ-CP (sửa đổi khoản 5 Điều 8 Nghị định 68/2026/NĐ-CP)';
 
 export function requestedTaxFocus(question: string): 'vat' | 'pit' | 'both' | 'unspecified' {
   const active = fold(question).replace(/\b(?:khong|ko)\s+(?:hoi|can|tinh|xet)(?:\s+(?:hoi|tinh|xet|ve|den|phan|thue))*\s*(?:tncn|thu nhap ca nhan|gtgt|gia tri gia tang)\b/g, '');
@@ -12,7 +11,7 @@ export function requestedTaxFocus(question: string): 'vat' | 'pit' | 'both' | 'u
   return vat && pit ? 'both' : vat ? 'vat' : pit ? 'pit' : 'unspecified';
 }
 
-/** Compare the answer against every material intent explicitly present in the question. */
+/** Legacy offline template diagnostic only. Production completeness is reviewed semantically. */
 export function missingAnswerIntents(question: string, answer: string, semantic?: BusinessClassification): string[] {
   const q = fold(question);
   const a = fold(answer);
@@ -118,9 +117,9 @@ const MANUAL_PORTAL_MARKERS = [
   's1a-hkd', 's2a-hkd', 's2b-hkd', 's2c-hkd', 's2d-hkd', 's2e-hkd',
 ].map(m => fold(m));
 
-/** Validate a known rule's document, article, clause, content and effective tax period. */
+/** Match citation metadata to evidence; legal applicability is assessed by the semantic reviewer. */
 export function validateLegalCitations(
-  question: string,
+  _question: string,
   answer: string,
   citations: string[],
   scope: AnswerScope,
@@ -204,41 +203,7 @@ export function validateLegalCitations(
 
   citations = citations.filter(isSupportedCitation);
 
-  const q = fold(question);
-  let corrected = answer;
-  if (relevantChunks?.length && /Căn cứ(?:\s+pháp\s+lý|\s+hướng\s+dẫn)?\s*:/i.test(corrected)) {
-    const parts = corrected.split(/(Căn cứ(?:\s+pháp\s+lý|\s+hướng\s+dẫn)?\s*:)/i);
-    if (parts.length >= 3) {
-      const head = parts[0];
-      const label = parts[1];
-      const tail = parts.slice(2).join('');
-      const keptLines = tail.split('\n').filter(rawLine => {
-        const line = rawLine.replace(/^[-*+•]\s*/, '').trim();
-        if (!line) return true;
-        if (/^không áp dụng/i.test(line)) return true;
-        return isSupportedCitation(line);
-      });
-      corrected = `${head}${label}${keptLines.join('\n')}`.trim();
-    }
-  }
-
-  // Sửa lỗi viện dẫn Luật 38/2019 hết hiệu lực từ 2026
-  if (scope.years.every(y => y >= 2026) && /38\/2019\/qh14/.test(fold(corrected)) && evidenceText.includes('108/2025') && !evidenceText.includes('chuyen tiep')) {
-    corrected = corrected.replace(/Luật\s+(?:Quản lý thuế\s+)?(?:số\s+)?38\/2019\/QH14/gi, 'Luật Quản lý thuế (sửa đổi) 108/2025/QH15');
-    citations = citations.map(c => c.replace(/38\/2019\/QH14/g, '108/2025/QH15'));
-  }
-
-  const invoiceRule = scope.years.every(y => y >= 2026) &&
-    /hoa don dien tu|hddt/.test(q) && /1\s*ty|1[.]000[.]000[.]000/.test(q + ' ' + fold(corrected)) &&
-    /30\s*ngay/.test(fold(corrected));
-  if (!invoiceRule) return { answer: corrected, citations };
-  const wrongArticle = /(?:khoan\s*\d+\s*)?dieu\s*9[\s,.:;–—-]*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(fold(corrected));
-  const hasCorrect = /khoan\s*2\s*dieu\s*1\s*nghi\s*dinh\s*(?:so\s*)?141\/2026/.test(fold(corrected)) &&
-    /khoan\s*5\s*dieu\s*8\s*nghi\s*dinh\s*68\/2026/.test(fold(corrected));
-  if (wrongArticle) corrected = corrected.replace(/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*(?:số\s*)?141\/2026\/NĐ-CP/gi,
-    hasCorrect ? '' : EINVOICE_CITATION);
-  if (!hasCorrect && !wrongArticle) corrected += `\n\nCăn cứ trực tiếp cho thời hạn 30 ngày: ${EINVOICE_CITATION}.`;
-  const cleanCitations = citations.filter(c => !/(?:Khoản\s*\d+\s*)?Điều\s*9[\s,.:;–—-]*Nghị\s*định\s*(?:số\s*)?141\/2026\/NĐ-CP/i.test(c));
-  if (!cleanCitations.includes(EINVOICE_CITATION)) cleanCitations.push(EINVOICE_CITATION);
-  return { answer: corrected, citations: cleanCitations };
+  // Never rewrite a legal claim or fabricate a replacement citation. The full
+  // original prose goes to semantic review and, if necessary, grounded repair.
+  return { answer, citations };
 }

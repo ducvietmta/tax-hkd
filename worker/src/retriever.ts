@@ -10,7 +10,6 @@ import { CANONICAL_CHUNKS, QUERY_ROUTES, RagChunk, matchRoute } from './ragEngin
 import { resolveAnswerScope, type AnswerScope } from './answerScope';
 import { extractAllAmounts } from './decision/factExtractor';
 import { foldText as fold } from './utils/text';
-import { legacyPinRefs } from './decision/retrievalPlan';
 import { evidenceProvenance, type EvidenceProvenance } from './kb/provenance';
 import chunkPeriods from './kb/chunkMeta.json';
 import { periodFits, type EffectiveInterval } from './kb/periodApplicability';
@@ -233,18 +232,6 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
     if (plan.allowed_refs) selected = selected.filter(item => plan.allowed_refs!.includes(item.chunk.ref_id || ''));
     selected = selected.slice(0, Math.max(limit,selected.filter(item=>item.required).length));
     return { results: withNamedPolicyEvidence(selected), routeId: plan.semantic_topic || route?.id || null, usedFallback };
-  }
-  // Điểm cao nhất hiện tại — dùng để gắn cho chunk chèn tay (ưu tiên lên đầu).
-  const topScore = selected[0]?.score || 0;
-  // Ghim legacy: thứ tự, điều kiện và bonus định nghĩa tập trung ở
-  // decision/retrievalPlan.ts (legacyPinRefs). Duyệt ngược để ref đầu
-  // danh sách nằm trước nhất — giữ nguyên hành vi cũ.
-  for (const pin of [...legacyPinRefs(query, scope)].reverse()) {
-    const evidence = idx.find((item) => item.chunk.ref_id === pin.ref);
-    if (!evidence) continue;
-    const existing = selected.findIndex((item) => item.chunk.ref_id === pin.ref);
-    if (existing >= 0) selected.splice(existing, 1);
-    selected.unshift({ chunk: evidence.chunk, score: topScore + pin.bonus, viaRoute: false });
   }
   return {
     results: withNamedPolicyEvidence(selected),

@@ -203,5 +203,16 @@
     ],
     "applies_from_year": 2026,
     "applies_to_year": null
+  },
+  {
+    "ref_id": "16.99",
+    "topics": [
+      "TAX_AMOUNT"
+    ],
+    "intents": [
+      "TAX_CALCULATION"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
   }
 ]

@@ -1,5 +1,6 @@
 import type { BusinessClassification } from './jevProvider';
 import { REGISTRATION_SCOPE_POLICY,SUBJECT_SCOPE_POLICY } from './registrationScope';
+import { PROCEDURAL_EVIDENCE_POLICY } from './proceduralEvidencePolicy';
 
 /** Coverage requirements by semantic topic, not question IDs or keyword matches.
  * Legal conclusions must still come from the retrieved, period-scoped evidence.
@@ -32,11 +33,11 @@ export function answerContract(semantic: BusinessClassification): string {
     TAX_SOFTWARE_SYSTEM: 'Nhóm C (Phần mềm/hệ thống cơ quan thuế): Giải đáp rõ chức năng, mục đích sử dụng và phân biệt các hệ thống/ứng dụng/biểu mẫu có trong bằng chứng (như canhantmdt.gdt.gov.vn cho TMĐT/mã 888, eTax Mobile cho cá nhân/HKD/người phụ thuộc/tài khoản ngân hàng, HTKK cho kê khai, sổ kế toán S1a/S2a/S2b-S2e trên Excel/điện tử theo TT 152/2025, tờ khai 01/CNKD chỉ tiêu [14]). Ranh giới đỏ: Chỉ khẳng định các tính năng có trong bằng chứng; nếu người dùng hỏi chi tiết tính năng phần mềm chưa có trong kho tri thức, trả lời phần đã có căn cứ và gắn nhãn rõ phần chưa có tài liệu chính thức cần đối chiếu thêm trên cổng thông tin của Cục Thuế.',
   };
   const registrationSummary = semantic.topic === 'REGISTRATION_REQUIREMENTS'
-    ? '\nTrả lời gọn theo hai việc cần kiểm tra: đăng ký kinh doanh và đăng ký thuế. Nêu các luồng áp dụng trước rồi hỏi làm rõ, không chép mọi ngoại lệ nếu không cần thiết. Kết thúc bằng mục Căn cứ pháp lý với tên/số hiệu đầy đủ và điều khoản trong bằng chứng đã dùng; không viện dẫn rút gọn gây mất văn bản áp dụng.' : '';
+    ? '\nTrả lời gọn theo hai việc cần kiểm tra: đăng ký kinh doanh và đăng ký thuế. Nêu các luồng áp dụng trước rồi hỏi làm rõ, không chép mọi ngoại lệ nếu không cần thiết. Có thể ghi nguồn hướng dẫn trong RAG cho phần thao tác. Nếu viện dẫn pháp luật thì giữ đúng tên văn bản và điều khoản đã dùng trong bằng chứng.' : '';
   const policy = 'Mục đích chính sách do bộ phân loại nhận diện (chỉ là gợi ý, không phải kết luận pháp lý): '+JSON.stringify(semantic.policyFocus||'UNSPECIFIED')+'. Đối chiếu lại với câu hỏi và nguồn; nhãn chưa rõ không cho phép tự chọn chính sách. Không đòi đáp án dùng cách diễn đạt, cụm từ hay số hiệu cố định.';
   const uncertainRevenue=['PROJECTED','PARTIAL_PERIOD'].includes(semantic.revenueContext||'')
     ? 'VAI TRÒ SỐ TIỀN: doanh thu dự kiến/ước tính chưa phải thực tế cả năm; số đã thu lũy kế chưa chắc bằng doanh thu ghi nhận. Chỉ tính dự báo CÓ ĐIỀU KIỆN, nêu dữ kiện cần chốt. Không khẳng định đã vượt ngưỡng, phải dùng HĐĐT hay đã bắt đầu hạn đăng ký từ dự báo. Nếu chỉ hỏi thuế cả năm thì không tự thêm kết luận nghĩa vụ hóa đơn. Không dùng dự báo thay điều kiện thực tế ở bất kỳ đoạn nào.' : '';
-  return common + '\n' + REGISTRATION_SCOPE_POLICY + '\n'+SUBJECT_SCOPE_POLICY+'\nTrạng thái chủ thể (gợi ý, chưa tự chứng minh điều kiện pháp lý): '+JSON.stringify({subjectContext:semantic.subjectContext||'UNKNOWN',registrationStatus:semantic.registrationStatus||'UNKNOWN'})+'\n' + (topics[semantic.topic || ''] || '') + '\n' + policy + registrationSummary + '\n' + uncertainRevenue;
+  return common + '\n' + REGISTRATION_SCOPE_POLICY + '\n'+SUBJECT_SCOPE_POLICY+'\nTrạng thái chủ thể (gợi ý, chưa tự chứng minh điều kiện pháp lý): '+JSON.stringify({subjectContext:semantic.subjectContext||'UNKNOWN',registrationStatus:semantic.registrationStatus||'UNKNOWN'})+'\n' + (topics[semantic.topic || ''] || '') + '\n' + policy + registrationSummary + '\n' + uncertainRevenue + '\n' + PROCEDURAL_EVIDENCE_POLICY;
 }
 
 export const UNVERIFIED_ANSWER = 'Mình chưa xác minh được đầy đủ câu trả lời với các căn cứ hiện có nên chưa thể đưa ra kết luận chắc chắn. Cần đối chiếu lại nội dung và điều khoản áp dụng trước khi sử dụng kết quả này.';

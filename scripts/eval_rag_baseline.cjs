@@ -301,7 +301,7 @@ async function main() {
         for (const item of preparedCases) {
           const { tc, scope, gtSet, bm25List, denseHits, countPeriodMismatch } = item;
           const scores = new Map();
-          const legacyPins = new Set(retrievalPlanMod.legacyPinRefs(tc.input.message, scope).map((p) => p.ref));
+          const legacyPins = new Set();
           const qTerms = new Set(fold(tc.input.message).split(/\s+/).filter((w) => w.length > 2));
 
           // BM25 rank contribution + preserve only true route/legacy pins

@@ -15,6 +15,16 @@ function probe(message,semantic){
  const context=r.buildContext(found.results.filter(h=>allowed.has(h.chunk.id)),message,9000,p);
  return {frame:f,routing,context};
 }
+for (const message of [
+ 'Tôi đã có CCCD gắn chip và MST cũ 888, nay mở thêm gian hàng affiliate thì có bắt buộc phải xin mã số thuế mới không?',
+ 'Tôi đã đăng ký thuế, mở thêm một hoạt động kinh doanh có phải cấp mã thuế khác không?',
+]) {
+ const result=probe(message,{topic:'TAX_REGISTRATION',primaryIntent:'REGISTRATION',incomeTypes:['AFFILIATE_COMMISSION'],answerPurpose:'PROCEDURE'});
+ for(const ref of ['16.113','16.96']) {
+   assert(result.routing.must_include_refs.includes(ref),`Identity source not required: ${ref}`);
+   assert(result.context.includedRefs.includes(ref),`Identity source missing from prompt: ${ref}`);
+ }
+}
 for(const id of ['G002','G018','G070','G073','G127','G163']){
  const c=suite.cases.find(c=>c.id===id);
  const semantic=id==='G002'?{topic:'REVENUE_THRESHOLD',primaryIntent:'EXEMPTION_ELIGIBILITY'}:

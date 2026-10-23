@@ -139,12 +139,11 @@ async function runCase(c) {
     assert.equal(validation.canUseVerifiedAnswer(c.input.message,spec.coverageMutation.answer,semantic.taxFocus,semantic),false);
     return {candidate:spec.coverageMutation.answer,issues:actual};
   });
-  if (spec.citationMutation) await check('citation_validator','correct wrong Article 9 for 30-day invoice registration',()=>{
+  if (spec.citationMutation) await check('citation_validator','preserve original claim for semantic review without fabricating a citation',()=>{
     const bad='Hộ vượt 1 tỷ cần đăng ký hóa đơn điện tử trong 30 ngày theo Điều 9 Nghị định 141/2026/NĐ-CP.';
     const corrected=validation.validateLegalCitations(c.input.message,bad,['Điều 9 Nghị định 141/2026/NĐ-CP'],scope,retrieved.results.map(r=>r.chunk));
-    assert.doesNotMatch(corrected.answer,/Điều 9 Nghị định 141/);
-    assert.match(corrected.answer,/Khoản 2 Điều 1 Nghị định 141/);
-    assert.match(corrected.answer,/khoản 5 Điều 8 Nghị định 68/);
+    assert.equal(corrected.answer,bad);
+    assert(!corrected.citations.some(c=>c.includes('Khoản 2 Điều 1')));
   });
   if (spec.reviewCheck) await check('review_contract','propagate mocked reviewer rejection for required business condition',async()=>{
     const provider=new providerMod.QuyetDecisionProvider('OFFLINE_DUMMY');

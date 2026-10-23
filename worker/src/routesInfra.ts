@@ -19,6 +19,7 @@ export function handleHealth(env: Env, corsHeaders: Headers): Response {
       service: 'Cloudflare Workers API',
       platform: 'Cloudflare Edge (Pages + Workers + D1 + R2 + Vectorize)',
       aiModel: 'Muse Spark 1.3 (Meta AI)',
+      generationEndpoint: 'https://api.meta.ai/v1/responses',
       decisionModel: env.JEV_API_KEY ? 'jev-latest (TypeSafe AI)' : 'Quyet-1.0-Large (FPT Cloud AI)',
       hasMuse: !!env.MUSE_API_KEY,
       hasQuyet: !!(env.JEV_API_KEY || env.FPT_AI_KEY),

@@ -16,7 +16,6 @@ export interface Env {
   ENVIRONMENT?: string;
   CORS_ALLOW_ORIGIN?: string;
   MUSE_API_KEY?: string;
-  MUSE_ENDPOINT?: string;
   MUSE_MODEL?: string;
   JEV_API_KEY?: string;
   FPT_AI_KEY?: string;

@@ -21,7 +21,7 @@ CORS_ALLOW_ORIGIN = "https://tax-hkd.pages.dev"
 INITIAL_FREE_CREDITS = 3
 VIP_CREDITS = 1000
 SEPAY_PATTERN = "SP-LIVE-TD295786"
-DECISION_MODE = "enforce"
+DECISION_MODE = "audit"
 MUSE_MODEL = "muse-spark-1.3-contributor"
 VECTORIZE_ENABLED = "1"
 # Secrets — KHÔNG commit giá trị thật vào git. Cấu hình bằng:

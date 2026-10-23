@@ -19,7 +19,9 @@ function AttachmentRejectionGuide() {
   const [copyStatus, setCopyStatus] = useState('');
   const [answers, setAnswers] = useState<string[]>([]);
   const [question, setQuestion] = useState('Email yêu cầu bạn liên hệ Thuế cơ sở nào?');
-  const [email, setEmail] = useState<string | null>(null);
+  const [contacts, setContacts] = useState<Array<{email:string|null;phone:string|null;sourceFiles?:string[]}>>([]);
+  const [contactUnit, setContactUnit] = useState('');
+  const [isPerson, setIsPerson] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   async function sendAnswer() {
@@ -32,7 +34,7 @@ function AttachmentRejectionGuide() {
       const response=await fetch('/api/registration-guide/office',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({answers:next}),signal:AbortSignal.timeout(30000)});
       const result=await response.json();if(!response.ok)throw Error(result.error||'Chưa xác định được cơ quan.');
       setAnswers(next);setOffice('');setUnknown(false);
-      if(result.status==='matched'){setConfirmedOffice(result.office.name);setEmail(result.office.email);}
+      if(result.status==='matched'){setConfirmedOffice(result.office.name);setContacts(result.office.contacts || (result.office.email?[{email:result.office.email,phone:null}]:[]));setContactUnit(result.office.unit||'');setIsPerson(result.office.recordType==='CONTACT');}
       else if(result.status==='clarify')setQuestion(result.question);
       else setQuestion('Cơ quan này chưa có trong danh bạ hệ thống. Bạn hãy liên hệ theo thông tin ở email. Có thể nhập lại tên cơ quan và địa phương nếu cần đối chiếu.');
     }catch(e){setError(e instanceof Error?e.message:'AI tạm thời chưa sẵn sàng.');}
@@ -40,12 +42,12 @@ function AttachmentRejectionGuide() {
   }
   const draft = `Kính gửi ${confirmedOffice},\nHồ sơ đăng ký thuế mã […] nhận thông báo: “Thông tin giấy tờ đính kèm không hợp lệ/không khớp đúng với tờ khai/văn bản đề nghị của NNT”.\nKính đề nghị Quý cơ quan cho biết cụ thể giấy tờ hoặc trường thông tin nào không hợp lệ, nội dung nào không khớp và cần sửa thành thông tin gì; đồng thời hướng dẫn cách bổ sung, điều chỉnh và nộp lại hồ sơ theo thông báo. Nếu thủ tục không hiển thị mục tải tệp đính kèm, đề nghị hướng dẫn vị trí hoặc phương thức bổ sung phù hợp.\nTôi sẽ cung cấp mã hồ sơ, thông báo và ảnh màn hình bước kê khai để đối chiếu.\nTrân trọng.`;
   return <div className="mt-4 space-y-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-    <p className="text-xs font-semibold text-emerald-700">Trợ lý AI · Tìm cơ quan trong danh bạ</p>
+    <p className="text-xs font-semibold text-emerald-700">Trợ lý AI · Tìm cơ quan hoặc tên liên hệ</p>
     {answers.map((answer,i)=><p key={i} className="rounded-lg bg-white p-2 text-sm">Bạn: {answer}</p>)}
     <p className="text-sm font-semibold">{question}</p>
-    <p className="text-xs leading-relaxed text-slate-600">Xem dòng “Nếu có vướng mắc… hoặc liên hệ với…” ở cuối email. Nhập đầy đủ tên cơ quan và tỉnh/thành phố được ghi trong email.</p>
+    <p className="text-xs leading-relaxed text-slate-600">Nhập tên cơ quan hoặc họ tên cán bộ cùng tỉnh/thành phố trong email. Nếu trùng tên, AI sẽ hỏi thêm. Không cần gửi toàn bộ email.</p>
     <form onSubmit={e => { e.preventDefault(); void sendAnswer(); }} className="flex flex-wrap gap-2">
-      <input aria-label="Thuế cơ sở được nhắc trong email" disabled={busy} maxLength={600} value={office} onChange={e => { setOffice(e.target.value); setConfirmedOffice(''); setCopyStatus(''); setUnknown(false); }} placeholder="Tên Thuế cơ sở và tỉnh/thành phố" className="min-w-0 flex-1 rounded-lg border border-emerald-200 bg-white px-3 py-2 text-sm" />
+      <input aria-label="Tên cơ quan hoặc cán bộ và tỉnh thành" disabled={busy} maxLength={600} value={office} onChange={e => { setOffice(e.target.value); setConfirmedOffice(''); setCopyStatus(''); setUnknown(false); }} placeholder="Tên cơ quan/cán bộ + tỉnh/thành phố" className="min-w-0 flex-1 rounded-lg border border-emerald-200 bg-white px-3 py-2 text-sm" />
       <button type="submit" disabled={!office.trim() || busy || answers.length>=6} className="rounded-lg bg-emerald-700 px-4 py-2 text-sm font-semibold text-white disabled:opacity-40">{busy?'AI đang đối chiếu…':'Gửi cho AI'}</button>
     </form>
     {error && <p role="alert" className="text-sm text-rose-700">{error}</p>}
@@ -54,7 +56,15 @@ function AttachmentRejectionGuide() {
     <div aria-live="polite">
       {unknown && <p className="mt-3 text-sm leading-relaxed">Mở toàn bộ email hoặc thông báo đính kèm để xem phần liên hệ cuối trang. Nếu vẫn không có tên, hãy kiểm tra cơ quan tiếp nhận trong mục tra cứu hồ sơ hoặc dùng kênh hỗ trợ trên cổng đã nộp. Chưa đủ thông tin để xác định Thuế cơ sở phụ trách.</p>}
       {confirmedOffice && <div className="mt-3 space-y-3 text-sm leading-relaxed">
-        <p className="rounded-lg bg-white p-3"><strong>Cơ quan trong danh bạ: {confirmedOffice}</strong><br />{email ? <>Email: <a className="underline" href={`mailto:${email}`}>{email}</a></> : 'Email liên hệ: Đang chờ bổ sung vào danh bạ hệ thống. Hiện dùng thông tin liên hệ trong email thông báo.'}</p>
+        <div className="space-y-3 rounded-lg bg-white p-3"><strong>{isPerson?'Liên hệ':'Cơ quan'} trong danh bạ: {confirmedOffice}</strong>
+          {isPerson&&<p className="text-sm">Đơn vị: {contactUnit || 'Chưa xác định'}. Chưa có thông tin xác nhận bộ phận hoặc phạm vi phụ trách hồ sơ.</p>}
+          {contacts.length?contacts.map((contact,i)=><div key={`${contact.email}-${i}`} className="break-words border-t border-slate-100 pt-2">
+            {contact.email&&<a className="font-medium text-emerald-800 underline" href={`mailto:${contact.email}`}>{contact.email}</a>}
+            {contact.phone&&<p>Điện thoại: <a className="underline" href={`tel:${contact.phone.replace(/[^+\d]/g,'')}`}>{contact.phone}</a></p>}
+            {!!contact.sourceFiles?.length&&<p className="mt-1 text-xs text-slate-500">Nguồn danh bạ: {contact.sourceFiles.join(', ')}</p>}
+          </div>):<p>Chưa có email phù hợp. Dùng thông tin liên hệ trong thông báo.</p>}
+          <p className="text-xs leading-relaxed text-slate-500">Liên hệ lấy từ danh bạ được cung cấp, chưa xác minh lại thời điểm hiện tại. Đối chiếu với thông báo trả hồ sơ trước khi gửi thông tin.</p>
+        </div>
         <p>Bạn hãy liên hệ <strong>{confirmedOffice}</strong> theo địa chỉ hoặc kênh liên hệ ghi trong email. Cung cấp mã hồ sơ và hỏi rõ giấy tờ/trường thông tin nào không hợp lệ hoặc không khớp. Thông báo này chưa cho biết chính xác lỗi nằm ở đâu.</p>
         <p>Nếu không có mục đính kèm, nói rõ điều này và gửi ảnh màn hình cho cơ quan tiếp nhận. Sau khi được làm rõ, bổ sung hoặc điều chỉnh và nộp lại theo hướng dẫn trong thông báo.</p>
         <h3 className="font-semibold">Nội dung đề nghị gửi tới cơ quan thuế</h3>

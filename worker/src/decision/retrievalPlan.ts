@@ -3,9 +3,6 @@
  *
  * Xây dựng kế hoạch truy xuất cho RAG dựa trên TaxDecisionFrame,
  * thay thế các đoạn ghim mã ref_id thủ công rải rác trong code.
- * legacyPinRefs: single source of truth cho các quy tắc ghim dự phòng
- * của đường legacy (không có decision plan). retriever.ts chỉ áp dụng
- * theo đúng thứ tự này, không định nghĩa lại regex/ref ở nơi khác.
  * Module này KHÔNG import runtime (giữ tương thích test harness stub).
  */
 
@@ -32,64 +29,6 @@ export function selectPolicyEvidence(frame:TaxDecisionFrame,catalog:PolicyEviden
       [frame.tax_intent?.primary.value,...(frame.tax_intent?.secondary||[])].some(intent=>!!intent&&entry.intents?.includes(intent))||
       entry.subject_contexts?.includes(frame.semantic?.subjectContext||''))
     .map(entry=>entry.ref_id);
-}
-
-function foldLegacy(s: string): string {
-  return (s || '')
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/đ/g, 'd')
-    .replace(/[^a-z0-9%\s]/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-/** Một ref được ghim lên đầu, giữ nguyên bonus điểm như logic cũ. */
-export interface LegacyPin {
-  ref: string;
-  bonus: number;
-}
-
-/**
- * Thứ tự ghim legacy (front-to-back) cho câu hỏi không có decision frame.
- * Tái hiện chính xác thứ tự unshift cũ trong retriever: 16.77, 16.99,
- * 16.100, 16.96, 16.60, 16.95, 16.51, 16.54 (chỉ các ref đủ điều kiện).
- */
-export function legacyPinRefs(query: string, scope: { years: number[]; today: string }): LegacyPin[] {
-  const normalizedQuery = foldLegacy(query);
-  const currentYear = Number(String(scope.today).slice(0, 4)) || new Date().getFullYear();
-  const asksCurrentYear = scope.years.includes(currentYear);
-  const historicalOnly = scope.years.length > 0 && scope.years.every((year) => year < 2026);
-  const asksAboutAffiliate = /\b(affiliate|tiep thi lien ket|hoa hong|koc|kol)\b/.test(normalizedQuery);
-  const asksRefund = /\b(hoan thue|nop thua|lay lai tien thue)\b/.test(normalizedQuery) ||
-    (/\bthue\b/.test(normalizedQuery) && /\b(hoan lai|hoan tien|lay lai)\b/.test(normalizedQuery));
-
-  const asks888Registration =
-    /dang ky.*888|888.*(nhu the nao|cach|huong dan|thu tuc|lam sao)|(da co mst 10 so|co can dang ky 888)/.test(normalizedQuery);
-  const asksPercentageRate = /bao nhieu\s*(phan tram|%)/.test(normalizedQuery) ||
-    (/\b(thue suat|ty le)\b/.test(normalizedQuery) && /\b(bao nhieu|may %)\b/.test(normalizedQuery));
-  const mentionsSector = /\b(hang hoa|tap hoa|dich vu|an uong|van tai|xay dung|phan phoi|cat toc|spa|nha hang|quan an|ca phe)\b/.test(normalizedQuery);
-  const asksTaxCalculation2026 =
-    !historicalOnly &&
-    (/\b(1[,.]01\s*ty|1010\s*trieu|1[,.]5\s*ty|1500\s*trieu|1[.]000[.]000[.]001|tinh thue|nop thue|phai nop|nq43|30%)\b/.test(normalizedQuery) ||
-      (asksPercentageRate && mentionsSector) ||
-      (normalizedQuery.includes('doanh thu') && /\b(ty|trieu)\b/.test(normalizedQuery)));
-
-  const pins: LegacyPin[] = [];
-  if (asksPercentageRate && mentionsSector) pins.push({ ref: '16.77', bonus: 2 });
-  if (asksTaxCalculation2026) pins.push({ ref: '16.99', bonus: 1.2 });
-  if (asks888Registration) pins.push({ ref: '16.100', bonus: 3 });
-  if (!historicalOnly && (/\b888\b/.test(normalizedQuery) ||
-      (asksAboutAffiliate && /\b(1 ty|mot ty)\b/.test(normalizedQuery)))) pins.push({ ref: '16.96', bonus: 2 });
-  if (asksCurrentYear && (
-      (normalizedQuery.includes('doanh thu') && /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) ||
-      (asksRefund && asksAboutAffiliate && /\b\d+\s*(trieu|ty)\b/.test(normalizedQuery))
-    )) pins.push({ ref: '16.60', bonus: 1 });
-  if (asksAboutAffiliate && !historicalOnly) pins.push({ ref: '16.95', bonus: 1 });
-  if (asksRefund) pins.push({ ref: '16.51', bonus: 1 });
-  if (historicalOnly && /\bdoanh thu\b/.test(normalizedQuery)) pins.push({ ref: '16.54', bonus: 1 });
-  return pins;
 }
 
 export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
@@ -197,7 +136,7 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     INVOICE_CORRECTION: ['16.103', '16.106', '16.21', '16.18', '16.17', '16.42'],
     INVOICE_REGISTRATION: ['16.41', '16.105', '16.103', '16.80', '16.38', '16.58', '16.79', '16.24','16.138'],
     BUSINESS_REGISTRATION: ['16.107', '16.73', '16.20', '16.7', '16.8'],
-    TAX_REGISTRATION: ['16.108', '16.64', '16.107', '16.65', '16.9', '16.25'],
+    TAX_REGISTRATION: ['16.113', '16.96', '16.108', '16.64', '16.107', '16.65', '16.9', '16.25'],
     REGISTRATION_COMPARISON: ['16.108', '16.64', '16.107', '16.7'],
     REGISTRATION_REQUIREMENTS: ['16.108', '16.107', '16.64', '16.73', '16.20'],
     SYSTEM_REGISTRATION: ['16.100', '16.96', '16.12', '16.9', '16.108', '16.64', '16.65', '16.25', '16.41', '16.105', '16.58', '16.7', '16.8', '16.107', '16.29', '16.91', '16.38'],
@@ -255,7 +194,6 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     if (!isHistorical && relief && !refs.includes('16.50')) refs.push('16.50', '16.99');
     if (!isHistorical && calc && !refs.includes('16.77')) refs.push('16.77', '16.99', '16.56');
     if (!isHistorical && refund && !refs.includes('16.51')) refs.push('16.51', '16.95');
-    if (frame.facts?.revenue_vnd && frame.facts.revenue_vnd >= 3_000_000_000 && !refs.includes('16.99')) refs.unshift('16.99');
     if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
     if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
     return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
@@ -266,20 +204,13 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   if (!isHistorical && (frame.tax_intent.primary.value === 'TAX_CALCULATION' ||
       frame.tax_intent.primary.value === 'RELIEF_REDUCTION')) {
     mustIncludeRefs.push('16.77');
-    if (frame.facts?.revenue_vnd && frame.facts.revenue_vnd > 1_000_000_000 && frame.facts.revenue_vnd <= 3_000_000_000) {
-      mustIncludeRefs.push('16.56');
-    }
+    mustIncludeRefs.push('16.56');
+
   }
 
   // 1. Ghim các ref bắt buộc theo quy định thời kỳ
   if (isHistorical || years.includes(2025)) {
     mustIncludeRefs.push('16.54'); // Ngưỡng 100tr TT40
-  }
-
-  // 2. Doanh thu trên 3 tỷ (phương pháp 17%)
-  if (frame.facts?.revenue_vnd && frame.facts.revenue_vnd > 3_000_000_000) {
-    mustIncludeRefs.push('16.99');
-    if (frame.income_type.some(item => item.value === 'MARKETPLACE_SALES')) mustIncludeRefs.push('16.57');
   }
 
   // 3. Ưu đãi giảm thuế (NQ 43 / NQ 204)

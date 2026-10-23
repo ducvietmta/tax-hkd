@@ -8,28 +8,8 @@ export async function repairAnswer(instructions: string, history: ConversationTu
   env: { MUSE_API_KEY?: string; AI?: { run: (model: string, input: unknown) => Promise<{ response?: string }> } }, timeoutMs = 45000) {
   if (env.MUSE_API_KEY) {
     try {
-      const isZenmux = env.MUSE_API_KEY.startsWith('sk-ai-') || env.MUSE_API_KEY.startsWith('sk-');
-      if (isZenmux) {
-        const response = await fetch('https://zenmux.ai/api/v1/chat/completions', {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${env.MUSE_API_KEY}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'deepseek/deepseek-v4.1-flash',
-            messages: [
-              { role: 'system', content: instructions },
-              ...history.map(t => ({ role: t.role === 'assistant' ? 'assistant' : 'user', content: t.content })),
-              { role: 'user', content: question },
-            ],
-            max_tokens: 32768,
-          }),
-          signal: AbortSignal.timeout(timeoutMs),
-        });
-        if (response.ok) {
-          const data: any = await response.json();
-          const text = data.choices?.[0]?.message?.content?.trim();
-          if (text?.length > 15) return { text, provider: 'DeepSeek V4.1 Flash (ZenMux)' };
-        } else console.warn('[ANSWER_REPAIR_HTTP_ZENMUX]', response.status);
-      } else {
+
+      {
         const modelRequest = buildMuseRequest(instructions,history,question,false,'muse-spark-1.3-contributor','low');
         modelRequest.max_output_tokens = 16000;
         const response = await fetch('https://api.meta.ai/v1/responses', {

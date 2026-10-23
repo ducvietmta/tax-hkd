@@ -4,10 +4,8 @@ import { verifiedFirebasePhone } from './firebaseAuth';
 import { jsonResponse, type Env } from './http';
 import { isChatRateLimited } from './rateLimit';
 import { readRegistrationModelStream } from './registrationModelStream';
-import { SUBJECT_SCOPE_POLICY } from './decision/registrationScope';
 
 const SOURCE = 'Trợ lý đăng ký riêng · Muse Spark 1.3';
-const INSTRUCTIONS = registrationAdvisorInstructions()+'\n'+SUBJECT_SCOPE_POLICY;
 
 async function readBody(request: Request): Promise<any> {
   const reader = request.body?.getReader();
@@ -79,35 +77,14 @@ export async function handleRegistrationAdvisor(request: Request, env: Env, ctx:
       send({ type: 'meta', source: SOURCE, remainingCredits: reserved.credits });
       send({ type: 'progress', stage: 'received' });
       send({ type: 'status', status: 'generating' });
-      const isZenmux = env.MUSE_API_KEY?.startsWith('sk-');
+
       let answer = '';
-      if (isZenmux) {
-        const messages = [
-          { role: 'system', content: INSTRUCTIONS },
-          ...history.map(turn => ({ role: turn.role, content: turn.content })),
-          { role: 'user', content: `${panelMessage}\n\n${message}` },
-        ];
-        const upstream = await fetch('https://zenmux.ai/api/v1/chat/completions', {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${env.MUSE_API_KEY}`, 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: env.MUSE_MODEL || 'deepseek/deepseek-v4.1-flash',
-            messages,
-            max_tokens: 4096,
-          }),
-          signal: abort.signal,
-        });
-        if (!upstream.ok) throw new Error('UPSTREAM_' + upstream.status);
-        const zData: any = await upstream.json();
-        answer = zData.choices?.[0]?.message?.content?.trim() || '';
-        if (firstTextMs === null) firstTextMs = Date.now() - startedAt;
-        send({ type: 'delta', delta: answer });
-      } else {
+      {
         const upstream = await fetch('https://api.meta.ai/v1/responses', {
           method: 'POST',
           headers: { Authorization: `Bearer ${env.MUSE_API_KEY}`, 'Content-Type': 'application/json', Accept: 'text/event-stream' },
-          body: JSON.stringify({ model: 'muse-spark-1.3-contributor', instructions: INSTRUCTIONS, input,
-            reasoning: { effort: 'minimal' }, max_output_tokens: 4000, stream: true, store: false }),
+          body: JSON.stringify({ model: 'muse-spark-1.3-contributor', instructions: registrationAdvisorInstructions(panel.section), input,
+            reasoning: { effort: 'minimal' }, max_output_tokens: 2600, stream: true, store: false }),
           signal: abort.signal,
         });
         answer = await readRegistrationModelStream(upstream, delta => {

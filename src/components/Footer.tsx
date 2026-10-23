@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExternalLink, Sparkles, ShieldCheck, Phone, Mail, MapPin } from 'lucide-react';
+import websitePolicies from '../../shared/websitePolicies.json';
 import type { PolicyType } from './PolicyModal';
 
 interface FooterProps {
@@ -31,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
             <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-[11.5px] sm:text-[12px] text-slate-600 space-y-1.5">
               <div className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Đơn vị vận hành: Nền tảng TaxHKD (thuehkd.com)</span>
+                <span>Chủ sở hữu: {websitePolicies.operator.name} · MST {websitePolicies.operator.taxId}</span>
               </div>
               <div className="flex items-center gap-2 text-slate-600">
                 <Phone size={13} className="text-emerald-600 shrink-0" />
@@ -43,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
               </div>
               <div className="flex items-start gap-2 text-slate-600">
                 <MapPin size={13} className="text-emerald-600 shrink-0 mt-0.5" />
-                <span>Hà Nội, Việt Nam</span>
+                <span>{websitePolicies.operator.address}</span>
               </div>
             </div>
 
@@ -58,50 +59,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
             <h4 className="font-bold text-slate-900 text-[13.5px] sm:text-[15px] flex items-center gap-1.5">
               <span>Chính sách &amp; Quy định</span>
             </h4>
-            <ul className="space-y-1.5 sm:space-y-2 text-[12.5px] sm:text-[13px]">
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onOpenPolicy?.('privacy')}
-                  className="text-left text-slate-700 hover:text-emerald-700 font-medium transition-colors cursor-pointer"
-                >
-                  Chính sách bảo mật
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onOpenPolicy?.('terms')}
-                  className="text-left text-slate-700 hover:text-emerald-700 font-medium transition-colors cursor-pointer"
-                >
-                  Điều khoản dịch vụ
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onOpenPolicy?.('payment')}
-                  className="text-left text-slate-700 hover:text-emerald-700 font-medium transition-colors cursor-pointer"
-                >
-                  Chính sách thanh toán
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onOpenPolicy?.('refund')}
-                  className="text-left text-slate-700 hover:text-emerald-700 font-medium transition-colors cursor-pointer"
-                >
-                  Hoàn tiền &amp; Khiếu nại
-                </button>
-              </li>
+            <ul className="space-y-2 text-[12.5px] sm:text-[13px]">
+              {websitePolicies.policies.map(policy=><li key={policy.id}><a href={`#/`+policy.slug} onClick={e=>{if(onOpenPolicy){e.preventDefault();window.location.hash='/'+policy.slug;onOpenPolicy(policy.id as PolicyType);}}} className="block text-left text-slate-700 hover:text-emerald-700">{policy.number}. {policy.title}</a></li>)}
             </ul>
 
             {/* Thông báo Bộ Công Thương Badge Note */}
             <div className="pt-2">
               <div className="p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200/60 text-[10.5px] text-emerald-900 leading-snug">
                 <span className="font-bold block text-emerald-800 mb-0.5">Website TMĐT Bán hàng</span>
-                Đang thực hiện thủ tục thông báo với Bộ Công Thương theo NĐ 52/2013/NĐ-CP.
+                Đang thực hiện thủ tục với Bộ Công Thương. Thông tin chính sách được công khai để khách hàng tra cứu.
               </div>
             </div>
           </div>
