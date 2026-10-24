@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Kiến Trúc Nền Tảng Tư Vấn Thuế TMĐT & HKD 2026",
+    "output": "architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "clients", "type": "external", "label": "Người Dùng & HKD", "sublabel": "Web / Mobile PWA", "pos": [40, 240], "size": [150, 60] },
+    { "id": "custom_gpt", "type": "external", "label": "ChatGPT & MCP", "sublabel": "OpenAPI Connector", "pos": [40, 360], "size": [150, 60] },
+    { "id": "firebase", "type": "security", "label": "Firebase Auth", "sublabel": "Phone OTP & Identity", "pos": [40, 120], "size": [150, 60], "tag": "Identity" },
+    { "id": "pages", "type": "cloud", "label": "Cloudflare Pages", "sublabel": "Vite + React Frontend", "pos": [260, 240], "size": [160, 60] },
+    { "id": "worker", "type": "backend", "label": "Cloudflare Worker", "sublabel": "RAG Engine & Router", "pos": [480, 240], "size": [160, 60], "tag": "tax-agent-worker" },
+    { "id": "d1_db", "type": "database", "label": "Cloudflare D1", "sublabel": "SQLite Edge (User & Trace)", "pos": [480, 120], "size": [160, 60], "tag": "tax_db" },
+    { "id": "vectorize", "type": "database", "label": "Cloudflare Vectorize", "sublabel": "Dense Semantic Index", "pos": [700, 240], "size": [160, 60], "tag": "tax-kb-v1" },
+    { "id": "r2_store", "type": "cloud", "label": "Cloudflare R2", "sublabel": "Document Storage", "pos": [700, 120], "size": [160, 60] },
+    { "id": "meta_muse", "type": "backend", "label": "Meta Muse AI", "sublabel": "muse-spark-1.3-contributor", "pos": [920, 240], "size": [170, 60], "tag": "LLM Synthesis" },
+    { "id": "sepay", "type": "security", "label": "SePay VietQR", "sublabel": "Auto Payment Webhook", "pos": [480, 380], "size": [160, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Cloudflare Edge Platform", "wraps": ["pages", "worker", "d1_db", "vectorize", "r2_store"] }
+  ],
+  "connections": [
+    { "id": "client-to-pages", "from": "clients", "to": "pages", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "client-to-auth", "from": "clients", "to": "firebase", "label": "SMS OTP", "fromSide": "top", "toSide": "bottom" },
+    { "id": "gpt-to-worker", "from": "custom_gpt", "to": "worker", "label": "/api/chatgpt/tax-qa", "fromSide": "right", "toSide": "bottom" },
+    { "id": "pages-to-worker", "from": "pages", "to": "worker", "label": "REST & SSE" },
+    { "id": "worker-to-auth", "from": "worker", "to": "firebase", "label": "Verify JWT" },
+    { "id": "worker-to-d1", "from": "worker", "to": "d1_db", "label": "Session & Quota", "fromSide": "top", "toSide": "bottom" },
+    { "id": "worker-to-vec", "from": "worker", "to": "vectorize", "label": "Hybrid RAG" },
+    { "id": "worker-to-r2", "from": "worker", "to": "r2_store", "label": "Read Files", "fromSide": "top", "toSide": "bottom" },
+    { "id": "worker-to-muse", "from": "worker", "to": "meta_muse", "label": "Grounded Prompt", "variant": "emphasis" },
+    { "id": "sepay-to-worker", "from": "sepay", "to": "worker", "label": "Top-up Credits", "fromSide": "top", "toSide": "bottom" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Giao Diện & Kênh Tiếp Cận", "items": ["thuehkd.com (Cloudflare Pages React PWA)", "Tích hợp trực tiếp ChatGPT Custom GPT qua chuẩn OpenAPI / MCP"] },
+    { "dot": "emerald", "title": "Xử Lý & Tra Cứu Tri Thức (RAG)", "items": ["Cloudflare Worker điều phối luồng Hybrid Retrieval (BM25 + Vectorize)", "D1 Database quản lý người dùng và lưu vết truy vấn an toàn"] },
+    { "dot": "violet", "title": "Mô Hình AI Cốt Lõi", "items": ["Meta Muse API (muse-spark-1.3) chịu trách nhiệm tổng hợp tư vấn luật thuế", "Kiểm duyệt căn cứ pháp lý: Nghị định 141/2026, 68/2026, Luật GTGT & TNCN"] }
+  ]
+}
