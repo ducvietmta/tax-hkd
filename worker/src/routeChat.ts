@@ -3,10 +3,12 @@
  * Mọi return đều là Response hoàn chỉnh (JSON hoặc SSE).
  */
 
+import { supportDirectory } from './supportDirectory';
+import { hasMcpTestAccess } from './mcpTestAccess';
 import { taxRegistrationInstructions } from '../../shared/taxRegistrationWorkflow';
 import type { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
-import { retrieve, buildContext, analyzeAmounts } from './retriever';
+import { retrieve, buildReviewContext, analyzeAmounts } from './retriever';
 import { resolveAnswerScope, scopeInstructions, intentInstructions, OUT_OF_SCOPE_RESPONSE } from './answerScope';
 import { resolveTaxRelevance } from './taxRelevance';
 import { matchPendingTopics } from './pendingTopics';
@@ -44,6 +46,10 @@ import type { ChatProgress } from '../../shared/chatProgress';
 import { PIPELINE_VERSION } from './buildInfo';
 import { PipelineBudget } from './decision/pipelineBudget';
 import { planScenarios, scenarioRequests } from './decision/scenarioPlan';
+import { caseRecognizer, recognitionConfig, expansionPhraseIds, RECOGNITION_POLICY_VERSION } from './recognition/recognizer';
+import { bridgeVerifiedCandidates, type BridgeTrace } from './recognition/bridge';
+import { trustedSource, passageTrusted, finalSourceGate, STRICT_SOURCE_POLICY, STRICT_SOURCE_POLICY_VERSION } from './recognition/trustedEvidence';
+import { quarantineCandidates } from './recognition/sourcePolicy';
 
 export { PIPELINE_VERSION };
 
@@ -115,6 +121,7 @@ export async function handleChat(
 
     // The connector endpoint is deliberately public, but receives the same IP
     // quota. An arbitrary HTTP header must never grant internal privileges.
+    const privilegedMcp = caller === 'connector' && await hasMcpTestAccess(request,env);
     const isInternal = caller === 'connector' || path === '/api/chatgpt/tax-qa';
     let verifiedPhone: string | null = null;
 
@@ -171,8 +178,27 @@ export async function handleChat(
       ...userHistory,
     ]) : userHistory;
 
+    const recognitionSettings=recognitionConfig(env);
+    const requestId=crypto.randomUUID();
+    const strictSources=recognitionSettings.strict;
+    const sourcePolicyKey=`${STRICT_SOURCE_POLICY_VERSION}:${RECOGNITION_POLICY_VERSION}:${caseRecognizer.version}:${recognitionSettings.mode}:${strictSources}`;
+    const strictCachedAnswerValid=(payload:any):boolean=>{
+      if(!strictSources)return true;
+      try{
+        const proof=payload?._verifiedProof;
+        return proof?.policy===sourcePolicyKey&&finalSourceGate(payload.response,payload.citations||[],proof.packet,proof.verdicts,proof.reviewPassed,proof.citationCheck).ok;
+      }catch{return false;}
+    };
+    if(recognitionSettings.invalid)console.warn('[CASE_RECOGNITION_CONFIG_INVALID]');
+
     // Both transports return the same finalized answer; SSE only changes delivery.
     const respondWithAnswer = (payload: any, remainingCredits: number, cached = false): Response => {
+      payload={...payload};delete payload._verifiedProof;
+      if(strictSources&&payload.retrieval){
+        payload.retrieval={...payload.retrieval};
+        delete payload.retrieval.reviewRounds;delete payload.retrieval.repairTrace;
+        if(payload.retrieval.claimEvidence)payload.retrieval.claimEvidence=payload.retrieval.claimEvidence.map((c:any)=>({id:c.id,evidence_ids:c.evidence_ids,ref_ids:c.ref_ids,verification:c.verification}));
+      }
       const answerPayload = {
         ...payload,
         remainingCredits,
@@ -184,6 +210,8 @@ export async function handleChat(
           success: true,
           answer: payload.response,
           legal_citations: payload.citations || [],
+          retrieval: payload.retrieval,
+          answerReview: payload.retrieval?.answerReview,
           evidence: (payload.retrieval?.evidence || []).map((e: any) => e.title),
           decision: payload.retrieval?.decision,
           source: payload.source,
@@ -224,13 +252,13 @@ export async function handleChat(
 
     // Run rate-limit, user credit lookup, and cache hash computation in parallel
     const [rateLimited, userRecord, digest] = await Promise.all([
-      isChatRateLimited(ip, env, ctx),
+      privilegedMcp ? Promise.resolve(false) : isChatRateLimited(ip, env, ctx, verifiedPhone || undefined),
       !isInternal && env.DB && activePhone
         ? env.DB.prepare(`SELECT id, phone, credits, role FROM users WHERE phone = ?`).bind(activePhone).first<{ id: string; phone: string; credits: number; role?: string }>()
         : Promise.resolve(null),
       crypto.subtle.digest(
         'SHA-256',
-        new TextEncoder().encode(`${PIPELINE_VERSION}|rules:${CURRENT_RULESET_VERSION}|kb:${await knowledgeVersion()}|mode:${env.DECISION_MODE || 'enforce'}|today:${answerScope.today}|years:${answerScope.years.join(',')}|q:${normMsg}|hist:${JSON.stringify(history)}${registrationGuide ? '|guide:2' : ''}`)
+        new TextEncoder().encode(`${PIPELINE_VERSION}|sources:${sourcePolicyKey}|rules:${CURRENT_RULESET_VERSION}|kb:${await knowledgeVersion()}|mode:${env.DECISION_MODE || 'enforce'}|today:${answerScope.today}|years:${answerScope.years.join(',')}|q:${normMsg}|hist:${JSON.stringify(history)}${registrationGuide ? '|guide:2' : ''}`)
       ),
     ]);
 
@@ -326,7 +354,9 @@ export async function handleChat(
         const hit = await caches.default.match(cacheKey);
         if (hit) cached = await hit.json();
       }
+      if(cached&&!strictCachedAnswerValid(cached))cached=null;
       if (cached) {
+        if(strictSources)console.log('[CASE_RECOGNITION_CACHE]',JSON.stringify({requestId,source_gate:'PASS',refs:cached._verifiedProof.packet.passages.map((p:any)=>p.ref_id)}));
         onProgress?.({ stage: 'cache' });
         const remainingCredits = await deductCreditOnce();
         logRetrieval(env, ctx, {
@@ -361,6 +391,7 @@ export async function handleChat(
     // Khởi chạy Vector Search song song ngay từ đầu để ẩn hoàn toàn latency (~250-400ms)
     const earlyRetrievalQuery = buildConversationRetrievalQuery(history, message, answerScope.years);
     const vectorSearchPromise = vectorSearch(earlyRetrievalQuery, env, 8, answerScope.years).catch(() => null);
+    const recognitionPromise=caseRecognizer.recognize(earlyRetrievalQuery,JSON.stringify({history,years:answerScope.years,today:answerScope.today}),recognitionSettings.mode!=='off');
 
     // --- BƯỚC 0: KIỂM TRA PHẠM VI & PHÂN LOẠI NGỮ NGHĨA SONG SONG ---
     const decisionApiKey = env.JEV_API_KEY || env.FPT_AI_KEY || '';
@@ -408,6 +439,7 @@ export async function handleChat(
     // Classify before retrieval so the frame controls the evidence path.
     const decisionMode = env.DECISION_MODE || 'enforce';
     const applyDecision = decisionMode === 'enforce';
+    const requireReview = applyDecision;
     const decisionFrame = understandClassifiedQuery(message, answerScope, history, businessClassification);
     if(businessClassification.calculationShape==='SCENARIOS'){
       try{
@@ -446,6 +478,15 @@ export async function handleChat(
     const subretrieval=decisionFrame.requests && decisionFrame.requests.length>1
       ? retrieveSubrequests(retrievalQuery,decisionFrame,answerScope,Math.max(topK,8)) : null;
     const retrieved = subretrieval || retrieve(retrievalQuery, topK, answerScope, retrievalPlan);
+    const recognition=await recognitionPromise;
+    let recognitionBridge:BridgeTrace={accepted_refs:[],rejected:[]};
+    if(recognitionSettings.mode!=='off'&&recognition.packet.status==='MATCHED'&&retrievalPlan){
+      // Use the union of existing subrequest scopes, never case-suggested scope.
+      const bridgePlan=subretrieval?{...retrievalPlan,allowed_refs:[...new Set(subretrieval.plans.flatMap(p=>p.refs))]}:retrievalPlan;
+      const bridged=bridgeVerifiedCandidates(retrieved.results,recognition.packet,retrievalQuery,answerScope,bridgePlan,decisionFrame,Math.max(topK,retrieved.results.length));
+      recognitionBridge=bridged.trace;
+      if(recognitionSettings.mode==='on')retrieved.results=bridged.results;
+    }
     const { routeId, usedFallback } = retrieved;
     // Dense opt-in: Weighted RRF + True-Pin preservation + Period metadata filtering
     const vectorHits = await vectorSearchPromise;
@@ -461,6 +502,12 @@ export async function handleChat(
         minScore: 0.35,
       });
     }
+    if(strictSources){
+      const quarantine=quarantineCandidates(retrieved.results,retrievalPlan?.must_include_refs||[]);
+      if(quarantine.removed_refs.length||quarantine.required_refs.length)console.warn('[VERIFIED_SOURCE_QUARANTINE]',JSON.stringify({requestId,removed_refs:quarantine.removed_refs,required_refs:quarantine.required_refs,case_ids:recognition.packet.matched_case_ids}));
+      if(quarantine.required_refs.length)return respondWithAnswer({success:true,response:UNVERIFIED_ANSWER,source:'quarantined_required_evidence',citations:[],diagnostic_code:'QUARANTINED_REQUIRED_EVIDENCE'},userRecord?.credits??99);
+      retrieved.results=quarantine.results;
+    }
     logRetrieval(env, ctx, {
       transport: path === '/api/chatgpt/tax-qa' ? 'chatgpt'
         : request.headers.get('X-Internal-Caller') === 'mcp' ? 'mcp' : 'web',
@@ -468,26 +515,36 @@ export async function handleChat(
       hasPlan: !!retrievalPlan, resultCount: retrieved.results.length, years: answerScope.years,
     });
     const gated = decisionFrame ? filterAndGateEvidence(retrieved.results.map(r => r.chunk), decisionFrame) : null;
-    const results = applyDecision && gated
+    let results = requireReview && gated
       ? retrieved.results.filter(r => gated.passedChunks.includes(r.chunk))
       : retrieved.results.filter(r=>isSubjectCompatible(r.chunk,decisionFrame));
+    if(strictSources){
+      const trusted=results.map(r=>({r,chunk:trustedSource(r.chunk,decisionFrame)}));
+      if(trusted.some(x=>!x.chunk)){
+        console.warn('[STRICT_SOURCE_INPUT_BLOCK]',JSON.stringify({requestId,refs:trusted.filter(x=>!x.chunk).map(x=>x.r.chunk.ref_id)}));
+        return respondWithAnswer({success:true,response:UNVERIFIED_ANSWER,source:'untrusted_evidence',citations:[],diagnostic_code:'UNTRUSTED_EVIDENCE'},userRecord?.credits??99);
+      }
+      results=trusted.map(x=>({...x.r,chunk:x.chunk!}));
+    }
     const relevantChunks: RagChunk[] = results.map((r) => r.chunk);
     const structuredDecision = decisionFrame && decisionPlan && gated
       ? decide(decisionFrame, decisionEvaluation, gated.evidenceItems, decisionPlan) : null;
     const matchedRoute = routeId ? { refs: relevantChunks.map((c) => c.ref_id).filter(Boolean) } : null;
     // Reserve room for the official form/industry evidence in the guide. Both
     // generation and review receive this same context; don't silently overrun
-    // the reviewer's 14k evidence limit and fall back without a review.
+    // the reviewer's evidence limit and fall back without a review.
     const reviewOverhead = workflowEvidence.length + analyzeAmounts(message).length + answerContract(businessClassification).length + 600;
     // Required legal dependencies need the same bounded space even when the
     // provider returns a broad topic such as OTHER. Preserve review's reserve.
     const contextBudget = registrationGuide ? 4500 : businessClassification.topic === 'TAX_AMOUNT'||results.some(r=>r.required)
       ? Math.min(12000, Math.max(6500, 14000 - reviewOverhead - 800)) : retrievalPlan?.semantic_topic ? 9000 : 6500;
-    const { text: ragContextText, citations: retrievedCitations, includedRefs, passages,missingDocumentRefs,missingRequiredRefs } = buildContext(results, retrievalQuery, contextBudget, answerScope,businessClassification.answerPurpose==='DEFINITION'?'DEFINITION':undefined);
+    const maxContextBudget=Math.max(contextBudget,20000-reviewOverhead-800);
+    const { text: ragContextText, citations: retrievedCitations, includedRefs, passages,missingDocumentRefs,missingRequiredRefs } = buildReviewContext(results, retrievalQuery, contextBudget, maxContextBudget, answerScope,businessClassification.answerPurpose==='DEFINITION'?'DEFINITION':undefined);
+    if(strictSources&&passages.some(p=>!passageTrusted(p)))return respondWithAnswer({success:true,response:UNVERIFIED_ANSWER,source:'untrusted_passage',citations:[],diagnostic_code:'UNTRUSTED_PASSAGE'},userRecord?.credits??99);
     if(missingRequiredRefs.length)console.warn('[REQUIRED_CONTEXT_OMITTED]',JSON.stringify({refs:missingRequiredRefs,contextBudget}));
-    if(missingDocumentRefs.length){
-      console.warn('[DOCUMENT_CONTEXT_INCOMPLETE]',JSON.stringify({refs:missingDocumentRefs,contextBudget}));
-      return respondWithAnswer({success:true,response:'Mình đã tìm thấy văn bản bạn hỏi nhưng chưa đưa đủ nội dung liên quan vào lượt xử lý này. Bạn vui lòng tách từng văn bản hoặc từng yêu cầu để mình đối chiếu chính xác; lượt này không bị trừ.',source:'evidence_context_incomplete',citations:[],legal_citations:[]},userRecord?.credits??99);
+    if(missingRequiredRefs.length){
+      console.warn('[DOCUMENT_CONTEXT_INCOMPLETE]',JSON.stringify({refs:missingRequiredRefs,contextBudget,maxContextBudget,years:answerScope.years,packedLength:ragContextText.length,sources:results.filter(r=>r.required).map(r=>({ref:r.chunk.ref_id,length:r.chunk.text.length,excerpt:r.chunk.context_passage?.length,period:r.chunk.context_passage_period}))}));
+      return respondWithAnswer({success:true,response:'Hệ thống chưa đưa đủ nguồn cần thiết vào lượt xử lý này. Đây là giới hạn xử lý của hệ thống; lượt này không bị trừ. Bạn có thể thử lại sau.',source:'evidence_context_incomplete',diagnostic_code:'EVIDENCE_CONTEXT_LIMIT',citations:[],legal_citations:[]},userRecord?.credits??99);
     }
     for(const passage of passages)passage.request_ids=subretrieval?.links[passage.ref_id]||decisionFrame.requests?.map(r=>r.id)||[];
     const requestEvidenceCoverage=decisionFrame.requests?.map(r=>({request_id:r.id,evidence_ids:passages.filter(p=>p.request_ids?.includes(r.id)).map(p=>p.id)}))||[];
@@ -523,11 +580,15 @@ export async function handleChat(
     const decisionStatus = structuredDecision?.decision_status || 'NO_BASIS';
     // Guard chủ đề PENDING: chèn disclaimer vào prompt, không để model chốt cứng
     const pendingTopics = matchPendingTopics(message);
-    const pendingNotice = pendingTopics.length
+    const pendingNotice = (strictSources?STRICT_SOURCE_POLICY+'\n':'')+(pendingTopics.length
       ? `CHỦ ĐỀ CHƯA XÁC MINH: ${pendingTopics.map((t) => t.disclaimer).join(' ')} Chỉ trình bày các cách hiểu có thể dựa trên trích lục, nêu rõ điểm chưa chắc chắn, KHÔNG chốt cứng một đáp án duy nhất.\n`
-      : '';
+      : '');
     const reasoningEffort = selectReasoningEffort(message, businessClassification, decisionFrame);
+    const operationalSupport=businessClassification.topic==='PORTAL_TROUBLESHOOTING'
+      ? supportDirectory([...history.filter(t=>t.role==='user').slice(-2).map(t=>t.content),message]) : undefined;
+    const supportHint=operationalSupport?`HỖ TRỢ LIÊN HỆ (không phải căn cứ pháp lý): ${JSON.stringify({status:operationalSupport.status,message:operationalSupport.message,offices:operationalSupport.offices.map(o=>({name:o.name,unit:o.unit}))})}. Không tạo email/số điện thoại hoặc chọn thay người dùng một ứng viên. Không lặp thông tin liên hệ/tên ứng viên trong đáp án; giao diện hiển thị danh bạ riêng từ dữ liệu hệ thống. Chỉ hỏi địa phương/đơn vị khi cần liên hệ để xử lý tiếp và người dùng chưa cung cấp.`:'';
     const retrievalTrace = {
+      supportDirectory:operationalSupport,
       method: vectorHits?.length
         ? (routeId ? 'Hybrid (BM25 + Vectorize + Định tuyến)' : 'Hybrid (BM25 + Vectorize)')
         : (routeId ? 'BM25 và định tuyến câu hỏi' : 'BM25'),
@@ -601,6 +662,7 @@ ${intentInstructions(message)}
 ${groundedAnswerPolicy(businessClassification)}
 PHÂN LOẠI NGỮ NGHĨA (gợi ý, không phải kết luận pháp lý): ${JSON.stringify(businessClassification)}
 ${answerContract(businessClassification)}${abcPromptGuidance}
+${supportHint}
 ${pendingNotice}
 ${canUseDecisionCalculation && decisionEvaluation ? `RULES ENGINE: ${decisionEvaluation.explanation}` : ''}
 ${analyzeAmounts(message)}
@@ -610,6 +672,7 @@ ${ragContextText}`;
 ${scopeInstructions(answerScope)}
 ${groundedAnswerPolicy(businessClassification)}
 ${answerContract(businessClassification)}${abcPromptGuidance}
+${supportHint}
 ${pendingNotice}
 ${analyzeAmounts(message)}
 BẰNG CHỨNG:
@@ -771,16 +834,18 @@ ${ragContextText}`;
       turn2Repaired?: string;
       turn2Issues?: string[] | null;
     } | null = null;
-    if (applyDecision && !isSystemError && aiText && generationPrompt && decisionApiKey) {
-      const useMuseReview=businessClassification.answerPurpose==='DEFINITION'&&!!env.MUSE_API_KEY;
+    if (requireReview && !isSystemError && aiText && generationPrompt && decisionApiKey) {
+      const useMuseReview=!!env.MUSE_API_KEY && (businessClassification.answerPurpose==='DEFINITION'||groundingPacket.claims.some(c=>c.mapping==='UNMAPPED'));
       budget.startReview();
       const reviewBudget=()=>budget.review();
-      const reviewer = useMuseReview?new MuseEvidenceReviewer(env.MUSE_API_KEY!,reviewBudget()):new JevDecisionProvider(decisionApiKey, decisionEndpoint,reviewBudget(), decisionModel);
+      let reviewer = useMuseReview?new MuseEvidenceReviewer(env.MUSE_API_KEY!,reviewBudget()):new JevDecisionProvider(decisionApiKey, decisionEndpoint,reviewBudget(), decisionModel);
       onProgress?.({ stage: 'reviewing' });
       const fullReviewEvidence = [
+        ...(strictSources?[STRICT_SOURCE_POLICY]:[]),
         `KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')} (xác định tại thời điểm ngày ${answerScope.today}). Chỉ áp dụng các văn bản và ngưỡng có hiệu lực trong kỳ này.`,
         ragContextText,
         workflowEvidence,
+        supportHint,
         analyzeAmounts(message),
         "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)
       ].filter(Boolean).join('\n\n');
@@ -788,7 +853,16 @@ ${ragContextText}`;
       const t0Rev1 = Date.now();
       // Guards may have changed prose after generation; invalidate stale mappings.
       if(groundingPacket.claims.map(c=>c.text).join('\n\n')!==aiText)groundingPacket=parseGroundedAnswer(aiText,passages,groundingPacket.requests).packet;
-      const issues = await reviewer.reviewAnswer(message, aiText, fullReviewEvidence, history, businessClassification,groundingPacket);
+      let issues = await reviewer.reviewAnswer(message, aiText, fullReviewEvidence, history, businessClassification,groundingPacket);
+      if(issues===null && env.MUSE_API_KEY && budget.review()>1000){
+        reviewRounds.push({provider:reviewer.name,issues:null,checks:reviewer.lastReviewChecks,integrity:reviewer.lastReviewIntegrity});
+        const alternative = useMuseReview
+          ? new JevDecisionProvider(decisionApiKey,decisionEndpoint,budget.review(),decisionModel)
+          : new MuseEvidenceReviewer(env.MUSE_API_KEY,budget.review());
+        // Preserve the same evidence and deadline; never turn an unavailable review into approval.
+        reviewer=alternative;
+        issues=await reviewer.reviewAnswer(message,aiText,fullReviewEvidence,history,businessClassification,groundingPacket);
+      }
       if('lastReviewedPacket' in reviewer&&reviewer.lastReviewedPacket)groundingPacket=reviewer.lastReviewedPacket;
       reviewFailureCode=reviewer.failureCode;
       claimVerdicts=reviewer.lastReviewClaims;
@@ -799,11 +873,11 @@ ${ragContextText}`;
       durationRev1Ms = Date.now() - t0Rev1;
       semanticReviewIssues = issues;
       semanticReviewPassed = canReleaseReviewedAnswer(issues);
-      console.log('[ANSWER_SEMANTIC_REVIEW]', JSON.stringify({ model: reviewer.name, available: issues !== null, issues, durationMs: durationRev1Ms }));
+      console.log('[ANSWER_SEMANTIC_REVIEW]', JSON.stringify({ requestId, failureCode:reviewFailureCode, model: reviewer.name, available: issues !== null, issues, durationMs: durationRev1Ms }));
       // A rewrite cannot fix the reviewer's confidence when every selected
       // verdict is otherwise positive. Avoid a redundant model round trip.
       const unclearDefinition=businessClassification.answerPurpose==='DEFINITION'&&issues?.some(issue=>issue.startsWith('claim_')&&issue.endsWith(':LOW_CONFIDENCE'));
-      if ((issues?.some(issue => !issue.endsWith(':LOW_CONFIDENCE'))||unclearDefinition) && env.MUSE_API_KEY && budget.canRepair()) {
+      if (issues?.length && env.MUSE_API_KEY && budget.canRepair()) {
         onProgress?.({ stage: 'repairing' });
         repairTrace = {
           turn1Draft: aiText,
@@ -856,15 +930,16 @@ ${ragContextText}`;
     }
     // Only a fully reviewed LLM answer may be released as legal guidance.
     let blockGate: 'NONE' | 'NO_EVIDENCE_CHUNKS' | 'ANSWER_VALIDATOR_DOWNGRADE' | 'SEMANTIC_REVIEW_FAILED' | 'REVIEW_PROVIDER_UNAVAILABLE' =
-      relevantChunks.length === 0 ? 'NO_EVIDENCE_CHUNKS' : 'NONE';
-    if (applyDecision && !semanticReviewPassed && !isSystemError) {
+      passages.length === 0 ? 'NO_EVIDENCE_CHUNKS' : 'NONE';
+    if (requireReview && blockGate === 'NONE' && (!semanticReviewPassed || !validationPass) && !isSystemError) {
       if (semanticReviewIssues === null) {
         // An unavailable reviewer is not a positive legal verdict. Arithmetic
         // or a document name alone cannot certify applicability.
           aiText = UNVERIFIED_ANSWER;
           legalCitations = [];
-          source = reviewFailureCode?.startsWith('REVIEW_') ? 'Review budget exceeded' : 'Review provider unavailable';
-          if(reviewFailureCode?.startsWith('REVIEW_'))aiText='Câu trả lời cần kiểm tra vượt giới hạn xử lý của lượt này. Bạn có thể tách câu hỏi thành từng phần; lượt hỏi này không bị trừ.';
+          source = 'Review provider unavailable';
+          aiText = 'Hệ thống kiểm chứng đang gián đoạn hoặc chưa xử lý được lượt này. Bạn vui lòng thử lại; lượt hỏi này không bị trừ.';
+          if(reviewFailureCode && /LIMIT|RESOURCE/.test(reviewFailureCode))aiText='Câu trả lời cần kiểm tra vượt giới hạn xử lý của lượt này. Bạn có thể tách câu hỏi thành từng phần; lượt hỏi này không bị trừ.';
           blockGate = 'REVIEW_PROVIDER_UNAVAILABLE';
           if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
       } else {
@@ -888,7 +963,13 @@ ${ragContextText}`;
         }
       }
     }
-    const answerReviewStatus = isSystemError
+    const strictSourceResult=strictSources&&!isSystemError&&blockGate==='NONE'
+      ? finalSourceGate(aiText,legalCitations,groundingPacket,claimVerdicts,semanticReviewPassed,reviewRounds.at(-1)?.checks.citations) : undefined;
+    if(strictSourceResult&&!strictSourceResult.ok){
+      aiText=UNVERIFIED_ANSWER;legalCitations=[];source='Verified source gate blocked';
+      blockGate='ANSWER_VALIDATOR_DOWNGRADE';semanticReviewPassed=false;validationPass=false;
+    }
+    const answerReviewStatus = blockGate === 'NO_EVIDENCE_CHUNKS' ? 'NO_EVIDENCE' : isSystemError
       ? 'SKIPPED_GENERATION_ERROR'
       : semanticReviewIssues === null
         ? 'SKIPPED_PROVIDER_ERROR'
@@ -922,7 +1003,19 @@ ${ragContextText}`;
       console.log('[ABC_GROUP_TELEMETRY]', JSON.stringify(abcTelemetry));
     }
     if (retrievalTrace.decision) Object.assign(retrievalTrace.decision, { answerReview, timings, ...(abcTelemetry ? { abcTelemetry } : {}) });
-    Object.assign(retrievalTrace, { answerReview, timings,reviewRounds,claimEvidence:groundingPacket.claims.map(c=>({...c,verification:claimVerdicts[c.id]||null,role:claimRoles[c.id]||null})), ...(repairTrace ? { repairTrace } : {}), ...(abcTelemetry ? { abcTelemetry } : {}) });
+    Object.assign(retrievalTrace, { requestId, blockGate, answerReview, timings,reviewRounds,claimEvidence:groundingPacket.claims.map(c=>({...c,verification:claimVerdicts[c.id]||null,role:claimRoles[c.id]||null})), ...(repairTrace ? { repairTrace } : {}), ...(abcTelemetry ? { abcTelemetry } : {}) });
+    if(recognitionSettings.mode!=='off'||strictSources){
+      const recognitionTrace={requestId,mode:recognitionSettings.mode,version:recognition.packet.recognition_version,
+        layerA:{status:recognition.packet.status,reason:recognition.reason,case_ids:recognition.packet.matched_case_ids,
+          matches:recognition.matches,intents:recognition.packet.inferred_intents,phrase_ids:expansionPhraseIds(recognition.packet),
+          suggested_refs:recognition.packet.suggested_verified_card_ids,cache_hit:recognition.cache_hit,latency_ms:recognition.duration_ms},
+        layerB:{...recognitionBridge,selected_refs:results.map(r=>r.chunk.ref_id),context_refs:includedRefs},
+        final:{gate:strictSourceResult,block: blockGate,refs:strictSourceResult?.ok?strictSourceResult.citation_refs:[],
+          claim_sources:strictSourceResult?.ok?groundingPacket.claims.map(c=>({claim_id:c.id,evidence_ids:c.evidence_ids,ref_ids:c.ref_ids})):[]}};
+      // IDs and diagnostics only: never raw cases, query text or expansion prose.
+      console.log('[CASE_RECOGNITION_TRACE]',JSON.stringify(recognitionTrace));
+      Object.assign(retrievalTrace,{caseRecognition:recognitionTrace});
+    }
     console.log('[CHAT_TIMINGS]', JSON.stringify({ message: message.slice(0, 50), ...timings }));
 
     // Kiểm tra hậu kỳ đối với câu hỏi năm cũ (< 2026)
@@ -945,6 +1038,8 @@ ${ragContextText}`;
       retrieval: retrievalTrace,
       ...(isSystemError ? { diagnostic_code: generationFailure || 'MODEL_UNAVAILABLE' } : {}),
       matchedRefs: matchedRoute?.refs || [],
+      ...(strictSourceResult?.ok?{_verifiedProof:{policy:sourcePolicyKey,packet:groundingPacket,verdicts:claimVerdicts,
+        reviewPassed:semanticReviewPassed,citationCheck:reviewRounds.at(-1)?.checks.citations}}:{}),
     };
     const isCleanReview = semanticReviewIssues !== null && semanticReviewIssues.length === 0;
     if (cacheable && !isSystemError && llmOk && validationPass && (semanticReviewPassed && isCleanReview) &&
@@ -956,7 +1051,8 @@ ${ragContextText}`;
         const row = await env.DB.prepare('SELECT payload FROM answer_cache WHERE cache_key = ?')
           .bind(hash).first() as { payload: string } | null;
         if (!row?.payload) throw new Error('Answer cache did not retain the canonical result');
-        canonicalPayload = JSON.parse(row.payload);
+        const storedPayload=JSON.parse(row.payload);
+        if(strictCachedAnswerValid(storedPayload))canonicalPayload=storedPayload;
       } else {
         await caches.default.put(cacheKey, new Response(JSON.stringify(canonicalPayload), {
           headers: { 'Cache-Control': 'max-age=86400', 'Content-Type': 'application/json' },
@@ -971,7 +1067,7 @@ ${ragContextText}`;
         `agt_${crypto.randomUUID()}`,PIPELINE_VERSION,JSON.stringify({requests:decisionFrame.requests,
           evidence:passages.map(p=>({id:p.id,ref_id:p.ref_id,request_ids:p.request_ids,provenance:p.provenance})),
           claims:groundingPacket.claims,verdicts:claimVerdicts,roles:claimRoles,issues:semanticReviewIssues,reviewRounds,repair:repairTrace,
-          blockGate,answerReviewStatus,generationRuns})
+          requestId,question:message,blockGate,answerReviewStatus,generationRuns})
       ).run().catch((error:any)=>console.warn('[GROUNDING_TRACE_ERR]',error?.message)));
       ctx.waitUntil(env.DB.prepare(
         `INSERT INTO decision_traces (id, mode, decision_status, layer, tax_years, rule_ids, evidence_refs, excluded_refs, validation_status, source)
@@ -986,7 +1082,7 @@ ${ragContextText}`;
     }
 
     // Blocked drafts, partial answers and clarification do not spend a credit.
-    const chargeableAnswer = !isSystemError && blockGate === 'NONE' && validationPass && (semanticReviewPassed || !applyDecision);
+    const chargeableAnswer = !isSystemError && blockGate === 'NONE' && validationPass && (semanticReviewPassed || !requireReview);
     // --- BƯỚC 3: GHI LOG VÀO CLOUDFLARE D1 ---
     if (env.DB && activePhone) {
       ctx.waitUntil(
