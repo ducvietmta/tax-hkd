@@ -3,6 +3,7 @@
  * tools/call gọi trực tiếp handleChat (thay vì this.fetch vòng lại).
  */
 
+import { hasMcpTestAccess } from './mcpTestAccess';
 import { handleChat } from './routeChat';
 import { jsonResponse, type Env } from './http';
 
@@ -17,6 +18,7 @@ export async function handleMcp(
     if (request.method === 'GET') {
       return jsonResponse({
         status: 'ok',
+        access: await hasMcpTestAccess(request,env) ? 'private-test-unmetered' : 'public-rate-limited',
         name: 'tax-qa-mcp',
         version: '1.0.0',
         description: 'Model Context Protocol (MCP) Server for Vietnam Tax Regulations 2026',
@@ -112,12 +114,15 @@ export async function handleMcp(
         }
 
         try {
+          const bypassTestCache=request.headers.get('X-Bypass-Cache')==='1'&&await hasMcpTestAccess(request,env);
           const chatRes = await handleChat(
             new Request('https://tax-hkd.internal/api/chatgpt/tax-qa', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'Authorization': request.headers.get('Authorization') || '',
                 'X-Internal-Caller': 'mcp',
+                ...(bypassTestCache?{'X-Bypass-Cache':'1'}:{}),
                 'CF-Connecting-IP': request.headers.get('CF-Connecting-IP') || 'unknown'
               },
               body: JSON.stringify({ message: question, history: toolArgs.history || [] })
@@ -152,8 +157,10 @@ export async function handleMcp(
                 citations: chatData.citations || chatData.legal_citations || [],
                 source: chatData.source,
                 retrieval: chatData.retrieval || null,
+                diagnostic_code: chatData.diagnostic_code,
+                answerReview: chatData.answerReview,
               },
-              isError: false
+              isError: ['SKIPPED_PROVIDER_ERROR','SKIPPED_GENERATION_ERROR','BLOCKED','NO_EVIDENCE'].includes(chatData.answerReview?.status) || !!chatData.diagnostic_code
             }
           }, 200, corsHeaders);
         } catch (callErr: any) {

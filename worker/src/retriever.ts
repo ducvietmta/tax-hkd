@@ -13,6 +13,7 @@ import { foldText as fold } from './utils/text';
 import { evidenceProvenance, type EvidenceProvenance } from './kb/provenance';
 import chunkPeriods from './kb/chunkMeta.json';
 import { periodFits, type EffectiveInterval } from './kb/periodApplicability';
+import { searchLegalMarkdown } from './kb/legalMarkdownSearch';
 import { legacyPinRefs } from './decision/retrievalPlan';
 
 const STOP = new Set(
@@ -134,6 +135,8 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
   const route = matchRoute(`${query} ${scope.years.join(' ')}`);
   const allowRouteBoost = !plan?.semantic_topic || plan.strategy === 'ROUTE_FIRST';
   const routeRefs = new Set(allowRouteBoost ? (route?.refs || []) : []);
+  const markdownHits = searchLegalMarkdown(query, 6);
+  const markdownRank = new Map(markdownHits.map((hit, rank) => [hit.doc_id, rank]));
   // A compound question can explicitly name more than the highest-priority route.
   // Preserve the primary source for each named policy using the existing route data.
   // Restore document token boundaries in compact typing (e.g. mốcNQ43còn).
@@ -166,6 +169,13 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
     }
     const viaRoute = !!d.chunk.ref_id && routeRefs.has(d.chunk.ref_id);
     if (viaRoute) s += 8 + (route ? route.priority / 10 : 0);
+    const sourceLinks = ((chunkPeriods as any)[d.chunk.ref_id || d.chunk.id]?.source_links || []) as Array<{doc_id?:string}>;
+    const bestMarkdownRank = sourceLinks.reduce<number | null>((best, link) => {
+      const rank = link.doc_id ? markdownRank.get(link.doc_id) : undefined;
+      return rank === undefined ? best : best === null ? rank : Math.min(best, rank);
+    }, null);
+    if (bestMarkdownRank !== null) s += Math.max(1.5, 6 - bestMarkdownRank * 0.8);
+    if (plan?.preferred_refs?.includes(d.chunk.ref_id || d.chunk.id)) s += 8;
     if (d.chunk.tier === 'VERIFIED') s *= 1.1;
     return { chunk: d.chunk, score: s, viaRoute };
   });
@@ -402,6 +412,26 @@ export function cleanAndDeduplicateCitations(list: string[]): string[] {
 }
 
 export interface EvidencePassage { id:string; ref_id:string; text:string; request_ids?:string[]; provenance?:EvidenceProvenance; purpose?:string }
+/** Retry packing required sources before spending more context on optional hits.
+ * Rules remain indivisible; exhaustion is still reported, never bypassed. */
+export function buildReviewContext(results:Retrieved[],query:string,budget:number,maxBudget:number,scope:AnswerScope,purpose?:string){
+  const initial=buildContext(results,query,budget,scope,purpose);
+  // Mandatory dependencies must survive, but must not silently crowd out the
+  // leading query-specific source. Grow only within the reviewer's reservation.
+  const lead=results.find(result=>!result.required);
+  const complete=(context:ReturnType<typeof buildContext>)=>!context.missingRequiredRefs.length&&
+    (!lead||context.includedRefs.includes(lead.chunk.ref_id||lead.chunk.id));
+  if(complete(initial))return initial;
+  const ceiling=Math.max(budget,maxBudget);
+  let best=initial;
+  for(let next=Math.min(ceiling,budget+2000);next>budget;next=Math.min(ceiling,next+2000)){
+    const packed=buildContext(results,query,next,scope,purpose);
+    if(packed.missingRequiredRefs.length<=best.missingRequiredRefs.length)best=packed;
+    if(complete(packed)||next===ceiling)return best;
+  }
+  return best;
+}
+
 export function buildContext(results: Retrieved[], query: string, totalBudget = 6500, scope: AnswerScope = resolveAnswerScope([], query), purpose?:string): { text: string; citations: string[]; includedRefs: string[]; passages:EvidencePassage[]; missingDocumentRefs:string[];missingRequiredRefs:string[] } {
   let text = '';
   const rawCitations: string[] = [];
@@ -435,7 +465,9 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
     // source. Never silently truncate an indivisible legal rule or synthesize
     // new law while compressing context. Invalid excerpts fall back to source.
     const excerptPeriod=r.chunk.context_passage_period;
-    const baseCompact=(!excerptPeriod||scope.years.length>0&&scope.years.every(year=>periodFits(excerptPeriod,{years:[year]})))?r.chunk.context_passage:undefined;
+    const sourcePeriod=evidenceProvenance(r.chunk);
+    const sourceYears=scope.years.filter(year=>periodFits(sourcePeriod,{years:[year]}));
+    const baseCompact=(!excerptPeriod||sourceYears.length>0&&sourceYears.every(year=>periodFits(excerptPeriod,{years:[year]})))?r.chunk.context_passage:undefined;
     const boundaryIdx=r.chunk.text.indexOf('[RANH GIỚI CHÍNH SÁCH]');
     const compact=baseCompact&&totalBudget>=9000&&boundaryIdx>=0?r.chunk.text.slice(boundaryIdx):baseCompact;
     const rawSnippet = purposeSnippet&&r.chunk.text.includes(purposeSnippet)?purposeSnippet:
@@ -451,36 +483,34 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
       ? ' — chỉ áp dụng khi đã xác minh đầy đủ điều kiện trong đoạn này'
       : '';
     const periodNote = scope.years.length ? '' : ' — chưa xác định kỳ thuế của người hỏi; các năm trong tài liệu không phải năm của người hỏi';
-    let passage:EvidencePassage={id:`E${passages.length+1}`,ref_id:r.chunk.ref_id||r.chunk.id,text:cleanedSnippet,provenance:evidenceProvenance(r.chunk),...(purposeSnippet&&r.chunk.text.includes(purposeSnippet)?{purpose}: {})};
-    let part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}${periodNote}; evidence_id=${passage.id}; ref_id=${passage.ref_id}]\n${passage.text}\n`;
-    if (text.length + part.length > totalBudget + 800) {
-      const remaining = totalBudget + 650 - text.length;
-      if (totalBudget >= 1000 && remaining >= 900) {
-        cleanedSnippet = snippet(r.chunk, `${query} ${scope.years.join(' ')}`, remaining)
-          .replace(/^##?\s*16\.\d+.*?\n/gim, '')
-          .replace(/^##?\s*\d+\.\d+.*?\n/gim, '')
-          .replace(/^-\s*\*\*LEGAL_STATUS:\*\*.*?\n/gim, '')
-          .replace(/^-\s*CROSS_REFERENCE:.*?\n/gim, '');
-        passage = { ...passage, text: cleanedSnippet };
-        part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}${periodNote}; evidence_id=${passage.id}; ref_id=${passage.ref_id}]\n${passage.text}\n`;
-      }
-      if (!cleanedSnippet.trim() || text.length + part.length > totalBudget + 800) continue;
+    let passageText = cleanedSnippet;
+    // A required source must not vanish only because its full rule exceeds the
+    // pack budget: fall back to the query-matched excerpt of the same source.
+    // Optional hits keep the old skip behaviour so they cannot crowd out rules.
+    if (r.required && text.length + passageText.length > totalBudget + 800) {
+      const room = Math.max(600, totalBudget + 800 - text.length - 160);
+      const excerpt = snippet(r.chunk, `${query} ${scope.years.join(' ')}`, room)
+        .replace(/^##?\s*16\.\d+.*?\n/gim, '').replace(/^##?\s*\d+\.\d+.*?\n/gim, '')
+        .replace(/^-\s*\*\*LEGAL_STATUS:\*\*.*?\n/gim, '').replace(/^-\s*CROSS_REFERENCE:.*?\n/gim, '');
+      if (excerpt.trim() && excerpt.length < passageText.length) passageText = excerpt;
     }
+    const passage:EvidencePassage={id:`E${passages.length+1}`,ref_id:r.chunk.ref_id||r.chunk.id,text:passageText,provenance:evidenceProvenance(r.chunk),...(purposeSnippet&&r.chunk.text.includes(purposeSnippet)?{purpose}: {})};
+    const part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}${periodNote}; evidence_id=${passage.id}; ref_id=${passage.ref_id}]\n${passage.text}\n`;
+    if (text.length + part.length > totalBudget + 800) continue;
     text += part;
     passages.push(passage);
     if (r.chunk.ref_id) includedRefs.push(r.chunk.ref_id);
 
     // Trích xuất điều khoản văn bản sạch từ chunk
-    const extracted = extractLegalCitationsFromChunk({ ...r.chunk, text: cleanedSnippet });
+    const extracted = extractLegalCitationsFromChunk({ ...r.chunk, text: passageText });
     rawCitations.push(...extracted);
   }
 
   const explicitYears = scope.years;
   const latestRequestedYear = explicitYears.length ? Math.max(...explicitYears) : null;
-  const citations = cleanAndDeduplicateCitations(rawCitations).filter((citation) => {
+  const citations = cleanAndDeduplicateCitations(rawCitations).filter(() => {
     if (latestRequestedYear === null) return true;
-    const documentYears = Array.from(citation.matchAll(/\/(?:19|20)\d{2}\b/g), (match) => Number(match[0].slice(1)));
-    return documentYears.every((year) => year <= latestRequestedYear);
+    return true; // Applicability is checked using provenance and semantic review.
   });
 
   const missingDocumentRefs=results.filter(r=>r.required==='DOCUMENT_REFERENCE'&&!includedRefs.includes(r.chunk.ref_id||r.chunk.id)).map(r=>r.chunk.ref_id||r.chunk.id);
@@ -488,16 +518,6 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
   return { text, citations, includedRefs, passages,missingDocumentRefs,missingRequiredRefs };
 }
 
-export function buildReviewContext(
-  results: Retrieved[],
-  query: string,
-  totalBudget = 6500,
-  _maxContextBudget = totalBudget,
-  scope: AnswerScope = resolveAnswerScope([], query),
-  purpose?: string,
-) {
-  return buildContext(results, query, totalBudget, scope, purpose);
-}
 
 /**
  * Trích số tiền trong câu hỏi và so sánh với các ngưỡng bằng code (LLM nhỏ hay so sánh sai),

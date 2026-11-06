@@ -63,31 +63,38 @@ export function legacyPinRefs(query: string, scope: { years: number[]; today: st
   return pins;
 }
 
-interface PolicyEvidenceEntry {ref_id:string;policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[];applies_from_year:number;applies_to_year:number|null;}
-/** Pure metadata lookup: no document IDs, legal amounts or phrase matching. */
+interface PolicyEvidenceEntry {ref_id:string;required?:boolean;required_intents?:string[];policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[];applies_from_year:number;applies_to_year:number|null;}
+/** Facets describing the taxpayer constrain a match; they are not a topic.
+ * MULTIPLE is an umbrella label, never a wildcard for every policy in the KB. */
+export function selectPolicyCandidates(frame:TaxDecisionFrame,catalog:PolicyEvidenceEntry[]=policyCatalog):PolicyEvidenceEntry[]{
+ const semantic=frame.semantic,focus=semantic?.policyFocus;
+ const unspecified=!focus||focus==='UNSPECIFIED';
+ const intents=[frame.tax_intent?.primary.value,...(frame.tax_intent?.secondary||[])];
+ return catalog.filter(entry=>periodFits(entry,frame.tax_period))
+  .filter(entry=>!entry.required_intents?.length||intents.some(intent=>!!intent&&entry.required_intents!.includes(intent)))
+  .filter(entry=>!entry.answer_purposes?.length||entry.answer_purposes.includes(semantic?.answerPurpose||'OTHER'))
+  .filter(entry=>!entry.income_types?.length||frame.income_type.some(t=>entry.income_types!.includes(t.value)))
+  .filter(entry=>!entry.subject_contexts?.length||!semantic?.subjectContext||semantic.subjectContext==='UNKNOWN'||entry.subject_contexts.includes(semantic.subjectContext))
+  .filter(entry=>!entry.tax_focuses?.length||entry.tax_focuses.includes(semantic?.taxFocus||'unspecified'))
+  .filter(entry=>(!unspecified&&focus!=='MULTIPLE'&&entry.policy_focus?.includes(focus))||
+   (unspecified&&semantic?.answerPurpose==='ELIGIBILITY'&&entry.eligibility_topics?.includes(semantic?.topic||''))||
+   entry.revenue_contexts?.includes(semantic?.revenueContext||'')||
+   entry.topics?.includes(semantic?.topic||'')||intents.some(intent=>!!intent&&entry.intents?.includes(intent)));
+}
+/** Only explicitly required dependencies may consume mandatory context space. */
 export function selectPolicyEvidence(frame:TaxDecisionFrame,catalog:PolicyEvidenceEntry[]=policyCatalog):string[]{
-  const focus=frame.semantic?.policyFocus;
-  const unspecified=!focus||focus==='UNSPECIFIED';
-  // A multi-period question needs each period's evidence. Requiring one source
-  // to govern every year discards both sides of a lawful comparison/transition.
-  return catalog.filter(entry=>periodFits(entry,frame.tax_period))
-    .filter(entry=>!entry.answer_purposes?.length||entry.answer_purposes.includes(frame.semantic?.answerPurpose||'OTHER'))
-    .filter(entry=>!entry.income_types?.length||frame.income_type.some(t=>entry.income_types!.includes(t.value)))
-    .filter(entry=>!entry.tax_focuses?.length||entry.tax_focuses.includes(frame.semantic?.taxFocus||'unspecified'))
-    .filter(entry=>(!unspecified&&(focus==='MULTIPLE'||entry.policy_focus?.includes(focus)))||
-      (unspecified&&frame.semantic?.answerPurpose==='ELIGIBILITY'&&entry.eligibility_topics?.includes(frame.semantic?.topic||''))||
-      entry.revenue_contexts?.includes(frame.semantic?.revenueContext||'')||
-      entry.topics?.includes(frame.semantic?.topic||'')||
-      [frame.tax_intent?.primary.value,...(frame.tax_intent?.secondary||[])].some(intent=>!!intent&&entry.intents?.includes(intent))||
-      entry.subject_contexts?.includes(frame.semantic?.subjectContext||''))
-    .map(entry=>entry.ref_id);
+ return [...new Set(selectPolicyCandidates(frame,catalog).filter(entry=>entry.required!==false).map(entry=>entry.ref_id))];
 }
 
 export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   const plan = topicRetrievalPlan(frame);
   const refs=selectPolicyEvidence(frame);
-  return alignPlanPeriod({...plan,must_include_refs:[...new Set([...refs,...plan.must_include_refs])],
-    ...(plan.allowed_refs?{allowed_refs:[...new Set([...refs,...plan.allowed_refs])]}:{})},frame.tax_period);
+  const preferred_refs=[...new Set(selectPolicyCandidates(frame).map(entry=>entry.ref_id))];
+  const guides=frame.semantic?.answerPurpose==='DEFINITION'?[]:Object.entries(chunkPeriods).filter(([,entry])=>
+    'guidance_topics' in entry && (entry.guidance_topics as string[]).includes(frame.semantic?.topic||'') && periodFits(entry,frame.tax_period)).map(([ref])=>ref);
+  if(plan.allowed_refs)plan.allowed_refs=[...new Set([...plan.allowed_refs,...guides])];
+  return alignPlanPeriod({...plan,preferred_refs,must_include_refs:[...new Set([...refs,...plan.must_include_refs])],
+    ...(plan.allowed_refs?{allowed_refs:[...new Set([...refs,...preferred_refs,...plan.allowed_refs])]}:{})},frame.tax_period);
 }
 
 /** A semantic topic is a search hint, not permission to search only the wrong

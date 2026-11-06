@@ -64,6 +64,56 @@
       "source_type": "SUPPLIED_OFFICIAL_DOCUMENT",
       "access": "LOCAL_PUBLIC_FILE",
       "source_checked_on": "2026-10-20"
+    },
+    {
+      "id": "CT-7404-2026-PL1",
+      "code": "Phụ lục 1 bộ tài liệu tuyên truyền Cục Thuế 2026",
+      "title": "Final. Phụ lục 1. Tài liệu tuyên truyền TT89.docx",
+      "source_url": "/documents/CT-7404-2026-PL1.docx",
+      "source_type": "USER_SUPPLIED_GUIDANCE_DOCX",
+      "access": "LOCAL_SUPPLIED_DOCUMENT",
+      "source_checked_on": "2026-10-26",
+      "content_sha256": "ec0321a000def662887ebab3aee4cc4b3f53ee3ff7aca5ba5bed006291dc6a7f"
+    },
+    {
+      "id": "CT-7404-2026-PL2",
+      "code": "Phụ lục 2 bộ tài liệu tuyên truyền Cục Thuế 2026",
+      "title": "Final. Phụ lục 2. Tài liệu tuyên truyền TT93.docx",
+      "source_url": "/documents/CT-7404-2026-PL2.docx",
+      "source_type": "USER_SUPPLIED_GUIDANCE_DOCX",
+      "access": "LOCAL_SUPPLIED_DOCUMENT",
+      "source_checked_on": "2026-10-26",
+      "content_sha256": "e2a3d03a59690253564c3a9320c1abbbd84a2b23f860a6f5aa3cf0cbcba0ba09"
+    },
+    {
+      "id": "CT-7404-2026-PL3",
+      "code": "Phụ lục 3 bộ tài liệu tuyên truyền Cục Thuế 2026",
+      "title": "Final. Phụ lục 3. Tài liệu tuyên truyền TT109.docx",
+      "source_url": "/documents/CT-7404-2026-PL3.docx",
+      "source_type": "USER_SUPPLIED_GUIDANCE_DOCX",
+      "access": "LOCAL_SUPPLIED_DOCUMENT",
+      "source_checked_on": "2026-10-26",
+      "content_sha256": "e42a1a9cc5e1fae011ef32d4e93aa581ad531b4d2a359f9179f157f883bbd42f"
+    },
+    {
+      "id": "CT-7404-2026-PL4",
+      "code": "Phụ lục 4 bộ tài liệu tuyên truyền Cục Thuế 2026",
+      "title": "Final. Phụ lục 4. Tài liệu tuyên truyền chế tài xử phạt hành vi chậm nộp không nộp thông báo doanh thu.docx",
+      "source_url": "/documents/CT-7404-2026-PL4.docx",
+      "source_type": "USER_SUPPLIED_GUIDANCE_DOCX",
+      "access": "LOCAL_SUPPLIED_DOCUMENT",
+      "source_checked_on": "2026-10-26",
+      "content_sha256": "f97b5dae89f8f8303339f193ba64e80c69515bac1dc9816f2ce1ead754f2325a"
+    },
+    {
+      "id": "CT-7404-2026-PL5",
+      "code": "Phụ lục 5 bộ tài liệu tuyên truyền Cục Thuế 2026",
+      "title": "Final. Phụ lục 5. Tài liệu tuyên truyền thuế và hóa đơn điện tử trong thương mại điện tử và bán hàng đa kênh.docx",
+      "source_url": "/documents/CT-7404-2026-PL5.docx",
+      "source_type": "USER_SUPPLIED_GUIDANCE_DOCX",
+      "access": "LOCAL_SUPPLIED_DOCUMENT",
+      "source_checked_on": "2026-10-26",
+      "content_sha256": "6924bfba605ac91f20dc171ff47f52c4dde78bd4dc0a96590197ec5095a9fb0c"
     }
   ]
 }

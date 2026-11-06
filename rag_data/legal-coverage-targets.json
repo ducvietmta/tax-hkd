@@ -1,0 +1,240 @@
+{
+  "schema": "taxhkd-legal-coverage-targets-v1",
+  "description": "A document may be marked FULL only after expected_provisions is copied from a verified official inventory and source_sha256 identifies that exact source file.",
+  "documents": [
+    {
+      "id": "ND-68-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-118-2025-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-123-2020-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-125-2020-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-141-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-144-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-168-2025-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-174-2025-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-181-2025-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-245-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-248-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-252-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-253-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-254-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-291-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-310-2025-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-320-2025-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-18-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-19-2021-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-20-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-40-2021-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-50-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-78-2021-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-86-2024-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-87-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-88-2021-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-89-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-90-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-91-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-92-2015-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-94-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-100-2021-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-103-2014-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-110-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-111-2013-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-121-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-126-2026-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "TT-152-2025-TT-BTC",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    },
+    {
+      "id": "ND-398-2026-ND-CP",
+      "inventory_status": "PENDING_OFFICIAL_INVENTORY",
+      "source_sha256": null,
+      "expected_provisions": null
+    }
+  ]
+}

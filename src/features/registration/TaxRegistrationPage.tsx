@@ -17,11 +17,6 @@ export default function TaxRegistrationPage(props: Props) {
     key: number;
   } | null>(null);
 
-  const getStorageKey = () => {
-    const id = user?.phone || user?.uid || '';
-    return id ? `taxhkd_unlocked_guides_${id}` : '';
-  };
-
   const getUnlockedKinds = (): Set<string> => {
     const set = new Set<string>();
     if (user?.role === 'admin' || user?.role === 'vip') {
@@ -31,33 +26,9 @@ export default function TaxRegistrationPage(props: Props) {
     if (user?.unlockedGuides) {
       for (const g of user.unlockedGuides) set.add(g);
     }
-    const key = getStorageKey();
-    if (key && typeof window !== 'undefined') {
-      try {
-        const raw = localStorage.getItem(key);
-        if (raw) {
-          const list = JSON.parse(raw);
-          if (Array.isArray(list)) {
-            for (const item of list) set.add(item);
-          }
-        }
-      } catch {
-        // ignore JSON parse error
-      }
-    }
+    // Entitlements come from the server session or a confirmed purchase only.
+    // Old local unlock caches may contain purchases the server never accepted.
     return set;
-  };
-
-  const markKindUnlocked = (kind: 'household' | 'individual') => {
-    const key = getStorageKey();
-    if (!key || typeof window === 'undefined') return;
-    try {
-      const set = getUnlockedKinds();
-      set.add(kind);
-      localStorage.setItem(key, JSON.stringify(Array.from(set)));
-    } catch {
-      // ignore
-    }
   };
 
   // Nếu người dùng vừa đăng nhập sau khi đã chọn 1 hình thức
@@ -94,7 +65,6 @@ export default function TaxRegistrationPage(props: Props) {
 
   const handleConfirm = () => {
     if (pendingKind) {
-      markKindUnlocked(pendingKind);
       setConfirmedKindTrigger({ kind: pendingKind, key: Date.now() });
       setPendingKind(null);
     }

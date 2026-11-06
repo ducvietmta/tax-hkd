@@ -128,7 +128,7 @@ export function validateLegalCitations(
   _question: string,
   answer: string,
   citations: string[],
-  scope: AnswerScope,
+  _scope: AnswerScope,
   relevantChunks?: Array<{ ref_id?: string | null; section?: string; text?: string }>,
   semantic?: BusinessClassification,
 ) {
@@ -187,7 +187,6 @@ export function validateLegalCitations(
   }
 
   // Loại bỏ trích dẫn văn bản tương lai không thuộc kỳ tính thuế đang hỏi
-  const maxRequestedYear = scope.years.length ? Math.max(...scope.years) : 2026;
   const isSupportedCitation = (citation: string): boolean => {
     const docYears = Array.from(citation.matchAll(/\/(?:19|20)\d{2}\b/g), m => Number(m[0].slice(1)));
     if (!docYears.every(y => y <= maxRequestedYear)) return false;
@@ -196,8 +195,7 @@ export function validateLegalCitations(
     const ids = documentIds(citation);
     if (ids.length) {
       const evidenceIds=documentIds(evidenceText);
-      const baseId=(id:string)=>id.match(/^\d+\/(?:19|20)\d{2}/)?.[0]||id;
-      return ids.every(id=>evidenceIds.some(source=>source===id||baseId(source)===baseId(id)));
+      return ids.every(id=>evidenceIds.some(source=>source===id));
     }
     if (isAbcGroup) {
       const mTokens = manualTokens(citation);

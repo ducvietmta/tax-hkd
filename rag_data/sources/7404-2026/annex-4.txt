@@ -1,0 +1,81 @@
+P001: Phụ lục 4
+P002: TÀI LIỆU TUYÊN TRUYỀN
+P003: NHẬN DIỆN HÀNH VI CHẬM NỘP/KHÔNG NỘP THÔNG BÁO DOANH THU THỰC TẾ PHÁT SINH CỦA HỘ KINH DOANH, CÁ NHÂN KINH DOANH CÓ DOANH THU TỪ 01 TỶ ĐỒNG TRỞ XUỐNG VÀ CHẾ TÀI XỬ PHẠT VI PHẠM HÀNH CHÍNH
+P004: Phạm vi tài liệu: trường hợp hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm, có doanh thu thực tế từ 01 tỷ đồng trở xuống theo khoản 1 Điều 9 Nghị định số 68/2026/NĐ-CP (được sửa đổi, bổ sung bởi Nghị định số 141/2026/NĐ-CP).
+P005: Căn cứ pháp lý chính: Nghị định số 68/2026/NĐ-CP được sửa đổi, bổ sung bởi Nghị định số 141/2026/NĐ-CP; Thông tư số 18/2026/TT-BTC được sửa đổi, bổ sung bởi Thông tư số 50/2026/TT-BTC; Nghị định số 125/2020/NĐ-CP được sửa đổi, bổ sung bởi Nghị định số 102/2021/NĐ-CP, Nghị định số 310/2025/NĐ-CP và Nghị định số 291/2026/NĐ-CP; Luật Xử lý vi phạm hành chính.
+P006: I. NGƯỜI NỘP THUẾ CẦN BIẾT VỀ NGHĨA VỤ THÔNG BÁO DOANH THU
+P007: 1. Trường hợp áp dụng
+P008: Căn cứ khoản 1 Điều 9 Nghị định số 68/2026/NĐ-CP (được sửa đổi, bổ sung bởi Nghị định 141/2026/NĐ-CP) và điểm a khoản 1 Điều 4 Thông tư 18/2026/TT-BTC (được sửa đổi, bổ sung bởi Thông tư 50/2026/TT-BTC, hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống thì có nghĩa vụ nộp thông báo doanh thu thực tế phát sinh và kê khai các loại thuế khác theo Mẫu số 01/TKN-CNKD ban hành kèm theo Thông tư 18/2026/TT-BTC (được sửa đổi, bổ sung bởi Thông tư 50/2026/TT-BTC).
+P009: 2. Thời hạn thông báo doanh thu của hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống
+P010: Kỳ doanh thu thực tế phát sinh
+P011: Thời hạn thông báo
+P012: Từ khi bắt đầu hoạt động sản xuất, kinh doanh đến hết ngày 30/6
+P013: Chậm nhất ngày 31/7
+P014: Doanh thu thực tế phát sinh trong 06 tháng cuối năm
+P015: Chậm nhất ngày 31/01 của năm dương lịch tiếp theo
+P016: 3. LƯU Ý KHI SỬ DỤNG MẪU SỐ 01/TKN-CNKD
+P017: Mẫu số 01/TKN-CNKD được thiết kế áp dụng cho 02 trường hợp là “Thông báo doanh thu” và “Tờ khai thuế năm”. Đối với trường hợp hộ kinh doanh, cá nhân kinh doanh có doanh thu năm từ 01 tỷ đồng trở xuống thuộc diện chỉ thông báo doanh thu thì không thực hiện kê khai số thuế GTGT, thuế TNCN phải nộp.
+P018: Mẫu số 01/TKN-CNKD cũng quy định các phần B. Kê khai thuế tiêu thụ đặc biệt và C. Kê khai thuế tài nguyên, bảo vệ môi trường, phí bảo vệ môi trường.
+P019: NNT CẦN LƯU Ý: Cùng sử dụng Mẫu số 01/TKN-CNKD nhưng phải căn cứ nghĩa vụ thực tế phát sinh để xác định NNT đang thực hiện thông báo doanh thu hay khai thuế.
+P020: II. CHẾ TÀI XỬ PHẠT VI PHẠM HÀNH CHÍNH
+P021: Theo Nghị định số 125/2020/NĐ-CP được sửa đổi, bổ sung bởi Nghị định số 102/2021/NĐ-CP, Nghị định số 310/2025/NĐ-CP và Nghị định số 291/2026/NĐ-CP (sau đây gọi chung là Nghị định số 125/2020/NĐ-CP), các quy định cần đối chiếu gồm:
+P022: Căn cứ
+P023: Nhóm hành vi được điều chỉnh
+P024: Điều 10
+P025: Hành vi phạm về thời hạn đăng ký thuế; thông báo tạm ngừng hoạt động kinh doanh; thông báo tiếp tục kinh doanh trước thời hạn; thông báo đơn vị hợp thành chịu trách nhiệm kê khai và danh sách các đơn vị hợp thành thuộc đối tượng áp dụng Nghị quyết số 107/2023/QH15.
+P026: Điều 11
+P027: Hành vi phạm về thời hạn thông báo thay đổi thông tin trong đăng ký thuế.
+P028: Điều 13
+P029: Hành vi phạm về thời hạn nộp hồ sơ khai thuế.
+P030: Điều 17
+P031: Hành vi trốn thuế.
+P032: 1. Trường hợp chỉ thực hiện thông báo doanh thu
+P033: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống, không phát sinh các nghĩa vụ thuế liên quan đến thuế tiêu thụ đặc biệt, thuế tài nguyên, thuế bảo vệ môi trường, phí bảo vệ môi trường thì hộ kinh doanh, cá nhân kinh doanh có nghĩa vụ nộp thông báo doanh thu theo Mẫu số 01/TKN-CNKD
+P034: Trường hợp hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống đến hết ngày 31/7/2026 chưa nộp Mẫu số 01/TKN-CNKD hoặc nộp Mẫu số 01/TKN-CNKD sau ngày 31/7/2026 thì hộ kinh doanh, cá nhân kinh doanh đã có hành vi không nộp hoặc chậm nộp thông báo doanh thu thực tế phát sinh trong năm theo Mẫu số 01/TKN-CNKD.
+P035: Qua rà soát các quy định tại Điều 10, Điều 11, Điều 13 và Điều 17 Nghị định số 125/2020/NĐ-CP, hiện chưa có chế tài xử phạt đối với hành vi vi phạm về thời hạn nộp loại thông báo doanh thu này.
+P036: Việc hiện chưa có chế tài xử phạt đối với hành vi vi phạm về thời hạn nộp loại thông báo doanh thu nêu trên không làm thay đổi nghĩa vụ của người nộp thuế. Người nộp thuế vẫn có trách nhiệm thực hiện thông báo doanh thu đầy đủ, đúng thời hạn theo quy định.
+P037: 2. Trường hợp có phát sinh nghĩa vụ kê khai các loại thuế, phí khác
+P038: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống nhưng phát sinh các nghĩa vụ thuế khác như thuế tiêu thụ đặc biệt, thuế tài nguyên, thuế bảo vệ môi trường, phí bảo vệ môi trường thì phải thực hiện kê khai các nghĩa vụ tương ứng theo Mẫu số 01/TKN-CNKD.
+P039: Trường hợp hộ kinh doanh, cá nhân kinh doanh có hành vi chậm nộp/không nộp tờ khai thuế theo thời hạn quy định thì bị xử phạt vi phạm hành chính đối với hành vi vi phạm về thời hạn nộp hồ sơ khai thuế quy định tại Điều 13 Nghị định số 125/2020/NĐ-CP hoặc hành vi trốn thuế quy định tại Điều 17 Nghị định số 125/2020/NĐ-CP 
+P040: 3. Trường hợp chậm nộp tờ khai thuế điện tử do sự cố kỹ thuật
+P041: Căn cứ khoản 1 Điều 9 Nghị định số 125/2020/NĐ-CP, trường hợp hộ kinh doanh, cá nhân kinh doanh chậm nộp tờ khai thuế theo Mẫu số 01/TKN-CNKD bằng phương thức điện tử do sự cố kỹ thuật của hệ thống công nghệ thông tin (sự cố kỹ thuật này được thông báo trên Cổng Thông tin điện tử của cơ quan thuế) thì hộ kinh doanh, cá nhân kinh doanh không bị xử phạt vi phạm hành chính theo quy định tại khoản 4 Điều 11 Luật Xử lý vi phạm hành chính. 
+P042: IV. HỎI - ĐÁP: CÁC TÌNH HUỐNG NGƯỜI NỘP THUẾ CẦN BIẾT
+P043: Câu 1. Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm, có doanh thu thực tế từ 01 tỷ đồng trở xuống phải thực hiện nghĩa vụ gì?
+P044: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống thì có nghĩa vụ nộp thông báo doanh thu thực tế phát sinh và kê khai các loại thuế khác theo Mẫu số 01/TKN-CNKD ban hành kèm theo Thông tư 18/2026/TT-BTC được sửa đổi, bổ sung bởi Thông tư số 50/2026/TT-BTC. 
+P045: Câu 2. Thời hạn thông báo doanh thu được xác định như thế nào?
+P046: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống thì thực hiện thông báo doanh thu thực tế phát sinh kể từ khi bắt đầu hoạt động sản xuất, kinh doanh đến hết ngày 30 tháng 6 với cơ quan thuế quản lý trực tiếp chậm nhất là ngày 31 tháng 7 và thông báo doanh thu thực tế phát sinh trong 06 tháng cuối năm chậm nhất là ngày 31 tháng 01 của năm dương lịch tiếp theo.
+P047: Câu 3. Thông báo doanh thu sử dụng mẫu nào?
+P048: Người nộp thuế sử dụng Mẫu số 01/TKN-CNKD theo quy định tại Thông tư số 18/2026/TT-BTC, được sửa đổi, bổ sung bởi Thông tư số 50/2026/TT-BTC.
+P049: Câu 4. Mẫu số 01/TKN-CNKD chỉ dùng để thông báo doanh thu hay còn dùng để khai thuế?
+P050: Mẫu số 01/TKN-CNKD được thiết kế áp dụng cho 02 trường hợp: “Thông báo doanh thu” và “Tờ khai thuế năm”. Do đó, phải căn cứ nghĩa vụ thực tế phát sinh để xác định tính chất của hồ sơ.
+P051: Câu 5. Trường hợp chỉ phát sinh nghĩa vụ thông báo doanh thu thì có phải kê khai các loại thuế khác trên Mẫu số 01/TKN-CNKD không?
+P052: Không. Nếu hộ kinh doanh, cá nhân kinh doanh nêu trên không phát sinh nghĩa vụ đối với các loại thuế khác như thuế tiêu thụ đặc biệt, thuế tài nguyên, thuế bảo vệ môi trường, phí bảo vệ môi trường thì chỉ thực hiện thông báo doanh thu theo quy định, không thực hiện kê khai số thuế GTGT, thuế TNCN phải nộp trên Mẫu số 01/TKN-CNKD.
+P053: Câu 6. Nếu hộ kinh doanh, cá nhân kinh doanh chỉ có nghĩa vụ thông báo doanh thu nhưng chậm nộp hoặc không nộp thông báo doanh thu thì có bị xử phạt không?
+P054: Đối với trường hợp chỉ có nghĩa vụ nộp thông báo doanh thu, hiện chưa có chế tài xử phạt đối với hành vi vi phạm về thời hạn nộp loại thông báo doanh thu này. Tuy nhiên, người nộp thuế vẫn có trách nhiệm thực hiện thông báo doanh thu đầy đủ, đúng thời hạn theo quy định.
+P055: Câu 7. Vì sao không áp dụng Điều 13 đối với mọi trường hợp chậm nộp Mẫu số 01/TKN-CNKD?
+P056: Vì Mẫu số 01/TKN-CNKD được sử dụng cho cả “Thông báo doanh thu” và “Tờ khai thuế năm”. Việc xác định hành vi vi phạm phải căn cứ nghĩa vụ thực tế phát sinh, không chỉ căn cứ số hiệu của mẫu.
+P057: Câu 8. Trường hợp nào chậm nộp Mẫu số 01/TKN-CNKD có thể bị xử phạt theo Điều 13?
+P058: Khi người nộp thuế có phát sinh nghĩa vụ kê khai các loại thuế, phí khác theo Mẫu số 01/TKN-CNKD và chậm nộp/không nộp hồ sơ khai thuế theo thời hạn quy định thì hành vi được xem xét xử phạt về thời hạn nộp hồ sơ khai thuế theo Điều 13 Nghị định số 125/2020/NĐ-CP.
+P059: Câu 9. Có phải cứ sử dụng Mẫu số 01/TKN-CNKD là được xác định là “tờ khai thuế” không?
+P060: Không. Việc xác định là “Thông báo doanh thu” hay “Tờ khai thuế” không căn cứ riêng vào tên mẫu, mà phải căn cứ vào nghĩa vụ thực tế của NNT. Trường hợp chỉ thuộc diện thông báo doanh thu thì thực hiện thông báo doanh thu; trường hợp phát sinh nghĩa vụ thuế phải kê khai thì thực hiện tờ khai thuế theo quy định.
+P061: Câu 10. Chậm nộp tờ khai điện tử do sự cố kỹ thuật của hệ thống công nghệ thông tin thì xử lý thế nào?
+P062: Trường hợp chậm nộp tờ khai thuế theo Mẫu số 01/TKN-CNKD bằng phương thức điện tử do sự cố kỹ thuật của hệ thống công nghệ thông tin và sự cố được thông báo trên Cổng Thông tin điện tử của cơ quan thuế thì không bị xử phạt vi phạm hành chính theo trường hợp được dẫn chiếu tại khoản 1 Điều 9 Nghị định số 125/2020/NĐ-CP và khoản 4 Điều 11 Luật Xử lý vi phạm hành chính.
+P063: V. BỘ INFOGRAPHIC
+P064: INFOGRAPHIC 1
+P065: TRƯỜNG HỢP NÀO PHẢI THÔNG BÁO? THỜI HẠN NÀO?
+P066: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống.
+P067: Chậm nhất ngày 31/7: thông báo doanh thu thực tế từ khi bắt đầu hoạt động đến hết ngày 30/6.
+P068: Chậm nhất ngày 31/01 năm sau: thông báo doanh thu thực tế phát sinh trong 06 tháng cuối năm. 
+P069: Thông điệp: Xác định đúng trường hợp - đúng doanh thu - đúng thời hạn.
+P070: MỘT MẪU, HAI TÍNH CHẤT
+P071: Mẫu số 01/TKN-CNKD được sử dụng cho “Thông báo doanh thu” và “Tờ khai thuế năm”.
+P072: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống, không phát sinh các nghĩa vụ thuế liên quan đến thuế tiêu thụ đặc biệt, thuế tài nguyên, thuế bảo vệ môi trường, phí bảo vệ môi trường thì hộ kinh doanh, cá nhân kinh doanh có nghĩa vụ nộp thông báo doanh thu.
+P073: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống nhưng phát sinh các nghĩa vụ thuế khác như thuế tiêu thụ đặc biệt, thuế tài nguyên, thuế bảo vệ môi trường, phí bảo vệ môi trường phải kê khai thì hộ kinh doanh, cá nhân kinh doanh có nghĩa vụ nộp tờ khai thuế tương ứng.
+P074: Thông điệp: Không chỉ nhìn số hiệu mẫu - phải xác định đúng nghĩa vụ thực tế.
+P075: INFOGRAPHIC 2
+P076: HAI TRƯỜNG HỢP, HAI CÁCH XÁC ĐỊNH CHẾ TÀI
+P077: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống, không phát sinh các nghĩa vụ thuế liên quan đến thuế tiêu thụ đặc biệt, thuế tài nguyên, thuế bảo vệ môi trường, phí bảo vệ môi trường => Có nghĩa vụ thông báo doanh thu => hiện chưa có chế tài xử phạt đối với các hành vi vi phạm về thời hạn nộp loại thông báo doanh thu này.
+P080: Hộ kinh doanh, cá nhân kinh doanh bắt đầu hoạt động sản xuất, kinh doanh trong 06 tháng đầu năm nếu có doanh thu thực tế từ 01 tỷ đồng trở xuống nhưng phát sinh các nghĩa vụ thuế khác như thuế tiêu thụ đặc biệt, thuế tài nguyên, thuế bảo vệ môi trường, phí bảo vệ môi trường => có nghĩa vụ nộp tờ khai thuế=> có hành vi chậm nộp/không nộp tờ khai thuế theo thời hạn quy định thì bị xử phạt vi phạm hành chính đối với hành vi vi phạm về thời hạn nộp hồ sơ khai thuế quy định tại Điều 13 Nghị định số 125/2020/NĐ-CP hoặc hành vi trốn thuế quy định tại Điều 17 Nghị định số 125/2020/NĐ-CP
+P081: Thông điệp: Phân biệt đúng bản chất nghĩa vụ trước khi xác định chế tài.
+P082: Ngoại lệ cần kiểm tra: chậm nộp điện tử do sự cố kỹ thuật của hệ thống CNTT được cơ quan thuế thông báo thì hộ kinh doanh, cá nhân kinh doanh không bị xử phạt vi phạm hành chính theo quy định tại khoản 4 Điều 11 Luật Xử lý vi phạm hành chính.
+P083: XÁC ĐỊNH ĐÚNG NGHĨA VỤ - SỬ DỤNG ĐÚNG HỒ SƠ - THỰC HIỆN ĐÚNG THỜI HẠN - ÁP DỤNG ĐÚNG CHẾ TÀI

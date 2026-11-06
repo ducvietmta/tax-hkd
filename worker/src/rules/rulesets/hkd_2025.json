@@ -4,7 +4,10 @@
   "name": "Chính sách thuế Hộ & Cá nhân kinh doanh năm 2025 trở về trước",
   "effective_from": "2021-08-01",
   "effective_to": "2025-12-31",
-  "tax_year_range": [2021, 2025],
+  "tax_year_range": [
+    2021,
+    2025
+  ],
   "supersedes": [],
   "thresholds": {
     "exemption_annual_vnd": 100000000,
@@ -36,6 +39,16 @@
       "vat_rate": 0.05,
       "pit_rate": 0.05,
       "description": "Cho thuê tài sản"
+    },
+    "production_transport": {
+      "vat_rate": 0.03,
+      "pit_rate": 0.015,
+      "description": "Sản xuất, vận tải, dịch vụ gắn với hàng hóa, xây dựng có bao thầu nguyên vật liệu"
+    },
+    "other_business": {
+      "vat_rate": 0.02,
+      "pit_rate": 0.01,
+      "description": "Hoạt động kinh doanh khác"
     }
   },
   "relief_policies": {

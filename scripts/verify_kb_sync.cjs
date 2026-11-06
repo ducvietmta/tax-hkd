@@ -30,6 +30,24 @@ new Function('module', 'exports', js)(mod, mod.exports);
 const { CANONICAL_CHUNKS, QUERY_ROUTES } = mod.exports;
 
 const errors = [];
+const {buildVectorManifest}=require('./lib/vector_manifest.cjs');
+const {buildLegalCoverageLedger}=require('./lib/legal_coverage.cjs');
+const {buildMarkdownProvisionInventory}=require('./lib/legal_markdown_inventory.cjs');
+const expectedVectors=buildVectorManifest(srcChunks,JSON.parse(fs.readFileSync(path.join(ROOT,'worker/src/kb/chunkMeta.json'),'utf8')),JSON.parse(fs.readFileSync(path.join(ROOT,'worker/src/recognition/sourcePolicy.json'),'utf8')));
+if(JSON.stringify(expectedVectors)!==JSON.stringify(JSON.parse(fs.readFileSync(path.join(ROOT,'worker/src/kb/vectorManifest.json'),'utf8'))))errors.push('vector manifest differs from reviewed canonical content');
+const legalCatalog=JSON.parse(fs.readFileSync(path.join(ROOT,'src/data/legalDocuments.json'),'utf8'));
+const expectedMarkdownInventory=buildMarkdownProvisionInventory(legalCatalog,path.join(ROOT,'document_library'));
+if(JSON.stringify(expectedMarkdownInventory)!==JSON.stringify(JSON.parse(fs.readFileSync(path.join(ROOT,'rag_data/legal-markdown-provision-inventory.json'),'utf8'))))errors.push('legal Markdown provision inventory differs from document_library');
+const expectedCoverage=buildLegalCoverageLedger(
+  legalCatalog,
+  JSON.parse(fs.readFileSync(path.join(ROOT,'worker/src/kb/sourceDocuments.json'),'utf8')),
+  JSON.parse(fs.readFileSync(path.join(ROOT,'worker/src/kb/chunkMeta.json'),'utf8')),
+  JSON.parse(fs.readFileSync(path.join(ROOT,'rag_data/legal-coverage-targets.json'),'utf8')),
+  expectedMarkdownInventory
+);
+if(JSON.stringify(expectedCoverage)!==JSON.stringify(JSON.parse(fs.readFileSync(path.join(ROOT,'worker/src/kb/legalCoverageLedger.json'),'utf8'))))errors.push('legal coverage ledger differs from catalog, source registry, chunk metadata, or targets');
+const canonicalRefs=new Set(srcChunks.map(c=>c.ref_id||c.id));
+for(const route of routes)for(const ref of route.refs||[])if(!canonicalRefs.has(ref))errors.push(`route ${route.id} references non-canonical ${ref}`);
 if (CANONICAL_CHUNKS.length !== srcChunks.length) {
   errors.push(`chunk count: compiled=${CANONICAL_CHUNKS.length} source=${srcChunks.length}`);
 }

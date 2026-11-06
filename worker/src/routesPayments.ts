@@ -22,14 +22,15 @@ export async function handleSePayWebhook(request: Request, env: Env, corsHeaders
   const transferType = String(body.transferType || body.type || 'in').toLowerCase();
   const transferAmount = Number(body.transferAmount || body.amount || 0);
   const content = String(body.content || body.description || '');
-  const sepayId = String(body.id || body.referenceCode || Date.now());
+  const sepayId = String(body.id || body.referenceCode || '');
   const accountNumber = String(body.accountNumber || '').replace(/\D/g, '');
 
   if (!/^\d+$/.test(sepayId) || accountNumber !== '9594180624') {
     return jsonResponse({ success: false, error: 'Payment account or transaction ID does not match.' }, 400, corsHeaders);
   }
 
-  if (transferType !== 'in' || transferAmount <= 0) {
+  if (!Number.isSafeInteger(transferAmount) || transferAmount <= 0)return jsonResponse({success:false,error:'Invalid amount.'},400,corsHeaders);
+  if (transferType !== 'in') {
     return jsonResponse({ success: true, message: 'Bỏ qua giao dịch không phải tiền vào' }, 200, corsHeaders);
   }
 
@@ -77,30 +78,13 @@ export async function handleSePayWebhook(request: Request, env: Env, corsHeaders
       }, 200, corsHeaders);
     }
 
-    const existingUser = await env.DB.prepare(`SELECT * FROM users WHERE phone = ?`).bind(targetPhone).first();
-
-    if (existingUser) {
-      await env.DB.prepare(
-        `UPDATE users SET credits = credits + ?, updated_at = CURRENT_TIMESTAMP WHERE phone = ?`
-      ).bind(creditsToAdd, targetPhone).run();
-    } else {
-      const newId = `usr_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-      await env.DB.prepare(
-        `INSERT INTO users (id, phone, name, credits, role, created_at, updated_at)
-         VALUES (?, ?, ?, ?, 'user', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`
-      ).bind(newId, targetPhone, `Khách hàng ${targetPhone.slice(-4)}`, creditsToAdd + 3).run();
-    }
-
-    await env.DB.prepare(
-      `INSERT INTO transactions (id, user_phone, amount, credits, payment_method, status, notes)
-       VALUES (?, ?, ?, ?, 'sepay_mbbank', 'completed', ?)`
-    ).bind(
-      txId,
-      targetPhone,
-      transferAmount,
-      creditsToAdd,
-      `SePay MBBank 9594180624: ${packageName} (Mã GD: ${body.referenceCode || sepayId})`
-    ).run();
+    // D1 batch commits all statements atomically. A completed ID cannot credit twice.
+    await env.DB.batch([
+      env.DB.prepare("INSERT INTO users(id,phone,name,credits,role) VALUES(?,?,?,3,'user') ON CONFLICT(phone) DO NOTHING").bind(`usr_${crypto.randomUUID()}`,targetPhone,`Khách hàng ${targetPhone.slice(-4)}`),
+      env.DB.prepare("INSERT INTO transactions(id,user_phone,amount,credits,payment_method,status,notes) VALUES(?,?,?,?,'sepay_mbbank','pending',?) ON CONFLICT(id) DO NOTHING").bind(txId,targetPhone,transferAmount,creditsToAdd,packageName),
+      env.DB.prepare("UPDATE users SET credits=credits+?,updated_at=CURRENT_TIMESTAMP WHERE phone=? AND EXISTS(SELECT 1 FROM transactions WHERE id=? AND status='pending' AND user_phone=?)").bind(creditsToAdd,targetPhone,txId,targetPhone),
+      env.DB.prepare("UPDATE transactions SET status='completed' WHERE id=? AND status='pending'").bind(txId)
+    ]);
 
     return jsonResponse({
       success: true,

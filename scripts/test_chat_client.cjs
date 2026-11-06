@@ -8,7 +8,7 @@ function load(file,deps={}){
   const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.React}}).outputText;
   const m={exports:{}};
   new Function('require','module','exports',code)(id=>{
-    if(!(id in deps)){if(id==='../../shared/conversationHistory')return load('shared/conversationHistory.ts');throw new Error(`Unexpected test dependency ${id}`);}return deps[id];
+    if(!(id in deps)){if(id==='./chatTransportError')return load('src/services/chatTransportError.ts');if(id==='../services/answerDisplay')return load('src/services/answerDisplay.ts');if(id==='../../shared/conversationHistory')return load('shared/conversationHistory.ts');throw new Error(`Unexpected test dependency ${id}`);}return deps[id];
   },m,m.exports);return m.exports;
 }
 const parser=load('src/services/museBridge.ts',{'./guard':{}});
@@ -27,6 +27,12 @@ for(const heading of ['Căn cứ pháp lý:','## Cơ sở pháp lý','**Căn c�
 assert.equal(parseTaxResponse('Kết luận.\nCăn cứ pháp lý: Điều 7.').legalBasis,'Điều 7.');
 
 const progressLabels=load('shared/chatProgress.ts');
+const {appendProgress}=load('src/components/AnswerProgress.tsx',{'react':{},'lucide-react':{},'../../shared/chatProgress':progressLabels});
+const reviewSteps=appendProgress(appendProgress([], {stage:'reviewing'}), {stage:'repairing'});
+const reviewedAgain=appendProgress(reviewSteps,{stage:'reviewing'});
+assert.deepEqual(reviewedAgain.map(p=>p.stage),['reviewing','repairing','reviewing']);
+assert(reviewedAgain.every(p=>Number.isFinite(p.receivedAt)));
+assert.equal(appendProgress(reviewedAgain,{stage:'reviewing'}),reviewedAgain,'Coalesce consecutive duplicate progress only');
 const api=load('src/services/api.ts',{'./firebase':{auth:{currentUser:null}},'../../shared/chatProgress':progressLabels}).CloudflareApi;
 const event=value=>'data: '+(typeof value==='string'?value:JSON.stringify(value))+'\n\n';
 const originalFetch=global.fetch;
@@ -123,6 +129,7 @@ async function componentProgressCase(kind){
   let finish;
   const service={askTaxAIStream:async(_q,_p,_f,_h,_delta,_meta,_status,_summary,notify)=>{
     notify({stage:'classifying'});notify({stage:'retrieving'});
+    _summary('Bản cũ.',{reset:true});_summary('Tóm tắt mới.',{reset:true});_summary(' Đang đối chiếu.');
     return new Promise(resolve=>{finish=resolve;});
   }};
   const hero=kind==='Hero';
@@ -132,6 +139,8 @@ async function componentProgressCase(kind){
   const pending=h.find(n=>n.type==='form'||n.type==='motion.form').props.onSubmit({preventDefault(){}});
   h.render();const progress=h.find(n=>n.type==='answer-progress');
   assert.deepEqual(progress?.props.steps,[{stage:'connecting'},{stage:'classifying'},{stage:'retrieving'}],`${kind}: show progress while answer is pending`);
+  const summary=h.find(n=>n.type==='retrieval-trace'&&n.props.summary);
+  assert.equal(summary?.props.summary,'Tóm tắt mới. Đang đối chiếu.',`${kind}: model summary visible during progress, reset between attempts`);
   finish({success:false,response:'',error:'Luồng bị ngắt.'});await pending;
 }
 async function main(){

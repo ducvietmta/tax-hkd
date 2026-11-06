@@ -1,0 +1,442 @@
+{
+  "schema": "taxhkd-scoped-card-review-v1",
+  "reviewed_on": "2026-11-04",
+  "reviewer_type": "AI",
+  "policy": "AI scoped reviews: ND398 Article 2,4 and Appendix; plus three literal excerpts cross-checked against official PDF for missing details found while auditing 42 supplied questions. Never import supplied answer keys as verified law. Not full-document or human certification.",
+  "cards": [
+    {
+      "doc_id": "ND-398-2026-ND-CP",
+      "from": 2026,
+      "to": 2027,
+      "effective_from": "2026-10-29",
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/11/398_2026_nd-cp_29102026-signed.signed.pdf",
+      "source_file": "document_library/ND-398-2026-ND-CP.md",
+      "source_sha256": "1849b1160349e9a63dc4218d42bd984336ae28441e0b387b51a741bde1dcdf83",
+      "official_pdf": "public/documents/ND-398-2026-ND-CP.pdf",
+      "official_pdf_sha256": "97a1811294e23e12b564d1b103d1ea8ee64e9bbedb6208ebab498d28d9f66180",
+      "code": "Nghị định 398/2026/NĐ-CP",
+      "source_type": "OFFICIAL_SIGNED_PDF_VISUALLY_TRANSCRIBED",
+      "ref_id": "16.233",
+      "title": "Điều kiện giảm 30% TNCN kỳ 2026–2027, mọi phương pháp kinh doanh",
+      "locator": "Khoản 1, khoản 2, khoản 3 Điều 2 và Điều 4",
+      "quotes": [
+        "Điều 2. Giảm 30% số thuế thu nhập cá nhân phải nộp của kỳ tính thuế năm 2026 và năm 2027 đối với thu nhập từ kinh doanh của cá nhân cư trú có mức doanh thu hằng năm của năm 2026, năm 2027 không quá 10 tỷ đồng",
+        "1. Việc giảm thuế quy định tại Điều này áp dụng đối với cá nhân cư trú có hoạt động sản xuất, kinh doanh, bao gồm cả cá nhân đăng ký thành lập hộ kinh doanh hoặc người được các thành viên hộ gia đình ủy quyền làm người đại diện hộ kinh doanh (sau đây gọi là cá nhân kinh doanh).",
+        "2. Số thuế thu nhập cá nhân được giảm của kỳ tính thuế năm 2026, năm 2027 được tính trên số thuế thu nhập cá nhân phải nộp phát sinh từ toàn bộ thu nhập từ hoạt động sản xuất, kinh doanh của cá nhân kinh doanh, không phân biệt phương pháp tính thuế thu nhập cá nhân.",
+        "3. Doanh thu năm làm căn cứ xác định cá nhân kinh doanh thuộc đối tượng được giảm thuế thu nhập cá nhân thực hiện theo quy định tại Điều 4, Điều 5 Nghị định số 68/2026/NĐ-CP quy định về chính sách thuế và quản lý thuế đối với hộ kinh doanh, cá nhân kinh doanh (được sửa đổi, bổ sung bởi Nghị định số 141/2026/NĐ-CP).",
+        "Nghị định này có hiệu lực thi hành kể từ ngày 29 tháng 10 năm 2026 và áp dụng cho kỳ tính thuế năm 2026, năm 2027."
+      ],
+      "quote_sha256": [
+        "ec3e035be15c09b40c7f3d7e199fb2dd73fbbe103b47e4a8ef5767aa3fc6972d",
+        "777543c1c3c9242c76b552cbe9e5b8fc9aea6f032637d92c7523e00bf0e25b12",
+        "a4da132e8bd335bd45c00e8541734e2c4ff8dfd5e7330a8c3699b647b67a0148",
+        "6c153680515f86a93593c561e4c068a4c6456859b511e9d82eee14faf3c34114",
+        "66fa91c3e389451c75befe1a90e33e220672f59f5fc9ea688a6cb14dcd54ecec"
+      ],
+      "pdf_pages": [
+        1,
+        2,
+        4
+      ],
+      "summary": "Cá nhân cư trú kinh doanh, kể cả người đại diện HKD, có doanh thu từng năm 2026 hoặc 2027 không quá 10 tỷ đồng được giảm 30% số TNCN phải nộp từ toàn bộ hoạt động kinh doanh, không phân biệt phương pháp tính. Xét tổng doanh thu thực tế toàn bộ hoạt động cùng cá nhân; xác định doanh thu theo Điều 4,5 NĐ68 sửa bởi NĐ141. Đúng 10 tỷ thuộc điều kiện doanh thu. Giảm tính trên số thuế, không phải doanh thu hay thuế suất. Nghị định hiệu lực 29/10/2026 nhưng áp dụng cả kỳ tính thuế 2026 và 2027.",
+      "limits": "Không áp GTGT, thu nhập tiền lương, cá nhân không cư trú hoặc kỳ 2025/2028. Không dùng quy tắc doanh thu, chia tách, ưu đãi TNDN tại Điều 3 cho CNKD/HKD. Đạt doanh thu chưa thay điều kiện cư trú/loại thu nhập.",
+      "facets": {
+        "policy_focus": [
+          "PIT_RELIEF"
+        ],
+        "intents": [
+          "RELIEF_REDUCTION"
+        ],
+        "required": false,
+        "tax_focuses": [
+          "pit",
+          "both",
+          "unspecified"
+        ]
+      }
+    },
+    {
+      "doc_id": "ND-398-2026-ND-CP",
+      "from": 2026,
+      "to": 2027,
+      "effective_from": "2026-10-29",
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/11/398_2026_nd-cp_29102026-signed.signed.pdf",
+      "source_file": "document_library/ND-398-2026-ND-CP.md",
+      "source_sha256": "1849b1160349e9a63dc4218d42bd984336ae28441e0b387b51a741bde1dcdf83",
+      "official_pdf": "public/documents/ND-398-2026-ND-CP.pdf",
+      "official_pdf_sha256": "97a1811294e23e12b564d1b103d1ea8ee64e9bbedb6208ebab498d28d9f66180",
+      "code": "Nghị định 398/2026/NĐ-CP",
+      "source_type": "OFFICIAL_SIGNED_PDF_VISUALLY_TRANSCRIBED",
+      "ref_id": "16.234",
+      "title": "Tự kê khai giảm TNCN: Mẫu số 01 kèm hồ sơ quý, 6 tháng, năm",
+      "locator": "Điểm a khoản 4 Điều 2; Mẫu số 01 Phụ lục; Điều 4",
+      "quotes": [
+        "Điều 2. Giảm 30% số thuế thu nhập cá nhân phải nộp của kỳ tính thuế năm 2026 và năm 2027 đối với thu nhập từ kinh doanh của cá nhân cư trú có mức doanh thu hằng năm của năm 2026, năm 2027 không quá 10 tỷ đồng",
+        "1. Việc giảm thuế quy định tại Điều này áp dụng đối với cá nhân cư trú có hoạt động sản xuất, kinh doanh, bao gồm cả cá nhân đăng ký thành lập hộ kinh doanh hoặc người được các thành viên hộ gia đình ủy quyền làm người đại diện hộ kinh doanh (sau đây gọi là cá nhân kinh doanh).",
+        "a) Cá nhân kinh doanh dự kiến doanh thu trong kỳ tính thuế năm 2026, năm 2027 nếu không quá 10 tỷ đồng thì kê khai giảm thuế thu nhập cá nhân theo Mẫu số 01 tại Phụ lục kèm theo Nghị định này và nộp cùng hồ sơ khai thuế quý, 06 tháng đầu năm, 06 tháng cuối năm, năm.",
+        "Nghị định này có hiệu lực thi hành kể từ ngày 29 tháng 10 năm 2026 và áp dụng cho kỳ tính thuế năm 2026, năm 2027."
+      ],
+      "quote_sha256": [
+        "ec3e035be15c09b40c7f3d7e199fb2dd73fbbe103b47e4a8ef5767aa3fc6972d",
+        "777543c1c3c9242c76b552cbe9e5b8fc9aea6f032637d92c7523e00bf0e25b12",
+        "49199f055f99dd7a6454b0f2ae1ab2ab83727532bee4879369fe077c6f95c2b5",
+        "66fa91c3e389451c75befe1a90e33e220672f59f5fc9ea688a6cb14dcd54ecec"
+      ],
+      "pdf_pages": [
+        1,
+        2,
+        4,
+        6,
+        7
+      ],
+      "summary": "Cá nhân kinh doanh dự kiến doanh thu kỳ năm 2026,2027 không quá 10 tỷ đồng kê khai giảm TNCN bằng Mẫu số 01 của Phụ lục NĐ398, nộp cùng hồ sơ khai thuế quý, 06 tháng đầu năm, 06 tháng cuối năm, năm theo nhánh khai thuế áp dụng. Mẫu 01 là phụ lục giảm thuế kèm tờ khai TNCN của HKD/CNKD. Tổng thực tế vẫn phải đối chiếu theo điểm c khoản 4.",
+      "limits": "Không coi Mẫu số 01 này là tờ khai 01/CNKD hoặc mẫu 01 của văn bản khác. Không tự ấn định hạn ngày hoặc thao tác phần mềm khi nghị định chỉ nói nộp kèm hồ sơ. Không khẳng định chỉ từ ngày hiệu lực mới được giảm.",
+      "facets": {
+        "required": false,
+        "intents": [
+          "RELIEF_REDUCTION"
+        ],
+        "topics": [
+          "TAX_FILING"
+        ],
+        "tax_focuses": [
+          "pit",
+          "both",
+          "unspecified"
+        ]
+      }
+    },
+    {
+      "doc_id": "ND-398-2026-ND-CP",
+      "from": 2026,
+      "to": 2027,
+      "effective_from": "2026-10-29",
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/11/398_2026_nd-cp_29102026-signed.signed.pdf",
+      "source_file": "document_library/ND-398-2026-ND-CP.md",
+      "source_sha256": "1849b1160349e9a63dc4218d42bd984336ae28441e0b387b51a741bde1dcdf83",
+      "official_pdf": "public/documents/ND-398-2026-ND-CP.pdf",
+      "official_pdf_sha256": "97a1811294e23e12b564d1b103d1ea8ee64e9bbedb6208ebab498d28d9f66180",
+      "code": "Nghị định 398/2026/NĐ-CP",
+      "source_type": "OFFICIAL_SIGNED_PDF_VISUALLY_TRANSCRIBED",
+      "ref_id": "16.235",
+      "title": "Bên khấu trừ, khai thay, nộp thay giảm 30% TNCN: Mẫu số 02",
+      "locator": "Điểm b khoản 4 Điều 2; Mẫu số 02 Phụ lục; Điều 4",
+      "quotes": [
+        "Điều 2. Giảm 30% số thuế thu nhập cá nhân phải nộp của kỳ tính thuế năm 2026 và năm 2027 đối với thu nhập từ kinh doanh của cá nhân cư trú có mức doanh thu hằng năm của năm 2026, năm 2027 không quá 10 tỷ đồng",
+        "1. Việc giảm thuế quy định tại Điều này áp dụng đối với cá nhân cư trú có hoạt động sản xuất, kinh doanh, bao gồm cả cá nhân đăng ký thành lập hộ kinh doanh hoặc người được các thành viên hộ gia đình ủy quyền làm người đại diện hộ kinh doanh (sau đây gọi là cá nhân kinh doanh).",
+        "b) Tổ chức, cá nhân thực hiện khấu trừ, khai thay, nộp thay thuế thu nhập cá nhân cho cá nhân kinh doanh, căn cứ doanh thu nếu không quá 10 tỷ đồng thuộc phạm vi khấu trừ, khai thay, nộp thay và quy định tại Điều này, tổ chức, cá nhân thực hiện giảm 30% số thuế thu nhập cá nhân phải khấu trừ, khai thay, nộp thay theo tháng, quý hoặc theo lần phát sinh, kê khai theo Mẫu số 02 tại Phụ lục kèm theo Nghị định này và nộp cùng Tờ khai thuế thu nhập cá nhân của tổ chức, cá nhân thực hiện khấu trừ, khai thay, nộp thay thuế thu nhập cá nhân cho cá nhân kinh doanh.",
+        "Nghị định này có hiệu lực thi hành kể từ ngày 29 tháng 10 năm 2026 và áp dụng cho kỳ tính thuế năm 2026, năm 2027."
+      ],
+      "quote_sha256": [
+        "ec3e035be15c09b40c7f3d7e199fb2dd73fbbe103b47e4a8ef5767aa3fc6972d",
+        "777543c1c3c9242c76b552cbe9e5b8fc9aea6f032637d92c7523e00bf0e25b12",
+        "fdd61c7ad74bd82ae0184ddefbdcf4b5603adb556c4d5461196f22c19975ada6",
+        "66fa91c3e389451c75befe1a90e33e220672f59f5fc9ea688a6cb14dcd54ecec"
+      ],
+      "pdf_pages": [
+        1,
+        2,
+        4,
+        6,
+        8
+      ],
+      "summary": "Tổ chức/cá nhân khấu trừ, khai thay, nộp thay cho CNKD căn cứ doanh thu không quá 10 tỷ thuộc phạm vi mình thực hiện và các điều kiện tại Điều 2 để giảm 30% TNCN phải khấu trừ/khai thay/nộp thay theo tháng, quý hoặc lần phát sinh. Kê khai Mẫu số 02 Phụ lục NĐ398, nộp cùng tờ khai TNCN của bên khấu trừ/khai thay/nộp thay. Cá nhân vẫn đối chiếu tổng thực tế toàn bộ hoạt động theo điểm c khoản 4.",
+      "limits": "Không suy doanh thu riêng một sàn/kênh đủ để chốt quyền giảm cả năm. Không tự xác định dòng tax là TNCN hay giảm GTGT, không hứa hoàn ngay khoản chưa có chứng từ. Không tự suy nền tảng nào đã thực hiện giảm.",
+      "facets": {
+        "required": false,
+        "intents": [
+          "PLATFORM_WITHHOLDING",
+          "RELIEF_REDUCTION"
+        ],
+        "topics": [
+          "PLATFORM_WITHHOLDING"
+        ],
+        "tax_focuses": [
+          "pit",
+          "both",
+          "unspecified"
+        ]
+      }
+    },
+    {
+      "doc_id": "ND-398-2026-ND-CP",
+      "from": 2026,
+      "to": 2027,
+      "effective_from": "2026-10-29",
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/11/398_2026_nd-cp_29102026-signed.signed.pdf",
+      "source_file": "document_library/ND-398-2026-ND-CP.md",
+      "source_sha256": "1849b1160349e9a63dc4218d42bd984336ae28441e0b387b51a741bde1dcdf83",
+      "official_pdf": "public/documents/ND-398-2026-ND-CP.pdf",
+      "official_pdf_sha256": "97a1811294e23e12b564d1b103d1ea8ee64e9bbedb6208ebab498d28d9f66180",
+      "code": "Nghị định 398/2026/NĐ-CP",
+      "source_type": "OFFICIAL_SIGNED_PDF_VISUALLY_TRANSCRIBED",
+      "ref_id": "16.236",
+      "title": "Doanh thu thực tế vượt 10 tỷ: Mẫu 03, nộp bổ sung khoản đã giảm và giới hạn chậm nộp",
+      "locator": "Điểm c khoản 4 Điều 2; Mẫu số 03 Phụ lục; Điều 4",
+      "quotes": [
+        "Điều 2. Giảm 30% số thuế thu nhập cá nhân phải nộp của kỳ tính thuế năm 2026 và năm 2027 đối với thu nhập từ kinh doanh của cá nhân cư trú có mức doanh thu hằng năm của năm 2026, năm 2027 không quá 10 tỷ đồng",
+        "1. Việc giảm thuế quy định tại Điều này áp dụng đối với cá nhân cư trú có hoạt động sản xuất, kinh doanh, bao gồm cả cá nhân đăng ký thành lập hộ kinh doanh hoặc người được các thành viên hộ gia đình ủy quyền làm người đại diện hộ kinh doanh (sau đây gọi là cá nhân kinh doanh).",
+        "c) Căn cứ tổng doanh thu thực tế của toàn bộ hoạt động kinh doanh, cá nhân kinh doanh xác định số thuế thu nhập cá nhân phải nộp và số thuế thu nhập cá nhân được giảm theo quy định tại Điều này. Trường hợp tổng doanh thu thực tế trong năm vượt quá 10 tỷ đồng thì không được áp dụng mức giảm thuế quy định tại Điều này và phải nộp bổ sung số thuế thu nhập cá nhân đã được giảm, kê khai điều chỉnh theo Mẫu số 03 tại Phụ lục kèm theo Nghị định này và nộp cùng hồ sơ khai thuế của kỳ phát sinh doanh thu lũy kế tính từ đầu năm trên 10 tỷ đồng. Số thuế thu nhập cá nhân phải nộp bổ sung do xác định lại điều kiện giảm thuế theo quy định này không tính tiền chậm nộp đến thời hạn nộp hồ sơ khai thuế theo quy định của kỳ phát sinh doanh thu lũy kế trên 10 tỷ đồng.",
+        "Nghị định này có hiệu lực thi hành kể từ ngày 29 tháng 10 năm 2026 và áp dụng cho kỳ tính thuế năm 2026, năm 2027."
+      ],
+      "quote_sha256": [
+        "ec3e035be15c09b40c7f3d7e199fb2dd73fbbe103b47e4a8ef5767aa3fc6972d",
+        "777543c1c3c9242c76b552cbe9e5b8fc9aea6f032637d92c7523e00bf0e25b12",
+        "3ded4bd8ba9256d14c6f72654304dadb0e44e808b2766e9f7b7b8ff0de64ff68",
+        "66fa91c3e389451c75befe1a90e33e220672f59f5fc9ea688a6cb14dcd54ecec"
+      ],
+      "pdf_pages": [
+        1,
+        2,
+        4,
+        6,
+        9,
+        10
+      ],
+      "summary": "Phải căn cứ tổng doanh thu thực tế toàn bộ hoạt động cùng cá nhân. Nếu tổng năm vượt 10 tỷ đồng, không được giảm theo Điều 2 và phải nộp bổ sung số TNCN đã giảm. Kê khai điều chỉnh bằng Mẫu số 03 Phụ lục NĐ398, nộp cùng hồ sơ kỳ phát sinh doanh thu lũy kế từ đầu năm trên 10 tỷ. Khoản bổ sung do xác định lại điều kiện này không tính tiền chậm nộp đến hạn nộp hồ sơ kỳ vượt ngưỡng. Mẫu 03 kèm tờ khai 01/CNKD,01/BĐS theo Phụ lục.",
+      "limits": "Không chỉ thu hồi giảm trên phần doanh thu vượt trần; không khẳng định miễn tiền chậm nộp vô thời hạn hoặc miễn xử phạt mọi hành vi. Không chờ cuối năm nếu kỳ hiện tại lũy kế đã vượt. Không áp điều khoản tiền chậm nộp TNDN Điều 3 cho CNKD.",
+      "facets": {
+        "required": false,
+        "intents": [
+          "RELIEF_REDUCTION"
+        ],
+        "topics": [
+          "REVENUE_THRESHOLD"
+        ],
+        "tax_focuses": [
+          "pit",
+          "both",
+          "unspecified"
+        ]
+      }
+    },
+    {
+      "doc_id": "ND-398-2026-ND-CP",
+      "from": 2026,
+      "to": 2027,
+      "effective_from": "2026-10-29",
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/11/398_2026_nd-cp_29102026-signed.signed.pdf",
+      "source_file": "document_library/ND-398-2026-ND-CP.md",
+      "source_sha256": "1849b1160349e9a63dc4218d42bd984336ae28441e0b387b51a741bde1dcdf83",
+      "official_pdf": "public/documents/ND-398-2026-ND-CP.pdf",
+      "official_pdf_sha256": "97a1811294e23e12b564d1b103d1ea8ee64e9bbedb6208ebab498d28d9f66180",
+      "code": "Nghị định 398/2026/NĐ-CP",
+      "source_type": "OFFICIAL_SIGNED_PDF_VISUALLY_TRANSCRIBED",
+      "ref_id": "16.237",
+      "title": "Đã khai nhưng chưa giảm: khai bổ sung/quyết toán, bù trừ hoàn số nộp thừa",
+      "locator": "Điểm d khoản 4 Điều 2 và Điều 4",
+      "quotes": [
+        "Điều 2. Giảm 30% số thuế thu nhập cá nhân phải nộp của kỳ tính thuế năm 2026 và năm 2027 đối với thu nhập từ kinh doanh của cá nhân cư trú có mức doanh thu hằng năm của năm 2026, năm 2027 không quá 10 tỷ đồng",
+        "1. Việc giảm thuế quy định tại Điều này áp dụng đối với cá nhân cư trú có hoạt động sản xuất, kinh doanh, bao gồm cả cá nhân đăng ký thành lập hộ kinh doanh hoặc người được các thành viên hộ gia đình ủy quyền làm người đại diện hộ kinh doanh (sau đây gọi là cá nhân kinh doanh).",
+        "d) Trường hợp đã kê khai thuế thu nhập cá nhân nhưng chưa kê khai số thuế được giảm theo quy định tại khoản 1, khoản 2, khoản 3 Điều này thì được khai điều chỉnh, bổ sung hồ sơ khai thuế đã khai hoặc xác định giảm thuế khi quyết toán thuế năm theo quy định của pháp luật về quản lý thuế. Trường hợp cá nhân kinh doanh nộp thuế theo thuế suất trên doanh thu nếu nộp thừa thì cuối năm được bù trừ, hoàn trả, hoàn trả kiêm bù trừ thu ngân sách theo quy định của pháp luật về quản lý thuế đối với số thuế nộp thừa.",
+        "Nghị định này có hiệu lực thi hành kể từ ngày 29 tháng 10 năm 2026 và áp dụng cho kỳ tính thuế năm 2026, năm 2027."
+      ],
+      "quote_sha256": [
+        "ec3e035be15c09b40c7f3d7e199fb2dd73fbbe103b47e4a8ef5767aa3fc6972d",
+        "777543c1c3c9242c76b552cbe9e5b8fc9aea6f032637d92c7523e00bf0e25b12",
+        "54b9ad664ad1611ffc9d186b19824407e1758b9bc278db2beda3f84ca9c58f8d",
+        "66fa91c3e389451c75befe1a90e33e220672f59f5fc9ea688a6cb14dcd54ecec"
+      ],
+      "pdf_pages": [
+        1,
+        2,
+        4
+      ],
+      "summary": "Nếu đã kê khai TNCN nhưng chưa kê khai khoản được giảm, được điều chỉnh/bổ sung hồ sơ đã khai hoặc xác định giảm khi quyết toán năm theo pháp luật quản lý thuế. Cá nhân nộp thuế theo thuế suất trên doanh thu nếu nộp thừa thì cuối năm bù trừ, hoàn trả, hoàn trả kiêm bù trừ theo quy định đối với số thuế nộp thừa. Áp dụng kỳ 2026,2027 khi đủ điều kiện Điều 2.",
+      "limits": "Không hứa tự động hoàn, hoàn ngay trong tháng/quý hoặc hoàn tiền chỉ từ dòng tax chưa xác định sắc thuế/chứng từ. Không biến cơ chế thuế suất trên doanh thu thành nghĩa vụ quyết toán giống nhau cho mọi phương pháp.",
+      "facets": {
+        "required": false,
+        "intents": [
+          "RELIEF_REDUCTION",
+          "REFUND"
+        ],
+        "topics": [
+          "REFUND"
+        ],
+        "tax_focuses": [
+          "pit",
+          "both",
+          "unspecified"
+        ]
+      }
+    },
+    {
+      "doc_id": "ND-398-2026-ND-CP",
+      "from": 2026,
+      "to": 2027,
+      "effective_from": "2026-10-29",
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/11/398_2026_nd-cp_29102026-signed.signed.pdf",
+      "source_file": "document_library/ND-398-2026-ND-CP.md",
+      "source_sha256": "1849b1160349e9a63dc4218d42bd984336ae28441e0b387b51a741bde1dcdf83",
+      "official_pdf": "public/documents/ND-398-2026-ND-CP.pdf",
+      "official_pdf_sha256": "97a1811294e23e12b564d1b103d1ea8ee64e9bbedb6208ebab498d28d9f66180",
+      "code": "Nghị định 398/2026/NĐ-CP",
+      "source_type": "OFFICIAL_SIGNED_PDF_VISUALLY_TRANSCRIBED",
+      "ref_id": "16.238",
+      "title": "Khai bổ sung, thanh tra kiểm tra làm tăng/giảm nghĩa vụ TNCN được giảm",
+      "locator": "Điểm đ, điểm e khoản 4 Điều 2 và Điều 4",
+      "quotes": [
+        "Điều 2. Giảm 30% số thuế thu nhập cá nhân phải nộp của kỳ tính thuế năm 2026 và năm 2027 đối với thu nhập từ kinh doanh của cá nhân cư trú có mức doanh thu hằng năm của năm 2026, năm 2027 không quá 10 tỷ đồng",
+        "1. Việc giảm thuế quy định tại Điều này áp dụng đối với cá nhân cư trú có hoạt động sản xuất, kinh doanh, bao gồm cả cá nhân đăng ký thành lập hộ kinh doanh hoặc người được các thành viên hộ gia đình ủy quyền làm người đại diện hộ kinh doanh (sau đây gọi là cá nhân kinh doanh).",
+        "đ) Trường hợp cá nhân khai bổ sung hồ sơ khai thuế thu nhập cá nhân của kỳ tính thuế năm 2026, năm 2027 hoặc theo quyết định, kết luận, thông báo kết quả thanh tra, kiểm tra, kiểm toán của cơ quan thuế, cơ quan có thẩm quyền làm tăng số thuế thu nhập cá nhân phải nộp thì số thuế tăng thêm được giảm 30% theo quy định của Nghị định này nếu cá nhân vẫn đáp ứng điều kiện được giảm thuế quy định tại Điều này.",
+        "e) Trường hợp cá nhân khai bổ sung hồ sơ khai thuế thu nhập cá nhân của kỳ tính thuế năm 2026, năm 2027 hoặc theo quyết định, kết luận, thông báo kết quả thanh tra, kiểm tra, kiểm toán của cơ quan thuế, cơ quan có thẩm quyền làm giảm số thuế thu nhập cá nhân phải nộp thì điều chỉnh giảm số thuế thu nhập cá nhân được giảm theo quy định của Nghị định này và xử lý số tiền thuế nộp thừa (nếu có) theo quy định của pháp luật về quản lý thuế.",
+        "Nghị định này có hiệu lực thi hành kể từ ngày 29 tháng 10 năm 2026 và áp dụng cho kỳ tính thuế năm 2026, năm 2027."
+      ],
+      "quote_sha256": [
+        "ec3e035be15c09b40c7f3d7e199fb2dd73fbbe103b47e4a8ef5767aa3fc6972d",
+        "777543c1c3c9242c76b552cbe9e5b8fc9aea6f032637d92c7523e00bf0e25b12",
+        "16897528bf192ef01a22acc4585d350e2804943a405767109719a373042f2d2c",
+        "391efea1b654cfea0ddc9bef7c549daa6b5152f3c0565bf640cefac4d4591862",
+        "66fa91c3e389451c75befe1a90e33e220672f59f5fc9ea688a6cb14dcd54ecec"
+      ],
+      "pdf_pages": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "summary": "Khai bổ sung hoặc kết luận/quyết định/thông báo thanh tra, kiểm tra, kiểm toán làm tăng TNCN kỳ 2026,2027: phần tăng thêm được giảm 30% nếu cá nhân vẫn đủ điều kiện Điều 2. Nếu làm giảm TNCN phải nộp, phải giảm tương ứng số TNCN được giảm và xử lý số nộp thừa nếu có theo pháp luật quản lý thuế.",
+      "limits": "Không giữ nguyên khoản giảm khi nghĩa vụ thuế giảm. Không tự giảm phần tăng nếu tổng doanh thu đã vượt trần hoặc không đáp ứng cư trú/loại thu nhập; kiểm lại điều kiện. Không tự miễn phạt hay chậm nộp cho mọi khai bổ sung.",
+      "facets": {
+        "required": false,
+        "intents": [
+          "RELIEF_REDUCTION"
+        ],
+        "topics": [
+          "TAXPAYER_RIGHTS"
+        ],
+        "tax_focuses": [
+          "pit",
+          "both",
+          "unspecified"
+        ]
+      }
+    },
+    {
+      "ref_id": "16.239",
+      "doc_id": "ND-253-2026-ND-CP",
+      "title": "Điều kiện miễn TNCN trực tiếp sản xuất nông nghiệp: đất, lao động và cư trú",
+      "locator": "Điều 21",
+      "from": 2026,
+      "effective_from": "2026-07-01",
+      "summary": "Miễn TNCN của người trực tiếp sản xuất nông nghiệp là nhánh riêng với ngưỡng doanh thu kinh doanh. Điều 21 NĐ253 yêu cầu sản phẩm chưa chế biến thành sản phẩm khác hoặc chỉ sơ chế thông thường; quyền sử dụng/thuê đất hoặc mặt nước hợp pháp và trực tiếp tham gia lao động sản xuất; thực tế cư trú tại xã hoặc xã giáp ranh nơi sản xuất. Thuê lại cần văn bản theo điều khoản, có ngoại lệ nhận khoán rừng. Đánh bắt thủy sản có điều kiện tàu/thuyền và tham gia trực tiếp, ngoại lệ đánh bắt đáy sông theo nguồn; không phụ thuộc nơi cư trú. Xác định sơ chế theo NĐ181 và văn bản sửa đổi. Không quyết định chỉ từ số doanh thu hoặc kênh bán online.",
+      "limits": "Chỉ điều kiện miễn TNCN nông nghiệp của HKD/CNKD; GTGT xét nguồn riêng. Không gán ưu đãi trực tiếp sản xuất cho người chỉ mua bán lại. Có thuê máy/dịch vụ phụ trợ chưa chứng minh hoặc phủ định trực tiếp sản xuất: phải kiểm việc trực tiếp tham gia thực tế; không tự miễn khi chưa đủ hồ sơ. Văn bản Markdown có lỗi OCR, đọc với trang PDF đã đối chiếu.",
+      "quotes": [
+        "Điều 21. Thu nhập của hộ gia đình, cá nhân trực tiếp sản xuất sản\n\nẢ ˆ^ À ^ À . ^ˆ+ + 2 ^^ ^ r “\nphẩm cây trông, rừng trông, chăn nuôi, thủy sản nuôi trồng, đánh bắt\nchưa qua chế biến thành các sản phẩm khác hoặc chỉ qua sơ chế thông\nthường; sản xuất muối\n\n._ 1. Miễn thuế thu nhập cá nhân đối với thu nhập của hộ gia đình, cá nhân\ntrực tiệp sản xuất sản phẩm cây trồng, rừng trồng, chăn nuôi, thủy sản nuôi\ntrồng, đánh bắt chưa qua chế biên thành các sản phẩm khác hoặc chỉ qua sơ\nchê thông thường; sản xuất muối. l\n2. Việc miễn thuế đối với thu nhập của hộ gia đình, cá nhân quy định tại\nkhoản 1 Điều này phải đáp ứng các điêu kiện sau:\na) Có quyền sử dụng đất, quyền thuê đất trong hợp đồng thuê đất (bao\n' gồm cả đất có mặt nước), quyên sử dụng mặt nước, quyền thuê mặt nước hợp\n: z Ậ „+ H ^ +Ã . ^ h Ấ + F ^ À\npháp để sản xuất và trực tiếp tham gia lao động sản xuất sản phẩm cây trông,\nrừng trồng, chăn nuôi, thủy sản nuôi trông, đánh bắt, sản xuất muôi.\nTrường hợp đi thuê lại đất, mặt nước của tổ chức, cá nhân khác thì phải\ncó văn bản thuê đất, mặt nước theo quy định của pháp luật (trừ trường hợp hộ\ngia đình, cá nhân nhận khoán trồng rừng, chăm sóc, quản lý và bảo vệ rừng\n\n\n[Trang 16]\n\n16 \"\ntheo quy định pháp luật). Đối với hoạt động đánh bắt thủy sản phải có giấy\nchứng nhận quyên sở hữu hoặc hợp đông thuê tàu, thuyên sử dụng vào mục\nđích đánh bắt và trực tiệp tham gia hoạt động đánh bắt thủy sản (trừ trường\nhợp đánh bắt thủy sản trên sông băng hình thức đáy sông (đáy cá) và không\nthuộc những hoạt động khai thác thủy sản bị câm theo quy định của pháp\nluậU);\n\nb) Thực tế có nơi cư trú tại địa phương nơi diễn ra hoạt động sản xuất\nsản phẩm cây trông, rừng trông, chăn nuôi, thủy sản nuôi trồng, đánh bắt,sản -\nxuất muỗi.\n\nĐịa phương nơi diễn ra hoạt động sản xuất sản phẩm cây trồng, rừng\ntrông, chăn nuôi, thủy sản nuôi trông, sản xuất muôi quy định tại điểm này\ntính theo đơn vị hành chính cấp xã, kể cả xã giáp ranh với xã diễn ra hoạt\nđộng sản xuất.\n\nRiêng đối với hoạt động đánh bắt thủy sản thì không phụ thuộc nơi cư trú.\n\n3. Việc xác định sản phẩm chưa qua chế biến thành các sản phẩm khác\nhoặc chỉ qua sơ chê thông thường quy định tại khoản 1 Điêu này thực hiện\ntheo quy định tại Nghị định sô 181/2025/NĐ-CP quy định chỉ tiệt thi hành\nmột số điều của Luật Thuế giá trị gia tăng và các văn bản sửa đôi, bỗ sung."
+      ],
+      "quote_sha256": [
+        "0f845ac5a71c98ad659dbbe51f36ff5d09c0a0c3257372c1e3cdabc295f1152a"
+      ],
+      "pdf_pages": [
+        15,
+        16
+      ],
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/253m-ndcp.signed.pdf",
+      "facets": {
+        "required": false,
+        "topics": [
+          "TAX_AMOUNT"
+        ],
+        "tax_focuses": [
+          "pit",
+          "both",
+          "unspecified"
+        ]
+      },
+      "source_file": "document_library/ND-253-2026-ND-CP.md",
+      "source_sha256": "bbe4c3e1b58f9a04a9786a4ed4ca8417c604d0a12bb36bed45e61f5ab9307308",
+      "official_pdf": "public/documents/ND-253-2026-ND-CP.pdf",
+      "official_pdf_sha256": "c4d5e03e2c8235230acb72dd656b848fdbbf53e50e54e8c9fbfa9dfe734d8a8a",
+      "code": "Nghị định 253/2026/NĐ-CP",
+      "source_type": "OFFICIAL_PDF_SCOPED_MARKDOWN_CROSSCHECK"
+    },
+    {
+      "ref_id": "16.240",
+      "doc_id": "ND-181-2025-ND-CP",
+      "title": "Nông sản không chịu GTGT và giới hạn sơ chế thông thường",
+      "locator": "Khoản 1 Điều 4",
+      "from": 2025,
+      "effective_from": "2025-07-01",
+      "summary": "Khoản 1 Điều 4 NĐ181: sản phẩm cây trồng, rừng trồng, chăn nuôi, thủy sản chưa chế biến thành sản phẩm khác hoặc chỉ sơ chế thông thường do tổ chức/cá nhân tự sản xuất, đánh bắt bán ra thuộc nhánh không chịu GTGT, cũng quy định khâu nhập khẩu. Sơ chế liệt kê làm sạch, phơi/sấy, bóc vỏ, xay xát, xay/nghiền vỡ mảnh, cắt, nghiền và các cách bảo quản theo nguồn; không thể chỉ từ tên thao tác xay/nghiền kết luận đã tạo sản phẩm khác. Khi không xác định được, cơ quan chuyên ngành căn cứ quy trình sản xuất cụ thể. Bán qua Shopee không tự tạo hay xóa điều kiện của sản phẩm/người sản xuất.",
+      "limits": "Chỉ GTGT và định nghĩa sơ chế được trích; TNCN có điều kiện riêng tại Điều 21 NĐ253, không gộp hai sắc thuế thành một kết luận miễn. Không lấy cơ chế của doanh nghiệp khấu trừ ở khâu thương mại để áp cho HKD mua nông sản bán lại. Không khẳng định mọi nông sản chế biến đều chịu cùng mức thuế; cần sản phẩm, quy trình, chủ thể, kỳ và ngưỡng áp dụng.",
+      "quotes": [
+        "Điều 4. Đối tượng không chịu thuế\n\n\n[Trang 3]\n\n3\n\nĐối tượng không chịu thuế thực hiện theo quy định tại Điều 5 Luật Thuế\ngiá trị gia tăng. Một sô trường hợp được quy định chi tiết như sau:\n\n—1,§ản phẩm cây trồng, rừng trồng, chăn nuôi, thủy sản nuôi trồng, đánh\nbắt chưa chê biến thành các sản phẩm khác hoặc chỉ qua sơ chế thông thường\ncủa tổ chức, cá nhân tự sản xuất, đánh bắt bán ra và ở khâu nhập khâu. Trong\nđó, các sản phẩm chỉ qua sơ chê thông thường là các sản phẩm mới được làm\nsạch, phơi, sây khô, bóc vỏ, xay xát, xay vỡ mảnh, nghiên vỡ mảnh, xay bỏ\nvỏ, xát bỏ vỏ, tách hạt, tách cọng, cắt, xay, đánh bóng hạt, hô hạt, chia tách ra\ntừng phần, bỏ xương, băm, lột da, nghiền, cán mỏng, ướp muôi, đóng hộp kín\nkhí, bảo quản lạnh (ướp lạnh, đông lạnh), bảo quản băng khí sunfuro, bảo\nquản theo phương thức cho hóa chất đề tránh thối rữa, ngâm trong dung dịch\nlưu huỳnh hoặc ngâm trong dung dịch bảo quản khác và các hình thức bảo\nquản thông thường khác.\n\nTrường hợp không xác định được thì Bộ Nông nghiệp và Môi trường có\ntrách nhiệm căn cứ vào quy trình sản xuất sản phẩm cây trông, rừng trông,\nchăn nuôi, thủy sản nuôi trồng, đánh bắt do người nộp thuế cung cấp đê xác\nđịnh là sản phẩm chưa chế biến thành các sản phẩm khác hoặc chỉ qua sơ chê\nthông thường của tổ chức, cá nhân tự sản xuất, đánh bắt bán ra và ở khâu\nnhập khâu theo quy định của pháp luật."
+      ],
+      "quote_sha256": [
+        "468fda6850e5d015cdc84b95ee1151e70ff9abbb7629f8bff1004f005dfe9b2e"
+      ],
+      "pdf_pages": [
+        3
+      ],
+      "official_url": "https://vanban.chinhphu.vn/?docid=214336&pageid=27160",
+      "facets": {
+        "required": false,
+        "topics": [
+          "TAX_AMOUNT",
+          "VAT_METHOD_CLASSIFICATION"
+        ],
+        "tax_focuses": [
+          "vat",
+          "both",
+          "unspecified"
+        ]
+      },
+      "source_file": "document_library/ND-181-2025-ND-CP.md",
+      "source_sha256": "4c4ca853d45547ad4938a9ad0a9ae9d70f3711adc2113a6d0023ca4496b43513",
+      "official_pdf": "public/documents/ND-181-2025-ND-CP.pdf",
+      "official_pdf_sha256": "426362a91ce513f6d132c356e4cdec6525a8e5461ca3318e80dc10a8c8d58619",
+      "code": "Nghị định 181/2025/NĐ-CP",
+      "source_type": "OFFICIAL_PDF_SCOPED_MARKDOWN_CROSSCHECK"
+    },
+    {
+      "ref_id": "16.241",
+      "doc_id": "ND-254-2026-ND-CP",
+      "title": "Dịch vụ hóa đơn điện tử miễn phí 12 tháng tại địa bàn khó khăn",
+      "locator": "Khoản 1, khoản 3, khoản 4 Điều 11",
+      "from": 2026,
+      "effective_from": "2026-07-01",
+      "summary": "HKD/CNKD tại địa bàn khó khăn hoặc đặc biệt khó khăn theo danh mục địa bàn ưu đãi đầu tư thuộc diện miễn phí dịch vụ hóa đơn điện tử trong 12 tháng kể từ khi sử dụng hóa đơn điện tử. Cục Thuế thực hiện hoặc ủy thác tổ chức dịch vụ cung cấp. Khoản 4 cho phép đăng ký/thay đổi qua hệ thống quản lý thuế. Ngoài diện khoản 1, dùng dịch vụ qua tổ chức cung cấp thì trả theo hợp đồng.",
+      "limits": "Không suy mọi hộ nhỏ hoặc mọi người mới kinh doanh được miễn phí; phải xác định địa bàn trong danh mục, thời điểm bắt đầu sử dụng và kênh cung cấp. Không hứa miễn mọi gói POS, kế toán hay gói thương mại tự mua, không tự hứa hoàn tiền dịch vụ đã trả. Quyền miễn phí không thay thế thông báo chấp thuận sử dụng hóa đơn.",
+      "quotes": [
+        "Điều 11. Trường hợp sử dụng hóa đơn điện tử được miễn phí dịch vụ\n\n1. Doanh nghiệp nhỏ và vừa, hợp tác xã, liên hiệp hợp tác xã, hộ kinh\ndoanh, cá nhân kinh doanh tại địa bàn có điêu kiện kinh tê - xã hội khó khăn,\nđịa bàn có điêu kiện kinh tê - xã hội đặc biệt khó khăn thuộc trường hợp sử\ndụng hóa đơn điện tử được miễn phí dịch vụ trong thời gian 12 tháng kể từ khi\nsử dụng hóa đơn điện tử. Địa bàn có điêu kiện kinh tê - xã hội khó khăn, địa\nbàn có điều kiện kinh tê - xã hội đặc biệt khó khăn thực hiện theo Danh mục\nđịa bàn ưu đãi đầu tư theo quy định pháp luật về đâu tư.\n\nCục Thuế thực hiện hoặc ủy thác cho tổ chức cung cấp dịch vụ về hóa đơn\nđiện tử thực hiện cung cấp hóa đơn điện tử được miễn phí dịch vụ cho đôi tượng\nnêu trên.\n\n2. Cơ quan thuế hoặc cơ quan được giao nhiệm vụ tổ chức, xử lý tài sản\ncông theo quy định pháp luật về quản lý, sử dụng tài sản công lập hóa đơn điện\ntử thông qua Hệ thông thông tin quản lý thuế hoặc tổ chức cung cập dịch vụ\nhóa đơn điện tử được Cục Thuế ủy thác cung cấp dịch vụ hóa đơn điện tử miễn\nphí dịch vụ.\n\n3. Các tổ chức kinh tế, hộ kinh doanh, cá nhân kinh doanh không thuộc\ntrường hợp quy định tại khoản 1 Điều này khi sử dụng hóa đơn điện tử thông\nqua tổ chức cung cập dịch vụ hóa đơn điện tử thực hiện trả tiên dịch vụ theo\nhợp đồng ký giữa các bên.\n\n4. Doanh nghiệp nhỏ và vừa, hợp tác xã, liên hiệp hợp tác xã, hộ kinh\ndoanh, cá nhân kinh doanh quy định tại khoản 1 Điều này được đăng ký, thay\nđối thông tin đăng ký sử dụng hóa đơn điện tử qua Hệ thông thông tin quản lý\nthuê theo quy định của Bộ trưởng Bộ Tài chính."
+      ],
+      "quote_sha256": [
+        "e0666495d2bb99f50175173e220298a9a473fa4166b137fb45aef3d877bc9d98"
+      ],
+      "pdf_pages": [
+        23
+      ],
+      "official_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/254-ndcp.signed.pdf",
+      "facets": {
+        "required": false,
+        "topics": [
+          "INVOICE_REGISTRATION",
+          "INVOICE_USAGE"
+        ],
+        "intents": [
+          "E_INVOICE"
+        ]
+      },
+      "source_file": "document_library/ND-254-2026-ND-CP.md",
+      "source_sha256": "92e9b0e5e15afb6c4423bb194ab7f59326db55967892ec7a71d3dfb6243c0d01",
+      "official_pdf": "public/documents/ND-254-2026-ND-CP.pdf",
+      "official_pdf_sha256": "d8df03ef58aa26f2f3bf7014c830fe598c7939e2fc32643e436eca24f1fe85ae",
+      "code": "Nghị định 254/2026/NĐ-CP",
+      "source_type": "OFFICIAL_PDF_SCOPED_MARKDOWN_CROSSCHECK"
+    }
+  ],
+  "source_updates": [
+    {
+      "ref_id": "16.39",
+      "before_sha256": "88879ecf29c2ccd7c3050cd29e982c30f8ed008c379574e90353bbc8cb8a816c",
+      "after_sha256": "7cd682b8da34ec8f321ff70f486f0f0353f3271c599d77592f01df397b8c49e0",
+      "reason": "Replace historical pending guidance with signed ND398 Article 2,4 and Appendix references; underlying NQ43 eligibility unchanged."
+    },
+    {
+      "ref_id": "16.78",
+      "before_sha256": "f9c8116e04d423333ac1787170b0d583d8fe735df808b050454ec0e41592c399",
+      "after_sha256": "baccc4e5e2ff53a4a9f63dbca30210f85adbba4c7a105fb40e3e34da6af11176",
+      "reason": "Replace historical pending guidance with signed ND398 Article 2,4 and Appendix references; underlying NQ43 eligibility unchanged."
+    }
+  ]
+}

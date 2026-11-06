@@ -45,7 +45,7 @@ export const LegalKnowledgeBase: React.FC<LegalKnowledgeBaseProps> = ({ onOpenAI
         
         {/* Header gọn gàng */}
         <div className="text-center mb-5 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 text-emerald-700 text-[10.5px] sm:text-[12px] font-extrabold tracking-widest uppercase mb-2 sm:mb-3 bg-emerald-50 px-3 py-1 sm:px-3.5 sm:py-1 rounded-full border border-emerald-200/70 shadow-xs">
+          <div className="inline-flex items-center gap-2 text-slate-800 text-[11px] sm:text-[12px] font-semibold tracking-wide uppercase mb-3 bg-white px-3.5 py-1 rounded-full border border-slate-200 shadow-2xs">
             <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
             <span>KHO VĂN BẢN GỐC PHÁP LUẬT THUẾ HKD</span>
           </div>

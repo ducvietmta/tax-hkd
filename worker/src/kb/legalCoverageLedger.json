@@ -1,0 +1,1366 @@
+{
+  "schema": "taxhkd-legal-coverage-ledger-v1",
+  "policy": "FULL requires a verified official provision inventory, a SHA-256 source checksum, and coverage of every expected provision.",
+  "corpus_complete": false,
+  "summary": {
+    "normative_documents": 39,
+    "source_registered": 39,
+    "linked_to_reviewed_chunks": 36,
+    "FULL": 0,
+    "PARTIAL": 35,
+    "MISSING": 4,
+    "UNMEASURED": 0
+  },
+  "ledger_sha256": "6a4b1e4020c70fc8590bbe8af348771e3bd156b2d953ab88d658e698902c0f08",
+  "documents": [
+    {
+      "doc_id": "ND-118-2025-ND-CP",
+      "code": "Nghị định 118/2025/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.197"
+      ],
+      "locators": [
+        "Điều 15; Điều 16"
+      ],
+      "observed_provisions": [
+        "article:15",
+        "article:16"
+      ],
+      "expected_provision_count": 295,
+      "covered_expected_count": 2,
+      "coverage_percent": 0.68,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-118-2025-ND-CP.md",
+      "markdown_structure": {
+        "articles": 37,
+        "clauses": 129,
+        "points": 129
+      },
+      "source_sha256": "194be4ee8132fcea50514744b583cfdbdb630c196da89d3a3791db5ea1003a0c"
+    },
+    {
+      "doc_id": "ND-123-2020-ND-CP",
+      "code": "Nghị định 123/2020/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 2,
+      "linked_chunk_refs": [
+        "16.17",
+        "16.198"
+      ],
+      "locators": [
+        "Điều 6; Điều 7",
+        "Quy định thời điểm lập hóa đơn của kỳ cũ"
+      ],
+      "observed_provisions": [
+        "article:6",
+        "article:7"
+      ],
+      "expected_provision_count": 523,
+      "covered_expected_count": 2,
+      "coverage_percent": 0.38,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-123-2020-ND-CP.md",
+      "markdown_structure": {
+        "articles": 61,
+        "clauses": 232,
+        "points": 230
+      },
+      "source_sha256": "6c1f7e75758c4543c53852935fd1d25a5de6136c7331bbd284d536a6d4251138"
+    },
+    {
+      "doc_id": "ND-125-2020-ND-CP",
+      "code": "Nghị định 125/2020/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 2,
+      "linked_chunk_refs": [
+        "16.199",
+        "16.200"
+      ],
+      "locators": [
+        "Điểm a khoản 4 Điều 7 (đoạn về hộ gia đình, hộ kinh doanh)",
+        "Khoản 2 Điều 5"
+      ],
+      "observed_provisions": [
+        "article:5",
+        "article:5/clause:2",
+        "article:7",
+        "article:7/clause:4",
+        "article:7/clause:4/point:a"
+      ],
+      "expected_provision_count": 482,
+      "covered_expected_count": 5,
+      "coverage_percent": 1.04,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-125-2020-ND-CP.md",
+      "markdown_structure": {
+        "articles": 47,
+        "clauses": 192,
+        "points": 243
+      },
+      "source_sha256": "f35b94c7452e26c462c0b3656cd26f6c819f9bbf4b56a100d2cdcbe2c1314958"
+    },
+    {
+      "doc_id": "ND-141-2026-ND-CP",
+      "code": "Nghị định 141/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 12,
+      "linked_chunk_refs": [
+        "16.13",
+        "16.19",
+        "16.23",
+        "16.37",
+        "16.40",
+        "16.42",
+        "16.46",
+        "16.48",
+        "16.53",
+        "16.55",
+        "16.58",
+        "16.74"
+      ],
+      "locators": [
+        "Điều 1"
+      ],
+      "observed_provisions": [
+        "article:1"
+      ],
+      "expected_provision_count": 12,
+      "covered_expected_count": 1,
+      "coverage_percent": 8.33,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-141-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 4,
+        "clauses": 5,
+        "points": 3
+      },
+      "source_sha256": "cda9abb3dd86cbb555213bf86c20658cf67b5b74874929797eb41e2d87dd4e17"
+    },
+    {
+      "doc_id": "ND-144-2026-ND-CP",
+      "code": "Nghị định 144/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.201"
+      ],
+      "locators": [
+        "Điều 2"
+      ],
+      "observed_provisions": [
+        "article:2"
+      ],
+      "expected_provision_count": 15,
+      "covered_expected_count": 1,
+      "coverage_percent": 6.67,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-144-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 6,
+        "clauses": 9,
+        "points": 0
+      },
+      "source_sha256": "1bd10902de99724622381327427b6a17d636a3065aaf8b3d794fb6f91d3805f8"
+    },
+    {
+      "doc_id": "ND-168-2025-ND-CP",
+      "code": "Nghị định 168/2025/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 3,
+      "linked_chunk_refs": [
+        "16.202",
+        "16.203",
+        "16.230"
+      ],
+      "locators": [
+        "Điểm e khoản 1 và phần hồ sơ thay đổi ngành nghề khoản 2 Điều 100",
+        "Khoản 1 Điều 87",
+        "Khoản 1 Điều 93; khoản 2 Điều 93; khoản 3 Điều 93; khoản 4 Điều 93"
+      ],
+      "observed_provisions": [
+        "article:87",
+        "article:87/clause:1",
+        "article:93",
+        "article:93/clause:1",
+        "article:93/clause:2",
+        "article:93/clause:3",
+        "article:93/clause:4",
+        "article:100",
+        "article:100/clause:2"
+      ],
+      "expected_provision_count": 860,
+      "covered_expected_count": 9,
+      "coverage_percent": 1.05,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-168-2025-ND-CP.md",
+      "markdown_structure": {
+        "articles": 124,
+        "clauses": 454,
+        "points": 282
+      },
+      "source_sha256": "dec8b8000e29832028f5da895c35027c4baa1993ba87baab92815815deb7f182"
+    },
+    {
+      "doc_id": "ND-174-2025-ND-CP",
+      "code": "Nghị định 174/2025/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.46"
+      ],
+      "locators": [
+        "Điều 1"
+      ],
+      "observed_provisions": [
+        "article:1"
+      ],
+      "expected_provision_count": 32,
+      "covered_expected_count": 1,
+      "coverage_percent": 3.13,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-174-2025-ND-CP.md",
+      "markdown_structure": {
+        "articles": 2,
+        "clauses": 10,
+        "points": 20
+      },
+      "source_sha256": "768a147d78d3cd1460dd2e0669e977466bd89f354e69e4dfa2bcbcf45efd4343"
+    },
+    {
+      "doc_id": "ND-181-2025-ND-CP",
+      "code": "Nghị định 181/2025/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 3,
+      "linked_chunk_refs": [
+        "16.16",
+        "16.156",
+        "16.240"
+      ],
+      "locators": [
+        "Khoản 1 Điều 4",
+        "Khoản 2 Điều 14",
+        "Quy định khấu trừ và hoàn GTGT"
+      ],
+      "observed_provisions": [
+        "article:4",
+        "article:4/clause:1",
+        "article:14",
+        "article:14/clause:2"
+      ],
+      "expected_provision_count": 319,
+      "covered_expected_count": 3,
+      "coverage_percent": 0.94,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-181-2025-ND-CP.md",
+      "markdown_structure": {
+        "articles": 40,
+        "clauses": 137,
+        "points": 142
+      },
+      "source_sha256": "4c4ca853d45547ad4938a9ad0a9ae9d70f3711adc2113a6d0023ca4496b43513"
+    },
+    {
+      "doc_id": "ND-245-2026-ND-CP",
+      "code": "Nghị định 245/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.204"
+      ],
+      "locators": [
+        "Điều 1; Điều 3"
+      ],
+      "observed_provisions": [
+        "article:1",
+        "article:3"
+      ],
+      "expected_provision_count": 62,
+      "covered_expected_count": 2,
+      "coverage_percent": 3.23,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-245-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 5,
+        "clauses": 53,
+        "points": 4
+      },
+      "source_sha256": "fb32b8229a2a2afdbd532050cd02c1a876b0d8647c9b083f4bd0a54e2ee90fbe"
+    },
+    {
+      "doc_id": "ND-248-2026-ND-CP",
+      "code": "Nghị định 248/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.205"
+      ],
+      "locators": [
+        "Điều 7; Điều 14"
+      ],
+      "observed_provisions": [
+        "article:7",
+        "article:14"
+      ],
+      "expected_provision_count": 459,
+      "covered_expected_count": 2,
+      "coverage_percent": 0.44,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-248-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 52,
+        "clauses": 192,
+        "points": 215
+      },
+      "source_sha256": "3fb485cc6d21310b88a10e2f5322ff9ddf832d5f077cef7700456285d7ba14a7"
+    },
+    {
+      "doc_id": "ND-252-2026-ND-CP",
+      "code": "Nghị định 252/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 9,
+      "linked_chunk_refs": [
+        "16.10",
+        "16.25",
+        "16.42",
+        "16.48",
+        "16.51",
+        "16.57",
+        "16.59",
+        "16.74",
+        "16.86"
+      ],
+      "locators": [
+        "Điều 29–31",
+        "Điều 43",
+        "Khoản 4 Điều 29; Điều 31",
+        "Quy định khai bổ sung hồ sơ khai thuế",
+        "Quy định tạm hoãn xuất cảnh"
+      ],
+      "observed_provisions": [
+        "article:29",
+        "article:29/clause:4",
+        "article:31",
+        "article:43"
+      ],
+      "expected_provision_count": 687,
+      "covered_expected_count": 2,
+      "coverage_percent": 0.29,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-252-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 68,
+        "clauses": 247,
+        "points": 372
+      },
+      "source_sha256": "74401fc2f4a23ed90fd9a5abe2d71d77011a6ef2bf000ec4b5a0e11ebe209c81"
+    },
+    {
+      "doc_id": "ND-253-2026-ND-CP",
+      "code": "Nghị định 253/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 4,
+      "linked_chunk_refs": [
+        "16.84",
+        "16.87",
+        "16.231",
+        "16.239"
+      ],
+      "locators": [
+        "Điều 3–6",
+        "Điều 7; điểm c khoản 2 Điều 8",
+        "Điều 7; điểm c khoản 2 Điều 8; điểm a khoản 1 Điều 69; khoản 2 Điều 70",
+        "Điều 21"
+      ],
+      "observed_provisions": [
+        "article:3",
+        "article:7",
+        "article:8",
+        "article:8/clause:2",
+        "article:8/clause:2/point:c",
+        "article:21",
+        "article:69",
+        "article:69/clause:1",
+        "article:69/clause:1/point:a",
+        "article:70",
+        "article:70/clause:2"
+      ],
+      "expected_provision_count": 364,
+      "covered_expected_count": 6,
+      "coverage_percent": 1.65,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-253-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 64,
+        "clauses": 185,
+        "points": 115
+      },
+      "source_sha256": "bbe4c3e1b58f9a04a9786a4ed4ca8417c604d0a12bb36bed45e61f5ab9307308"
+    },
+    {
+      "doc_id": "ND-254-2026-ND-CP",
+      "code": "Nghị định 254/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 10,
+      "linked_chunk_refs": [
+        "16.5",
+        "16.17",
+        "16.30",
+        "16.32",
+        "16.36",
+        "16.37",
+        "16.58",
+        "16.206",
+        "16.232",
+        "16.241"
+      ],
+      "locators": [
+        "Điều 14",
+        "Điều 15",
+        "Khoản 1, khoản 3, khoản 4 Điều 11",
+        "Quy định về sử dụng, thời điểm lập và nội dung HĐĐT"
+      ],
+      "observed_provisions": [
+        "article:11",
+        "article:11/clause:4",
+        "article:14",
+        "article:15"
+      ],
+      "expected_provision_count": 353,
+      "covered_expected_count": 4,
+      "coverage_percent": 1.13,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-254-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 40,
+        "clauses": 155,
+        "points": 158
+      },
+      "source_sha256": "92e9b0e5e15afb6c4423bb194ab7f59326db55967892ec7a71d3dfb6243c0d01"
+    },
+    {
+      "doc_id": "ND-291-2026-ND-CP",
+      "code": "Nghị định 291/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.207"
+      ],
+      "locators": [
+        "Điều 1"
+      ],
+      "observed_provisions": [
+        "article:1"
+      ],
+      "expected_provision_count": 13,
+      "covered_expected_count": 1,
+      "coverage_percent": 7.69,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-291-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 5,
+        "clauses": 6,
+        "points": 2
+      },
+      "source_sha256": "663d91dab9813495c79c97bb5b420c3e35fef26a531fc0548f6cb5e9eded8588"
+    },
+    {
+      "doc_id": "ND-310-2025-ND-CP",
+      "code": "Nghị định 310/2025/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.208"
+      ],
+      "locators": [
+        "Điểm b khoản 1 Điều 1 (bổ sung khoản 10 Điều 2 NĐ125); trang 2 PDF chính thức"
+      ],
+      "observed_provisions": [
+        "article:1",
+        "article:1/clause:1",
+        "article:1/clause:1/point:b",
+        "article:2",
+        "article:2/clause:10"
+      ],
+      "expected_provision_count": 1,
+      "covered_expected_count": 0,
+      "coverage_percent": 0,
+      "coverage_status": "MISSING",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-310-2025-ND-CP.md",
+      "markdown_structure": {
+        "articles": 1,
+        "clauses": 0,
+        "points": 0
+      },
+      "source_sha256": "08997847492b570d4de86688758b9675b3db4527077d3526b7e9e029d9779873"
+    },
+    {
+      "doc_id": "ND-320-2025-ND-CP",
+      "code": "Nghị định 320/2025/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 0,
+      "linked_chunk_refs": [],
+      "locators": [],
+      "observed_provisions": [],
+      "expected_provision_count": 406,
+      "covered_expected_count": 0,
+      "coverage_percent": 0,
+      "coverage_status": "MISSING",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-320-2025-ND-CP.md",
+      "markdown_structure": {
+        "articles": 26,
+        "clauses": 128,
+        "points": 252
+      },
+      "source_sha256": "363e85568ad9b11c155526dcefae5f143e27dc0e03a43f67d018cfce9d8a5fcd"
+    },
+    {
+      "doc_id": "ND-398-2026-ND-CP",
+      "code": "Nghị định 398/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 8,
+      "linked_chunk_refs": [
+        "16.39",
+        "16.78",
+        "16.233",
+        "16.234",
+        "16.235",
+        "16.236",
+        "16.237",
+        "16.238"
+      ],
+      "locators": [
+        "Điểm a khoản 4 Điều 2; Mẫu số 01 Phụ lục; Điều 4",
+        "Điểm b khoản 4 Điều 2; Mẫu số 02 Phụ lục; Điều 4",
+        "Điểm c khoản 4 Điều 2; Mẫu số 03 Phụ lục; Điều 4",
+        "Điểm d khoản 4 Điều 2 và Điều 4",
+        "Điểm đ, điểm e khoản 4 Điều 2 và Điều 4",
+        "Điều 2 và Điều 4; Phụ lục Mẫu số 01–03",
+        "Khoản 1, khoản 2, khoản 3 Điều 2 và Điều 4"
+      ],
+      "observed_provisions": [
+        "article:2",
+        "article:2/clause:3",
+        "article:2/clause:4",
+        "article:2/clause:4/point:a",
+        "article:2/clause:4/point:b",
+        "article:2/clause:4/point:c",
+        "article:2/clause:4/point:d",
+        "article:2/clause:4/point:e",
+        "article:4"
+      ],
+      "expected_provision_count": 12,
+      "covered_expected_count": 9,
+      "coverage_percent": 75,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-398-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 2,
+        "clauses": 4,
+        "points": 6
+      },
+      "source_sha256": "1849b1160349e9a63dc4218d42bd984336ae28441e0b387b51a741bde1dcdf83"
+    },
+    {
+      "doc_id": "ND-68-2026-ND-CP",
+      "code": "Nghị định 68/2026/NĐ-CP",
+      "category": "Nghị định",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 28,
+      "linked_chunk_refs": [
+        "16.2",
+        "16.3",
+        "16.4",
+        "16.5",
+        "16.10",
+        "16.13",
+        "16.15",
+        "16.16",
+        "16.19",
+        "16.23",
+        "16.27",
+        "16.28",
+        "16.30",
+        "16.31",
+        "16.32",
+        "16.33",
+        "16.34",
+        "16.36",
+        "16.37",
+        "16.42",
+        "16.45",
+        "16.46",
+        "16.48",
+        "16.53",
+        "16.55",
+        "16.57",
+        "16.58",
+        "16.74"
+      ],
+      "locators": [
+        "Điều 3, Điều 4",
+        "Điều 3, Điều 4, Điều 6",
+        "Điều 3, Điều 4, Điều 8",
+        "Điều 3; khoản 5 Điều 8",
+        "Điều 4",
+        "Điều 4, Điều 5",
+        "Điều 4, Điều 8",
+        "Điều 5",
+        "Điều 6",
+        "Điều 8",
+        "Khoản 1 Điều 8"
+      ],
+      "observed_provisions": [
+        "article:3",
+        "article:4",
+        "article:5",
+        "article:6",
+        "article:8",
+        "article:8/clause:1",
+        "article:8/clause:5"
+      ],
+      "expected_provision_count": 67,
+      "covered_expected_count": 6,
+      "coverage_percent": 8.96,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/ND-68-2026-ND-CP.md",
+      "markdown_structure": {
+        "articles": 9,
+        "clauses": 20,
+        "points": 38
+      },
+      "source_sha256": "135c45773f2da0e6a7352f2c7a7b8f4f5a6e3f75a3660ceda98f23b5a870ca85"
+    },
+    {
+      "doc_id": "TT-100-2021-TT-BTC",
+      "code": "Thông tư 100/2021/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.209"
+      ],
+      "locators": [
+        "Điều 1"
+      ],
+      "observed_provisions": [
+        "article:1"
+      ],
+      "expected_provision_count": 8,
+      "covered_expected_count": 1,
+      "coverage_percent": 12.5,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-100-2021-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 2,
+        "clauses": 5,
+        "points": 1
+      },
+      "source_sha256": "c394647c92bfd8e18a60904b784c20ec03e96fdc33c01d64246ab5624fcbddaa"
+    },
+    {
+      "doc_id": "TT-103-2014-TT-BTC",
+      "code": "Thông tư 103/2014/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.210"
+      ],
+      "locators": [
+        "Điều 5"
+      ],
+      "observed_provisions": [
+        "article:5"
+      ],
+      "expected_provision_count": 62,
+      "covered_expected_count": 1,
+      "coverage_percent": 1.61,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-103-2014-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 17,
+        "clauses": 35,
+        "points": 10
+      },
+      "source_sha256": "8dfa455cff3b468824ae7d02f0d2e04279a2f587e210c7627ffe4339b76c84cc"
+    },
+    {
+      "doc_id": "TT-110-2026-TT-BTC",
+      "code": "Thông tư 110/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.211"
+      ],
+      "locators": [
+        "Điều 1"
+      ],
+      "observed_provisions": [
+        "article:1"
+      ],
+      "expected_provision_count": 29,
+      "covered_expected_count": 1,
+      "coverage_percent": 3.45,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-110-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 2,
+        "clauses": 27,
+        "points": 0
+      },
+      "source_sha256": "d3c3e3f24332b720797e00dfaa8baa068f2768bd0e81cf118be16dab54bd4928"
+    },
+    {
+      "doc_id": "TT-111-2013-TT-BTC",
+      "code": "Thông tư 111/2013/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.212"
+      ],
+      "locators": [
+        "Điều 1"
+      ],
+      "observed_provisions": [
+        "article:1"
+      ],
+      "expected_provision_count": 312,
+      "covered_expected_count": 1,
+      "coverage_percent": 0.32,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-111-2013-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 30,
+        "clauses": 103,
+        "points": 179
+      },
+      "source_sha256": "119090a1d3375c81f7f36ce07d27a3be75db07bbb8cf7c5373d0fc4b49b0a1d2"
+    },
+    {
+      "doc_id": "TT-121-2026-TT-BTC",
+      "code": "Thông tư 121/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 0,
+      "linked_chunk_refs": [],
+      "locators": [],
+      "observed_provisions": [],
+      "expected_provision_count": 50,
+      "covered_expected_count": 0,
+      "coverage_percent": 0,
+      "coverage_status": "MISSING",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-121-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 4,
+        "clauses": 27,
+        "points": 19
+      },
+      "source_sha256": "cf75d7d46dc8912e22d4458a6bedf122c02af7d3dba34e6699cbc158c70a7d9b"
+    },
+    {
+      "doc_id": "TT-126-2026-TT-BTC",
+      "code": "Thông tư 126/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.213"
+      ],
+      "locators": [
+        "Điều 1; Điều 2; Điều 3"
+      ],
+      "observed_provisions": [
+        "article:1",
+        "article:2",
+        "article:3"
+      ],
+      "expected_provision_count": 11,
+      "covered_expected_count": 3,
+      "coverage_percent": 27.27,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-126-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 4,
+        "clauses": 7,
+        "points": 0
+      },
+      "source_sha256": "856034c6b800665be6b57e2133f89b13192d96dc9e9a8d18ed9068b4798642ce"
+    },
+    {
+      "doc_id": "TT-152-2025-TT-BTC",
+      "code": "Thông tư 152/2025/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 3,
+      "linked_chunk_refs": [
+        "16.13",
+        "16.19",
+        "16.214"
+      ],
+      "locators": [
+        "Chứng từ kế toán và bảng kê mua hàng",
+        "Điều 2; Điều 3",
+        "Hướng dẫn chứng từ và bảng kê mua hàng"
+      ],
+      "observed_provisions": [
+        "article:2",
+        "article:3"
+      ],
+      "expected_provision_count": 37,
+      "covered_expected_count": 2,
+      "coverage_percent": 5.41,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-152-2025-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 8,
+        "clauses": 17,
+        "points": 12
+      },
+      "source_sha256": "9bbe7ee7cc386fcbd31b207546d76e3707eb658940ad80a73229591e0465046d"
+    },
+    {
+      "doc_id": "TT-18-2026-TT-BTC",
+      "code": "Thông tư 18/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.215"
+      ],
+      "locators": [
+        "Điều 3"
+      ],
+      "observed_provisions": [
+        "article:3"
+      ],
+      "expected_provision_count": 34,
+      "covered_expected_count": 1,
+      "coverage_percent": 2.94,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-18-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 9,
+        "clauses": 18,
+        "points": 7
+      },
+      "source_sha256": "2281f83c26b1b5136fc9d1e3d6aa728e5e140f32faceebc5d906f584f1b2af5c"
+    },
+    {
+      "doc_id": "TT-19-2021-TT-BTC",
+      "code": "Thông tư 19/2021/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.216"
+      ],
+      "locators": [
+        "Điều 8"
+      ],
+      "observed_provisions": [
+        "article:8"
+      ],
+      "expected_provision_count": 353,
+      "covered_expected_count": 1,
+      "coverage_percent": 0.28,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-19-2021-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 45,
+        "clauses": 144,
+        "points": 164
+      },
+      "source_sha256": "e0adebd758647454f9399e3881fc12c801d260b757fae90fb22e9881e39de3b2"
+    },
+    {
+      "doc_id": "TT-20-2026-TT-BTC",
+      "code": "Thông tư 20/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 0,
+      "linked_chunk_refs": [],
+      "locators": [],
+      "observed_provisions": [],
+      "expected_provision_count": 124,
+      "covered_expected_count": 0,
+      "coverage_percent": 0,
+      "coverage_status": "MISSING",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-20-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 10,
+        "clauses": 40,
+        "points": 74
+      },
+      "source_sha256": "dbe8f10db4e42fa2f70dc2df32edc20e261dd42fe17510d033f458fb79a70e91"
+    },
+    {
+      "doc_id": "TT-40-2021-TT-BTC",
+      "code": "Thông tư 40/2021/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.55"
+      ],
+      "locators": [
+        "Khoản 2 Điều 4"
+      ],
+      "observed_provisions": [
+        "article:4",
+        "article:4/clause:2"
+      ],
+      "expected_provision_count": 206,
+      "covered_expected_count": 2,
+      "coverage_percent": 0.97,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-40-2021-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 21,
+        "clauses": 102,
+        "points": 83
+      },
+      "source_sha256": "647c1be3979812ef66f29f6f2d8115df38cd47568ed2b23c96d1bcf117201fc5"
+    },
+    {
+      "doc_id": "TT-50-2026-TT-BTC",
+      "code": "Thông tư 50/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 5,
+      "linked_chunk_refs": [
+        "16.40",
+        "16.45",
+        "16.46",
+        "16.53",
+        "16.217"
+      ],
+      "locators": [
+        "Điều 1; Điều 2",
+        "Mẫu 01/CNKD và hướng dẫn chỉ tiêu [14]"
+      ],
+      "observed_provisions": [
+        "article:1",
+        "article:2"
+      ],
+      "expected_provision_count": 6,
+      "covered_expected_count": 2,
+      "coverage_percent": 33.33,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-50-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 3,
+        "clauses": 3,
+        "points": 0
+      },
+      "source_sha256": "742ec4610f8fe04c7018d0a76bf274d12c32949f8e7e71892b0c9ce179448681"
+    },
+    {
+      "doc_id": "TT-78-2021-TT-BTC",
+      "code": "Thông tư 78/2021/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.218"
+      ],
+      "locators": [
+        "Điều 8"
+      ],
+      "observed_provisions": [
+        "article:8"
+      ],
+      "expected_provision_count": 118,
+      "covered_expected_count": 1,
+      "coverage_percent": 0.85,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-78-2021-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 13,
+        "clauses": 44,
+        "points": 61
+      },
+      "source_sha256": "774f6ef7555612dfd4169e2a089d90b88cf868c4043e4fa6b64201bbdb29b376"
+    },
+    {
+      "doc_id": "TT-86-2024-TT-BTC",
+      "code": "Thông tư 86/2024/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.219"
+      ],
+      "locators": [
+        "Điều 27"
+      ],
+      "observed_provisions": [
+        "article:27"
+      ],
+      "expected_provision_count": 296,
+      "covered_expected_count": 1,
+      "coverage_percent": 0.34,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-86-2024-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 40,
+        "clauses": 123,
+        "points": 133
+      },
+      "source_sha256": "94c070dec1448031466cb5a627f42a9e5454939098565d158fd2433e951bf2a3"
+    },
+    {
+      "doc_id": "TT-87-2026-TT-BTC",
+      "code": "Thông tư 87/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.220"
+      ],
+      "locators": [
+        "Khoản 1 Điều 6; khoản 2 Điều 6"
+      ],
+      "observed_provisions": [
+        "article:6",
+        "article:6/clause:1",
+        "article:6/clause:2"
+      ],
+      "expected_provision_count": 40,
+      "covered_expected_count": 3,
+      "coverage_percent": 7.5,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-87-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 6,
+        "clauses": 20,
+        "points": 14
+      },
+      "source_sha256": "598ef28d6712a5ecfbb7466550aea8530e2b174e3cee217d74619511fd6678ed"
+    },
+    {
+      "doc_id": "TT-88-2021-TT-BTC",
+      "code": "Thông tư 88/2021/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.221"
+      ],
+      "locators": [
+        "Điều 3"
+      ],
+      "observed_provisions": [
+        "article:3"
+      ],
+      "expected_provision_count": 28,
+      "covered_expected_count": 1,
+      "coverage_percent": 3.57,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-88-2021-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 7,
+        "clauses": 18,
+        "points": 3
+      },
+      "source_sha256": "252416e2e73c1719e27d1bcc5e7ba3ab040df27645332dddb8baa60ac1bd2d19"
+    },
+    {
+      "doc_id": "TT-89-2026-TT-BTC",
+      "code": "Thông tư 89/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 8,
+      "linked_chunk_refs": [
+        "16.42",
+        "16.46",
+        "16.48",
+        "16.51",
+        "16.57",
+        "16.222",
+        "16.223",
+        "16.229"
+      ],
+      "locators": [
+        "Điều 11",
+        "Điều 68",
+        "Khoản 5 Điều 99 TT89, được đính chính tại Điều 1 QĐ2551/QĐ-BTC; trang 2 PDF quyết định (phần nội dung thay thế)",
+        "Mẫu 01/TKN-CNKD; Mẫu 02/QTT-TNCN-CNKD"
+      ],
+      "observed_provisions": [
+        "article:1",
+        "article:11",
+        "article:68",
+        "article:99",
+        "article:99/clause:5"
+      ],
+      "expected_provision_count": 1191,
+      "covered_expected_count": 5,
+      "coverage_percent": 0.42,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-89-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 101,
+        "clauses": 392,
+        "points": 698
+      },
+      "source_sha256": "838ce9eb1b19a92c71a13e9c2d60b0e1ce66afef67864a6d15291bf8260edd27"
+    },
+    {
+      "doc_id": "TT-90-2026-TT-BTC",
+      "code": "Thông tư 90/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 4,
+      "linked_chunk_refs": [
+        "16.25",
+        "16.224",
+        "16.225",
+        "16.226"
+      ],
+      "locators": [
+        "Điều 25",
+        "Điều 28",
+        "Điều 37",
+        "Trạng thái người nộp thuế và chấm dứt hiệu lực mã số thuế"
+      ],
+      "observed_provisions": [
+        "article:25",
+        "article:28",
+        "article:37"
+      ],
+      "expected_provision_count": 435,
+      "covered_expected_count": 3,
+      "coverage_percent": 0.69,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-90-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 38,
+        "clauses": 234,
+        "points": 163
+      },
+      "source_sha256": "ed414e3bc5d711420e2eb85e349efc836826c5ef77200361f97ed03329461444"
+    },
+    {
+      "doc_id": "TT-91-2026-TT-BTC",
+      "code": "Thông tư 91/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 2,
+      "linked_chunk_refs": [
+        "16.17",
+        "16.156"
+      ],
+      "locators": [
+        "Điều 10 khoản 5, khoản 6; Điều 24 khoản 2",
+        "Quy định hóa đơn theo Nghị định 254"
+      ],
+      "observed_provisions": [
+        "article:10",
+        "article:24"
+      ],
+      "expected_provision_count": 181,
+      "covered_expected_count": 2,
+      "coverage_percent": 1.1,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-91-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 23,
+        "clauses": 81,
+        "points": 77
+      },
+      "source_sha256": "1144d313f276e3ed24618377704ffac1a0fd476876a974b33f99ce8908be8f1b"
+    },
+    {
+      "doc_id": "TT-92-2015-TT-BTC",
+      "code": "Thông tư 92/2015/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.227"
+      ],
+      "locators": [
+        "Điều 1"
+      ],
+      "observed_provisions": [
+        "article:1"
+      ],
+      "expected_provision_count": 191,
+      "covered_expected_count": 1,
+      "coverage_percent": 0.52,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-92-2015-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 25,
+        "clauses": 81,
+        "points": 85
+      },
+      "source_sha256": "036e7e9964b8defcdfbfdbdf76310b375c46bc59d30aa5843998a485ab654d34"
+    },
+    {
+      "doc_id": "TT-94-2026-TT-BTC",
+      "code": "Thông tư 94/2026/TT-BTC",
+      "category": "Thông tư",
+      "source_registered": true,
+      "provenance_registry_registered": false,
+      "local_markdown_registered": true,
+      "linked_chunk_count": 1,
+      "linked_chunk_refs": [
+        "16.228"
+      ],
+      "locators": [
+        "Điều 14"
+      ],
+      "observed_provisions": [
+        "article:14"
+      ],
+      "expected_provision_count": 184,
+      "covered_expected_count": 1,
+      "coverage_percent": 0.54,
+      "coverage_status": "PARTIAL",
+      "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
+      "inventory_basis": "document_library/TT-94-2026-TT-BTC.md",
+      "markdown_structure": {
+        "articles": 21,
+        "clauses": 91,
+        "points": 72
+      },
+      "source_sha256": "a4b573df2751a31bc88cbae4c4a2a30cb6caed1bc1eea35f308899a636285774"
+    }
+  ]
+}

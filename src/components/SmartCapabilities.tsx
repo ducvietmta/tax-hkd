@@ -1,4 +1,4 @@
-import { Store, Shield, Smartphone, FileSpreadsheet, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Store, Shield, Smartphone, FileSpreadsheet, CheckCircle2 } from 'lucide-react';
 
 interface CapabilityItem {
   icon: React.ReactNode;
@@ -41,52 +41,52 @@ const CAPABILITIES: CapabilityItem[] = [
 
 export const SmartCapabilities: React.FC = () => {
   return (
-    <section id="capabilities" className="py-10 md:py-20 bg-white border-b border-slate-200">
-      <div className="max-w-[1360px] mx-auto px-3.5 sm:px-8">
+    <section id="capabilities" className="py-12 md:py-24 bg-slate-50/50 border-t border-b border-slate-200/80">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-12">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-emerald-50 border border-emerald-200 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10.5px] sm:text-[12px] font-extrabold text-emerald-800 tracking-wide uppercase mb-2 sm:mb-3">
-            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
-            <span>GIẢI PHÁP THUẾ DÀNH CHO HỘ KINH DOANH</span>
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-14">
+          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 px-3.5 py-1 rounded-full text-[11px] sm:text-[12px] font-semibold text-slate-800 tracking-wide uppercase mb-3 shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+            <span>NGHIỆP VỤ THUẾ TRỌNG ĐIỂM</span>
           </div>
-          <h2 className="text-[22px] sm:text-[34px] font-extrabold text-slate-900 tracking-tight leading-tight mb-2 sm:mb-3">
+          <h2 className="text-[24px] sm:text-[36px] font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
             Đơn giản hóa toàn bộ nghĩa vụ thuế <br className="hidden sm:inline" />
-            cho người kinh doanh tự do & chủ hộ
+            cho người kinh doanh tự do &amp; chủ hộ
           </h2>
-          <p className="text-[13px] sm:text-[15px] text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Không cần kế toán phức tạp, AI của TaxHKD giúp bạn làm chủ toàn bộ quy định thuế và tối ưu chi phí hợp pháp.
+          <p className="text-[14px] sm:text-[16px] text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            AI của TaxHKD giúp bạn bóc tách số liệu, đối chiếu căn cứ pháp lý và thực hiện nghĩa vụ thuế chính xác, hợp pháp.
           </p>
         </div>
 
         {/* 4 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {CAPABILITIES.map((cap, idx) => (
             <div
               key={idx}
-              className="bg-slate-50 border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/20 p-4 sm:p-7 rounded-2xl sm:rounded-3xl transition-all duration-300 shadow-soft group flex flex-col justify-between"
+              className="bg-white border border-slate-200/90 hover:border-slate-300 p-5 sm:p-8 rounded-2xl sm:rounded-3xl transition-all duration-200 shadow-2xs hover:shadow-xs group flex flex-col justify-between"
             >
               <div>
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-3 sm:mb-5 group-hover:scale-105 transition-transform shadow-xs">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center mb-4 sm:mb-6 shadow-2xs">
                   {cap.icon}
                 </div>
 
-                <h3 className="text-[16px] sm:text-[20px] font-bold text-slate-900 tracking-tight mb-1 group-hover:text-emerald-700 transition-colors leading-snug">
+                <h3 className="text-[17px] sm:text-[20px] font-bold text-slate-900 tracking-tight mb-1.5 leading-snug">
                   {cap.title}
                 </h3>
-                <p className="text-[12px] sm:text-[13px] font-bold text-emerald-700 mb-2 sm:mb-3">
+                <p className="text-[12.5px] sm:text-[13.5px] font-semibold text-emerald-800 mb-3 sm:mb-4">
                   {cap.subtitle}
                 </p>
 
-                <p className="text-[12.5px] sm:text-[14px] text-slate-600 leading-relaxed mb-3 sm:mb-5 font-medium">
+                <p className="text-[13.5px] sm:text-[14.5px] text-slate-600 leading-relaxed mb-4 sm:mb-6 font-normal">
                   {cap.description}
                 </p>
               </div>
 
-              <div className="pt-3 sm:pt-4 border-t border-slate-200 space-y-2 sm:space-y-2.5">
+              <div className="pt-3.5 sm:pt-4 border-t border-slate-100 space-y-2 sm:space-y-2.5">
                 {cap.highlights.map((h, hIdx) => (
-                  <div key={hIdx} className="flex items-center gap-2 sm:gap-2.5 text-[12px] sm:text-[13px] text-slate-700 font-semibold leading-snug">
-                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 flex-shrink-0" />
+                  <div key={hIdx} className="flex items-center gap-2 sm:gap-2.5 text-[12.5px] sm:text-[13px] text-slate-700 font-medium leading-snug">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                     <span>{h}</span>
                   </div>
                 ))}

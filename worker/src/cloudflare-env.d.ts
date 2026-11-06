@@ -12,6 +12,7 @@ interface D1PreparedStatement {
 }
 
 interface D1Database {
+  batch(statements:D1PreparedStatement[]):Promise<unknown[]>;
   prepare(query: string): D1PreparedStatement;
 }
 

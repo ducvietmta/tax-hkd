@@ -17,7 +17,16 @@ export function methodComparisonLedger(frame:TaxDecisionFrame){
  const after=(value:number)=>Math.round(value*(1-relief));
  const known=frame.income_type.length===1?{GOODS_SALES:'goods',MARKETPLACE_SALES:'goods',SERVICE:'service',FREELANCE_SERVICE:'service',FOOD_SERVICE:'food_service'}[frame.income_type[0].value as string]:undefined;
  const sectors=known?[known]:['goods','service','food_service'];
- return {kind:'CONDITIONAL_METHOD_COMPARISON',year,revenue,expense,
+ const reliefApplies=!!relief&&revenue<=(r.thresholds.relief_max_revenue_vnd||0);
+ const incomeComparable=reliefApplies?after(before):before;
+ const conclusion=sectors.map(key=>{
+   const turnoverBefore=Math.round(turnoverBase*r.rates[key].pit_rate);
+   const turnoverComparable=reliefApplies?after(turnoverBefore):turnoverBefore;
+   return {sector:key,income_amount:incomeComparable,turnover_amount:turnoverComparable,
+     lower:incomeComparable<turnoverComparable?'INCOME':incomeComparable>turnoverComparable?'TURNOVER':'EQUAL',
+     difference_vnd:Math.abs(incomeComparable-turnoverComparable)};
+ });
+ return {kind:'CONDITIONAL_METHOD_COMPARISON',year,revenue,expense,conclusion,
    conditions:['Phải là cá nhân cư trú thuộc diện được lựa chọn phương pháp trong kỳ và đủ điều kiện theo nguồn; chưa biết cư trú thì đây là phép tính có điều kiện.','Chi phí trong phép tính là giả định toàn bộ được trừ; không tự xác nhận hồ sơ.'],
    income:{base:taxableIncome,rate:incomeRate,before_relief:before},
    turnover:{base:turnoverBase,sector_known:!!known,examples:sectors.map(key=>({sector:key,description:r.rates[key].description,

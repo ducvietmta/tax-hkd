@@ -41,11 +41,11 @@ import { CURRENT_RULESET_VERSION, RULESET_REGISTRY } from './rules/registry';
 import { CANONICAL_CHUNKS } from './ragEngine';
 import chunkMeta from './kb/chunkMeta.json';
 import legalRelations from './kb/legalRelations.json';
+import { legalCorpusGuardInstruction } from './kb/legalCoverage';
 import { jsonResponse, type Env } from './http';
 import { isChatRateLimited } from './rateLimit';
 import { logRetrieval } from './retrievalStats';
-import { streamChatProgress } from './chatProgressStream';
-import type { ChatProgress } from '../../shared/chatProgress';
+import { streamChatProgress, type ChatStreamEvent } from './chatProgressStream';
 import { PIPELINE_VERSION } from './buildInfo';
 import { PipelineBudget } from './decision/pipelineBudget';
 import { extractDeterministicScenarios, planScenarios, scenarioRequests } from './decision/scenarioPlan';
@@ -68,43 +68,23 @@ function knowledgeVersion(): Promise<string> {
 }
 
 export function selectReasoningEffort(
-  message: string,
+  _message: string,
   classification?: any,
   decisionFrame?: any,
 ): 'low' | 'medium' | 'high' {
-  // This is a sourced procedure lookup, not a tax calculation even when the
-  // user mentions salary withholding or a processing deadline.
-  if (classification?.topic === 'BUSINESS_CESSATION') return 'low';
-  const norm = message.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
-  const isBoundaryOrComplex =
-    /10[,.]1\s*ty|50\s*ty|999|001|1[,.]3\s*ty|hai quan|2 quan|2 cua hang|vua ban|vua lam|vua dich vu|vua thuong mai|hai nhom|tach 2 nhom|tru 1 ty/i.test(norm) ||
-    Boolean(decisionFrame?.facts?.multi_activities) ||
-    Boolean(decisionFrame?.facts?.platform_fee_vnd) ||
-    (classification?.secondaryIntents && classification.secondaryIntents.length >= 2);
-  if (isBoundaryOrComplex) return 'high';
-
-  const hasCalculation =
-    Boolean(decisionFrame?.facts?.revenue_vnd) ||
-    classification?.topic === 'TAX_AMOUNT' ||
-    /tinh thue|bao nhieu|nop thue|phai nop|khau tru/i.test(norm);
-  // Retrieved rules + reviewed arithmetic do not require a long reasoning run.
-  // Keep the answer inside the MCP request window instead of retrying a slow
-  // speculative generation several times.
-  if (hasCalculation) return classification?.topic === 'TAX_AMOUNT' ? 'low' : 'medium';
-
-  const isSimpleLookup =
-    ['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS', 'SYSTEM_REGISTRATION', 'PORTAL_TROUBLESHOOTING', 'TAX_SOFTWARE_SYSTEM'].includes(classification?.topic || '') ||
-    classification?.topic === 'TAX_IDENTIFIER' ||
-    classification?.topic === 'INVOICE_REGISTRATION' ||
-    /le phi mon bai|mon bai|ma 888|dang ky hkd|thu tuc|giay to|mau so|etax|htkk|thuedientu/i.test(norm);
-  if (isSimpleLookup) return 'low';
-
+  // Allocate by semantic task structure, never by memorized test amounts/phrases.
+  const complex=['METHOD_COMPARISON','MULTI_ACTIVITY','SCENARIOS'].includes(classification?.calculationShape||'')||
+    (decisionFrame?.requests?.length||0)>1||
+    (decisionFrame?.facts?.multi_activities?.length||0)>1||
+    (classification?.secondaryIntents?.length||0)>1;
+  if(complex)return 'high';
+  if(['PORTAL_TROUBLESHOOTING','TAX_SOFTWARE_SYSTEM'].includes(classification?.topic||''))return 'low';
   return 'medium';
 }
 
 export async function handleChat(
   request: Request, env: Env, ctx: ExecutionContext, corsHeaders: Headers,
-  onProgress?: (progress: ChatProgress) => void,
+  onProgress?: (progress: ChatStreamEvent) => void,
   caller?: 'connector',
 ): Promise<Response> {
   const url = new URL(request.url);
@@ -113,7 +93,7 @@ export async function handleChat(
   if ((path === '/api/chat' || path === '/api/chatgpt/tax-qa') && request.method === 'POST') {
     const body: any = await request.json().catch(() => ({}));
     if(!body||typeof body!=='object'||Array.isArray(body))return jsonResponse({success:false,error:'Nội dung gửi không hợp lệ.'},400,corsHeaders);
-    if (body.stream && path === '/api/chat' && !onProgress) {
+    if (body.stream && (path === '/api/chat' || path === '/api/chatgpt/tax-qa') && !onProgress) {
       return streamChatProgress(notify => handleChat(new Request(request.url, {
         method: 'POST', headers: request.headers, body: JSON.stringify({ ...body, stream: false }),
       }), env, ctx, corsHeaders, notify, caller), ctx, corsHeaders);
@@ -181,6 +161,7 @@ export async function handleChat(
       ...userHistory,
     ]) : userHistory;
 
+    const isMuseDisabled = env.DISABLE_MUSE === '1';
     const recognitionSettings=recognitionConfig(env);
     const requestId=crypto.randomUUID();
     const strictSources=recognitionSettings.strict;
@@ -197,7 +178,7 @@ export async function handleChat(
     // Both transports return the same finalized answer; SSE only changes delivery.
     const respondWithAnswer = (payload: any, remainingCredits: number, cached = false): Response => {
       payload={...payload};delete payload._verifiedProof;
-      if(strictSources&&payload.retrieval){
+      if(payload.retrieval){
         payload.retrieval={...payload.retrieval};
         delete payload.retrieval.reviewRounds;delete payload.retrieval.repairTrace;
         if(payload.retrieval.claimEvidence)payload.retrieval.claimEvidence=payload.retrieval.claimEvidence.map((c:any)=>({id:c.id,evidence_ids:c.evidence_ids,ref_ids:c.ref_ids,verification:c.verification}));
@@ -254,8 +235,10 @@ export async function handleChat(
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
 
     // Run rate-limit, user credit lookup, and cache hash computation in parallel
+    const isMcpOrInternal = isInternal || caller === 'connector' || request.headers.get('X-Internal-Caller') === 'mcp' || (request.headers.get('User-Agent') || '').includes('TaxQA-MCP');
+    const chatMaxPerHour = isMcpOrInternal ? 5000 : 300;
     const [rateLimited, userRecord, digest] = await Promise.all([
-      privilegedMcp ? Promise.resolve(false) : isChatRateLimited(ip, env, ctx, verifiedPhone || undefined),
+      privilegedMcp ? Promise.resolve(false) : isChatRateLimited(ip, env, ctx, verifiedPhone || undefined, chatMaxPerHour),
       !isInternal && env.DB && activePhone
         ? env.DB.prepare(`SELECT id, phone, credits, role FROM users WHERE phone = ?`).bind(activePhone).first<{ id: string; phone: string; credits: number; role?: string }>()
         : Promise.resolve(null),
@@ -442,7 +425,12 @@ export async function handleChat(
     // Classify before retrieval so the frame controls the evidence path.
     const decisionMode = env.DECISION_MODE || 'enforce';
     const applyDecision = decisionMode === 'enforce';
-    const requireReview = applyDecision;
+    // Audit controls decision-engine enforcement, never whether an answer is reviewed.
+    const requireReview = true;
+    // Review still runs and is recorded, but REVIEW_BLOCKING=off makes it
+    // advisory: a failed/unavailable review no longer replaces the answer.
+    const reviewBlocking = env.REVIEW_BLOCKING !== 'off';
+    const museReviewAvailable = !!env.MUSE_API_KEY && env.DISABLE_MUSE_REVIEW !== '1';
     const decisionFrame = understandClassifiedQuery(message, answerScope, history, businessClassification);
     if(businessClassification.calculationShape==='SCENARIOS'){
       const localScenarios=extractDeterministicScenarios(message,history);
@@ -550,18 +538,31 @@ export async function handleChat(
     const { text: ragContextText, citations: retrievedCitations, includedRefs, passages,missingDocumentRefs,missingRequiredRefs } = buildReviewContext(results, retrievalQuery, contextBudget, maxContextBudget, answerScope,businessClassification.answerPurpose==='DEFINITION'?'DEFINITION':undefined);
     if(strictSources&&passages.some(p=>!passageTrusted(p)))return respondWithAnswer({success:true,response:UNVERIFIED_ANSWER,source:'untrusted_passage',citations:[],diagnostic_code:'UNTRUSTED_PASSAGE'},userRecord?.credits??99);
     if(missingRequiredRefs.length)console.warn('[REQUIRED_CONTEXT_OMITTED]',JSON.stringify({refs:missingRequiredRefs,contextBudget}));
-    if(missingDocumentRefs.length){
-      console.warn('[DOCUMENT_CONTEXT_INCOMPLETE]',JSON.stringify({refs:missingDocumentRefs,contextBudget,maxContextBudget,years:answerScope.years,packedLength:ragContextText.length}));
-      return respondWithAnswer({success:true,response:'Hệ thống chưa đưa đủ nguồn cần thiết vào lượt xử lý này. Đây là giới hạn xử lý của hệ thống; lượt này không bị trừ. Bạn có thể thử lại sau.',source:'evidence_context_incomplete',diagnostic_code:'EVIDENCE_CONTEXT_LIMIT',citations:[],legal_citations:[]},userRecord?.credits??99);
+    // Partial-answer policy: a missing required source blocks only the part it
+    // supports, never the whole answer. Generation is told which refs are
+    // absent so it answers the covered parts and labels the rest unverified;
+    // the semantic reviewer still gates every claim that is produced.
+    const contextIncompleteNote = missingRequiredRefs.length
+      ? `\nGIỚI HẠN NGUỒN: các nguồn bắt buộc sau chưa đưa được vào lượt này: ${missingRequiredRefs.join(', ')}. Chỉ trả lời phần có nguồn đã cung cấp; phần phụ thuộc nguồn thiếu phải nêu rõ chưa kiểm chứng được, không tự bổ sung kết luận cho phần đó.`
+      : '';
+    if(missingRequiredRefs.length){
+      console.warn('[DOCUMENT_CONTEXT_INCOMPLETE]',JSON.stringify({refs:missingRequiredRefs,contextBudget,maxContextBudget,years:answerScope.years,packedLength:ragContextText.length,sources:results.filter(r=>r.required).map(r=>({ref:r.chunk.ref_id,length:r.chunk.text.length,excerpt:r.chunk.context_passage?.length,period:r.chunk.context_passage_period}))}));
     }
     for(const passage of passages)passage.request_ids=subretrieval?.links[passage.ref_id]||decisionFrame.requests?.map(r=>r.id)||[];
     const requestEvidenceCoverage=decisionFrame.requests?.map(r=>({request_id:r.id,evidence_ids:passages.filter(p=>p.request_ids?.includes(r.id)).map(p=>p.id)}))||[];
     if(requestEvidenceCoverage.some(r=>!r.evidence_ids.length))console.warn('[REQUEST_EVIDENCE_GAPS]',JSON.stringify(requestEvidenceCoverage.filter(r=>!r.evidence_ids.length)));
+    // Per-request partial policy: an uncovered subrequest must be labelled
+    // unverified in the answer instead of being silently filled by the model.
+    const uncoveredRequests=requestEvidenceCoverage.filter(r=>!r.evidence_ids.length).map(r=>r.request_id);
+    const requestIncompleteNote=uncoveredRequests.length
+      ? `\nGIỚI HẠN THEO Ý HỎI: chưa có nguồn cho các ý: ${uncoveredRequests.join(', ')}. Trả lời các ý đã có nguồn; với ý thiếu nguồn chỉ nêu chưa kiểm chứng được và dữ kiện cần bổ sung, không tự kết luận.`
+      : '';
+    const fullContextNote=contextIncompleteNote+requestIncompleteNote;
     let groundingPacket:GroundingPacket={claims:[],passages,requests:decisionFrame.requests||[]};
     const citationEvidence=passages.map(p=>({ref_id:p.ref_id,text:p.text}));
     let claimVerdicts:Record<string,{choice:string;confidence:number}>={};
     let claimRoles:Record<string,{choice:string;confidence:number}>={};
-    const reviewRounds:Array<{provider?:string;report?:unknown;issues:string[]|null;checks:Record<string,{choice:string;confidence:number}>;context_key?:string;integrity?:Array<{claim_id:string;code:string}>;changed_claims?:string[]}>=[];
+    const reviewRounds:Array<{provider?:string;failureCode?:string;budgetMs?:number;durationMs?:number;report?:unknown;issues:string[]|null;checks:Record<string,{choice:string;confidence:number}>;context_key?:string;integrity?:Array<{claim_id:string;code:string}>;changed_claims?:string[]}>=[];
     durationRagMs = Date.now() - t0Rag;
     onProgress?.({ stage: 'preparing' });
     const canUseDecisionCalculation = applyDecision && decisionFrame && decisionEvaluation?.status === 'ANSWERED' &&
@@ -681,7 +682,7 @@ ${pendingNotice}
 ${canUseDecisionCalculation && decisionEvaluation ? `RULES ENGINE: ${decisionEvaluation.explanation}` : ''}
 ${analyzeAmounts(message)}
 BẰNG CHỨNG:
-${ragContextText}`;
+${ragContextText}${fullContextNote}`;
       const focusedPrompt = `${TONE_GUIDANCE}
 ${scopeInstructions(answerScope)}
 ${groundedAnswerPolicy(businessClassification)}
@@ -690,92 +691,245 @@ ${supportHint}
 ${pendingNotice}
 ${analyzeAmounts(message)}
 BẰNG CHỨNG:
-${ragContextText}`;
+${ragContextText}${fullContextNote}`;
       const baseSystemPrompt = useBroadContext && (!businessClassification.policyFocus||businessClassification.policyFocus==='UNSPECIFIED') ? broadSystemPrompt : focusedPrompt;
-      const systemPrompt = (workflowEvidence ? baseSystemPrompt + '\n\n' + workflowEvidence : baseSystemPrompt)+'\n'+groundingInstructions(groundingPacket.requests)+'\n'+calculationInstructions(decisionFrame,decisionEvaluation);
+      const systemPrompt = (workflowEvidence ? baseSystemPrompt + '\n\n' + workflowEvidence : baseSystemPrompt)+'\n'+legalCorpusGuardInstruction()+'\n'+groundingInstructions(groundingPacket.requests)+'\n'+calculationInstructions(decisionFrame,decisionEvaluation);
       generationPrompt = systemPrompt;
-      // ƯU TIÊN 1: Gọi LLM (Meta Muse API trực tiếp) nếu có key
-      const museKey = env.MUSE_API_KEY;
-      if (museKey) {
+      // Cấu hình Model AI (OpenAI gpt-6-luna / Meta Muse)
+      const museKey = isMuseDisabled ? undefined : env.MUSE_API_KEY;
+      const openAiKey = env.OPENAI_API_KEY;
+      const openAiModel = env.OPENAI_MODEL || 'gpt-6.1-terra';
+      const genModel = env.MUSE_MODEL || 'muse-spark-1.3-contributor';
+      const genEndpoint = 'https://api.meta.ai/v1/responses';
+
+      if (museKey || openAiKey) {
         const t0Gen = Date.now();
         budget.startGeneration();
         onProgress?.({ stage: 'generating' });
 
-        const genModel = 'muse-spark-1.3-contributor';
-        const genEndpoint = 'https://api.meta.ai/v1/responses';
-        let scopeRetry='';
-        const assessDraft=async(run:Record<string,unknown>)=>{
-          if(!aiText)return false;
-          const arithmetic=resolveCalculations(aiText,passages.map((p:any)=>p.id));
-          run.arithmetic={calculations:arithmetic.records,issues:arithmetic.issues};
-          if(arithmetic.issues.length){
-            aiText='';generationFailure='MODEL_CALCULATION_INVALID';
-            scopeRetry='\nCông cụ số học chưa thực hiện được: '+JSON.stringify(arithmetic.issues)+'. Viết lại phép tính đúng cú pháp, dùng evidence_id đã cung cấp và giữ nguyên dữ kiện/điều kiện. Không tự thay bằng một số chưa kiểm tra.';
-            return true;
+        let scopeRetry = '';
+        const assessCandidateDraft = async (
+          candidateText: string,
+          run: Record<string, unknown>
+        ): Promise<{ passed: boolean; cleanText?: string }> => {
+          if (!candidateText) return { passed: false };
+          const arithmetic = resolveCalculations(candidateText, passages.map((p) => p.id));
+          run.arithmetic = { calculations: arithmetic.records, comparisons: arithmetic.comparisons, issues: arithmetic.issues };
+          if (arithmetic.issues.length) {
+            generationFailure = 'MODEL_CALCULATION_INVALID';
+            scopeRetry =
+              '\nCông cụ số học chưa thực hiện được: ' +
+              JSON.stringify(arithmetic.issues) +
+              '. Viết lại phép tính đúng cú pháp, dùng evidence_id đã cung cấp và giữ nguyên dữ kiện/điều kiện. Không tự thay bằng một số chưa kiểm tra.';
+            return { passed: false };
           }
-          aiText=arithmetic.text;
-          if(!decisionApiKey)return false;
-          const assessor=new JevDecisionProvider(decisionApiKey,decisionEndpoint,Math.min(12000,budget.generation()),decisionModel);
-          const assessment=await assessor.assessAnswerScope(message,aiText,ragContextText,history,businessClassification);
-          run.scope_assessment=assessment;
-          console.log('[SEMANTIC_SCOPE_ASSESSMENT]',JSON.stringify({attempt:run.attempt,...assessment}));
-          if(assessment.status!=='REPAIR')return false;
-          aiText='';generationFailure='MODEL_SCOPE_MISMATCH';
-          scopeRetry='\nBản trước không đạt các mục đối chiếu ngữ nghĩa: '+JSON.stringify(assessment.issues)+
-            '. Hãy giải quyết đúng yêu cầu, giữ vai trò dữ kiện và phạm vi nguồn. Không sửa chỉ để thêm từ/cụm từ; không tự bổ sung điều kiện đã thỏa.\n'+answerContract(businessClassification);
-          return true;
+          const candidateClean = arithmetic.text;
+          if (!decisionApiKey) return { passed: true, cleanText: candidateClean };
+          const assessor = new JevDecisionProvider(
+            decisionApiKey,
+            decisionEndpoint,
+            Math.min(12000, budget.generation()),
+            decisionModel
+          );
+          const assessment = await assessor.assessAnswerScope(
+            message,
+            candidateClean,
+            ragContextText,
+            history,
+            businessClassification
+          );
+          run.scope_assessment = assessment;
+          console.log(
+            '[SEMANTIC_SCOPE_ASSESSMENT]',
+            JSON.stringify({ attempt: run.attempt, ...assessment })
+          );
+          if (assessment.status === 'REPAIR') {
+            generationFailure = 'MODEL_SCOPE_MISMATCH';
+            scopeRetry =
+              '\nBản trước không đạt các mục đối chiếu ngữ nghĩa: ' +
+              JSON.stringify(assessment.issues) +
+              '. Hãy giải quyết đúng yêu cầu, giữ vai trò dữ kiện và phạm vi nguồn. Không sửa chỉ để thêm từ/cụm từ; không tự bổ sung điều kiện đã thỏa.\n' +
+              answerContract(businessClassification);
+            return { passed: false };
+          }
+          return { passed: true, cleanText: candidateClean };
         };
 
         for (let attempt = 1; attempt <= 2 && !aiText && budget.generation() > 500; attempt++) {
           try {
-            const inputDigest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify({systemPrompt:systemPrompt+scopeRetry,history,message}))))).map(b=>b.toString(16).padStart(2,'0')).join('');
-            const run:Record<string,unknown>={pipeline:PIPELINE_VERSION,provider:'meta',model:genModel,
-              attempt,input_sha256:inputDigest,temperature:null,seed:null,sampling:'PROVIDER_DEFAULT_UNSPECIFIED',
-              reasoning_effort:reasoningEffort,refs:includedRefs,policyFocus:businessClassification.policyFocus,
-              revenueContext:businessClassification.revenueContext};
-            generationRuns.push(run);
-            console.log('[GENERATION_RUN]',JSON.stringify(run));
-            if (attempt > 1) await new Promise(r => setTimeout(r, attempt * 250));
-            {
-              const modelRequest = buildMuseRequest(systemPrompt+scopeRetry, history, message, false, genModel, reasoningEffort);
-              modelRequest.max_output_tokens = 16000;
-              const museRes = await fetch(genEndpoint, {
-                method: 'POST',
-                headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify(modelRequest),
-                signal: AbortSignal.timeout(budget.generation()),
-              });
-              if (museRes.ok) {
-                const museData: any = await museRes.json();
-                Object.assign(run,{response_id:museData.id,returned_model:museData.model,system_fingerprint:museData.system_fingerprint??null,usage:museData.usage});
-                console.log('[GENERATION_RESULT]',JSON.stringify(run));
-                const msgOutput = (museData?.output || []).find((item: any) => item.type === 'message' && item.content);
-                const outText = msgOutput?.content?.[0]?.text?.trim();
-                if (outText && outText.length > 15) {
-                  aiText = outText;
-                  source = `Muse Spark 1.3 (Meta AI) + ${source}`;
-                } else {
-                  generationFailure = 'MODEL_EMPTY';
-                  console.warn('[MODEL_EMPTY]', JSON.stringify({ model: genModel, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+            const inputDigest = Array.from(
+              new Uint8Array(
+                await crypto.subtle.digest(
+                  'SHA-256',
+                  new TextEncoder().encode(
+                    JSON.stringify({ systemPrompt: systemPrompt + scopeRetry, history, message })
+                  )
+                )
+              )
+            )
+              .map((b) => b.toString(16).padStart(2, '0'))
+              .join('');
+
+            if (attempt > 1) await new Promise((r) => setTimeout(r, attempt * 250));
+
+            interface RawCandidate {
+              provider: 'meta' | 'openai';
+              model: string;
+              text: string;
+              meta?: any;
+            }
+
+            let candidateFound = false;
+            const candidatesToRun: Array<() => Promise<RawCandidate>> = [];
+
+            if (museKey) {
+              candidatesToRun.push(async () => {
+                const modelRequest = buildMuseRequest(
+                  systemPrompt + scopeRetry,
+                  history,
+                  message,
+                  false,
+                  genModel,
+                  reasoningEffort
+                );
+                modelRequest.max_output_tokens = 16000;
+                const museRes = await fetch(genEndpoint, {
+                  method: 'POST',
+                  headers: { Authorization: `Bearer ${museKey}`, 'Content-Type': 'application/json' },
+                  body: JSON.stringify(modelRequest),
+                  signal: AbortSignal.timeout(budget.generation()),
+                });
+                if (!museRes.ok) {
+                  const body = (await museRes.text()).slice(0, 300);
+                  throw new Error(`MODEL_HTTP_${museRes.status}: ${body}`);
                 }
-                if(await assessDraft(run))continue;
-                break;
-              }
-              const body = (await museRes.text()).slice(0, 300);
-              generationFailure = `MODEL_HTTP_${museRes.status}`;
-              console.warn('[MODEL_HTTP_ERROR]', JSON.stringify({ model: genModel, status: museRes.status, body, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
-              if (museRes.status !== 429 && museRes.status !== 404 && museRes.status < 500) break;
+                const museData: any = await museRes.json();
+                const msgOutput = (museData?.output || []).find(
+                  (item: any) => item.type === 'message' && item.content
+                );
+                const outText = msgOutput?.content?.[0]?.text?.trim();
+                if (!outText || outText.length <= 15) throw new Error('MODEL_EMPTY');
+                return { provider: 'meta', model: genModel, text: outText, meta: museData };
+              });
+            }
+
+            if (openAiKey) {
+              candidatesToRun.push(async () => {
+                let summaryStarted = false;
+                const openAiRes = await callOpenAIStream(
+                  openAiKey,
+                  systemPrompt + scopeRetry,
+                  history,
+                  message,
+                  openAiModel,
+                  undefined,
+                  budget.generation(),
+                  reasoningEffort,
+                  onProgress ? (delta) => {
+                    if (candidateFound) return;
+                    if (!summaryStarted) {
+                      onProgress({ type: 'reasoning_summary', delta: `${openAiModel} · Lượt soạn ${attempt}\n\n`, reset: true });
+                      summaryStarted = true;
+                    }
+                    onProgress({ type: 'reasoning_summary', delta });
+                  } : undefined,
+                );
+                if (!openAiRes.ok || !openAiRes.text || openAiRes.text.length <= 15) {
+                  throw new Error(openAiRes.error || 'OPENAI_EMPTY');
+                }
+                return {
+                  provider: 'openai',
+                  model: openAiRes.model || openAiModel,
+                  text: openAiRes.text,
+                  meta: openAiRes,
+                };
+              });
+            }
+
+            // Chạy song song: ứng viên nào trả lời hợp lệ trước sẽ được chọn
+            await new Promise<void>((resolve) => {
+              let finishedCount = 0;
+              const totalTasks = candidatesToRun.length;
+
+              candidatesToRun.forEach((task) => {
+                task()
+                  .then(async (raw) => {
+                    if (candidateFound) return;
+                    const run: Record<string, unknown> = {
+                      pipeline: PIPELINE_VERSION,
+                      provider: raw.provider,
+                      model: raw.model,
+                      attempt,
+                      input_sha256: inputDigest,
+                      temperature: null,
+                      seed: null,
+                      sampling: 'PROVIDER_DEFAULT_UNSPECIFIED',
+                      reasoning_effort: reasoningEffort,
+                      refs: includedRefs,
+                      policyFocus: businessClassification.policyFocus,
+                      revenueContext: businessClassification.revenueContext,
+                      response_id: raw.meta?.id,
+                      returned_model: raw.meta?.model || raw.model,
+                      system_fingerprint: raw.meta?.system_fingerprint ?? null,
+                      usage: raw.meta?.usage,
+                    };
+                    generationRuns.push(run);
+                    console.log('[GENERATION_RESULT]', JSON.stringify(run));
+
+                    const assessed = await assessCandidateDraft(raw.text, run);
+                    if (assessed.passed && assessed.cleanText && !candidateFound) {
+                      candidateFound = true;
+                      aiText = assessed.cleanText;
+                      const providerName =
+                        raw.provider === 'openai'
+                          ? `OpenAI (${raw.model})`
+                          : 'Muse Spark 1.3 (Meta AI)';
+                      source = `${providerName} + ${source}`;
+                      resolve();
+                    }
+                  })
+                  .catch((err) => {
+                    console.warn(
+                      '[PARALLEL_PROVIDER_ERROR]',
+                      JSON.stringify({ attempt, error: err?.name || 'Error', message: err?.message })
+                    );
+                  })
+                  .finally(() => {
+                    finishedCount++;
+                    if (finishedCount >= totalTasks && !candidateFound) {
+                      resolve();
+                    }
+                  });
+              });
+            });
+
+            if (aiText) {
+              break;
             }
           } catch (errGen: any) {
-            generationFailure = ['TimeoutError','AbortError'].includes(errGen?.name) ? 'MODEL_TIMEOUT' : 'MODEL_REQUEST_ERROR';
-            console.error('[MODEL_REQUEST_ERROR]', JSON.stringify({ model: genModel, error: errGen?.name || 'Error', detail: errGen?.message, attempt, routeId, refs: relevantChunks.map(c => c.ref_id) }));
+            generationFailure = ['TimeoutError', 'AbortError'].includes(errGen?.name)
+              ? 'MODEL_TIMEOUT'
+              : 'MODEL_REQUEST_ERROR';
+            console.error(
+              '[MODEL_REQUEST_ERROR]',
+              JSON.stringify({
+                error: errGen?.name || 'Error',
+                detail: errGen?.message,
+                attempt,
+                routeId,
+                refs: relevantChunks.map((c) => c.ref_id),
+              })
+            );
             if (generationFailure === 'MODEL_TIMEOUT' || Date.now() - tStart >= 85000) break;
           }
         }
         durationGenMs = Date.now() - t0Gen;
       } else {
         generationFailure = 'MODEL_UNCONFIGURED';
-        console.warn('[MODEL_UNCONFIGURED]', JSON.stringify({ routeId, refs: relevantChunks.map(c => c.ref_id) }));
+        console.warn(
+          '[MODEL_UNCONFIGURED]',
+          JSON.stringify({ routeId, refs: relevantChunks.map((c) => c.ref_id) })
+        );
       }
 
       // Không dùng model dự phòng khi Muse Spark lỗi theo yêu cầu nghiêm ngặt (chỉ dùng Muse Spark)
@@ -853,7 +1007,8 @@ ${ragContextText}`;
       const useMuseReview=businessClassification.answerPurpose==='DEFINITION'&&!env.MUSE_API_KEY?.startsWith('sk-')&&!!env.MUSE_API_KEY;
       budget.startReview();
       const reviewBudget=()=>budget.review();
-      const reviewer = useMuseReview?new MuseEvidenceReviewer(env.MUSE_API_KEY!,reviewBudget()):new JevDecisionProvider(decisionApiKey, decisionEndpoint,reviewBudget(), decisionModel);
+      const primaryReviewBudget=budget.primaryReview(museReviewAvailable);
+      let reviewer = useMuseReview?new MuseEvidenceReviewer(env.MUSE_API_KEY!,primaryReviewBudget):new JevDecisionProvider(decisionApiKey, decisionEndpoint,primaryReviewBudget, decisionModel);
       onProgress?.({ stage: 'reviewing' });
       const fullReviewEvidence = [
         ...(strictSources?[STRICT_SOURCE_POLICY]:[]),
@@ -868,12 +1023,30 @@ ${ragContextText}`;
       const t0Rev1 = Date.now();
       // Guards may have changed prose after generation; invalidate stale mappings.
       if(groundingPacket.claims.map(c=>c.text).join('\n\n')!==aiText)groundingPacket=parseGroundedAnswer(aiText,passages,groundingPacket.requests).packet;
-      const issues = await reviewer.reviewAnswer(message, aiText, fullReviewEvidence, history, businessClassification,groundingPacket);
+      let issues = await reviewer.reviewAnswer(message, aiText, fullReviewEvidence, history, businessClassification,groundingPacket);
+      if(issues===null && museReviewAvailable && budget.review()>1000){
+        reviewRounds.push({provider:reviewer.name,issues:null,failureCode:reviewer.failureCode,budgetMs:primaryReviewBudget,durationMs:Date.now()-t0Rev1,checks:reviewer.lastReviewChecks,integrity:reviewer.lastReviewIntegrity});
+        const alternative = useMuseReview
+          ? new JevDecisionProvider(decisionApiKey,decisionEndpoint,budget.review(),decisionModel)
+          : new MuseEvidenceReviewer(env.MUSE_API_KEY!,budget.review());
+        // Preserve the same evidence and deadline; never turn an unavailable review into approval.
+        reviewer=alternative;
+        issues=await reviewer.reviewAnswer(message,aiText,fullReviewEvidence,history,businessClassification,groundingPacket);
+      }
+      if(issues===null && budget.review()>1500){
+        // Compact retry: the same claims and passages, without workflow/support
+        // overhead, so a slow full-context review does not become SKIPPED.
+        // Still never an approval on failure — null stays blocked downstream.
+        reviewRounds.push({provider:reviewer.name,issues:null,failureCode:reviewer.failureCode,budgetMs:primaryReviewBudget,durationMs:Date.now()-t0Rev1,checks:reviewer.lastReviewChecks,integrity:reviewer.lastReviewIntegrity});
+        const compactEvidence=[`KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')}.`,ragContextText,"YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)].filter(Boolean).join('\n\n');
+        reviewer=new JevDecisionProvider(decisionApiKey,decisionEndpoint,budget.review(),decisionModel);
+        issues=await reviewer.reviewAnswer(message,aiText,compactEvidence,history,businessClassification,groundingPacket);
+      }
       if('lastReviewedPacket' in reviewer&&reviewer.lastReviewedPacket)groundingPacket=reviewer.lastReviewedPacket;
       reviewFailureCode=reviewer.failureCode;
       claimVerdicts=reviewer.lastReviewClaims;
       claimRoles=reviewer.lastReviewRoles;
-      reviewRounds.push({provider:reviewer.name,...('lastReviewReport' in reviewer?{report:{verdicts:reviewer.lastReviewReport,mappingResolutions:reviewer.lastMappingResolutions}}:{}),issues,checks:reviewer.lastReviewChecks,context_key:reviewer.lastReviewContextKey,integrity:reviewer.lastReviewIntegrity});
+      reviewRounds.push({provider:reviewer.name,failureCode:reviewer.failureCode,...('lastReviewReport' in reviewer?{report:{verdicts:reviewer.lastReviewReport,mappingResolutions:reviewer.lastMappingResolutions}}:{}),issues,checks:reviewer.lastReviewChecks,context_key:reviewer.lastReviewContextKey,integrity:reviewer.lastReviewIntegrity});
       reviewMissingFact = reviewer.lastReviewMissingFact;
       reviewSafeFact = reviewer.lastReviewSafeFact;
 
@@ -884,7 +1057,7 @@ ${ragContextText}`;
       // A rewrite cannot fix the reviewer's confidence when every selected
       // verdict is otherwise positive. Avoid a redundant model round trip.
       const unclearDefinition=businessClassification.answerPurpose==='DEFINITION'&&issues?.some(issue=>issue.startsWith('claim_')&&issue.endsWith(':LOW_CONFIDENCE'));
-      if (issues?.length && env.MUSE_API_KEY && budget.canRepair()) {
+      if (issues?.length && (env.MUSE_API_KEY || env.OPENAI_API_KEY) && budget.canRepair()) {
         onProgress?.({ stage: 'repairing' });
         repairTrace = {
           turn1Draft: aiText,
@@ -910,7 +1083,7 @@ ${ragContextText}`;
               const remainingIssues = await secondReviewer.reviewAnswer(message, repairedText, fullReviewEvidence, history, businessClassification,repaired.packet,priorClaims);
               reviewFailureCode=secondReviewer.failureCode;
               groundingPacket='lastReviewedPacket' in secondReviewer&&secondReviewer.lastReviewedPacket?secondReviewer.lastReviewedPacket:repaired.packet;claimVerdicts=secondReviewer.lastReviewClaims;claimRoles=secondReviewer.lastReviewRoles;
-              reviewRounds.push({provider:secondReviewer.name,...('lastReviewReport' in secondReviewer?{report:secondReviewer.lastReviewReport}:{}),issues:remainingIssues,checks:secondReviewer.lastReviewChecks,context_key:secondReviewer.lastReviewContextKey,integrity:secondReviewer.lastReviewIntegrity,changed_claims:repaired.changes});
+              reviewRounds.push({provider:secondReviewer.name,failureCode:secondReviewer.failureCode,...('lastReviewReport' in secondReviewer?{report:secondReviewer.lastReviewReport}:{}),issues:remainingIssues,checks:secondReviewer.lastReviewChecks,context_key:secondReviewer.lastReviewContextKey,integrity:secondReviewer.lastReviewIntegrity,changed_claims:repaired.changes});
               Object.assign(repairTrace,{changedClaims:repaired.changes,checksRound1:reviewer.lastReviewChecks,checksRound2:secondReviewer.lastReviewChecks});
               reviewMissingFact = secondReviewer.lastReviewMissingFact;
               reviewSafeFact = secondReviewer.lastReviewSafeFact;
@@ -940,7 +1113,7 @@ ${ragContextText}`;
     // claims instead of releasing the unverified whole answer.
     let blockGate: 'NONE' | 'NO_EVIDENCE_CHUNKS' | 'ANSWER_VALIDATOR_DOWNGRADE' | 'SEMANTIC_REVIEW_FAILED' | 'REVIEW_PROVIDER_UNAVAILABLE' | 'CLARIFICATION_REQUIRED' | 'PARTIAL_ANSWER' =
       passages.length === 0 ? 'NO_EVIDENCE_CHUNKS' : 'NONE';
-    if (requireReview && blockGate === 'NONE' && (!semanticReviewPassed || !validationPass) && !isSystemError) {
+    if (reviewBlocking && requireReview && blockGate === 'NONE' && (!semanticReviewPassed || !validationPass) && !isSystemError) {
       if (semanticReviewIssues === null) {
         // An unavailable reviewer is not a positive legal verdict. Arithmetic
         // or a document name alone cannot certify applicability.
@@ -952,6 +1125,30 @@ ${ragContextText}`;
           if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
       } else {
         const hasFatalViolation = semanticReviewIssues.some(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED'));
+        // Hard-block confirmation: a single reviewer's CONTRADICTED/INVENTED is
+        // not enough to suppress an answer. An independent reviewer (the other
+        // provider family) must also find a hard violation; disagreement means
+        // the verdict is unstable, so the answer is released with the dispute
+        // recorded instead of a blanket refusal. Soft issues never confirm.
+        if (hasFatalViolation && decisionApiKey && budget.review() > 1500) {
+          try {
+            const confirmEvidence = [`KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')}.`, ragContextText, "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)].filter(Boolean).join('\n\n');
+            // Fresh Jev instance: independent of a Muse primary review, and a
+            // second sample when the primary was also Jev (flip = unstable).
+            const confirmer = new JevDecisionProvider(decisionApiKey, decisionEndpoint, budget.review(), decisionModel);
+            const confirmIssues = await confirmer.reviewAnswer(message, aiText, confirmEvidence, history, businessClassification, groundingPacket);
+            reviewRounds.push({ provider: confirmer.name, issues: confirmIssues, failureCode: confirmer.failureCode, checks: confirmer.lastReviewChecks, integrity: confirmer.lastReviewIntegrity });
+            const confirmHard = confirmIssues?.some(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED'));
+            if (confirmIssues !== null && confirmIssues.length === 0 && !confirmHard) {
+              semanticReviewPassed = true;
+              semanticReviewIssues = confirmIssues;
+              source = `Review confirmed-disputed (${confirmer.name}) + ${source}`;
+              console.log('[ANSWER_REVIEW_CONFIRM]', JSON.stringify({ requestId, first: 'hard', confirm: confirmIssues }));
+            } else {
+              console.log('[ANSWER_REVIEW_CONFIRM]', JSON.stringify({ requestId, first: 'hard', confirm: confirmIssues }));
+            }
+          } catch (e: any) { console.warn('[ANSWER_REVIEW_CONFIRM_ERROR]', e?.name || 'confirm_failed'); }
+        }
         const finalValidation = validateAnswer(aiText, decisionFrame,
           canUseDecisionCalculation && decisionEvaluation?.status === 'ANSWERED' ? decisionEvaluation : undefined, message);
         const finalValidationPass = finalValidation.status !== 'DOWNGRADE';
@@ -1055,7 +1252,7 @@ ${ragContextText}`;
       source,
       citations: legalCitations,
       retrieval: retrievalTrace,
-      ...(isSystemError ? { diagnostic_code: generationFailure || 'MODEL_UNAVAILABLE' } : {}),
+      ...(blockGate!=='NONE' ? {diagnostic_code:blockGate} : isSystemError ? { diagnostic_code: generationFailure || 'MODEL_UNAVAILABLE' } : {}),
       matchedRefs: matchedRoute?.refs || [],
       ...(strictSourceResult?.ok?{_verifiedProof:{policy:sourcePolicyKey,packet:groundingPacket,verdicts:claimVerdicts,
         reviewPassed:semanticReviewPassed,citationCheck:reviewRounds.at(-1)?.checks.citations}}:{}),
@@ -1086,7 +1283,7 @@ ${ragContextText}`;
         `agt_${crypto.randomUUID()}`,PIPELINE_VERSION,JSON.stringify({requests:decisionFrame.requests,
           evidence:passages.map((p:any)=>({id:p.id,ref_id:p.ref_id,request_ids:p.request_ids,provenance:p.provenance})),
           claims:groundingPacket.claims,verdicts:claimVerdicts,roles:claimRoles,issues:semanticReviewIssues,reviewRounds,repair:repairTrace,
-          requestId,question:message,blockGate,answerReviewStatus,generationRuns})
+          requestId,question:message,blockGate,answerReviewStatus,reviewFailureCode,timings,generationRuns})
       ).run().catch((error:any)=>console.warn('[GROUNDING_TRACE_ERR]',error?.message)));
       ctx.waitUntil(env.DB.prepare(
         `INSERT INTO decision_traces (id, mode, decision_status, layer, tax_years, rule_ids, evidence_refs, excluded_refs, validation_status, source)
@@ -1101,7 +1298,9 @@ ${ragContextText}`;
     }
 
     // Blocked drafts, partial answers and clarification do not spend a credit.
-    const chargeableAnswer = !isSystemError && blockGate === 'NONE' && validationPass && (semanticReviewPassed || !requireReview);
+    // With advisory review (blocking off) a released answer is chargeable even
+    // when its recorded review verdict is not PASS.
+    const chargeableAnswer = !isSystemError && blockGate === 'NONE' && validationPass && (semanticReviewPassed || !requireReview || !reviewBlocking);
     // --- BƯỚC 3: GHI LOG VÀO CLOUDFLARE D1 ---
     if (env.DB && activePhone) {
       ctx.waitUntil(

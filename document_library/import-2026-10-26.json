@@ -1,0 +1,309 @@
+{
+  "date": "2026-10-26",
+  "source": "user-supplied Markdown batch 1",
+  "scope": "independent document explanation only; not verified tax RAG cards",
+  "imported": 33,
+  "pending": 1,
+  "files": [
+    {
+      "id": "1241-CTCBA-TTHT-2024-goc",
+      "source_file": "1241-CTCBA-TTHT-2024-goc.md",
+      "sha256": "1cb7ab486caeeef3fb0702c41f929efe068d9865daeaffda23408d29f429f9b7",
+      "characters": 7070,
+      "status": "imported",
+      "destination": "document_library/1241-CTCBA-TTHT-2024-goc.md"
+    },
+    {
+      "id": "2792-BHXH-QLT-2026-goc",
+      "source_file": "2792-BHXH-QLT-2026-goc.md",
+      "sha256": "e40329dbfc6348d4c0a5416fec514750416acffd26b2c5d0ebf5e861714fd6b6",
+      "characters": 5009,
+      "status": "imported",
+      "destination": "document_library/2792-BHXH-QLT-2026-goc.md"
+    },
+    {
+      "id": "311-TCT-DNNCN-2025-goc",
+      "source_file": "311-TCT-DNNCN-2025-goc.md",
+      "sha256": "06f4138ca1f60ad97303752c6d20a398ef102f6052deedb0a5046cb448c9ea56",
+      "characters": 15161,
+      "status": "imported",
+      "destination": "document_library/311-TCT-DNNCN-2025-goc.md"
+    },
+    {
+      "id": "3405-CT-CS-2026-goc",
+      "source_file": "3405-CT-CS-2026-goc.md",
+      "sha256": "715934e62cda1b061859781b223601ffd4c0b0dedd96916d2cc9bd609fe59cb5",
+      "characters": 2543,
+      "status": "imported",
+      "destination": "document_library/3405-CT-CS-2026-goc.md"
+    },
+    {
+      "id": "4915-CT-NVT-2026-goc",
+      "source_file": "4915-CT-NVT-2026-goc.md",
+      "sha256": "804f820c47b87af9c9c2d1903c02d16747ad9b1f1c6a068091e6049e567fd031",
+      "characters": 3880,
+      "status": "imported",
+      "destination": "document_library/4915-CT-NVT-2026-goc.md"
+    },
+    {
+      "id": "5622-CT-NVT-2026-goc",
+      "source_file": "5622-CT-NVT-2026-goc.md",
+      "sha256": "6050353fa7fa2ee986706a1ec4c38a5941f43cf47dcc12f42c2b05b9f6522282",
+      "characters": 22898,
+      "status": "imported",
+      "destination": "document_library/5622-CT-NVT-2026-goc.md"
+    },
+    {
+      "id": "5947-CT-KTr-2026-goc",
+      "source_file": "5947-CT-KTr-2026-goc.md",
+      "sha256": "db24b131b1f339f5bd000e99f0d10d945a718df128145e0244a3ebb7adec216e",
+      "characters": 6904,
+      "status": "imported",
+      "destination": "document_library/5947-CT-KTr-2026-goc.md"
+    },
+    {
+      "id": "6101-BHXH-QLT-2026-goc",
+      "source_file": "6101-BHXH-QLT-2026-goc.md",
+      "sha256": "a6f3ab37f0e0677b6dcd1e1d96faff3e01e9777009bf35ce7869d8fbf3b9d6d8",
+      "characters": 4075,
+      "status": "imported",
+      "destination": "document_library/6101-BHXH-QLT-2026-goc.md"
+    },
+    {
+      "id": "6480-CT-QLNT-2026-goc",
+      "source_file": "6480-CT-QLNT-2026-goc.md",
+      "sha256": "40b895eaf03526cec59c840bd0ef06f234cbb87448fa4468d7861c89afd5b407",
+      "characters": 2473,
+      "status": "imported",
+      "destination": "document_library/6480-CT-QLNT-2026-goc.md"
+    },
+    {
+      "id": "Luat-09-2026-QH16",
+      "source_file": "Luat-09-2026-QH16.md",
+      "sha256": "d4c0e469cad6522face1a10121e93ff226d3610996211b1d2519b2c1c646a0a2",
+      "characters": 4758,
+      "status": "imported",
+      "destination": "document_library/Luat-09-2026-QH16.md"
+    },
+    {
+      "id": "Luat-108-2025-QH15",
+      "source_file": "Luat-108-2025-QH15.md",
+      "sha256": "b5f1214d34941e76637bb3be53674e5b1869d33d226a3193b5a3e18af977855e",
+      "characters": 162221,
+      "status": "imported",
+      "destination": "document_library/Luat-108-2025-QH15.md"
+    },
+    {
+      "id": "Luat-122-2025-QH15",
+      "source_file": "Luat-122-2025-QH15.md",
+      "sha256": "defef94fb89450e8fafe4a55087cbdc65fd93bfdef8759cbd4f6455a506bcae7",
+      "characters": 59672,
+      "status": "imported",
+      "destination": "document_library/Luat-122-2025-QH15.md"
+    },
+    {
+      "id": "Luat-38-2019-QH14",
+      "source_file": "Luat-38-2019-QH14.md",
+      "sha256": "e3b9e6685e311f62f5f8e90aa46b39c2413dedba66d8979ba7ac7c4bd89e0543",
+      "characters": 202946,
+      "status": "imported",
+      "destination": "document_library/Luat-38-2019-QH14.md"
+    },
+    {
+      "id": "Luat-48-2024-QH15",
+      "source_file": "Luat-48-2024-QH15.md",
+      "sha256": "aa1780ad35a6f4fe95f0b53b21ff3b023d1d4dab394d602fab38bd3ec3c94fa3",
+      "characters": 46877,
+      "status": "imported",
+      "destination": "document_library/Luat-48-2024-QH15.md"
+    },
+    {
+      "id": "Luat-56-2024-QH15",
+      "source_file": "Luat-56-2024-QH15.md",
+      "sha256": "771492fb616be2febccd94201937b2b168b6ad008290d63e56f56606c73d65a8",
+      "characters": 66265,
+      "status": "imported",
+      "destination": "document_library/Luat-56-2024-QH15.md"
+    },
+    {
+      "id": "Luat-67-2025-QH15",
+      "source_file": "Luat-67-2025-QH15.md",
+      "sha256": "3eb28c867fed6b972f240dc72dc7e4f74d7eaf99f48db42d54c91ca590d4d568",
+      "characters": 50623,
+      "status": "imported",
+      "destination": "document_library/Luat-67-2025-QH15.md"
+    },
+    {
+      "id": "Luat-91-2015-QH13",
+      "source_file": "Luat-91-2015-QH13.md",
+      "sha256": "740fbd63c689fcaa9eae892b696226f5899b10a30d53ada2d1f5469c196f669d",
+      "characters": 378545,
+      "status": "imported",
+      "destination": "document_library/Luat-91-2015-QH13.md"
+    },
+    {
+      "id": "ND-123-2020-ND-CP",
+      "source_file": "ND-123-2020-ND-CP.md",
+      "sha256": "6c1f7e75758c4543c53852935fd1d25a5de6136c7331bbd284d536a6d4251138",
+      "characters": 290082,
+      "status": "imported",
+      "destination": "document_library/ND-123-2020-ND-CP.md"
+    },
+    {
+      "id": "ND-125-2020-ND-CP",
+      "source_file": "ND-125-2020-ND-CP.md",
+      "sha256": "f35b94c7452e26c462c0b3656cd26f6c819f9bbf4b56a100d2cdcbe2c1314958",
+      "characters": 218347,
+      "status": "imported",
+      "destination": "document_library/ND-125-2020-ND-CP.md"
+    },
+    {
+      "id": "ND-310-2025-ND-CP",
+      "source_file": "ND-310-2025-ND-CP.md",
+      "sha256": "08997847492b570d4de86688758b9675b3db4527077d3526b7e9e029d9779873",
+      "characters": 4680,
+      "status": "imported",
+      "destination": "document_library/ND-310-2025-ND-CP.md"
+    },
+    {
+      "id": "ND-320-2025-ND-CP",
+      "source_file": "ND-320-2025-ND-CP.md",
+      "sha256": "363e85568ad9b11c155526dcefae5f143e27dc0e03a43f67d018cfce9d8a5fcd",
+      "characters": 191862,
+      "status": "imported",
+      "destination": "document_library/ND-320-2025-ND-CP.md"
+    },
+    {
+      "id": "ND-68-2026-ND-CP",
+      "source_file": "ND-68-2026-ND-CP.md",
+      "sha256": "135c45773f2da0e6a7352f2c7a7b8f4f5a6e3f75a3660ceda98f23b5a870ca85",
+      "characters": 20827,
+      "status": "imported",
+      "destination": "document_library/ND-68-2026-ND-CP.md"
+    },
+    {
+      "id": "NQ-204-2025-QH15",
+      "source_file": "NQ-204-2025-QH15.md",
+      "sha256": "aa7c7b5dd869ec5ab4df50cc5876054c14b406d020601f625ecce229e8a71c8d",
+      "characters": 138,
+      "status": "missing_body",
+      "destination": "document_library/pending/NQ-204-2025-QH15.md"
+    },
+    {
+      "id": "TT-100-2021-TT-BTC",
+      "source_file": "TT-100-2021-TT-BTC.md",
+      "sha256": "c394647c92bfd8e18a60904b784c20ec03e96fdc33c01d64246ab5624fcbddaa",
+      "characters": 5517,
+      "status": "imported",
+      "destination": "document_library/TT-100-2021-TT-BTC.md"
+    },
+    {
+      "id": "TT-103-2014-TT-BTC",
+      "source_file": "TT-103-2014-TT-BTC.md",
+      "sha256": "8dfa455cff3b468824ae7d02f0d2e04279a2f587e210c7627ffe4339b76c84cc",
+      "characters": 75951,
+      "status": "imported",
+      "destination": "document_library/TT-103-2014-TT-BTC.md"
+    },
+    {
+      "id": "TT-110-2026-TT-BTC",
+      "source_file": "TT-110-2026-TT-BTC.md",
+      "sha256": "d3c3e3f24332b720797e00dfaa8baa068f2768bd0e81cf118be16dab54bd4928",
+      "characters": 9887,
+      "status": "imported",
+      "destination": "document_library/TT-110-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-111-2013-TT-BTC",
+      "source_file": "TT-111-2013-TT-BTC.md",
+      "sha256": "119090a1d3375c81f7f36ce07d27a3be75db07bbb8cf7c5373d0fc4b49b0a1d2",
+      "characters": 186817,
+      "status": "imported",
+      "destination": "document_library/TT-111-2013-TT-BTC.md"
+    },
+    {
+      "id": "TT-121-2026-TT-BTC",
+      "source_file": "TT-121-2026-TT-BTC.md",
+      "sha256": "cf75d7d46dc8912e22d4458a6bedf122c02af7d3dba34e6699cbc158c70a7d9b",
+      "characters": 159864,
+      "status": "imported",
+      "destination": "document_library/TT-121-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-126-2026-TT-BTC",
+      "source_file": "TT-126-2026-TT-BTC.md",
+      "sha256": "856034c6b800665be6b57e2133f89b13192d96dc9e9a8d18ed9068b4798642ce",
+      "characters": 2681,
+      "status": "imported",
+      "destination": "document_library/TT-126-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-40-2021-TT-BTC",
+      "source_file": "TT-40-2021-TT-BTC.md",
+      "sha256": "647c1be3979812ef66f29f6f2d8115df38cd47568ed2b23c96d1bcf117201fc5",
+      "characters": 138988,
+      "status": "imported",
+      "destination": "document_library/TT-40-2021-TT-BTC.md"
+    },
+    {
+      "id": "TT-78-2021-TT-BTC",
+      "source_file": "TT-78-2021-TT-BTC.md",
+      "sha256": "774f6ef7555612dfd4169e2a089d90b88cf868c4043e4fa6b64201bbdb29b376",
+      "characters": 62855,
+      "status": "imported",
+      "destination": "document_library/TT-78-2021-TT-BTC.md"
+    },
+    {
+      "id": "TT-86-2024-TT-BTC",
+      "source_file": "TT-86-2024-TT-BTC.md",
+      "sha256": "94c070dec1448031466cb5a627f42a9e5454939098565d158fd2433e951bf2a3",
+      "characters": 156243,
+      "status": "imported",
+      "destination": "document_library/TT-86-2024-TT-BTC.md"
+    },
+    {
+      "id": "TT-87-2026-TT-BTC",
+      "source_file": "TT-87-2026-TT-BTC.md",
+      "sha256": "598ef28d6712a5ecfbb7466550aea8530e2b174e3cee217d74619511fd6678ed",
+      "characters": 13145,
+      "status": "imported",
+      "destination": "document_library/TT-87-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-92-2015-TT-BTC",
+      "source_file": "TT-92-2015-TT-BTC.md",
+      "sha256": "036e7e9964b8defcdfbfdbdf76310b375c46bc59d30aa5843998a485ab654d34",
+      "characters": 231596,
+      "status": "imported",
+      "destination": "document_library/TT-92-2015-TT-BTC.md"
+    }
+  ],
+  "catalog_without_markdown": [
+    "ND-141-2026-ND-CP",
+    "NQ-43-2026-QH16",
+    "Luat-109-2025-QH15",
+    "TT-88-2021-TT-BTC",
+    "ND-168-2025-ND-CP",
+    "ND-181-2025-ND-CP",
+    "ND-118-2025-ND-CP",
+    "ND-144-2026-ND-CP",
+    "ND-174-2025-ND-CP",
+    "ND-245-2026-ND-CP",
+    "ND-248-2026-ND-CP",
+    "ND-252-2026-ND-CP",
+    "ND-253-2026-ND-CP",
+    "ND-254-2026-ND-CP",
+    "ND-291-2026-ND-CP",
+    "TT-152-2025-TT-BTC",
+    "TT-18-2026-TT-BTC",
+    "TT-19-2021-TT-BTC",
+    "TT-20-2026-TT-BTC",
+    "TT-50-2026-TT-BTC",
+    "TT-89-2026-TT-BTC",
+    "TT-90-2026-TT-BTC",
+    "TT-91-2026-TT-BTC",
+    "TT-94-2026-TT-BTC",
+    "1296-CT-NVT-2026-goc",
+    "NQ-204-2025-QH15"
+  ]
+}

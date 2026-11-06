@@ -8,8 +8,9 @@ import { readRegistrationModelStream } from './registrationModelStream';
 export async function handleRegistrationOffice(request: Request, env: Env, ctx: ExecutionContext, cors: Headers) {
   const headers = new Headers(cors); headers.set('Cache-Control', 'no-store');
   if (request.method !== 'POST') return jsonResponse({error:'Method not allowed'},405,headers);
-  if (!await verifiedFirebasePhone(request)) return jsonResponse({error:'Vui lòng đăng nhập để trao đổi với AI.'},401,headers);
-  if (await isChatRateLimited(request.headers.get('CF-Connecting-IP') || 'unknown',env,ctx)) return jsonResponse({error:'Bạn gửi quá nhanh. Vui lòng thử lại sau.'},429,headers);
+  const verifiedPhone=await verifiedFirebasePhone(request);
+  if (!verifiedPhone) return jsonResponse({error:'Vui lòng đăng nhập để trao đổi với AI.'},401,headers);
+  if (await isChatRateLimited(request.headers.get('CF-Connecting-IP') || 'unknown',env,ctx,verifiedPhone)) return jsonResponse({error:'Bạn gửi quá nhanh. Vui lòng thử lại sau.'},429,headers);
   let body: any;
   try {
     const reader=request.body?.getReader(); if(!reader) throw Error();

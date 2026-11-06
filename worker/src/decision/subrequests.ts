@@ -28,14 +28,14 @@ export function retrieveSubrequests(query: string,frame: TaxDecisionFrame,scope:
   const plans=requests.map(request=>{
     const narrowed=frameForRequest(frame,request),plan=buildRetrievalPlan(narrowed);
     const scopedQuery=`${query}\nYêu cầu đang đối chiếu: ${request.intent} ${focusNames[request.tax_focus]}`;
-    const retrieved=retrieve(scopedQuery,topK,scope,plan);
+    const retrieved=retrieve(scopedQuery,topK,{...scope,years:[...request.period.years]},plan);
     const allowed=new Set(filterAndGateEvidence(retrieved.results.map(r=>r.chunk),narrowed).passedChunks.map(c=>c.id));
     const hits=retrieved.results.filter(r=>allowed.has(r.chunk.id));
     hits.forEach((result,index)=>{
       const ref=result.chunk.ref_id||result.chunk.id;
       links[ref]=[...new Set([...(links[ref]||[]),request.id])];
       const previous=ranked.get(ref);
-      ranked.set(ref,{result,score:(previous?.score||0)+reciprocalRankScore(index+1)});
+      ranked.set(ref,{result:previous?.result.required&&!result.required?previous.result:result,score:(previous?.score||0)+reciprocalRankScore(index+1)});
     });
     for(const hit of hits.filter(hit=>hit.required))anchors.push(hit.chunk.ref_id||hit.chunk.id);
     if(hits[0])anchors.push(hits[0].chunk.ref_id||hits[0].chunk.id);

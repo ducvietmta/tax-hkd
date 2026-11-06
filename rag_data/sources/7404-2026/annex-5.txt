@@ -1,0 +1,560 @@
+P001: Phụ lục 5
+P003: TÀI LIỆU TUYÊN TRUYỀN
+P004: THUẾ VÀ HÓA ĐƠN ĐIỆN TỬ TRONG THƯƠNG MẠI ĐIỆN TỬVÀ BÁN HÀNG ĐA KÊNH
+P005: Những nội dung người nộp thuế cần biết, cần thực hiện từ ngày 01/7/2026
+P007: Biên tập theo từng nhóm đối tượng người nộp thuế
+P009: I. NHỮNG NỘI DUNG CHUNG NGƯỜI KINH DOANH THƯƠNG MẠI ĐIỆN TỬ VÀ BÁN HÀNG ĐA KÊNH CẦN BIẾT
+P010: 1. Mục đích và phạm vi tài liệu
+P011: Hoạt động thương mại điện tử, kinh doanh trên nền tảng số và bán hàng đa kênh đang phát triển nhanh với nhiều mô hình như bán hàng qua sàn thương mại điện tử, website, mạng xã hội, livestream; hoạt động sáng tạo nội dung số, cung cấp sản phẩm và dịch vụ nội dung thông tin số; quảng cáo số và các hoạt động kinh doanh trên nền tảng số khác ...
+P012: Trong năm 2026, nhiều quy định mới về quản lý thuế, thuế thu nhập cá nhân, hóa đơn điện tử và quản lý hoạt động thương mại điện tử được ban hành và có hiệu lực; trong đó, từ ngày 01/7/2026, Luật Quản lý thuế và các văn bản hướng dẫn mới về quản lý thuế, thuế thu nhập cá nhân, hóa đơn điện tử được triển khai đồng bộ. Tài liệu được biên soạn nhằm giúp người nộp thuế xác định mình thuộc nhóm đối tượng nào, hiểu đúng nghĩa vụ áp dụng đối với nhóm đó và thực hiện đúng quy định; đồng thời hỗ trợ cơ quan thuế thống nhất nội dung tuyên truyền.
+P013: Tài liệu tập trung vào các nội dung có ảnh hưởng trực tiếp đến hoạt động thương mại điện tử và bán hàng đa kênh: đăng ký thuế; xác định và tổng hợp doanh thu; phân loại thu nhập; khai, nộp thuế; cơ chế khấu trừ, khai thay, nộp thuế thay; hóa đơn điện tử; lưu giữ hồ sơ, dữ liệu và xử lý sai sót.
+P014: 2. Các văn bản pháp luật chủ yếu
+P015: Luật Quản lý thuế số 108/2025/QH15.
+P016: Luật Thương mại điện tử số 122/2025/QH15 và Nghị định số 248/2026/NĐ-CP.
+P017: Nghị định số 252/2026/NĐ-CP quy định chi tiết thi hành Luật Quản lý thuế.
+P018: Nghị định số 253/2026/NĐ-CP quy định chi tiết Luật Thuế thu nhập cá nhân.
+P019: Nghị định số 254/2026/NĐ-CP về hóa đơn, chứng từ điện tử.
+P020: Nghị định số 68/2026/NĐ-CP, được sửa đổi, bổ sung bởi Nghị định số 141/2026/NĐ-CP, về chính sách thuế đối với hộ kinh doanh, cá nhân kinh doanh.
+P021: Thông tư số 90/2026/TT-BTC hướng dẫn đăng ký thuế.
+P022: Thông tư số 91/2026/TT-BTC quy định một số nội dung về hóa đơn điện tử, chứng từ điện tử.
+P023: Thông tư số 87/2026/TT-BTC và Thông tư số 94/2026/TT-BTC theo các nội dung được dẫn chiếu tại tài liệu.
+P024: 3. Năm nguyên tắc chung cần ghi nhớ
+P025: Một là, Kinh doanh trên nền tảng số, trên sàn thương mại điện tử hoặc đồng thời qua nhiều kênh không làm thay đổi bản chất nghĩa vụ thuế. Nghĩa vụ được xác định căn cứ vào chủ thể kinh doanh, bản chất hoạt động, loại thu nhập và doanh thu thực tế phát sinh.
+P026: Hai là, Doanh thu phát sinh từ các kênh kinh doanh thuộc cùng một người nộp thuế phải được tổng hợp theo quy định; không xác định riêng nghĩa vụ thuế theo từng gian hàng, tài khoản hoặc nền tảng.
+P027: Ba là, Trường hợp có nhiều hoạt động khác nhau như bán hàng hóa, cung cấp dịch vụ, quảng cáo/tài trợ, cung cấp sản phẩm và dịch vụ nội dung thông tin số, tiếp thị liên kết hoặc bản quyền, doanh thu cần được phân loại theo từng hoạt động để xác định đúng nhóm ngành, nghề, thuế GTGT và thuế TNCN tương ứng.
+P028: Bốn là, cơ chế khấu trừ, khai thay, nộp thuế thay chỉ áp dụng đối với chủ thể, giao dịch thuộc phạm vi pháp luật quy định. Người nộp thuế thuộc trường hợp này cần theo dõi, đối chiếu phần nghĩa vụ đã được thực hiện thay và phần còn phải trực tiếp thực hiện.
+P029: Năm là, người nộp thuế cần cung cấp, cập nhật thông tin đăng ký thuế đầy đủ, chính xác; thực hiện hóa đơn theo đúng quy định áp dụng đối với giao dịch; lưu giữ hồ sơ, chứng từ và khai bổ sung khi phát hiện sai sót.
+P030: II. DOANH NGHIỆP KINH DOANH THƯƠNG MẠI ĐIỆN TỬ VÀ BÁN HÀNG ĐA KÊNH
+P031: Doanh nghiệp có thể bán hàng hóa, cung cấp dịch vụ tại cửa hàng, trên website, ứng dụng, sàn thương mại điện tử, mạng xã hội hoặc đồng thời qua nhiều kênh. Doanh nghiệp thực hiện nghĩa vụ thuế, hóa đơn theo pháp luật áp dụng đối với doanh nghiệp và theo giao dịch thực tế. Phần này không đồng nhất cơ chế quản lý thuế của doanh nghiệp với cơ chế khấu trừ, khai thay, nộp thuế thay áp dụng cho hộ kinh doanh, cá nhân kinh doanh theo Điều 43 đến Điều 46 Nghị định số 252/2026/NĐ-CP.
+P032: 1. Rà soát thông tin đăng ký thuế và hoạt động kinh doanh
+P033: Rà soát, cập nhật đầy đủ thông tin đăng ký thuế, địa điểm kinh doanh và các thông tin phải đăng ký theo quy định. 
+P034: Xác định đầy đủ các kênh bán hàng, cung cấp dịch vụ và các giao dịch phát sinh từ hoạt động thương mại điện tử, bán hàng đa kênh để hạch toán, kê khai theo quy định. 
+P035: Bảo đảm thông tin về tên, mã số thuế, địa chỉ, địa điểm kinh doanh và các thông tin liên quan trên hóa đơn phù hợp với hồ sơ đăng ký thuế và giao dịch thực tế.
+P036: Căn cứ pháp lý: Điều 6 đến Điều 8 và Điều 40 đến Điều 46 Nghị định số 252/2026/NĐ-CP; Thông tư số 90/2026/TT-BTC.
+P037: 2. Tổng hợp doanh thu và thực hiện nghĩa vụ thuế
+P038: Doanh nghiệp phải tổng hợp doanh thu phát sinh từ cửa hàng và toàn bộ các kênh số trên cùng một nền tảng thương mại điện tử. Trường hợp có nhiều hoạt động khác nhau, cần theo dõi và phân loại doanh thu theo từng hoạt động để xác định đúng nghĩa vụ thuế.
+P039: Người nộp thuế có trách nhiệm hạch toán, kê khai đầy đủ, trung thực doanh thu phát sinh từ toàn bộ hoạt động kinh doanh, bao gồm doanh thu phát sinh tại cửa hàng và trên các website, ứng dụng, sàn thương mại điện tử, mạng xã hội và các kênh bán hàng khác theo quy định.
+P040: Trường hợp sử dụng nhiều gian hàng, tài khoản hoặc phương thức nhận thanh toán phục vụ hoạt động kinh doanh, người nộp thuế cần bảo đảm doanh thu phát sinh được tổng hợp đầy đủ, không bỏ sót doanh thu và thực hiện nghĩa vụ cung cấp, cập nhật thông tin theo quy định.
+P041: 3. Kê khai, nộp thuế đối với hoạt động thương mại điện tử và bán hàng đa kênh
+P042: Doanh nghiệp thực hiện khai, tính và nộp các loại thuế phát sinh từ hoạt động kinh doanh thương mại điện tử, bán hàng đa kênh theo quy định pháp luật thuế áp dụng đối với doanh nghiệp. Doanh thu, chi phí và nghĩa vụ thuế được xác định trên cơ sở hoạt động, giao dịch thực tế và hồ sơ, chứng từ theo quy định.
+P043: Cơ chế khấu trừ, khai thay, nộp thuế thay đối với hoạt động kinh doanh trên nền tảng thương mại điện tử được áp dụng theo đúng đối tượng, giao dịch và trường hợp pháp luật quy định.
+P044: Căn cứ pháp lý: Luật Quản lý thuế số 108/2025/QH15 và các văn bản pháp luật thuế có liên quan.
+P045: 4. Hóa đơn điện tử
+P046: Doanh nghiệp xác định đúng trường hợp sử dụng hóa đơn điện tử, loại hóa đơn, thời điểm lập hóa đơn và nội dung hóa đơn. Hóa đơn phải phản ánh đúng người bán, địa điểm kinh doanh, hàng hóa hoặc dịch vụ, giá trị và thời điểm giao dịch.
+P047: Việc nền tảng có dữ liệu đơn hàng hoặc đã khấu trừ, nộp thuế thay không thay thế trách nhiệm lập hóa đơn của người bán, trừ trường hợp pháp luật có quy định khác hoặc thực hiện ủy nhiệm lập hóa đơn theo đúng điều kiện.
+P048: Đối với giao dịch bị hủy, đổi, trả hoặc hoàn tiền sau khi hóa đơn đã lập, phải xử lý hóa đơn và các dữ liệu liên quan theo quy định, bảo đảm phù hợp với giao dịch thực tế.
+P049: Căn cứ pháp lý: Điều 6, Điều 7, Điều 9, Điều 10 và Điều 14 Nghị định số 254/2026/NĐ-CP; Thông tư số 91/2026/TT-BTC.
+P050: 5. Hồ sơ, dữ liệu cần lưu giữ và xử lý sai sót
+P051: - Hồ sơ khai thuế, hóa đơn điện tử.
+P052: - Hợp đồng, thỏa thuận với nền tảng, khách hàng hoặc đối tác.
+P053: - Dữ liệu đơn hàng, giao dịch, bảng đối soát.
+P054: - Chứng từ thanh toán, sao kê và chứng từ khấu trừ, khai thay, nộp thuế thay (nếu thuộc trường hợp có phát sinh).
+P055: - Hồ sơ hủy, đổi, trả hàng hoặc hoàn tiền.
+P056: Khi phát hiện hồ sơ khai thuế có sai sót, doanh nghiệp thực hiện khai bổ sung theo quy định của pháp luật về quản lý thuế.
+P057: Căn cứ pháp lý: Luật Quản lý thuế số 108/2025/QH15; Nghị định số 252/2026/NĐ-CP; Thông tư số 94/2026/TT-BTC.
+P058: 6. Doanh nghiệp cần kiểm tra
+P059: - Thông tin đăng ký thuế và địa điểm kinh doanh đã đầy đủ, chính xác.
+P060: - Đã tổng hợp, hạch toán và kê khai đầy đủ doanh thu phát sinh từ các kênh kinh doanh theo quy định.
+P061: - Đã xác định và kê khai đầy đủ nghĩa vụ thuế phát sinh từ hoạt động kinh doanh theo quy định.
+P062: - Đã lập hóa đơn điện tử đúng giao dịch và đúng thời điểm.
+P063: - Đã lưu giữ đầy đủ hồ sơ, chứng từ và xử lý kịp thời giao dịch hủy, đổi, trả, hoàn tiền.
+P064: - Đã khai bổ sung khi phát hiện sai sót.
+P065: III. HỘ KINH DOANH, CÁ NHÂN KINH DOANH BÁN HÀNG ONLINE VÀ ĐA KÊNH
+P066: Hộ kinh doanh, cá nhân kinh doanh có thể bán hàng tại cửa hàng, trên sàn thương mại điện tử, website, mạng xã hội, livestream hoặc nền tảng số khác. 
+P067: 1. Đăng ký thuế
+P068: Trường hợp đăng ký hộ kinh doanh theo cơ chế một cửa liên thông, việc đăng ký thuế được thực hiện đồng thời với đăng ký hộ kinh doanh. Trường hợp đăng ký thuế trực tiếp với cơ quan thuế, người nộp thuế thực hiện đăng ký trong thời hạn theo quy định kể từ ngày bắt đầu hoạt động kinh doanh hoặc phát sinh nghĩa vụ đăng ký thuế.
+P069: Căn cứ pháp lý: Điểm d khoản 3 Điều 6 Nghị định số 252/2026/NĐ-CP; Điều 21 Thông tư số 90/2026/TT-BTC.
+P070: 2. Tổng hợp và phân loại doanh thu
+P071: Doanh thu từ cửa hàng, sàn thương mại điện tử, website, mạng xã hội, livestream và các nguồn kinh doanh khác phải được tổng hợp theo cùng người nộp thuế. Không xác định riêng ngưỡng doanh thu cho từng gian hàng, tài khoản hoặc nền tảng.
+P072: Trường hợp có nhiều hoạt động như bán hàng, cung cấp dịch vụ, quảng cáo hoặc tiếp thị liên kết, cần phân loại doanh thu theo từng hoạt động để áp dụng đúng phương pháp tính thuế và thuế suất.
+P073: Căn cứ pháp lý: Luật Quản lý thuế số 108/2025/QH15; Nghị định số 68/2026/NĐ-CP và văn bản sửa đổi, bổ sung; Nghị định số 253/2026/NĐ-CP.
+P074: 3. Tra cứu nhanh một số hoạt động phổ biến trên nền tảng số
+P075: Hoạt động thực tế
+P076: Nhóm hoạt động/
+P077: thu nhập
+P078: Thuế GTGT
+P079: Thuế TNCN
+P080: Phân phối, cung cấp hàng hóa
+P081: Kinh doanh hàng hóa
+P082: Theo thuế suất GTGT áp dụng đối với hoạt động bán hàng hóa
+P083: 0,5%
+P084: Dịch vụ, xây dựng không bao thầu nguyên vật liệu
+P085: Kinh doanh dịch vụ
+P086: Theo quy định GTGT đối với nhóm dịch vụ
+P087: 2%
+P088: Sản xuất, vận tải, dịch vụ có gắn với hàng hóa, xây dựng có bao thầu nguyên vật liệu
+P089: Kinh doanh tương ứng
+P090: Theo quy định GTGT của nhóm hoạt động
+P091: 1,5%
+P092: Cung cấp sản phẩm và dịch vụ nội dung thông tin số
+P093: Thu nhập từ kinh doanh
+P094: 5% đối với trường hợp thuộc nhóm áp dụng mức này theo pháp luật GTGT
+P095: 5%
+P096: Tiếp thị liên kết trên nền tảng TMĐT/nền tảng số
+P097: Thuộc hoạt động cung cấp sản phẩm và dịch vụ nội dung thông tin số
+P098: 5%
+P099: 5%
+P100: Khoản thu từ quan hệ lao động
+P101: Thu nhập từ tiền lương, tiền công
+P102: Không áp dụng thuế GTGT của hoạt động kinh doanh
+P103: Theo quy định đối với tiền lương, tiền công
+P104: Căn cứ pháp lý: Luật Thuế giá trị gia tăng và các văn bản hướng dẫn thi hành; Nghị định số 253/2026/NĐ-CP và các văn bản hướng dẫn về thuế TNCN; Nghị định số 68/2026/NĐ-CP được sửa đổi, bổ sung bởi Nghị định số 141/2026/NĐ-CP.
+P105: 4. Khai, nộp thuế và phần nền tảng thực hiện thay
+P106: - Đối với giao dịch thuộc phạm vi nền tảng thực hiện khấu trừ, khai thay, nộp thuế thay, người bán cung cấp đầy đủ, chính xác thông tin định danh và thông tin xác định nghĩa vụ thuế.
+P107: - Đối với giao dịch không thuộc phạm vi thực hiện thay, người bán trực tiếp khai và nộp thuế theo quy định.
+P108: - Người bán cần theo dõi thông báo điện tử, doanh thu và số thuế đã được thực hiện thay để tránh bỏ sót nghĩa vụ hoặc kê khai, nộp thuế trùng.
+P109: Căn cứ pháp lý: Điều 42 đến Điều 46 Nghị định số 252/2026/NĐ-CP.
+P110: 5. Hóa đơn điện tử
+P111: Hộ kinh doanh, cá nhân kinh doanh có doanh thu năm trên 01 tỷ đồng thuộc trường hợp phải áp dụng hóa đơn điện tử theo quy định.
+P112: Trường hợp có doanh thu năm từ 01 tỷ đồng trở xuống, đáp ứng điều kiện và có nhu cầu sử dụng hóa đơn điện tử thì được đăng ký sử dụng theo quy định.
+P113: Đối với hộ kinh doanh, cá nhân kinh doanh mới ra kinh doanh hoặc có doanh thu năm trước chưa trên 01 tỷ đồng nhưng trong năm tính thuế có doanh thu lũy kế trên 01 tỷ đồng, việc đăng ký sử dụng hóa đơn điện tử thực hiện trong thời gian 30 ngày kể từ ngày cuối cùng của kỳ tính thuế có doanh thu lũy kế trên 01 tỷ đồng.
+P114: Trường hợp đáp ứng điều kiện theo quy định, người bán có thể ủy nhiệm cho bên thứ ba lập hóa đơn điện tử. Việc nền tảng thực hiện khấu trừ, khai thay, nộp thuế thay không mặc nhiên thay thế nghĩa vụ lập hóa đơn của người bán.
+P115: Căn cứ pháp lý: Điều 6, Điều 9, Điều 10 và Điều 14 Nghị định số 254/2026/NĐ-CP; Nghị định số 68/2026/NĐ-CP được sửa đổi, bổ sung bởi Nghị định số 141/2026/NĐ-CP; Thông tư số 91/2026/TT-BTC.
+P116: 6. Khi giao dịch bị hủy, đổi, trả hoặc hoàn tiền
+P117: Người bán cần căn cứ giao dịch thực tế và hồ sơ, chứng từ để xử lý đồng bộ doanh thu, số thuế đã được khấu trừ, khai thay, nộp thuế thay và hóa đơn đã lập. Cần lưu giữ mã đơn hàng, mã giao dịch, chứng từ trả hàng, xác nhận hoàn tiền và hồ sơ điều chỉnh có liên quan.
+P118: Căn cứ pháp lý: Điều 44, Điều 46 Nghị định số 252/2026/NĐ-CP; Điều 14 Nghị định số 254/2026/NĐ-CP; Điều 10 Thông tư số 91/2026/TT-BTC.
+P119: 7. Hộ, cá nhân kinh doanh cần kiểm tra 7 việc
+P120: - Đã đăng ký thuế và cập nhật thông tin khi có thay đổi.
+P121: - Đã rà soát tất cả các kênh có phát sinh doanh thu: cửa hàng, website, sàn, mạng xã hội, livestream và nền tảng khác.
+P122: - Đã tổng hợp đầy đủ doanh thu theo cùng người nộp thuế.
+P123: - Đã phân loại doanh thu theo từng hoạt động.
+P124: - Đã xác định phần nền tảng thực hiện thay và phần phải trực tiếp khai, nộp.
+P125: - Đã lập và xử lý hóa đơn điện tử đúng quy định.
+P126: - Đã lưu giữ hồ sơ, chứng từ và khai bổ sung khi phát hiện sai sót.
+P127: IV. CÁ NHÂN (FREELANCER, KOL/KOC, STREAMER...) CÓ HOẠT ĐỘNG SÁNG TẠO NỘI DUNG SỐ, CUNG CẤP SẢN PHẨM VÀ DỊCH VỤ NỘI DUNG THÔNG TIN SỐ, TIẾP THỊ LIÊN KẾT (AFFILIATE)
+P128: Tên gọi như freelancer, KOL, KOC, streamer, affiliate chỉ mô tả cách thức hoặc nghề nghiệp trên thị trường, không tự quyết định loại thu nhập chịu thuế. Người nộp thuế cần xác định trước bản chất hoạt động và quan hệ với tổ chức, cá nhân trả thu nhập để xác định đúng thu nhập từ kinh doanh hay thu nhập từ tiền lương, tiền công.
+P129: 1. Các khoản thu thường gặp
+P130: - Doanh thu bán hàng hóa, cung cấp dịch vụ.
+P131: - Hoa hồng tiếp thị liên kết (affiliate).
+P132: - Thu nhập từ quảng cáo, tài trợ.
+P133: Thu nhập từ cung cấp sản phẩm và dịch vụ nội dung thông tin số.
+P134: Tiền bản quyền hoặc thu nhập từ chuyển quyền sử dụng quyền sở hữu trí tuệ.
+P135: Tiền lương, tiền công, thù lao nếu khoản thu thực tế thuộc nhóm này theo quy định.
+P136: 2. Xác định thu nhập từ hoạt động kinh doanh thương mại điện tử, kinh doanh dựa trên nền tảng số
+P137: Việc xác định thu nhập từ hoạt động kinh doanh thương mại điện tử, kinh doanh dựa trên nền tảng số căn cứ vào bản chất hoạt động và khoản thu nhập thực tế phát sinh, không căn cứ đơn thuần vào tên gọi nghề nghiệp như freelancer, KOL, KOC, streamer, affiliate.
+P138: Trường hợp có quan hệ lao động: Trường hợp freelancer, KOL, KOC, streamer hoặc cá nhân khác có quan hệ lao động, là người làm công ăn lương với tổ chức, cá nhân trả thu nhập thì khoản thu nhập phát sinh từ quan hệ lao động đó được xác định là thu nhập từ tiền lương, tiền công và thực hiện nghĩa vụ thuế TNCN theo quy định đối với thu nhập từ tiền lương, tiền công.
+P139: Trường hợp cùng một cá nhân vừa có thu nhập từ quan hệ lao động, vừa độc lập thực hiện hoạt động kinh doanh thương mại điện tử, kinh doanh dựa trên nền tảng số thì phải xác định và phân loại riêng từng khoản thu nhập theo bản chất hoạt động và quan hệ phát sinh thu nhập; không gộp các khoản thu có bản chất khác nhau để áp dụng một cơ chế thuế chung.
+P140: Căn cứ pháp lý: Điều 7, Điều 8 Nghị định số 253/2026/NĐ-CP; Thông tư số 87/2026/TT-BTC.
+P141: 3. Trường hợp có thu nhập từ tiền lương, tiền công
+P142: Đối với khoản thu nhập được xác định là thu nhập từ tiền lương, tiền công, tổ chức, cá nhân trả thu nhập thực hiện khấu trừ thuế TNCN theo quy định tương ứng với từng trường hợp.
+P143: Việc khấu trừ có thể được thực hiện theo Biểu thuế lũy tiến từng phần hoặc theo tỷ lệ khấu trừ 10% nếu thuộc trường hợp pháp luật quy định.
+P144: Mức khấu trừ 10% không phải là cách xử lý mặc định đối với mọi khoản thu nhập của freelancer, KOL, KOC, streamer, affiliate hoặc mọi khoản thu nhập phát sinh trên nền tảng số. Trước hết phải xác định đúng bản chất khoản thu nhập; chỉ áp dụng cơ chế khấu trừ đối với tiền lương, tiền công khi khoản thu thuộc loại thu nhập này theo quy định.
+P145: 4. Hồ sơ cần lưu giữ
+P146: Tình huống thực tế
+P147: Xác định loại thu nhập
+P148: Cách hiểu để thực hiện
+P149: Cá nhân tự thực hiện hoạt động kinh doanh TMĐT/nền tảng số; cung cấp sản phẩm, dịch vụ nội dung thông tin số
+P150: Thu nhập từ kinh doanh
+P151: Không phụ thuộc việc đã đăng ký kinh doanh, đăng ký thuế cho hoạt động đó hay chưa.
+P152: Freelancer, KOL/KOC, streamer... có quan hệ lao động, là người làm công ăn lương với tổ chức/cá nhân trả thu nhập
+P153: Thu nhập từ tiền lương, tiền công
+P154: Thực hiện quy định thuế TNCN đối với tiền lương, tiền công theo trường hợp cụ thể.
+P155: Một cá nhân đồng thời có hoạt động kinh doanh và có quan hệ lao động
+P156: Phân loại riêng từng khoản thu
+P157: Không gộp hoặc áp dụng một cơ chế thuế cho toàn bộ các khoản thu.
+P158: - Hợp đồng, thỏa thuận với nền tảng, nhãn hàng hoặc đối tác.
+P159: - Báo cáo doanh thu, tỷ lệ hoa hồng và dữ liệu giao dịch.
+P160: - Sao kê, chứng từ thanh toán và chứng từ khấu trừ.
+P161: - Hóa đơn và tài liệu liên quan đến từng loại khoản thu.
+P162: 5. Cá nhân cần tự kiểm tra trước khi xác định nghĩa vụ thuế
+P163: - Đã liệt kê đầy đủ từng nguồn thu.
+P164: - Đã xác định bản chất từng khoản thu, không chỉ căn cứ tên gọi nghề nghiệp.
+P165: - Đã phân loại riêng doanh thu bán hàng, dịch vụ, quảng cáo, nội dung số, affiliate, bản quyền, tiền lương/tiền công/thù lao.
+P166: - Nếu có quan hệ lao động, đã tách riêng khoản thu nhập từ tiền lương, tiền công với khoản thu nhập từ kinh doanh.
+P167: - Đã đối chiếu đúng nhóm ngành, nghề và thuế suất.
+P168: - Đã lưu đầy đủ hợp đồng, dữ liệu, chứng từ và hóa đơn.
+P169: V. CÁ NHÂN KHÔNG CƯ TRÚ VÀ NHÀ CUNG CẤP NƯỚC NGOÀI
+P170: Cá nhân không cư trú, nhà cung cấp nước ngoài có thu nhập hoặc doanh thu phát sinh tại Việt Nam có thể phát sinh nghĩa vụ thuế tại Việt Nam dù không có địa điểm kinh doanh hoặc hiện diện vật lý tại Việt Nam.
+P171: 1. Nhà cung cấp nước ngoài
+P172: Nhà cung cấp nước ngoài xác định cơ chế thực hiện nghĩa vụ thuế theo từng trường hợp:
+P173: - Trực tiếp đăng ký, khai và nộp thuế.
+P174: - Ủy quyền thực hiện nghĩa vụ thuế theo quy định.
+P175: - Không phải đăng ký thuế nếu toàn bộ doanh thu tại Việt Nam đã được khấu trừ, khai thay, nộp thuế thay theo quy định.
+P176: Trường hợp phải đăng ký thuế, nhà cung cấp nước ngoài khai đầy đủ thông tin về tài khoản ngân hàng, tài khoản thanh toán, ví điện tử hoặc hình thức nhận tiền liên quan đến doanh thu tại Việt Nam và cập nhật khi có thay đổi.
+P177: 2. Cá nhân không cư trú
+P178: Cá nhân không cư trú có thu nhập từ kinh doanh phát sinh tại Việt Nam thực hiện nghĩa vụ thuế theo doanh thu phát sinh tại Việt Nam và thuế suất tương ứng, kể cả trường hợp hoạt động thông qua nền tảng ở nước ngoài.
+P179: Căn cứ pháp lý: Điều 40 đến Điều 44 Nghị định số 252/2026/NĐ-CP; Nghị định số 253/2026/NĐ-CP.
+P180: VI. CHỦ QUẢN NỀN TẢNG THƯƠNG MẠI ĐIỆN TỬ, NỀN TẢNG SỐ VÀ TỔ CHỨC CÓ TRÁCH NHIỆM KHẤU TRỪ, KHAI THAY, NỘP THUẾ THAY
+P181: Chủ quản nền tảng và tổ chức có trách nhiệm thực hiện nghĩa vụ trong đúng phạm vi pháp luật quy định. Việc xác định trách nhiệm cần căn cứ chức năng của nền tảng, giao dịch thực tế và vai trò của từng chủ thể.
+P182: 1. Các trách nhiệm chính
+P183: - Thu thập, cập nhật và lưu giữ thông tin người bán theo quy định.
+P184: - Xác định đúng giao dịch thuộc phạm vi khấu trừ, khai thay, nộp thuế thay.
+P185: - Thực hiện khấu trừ theo thời điểm pháp luật quy định.
+P186: - Thông báo điện tử cho người bán về giao dịch, doanh thu và số thuế đã khấu trừ.
+P187: - Điều chỉnh, hoàn trả số thuế đã khấu trừ đối với giao dịch bị hủy, trả lại hàng hoặc hoàn tiền theo quy định.
+P188: - Cung cấp dữ liệu đầy đủ, chính xác, đúng định dạng và đúng thời hạn cho cơ quan có thẩm quyền.
+P189: Căn cứ pháp lý: Điều 43 đến Điều 46 Nghị định số 252/2026/NĐ-CP; Luật Thương mại điện tử số 122/2025/QH15; Nghị định số 248/2026/NĐ-CP.
+P190: 2. Nội dung cần lưu ý khi thực hiện khấu trừ, nộp thuế thay
+P191: Nền tảng, tổ chức thực hiện thay phải xác định đúng giao dịch, doanh thu, thời điểm khấu trừ và số thuế phải khấu trừ, nộp thay; đồng thời thông báo cho người bán theo quy định.
+P192: Đối với giao dịch bị hủy, trả lại hàng hoặc hoàn tiền, việc điều chỉnh phải được thực hiện theo quy định đối với doanh thu, số thuế đã khấu trừ và dữ liệu giao dịch có liên quan.
+P193: Nền tảng cần phối hợp với người bán và các tổ chức liên quan để hạn chế khấu trừ trùng hoặc bỏ sót giao dịch thuộc phạm vi thực hiện thay.
+P194: Căn cứ pháp lý: Khoản 1 Điều 44; Điều 46 Nghị định số 252/2026/NĐ-CP.
+P195: VII. TRA CỨU NHANH THEO ĐỐI TƯỢNG VÀ TÌNH HUỐNG
+P196: Người đọc có thể sử dụng bảng dưới đây để xác định nhanh phần nội dung cần tra cứu:
+P197: Đối tượng
+P198: Tình huống thường gặp
+P199: Nội dung trọng tâm cần kiểm tra
+P200: Phần tra cứu
+P201: Doanh nghiệp
+P202: Bán tại cửa hàng, website, sàn, mạng xã hội
+P203: Doanh thu; kê khai, nộp thuế; hóa đơn; hồ sơ, chứng từ
+P204: Phần II
+P205: Hộ, cá nhân kinh doanh
+P206: Bán online, livestream, đa kênh
+P207: Đăng ký thuế; tổng hợp doanh thu; khai, nộp; hóa đơn
+P208: Phần III
+P209: Freelancer, KOL/KOC, streamer...
+P210: Cung cấp sản phẩm/dịch vụ nội dung thông tin số; quảng cáo, tài trợ; có thể đồng thời có quan hệ lao động
+P211: Phân biệt thu nhập từ kinh doanh với tiền lương, tiền công; xác định thuế tương ứng
+P212: Phần IV
+P213: Cá nhân không cư trú/NCC nước ngoài
+P214: Có doanh thu, thu nhập phát sinh tại Việt Nam
+P215: Cơ chế đăng ký, khai, nộp hoặc thực hiện thay
+P216: Phần V
+P217: Chủ quản nền tảng/tổ chức thực hiện thay
+P218: Có trách nhiệm khấu trừ, khai thay, nộp thuế thay
+P219: Thông tin người bán; giao dịch; khấu trừ; thông báo; dữ liệu
+P220: Phần VI
+P221: VIII. MỘT SỐ TÌNH HUỐNG CẦN GHI NHỚ
+P222: Bán hàng qua sàn có chức năng đặt hàng và thanh toán: Kiểm tra cơ chế khấu trừ, khai thay, nộp thuế thay; đối chiếu doanh thu và số thuế đã được thực hiện thay; xác định phần nghĩa vụ còn phải trực tiếp thực hiện.
+P223: Bán qua Facebook, Zalo, website hoặc livestream không có chức năng thanh toán: Người bán trực tiếp thực hiện nghĩa vụ thuế theo quy định đối với doanh thu phát sinh.
+P224: Vừa bán hàng, vừa quảng cáo hoặc làm tiếp thị liên kết: Tổng hợp đầy đủ doanh thu nhưng đồng thời phân loại theo từng hoạt động để áp dụng đúng phương pháp tính thuế và thuế suất.
+P225: Cung cấp sản phẩm, dịch vụ nội dung thông tin số: Nếu phát sinh từ hoạt động kinh doanh TMĐT, kinh doanh dựa trên nền tảng số thì xác định là thu nhập từ kinh doanh theo quy định; riêng khoản thu phát sinh từ quan hệ lao động được xác định là thu nhập từ tiền lương, tiền công.
+P226: Giao dịch bị hủy, đổi, trả hoặc hoàn tiền: Xử lý đồng bộ doanh thu, số thuế đã khấu trừ và hóa đơn theo quy định, trên cơ sở hồ sơ và giao dịch thực tế.
+P227: Kinh doanh qua nền tảng nước ngoài: Xác định doanh thu, thu nhập phát sinh tại Việt Nam và cơ chế thực hiện nghĩa vụ thuế tương ứng.
+P228: IX. CÁC SAI SÓT TRỌNG TÂM CẦN TRÁNH
+P229: 1. Không tổng hợp đầy đủ doanh thu
+P230: Chỉ theo dõi doanh thu trên một sàn, một tài khoản hoặc một kênh có thể dẫn đến khai thiếu doanh thu. Cần tổng hợp đầy đủ doanh thu của cùng một chủ thể và phân loại theo từng hoạt động.
+P231: 2. Cho rằng nền tảng đã khấu trừ thuế thì không còn nghĩa vụ nào khác
+P232: Cần đối chiếu phần doanh thu đã được thực hiện thay và phần còn phải trực tiếp khai, nộp theo quy định.
+P233: 3. Xác định không đúng loại thu nhập
+P234: Không phân loại thu nhập chỉ theo tên gọi KOL, KOC, streamer, affiliate hoặc freelancer. Cần căn cứ bản chất hoạt động và quan hệ thực tế: thu nhập từ hoạt động kinh doanh TMĐT, kinh doanh dựa trên nền tảng số thuộc thu nhập từ kinh doanh; khoản thu phát sinh từ quan hệ lao động thuộc thu nhập từ tiền lương, tiền công.
+P235: 4. Không lập hoặc xử lý hóa đơn đúng quy định
+P236: Việc lập hóa đơn không phụ thuộc vào việc người mua có yêu cầu nhận hóa đơn hay không trong trường hợp pháp luật quy định phải lập; giao dịch hủy, đổi, trả, hoàn tiền phải được xử lý theo quy định.
+P237: 5. Lập hóa đơn theo thời điểm nền tảng chuyển tiền
+P238: Không mặc nhiên lấy ngày sàn đối soát hoặc chuyển tiền làm thời điểm lập hóa đơn; phải xác định theo loại giao dịch và quy định về hóa đơn điện tử.
+P239: 6. Thông tin đăng ký thuế không thống nhất
+P240: Cần rà soát, cập nhật thông tin đăng ký thuế khi có thay đổi; việc sử dụng thông tin thống nhất trên các kênh giúp thuận lợi cho đối chiếu.
+P241: 7. Không lưu giữ đầy đủ hồ sơ, dữ liệu
+P242: Cần lưu hồ sơ, chứng từ theo quy định, gồm các tài liệu cần thiết để xác định doanh thu, loại thu nhập và giải trình khi cần.
+P243: 8. Chỉ rà soát khi cơ quan thuế yêu cầu
+P244: Khi phát hiện hồ sơ khai thuế có sai sót, người nộp thuế thực hiện khai bổ sung theo quy định; việc đối chiếu định kỳ là biện pháp khuyến nghị hỗ trợ tuân thủ.
+P245: X. THÔNG ĐIỆP TUÂN THỦ
+P246: HIỂU ĐÚNG QUY ĐỊNH - XÁC ĐỊNH ĐÚNG NGHĨA VỤ - TỔNG HỢP ĐỦ DOANH THU - PHÂN LOẠI ĐÚNG THU NHẬP - LẬP HÓA ĐƠN ĐÚNG QUY ĐỊNH - LƯU GIỮ ĐẦY ĐỦ HỒ SƠ - CHỦ ĐỘNG KHAI BỔ SUNG KHI PHÁT HIỆN SAI SÓT
+P247: Lưu ý: Tài liệu có tính chất hướng dẫn, hỗ trợ người nộp thuế; trường hợp nội dung của tài liệu khác với văn bản quy phạm pháp luật thì thực hiện theo quy định của văn bản quy phạm pháp luật.
+P249: CẨM NANG HỎI - ĐÁP 
+P250: I. Tình huống của nhà bán hàng thường gặp
+P251: Tình huống 1
+P252: Chị Lan là chủ một hộ kinh doanh bán sách với doanh thu năm 2025 khoảng 2,7 tỷ đồng. Căn cứ mức doanh thu này, đầu năm 2026 chị xác định mình thuộc nhóm áp dụng phương pháp tính thuế theo tỷ lệ trên doanh thu. Sang năm 2026, chị mở rộng kinh doanh mạnh hơn. Hiện nay chị bán hàng trên nhiều kênh:
+P253: 01 cửa hàng tại Hà Nội;
+P254: Website riêng;
+P255: TikTok Shop;
+P256: Shopee;
+P257: Facebook Livestream.
+P258: Mỗi ngày cửa hàng phát sinh khoảng 500 đơn hàng, trong đó gần 80% là đơn online. Sau 6 tháng đầu năm, doanh thu thực tế của chị đã vượt 3 tỷ đồng và dự kiến cuối năm có thể đạt gần 6 tỷ đồng. Trong quá trình vận hành, chị Lan gặp hàng loạt vướng mắc:
+P259: - Trên Shopee và TikTok Shop, sàn đã khấu trừ và nộp thuế thay một số nghĩa vụ thuế. Vì vậy chị không biết mình có phải lập hóa đơn điện tử cho các đơn hàng trên sàn nữa hay không.
+P260: - Khoảng 15% đơn hàng bị đổi hoặc trả sau khi đã giao thành công, khiến chị lo lắng không biết phải xử lý hóa đơn điện tử như thế nào để đúng quy định.
+P261: - Đặc biệt, điều khiến chị băn khoăn nhất là đầu năm doanh thu dự kiến chưa đến 3 tỷ đồng nhưng chỉ sau 6 tháng doanh thu đã vượt ngưỡng này. Chị không biết mình có phải chuyển sang phương pháp tính thuế khác ngay trong năm hay vẫn được áp dụng phương pháp đã đăng ký đến hết năm tài chính.
+P262: Phần Cục Thuế giải đáp:
+P263: Câu hỏi 1. Đối với các đơn hàng phát sinh trên sàn thương mại điện tử đã được sàn khấu trừ, nộp thuế thay một số nghĩa vụ thuế, hộ kinh doanh có còn phải lập hóa đơn điện tử hay không?
+P264: Trả lời:
+P265: Theo quy định tại Nghị định số 68/2026/NĐ-CP được sửa đổi, bổ sung tại khoản 2 Điều 1 Nghị định số 141/2026/NĐ-CP thì hộ kinh doanh, cá nhân kinh doanh có doanh thu năm trên 01 tỷ đồng thì phải áp dụng hóa đơn điện tử có mã của cơ quan thuế, hóa đơn điện tử khởi tạo từ máy tính tiền có kết nối dữ liệu với cơ quan thuế. Trường hợp hộ kinh doanh, cá nhân kinh doanh có doanh thu năm từ 01 tỷ đồng trở xuống đáp ứng điều kiện và có nhu cầu sử dụng hóa đơn điện tử thì đăng ký sử dụng hóa đơn điện tử có mã của cơ quan thuế hoặc hóa đơn điện tử khởi tạo từ máy tính tiền có kết nối dữ liệu với cơ quan thuế.
+P266: Theo quy định tại khoản 5 Điều 4 Nghị định số 254/2026/NĐ-CP, hộ kinh doanh, cá nhân kinh doanh được ủy nhiệm cho bên thứ ba lập hóa đơn điện tử khi đáp ứng điều kiện theo quy định. Trường hợp sàn TMĐT đồng thời thuộc phạm vi có trách nhiệm khấu trừ, khai thay, nộp thuế thay thì thực hiện các nghĩa vụ này theo quy định của pháp luật quản lý thuế.
+P267: Trường hợp bạn không ủy nhiệm cho tổ chức quản lý Sàn TMĐT lập hóa đơn thì bạn yêu cầu chủ quản nền tảng thương mại điện tử, nền tảng số cung cấp thông tin người mua, thông tin liên quan đến giao dịch, thời điểm giao hàng và xác nhận trạng thái hoàn tất đơn hàng trên hệ thống để lập hóa đơn điện tử theo quy định đối với trường hợp bán hàng hóa, cung cấp dịch vụ qua nền tảng thương mại điện tử, nền tảng số theo quy định tại điểm c khoản 1 Điều 17 Nghị định số 254/2026/NĐ-CP.
+P268: Câu hỏi 2. Khi khách đổi hoặc trả hàng sau khi đã xuất hóa đơn điện tử, HKD cần xử lý như thế nào để vừa đúng quy định vừa thuận tiện trong thực tế?
+P269: Trả lời:
+P270: Từ 01/7/2026 theo hướng dẫn tại điểm c khoản 5 Điều 10 Thông tư 91/2026/TT-BTC:
+P271: - Trường hợp khách đổi, trả lại toàn bộ hoặc một phần hàng hóa (bao gồm cả trường hợp đổi hàng làm thay đổi giá trị của hàng hóa đã mua) thì hộ kinh doanh lập hóa đơn điều chỉnh đối với hàng đổi, trả; việc điều chỉnh phải thể hiện rõ thông tin của hóa đơn gốc, nội dung điều chỉnh và được lưu trữ đầy đủ để phục vụ kê khai, hạch toán và đối chiếu với cơ quan thuế.  
+P272: Trong trường hợp hộ có thỏa thuận về việc người mua lập hóa đơn khi trả lại hàng hóa thì người mua (khách hàng) lập hóa đơn điện tử giao cho hộ, hai bên mua bán thực hiện nghĩa vụ thuế theo quy định khi bán hàng hóa;
+P273:  -Trường hợp hàng hóa là tài sản thuộc diện phải đăng ký quyền sử dụng, quyền sở hữu theo quy định của pháp luật như xe máy và tài sản đã được đăng ký theo tên người mua thì khi trả lại hàng hóa đảm bảo phù hợp với pháp luật liên quan, nếu người mua là đối tượng sử dụng hóa đơn điện tử thì người mua thực hiện lập hóa đơn trả lại hàng cho hộ kinh doanh bán hàng.
+P274: Quy định này giúp bảo đảm tính chính xác của dữ liệu hóa đơn điện tử, đồng thời tạo thuận lợi cho hộ kinh doanh trong việc xử lý các giao dịch đổi, trả hàng phát sinh sau bán.
+P275:  Ngoài ra TT 91 bổ sung: Trường hợp sai về các nội dung trên hóa đơn như tên, địa chỉ, số tiền bằng chữ hoặc các nội dung khác nhưng không sai về: mã số thuế, số tiền ghi trên hóa đơn, thuế suất, tiền thuế hoặc hàng hóa ghi trên hóa đơn thì người bán thông báo cho người mua về việc hóa đơn đã lập sai và không phải lập lại hóa đơn. Người bán thực hiện thông báo với cơ quan thuế về hóa đơn điện tử đã lập sai theo Mẫu số 04/SS-HĐĐT Phụ lục III. Quy định này thuận tiện và đơn giản hơn so với thời điểm trước đây. 
+P276: Câu hỏi 3: Trường hợp doanh thu thực tế trong năm vượt ngưỡng làm thay đổi điều kiện áp dụng phương pháp tính thuế thì hộ kinh doanh có phải chuyển phương pháp tính thuế ngay trong năm hay được tiếp tục áp dụng đến hết năm?
+P277: Trả lời:
+P278: Theo quy định hiện hành, phương pháp tính thuế TNCN của hộ, cá nhân kinh doanh được xác định trên cơ sở doanh thu thực tế và được thực hiện ổn định trong năm. Việc chuyển sang phương pháp tính thuế mới chỉ thực hiện từ năm tiếp theo khi đủ điều kiện theo quy định. Quy định này nhằm bảo đảm tính ổn định trong quá trình thực hiện nghĩa vụ thuế, đơn giản hóa việc hạch toán, quản lý sổ sách của hộ kinh doanh.
+P279: Đối với trường hợp của chị Lan, chị vẫn tiếp tục áp dụng phương pháp tính thuế theo tỷ lệ trên doanh thu cho đến hết năm 2026. Sang năm 2027, chị mới cần chuyển sang phương pháp tính thuế thu nhập cá nhân theo thu nhập tính thuế theo quy định.
+P280: Đối với những hộ kinh doanh có doanh thu trong năm dự kiến sẽ vượt ngưỡng 3 tỷ đồng, hộ kinh doanh nên chủ động chuẩn hóa sổ sách, hóa đơn, chứng từ và hồ sơ chi phí ngay từ trong năm để việc chuyển sang phương pháp tính thuế mới từ năm tiếp theo được thực hiện thuận lợi, chủ động hơn.
+P281: Câu hỏi 4: “Sau khi đã hiểu quy định, điều mà nhiều hộ kinh doanh quan tâm là làm sao triển khai đúng trong thực tế khi mỗi ngày có hàng trăm đơn hàng từ cửa hàng, website và nhiều sàn thương mại điện tử, các giải pháp công nghệ hiện nay có thể hỗ trợ hộ kinh doanh quản lý đơn hàng và xuất hóa đơn như thế nào để giảm sai sót?”
+P282: Theo thông tin từ các Nhà cung cấp giải pháp:
+P283: Một số giải pháp công nghệ trên thị trường có thể hỗ trợ người bán đồng bộ dữ liệu đơn hàng từ nhiều kênh, theo dõi doanh thu, chi phí, đối soát giao dịch và hỗ trợ lập hóa đơn điện tử. Qua đó, người bán có thể thuận lợi hơn trong việc quản lý dữ liệu, đối chiếu thông tin và hạn chế sai sót trong quá trình thực hiện nghĩa vụ thuế.
+P284: Người nộp thuế cần lựa chọn giải pháp phù hợp với mô hình và quy mô kinh doanh; đồng thời chịu trách nhiệm về tính đầy đủ, chính xác của hồ sơ khai thuế, hóa đơn và dữ liệu sử dụng để thực hiện nghĩa vụ thuế theo quy định.
+P285: 2. Tình huống 2
+P286: Anh Hùng là chủ một hộ kinh doanh sở hữu chuỗi nhà hàng chuyên ẩm thực tại Hà Nội. Sau nhiều năm kinh doanh trực tiếp, năm 2026 anh mở rộng bán hàng trên nhiều kênh như đặt bàn qua Facebook, bán mang về trên website, nhận đơn từ GrabFood, ShopeeFood và TikTok Shop. Mỗi ngày, chuỗi nhà hàng phục vụ hàng trăm lượt khách nên nguyên liệu được nhập từ nhiều nguồn khác nhau để đảm bảo chất lượng và tối ưu chi phí:
+P287: - Hải sản được mua trực tiếp từ ngư dân và các đầu mối tại cảng.
+P288: - Rau củ, thực phẩm tươi sống được nhập từ chợ đầu mối và các hộ nông dân.
+P289: - Một số gia vị, nguyên liệu đặc thù được nhập khẩu thông qua các đơn vị phân phối.
+P290: - Một số mặt hàng tiêu hao như túi, hộp đựng, bao bì được mua từ nhiều nhà cung cấp khác nhau.
+P291: Tuy nhiên, không phải tất cả các giao dịch đều có hóa đơn điện tử. Có trường hợp chỉ có phiếu giao hàng, giấy xác nhận mua bán, chứng từ chuyển khoản hoặc thanh toán bằng tiền mặt.
+P292: Ngoài ra, doanh thu của chuỗi đến từ nhiều nguồn như khách ăn tại nhà hàng, bán mang về và các nền tảng giao đồ ăn. Anh Hùng lo ngại rằng nếu không quản lý đồng bộ doanh thu, hóa đơn và chứng từ ngay từ đầu thì sẽ gặp nhiều rủi ro trong quá trình thực hiện nghĩa vụ thuế.
+P293: Cục Thuế giải đáp vướng mắc: 
+P294: Câu hỏi 1: Đối với nguyên liệu được mua từ hộ sản xuất, chợ đầu mối hoặc các nguồn không có hóa đơn điện tử, hộ kinh doanh cần chuẩn bị những chứng từ gì để chứng minh chi phí hợp lệ? Trường hợp nào được lập bảng kê và bảng kê cần đáp ứng những yêu cầu gì?
+P295: Trả lời:
+P296: Trước hết, để được tính vào chi phí được trừ khi xác định thu nhập tính thuế TNCN, khoản chi của hộ kinh doanh phải đáp ứng đầy đủ các điều kiện theo quy định, bao gồm: (1) thực tế phát sinh và liên quan đến hoạt động sản xuất, kinh doanh; (2) có đầy đủ hóa đơn, chứng từ theo quy định của pháp luật về hóa đơn, chứng từ và kế toán; (3) đối với khoản thanh toán từng lần từ 05 triệu đồng trở lên phải có chứng từ thanh toán không dùng tiền mặt theo quy định của pháp luật về thuế giá trị gia tăng.
+P297: Đối với trường hợp hộ, cá nhân kinh doanh mua hàng hóa, dịch vụ trực tiếp của người sản xuất, nông dân, ngư dân hoặc người bán không thuộc đối tượng phải lập hóa đơn điện tử thì hộ kinh doanh có thể lập Bảng kê mua hàng hóa, dịch vụ mua vào để chứng minh chi phí được trừ. 
+P298: Theo đó, Bảng kê cần ghi đầy đủ thông tin định danh về người bán, thông tin hàng hóa, số lượng, đơn giá, giá trị giao dịch. Mẫu Bảng kê mua hàng hóa, dịch vụ không có hóa đơn, hộ kinh doanh có thể tham khảo để lập thông tin theo mẫu số: 02/TNDN (Ban hành kèm theo Thông tư số 20/2026/TT-BTC của Bộ trưởng Bộ Tài chính) Ngoài ra, Bảng kê nên kèm theo các tài liệu chứng minh giao dịch thực tế như phiếu giao nhận, phiếu nhập kho, phiếu cân, đơn đặt hàng, giấy xác nhận mua bán hoặc chứng từ thanh toán. 
+P299: Câu hỏi 2: Với chuỗi nhà hàng có nhiều điểm bán và nhập nguyên liệu từ nhiều nguồn khác nhau, hộ kinh doanh nên tổ chức, lưu trữ hồ sơ và chứng từ như thế nào để vừa thuận tiện trong vận hành, vừa đáp ứng yêu cầu của cơ quan thuế?
+P300: Trả lời:
+P301:  Trong trường hợp này, để vừa thuận tiện trong vận hành, vừa đáp ứng yêu cầu của cơ quan thuế thì HKD nên xây dựng hệ thống lưu trữ khoa học giúp đối chiếu nhanh, rõ ràng, chính xác giữa mua vào, tồn kho, chế biến và doanh thu bán ra…
+P302: Có thể tổ chức hồ sơ theo 04 nhóm như sau:
+P303: - Hồ sơ nhà cung cấp, mua hàng đầu vào:Hợp đồng, thông tin nhà cung cấp, hóa đơn điện tử, bảng kê hàng hóa (với trường hợp được phép dùng bảng kê), phiếu giao hàng/biên bản giao nhận, phiếu nhập kho, chứng từ thanh toán - lưu ý thanh toán không dùng tiền mặt từ 5 triệu đồng trở lên.
+P304: Đối với nguyên liệu nhập từ nhiều nguồn khác nhau, nên lưu đầy đủ hồ sơ cho từng lô hàng theo tiêu thức trên. Ngoài ra, đối với nhóm thực phẩm cần kiểm soát thì có hồ sơ chứng minh nguồn gốc hoặc giấy chứng nhận liên quan .
+P305: - Hồ sơ kho: Phiếu nhập - xuất - tồn, kiểm kê định kỳ, điều chuyển giữa các điểm bán. 
+P306: - Hồ sơ bán hàng: doanh thu từng cửa hàng, điểm bản: Hộ kinh doanh sử dụng hóa đơn điện tử và sử dụng mã số thuế của hộ kinh doanh cho tất cả các cửa hàng trong chuỗi nhà hàng thì phải thể hiện rõ tên, mã, địa chỉ địa điểm kinh doanh trên hóa đơn bán hàng. 
+P307: - Hồ sơ kế toán - thuế Tờ khai, chứng từ nộp thuế, sổ sách liên quan theo quy định tại Thông tư số 152/2025/TT-BTC hướng dẫn việc ghi sổ kế toán của các hộ kinh doanh, cá nhân kinh doanh.
+P308: Cách tổ chức này vừa hỗ trợ vận hành hằng ngày (kiểm soát tồn kho, công nợ, doanh thu giúp chứng minh nguồn gốc hàng hóa, giá vốn nguyên liệu mua vào, doanh thu bán ra… phát hiện sai lệch sớm thay vì chờ đến khi cơ quan thuế kiểm tra. Theo đó vừa giúp hộ kinh doanh quản trị dòng chảy của tiền vốn, hiệu quả kinh doanh đồng thời thực hiện việc giải trình, cung cấp dễ dàng doanh thu hoặc chi phí, nguyên liệu đầu vào của một cửa hàng cụ thể hoặc toàn chuỗi cửa hàng khi cơ quan thuế yêu cầu hộ cung cấp, chứng minh nghĩa vụ thuế, đối soát hóa đơn, chứng từ của chuỗi cung ứng nhà hàng của Hộ kinh doanh.
+P309: Câu hỏi 3: Khi doanh thu phát sinh đồng thời từ khách ăn tại nhà hàng, bán mang về và các nền tảng giao đồ ăn, hộ kinh doanh cần quản lý doanh thu và thực hiện xuất hóa đơn như thế nào để đảm bảo đúng quy định và tránh sai sót?
+P310: Trả lời:
+P311: Theo Nghị định 68/2026/NĐ-CP, doanh thu của HKD, CNKD được xác định là tổng doanh thu từ tất cả các kênh (bao gồm sàn TMĐT và bán trực tiếp) và HKD thực hiện thông báo cho cơ quan thuế tất cả các số tài khoản, số hiệu ví điện tử liên quan đến sản xuất, kinh doanh. Tuy nhiên, hộ kinh doanh nên dùng một tài khoản riêng để phục vụ hoạt động sản xuất kinh doanh nhằm quản lý dòng tiền minh bạch và chính xác, dễ dàng đối soát, giải trình nguồn gốc dòng tiền với các cơ quan chức năng khi có yêu cầu.
+P312: - Nếu doanh thu năm trên 01 tỷ thì HKD, CNKD phải áp dụng hóa đơn điện tử có mã của cơ quan thuế, hóa đơn điện tử khởi tạo từ máy tính tiền có kết nối dữ liệu với cơ quan thuế.
+P313: + Trường hợp sàn TMĐT nhận ủy nhiệm lập hóa đơn thì sàn thực hiện lập hóa đơn theo nội dung ủy nhiệm và quy định pháp luật về hóa đơn điện tử. Đối với giao dịch thuộc phạm vi sàn có trách nhiệm khấu trừ, khai thay, nộp thuế thay thì sàn đồng thời thực hiện các nghĩa vụ này theo quy định. 
+P314: - Nếu doanh thu năm từ 01 tỷ trở xuống thì HKD, CNKD không bắt buộc phải lập hóa đơn khi bán hàng, trừ trường hợp có nhu cầu sử dụng thì đăng ký với cơ quan thuế.
+P315: 3. Tình huống 3
+P316: Chị Mai là chủ một hộ kinh doanh mới thành lập đầu năm 2026, chuyên bán đồ mỹ phẩm trên TikTok Shop và Shopee. Ngoài bán trên sàn, chị còn nhận đơn qua Facebook và Zalo. Do mới kinh doanh nên chị tự theo dõi doanh thu bằng file Excel và căn cứ vào số tiền thực tế nhận được từ các sàn để ghi nhận doanh thu. Tuy nhiên, sau vài tháng hoạt động, chị nhận thấy số tiền chuyển về tài khoản ngân hàng từ các sàn luôn thấp hơn tổng giá trị đơn hàng đã bán. Khi xem bảng đối soát, chị thấy số tiền nhận được đã bao gồm nhiều khoản điều chỉnh như:
+P317: Phí dịch vụ của sàn.
+P318: Phí vận chuyển.
+P319: Chi phí quảng cáo.
+P320: Hoa hồng Affiliate.
+P321: Khoản thuế được sàn khấu trừ, nộp thuế thay theo quy định.
+P322: Điều này khiến chị băn khoăn không biết doanh thu dùng để kê khai thuế là tổng giá trị đơn hàng hay số tiền thực tế nhận được sau khi các khoản trên đã được khấu trừ. Mỗi kỳ kê khai, chị phải mất rất nhiều thời gian đối chiếu từng báo cáo của từng sàn nhưng vẫn không chắc mình xác định đúng doanh thu.
+P323: Bên cạnh đó, đầu năm 2026, căn cứ quy định hiện hành tại thời điểm đó, chị dự kiến doanh thu năm trên 500 triệu đồng, nên đã thực hiện kê khai và nộp thuế phát sinh trong Quý I/2026.
+P324: Tuy nhiên, sau đó Nhà nước ban hành quy định mới nâng ngưỡng doanh thu được miễn thuế lên 01 tỷ đồng/năm. Sau khi rà soát lại, chị Mai xác định doanh thu cả năm của mình chỉ khoảng 850 triệu đồng, tức thuộc diện không phải nộp thuế theo quy định mới.
+P325: Điều này khiến chị rất lúng túng:
+P326: - Số thuế đã kê khai và nộp trong Quý I/2026 có cần điều chỉnh hay không?
+P327: - Nếu cần điều chỉnh thì thực hiện theo trình tự nào?
+P328: - Nếu không điều chỉnh thì khoản thuế đã nộp sẽ được xử lý như thế nào?
+P329: Cục Thuế giải đáp vướng mắc:
+P330: Câu hỏi 1: Đối với hộ kinh doanh bán hàng trên sàn TMĐT, khi tiền chuyển về đã bao gồm nhiều khoản khấu trừ như phí sàn, phí vận chuyển, voucher, quảng cáo, affiliate và thuế được sàn khấu trừ nộp thuế thay, hộ kinh doanh cần căn cứ vào số liệu nào để xác định doanh thu kê khai thuế? Đồng thời, cần đối chiếu doanh thu với báo cáo từ các sàn như thế nào để đảm bảo chính xác và thống nhất?
+P331: Trả lời:
+P332: Căn cứ quy định tại điểm a khoản 2 Điều 7 Luật thuế TNCN năm 2025 thì thu nhập tính thuế tính thuế TNCN được xác định bằng doanh thu của hàng hóa, dịch vụ bán ra trừ (-) đi chi phí liên quan đến hoạt động sản xuất, kinh doanh trong kỳ tính thuế.
+P333: Theo quy định tại điểm c khoản 2 Điều 12 Luật thuế GTGT năm 2024 thì doanh thu để tính thuế giá trị gia tăng là tổng số tiền bán hàng hóa, dịch vụ ghi trên hóa đơn bán hàng, bao gồm các khoản phụ thu và phí thu thêm mà cơ sở kinh doanh được hưởng.
+P334: Theo đó, trường hợp bạn kinh doanh bán hàng hóa trên các nền tảng GrabFood, ShopeeFood, TikTok Shop sàn đã khấu trừ, nộp thuế thay và bán hàng qua Facebook, website thì bạn cần xác định doanh thu kê khai thuế theo nguyên tắc: Doanh thu kê khai thuế không xác định theo số tiền thực nhận (- là số tiền đã trừ đi các khoản chi phí). Do đó, Doanh thu để khai thuế gồm các khoản chi phí và các khoản phụ thu và phí thu thêm mà cơ sở kinh doanh của bạn được hưởng.
+P335: Để xác định chính xác thông tin doanh thu để kê khai thuế đối với doanh thu bán trên các nền tảng TMĐT, bạn có thể đề nghị Sàn TMĐT đã khấu trừ, nộp thuế thay cung cấp thông tin cho bạn để bạn thực hiện kê khai, nộp thuế.
+P336: Đối với các khoản doanh thu bán hàng trực tiếp thì bạn có theo dõi doanh thu cần có sổ sách theo dõi doanh thu theo từng đơn hàng để đảm bảo kê khai, nộp thuế đầy đủ.
+P337: Câu hỏi 2: Đối với hộ kinh doanh đã kê khai và nộp thuế theo quy định cũ, nhưng sau đó chính sách thay đổi và doanh thu thực tế thuộc diện không phải nộp thuế, hộ kinh doanh có cần điều chỉnh tờ khai đã nộp hay không? Cơ quan thuế sẽ hướng dẫn nhóm hộ kinh doanh này thực hiện như thế nào để thống nhất và tránh phát sinh sai sót?
+P338: Trả lời:
+P339: Trước hết, hộ kinh doanh không phải điều chỉnh các tờ khai đã kê khai, nộp theo quy định trước đây. Nghĩa vụ thuế sẽ được xác định trên cơ sở doanh thu thực tế của cả năm khi hộ kinh doanh thực hiện quyết toán hoặc thông báo doanh thu theo quy định.
+P340: Theo đó, đối với trường hợp doanh thu thực tế của cả năm từ 01 tỷ đồng trả xuống thì hộ kinh doanh không thuộc diện phải nộp thuế giá trị gia tăng và thuế thu nhập cá nhân. Khi đó, toàn bộ số thuế đã nộp, đã được khấu trừ, nộp thuế thay sẽ được xác định là số thuế nộp thừa. Trong trường hợp này, khi kết thúc năm, hộ kinh doanh thực hiện như sau:
+P341: - Lập Mẫu số 01/TKN-CNKD, kê khai doanh thu thực tế của cả năm, đồng thời kê khai đầy đủ số thuế đã nộp và số thuế đã được sàn thương mại điện tử khấu trừ, nộp thuế thay.
+P342: - Đối với số thuế nộp thừa này, ngay trên Mẫu số 01/TKN-CNKD, hộ kinh doanh có thể lựa chọn đề nghị hoàn trả hoặc bù trừ với nghĩa vụ thuế khác theo quy định. Căn cứ hồ sơ khai thuế và dữ liệu quản lý thuế, cơ quan thuế sẽ xác định số thuế nộp thừa và thực hiện hoàn trả hoặc bù trừ theo đề nghị của người nộp thuế. Người nộp thuế không phải nộp hồ sơ đề nghị hoàn riêng trong trường hợp này.
+P343: Câu hỏi 3: “Trong thực tế, nhiều hộ kinh doanh bán hàng trên nhiều sàn phải dành rất nhiều thời gian đối chiếu báo cáo của từng nền tảng để xác định doanh thu, giải pháp công nghệ hiện nay có hỗ trợ việc tổng hợp và đối soát dữ liệu bán hàng như thế nào?”
+P344: Theo thông tin từ đại diện nhà cung cấp giải pháp:
+P345: Các giải pháp công nghệ có thể hỗ trợ người bán tổng hợp dữ liệu từ nhiều kênh bán hàng, phân biệt doanh thu với dòng tiền thực nhận, theo dõi các khoản phí, đối soát giao dịch và hỗ trợ lập báo cáo phục vụ kê khai thuế. Người nộp thuế cần đối chiếu dữ liệu trên phần mềm với dữ liệu giao dịch thực tế, hóa đơn, chứng từ và thông tin do nền tảng cung cấp; đồng thời chịu trách nhiệm về tính chính xác của số liệu kê khai theo quy định.
+P346: II. Hỏi - đáp 
+P347: Câu hỏi 1: Kính thưa quý cơ quan, tôi luôn tôn trọng và tuân thủ pháp luật, hoàn toàn ủng hộ chủ trương minh bạch hóa hoạt động kinh doanh trên sàn TMĐT. Tuy nhiên tôi mong được Cục Thuế giải đáp để hiểu rõ và tuân thủ đúng.
+P348: Thực tế, với hộ kinh doanh nhỏ như chúng tôi, việc xuất hóa đơn cho từng đơn hàng, rồi phải xóa, điều chỉnh khi khách hủy hay trả hàng, đang là gánh nặng rất lớn - phát sinh liên tục hàng ngày, tốn nhiều thời gian và nhân lực mà chúng tôi vốn không có nhiều. Nhất là khi phần lớn người mua là cá nhân tiêu dùng, không có nhu cầu lấy hóa đơn.
+P349: Trong khi đó, sàn đã quản lý toàn bộ dòng tiền và ghi nhận đầy đủ doanh thu từng giao dịch.
+P350: Vậy tôi mong quý cơ quan giải đáp: tại sao chúng tôi vẫn phải xuất hóa đơn riêng cho từng đơn, khi dữ liệu đó bên sàn đã có sẵn và minh bạch rồi ạ?
+P351: Trả lời:
+P352: Cục Thuế ghi nhận và chia sẻ với những khó khăn của hộ, cá nhân kinh doanh khi thực hiện lập hóa đơn đối với hoạt động bán hàng qua sàn thương mại điện tử, đặc biệt trong các trường hợp phát sinh nhiều giao dịch hủy đơn, đổi hoặc trả hàng.
+P353: Theo quy định hiện hành, người bán thuộc đối tượng sử dụng hóa đơn điện tử có trách nhiệm lập hóa đơn khi bán hàng hóa, cung cấp dịch vụ, không phân biệt bán trực tiếp hay thông qua sàn thương mại điện tử và không phụ thuộc việc người mua có yêu cầu lấy hóa đơn hay không. Quy định này nhằm bảo đảm thực hiện thống nhất pháp luật, tạo môi trường cạnh tranh bình đẳng giữa các phương thức kinh doanh, tăng cường tính minh bạch của giao dịch và bảo vệ quyền, lợi ích hợp pháp của người mua, người bán.
+P354: Mặc dù các sàn thương mại điện tử hiện nay đã quản lý dòng tiền và lưu giữ dữ liệu giao dịch, nhưng dữ liệu của sàn và hóa đơn điện tử có chức năng, mục đích sử dụng và giá trị pháp lý khác nhau nên chưa thể thay thế cho nhau. Dữ liệu của sàn chủ yếu phục vụ quản lý đơn hàng, thanh toán và đối soát giao dịch; trong khi hóa đơn điện tử là chứng từ pháp lý của hoạt động bán hàng, là căn cứ để bảo vệ quyền lợi của các bên, chứng minh nguồn gốc hàng hóa và thực hiện các nghĩa vụ về kế toán, thuế theo quy định của pháp luật.
+P355: Thực tiễn quốc tế cũng cho thấy đây là cách tiếp cận phổ biến. Tại nhiều quốc gia có thị trường thương mại điện tử phát triển như Hàn Quốc, Trung Quốc và Thái Lan, người bán vẫn có trách nhiệm lập hóa đơn hoặc chứng từ hợp pháp đối với các giao dịch thương mại điện tử. Điểm khác biệt chủ yếu là các quốc gia này đẩy mạnh ứng dụng công nghệ, tự động hóa việc lập hóa đơn và kết nối dữ liệu giữa người bán, sàn thương mại điện tử và cơ quan thuế nhằm giảm chi phí tuân thủ, hạn chế thao tác thủ công và nâng cao hiệu quả quản lý.
+P356: Bên cạnh yêu cầu bảo đảm tính đầy đủ, chính xác, minh bạch của dữ liệu phục vụ công tác quản lý thuế, Cục Thuế luôn quan tâm đến việc giảm chi phí tuân thủ và tạo thuận lợi cho người nộp thuế. Trong quá trình hoàn thiện chính sách, cơ quan thuế đã tham mưu cấp có thẩm quyền nghiên cứu, sửa đổi các quy định theo hướng phù hợp hơn với quy mô và đặc thù hoạt động của hộ, cá nhân kinh doanh, đồng thời tiếp tục nghiên cứu các giải pháp để đơn giản hóa thủ tục hành chính, ứng dụng công nghệ thông tin và tăng cường kết nối dữ liệu nhằm hỗ trợ người nộp thuế thực hiện nghĩa vụ thuế thuận lợi, hiệu quả hơn.
+P357: Đồng thời, Cục Thuế đang đẩy mạnh triển khai hóa đơn điện tử khởi tạo từ máy tính tiền và khuyến khích hộ, cá nhân kinh doanh sử dụng các giải pháp phần mềm quản lý bán hàng, hóa đơn điện tử có khả năng tích hợp với sàn thương mại điện tử. Các giải pháp này cho phép tự động đồng bộ dữ liệu giao dịch, lập hóa đơn điện tử, xử lý các trường hợp hủy đơn, hoàn trả hàng, đối soát doanh thu và cập nhật dữ liệu phục vụ kê khai thuế. Đây là định hướng phù hợp với xu thế quản lý thuế hiện đại của nhiều quốc gia, vừa bảo đảm thực hiện đúng quy định của pháp luật, vừa góp phần giảm thao tác thủ công, chi phí tuân thủ và rủi ro sai sót cho người kinh doanh.
+P358: Câu hỏi 2:
+P359: “Tôi đã có mã số thuế cá nhân rồi, giờ mở hộ kinh doanh thì có phải xin thêm mã số thuế nữa không? Nếu bán hàng thì tôi có được xuất hóa đơn không, xuất theo mã số nào? Tôi cũng đã tham khảo nhiều thông tin, tuy nhiên mỗi nguồn lại khác nhau, mong đại diện Cục Thuế trả lời”.
+P360: Trả lời:
+P361: Cục Thuế giải đáp: Bạn không cần xin thêm mã số thuế. Theo quy định tại Thông tư 90, mỗi cá nhân sử dụng một mã định danh duy nhất để thực hiện nghĩa vụ thuế, kể cả khi hoạt động với tư cách cá nhân kinh doanh hoặc hộ kinh doanh. Khi xuất hóa đơn, bạn sử dụng chính mã định danh này, không phải đăng ký thêm mã số thuế mới.
+P362: Tuy nhiên, nếu muốn hoạt động dưới hình thức hộ kinh doanh, bạn vẫn phải thực hiện thủ tục đăng ký hộ kinh doanh tại cơ quan đăng ký kinh doanh. Sau khi hoàn tất thủ tục, mã số sử dụng để kê khai thuế và xuất hóa đơn vẫn là mã định danh đã được cấp.
+P363: Câu hỏi 3:
+P364: “Em chỉ bán hàng chủ yếu trên sàn thương mại điện tử, hiện tại doanh thu đạt trên 1 tỷ đồng và đã được sàn kê khai và khấu trừ thuế hiện tại có bắt buộc đăng ký và xuất hoá đơn điện tử không?”
+P365: Trả lời:
+P366: Cục Thuế giải đáp: Theo Nghị định 68 và nghị định 254, việc bán hàng trên sàn mà sàn đã khấu trừ thuế cũng như người bán lập hoá đơn là 2 quy định tách rời nhau. Lập hoá đơn là nghĩa vụ người bán, sàn khấu trừ thuế là nghĩa vụ và trách nhiệm của sàn.
+P367: Trường hợp doanh thu lũy kế trong năm trên 01 tỷ đồng, hộ kinh doanh, cá nhân kinh doanh thực hiện đăng ký sử dụng hóa đơn điện tử trong thời gian 30 ngày kể từ ngày cuối cùng của kỳ tính thuế có doanh thu lũy kế trên 01 tỷ đồng theo quy định. Trường hợp đáp ứng điều kiện, người bán được ủy nhiệm cho bên thứ ba lập hóa đơn điện tử theo Nghị định số 254/2026/NĐ-CP.
+P368: Theo đó, hộ kinh doanh hoàn toàn có thể ủy nhiệm cho sàn lập hóa đơn điện tử khi bán hàng trên sàn thương mại điện tử.
+P369: Câu hỏi 4:
+P370: “Nếu khách hàng chỉ cung cấp họ tên, địa chỉ và số điện thoại, không cung cấp số căn cước thì phần thông tin trên hóa đơn điện tử mình phải ghi như thế nào?”
+P371: Trả lời:
+P372: Cục Thuế giải đáp: Trường hợp khách hàng cung cấp các thông tin như tên, số điện thoại và địa chỉ thì em hoàn toàn có thể ghi 3 thông tin đó của khách hàng. Nếu khách hàng không cung cấp số CCCD thì thôi, khách hàng cung cấp thông tin gì thì bạn ghi đúng những thông tin đó trên hoá đơn bán ra.
+P373: Câu hỏi 5:
+P374: “Hiện tại tôi là cá nhân kinh doanh nhưng chưa có giấy phép kinh doanh. Vậy tôi có được đăng ký sử dụng hóa đơn điện tử không?”
+P375: Trả lời:
+P376: Cục Thuế giải đáp: Có. Theo quy định hiện hành, cá nhân kinh doanh chưa đăng ký hộ kinh doanh vẫn thuộc đối tượng được đăng ký và sử dụng hoá đơn điện tử.
+P377: Để tạo thuận lợi cho người nộp thuế, từ 14/5/2026 cơ quan thuế đã nâng cấp ứng dụng và theo đó, cá nhân kinh doanh có thể thực hiện đăng ký và sử dụng hoá đơn điện tử.
+P378: Thông điệp đối với các đơn vị cung cấp giải pháp hóa đơn điện tử: cần hướng dẫn cá nhân kinh doanh đăng ký chữ ký số để có thể đăng ký và sử dụng hóa đơn điện tử bình thường.
+P379: Câu hỏi 6:
+P380: “Trường hợp cá nhân kinh doanh không thành lập hộ kinh doanh nhưng vẫn sử dụng chữ ký số. Tuy nhiên, hiện tại khi làm việc với các bên cung cấp phần mềm, họ vẫn yêu cầu phải có giấy phép đăng ký kinh doanh và căn cước công dân. Vậy trường hợp này cơ quan thuế hướng dẫn như thế nào?”
+P381: Trả lời:
+P382: Hiện nay cá nhân kinh doanh không đăng ký hộ kinh doanh vẫn thuộc đối tượng được sử dụng hóa đơn điện tử.
+P383: Khi sử dụng hóa đơn điện tử thông qua các đơn vị cung cấp giải pháp, cá nhân kinh doanh cần cung cấp mã số thuế và đăng ký chữ ký số. Từ tháng 5/2026, hệ thống của cơ quan thuế đã cho phép cá nhân sử dụng chữ ký số cá nhân để đăng ký sử dụng hóa đơn điện tử.
+P384: Vì vậy, các đơn vị cung cấp giải pháp hỗ trợ cá nhân kinh doanh đăng ký chữ ký số và xuất hóa đơn điện tử bình thường.
+P385: Câu hỏi 7:
+P386: “Hiện tại, bên em là doanh nghiệp cung cấp giải pháp hỗ trợ các nhà bán hàng trên sàn thương mại điện tử. Theo Nghị định 254 và Thông tư 91, hộ kinh doanh, cá nhân kinh doanh có doanh thu trên 1 tỷ đồng phải lập hóa đơn đầu ra.
+P387: Tuy nhiên, trên thực tế có trường hợp hộ kinh doanh đã thuộc diện phải xuất hóa đơn đầu ra nhưng hàng hóa vẫn đang tồn kho và chưa có hóa đơn đầu vào. Ngoài ra, nếu hộ kinh doanh mua hàng từ bên bán không cung cấp hóa đơn thì có thể lập bảng kê mua hàng. Vậy đối với số hàng đã có sẵn trong kho nhưng chưa có hóa đơn đầu vào, hộ kinh doanh cần xử lý như thế nào để bảo đảm đúng quy định?”
+P388: Trả lời:
+P389: Đối với hàng xuất bán ra, dù có hóa đơn, bảng kê hay không thì khi bán vẫn phải lập hóa đơn bán ra theo chế độ quy định. Tuy nhiên đối với trường hợp có doanh thu đến 3 tỷ đồng thì có thể nộp thuế theo tỉ lệ trên doanh thu.
+P390: Nhưng nếu trong trường hợp doanh thu trên 3 tỷ, áp dụng phương pháp tính thuế là lấy doanh thu trừ đi chi phí được trừ, rồi nhân với thuế suất 17% (ví dụ 17% trong trường hợp doanh thu của mình đến 50 tỷ). Trong trường hợp này, xác định đầu vào là: Nếu như hàng hóa có hóa đơn chứng từ, mới mua thì phải có hóa đơn chứng từ, còn nếu như lập bảng kê thì phải có bảng kê.
+P391: Riêng với hàng tồn kho cũ, cơ quan thuế đã hướng dẫn rất là rõ: Chúng ta sẽ được lập “Bảng kê hàng tồn kho” và bảng kê đó nói rõ số lượng, đơn giá và bản thân hộ phải chịu trách nhiệm trước số liệu mình kê khai, kể cả số lượng và đơn giá, chứ cơ quan thuế không chịu trách nhiệm về tính chính xác của bảng kê đó.
+P392: Bảng kê đó để làm cơ sở là gì? Cần bổ sung để tính chi phí đầu vào của những hàng tồn kho. Còn bắt đầu hàng mới thì phải thực hiện có hóa đơn đầu vào và có bảng kê theo chế độ quy định.
+P393: Ngoài yêu cầu về thuế, hộ kinh doanh phải chịu trách nhiệm về nguồn gốc hàng hóa. Đặc biệt với hàng không có hóa đơn, chứng từ, người bán cần lưu ý các quy định quản lý chuyên ngành về xuất xứ, chất lượng và lưu thông hàng hóa.
+P394: Câu hỏi 8:
+P395: “Tôi bán hàng chạy nhiều chương trình “mua 2 tặng 1” hoặc có quà tặng kèm. Những quà tặng kèm đó cũng phát sinh doanh thu thì có kê khai lên hóa đơn không? Phải ghi như thế nào để đúng quy định?”
+P396: Trả lời:
+P397: Cục Thuế giải đáp: Khi bán hàng hóa, cung cấp dịch vụ có kèm hàng hóa khuyến mại, cho, biếu, tặng, người bán thực hiện lập hóa đơn theo quy định của pháp luật về hóa đơn điện tử.
+P398: Đối với chương trình “mua 2 tặng 1”, trường hợp người bán có đầy đủ thông tin của người mua và giao sản phẩm tặng kèm cùng giao dịch bán hàng thì trên hóa đơn lập cho người mua cần thể hiện rõ hàng hóa bán và sản phẩm khuyến mại/tặng kèm theo quy định.
+P399: Trường hợp hàng hóa khuyến mại thực hiện đúng quy định của pháp luật về thương mại thì giá tính thuế GTGT của hàng hóa khuyến mại được xác định theo quy định của pháp luật thuế GTGT.
+P400: Người bán cần lưu giữ hồ sơ, tài liệu về chương trình khuyến mại và bảo đảm nội dung hóa đơn phản ánh đúng giao dịch thực tế.
+P401: Câu hỏi 9:
+P402: “Tôi bán hàng trên nhiều kênh như TikTok Shop, Shopee, Facebook và cả tại cửa hàng. Tôi có thể dùng mỗi kênh một tài khoản ngân hàng để nhận tiền cho tiền đối soát, hay bắt buộc phải dùng một tài khoản đã đăng ký với cơ quan thuế? Khi nhập hàng hoặc thanh toán các khoản chi phí kinh doanh thì có bắt buộc phải chuyển tiền từ đúng tài khoản đó không?”
+P403: Trả lời:
+P404: Cục Thuế giải đáp: Hộ kinh doanh không bắt buộc chỉ sử dụng một tài khoản ngân hàng duy nhất để nhận toàn bộ doanh thu. Người kinh doanh có thể sử dụng nhiều tài khoản cho các kênh bán hàng khác nhau. Tuy nhiên, tất cả các tài khoản được sử dụng trong hoạt động kinh doanh cần được thông báo với cơ quan thuế.
+P405: Đối với việc chi thanh toán và trả tiền mua hàng, hộ kinh doanh không bắt buộc từ tài khoản nhận doanh thu. Bạn có thể sử dụng các tài khoản đã đăng ký với cơ quan thuế để có thể thanh toán các khoản thanh toán đó.
+P406: Tuy nhiên, việc thanh toán từ tài khoản đó, bạn lưu giữ chứng từ cũng như các sổ sách, các tài khoản để chúng ta có thể chứng minh việc giao dịch từ doanh thu và giao dịch thanh toán. Những điều đó sẽ rõ ràng và thuận lợi. Xin được nhấn mạnh lại là chúng ta có thể sử dụng nhiều tài khoản và không bắt buộc chỉ một tài khoản duy nhất hoặc không bắt buộc là tài khoản nào nhận doanh thu thì tài khoản đó chi ra để thanh toán. Lưu ý rằng tất cả các tài khoản chúng ta sử dụng cho hoạt động sản xuất kinh doanh đều thông báo với cơ quan thuế là được.
+P407: Câu hỏi 10:
+P408: “Nhiều hộ kinh doanh khi bán hàng cứ có tiền là để chung hết vào một tài khoản, từ tiền khách hàng cho đến tiền gia đình. Bây giờ họ đang bị rối và không biết khoản nào là khoản bán hàng, khoản nào là cho gia đình. Xin hỏi cán bộ thuế có giải pháp gì cho những hộ kinh doanh này?”
+P409: Trả lời:
+P410: Cục Thuế giải đáp: Trường hợp này cần xử lý theo hai hướng:
+P411: Với các giao dịch trong tương lai, hộ kinh doanh nên tách riêng tài khoản dùng cho chi tiêu cá nhân và tài khoản sử dụng cho hoạt động kinh doanh. Đấy là giải pháp hiện tại khắc phục cũng như ránh rắc rối đã gặp trong quá khứ.
+P412: Đối với các giao dịch đã phát sinh, hộ kinh doanh cần rà soát lại sao kê và phân loại từng khoản. Những khoản liên quan đến bán hàng, hóa đơn hoặc thanh toán tiền mua hàng cần được tách riêng khỏi các khoản chi tiêu cá nhân như tiền điện, tiền nước và các giao dịch phục vụ gia đình.
+P413: Nếu sau khi rà soát phát hiện doanh thu đã kê khai còn thiếu, hộ kinh doanh cần thực hiện kê khai bổ sung theo kỳ khai thuế tháng hoặc quý tương ứng. Việc tách bạch tài khoản, đồng thời quản lý theo cả hóa đơn và dòng tiền, sẽ giúp các giao dịch minh bạch và việc kê khai, nộp thuế thuận lợi hơn.
+P414: Câu hỏi 11:
+P415: “Tôi đang kinh doanh trong lĩnh vực đồ uống và thường xuyên làm việc với các hộ kinh doanh. Hiện nay, nhiều hộ còn vướng mắc ba vấn đề: Hộ kinh doanh thuê người lao động có phải đóng bảo hiểm xã hội không? Hộ kinh doanh có phải quyết toán thuế cuối năm không? Nếu doanh thu sụt giảm, hộ kinh doanh có được giảm thuế không?”
+P416: Trả lời:
+P417: Thứ nhất, việc đóng bảo hiểm xã hội bắt buộc được thực hiện theo quy định của pháp luật về bảo hiểm xã hội. Đối với hộ kinh doanh áp dụng phương pháp tính thuế trên thu nhập tính thuế nhân với thuế suất, Nghị định 68 quy định khoản tiền lương trả cho người lao động (nếu ký hợp đồng trên 3 tháng) phải gắn với việc đóng bảo hiểm xã hội thì hộ kinh doanh mới được tính trừ vào chi phí.
+P418: Thứ hai, về phương pháp tính thuế: Nếu hộ kinh doanh lựa chọn phương pháp tính thuế theo thu nhập tính thuế nhân với thuế suất thì phải áp dụng ổn định trong 2 năm. Với phương pháp này, tiền lương, tiền công trả cho người lao động ký hợp đồng trên 3 tháng phải gắn với việc đóng bảo hiểm xã hội mới được tính vào chi phí. Nếu áp dụng phương pháp doanh thu nhân với tỷ lệ thuế, phần tiền lương, tiền công không ảnh hưởng đến cách xác định số thuế phải nộp.
+P419: Thứ ba, về trường hợp doanh thu sụt giảm: Trước khó khăn chung của nền kinh tế năm 2026, ngưỡng doanh thu không chịu thuế GTGT của hộ, cá nhân kinh doanh đã được nâng từ 500 triệu đồng lên 1 tỷ đồng. Với hộ kinh doanh tính thuế theo doanh thu nhân thuế suất thì sẽ được áp dụng mức trừ 1 tỷ. Việc nâng ngưỡng này đã tính đến một phần khó khăn và chi phí phát sinh trong hoạt động của hộ kinh doanh.
+P420: Ngoài ra, hộ kinh doanh nộp thuế theo phương pháp doanh thu nhân với tỷ lệ thuế, áp dụng đối với nhóm doanh thu đến 3 tỷ đồng, không phải thực hiện quyết toán thuế cuối năm. Hộ kinh doanh chỉ quyết toán thuế trong trường hợp nộp thuế theo phương pháp tính thuế là lấy doanh thu trừ đi chi phí, rồi nhân với thuế suất là 17% hoặc 20%. Còn theo tỉ lệ trên doanh thu thì không phải quyết toán thuế.
+P421: Câu hỏi 12:
+P422: “Tôi kinh doanh trên sàn thương mại điện tử và đến thời điểm hiện tại doanh thu đã vượt 1 tỷ đồng. Trước đây, các sàn đã khấu trừ và nộp thuế thay nên tôi cho rằng không cần xuất hóa đơn điện tử, vì lo doanh thu bị ghi nhận hai lần: một lần qua hóa đơn và một lần qua dữ liệu của sàn. Đến nay tôi vẫn chưa xuất hóa đơn điện tử. Xin hỏi trường hợp này có rủi ro gì và tôi cần khắc phục như thế nào?”
+P423: Trả lời:
+P424: Cục Thuế giải đáp: 
+P425: Theo quy định, hộ kinh doanh, cá nhân kinh doanh thuộc trường hợp phải sử dụng hóa đơn điện tử thực hiện đăng ký sử dụng hóa đơn điện tử trong thời gian 30 ngày kể từ ngày cuối cùng của kỳ tính thuế có doanh thu lũy kế trên 01 tỷ đồng.
+P426: Trường hợp đến nay bạn chưa đăng ký sử dụng hóa đơn điện tử thì cần thực hiện đăng ký với cơ quan thuế. Sau khi được cơ quan thuế chấp thuận, bạn bắt đầu áp dụng hóa đơn điện tử kể từ thời điểm đăng ký.
+P427: Câu hỏi 13:
+P428: “Nếu như cửa hàng của em đã xuất hóa đơn theo đúng quy định rồi nhưng vì một lý do nào đấy như hệ thống mất kết nối, hay bản thân các công nghệ thông tin truyền thông tin chậm. Khi đó trách nhiệm sẽ thuộc về bên nào? Trong trường hợp này em và các hộ kinh doanh cần phải lưu lại những thông tin gì để chứng minh vấn đề không xuất phát từ nhà bán hàng? Có cách nào hay có công cụ nào có thể giúp nhận diện được những vấn đề để kịp thời phát hiện trước khi bị phạt nộp chậm?”
+P429: Trả lời:
+P430: Trường hợp người bán đã lập hóa đơn điện tử nhưng dữ liệu chưa được truyền đến cơ quan thuế thì trước hết cần xác định rõ nguyên nhân sự cố và lỗi thuộc về bên nào để xử lý theo quy định tại Điều 14 Nghị định 254.
+P431: Nếu hệ thống tiếp nhận dữ liệu của cơ quan thuế gặp sự cố, thông tin sẽ được Cục Thuế công bố công khai trên các phương tiện thông tin và website của Cục Thuế. Trong trường hợp này, việc chậm truyền hoặc chậm tiếp nhận dữ liệu được xác định không phải lỗi của người bán.
+P432: Nếu sự cố phát sinh từ đơn vị cung cấp dịch vụ hóa đơn điện tử, đơn vị này có trách nhiệm thông báo, phối hợp với khách hàng để xử lý, đồng thời liên hệ với cơ quan thuế nhằm xác định nguyên nhân cụ thể của việc chậm truyền dữ liệu.
+P433: Một số trường hợp như chậm truyền dữ liệu do liên quan đến nguyên nhân khách quan bất khả kháng thì cũng được xác định lỗi không thuộc về người bán.
+P434: Tuy nhiên tất cả các trường hợp chậm truyền dữ liệu ở đây không phải ta cứ vin vào lý do lỗi hệ thống mà đương nhiên không bị xử phạt. Ở đây phải xác định rõ nguyên nhân chậm truyền dữ liệu, không truyền được dữ liệu là do đơn vị nào để xử lý theo quy định.
+P435: Trong mọi trường hợp chúng tôi khuyến cáo người bán cần lưu giữ lại các tài liệu, bằng chứng, ví dụ như thông tin, tin nhắn từ tổ chức cung cấp dịch vụ, hoặc màn hình khi ta truyền dữ liệu, màn hình thông báo hệ thống của cơ quan thuế chẳng hạn. Toàn bộ những hình ảnh đó nên lưu giữ lại để chứng minh lỗi chậm truyền dữ liệu là khách quan chứ không phải lỗi chủ quan từ phía người bán. Tất cả những cái đó chúng ta phải có tài liệu chứng minh để xem xét trách nhiệm về việc chậm truyền dữ liệu.
+P436: Câu hỏi 14:
+P437: “Tôi là hộ kinh doanh mới đăng ký hoạt động trong lĩnh vực tiếp thị liên kết (affiliate marketing) hiện hợp tác với các công ty và nền tảng ở nước ngoài, nhận hoa hồng từ việc giới thiệu sản phẩm, dịch vụ. Khoản hoa hồng được thanh toán từ nước ngoài vào tài khoản ngân hàng tại Việt Nam. Tôi xin hỏi, thời điểm xác định doanh thu là khi nào và tôi có phải lập hóa đơn điện tử hay không?”
+P438: Trả lời:
+P439: Thu nhập từ hoạt động tiếp thị liên kết trên nền tảng thương mại điện tử, nền tảng số là thu nhập từ kinh doanh hoặc thu nhập từ tiền lương tiền công và cần căn cứ vào hợp đồng hợp tác và bản chất hoạt động để xác định; việc khoản thu nhập được thanh toán từ tổ chức, cá nhân ở nước ngoài không làm thay đổi nguyên tắc xác định loại thu nhập.
+P440: Người nộp thuế có trách nhiệm kê khai doanh thu phát sinh và thực hiện nghĩa vụ thuế theo quy định. Trường hợp doanh thu phát sinh bằng ngoại tệ thì quy đổi ra đồng Việt Nam theo quy định của pháp luật thuế.
+P441: Về hóa đơn điện tử, người nộp thuế căn cứ loại hoạt động, đối tượng cung cấp hàng hóa, dịch vụ và trường hợp cụ thể theo Nghị định số 254/2026/NĐ-CP để xác định nghĩa vụ lập hóa đơn; không mặc nhiên xác định mọi hoạt động cung cấp qua nền tảng số cho tổ chức, cá nhân ở nước ngoài thuộc trường hợp không phải lập hóa đơn điện tử.
+P442: Câu hỏi 15:
+P443: “Từ ngày 01/7/2026, trước yêu cầu triển khai đồng thời nhiều chính sách thuế mới, Thuế cơ sở đã chuẩn bị những giải pháp gì để rà soát đúng đối tượng, hướng dẫn trực tiếp và hỗ trợ người nộp thuế thực hiện đúng ngay từ thời gian đầu?”
+P444: Trả lời:
+P445: Khi những chính sách mới được ban hành, Thuế tỉnh, thành phố đã chủ động rà soát và phân loại người nộp thuế thành từng nhóm để có hình thức hỗ trợ phù hợp. Đặc biệt, đối với nhóm đối tượng người nộp thuế là hộ kinh doanh, cá nhân kinh doanh và người bán hàng trên sàn thương mại điện tử/mạng xã hội, cơ quan thuế sẽ tập trung hướng dẫn trực tiếp, đối thoại trực tiếp để giải đáp các vướng mắc.
+P446: Cơ quan thuế cung cấp các tài liệu hướng dẫn một cách ngắn gọn để hộ kinh doanh dễ thực hiện. Bên cạnh đó, cơ quan thuế cũng thiết lập kênh tiếp nhận thông tin và giải quyết kịp thời vướng mắc phát sinh.
+P447: Cơ quan thuế cũng phối hợp với chính quyền địa phương và các đơn vị có liên quan để chính sách thuế đến được đúng đối tượng. Quan điểm của cơ quan thuế là đồng hành cùng người nộp thuế và hướng dẫn một cách đầy đủ và để giúp người nộp thuế là hiểu đúng và làm đúng ngay từ đầu, giúp giảm thiểu rủi ro trong quá trình chấp hành pháp luật về thuế.
+P448: Câu hỏi 16:
+P449: “Từ thực tiễn quản lý doanh nghiệp tại địa phương, cơ quan thuế cần đổi mới việc tuyên truyền, hướng dẫn chính sách trên TikTok, Fanpage, Zalo và các nền tảng mạng xã hội như thế nào để thông tin vừa dễ hiểu, dễ tiếp cận, vừa bảo đảm chính xác, thống nhất và đúng thẩm quyền?”
+P450: Trả lời:
+P451: Hiện nay mạng xã hội là một kênh truyền thông rất nhanh và hiệu quả dựa trên thói quen sử dụng của người nộp thuế hiện nay. Vì vậy cơ quan thuế sẽ tiếp tục tăng cường triển khai đăng tải những chính sách thuế thông qua các hình thức như video ngắn, infographic, những buổi livestream hay những bài đăng để hỏi và giải đáp về những trường hợp thực tiễn giúp người nộp thuế dễ hiểu và dễ áp dụng.
+P452: Và tất nhiên là những nội dung đăng tải sẽ được xây dựng dựa trên cơ sở quy định pháp luật và có sự thống nhất với những thông tin đã được đăng tải ở trên kênh chính thức của ngành thuế.
+P453: Đối với những trường hợp cần phải xem xét hồ sơ cụ thể hơn thì cơ quan thuế sẽ hướng dẫn cho người nộp thuế liên hệ các kênh hỗ trợ chính thức để có thể được giải đáp một cách nhanh chóng và chính xác nhất.
+P454: Mục tiêu của cơ quan thuế là truyền tải chính sách tới gần hơn đối với người nộp thuế nhưng vẫn phải bảo đảm tính chính xác, minh bạch, thống nhất và đúng với quy định pháp luật.
+P455: Câu hỏi 17: Em đang bán online trên sàn shopee, grab, be. Các sàn đã khấu trừ thuế của em thì năm 2026 em có cần khai báo doanh thu không?
+P456: Trả lời:
+P457: Căn cứ khoản 1 Điều 8 Nghị định số 68/2026/NĐ-CP (được sửa đổi, bổ sung tại Điều 1 Nghị định số 141/2026/NĐ-CP), trường hợp bạn bán hàng qua Shopee, Grab, Be và đã được nền tảng khấu trừ, nộp thuế thay thì không phải khai, nộp lại số thuế đối với các giao dịch đã được thực hiện thay. Tuy nhiên, bạn vẫn phải tổng hợp doanh thu thực tế phát sinh trong năm để xác định nghĩa vụ thông báo doanh thu hoặc quyết toán thuế, cụ thể như sau:
+P458: + Nếu tổng doanh thu thực tế trong năm từ 01 tỷ đồng trở xuống, bạn thông báo doanh thu thực tế với cơ quan thuế chậm nhất ngày 31 tháng 01 của năm dương lịch tiếp theo. Nếu số thuế nền tảng đã khấu trừ, nộp thuế thay lớn hơn số phải nộp, bạn được đề nghị bù trừ vào kỳ tiếp theo hoặc đề nghị hoàn thuế theo quy định; hồ sơ sử dụng mẫu số 01/TKN-CNKD ban hành kèm theo Thông tư số 89/2026/TT-BTC.
+P459: + Nếu tổng doanh thu năm trên 03 tỷ đồng, hoặc trên 01 tỷ đồng đến 03 tỷ đồng nhưng bạn lựa chọn phương pháp tính thuế TNCN theo thu nhập tính thuế nhân (×) thuế suất, bạn phải tổng hợp doanh thu, chi phí và khai quyết toán thuế TNCN theo năm. Số thuế đã được nền tảng khấu trừ, nộp thuế thay được trừ khi xác định số thuế còn phải nộp; nếu nộp thừa thì được đề nghị bù trừ vào kỳ tiếp theo hoặc đề nghị hoàn theo quy định. Hồ sơ quyết toán sử dụng mẫu số 02/QTT-TNCN-CNKD ban hành kèm theo Thông tư số 89/2026/TT-BTC.
+P460: Câu hỏi 18:
+P461: Tôi là hộ kinh doanh bán trên sàn thương mại điện tử, doanh thu năm trên 3 tỷ và dưới 50 tỷ. Hiện tại sàn đang kê khai và nộp thuế thay cho tôi. Tôi tìm hiểu thì được biết nếu tôi lựa chọn phương pháp nộp thuế theo lợi nhuận thì mới phải quyết toán thuế (lợi nhuận x 17%).
+P462: Vậy tôi xin hỏi là cuối năm tôi có bắt buộc phải quyết toán thuế để nộp thuế thu nhập cá nhân là 17% trên lợi nhuận không . Hay tôi lựa chọn đóng thuế theo thuế suất 1.5% (1% thuế GTGT và 0.5% thuế TNCN) doanh thu trên sàn là được? 
+P463: Trả lời:
+P464: Theo Điều 43 Nghị định số 252/2026/NĐ-CP, đối với giao dịch thuộc phạm vi nền tảng khấu trừ, khai thay, nộp thuế thay, số thuế GTGT và TNCN được xác định theo tỷ lệ phần trăm (%) trên doanh thu của từng giao dịch. Việc nền tảng khấu trừ theo giao dịch là cơ chế tạm thực hiện nghĩa vụ thuế và không làm thay đổi phương pháp tính thuế TNCN phải áp dụng khi xác định nghĩa vụ cả năm.
+P465: Theo khoản 5 Điều 4  Nghị định số 68/2026/NĐ-CP (được sửa đổi, bổ sung tại Điều 1 Nghị định số 141/2026/NĐ-CP), nếu doanh thu năm của bạn trên 03 tỷ đồng đến 50 tỷ đồng thì bạn thuộc trường hợp bắt buộc áp dụng phương pháp tính thuế TNCN theo thu nhập tính thuế nhân (×) thuế suất 17% và phải khai quyết toán thuế TNCN theo năm. Số thuế TNCN nền tảng đã khấu trừ, nộp thuế thay được trừ khi xác định số thuế TNCN phải nộp theo quyết toán.
+P466: Câu hỏi 19: Tôi kinh doanh trên sàn thương mại điện tử. Doanh thu 6 tháng đầu năm 2026 trên Shopee của tôi là 2,5 tỷ đồng. Tuy nhiên, tôi chỉ bán trên sàn nên chưa đủ để kê khai theo phương pháp khấu trừ (doanh thu - chi phí) x 17%. Tôi có thể chọn kê khai đóng thuế như sàn đã đóng là doanh thu x1,5%  được không?
+P467: Trả lời: 
+P468: Việc doanh thu 6 tháng đầu năm 2026 của bạn là 2,5 tỷ đồng chưa đủ để kết luận phương pháp tính thuế TNCN của cả năm. Trường hợp sàn TMĐT đã khấu trừ, nộp thuế thay thuế GTGT và thuế TNCN của bạn thì bạn không phải kê khai, nộp thuế GTGT, TNCN tháng/quý đối với các hoạt động kinh doanh trên nền tảng thương mại điện tử đã khấu trừ, nộp thuế thay. 
+P469: Theo quy định tại khoản 5 Điều 4 Nghị định số 68/2026/NĐ-CP (sửa đổi, bổ sung tại Điều 1 Nghị định số 141/2026/NĐ-CP) thì nếu tổng doanh thu năm trên 03 tỷ đồng thì phải tính thuế thu nhập cá nhân theo phương pháp thu nhập tính thuế nhân (×) thuế suất 17% theo quy định; nếu tổng doanh thu trên 01 tỷ đồng đến 03 tỷ đồng thì bạn được lựa chọn:
+P470: - Tiếp tục tính thuế theo tỷ lệ trên doanh thu (đối với hoạt động bán hàng là 1% thuế GTGT và 0,5% thuế TNCN); hoặc 
+P471: - Áp dụng phương pháp tính thuế theo thu nhập tính thuế (doanh thu – chi phí)  nhân (x) thuế suất 17%. Nếu lựa chọn phương pháp này thì phải thực hiện quyết toán thuế theo năm. Thời hạn nộp quyết toán thuế là ngày 31/3 năm sau. 
+P472: Số thuế TNCN đã được chủ quản nền tảng thương mại điện tử, nền tảng số khấu trừ, nộp thuế thay được trừ khi xác định số thuế thu nhập cá nhân phải nộp.
+P473: Câu hỏi 20: 
+P474: Tôi chỉ bán hàng trên Shopee, doanh thu trên 3 tỷ đồng/ năm. Tôi có bắt buộc phải xuất hoá đơn điện tử từ máy tính tiền liên thông với hoá đơn giá trị gia tăng không? Việc xuất hóa đơn như vậy có ảnh hưởng gì đến việc đã đóng thuế không? Do thuế đã được sàn tạm thu 1.5% trên doanh thu rồi.
+P475: Trả lời: 
+P476: Căn cứ quy định tại khoản 5 Điều 8 Nghị định số 68/2026/NĐ-CP (sửa đổi, bổ sung tại Nghị định số 141/2026/NĐ-CP) và Điều 6 Nghị định số 254/2026/NĐ-CP thì hộ kinh doanh, cá nhân kinh doanh có doanh thu trên 1 tỷ đồng phải áp dụng hóa đơn điện tử có mã của cơ quan thuế hoặc hóa đơn điện tử khởi tạo từ máy tính tiền có kết nối dữ liệu với cơ quan thuế. Trường hợp bạn đã áp dụng hóa đơn điện tử từ máy tính tiền có kết nối dữ liệu hóa đơn điện tử tới cơ quan thuế thì không phải sử dụng hóa đơn giá trị gia tăng. 
+P477: Việc sàn thương mại điện tử khấu trừ, kê khai và nộp thuế thay chỉ là thực hiện nghĩa vụ thuế đối với các giao dịch bán hàng qua sàn theo quy định. Việc bạn lập hóa đơn điện tử không làm phát sinh thêm nghĩa vụ thuế và cũng không có nghĩa là phải nộp thuế hai lần đối với cùng một khoản doanh thu.
+P478: Nếu toàn bộ doanh thu đều phát sinh trên Shopee và đã được sàn khấu trừ, kê khai và nộp thuế thay, thì khi xác định nghĩa vụ thuế cuối cùng, toàn bộ số thuế đã được sàn nộp thuế thay sẽ được khấu trừ theo quy định, không phải nộp trùng.
+P479: Lưu ý: Nếu bạn ủy nhiệm cho Shopee (hoặc nền tảng thương mại điện tử đáp ứng điều kiện theo Thông tư số 91/2026/TT-BTC) lập hóa đơn điện tử, thì sàn sẽ thực hiện việc lập hóa đơn theo phạm vi được ủy nhiệm; khi đó bạn không phải tự lập hóa đơn cho các giao dịch đã ủy nhiệm, nhưng vẫn chịu trách nhiệm về tính chính xác, đầy đủ của thông tin trên hóa đơn theo quy định. 
+P480: Câu hỏi 21: Tôi bán trên sàn thương mại điện tử shoppe, khi có đơn khách hoàn về của sàn TMĐT bị hư hỏng, bên sàn TMĐT đền tiền cho shop không cần trả lại hàng cho khách, nhưng đơn này đã lập hoá đơn rồi thì tôi cần xử lý như thế nào?
+P481: Trả lời: 
+P482: Trường hợp HKD, CNKD bán hàng trên sàn thương mại điện tử như Shopee đã lập hóa đơn cho đơn hàng, nhưng sau đó khách trả hàng do hàng hóa bị hư hỏng trong quá trình vận chuyển và sàn thương mại điện tử bồi thường tiền cho shop, không yêu cầu trả lại hàng cho khách, thì đơn hàng này được xác định là giao dịch bán hàng không thành công. Do đó, hộ kinh doanh thực hiện lập hóa đơn điện tử điều chỉnh giảm toàn bộ giá trị của hóa đơn đã lập. Trường hợp HKD, CNKD áp dụng phương pháp tính thuế TNCN theo doanh thu, thì HKD, CNKD cần lưu giữ chứng từ, thông tin hàng hỏng từ sàn để phục vụ việc đối chiếu, giải trình khi cần thiết. Trường hợp HKD, CNKD áp dụng phương pháp tính thuế TNCN theo thu nhập, thì chỉ chi phí được trừ theo quy định tại Điều 6 Nghị định số 68/2026/NĐ-CP mới được ghi nhận vào chi phí và HKD, CNKD cần lưu giữ chứng từ, thông tin hàng hỏng từ sàn để phục vụ việc đối chiếu, giải trình khi cần thiết.
+P483:  Câu hỏi 22: Trường hợp xuất hóa đơn, trong đó có bao gồm phí vận chuyển, phí này là phí do khách chịu, công nợ của Hộ kinh doanh với bên dv vận chuyển sẽ được cấn trừ với COD. Vậy khi xuất hóa đơn, HKD có phải xuất bao gồm phí vận chuyển không ạ? Còn phí vận chuyển lúc này nếu ko xuất hóa đơn thì là 1 khoản thu hộ đúng ko ạ. Nhờ Anh/ Chị hướng dẫn giúp!
+P484: Trả lời: 
+P485: Đối với HKD, CNKD bán hàng, khi lập hóa đơn điện tử cần căn cứ vào bản chất khoản thu. 
+P486: - Trường hợp HKD, CNKD trực tiếp thu tiền vận chuyển của khách như một phần của giao dịch bán hàng, thì khi lập hóa đơn cần ghi cả tiền hàng và tiền vận chuyển trên hóa đơn.
+P487: - Trường hợp phí vận chuyển là khoản thu hộ cho đơn vị vận chuyển (ví dụ đơn vị vận chuyển giao hàng và thu tiền COD, sau đó cấn trừ lại), thì khoản phí vận chuyển này không phải doanh thu của HKD, CNKD. Khi đó đơn vị vận chuyển sẽ xuất hóa đơn dịch vụ vận chuyển theo quy định, còn HKD, CNKD không phải lập hóa đơn cho khoản phí thu hộ này. Để tránh nhầm lẫn, HKD, CNKD nên thể hiện rõ trên đơn hàng hoặc chứng từ rằng đây là khoản phí vận chuyển thu hộ đơn vị vận chuyển, còn hóa đơn bán hàng chỉ thể hiện giá trị hàng hóa, dịch vụ do HKD, CNKD cung cấp.
+P488: Câu hỏi 23: Tôi bán hàng online chỉ qua kênh facebook, đã có mã số thuế (những năm trước đã đóng thuế kê khai theo từng tháng). Doanh thu dự kiến năm 2026 sẽ trên 1 tỷ dưới 3 tỷ yêu cầu phải sử dụng hoá đơn điện tử, cho hỏi làm thế nào để việc sử dụng hoá đơn điện tử cho đúng luật ạ? Hàng hoá bán là quần áo, giày dép, đồ chơi,… khi có đơn khách đặt tôi mới mua lại của người khác không có hoá đơn đầu vào thì có được sử dụng hoá đơn điện tử để xuất ra không?
+P489: Trả lời
+P490: Trường hợp bạn có doanh thu dự kiến năm 2026 trên 01 tỷ đến dưới 03 tỷ thì thuộc đối tượng sử dụng hóa đơn điện tử theo khoản 5 Điều 8 Nghị định số 68/2026/NĐ-CP (được sửa đổi, bổ sung tại Điều 1 Nghị định số 141/2026/NĐ-CP ngày 29/4/2026 của Chính phủ). Bạn đăng ký sử dụng hóa đơn điện tử theo Mẫu 01/ĐKTĐ-HĐĐT theo Thông tư số 91/2026/TT-BTC ngày 30/6/2026 và gửi cơ quan thuế để đăng ký sử dụng hóa đơn điện tử qua các tổ chức cung cấp dịch vụ hóa đơn điện tử. Trường hợp của bạn không có hóa đơn đầu vào và có doanh thu trên 01 tỷ đồng đến 03 tỷ đồng có thể lựa chọn phương pháp tính thuế theo thuế suất nhân với doanh thu và ghi chép sổ sách theo quy định tại Thông tư số 152/2025/TT-BTC.
+P491: Câu hỏi 24: Tôi bán hàng ăn uống trên sàn TMĐT và truyền thống. Trên app doanh thu của tôi trên 01 tỷ và truyền thống dưới 01 tỷ. Tổng doanh thu của cả 2 chưa đến 03 tỷ. App đã đóng thuế thay và có hoá đơn điện tử vậy thì bán tại chỗ có cần xuất hoá đơn không? Không xuất thì có bị xử phạt không?
+P492: Trả lời: 
+P493: Theo Nghị định 68/2026/NĐ-CP, doanh thu của HKD, CNKD được xác định là tổng doanh thu từ tất cả các kênh (bao gồm sàn TMĐT và bán trực tiếp). Theo quy định của Luật Quản lý thuế thì khi bán hàng hóa, cung cấp dịch vụ người bán phải lập và giao hóa đơn cho người mua. Trường hợp doanh thu năm trên 1 tỷ thì HKD, CNKD đăng ký sử dụng hóa đơn điện tử với cơ quan thuế sau 30 ngày kể từ thời điểm doanh thu lũy kế năm vượt 1 tỷ.
+P494: Sau khi bạn đã đăng ký sử dụng hóa đơn mà bạn không xuất hóa đơn hoặc xuất hóa đơn không đúng thời điểm khi bán hàng hóa thì bạn sẽ bị xử phạt về hành vi không xuất hóa đơn hoặc xử phạt về hành vi xuất hóa đơn không đúng thời điểm quy định tại Điều 24 Nghị định số 125/2020/NĐ-CP (sửa đổi, bổ sung tại khoản 14 Điều 1 Nghị định số 310/2025/NĐ-CP)
+P495: Câu hỏi 25: Hiện tôi đang kinh doanh trên sàn TMĐT Shopee và Tiktok, các sàn TMĐT đều che thông tin khách hàng nên tôi không có thông tin để lập hóa đơn. Tôi bán lẻ các phụ kiện nhỏ lẻ, giá trị thấp 20-30 nghìn đồng, mỗi ngày có khoảng 700-800 đơn hàng, thì tôi phải xuất hóa đơn riêng lẻ từng đơn hay có thể xuất hóa đơn chung cho các đơn hàng trong ngày đó không ạ.
+P496: Trả lời: 
+P497: Theo Điều 17 và Điều 19 Nghị định số 254/2026/NĐ-CP, người bán hàng trên sàn thương mại điện tử có quyền yêu cầu sàn TNĐT cung cấp các thông tin cần thiết của người mua để lập hóa đơn điện tử. Đồng thời, sàn thương mại điện tử có trách nhiệm cung cấp các thông tin này cho người bán để người bán thực hiện đúng quy định về hóa đơn. 
+P498: Tuy nhiên, để giảm bớt thủ tục cho hộ kinh doanh, Nghị định số 254/2026/NĐ-CP cũng cho phép người bán được ủy nhiệm cho sàn thương mại điện tử lập hóa đơn điện tử. Trình tự, thủ tục ủy nhiệm được thực hiện theo Điều 9 Thông tư số 91/2026/TT-BTC. Khi đó, sàn sẽ thay mặt người bán lập hóa đơn điện tử cho các giao dịch thuộc phạm vi được ủy nhiệm, giúp người bán không phải tự lập hóa đơn cho từng đơn hàng. 
+P499: Theo quy định tại Điều 26 Luật Quản lý thuế thì người bán phải lập hóa đơn điện tử giao cho người mua khi bán hàng hóa, cung cấp dịch vụ. Do đó, bạn sẽ lập hóa đơn cho từng người mua.
+P500: Câu hỏi 26: Tôi là hộ kinh doanh cá thể mới đăng ký hoạt động trong lĩnh vực tiếp thị liên kết (Affiliate Marketing). Hiện tại tôi hợp tác với các công ty và nền tảng ở nước ngoài, nhận hoa hồng từ việc giới thiệu sản phẩm/dịch vụ. Khoản hoa hồng này được thanh toán từ nước ngoài về cho tôi thông qua chuyển khoản vào tài khoản ngân hàng tại Việt Nam. Tôi xin được hỏi một số vấn đề như sau: 
+P501: 1. Thời điểm ghi nhận doanh thu của hộ kinh doanh được xác định khi nào?
+P502: 2. Trong trường hợp cần xuất hóa đơn, thời điểm xuất hóa đơn được xác định khi nào?
+P503: Trả lời: 
+P504: Về thời điểm xác định doanh thu để kê khai thuế, đối với hoạt động Affiliate Marketing cần căn cứ vào bản chất của giao dịch. Người làm Affiliate không được hưởng hoa hồng ngay khi phát sinh đơn hàng, mà chỉ được hưởng khi nền tảng hoặc đối tác đã đối soát, xác nhận đơn hàng đủ điều kiện thanh toán và thực hiện chi trả tiền hoa hồng. Trong thời gian chờ đối soát, đơn hàng vẫn có thể bị hủy, bị trả lại, bị từ chối hoặc không đủ điều kiện hưởng hoa hồng.
+P505: Đây cũng là thông lệ chung của các nền tảng Affiliate trên thế giới như Shopee Affiliate, TikTok Shop Affiliate, Amazon Associates và nhiều chương trình Affiliate khác. Hoa hồng chỉ được ghi nhận sau khi hoàn thành quá trình đối soát và được nền tảng xác nhận là khoản thu nhập mà người làm Affiliate thực sự được hưởng.
+P506: Vì vậy, đối với hoạt động Affiliate Marketing, doanh thu để kê khai thuế được xác định là khoản hoa hồng đã được nền tảng hoặc đối tác xác nhận đủ điều kiện chi trả và thực tế thanh toán cho hộ kinh doanh, không căn cứ vào thời điểm khách hàng đặt hàng hoặc thời điểm phát sinh giao dịch ban đầu.
+P507: Câu hỏi 27: Tôi bán hàng online, tôi phải lập hóa đơn khi đem hàng đi gửi, hay là lúc khách hàng thanh toán?
+P508: Trả lời: 
+P509: Theo quy định tại Điều 7 Nghị định số 254/2026/NĐ-CP ngày 30/6/2026 thì: Thời điểm lập hóa đơn đối với bán hàng hóa là thời điểm chuyển giao quyền sở hữu hoặc quyền sử dụng hàng hóa cho người mua, không phân biệt đã thu được tiền hay chưa thu được tiền: do đó thời điểm lập hóa đơn là lúc có xác nhận giao hàng thành công (thời điểm khách nhận hàng).
+P510: Đối với bán hàng online, việc giao hàng cho đơn vị vận chuyển chưa phải là thời điểm lập hóa đơn, vì lúc này hàng hóa vẫn chưa được xác định là đã giao cho người mua.
+P511: Câu hỏi 28: Hiện tại hộ kinh doanh của tôi chỉ kinh doanh trên các sàn thương mại điện tử (Shopee, TikTok Shop) và không phát sinh doanh thu ngoài sàn. Các sàn đã thực hiện kê khai và nộp thuế thay theo quy định. Tôi có một thắc mắc mong được cơ quan thuế hướng dẫn: Trong trường hợp tại thời điểm dự kiến đầu năm 2026 doanh thu dưới 3 tỷ đồng, nhưng đến cuối năm 2026 tổng doanh thu thực tế lại vượt mức 3 tỷ đồng, thì: 
+P512: 1. Hộ kinh doanh của tôi sẽ được tiếp tục áp dụng phương thức thuế hiện tại cho hết năm 2026 hay sẽ phải chuyển sang phương thức kê khai thuế theo Doanh thu - Chi phí ngay trong năm? 
+P513: 2. Nếu phải chuyển phương thức tính thuế, thì việc chuyển đổi sẽ được áp dụng từ thời điểm nào?
+P514: Trả lời: 
+P515: Căn cứ Điều 4 Nghị định 68/2026/NĐ-CP (sửa đổi, bổ sung tại Điều 1 Nghị định số 141/2026/NĐ-CP), trường hợp HKD, CNKD có doanh thu năm trên 1 tỷ đồng đến 03 tỷ đồng đang áp dụng phương pháp tính thuế thu nhập cá nhân theo thuế suất nhân (x) doanh thu tính thuế, nếu hết năm xác định doanh thu thực tế năm trên 03 tỷ đồng thì từ năm 2027 phải chuyển sang áp dụng phương pháp tính thuế thu nhập cá nhân theo thu nhập tính thuế (doanh thu – chi phí) nhân (x) thuế suất.
+P516: Câu hỏi 29: Tôi hiện tại đang làm affiliate marketing global và đã đăng ký kinh doanh. Doanh thu của tôi mỗi năm thì vượt trên 3 tỷ năm. Như vậy có bắt buộc phải có kế toán làm như doanh nghiệp nhỏ để đóng 17% trên lãi không?
+P517: Trả lời: 
+P518: Trường hợp cá nhân/hộ kinh doanh hoạt động affiliate marketing (tiếp thị liên kết) và có doanh thu trên 3 tỷ đồng/năm thì vẫn thuộc diện hộ kinh doanh, cá nhân kinh doanh và thực hiện nghĩa vụ thuế áp dụng phương pháp tính thuế theo thu nhập tính thuế, tức là (doanh thu trừ chi phí) × thuế suất 17% (tuy nhiên cần lưu ý xác định bản chất giao dịch thông qua hợp đồng và các tài liệu có liên quan). Do đó, người kinh doanh cần thực hiện ghi chép, lưu giữ chứng từ để xác định doanh thu, chi phí phục vụ việc kê khai và quyết toán thuế theo quy định.
+P519: Câu hỏi 30: Hộ kinh doanh online có bắt buộc phải lập tài khoản hộ kinh doanh không hay có thể dùng 1 tài khoản cá nhân cho việc nhận tiền từ việc kinh doanh.
+P520: Trả lời
+P521: Hộ kinh doanh có thể sử dụng nhiều tài khoản ngân hàng hoặc ví điện tử để nhận tiền từ các kênh bán hàng khác nhau; quy định pháp luật không bắt buộc chỉ sử dụng một tài khoản duy nhất.
+P522: Tuy nhiên, hộ kinh doanh có trách nhiệm thông báo với cơ quan thuế tất cả các tài khoản ngân hàng, số hiệu ví điện tử liên quan đến hoạt động sản xuất, kinh doanh và kê khai đầy đủ doanh thu phát sinh từ tất cả các kênh bán hàng.
+P523: Câu hỏi 31: 
+P524: Hộ kinh doanh em bán trên sàn thương mại điện tử doanh thu trên 3 tỉ đóng thuế trên thu nhập tính thuế nhân thuế suất 17%.
+P525: Vậy các khoản phí sàn có được tính là chi phí hợp lí được trừ ra không ạ? Phí quảng cáo có được tính là chi phí không ạ?
+P526: Trả lời: 
+P527: Căn cứ quy định tại Điều 6 Nghị định số 68/2026/NĐ-CP ngày 05/03/2026 của Chính phủ, các khoản phí sàn và phí quảng cáo được xác định là chi phí hợp lý được trừ khi tính thuế TNCN từ hoạt động kinh doanh nếu đáp ứng đủ các điều kiện sau:
+P528: - Là khoản chi thực tế phát sinh liên quan trực tiếp đến hoạt động sản xuất, kinh doanh trên sàn TMĐT.
+P529: - Có đầy đủ hóa đơn, chứng từ theo quy định của pháp luật về hóa đơn và kế toán (ví dụ: hóa đơn điện tử xuất từ sàn).
+P530: - Có chứng từ thanh toán không dùng tiền mặt đối với các khoản thanh toán từng lần có giá trị từ 05 triệu đồng trở lên theo pháp luật về thuế giá trị gia tăng.
+P531: Câu hỏi 32:
+P532: Tôi hiện tại đang làm video đăng tải lên nền tảng Youtube và có phát sinh doanh thu từ hoạt động kinh doanh này được 4 tháng rồi. Xin cho hỏi tôi có cần kê khai thuế không và mong cơ quan thuế hướng dẫn kê khai. 
+P533: Trả lời:
+P534: Câu hỏi của bạn chưa nêu rõ thông tin bạn kinh doanh gì nữa không ngoài việc bạn đang làm trên Youtube (ví dụ: kinh doanh tại địa điểm cố định, kinh doanh trên Sàn TMĐT có chức năng thanh toán) và tổng doanh thu của bạn phát sinh là bao nhiêu.
+P535: Trường hợp doanh thu của bạn chỉ phát sinh từ việc làm Youtube thì bạn có trách nhiệm tự kê khai, nộp thuế TNCN và thuế GTGT. Căn cứ quy định tại khoản 1 Điều 8 Nghị định số 68/2026/NĐ-CP (sửa đổi, bổ sung tại Điều 1 Nghị định số 141/2026/NĐ-CP):  
+P536: 1. Nếu bạn tự xác định mức doanh thu năm từ hoạt động làm Youtube từ 01 tỷ đồng trở xuống thì bạn chỉ cần thực hiện thông báo doanh thu thực tế phát sinh trong năm với cơ quan thuế chậm nhất là ngày 31 tháng 01 của năm dương lịch tiếp theo. Trường hợp bạn mới ra kinh doanh trong 6 tháng đầu năm 2026 thì bạn thực hiện thông báo doanh thu thực tế phát sinh kể từ khi bắt đầu hoạt động kinh doanh đến hết ngày 30/6/2026 với cơ quan thuế chậm nhất ngày 31/7/2026 và thông báo doanh thu thực tế phát sinh trong 6 tháng cuối năm chậm nhất là 31/01 của năm dương lịch tiếp theo. 
+P537: 2. Nếu bạn tự xác định tổng mức doanh thu năm từ hoạt động làm Youtube trên 01 tỷ đồng thì bạn thực hiện như sau: 
+P538:  Khai thuế tháng/quý:
+P539: + Khai thuế GTGT: Trường hợp có doanh thu năm từ 50 tỷ đồng trở xuống thực hiện khai thuế, nộp thuế GTGT theo quý; Trường hợp có doanh thu năm trên 50 tỷ đồng thực hiện khai thuế, nộp thuế GTGT theo tháng. Thuế GTGT áp dụng theo phương pháp tính trực tiếp theo doanh thu (bằng tỷ lệ % nhân (x) doanh thu). 
+P540: + Khai thuế TNCN: 
+P541: Trường hợp doanh thu của bạn trên 01 tỷ đến 3 tỷ và bạn lựa chọn nộp thuế thu nhập cá nhân theo phương pháp thuế suất nhân (x) doanh thu tính thuế thì bạn thực hiện khai, nộp thuế thu nhập cá nhân theo quý cùng thời hạn khai, nộp thuế giá trị gia tăng. 
+P542: Trường hợp tổng doanh thu năm của bạn trên 3 tỷ đồng hoặc có doanh thu năm trên 01 tỷ đồng và lựa chọn khai thuế thu nhập cá nhân theo phương pháp thu nhập tính thuế (tức là doanh thu trừ chi phí) nhân (x) thuế suất thì bạn thực hiện khai tạm nộp thuế thu nhập cá nhân theo tháng, quý trên cùng hồ sơ khai thuế giá trị gia tăng. Số thuế thu nhập cá nhân tạm nộp bằng thuế suất nhân (x) doanh thu tính thuế của tháng, quý.
+P543: Khai quyết toán thuế TNCN theo năm: Trường hợp nếu bạn có doanh thu năm tổng hợp trên 03 tỷ đồng hoặc có doanh thu năm trên 01 tỷ đồng và lựa chọn khai thuế thu nhập cá nhân theo phương pháp thu nhập tính thuế nhân (x) thuế suất thì bạn phải thực hiện quyết toán thuế TNCN. Bạn cần phải tổng hợp toàn bộ doanh thu đối với hoạt động kinh doanh của mình (bao gồm cả tiền hoa hồng mà bạn đã nhận được trong năm) để thực hiện quyết toán thuế TNCN theo quy định pháp luật.
+P544: Câu hỏi 33: Dự định sắp tới tôi sẽ dạy học ngoại ngữ cho 1 số bạn thi TOEIC theo hình thức online. Nơi tôi tạm trú cũng là nơi tôi dạy học online luôn. Dự kiến doanh thu khoảng 500 triệu đồng/năm. Tôi có cần phải ĐKKD để khai báo thuế không ạ?  Nếu có thì tôi nên ĐKKD theo địa chỉ nào là tiện nhất cho việc kê khai thuế sau này? Kể cả trường hợp phải chuyển địa chỉ tạm trú? Trường hợp như tôi là hộ kinh doanh hay cá nhân kinh doanh?
+P545: Trả lời:
+P546: Bạn căn cứ vào quy định của pháp luật về đăng ký kinh doanh (Nghị định số 168/2025/NĐ-CP ngày 30/6/2025) và các pháp luật chuyên ngành khác để thực hiện đăng ký thành lập hộ kinh doanh. Trường hợp bạn đăng ký thành lập hộ kinh doanh thì việc đăng ký kinh doanh và đăng ký thuế được thực hiện đồng thời thông qua cơ chế một cửa liên thông. Trường hợp cá nhân kinh doanh không đăng ký kinh doanh thì cá nhân đăng ký thuế trực tiếp cơ quan thuế. 
+P547: Theo quy định pháp luật về đăng ký kinh doanh, trụ sở của hộ kinh doanh là nơi hộ kinh doanh thực hiện hoạt động kinh doanh và là địa chỉ để cơ quan quản lý nhà nước liên hệ, được xác định theo địa giới đơn vị hành chính trên lãnh thổ Việt Nam. Với việc dạy học online, địa điểm kinh doanh được xác định là nơi bạn thực tế điều hành và giảng dạy. Dự kiến doanh thu năm của bạn từ dưới 1 tỷ  đồng trở xuống thì bạn không thuộc đối tượng chịu thuế GTGT và không phải nộp thuế thu nhập cá nhân nhưng bạn cần phải thông báo doanh thu thực tế phát sinh trong năm với cơ quan thuế chậm nhất là ngày 31/1 năm dương lịch tiếp theo. Trường hợp bạn mới ra kinh doanh trong 6 tháng đầu năm 2026 thì bạn thực hiện thông báo doanh thu thực tế phát sinh kể từ khi bắt đầu hoạt động kinh doanh đến hết ngày 30/6/2026 với cơ quan thuế chậm nhất ngày 31/7/2026 và thông báo doanh thu thực tế phát sinh trong 6 tháng cuối năm chậm nhất là 31/01 của năm dương lịch tiếp theo. 
+P548: Câu hỏi 34:
+P549: Em làm tiếp thị liên kết bán hàng ăn hoa hồng trên TMĐT Shopee, doanh thu của em chính là tiền hoa hồng em nhận được phải không ạ? Vì em không trực tiếp bán hàng mà chỉ quảng cáo giới thiệu sản phẩm thôi ạ, em mua áo quần về giới thiệu thôi ạ, và khai thuế như thế nào ạ? Khai theo tháng hay theo quý hay theo năm ạ?
+P550: Trả lời:
+P551: Câu hỏi của bạn chưa rõ thông tin  tổng tiền hoa hồng bạn nhận được 1 năm là bao nhiêu. Căn cứ quy định tại khoản 6 Điều 7 Nghị định số 253/2026/NĐ-CP, thì trường hợp bạn chỉ làm tiếp thị liên kết trên Sàn TMĐT nếu căn cứ vào hợp đồng xác định hoa hồng mà bạn nhận được là thu nhập từ hoạt động kinh doanh của cá nhân:
+P552: Bạn phải thực hiện kê khai, nộp thuế như sau:
+P553: 1. Trường hợp bạn tự xác định có mức doanh thu năm từ 01 tỷ đồng trở xuống thì bạn chỉ cần thực hiện thông báo doanh thu thực tế phát sinh trong năm với cơ quan thuế chậm nhất là ngày 31 tháng 01 của năm dương lịch tiếp theo.
+P554: 2. Trường hợp bạn tự xác định có tổng doanh thu năm trên 01 tỷ đồng:  
+P555: - Khai thuế tháng/quý:
+P556: + Khai thuế GTGT: Trường hợp có doanh thu năm từ 50 tỷ đồng trở xuống thực hiện khai thuế, nộp thuế GTGT theo quý; Trường hợp có doanh thu năm trên 50 tỷ đồng thực hiện khai thuế, nộp thuế GTGT theo tháng. Thuế GTGT áp dụng theo phương pháp tính trực tiếp theo doanh thu (bằng tỷ lệ % nhân (x) doanh thu). 
+P557: + Khai thuế TNCN: 
+P558: Trường hợp doanh thu của bạn trên 01 tỷ đến 3 tỷ thì được áp dụng nộp thuế thu nhập cá nhân theo phương pháp thuế suất nhân (x) doanh thu tính thuế, bạn thực hiện khai, nộp thuế thu nhập cá nhân theo quý cùng thời hạn khai, nộp thuế giá trị gia tăng. 
+P559: Trường hợp doanh thu năm trên 01 tỷ đồng đến 3 tỷ đồng và lựa chọn khai thuế thu nhập cá nhân theo phương pháp thu nhập tính thuế (tức là doanh thu trừ chi phí) nhân (x) thuế suất hoặc doanh thu năm của bạn trên 3 tỷ đồng  thì bạn thực hiện khai tạm nộp thuế thu nhập cá nhân theo tháng, quý trên cùng hồ sơ khai thuế giá trị gia tăng. Số thuế thu nhập cá nhân tạm nộp bằng thuế suất nhân (x) doanh thu tính thuế của tháng, quý.
+P560: - Khai quyết toán thuế TNCN theo năm: Trường hợp nếu bạn có doanh thu năm trên 01 tỷ đồng và lựa chọn khai thuế thu nhập cá nhân theo phương pháp thu nhập tính thuế nhân (x) thuế suất  hoặc có doanh thu năm tổng hợp trên 03 tỷ đồng thì bạn phải thực hiện quyết toán thuế TNCN. Bạn cần phải tổng hợp toàn bộ doanh thu đối với hoạt động kinh doanh của mình (bao gồm cả tiền hoa hồng mà bạn đã nhận được trong năm) để thực hiện quyết toán thuế TNCN theo quy định pháp luật.
+P561: Câu hỏi 35: Tôi đang kinh doanh dịch vụ ăn uống. Tôi có đăng ký bán hàng online qua Grabfood, Grab đã khấu trừ, nộp thuế thay thuế TNCN và GTGT cho tôi. Cuối năm, tôi tổng hợp doanh thu bán online + offline  dưới 1 tỷ đồng thì tôi có được hoàn số thuế mà Grab đã đóng không ạ.
+P562: Trả lời: 
+P563: Căn cứ khoản 1 Điều 12 Nghị định số 68/2026/NĐ-CP ngày 05/3/2026 của Chính phủ, trường hợp hộ kinh doanh, cá nhân kinh doanh đã được Grab thực hiện khấu trừ và nộp thuế thay số thuế GTGT và thuế TNCN đối với các giao dịch phát sinh trong năm nhưng có doanh thu thực tế phát sinh của năm từ 1 tỷ đồng trở xuống thì HKD, CNKD được đề nghị bù trừ số thuế nộp thừa vào kỳ tiếp theo hoặc đề nghị hoàn số thuế mà Grab đã khấu trừ, nộp thuế thay cho bạn. 
+P564: Để được hoàn thuế, HKD, CNKD nộp tờ khai thuế theo mẫu số 01/TKN-CNKD ban hành kèm theo Thông tư số 89/2026/TT-BTC. 

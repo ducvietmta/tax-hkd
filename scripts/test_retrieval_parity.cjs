@@ -2,7 +2,7 @@
  * PARITY + REGRESSION cho retrieval sau refactor:
  * 1. matchRoute fold dấu: query không dấu trúng cùng route như bản có dấu.
  * 2. `not` trong query-map được tôn trọng.
- * 3. Thứ tự ghim legacy (legacyPinRefs) ổn định front-to-back.
+ * 3. Nguồn bắt buộc từ kế hoạch ngữ nghĩa giữ thứ tự qua truy xuất và RRF.
  */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
@@ -35,6 +35,7 @@ function loadModule(relativePath, dependencies = {}) {
 
 const engine = loadModule('worker/src/ragEngine.ts');
 const textUtils = loadModule('worker/src/utils/text.ts');
+const legalMarkdownSearch = loadModule('worker/src/kb/legalMarkdownSearch.ts', { '../utils/text': textUtils });
 const scopeMod = loadModule('shared/taxScope.ts');
 const factExtractor = loadModule('worker/src/decision/factExtractor.ts', { '../utils/text': textUtils });
 const retrievalPlanMod = loadModule('worker/src/decision/retrievalPlan.ts');
@@ -46,9 +47,9 @@ const { retrieve } = loadModule('worker/src/retriever.ts', {
   './decision/factExtractor': factExtractor,
   './decision/retrievalPlan': retrievalPlanMod,
   './utils/text': textUtils,
+  './kb/legalMarkdownSearch': legalMarkdownSearch,
 });
 const { matchRoute } = engine;
-const { legacyPinRefs } = retrievalPlanMod;
 const { resolveAnswerScope } = scopeMod;
 
 const refsOf = (res) => res.results.map((r) => r.chunk.ref_id);
@@ -103,7 +104,12 @@ assert.ok(!refsOf(choiceRes).includes('16.73'));
 for (const topic of ['REGISTRATION_COMPARISON', 'TAX_REGISTRATION']) {
   const frame = { ...choiceFrame, semantic: { ...choiceFrame.semantic, topic } };
   const plan = retrievalPlanMod.buildRetrievalPlan(frame);
-  assert.deepEqual(plan.must_include_refs, ['16.154','16.108', '16.64', '16.107']);
+  const expected=topic==='TAX_REGISTRATION'
+    ? ['16.154','16.113','16.96','16.108']
+    : ['16.154','16.108','16.64','16.107'];
+  // Direct tax registration needs identifier reconciliation; it must not
+  // automatically become a household-establishment/exemption checklist.
+  assert.deepEqual(plan.must_include_refs, expected);
   for (const question of ['trường hợp nào đăng ký hộ kinh doanh và trường hợp nào đăng ký cá nhân kinh doanh',
     'Một người làm riêng thì đăng ký thuế theo diện gì?', 'HKD với CNKD khác nhau ở đâu?']) {
     const result = retrieve(question, 4, resolveAnswerScope([], question, new Date('2026-10-17T00:00:00Z')), plan);
@@ -112,24 +118,19 @@ for (const topic of ['REGISTRATION_COMPARISON', 'TAX_REGISTRATION']) {
   }
 }
 
-// 3. Thứ tự ghim legacy ổn định.
+// 3. Current semantic plans, rather than the removed keyword pinning helper.
 const scope2026 = resolveAnswerScope([], 'năm 2026', new Date('2026-10-15T00:00:00Z'));
-assert.deepEqual(
-  legacyPinRefs('Bán hàng doanh thu 1,5 tỷ năm 2026 tính thuế thế nào?', scope2026).map((p) => p.ref),
-  ['16.99'],
-);
-const pinsPct = legacyPinRefs('Bán tạp hóa doanh thu 1,2 tỷ chịu bao nhiêu phần trăm thuế?', scope2026).map((p) => p.ref);
-assert.deepEqual(pinsPct.slice(0, 2), ['16.77', '16.99']);
-assert.deepEqual(
-  legacyPinRefs('Thuế năm 2021 cho hộ khoán doanh thu 90 triệu?', resolveAnswerScope([], 'năm 2021', new Date('2026-10-15T00:00:00Z'))).map((p) => p.ref),
-  ['16.54'],
-);
-
-// 4. retrieve() end-to-end giữ nguyên thứ tự ghim ở đầu.
-const calc = retrieve('Bán hàng doanh thu 1,5 tỷ năm 2026 tính thuế thế nào?', 4, scope2026);
-assert.equal(refsOf(calc)[0], '16.99');
-const pct = retrieve('Bán tạp hóa doanh thu 1,2 tỷ chịu bao nhiêu phần trăm thuế?', 4, scope2026);
-assert.deepEqual(refsOf(pct).slice(0, 2), ['16.77', '16.99']);
+const calcFrame={...choiceFrame,tax_intent:{primary:{value:'TAX_CALCULATION'},secondary:[]},income_type:[{value:'GOODS_SALES'}],semantic:{topic:'TAX_AMOUNT',taxFocus:'both'}};
+const calcPlan=retrievalPlanMod.buildRetrievalPlan(calcFrame);
+assert(calcPlan.must_include_refs.includes('16.77'));
+assert(calcPlan.must_include_refs.includes('16.99'));
+const calc=retrieve('Bán hàng doanh thu 1,5 tỷ năm 2026 tính thuế thế nào?',4,scope2026,calcPlan);
+assert.deepEqual(refsOf(calc).slice(0,calcPlan.must_include_refs.length),calcPlan.must_include_refs);
+const oldPlan=retrievalPlanMod.buildRetrievalPlan({...calcFrame,tax_period:{years:[2021],is_historical:true}});
+assert(oldPlan.must_include_refs.includes('16.54'));
+assert(!oldPlan.must_include_refs.includes('16.99'));
+const oldResult=retrieve('Thuế năm 2021 cho hộ khoán doanh thu 90 triệu?',4,resolveAnswerScope([],'năm 2021'),oldPlan);
+assert(refsOf(oldResult).includes('16.54'));assert(!refsOf(oldResult).includes('16.99'));
 
 // 5. Dense opt-in: Weighted RRF, True-Pin preservation, lọc theo kỳ hiệu lực và mở rộng truy vấn.
 (async () => {
@@ -137,6 +138,7 @@ assert.deepEqual(refsOf(pct).slice(0, 2), ['16.77', '16.99']);
   const { vectorSearch, mergeVectorHits, rewriteQueryForDense, isPeriodCompatible } = loadModule('worker/src/vectorRetriever.ts', {
     './ragEngine': engine,
     './kb/chunkMeta.json': Object.assign({}, metaData, { default: metaData }),
+    './kb/vectorManifest.json': {default:require('../worker/src/kb/vectorManifest.json')},
   });
   assert.equal(await vectorSearch('bán hàng 1,5 tỷ', {}), null);
   assert.equal(await vectorSearch('bán hàng 1,5 tỷ', { VECTORIZE_ENABLED: '1' }), null);

@@ -1,0 +1,120 @@
+{
+  "schema": "taxhkd-scoped-card-review-v1",
+  "reviewed_on": "2026-11-02",
+  "reviewer_type": "AI",
+  "policy": "Scoped literal Markdown excerpts cross-checked against official PDF page images. No full-document or human certification. HKD/CNKD boundaries only.",
+  "cards": [
+    {
+      "ref_id": "16.230",
+      "doc_id": "ND-168-2025-ND-CP",
+      "title": "Thay đổi ngành nghề của hộ đã đăng ký: nơi nộp và thời hạn",
+      "locator": "Điểm e khoản 1 và phần hồ sơ thay đổi ngành nghề khoản 2 Điều 100",
+      "from": 2025,
+      "effective_from": "2025-07-01",
+      "summary": "Hộ đã đăng ký thay đổi ngành, nghề kinh doanh phải đăng ký thay đổi với Cơ quan đăng ký kinh doanh cấp xã trong 10 ngày kể từ ngày thay đổi. Hồ sơ thay đổi ngành nghề có giấy đề nghị đăng ký thay đổi nội dung đăng ký hộ kinh doanh do chủ hộ ký.",
+      "limits": "Chỉ nhánh đã có hộ hoặc giả định rõ đã có hộ. Không tự cho người chỉ đăng ký thuế là đã có giấy hộ; không dùng Điều 99 đăng ký mới thay Điều 100. Không hướng dẫn đổi chủ hộ, trụ sở hoặc mức phạt từ đoạn này. Điều 100 được đối chiếu thêm hướng dẫn Chính phủ ngày 02/10/2026 sau NĐ296.",
+      "quotes": [
+        "Điều 100. Hồ sơ, trình tự, thủ tục đăng ký thay đổi nội dung đăng ký\nhộ kinh doanh\n\n1. Chủ hộ kinh doanh có trách nhiệm đăng ký thay đổi nội dung đăng ký\nhộ kinh doanh với Cơ quan đăng ký kinh doanh cấp xã trong thời hạn 10 ngày\nkê từ ngày có thay đôi một trong các nội dung sau đây:\n\na) Tên hộ kinh doanh;\n\nb) Địa chỉ trụ sở;\n\nc) Chủ hộ kinh doanh;\n\nđ) Thành viên hộ gia đình đăng ký hộ kinh doanh;\n\nđ) Vốn kinh doanh;\n\ne) Ngành, nghề kinh doanh;\n\nø) Nội dung đăng ký thuế của hộ kinh doanh, trừ phương pháp tính thuế.\n\n2. Khi thay đổi nội dung đăng ký hộ kinh doanh quy định tại các điểm 4,\nb, đ, e và g khoản 1 Điều này, hộ kinh doanh gửi hô sơ đăng ký thay đôi đên\nCơ quan đăng ký kinh doanh cấp xã. Hỗ sơ gồm giấy đề nghị đăng ký thay\nđôi nội dung đăng ký hộ kinh doanh do chủ hộ kinh doanh ký."
+      ],
+      "pdf_pages": [
+        99
+      ],
+      "official_url": "/documents/ND-168-2025-ND-CP.pdf",
+      "crosscheck_url": "https://baochinhphu.vn/ke-khai-thue-doi-voi-ca-nhan-kinh-doanh-da-linh-vuc-102260929171744114.htm",
+      "facets": {
+        "required": false,
+        "topics": [
+          "BUSINESS_REGISTRATION",
+          "REGISTRATION_REQUIREMENTS",
+          "TAX_REGISTRATION_CHANGE"
+        ]
+      },
+      "source_file": "document_library/ND-168-2025-ND-CP.md",
+      "source_sha256": "dec8b8000e29832028f5da895c35027c4baa1993ba87baab92815815deb7f182",
+      "official_pdf": "public/documents/ND-168-2025-ND-CP.pdf",
+      "official_pdf_sha256": "886e5835542ccf0cebc7f2a42850088f28bef7b0a9285d799e4e035a08b21927",
+      "code": "Nghị định 168/2025/NĐ-CP",
+      "quote_sha256": [
+        "1290de3f8d9fe3e29ed5b48041cfabd119f890f9a12c22d13f967ac5cef7d7f9"
+      ]
+    },
+    {
+      "ref_id": "16.231",
+      "doc_id": "ND-253-2026-ND-CP",
+      "title": "Phân loại dịch vụ cá nhân, thu nhập kinh doanh và tiền công; kỳ áp dụng NĐ253",
+      "locator": "Điều 7; điểm c khoản 2 Điều 8; điểm a khoản 1 Điều 69; khoản 2 Điều 70",
+      "from": 2026,
+      "effective_from": "2026-07-01",
+      "summary": "Không chỉ dựa tên freelancer hoặc số tiền để mặc định thu nhập kinh doanh. Điều 8 khoản 2 điểm c NĐ253 liệt kê thù lao cung cấp dịch vụ của cá nhân không đăng ký kinh doanh, không đăng ký thuế cho hoạt động kinh doanh trong thu nhập tiền lương, tiền công; phải đối chiếu bản chất và tình trạng đăng ký với Điều 7. Điều 69 có hiệu lực 01/07/2026, quy định liên quan kinh doanh và tiền lương, tiền công của cá nhân cư trú áp dụng từ kỳ 2026. Khoản 2 Điều 70 nêu cách xử lý hồ sơ lương/công đã khai trước ngày hiệu lực trong năm 2026.",
+      "limits": "Chỉ phân định thu nhập liên quan CNKD và kỳ áp dụng. Không suy mọi người chưa có giấy hộ đều là tiền công; đăng ký kinh doanh và đăng ký thuế là dữ kiện riêng. Không nhập biểu thuế lương, giảm trừ lương hoặc ngưỡng kinh doanh cho nhau; đoạn này không đủ để tự tính tiền lương/khấu trừ cụ thể.",
+      "quotes": [
+        "Điều 7. Thu nhập từ kinh doanh —\nThu nhập từ kinh doanh quy định tại khoản 1 Điều 3 của Luật Thuế thu\nnhập cá nhân bao gôm:\n\n\n[Trang 4]\n\n4 th\n1. Thu nhập từ hoạt động sản xuất, kinh doanh hàng hóa, dịch vụ theo\nquy định của pháp luật. Riêng đôi với thu nhập từ hoạt động của hộ gia đình,\ncá nhân trực tiếp sản xuất sản phẩm cây trông, rừng trông, chăn nuôi, thủy sản\nnuôi trông, đánh bắt chưa qua chê biên thành các sản phẩm khác hoặc chỉ qua\nsơ chế thông thường, sản xuất muôi chỉ áp dụng đổi với trường hợp không đủ\nđiều kiện được miễn thuế quy định tại Điêu 21 của Nghị định này.\n\n2. Thu nhập từ hoạt động hành nghề độc lập của cá nhân có giấy phép\nhoặc chứng chỉ hành nghề và có đăng ký kinh doanh theo quy định của pháp\nluật.\n\n3. Thu nhập từ hoạt động đại lý, kế cả đại lý bảo hiểm, đại lý xỗ số, đại\nlý bán hàng đa cấp.\n\n4. Thu nhập từ hoạt động môi giới theo quy định của pháp luật.\n\n5. Thu nhập từ hoạt động hợp tác kinh doanh với tổ chức, doanh nghiệp.\n\n6. Thu nhập từ hoạt động kinh doanh thương mại điện tử, kinh doanh”\nđựa trên nền tảng SỐ.\n\n: Điều 8. Thu nhập từ tiền lương, tiền công\n\n“Thu nhập từ tiền lương, tiền công quy định tại khoản 2 Điều 3 của Luật\nThuê thu nhập cá nhân bao gồm:\n\n1. Tiền lương, tiền công và các khoán có tính chất tiền lương, tiền công\nmà người lao động nhận được từ người sử dụng lao động dưới mọi hình thức\nbằng tiên hoặc không băng tiên.\n\n2. Tiền thù lao, các khoản lợi ích bằng tiền hoặc không bằng tiền mà cá\nnhân nhận được từ tổ chức, cá nhân, người sử dụng lao động dưới mọi hình\nthức: :\n\nˆ_a) Tiền tham gia đề tài, dự án, đề án; tiền nhuận bút theo quy định của _ˆ\npháp luật về chê độ nhuận bút; tiên tham gia các hoạt động giảng dạy; tiên\ntham gia biểu diễn văn hóa, nghệ thuật, thê dục, thê thao;\n\nb) Tiền nhận được từ tham gia hội đồng quản trị, ban kiểm soát, hội đồng\nquản lý, các hiệp hội, hội nghề nghiệp, các hội được thành lập theo quy định\ncủa pháp luật và các tổ chức khác; :\n\nc) Tiền thù lao nhận được từ cung cấp dịch vụ của cá nhân không đăng\nký kinh doanh, không đăng ký thuê cho hoạt động kinh doanh, kê cả có hay\n\n- không có giấy phép hoặc chứng chỉ hành nghệ; :",
+        "Điều 69. Hiệu lực thi hành\nl 1. Nghị định này có hiệu lực thi hành từ ngày 01 tháng 7 năm 2026. Việc\nxác định thời gian áp dụng trong một sô trường hợp cụ thê như sau:\n\n\n[Trang 57]\n\nto 57\na) Các quy định liên quan đến thu nhập từ kinh doanh, từ tiền lương, tiền\ncông của cá nhân cư trú áp dụng từ kỳ tính thuế năm 2026;\nb) Quy định về tiền ăn giữa ca, tiền ăn trưa quy định tại điểm g khoản 2\nĐiều § của Nghị định này áp dụng từ ngày 01 tháng 7 năm 2026.",
+        "Điều 70. Điều khoản chuyển tiếp\n\n1. Thời hạn đăng ký người phụ thuộc và thời hạn nộp hồ sơ chứng minh\n\n._ người phụ thuộc của kỳ tính thuế năm 2025 trở về trước thực hiện theo quy\n\nđịnh tại các văn bản quy phạm pháp luật về thuế thu nhập cá nhân trước ngày\nNghị định này có hiệu lực thi hành.\n\n2. Các trường hợp đã kê khai, nộp thuế đối với thu nhập từ tiền lương,\ntiền công cho kỳ tính thuế năm 2026 trong thời gian kể từ ngày 01 tháng 01...\nnăm 2026 đến trước ngày Nghị định này có hiệu lực thi hành theo quy định tại\ncác văn bản quy phạm pháp luật về thuế thu nhập cá nhân áp dụng trước thời\nđiểm Nghị định này có hiệu lực thi hành thì không phải nộp lại hồ sơ khai\nthuế tháng, quý mà thực hiện điều chỉnh vào hỗ sơ khai quyết toán thuế năm 2026."
+      ],
+      "pdf_pages": [
+        4,
+        57
+      ],
+      "official_url": "/documents/ND-253-2026-ND-CP.pdf",
+      "facets": {
+        "required": false,
+        "topics": [
+          "TAX_AMOUNT",
+          "REVENUE_OWNERSHIP"
+        ],
+        "income_types": [
+          "FREELANCE_SERVICE",
+          "WAGE_SALARY"
+        ]
+      },
+      "source_file": "document_library/ND-253-2026-ND-CP.md",
+      "source_sha256": "bbe4c3e1b58f9a04a9786a4ed4ca8417c604d0a12bb36bed45e61f5ab9307308",
+      "official_pdf": "public/documents/ND-253-2026-ND-CP.pdf",
+      "official_pdf_sha256": "c4d5e03e2c8235230acb72dd656b848fdbbf53e50e54e8c9fbfa9dfe734d8a8a",
+      "code": "Nghị định 253/2026/NĐ-CP",
+      "quote_sha256": [
+        "4bf3f7596cf379ac026f54c0ddf147cab926fb83299bc320b98e296e4ad433ff",
+        "e0e7c045fba902a4f8c1f794458754927b771fd06854161327b826fe21cbaaf7",
+        "cb2d06b954856b4834b5a01bc969ff67684dc1a9eac6f059c21d01a425e55e2e"
+      ]
+    },
+    {
+      "ref_id": "16.232",
+      "doc_id": "ND-254-2026-ND-CP",
+      "title": "Lập, gửi hóa đơn có mã và truyền dữ liệu hóa đơn từ máy tính tiền",
+      "locator": "Điều 15",
+      "from": 2026,
+      "effective_from": "2026-07-01",
+      "summary": "Người bán tạo lập hóa đơn để gửi cơ quan thuế cấp mã, chịu trách nhiệm tính hợp pháp và chính xác; gửi hóa đơn có mã tới người mua ngay sau khi nhận mã. Cuối ngày gửi dữ liệu hóa đơn điện tử khởi tạo từ máy tính tiền đến cơ quan thuế, trừ trường hợp dịch vụ được khoản 3 Điều 15 dẫn chiếu sang Điều 16.",
+      "limits": "Chỉ trách nhiệm người bán sử dụng hóa đơn có mã và nhánh máy tính tiền tại Điều 15. Không suy mọi hóa đơn không có mã cùng thời hạn, không bịa thao tác/nút phần mềm hoặc thay quy định nội dung hóa đơn. Đọc cùng quy tắc loại hóa đơn và kỳ áp dụng; ngoài ngoại lệ được dẫn chiếu, đoạn này không giải thích từng ngành tại Điều 16.",
+      "quotes": [
+        "Điều 15. Trách nhiệm của người bán hàng hóa, cung cấp dịch vụ sử\ndụng hóa đơn điện tử có mã của cơ quañ thuế ¬ ¬\n\n1. Quản lý tên và mật khẩu của các tài khoản đã được cơ quan thuế cấp.\n\n2. Tạo lập hóa đơn điện tử để gửi đến cơ quan thuế cấp mã và chịu trách\nnhiệm trước pháp luật về tính hợp pháp, chính xác của hóa đơn điện tử.\n\n3. Gửi hóa đơn điện tử có mã của cơ quan thuế đến người mua ngay sau\nkhi nhận được hóa đơn điện tử có mã của cơ quan thuế; cuối ngày gửi dữ liệu\n\n\n[Trang 26]\n\n26\nhóa đơn điện tử khởi tạo từ máy tính tiền đến cơ quan thuế, trừ trường hợp cung\ncập dịch vụ theo quy định tại điểm r khoản 4 Điêu 9 Nghị định này thì phương\nthức và thời điểm chuyên dữ liệu điện tử thực hiện theo quy định tại điểm a.2\nkhoản 3 Điệu 16 Nghị định này."
+      ],
+      "pdf_pages": [
+        25,
+        26
+      ],
+      "official_url": "/documents/ND-254-2026-ND-CP.pdf",
+      "facets": {
+        "required": false,
+        "topics": [
+          "INVOICE_USAGE",
+          "INVOICE_REGISTRATION",
+          "TAX_SOFTWARE_SYSTEM"
+        ],
+        "intents": [
+          "E_INVOICE"
+        ]
+      },
+      "source_file": "document_library/ND-254-2026-ND-CP.md",
+      "source_sha256": "92e9b0e5e15afb6c4423bb194ab7f59326db55967892ec7a71d3dfb6243c0d01",
+      "official_pdf": "public/documents/ND-254-2026-ND-CP.pdf",
+      "official_pdf_sha256": "d8df03ef58aa26f2f3bf7014c830fe598c7939e2fc32643e436eca24f1fe85ae",
+      "code": "Nghị định 254/2026/NĐ-CP",
+      "quote_sha256": [
+        "1080d56ba5438a8eb3c8a926d38ae99913bf766e97249c45155245d1de597e86"
+      ]
+    }
+  ]
+}

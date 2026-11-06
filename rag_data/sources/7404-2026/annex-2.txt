@@ -1,0 +1,118 @@
+P001: Phụ lục 2
+P002: TÀI LIỆU TUYÊN TRUYỀN THÔNG TƯ SỐ 93/2026/TT-BTC
+P003: Quy định việc in, phát hành, quản lý và sử dụng tem điện tử rượu, tem điện tử thuốc lá
+P004: MỤC LỤC BỘ SẢN PHẨM
+P005: Phần I. Tài liệu tuyên truyền: Những nội dung người nộp thuế cần biết và thực hiện
+P006: Phần II. Bộ câu hỏi - đáp
+P007: Phần III. Nội dung 02 infographic
+P008: Tài liệu này được biên soạn nhằm hỗ trợ người nộp thuế tiếp cận các nội dung trọng tâm của Thông tư số 93/2026/TT-BTC. Việc xác định nghĩa vụ cụ thể phải căn cứ Thông tư số 93/2026/TT-BTC, Nghị định số 254/2026/NĐ-CP, Nghị định số 105/2017/NĐ-CP về kinh doanh rượi được sửa đổi, bổ sung bởi Nghị định số 17/2020/NĐ-CP, pháp luật có liên quan và hồ sơ thực tế của người nộp thuế.
+P010: PHẦN I. TÀI LIỆU TUYÊN TRUYỀN
+P011: NHỮNG NỘI DUNG NGƯỜI NỘP THUẾ CẦN BIẾT VÀ THỰC HIỆN THEO THÔNG TƯ SỐ 93/2026/TT-BTC
+P012: I. THÔNG TIN CHUNG
+P013: Ngày 01 tháng 7 năm 2026, Bộ trưởng Bộ Tài chính ban hành Thông tư số 93/2026/TT-BTC quy định việc in, phát hành, quản lý và sử dụng tem điện tử rượu và tem điện tử thuốc lá, có hiệu lực thi hành kể từ ngày 01/7/2026, thay thế Thông tư số 23/2021/TT-BTC ngày 30/3/2021 của Bộ trưởng Bộ Tài chính (đã được sửa đổi, bổ sung tại Thông tư số 31/2025/TT-BTC) quy định việc in, phát hành, quản lý và sử dụng tem điện tử đối với sản phẩm rượu, thuốc lá sản xuất để tiêu thụ trong nước.
+P014: Thông tư được kết cấu thành 03 chương, 09 điều, kèm theo 06 Phụ lục quy định về mẫu tem điện tử và tiêu chuẩn kỹ thuật của tem, cụ thể:
+P015: •  Chương I: Quy định chung (02 Điều, từ Điều 1 đến Điều 2);
+P016: •  Chương II: Quy định cụ thể (04 Điều, từ Điều 3 đến Điều 6);
+P017: •  Chương III: Điều khoản thi hành (03 Điều, từ Điều 7 đến Điều 9).
+P018: Tài liệu có giá trị phục vụ tuyên truyền, phổ biến pháp luật. Khi thực hiện, người nộp thuế căn cứ quy định tại Thông tư số 93/2026/TT-BTC và các văn bản pháp luật hiện hành có liên quan.
+P019: II. NHỮNG NỘI DUNG MỚI, TRỌNG TÂM
+P020: So với Thông tư số 23/2021/TT-BTC (đã được sửa đổi, bổ sung tại Thông tư số 31/2025/TT-BTC), Thông tư số 93/2026/TT-BTC có một số điểm mới, trọng tâm được tổng hợp theo 04 nhóm nội dung sau.
+P021: 1. Về tem điện tử và dán tem điện tử (Điều 3)
+P022: (i) Bổ sung quy định: Mã QR trên tem điện tử phải bảo đảm khả năng đọc, tra cứu, xác thực bằng phương tiện kỹ thuật phù hợp;
+P023: (ii) Bổ sung quy định: Việc dán tem điện tử phải bảo đảm các thông tin nhận diện trên tem không bị che khuất, tẩy xóa, làm biến dạng hoặc làm mất khả năng tra cứu, xác thực thông tin trong điều kiện lưu thông, bảo quản, vận chuyển thông thường của sản phẩm;
+P024: (iii) Bỏ quy định đối với rượu sản xuất để tiêu thụ trong nước, tổ chức, cá nhân phải có Giấy phép sản xuất rượu (bao gồm Giấy phép sản xuất rượu thủ công nhằm mục đích kinh doanh, Giấy phép sản xuất rượu công nghiệp) để phù hợp với Nghị quyết số 66.17/2026/NQ-CP ngày 15/5/2026 của Chính phủ;
+P025: (iv) Bổ sung quy định về quản lý dữ liệu tem điện tử: Cục Thuế quản lý dữ liệu tem điện tử rượu, tem điện tử thuốc lá sản xuất để tiêu thụ trong nước; Cục Hải quan quản lý dữ liệu tem điện tử thuốc lá nhập khẩu, tem điện tử rượu nhập khẩu; cơ quan thuế, cơ quan hải quan các cấp thực hiện quản lý, tra cứu, khai thác, sử dụng dữ liệu theo phân quyền, phối hợp cung cấp thông tin về tem điện tử phục vụ công tác quản lý; Việc quản lý dữ liệu tem điện tử phải bảo đảm tính duy nhất của mã quản lý tem, khả năng tra cứu theo phạm vi quản lý của cơ quan thuế, cơ quan hải quan; bảo đảm an toàn thông tin, bảo mật dữ liệu, an ninh mạng, phân quyền truy cập và lưu vết xử lý dữ liệu theo quy định của pháp luật.
+P026: 2. Về quản lý tem điện tử rượu và tem điện tử thuốc lá sản xuất để tiêu thụ trong nước (Điều 6)
+P027: (i) Sửa đổi quy định: Khi doanh nghiệp, tổ chức, cá nhân xuất tem điện tử cho bộ phận sản xuất, phải quét mã QR gắn trên thùng tem điện tử hoặc block tem điện tử hoặc tem điện tử, đồng thời nhập các dữ liệu: tên hàng hóa, thời gian sản xuất (theo ngày/tháng/năm hoặc tháng/năm), đơn vị đo lường (lít/chai đối với rượu, điếu/bao đối với thuốc lá), đơn giá bán sản phẩm (hoặc đơn giá tạm tính nếu chưa xác định được đơn giá), để bảo đảm kết nối thông tin về dữ liệu tem điện tử được truyền đến Hệ thống thông tin quản lý thuế. Trường hợp phát hiện dữ liệu tem đã quét có sai sót, doanh nghiệp, tổ chức, cá nhân thực hiện điều chỉnh lại dữ liệu tem điện tử đã quét;
+P028: (ii) Bổ sung quy định: Trường hợp Hệ thống thông tin quản lý thuế gặp lỗi kỹ thuật chưa tiếp nhận được dữ liệu tem điện tử đã dán, Cục Thuế có trách nhiệm thông báo trên Hệ thống thông tin quản lý thuế. Trong thời hạn 02 ngày làm việc kể từ ngày Cục Thuế thông báo Hệ thống hoạt động bình thường trở lại, doanh nghiệp, tổ chức, cá nhân thực hiện chuyển dữ liệu thông tin của tem điện tử đã dán đến cơ quan thuế và không bị coi là hành vi chậm gửi dữ liệu tem điện tử;
+P029: (iii) Bổ sung quy định: Trường hợp mất, cháy tem điện tử rượu, tem điện tử thuốc lá, doanh nghiệp, tổ chức, cá nhân lập biên bản xác định thời gian, địa điểm xảy ra việc mất, cháy tem, có xác nhận của chính quyền địa phương cấp xã nơi xảy ra việc mất, cháy tem và thực hiện lưu biên bản tại doanh nghiệp, tổ chức, cá nhân;
+P030: (iv) Sửa đổi rút ngắn thời hạn báo cáo mất, cháy tem điện tử; thời hạn hủy tem điện tử trong trường hợp tìm lại được tem đã mất; thời hạn thông báo kết quả hủy tem điện tử từ 05 ngày làm việc xuống còn 03 ngày làm việc;
+P031: (v) Sửa đổi quy định: Các thông tin của tem điện tử rượu, tem điện tử thuốc lá hiển thị khi tra cứu bao gồm: tên loại tem, ký hiệu mẫu số, ký hiệu tem, dãy số nháy tem; tên, mã số thuế của đơn vị sản xuất sản phẩm; tên cơ quan thuế bán tem điện tử, ngày bán tem điện tử; tên hàng hóa; thời gian sản xuất (ngày/tháng/năm hoặc tháng/năm); đơn vị đo lường (lít/chai đối với rượu, điếu/bao đối với thuốc lá).
+P032: 3. Về điều khoản chuyển tiếp (khoản 2 Điều 9)
+P033: Tem điện tử rượu, tem điện tử thuốc lá đã được phát hành, in theo mẫu quy định tại Thông tư số 23/2021/TT-BTC ngày 30 tháng 3 năm 2021 của Bộ trưởng Bộ Tài chính được tiếp tục sử dụng cho đến khi sử dụng hết.
+P034: 4. Về Phụ lục
+P035: Phụ lục I quy định về mẫu tem điện tử dán lên sản phẩm thuốc lá sản xuất để tiêu thụ trong nước; Phụ lục II quy định về mẫu tem điện tử dán lên sản phẩm rượu sản xuất để tiêu thụ trong nước: bổ sung một số tiêu chuẩn kỹ thuật của tem, kỹ thuật in tem phải đảm bảo tính bảo an, có khả năng chống làm giả.
+P036: III. NHỮNG VIỆC NGƯỜI NỘP THUẾ CẦN CHUẨN BỊ
+P037: Để chủ động thích ứng với các quy định mới về tem điện tử rượu và tem điện tử thuốc lá sản xuất để tiêu thụ trong nước theo Thông tư số 93/2026/TT-BTC, người nộp thuế cần lưu ý:
+P038: 1. Khi xuất tem điện tử cho bộ phận sản xuất, quét đầy đủ mã QR trên thùng tem điện tử, block tem điện tử hoặc tem điện tử, đồng thời nhập đúng, đủ các dữ liệu về tên hàng hóa, thời gian sản xuất, đơn vị đo lường, đơn giá bán sản phẩm để dữ liệu được truyền đầy đủ, kịp thời đến Hệ thống thông tin quản lý thuế.
+P039: 2. Chủ động rà soát, kịp thời điều chỉnh lại dữ liệu tem điện tử đã quét nếu phát hiện có sai sót.
+P040: 3. Theo dõi thông báo của Cục Thuế trên Hệ thống thông tin quản lý thuế trong trường hợp Hệ thống gặp lỗi kỹ thuật chưa tiếp nhận được dữ liệu thông tin của tem điện tử đã dán; thực hiện chuyển dữ liệu tem điện tử đã dán trong thời hạn 02 ngày làm việc kể từ khi Cục Thuế có thông báo Hệ thống thông tin quản lý thuế hoạt động bình thường trở lại để không bị xác định là hành vi chậm gửi dữ liệu tem điện tử.
+P041: 4. Khi xảy ra mất, cháy tem điện tử, lập biên bản xác định thời gian, địa điểm xảy ra sự việc, có xác nhận của chính quyền địa phương cấp xã và lưu biên bản tại doanh nghiệp, tổ chức, cá nhân; thực hiện báo cáo, thủ tục hủy tem theo đúng thời hạn mới (03 ngày làm việc).
+P042: 5. Bảo đảm việc dán tem điện tử không làm che khuất, tẩy xóa, biến dạng hoặc mất khả năng tra cứu thông tin trên tem trong quá trình lưu thông, bảo quản, vận chuyển sản phẩm.
+P043: 6. Đối với rượu sản xuất để tiêu thụ trong nước: lưu ý không còn phải xuất trình Giấy phép sản xuất rượu khi mua tem điện tử, tuy nhiên vẫn phải tuân thủ đầy đủ pháp luật chuyên ngành về sản xuất, kinh doanh rượu.
+P044: 7. Đối với tem điện tử đã phát hành, in theo mẫu tại Thông tư số 23/2021/TT-BTC: được tiếp tục sử dụng cho đến khi sử dụng hết, không phải đổi tem ngay khi Thông tư mới có hiệu lực.
+P045: 8. Rà soát thông tin tem điện tử hiển thị khi tra cứu (tên loại tem, ký hiệu mẫu số, ký hiệu tem, dãy số nhảy tem; tên, mã số thuế đơn vị sản xuất sản phẩm thuốc lá, sản xuất rượu; tên cơ quan thuế bán tem điện tử, ngày bán tem điện tử; tên hàng hóa; thời gian sản xuất (ngày/tháng/năm hoặc tháng/năm); đơn vị đo lường (lít/chai đối với rượu, điều/bao đối với thuốc lá) để bảo đảm khớp đúng với thực tế sản xuất, kinh doanh.
+P046: PHẦN II. BỘ CÂU HỎI – ĐÁP
+P047: I - NHỮNG QUY ĐỊNH CHUNG
+P048: Câu 1. Thông tư số 93/2026/TT-BTC quy định về nội dung gì và có hiệu lực từ thời điểm nào?
+P049: Trả lời: Thông tư này quy định việc in, phát hành, quản lý, sử dụng tem điện tử rượu và tem điện tử thuốc lá nhập khẩu, sản xuất để tiêu thụ trong nước. Thông tư có hiệu lực thi hành kể từ ngày 01/7/2026, thay thế Thông tư số 23/2021/TT-BTC ngày 30/3/2021 của Bộ trưởng Bộ Tài chính.
+P050: Câu 2. Tem điện tử rượu, tem điện tử thuốc lá đã phát hành theo Thông tư số 23/2021/TT-BTC có phải đổi lại không?
+P051: Trả lời: Không. Tem điện tử rượu, tem điện tử thuốc lá đã được phát hành, in theo mẫu quy định tại Thông tư số 23/2021/TT-BTC được tiếp tục sử dụng cho đến khi sử dụng hết.
+P052: II - TEM ĐIỆN TỬ VÀ DÁN TEM ĐIỆN TỬ
+P053: Câu 3. Mã QR trên tem điện tử phải đáp ứng yêu cầu gì theo quy định mới?
+P054: Trả lời: Mã QR trên tem điện tử phải bảo đảm khả năng đọc, tra cứu, xác thực bằng phương tiện kỹ thuật phù hợp.
+P055: Câu 4. Việc dán tem điện tử phải bảo đảm yêu cầu gì?
+P056: Trả lời: Việc dán tem điện tử phải bảo đảm các thông tin nhận diện trên tem không bị che khuất, tẩy xóa, làm biến dạng hoặc làm mất khả năng tra cứu, xác thực thông tin trong điều kiện lưu thông, bảo quản, vận chuyển thông thường của sản phẩm.
+P057: Câu 5. Tổ chức, cá nhân sản xuất rượu tiêu thụ trong nước có còn phải xuất trình Giấy phép sản xuất rượu khi mua tem điện tử không?
+P058: Trả lời: Không. Thông tư số 93/2026/TT-BTC đã bỏ quy định phải có Giấy phép sản xuất rượu (bao gồm Giấy phép sản xuất rượu thủ công nhằm mục đích kinh doanh, Giấy phép sản xuất rượu công nghiệp) khi mua tem điện tử, để phù hợp với Nghị quyết số 66.17/2026/NQ-CP ngày 15/5/2026 của Chính phủ.
+P059: Câu 6. Cơ quan nào quản lý dữ liệu tem điện tử rượu, tem điện tử thuốc lá?
+P060: Trả lời: Cục Thuế thực hiện quản lý dữ liệu tem điện tử rượu, tem điện tử thuốc lá sản xuất để tiêu thụ trong nước. Cục Hải quan thực hiện quản lý dữ liệu tem điện tử thuốc lá nhập khẩu, tem điện tử rượu nhập khẩu.
+P061: Câu 7. Việc quản lý, khai thác, tra cứu dữ liệu tem điện tử phải bảo đảm những yêu cầu gì?
+P062: Trả lời: Phải bảo đảm tính duy nhất của mã quản lý tem điện tử, khả năng tra cứu theo phạm vi quản lý của cơ quan thuế, cơ quan hải quan; bảo đảm an toàn thông tin, bảo mật dữ liệu, an ninh mạng, phân quyền truy cập và lưu vết xử lý dữ liệu theo quy định của pháp luật.
+P063: III - QUẢN LÝ TEM ĐIỆN TỬ RƯỢU, TEM ĐIỆN TỬ THUỐC LÁ SẢN XUẤT ĐỂ TIÊU THỤ TRONG NƯỚC
+P064: Câu 8. Khi xuất tem điện tử cho bộ phận sản xuất, doanh nghiệp, tổ chức, cá nhân phải thực hiện thao tác gì?
+P065: Trả lời: Phải quét mã QR gắn trên thùng tem điện tử hoặc block tem điện tử hoặc tem điện tử, đồng thời nhập các dữ liệu: tên hàng hóa, thời gian sản xuất (theo ngày/tháng/năm hoặc tháng/năm), đơn vị đo lường (lít/chai đối với rượu, điếu/bao đối với thuốc lá), đơn giá bán sản phẩm (hoặc đơn giá tạm tính nếu chưa xác định được đơn giá), để bảo đảm kết nối thông tin về dữ liệu tem điện tử được truyền đến Hệ thống thông tin quản lý thuế.
+P066: Câu 9. Nếu phát hiện dữ liệu tem điện tử đã quét có sai sót thì xử lý thế nào?
+P067: Trả lời: Tổ chức, cá nhân, doanh nghiệp thực hiện điều chỉnh lại dữ liệu tem điện tử đã quét.
+P068: Câu 10. Trường hợp Hệ thống thông tin quản lý thuế gặp lỗi kỹ thuật, chưa tiếp nhận được dữ liệu tem điện tử đã dán thì xử lý ra sao?
+P069: Trả lời: Cục Thuế có trách nhiệm thông báo trên Hệ thống thông tin quản lý thuế. Trong thời hạn 02 ngày làm việc kể từ ngày Cục Thuế thông báo Hệ thống hoạt động bình thường trở lại, doanh nghiệp, tổ chức, cá nhân thực hiện chuyển dữ liệu thông tin của tem điện tử đã dán đến cơ quan thuế và không bị coi là hành vi chậm gửi dữ liệu tem điện tử.
+P070: Câu 11. Khi xảy ra mất, cháy tem điện tử rượu, tem điện tử thuốc lá, doanh nghiệp, tổ chức, cá nhân phải làm gì?
+P071: Trả lời: Phải lập biên bản xác định thời gian, địa điểm xảy ra việc mất, cháy tem, có xác nhận của chính quyền địa phương cấp xã nơi xảy ra việc mất, cháy tem và thực hiện lưu biên bản tại doanh nghiệp, tổ chức, cá nhân.
+P072: Câu 12. Thời hạn báo cáo mất, cháy tem điện tử và thời hạn thông báo kết quả hủy tem điện tử theo quy định mới là bao lâu?
+P073: Trả lời: Được rút ngắn từ 05 ngày làm việc xuống còn 03 ngày làm việc (bao gồm cả trường hợp tìm lại được tem điện tử đã mất).
+P074: Câu 13. Khi tra cứu tem điện tử rượu, tem điện tử thuốc lá, hệ thống hiển thị những thông tin gì?
+P075: Trả lời: Hiển thị: tên loại tem, ký hiệu mẫu số, ký hiệu tem, dãy số nháy tem; tên, mã số thuế của đơn vị sản xuất sản phẩm; tên cơ quan thuế bán tem điện tử, ngày bán tem điện tử; tên hàng hóa; thời gian sản xuất (ngày/tháng/năm hoặc tháng/năm); đơn vị đo lường (lít/chai đối với rượu, điếu/bao đối với thuốc lá).
+P076: IV - ĐIỀU KHOẢN CHUYỂN TIẾP VÀ PHỤ LỤC
+P077: Câu 14. Tem điện tử rượu, tem điện tử thuốc lá đã phát hành, in theo mẫu tại Thông tư số 23/2021/TT-BTC có còn được sử dụng không?
+P078: Trả lời: Có. Tem điện tử rượu, tem điện tử thuốc lá đã được phát hành, in theo mẫu quy định tại Thông tư số 23/2021/TT-BTC ngày 30 tháng 3 năm 2021 được tiếp tục sử dụng cho đến khi sử dụng hết.
+P079: Câu 15. Phụ lục kèm theo Thông tư số 93/2026/TT-BTC quy định về nội dung gì?
+P080: Trả lời: Phụ lục I quy định về mẫu tem điện tử dán lên sản phẩm thuốc lá sản xuất để tiêu thụ trong nước; Phụ lục II quy định về mẫu tem điện tử dán lên sản phẩm rượu sản xuất để tiêu thụ trong nước, trong đó bổ sung một số tiêu chuẩn kỹ thuật của tem, kỹ thuật in tem phải bảo đảm tính bảo an, có khả năng chống làm giả.
+P082: PHẦN III. NỘI DUNG 02 INFOGRAPHIC
+P083: INFOGRAPHIC 1: MÃ QR VÀ DÁN TEM ĐIỆN TỬ ĐÚNG QUY ĐỊNH
+P084: Theo Thông tư số 93/2026/TT-BTC – Có hiệu lực từ ngày 01/7/2026
+P085: 1. Tiêu chuẩn mã QR
+P086: Mã QR trên tem điện tử phải bảo đảm khả năng đọc, tra cứu, xác thực bằng phương tiện kỹ thuật phù hợp.
+P087: 2. Yêu cầu khi dán tem
+P088: Thông tin nhận diện trên tem không được che khuất, tẩy xóa, biến dạng hoặc mất khả năng tra cứu trong điều kiện lưu thông, bảo quản, vận chuyển thông thường.
+P089: 3. Đơn giản hóa điều kiện mua tem đối với rượu
+P090: Bỏ yêu cầu xuất trình Giấy phép sản xuất rượu khi mua tem điện tử, phù hợp với Nghị quyết số 66.17/2026/NQ-CP ngày 15/5/2026 của Chính phủ.
+P091: 4. Phân công quản lý dữ liệu tem điện tử
+P092: •  Cục Thuế: quản lý dữ liệu tem điện tử rượu, tem điện tử thuốc lá sản xuất để tiêu thụ trong nước;
+P093: •  Cục Hải quan: quản lý dữ liệu tem điện tử rượu, tem điện tử thuốc lá nhập khẩu;
+P094: •  Bảo đảm an toàn thông tin, bảo mật dữ liệu, an ninh mạng, phân quyền truy cập, lưu vết xử lý dữ liệu.
+P095: NGƯỜI NỘP THUẾ CẦN LÀM GÌ?
+P096: •  Kiểm tra mã QR còn rõ, đọc và tra cứu được trước khi dán;
+P097: •  Dán tem đúng vị trí, tránh che khuất, tẩy xóa trong quá trình đóng gói, vận chuyển;
+P098: •  Đối với rượu: không cần xuất trình Giấy phép sản xuất rượu khi mua tem, nhưng vẫn phải tuân thủ pháp luật chuyên ngành.
+P099: THÔNG ĐIỆP
+P100: Mã QR rõ ràng – Dán tem đúng cách – Sản phẩm minh bạch.
+P101: Căn cứ pháp lý: Điều 3 Thông tư số 93/2026/TT-BTC.
+P104: INFOGRAPHIC 2: QUẢN LÝ TEM ĐIỆN TỬ RƯỢU, THUỐC LÁ SẢN XUẤT TRONG NƯỚC
+P105: Theo Thông tư số 93/2026/TT-BTC – Điều 6
+P106: 1. Khi xuất tem cho bộ phận sản xuất
+P107: Quét mã QR trên thùng tem/block tem/tem điện tử + nhập dữ liệu: tên hàng hóa, thời gian sản xuất, đơn vị đo lường, đơn giá bán (hoặc đơn giá tạm tính).
+P108: 2. Phát hiện sai sót dữ liệu đã quét
+P109: Doanh nghiệp, tổ chức, cá nhân chủ động điều chỉnh lại dữ liệu tem điện tử đã quét.
+P110: 3. Hệ thống gặp sự cố kỹ thuật
+P111: Cục Thuế thông báo trên Hệ thống → trong 02 ngày làm việc kể từ khi hệ thống hoạt động trở lại, chuyển dữ liệu về cơ quan thuế → không bị coi là chậm gửi dữ liệu.
+P112: 4. Mất, cháy tem điện tử
+P113: Lập biên bản xác định thời gian, địa điểm, có xác nhận của chính quyền địa phương cấp xã, lưu biên bản tại đơn vị. Thời hạn báo cáo và thông báo kết quả hủy tem: 03 ngày làm việc (trước đây 05 ngày làm việc).
+P114: 5. Thông tin hiển thị khi tra cứu tem
+P115: Tên loại tem, ký hiệu mẫu số, ký hiệu tem, dãy số nháy tem; tên, mã số thuế đơn vị sản xuất; tên cơ quan thuế bán tem, ngày bán tem; tên hàng hóa; thời gian sản xuất; đơn vị đo lường.
+P116: NGƯỜI NỘP THUẾ CẦN LÀM GÌ?
+P117: •  Quét mã QR, nhập dữ liệu đầy đủ, chính xác ngay khi xuất tem cho sản xuất;
+P118: •  Theo dõi thông báo của cơ quan thuế khi hệ thống gặp sự cố;
+P119: •  Lập biên bản, báo cáo kịp thời khi mất, cháy tem, đúng thời hạn mới.
+P120: THÔNG ĐIỆP
+P121: Quét đúng – Nhập đủ – Báo cáo kịp thời.
+P122: Căn cứ pháp lý: Điều 6 Thông tư số 93/2026/TT-BTC.

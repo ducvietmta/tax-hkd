@@ -8,6 +8,7 @@ import {
 import { CloudflareApi, type ChatHistoryItem } from '../services/api';
 import { selectConversationHistory } from '../services/conversation';
 import { parseTaxResponse } from '../services/museBridge';
+import { answerDisplayText } from '../services/answerDisplay';
 import { AnswerProgress, appendProgress } from './AnswerProgress';
 import type { ChatProgress } from '../../shared/chatProgress';
 import { useAuth } from '../context/AuthContext';
@@ -90,9 +91,12 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     ? { ...WELCOME_MESSAGE, text: `Đang trao đổi về ${embeddedDocument.code}. Bạn có thể hỏi chi tiết và đối chiếu câu trả lời với PDF bên cạnh.` }
     : WELCOME_MESSAGE;
 
-  useEffect(()=>()=>{if(registrationGuide) registrationRequestRef.current?.abort();},[registrationGuide]);
+  useEffect(()=>()=>{registrationRequestRef.current?.abort();},[registrationGuide,storageKey]);
 
   useEffect(() => {
+    registrationRequestRef.current?.abort();
+    setIsTyping(false);
+    setIsWaitingForAnswer(false);
     try {
       const saved = localStorage.getItem(storageKey);
       const parsed: unknown = saved ? JSON.parse(saved) : [];
@@ -214,7 +218,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
     try {
       const conversation = selectConversationHistory(messages);
       const history = conversation;
-      const requestAbort = registrationGuide ? new AbortController() : undefined;
+      const requestAbort = new AbortController();
       if (requestAbort) registrationRequestRef.current = requestAbort;
 
       const cfRes = await CloudflareApi.askTaxAIStream(
@@ -223,6 +227,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         undefined,
         history,
         (delta) => {
+          if(requestAbort.signal.aborted)return;
           setIsWaitingForAnswer(false);
           if (!hasCreatedAiMsg) {
             hasCreatedAiMsg = true;
@@ -244,6 +249,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
           }
         },
         (meta) => {
+          if(requestAbort.signal.aborted)return;
           retrievalCitations = meta.citations || [];
           retrievalTrace = meta.retrieval;
           setPendingTrace(meta.retrieval);
@@ -262,8 +268,8 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
           }
         },
         (status) => setModelStatus(status),
-        (delta) => {
-          reasoningSummary += delta;
+        (delta, info) => {
+          reasoningSummary = (info?.reset ? '' : reasoningSummary) + delta;
           setPendingReasoningSummary(reasoningSummary);
           if (hasCreatedAiMsg) {
             setMessages((prev) => prev.map((m) => m.id === aiMsgId
@@ -277,6 +283,7 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
         requestAbort?.signal,
       );
 
+      if(requestAbort.signal.aborted)return;
       if (typeof cfRes.remainingCredits === 'number') {
         syncCredits(cfRes.remainingCredits);
       }
@@ -322,8 +329,10 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
       requestError = cfRes.error || requestError;
       if (registrationGuide && typeof cfRes.remainingCredits !== 'number') syncCredits(user.credits);
     } catch {
+      if(registrationRequestRef.current?.signal.aborted)return;
       requestError = 'Không thể kết nối với dịch vụ tra cứu. Vui lòng thử lại sau.';
     }
+    if(registrationRequestRef.current?.signal.aborted)return;
     if (hasCreatedAiMsg) {
       setMessages((prev) => prev.map((m) => m.id === aiMsgId
         ? { ...m, text: `${m.text}\n\n[Câu trả lời bị gián đoạn: ${requestError}]`, contextual: false }
@@ -348,8 +357,8 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
   };
 
   const renderMessageContent = (text: string, citations: string[] = []) => {
-    const parsed = parseTaxResponse(text);
-    const legalBasis = parsed.legalBasis || citations.join('; ');
+    const parsed = parseTaxResponse(answerDisplayText(text));
+    const legalBasis = answerDisplayText(parsed.legalBasis || citations.join('; '));
     return (
       <div>
         <p className="whitespace-pre-line leading-relaxed">{parsed.answer}</p>
@@ -504,8 +513,8 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 <div
                   className={`group relative max-w-[88%] sm:max-w-[78%] rounded-2xl sm:rounded-3xl p-3 sm:p-5 text-[13px] sm:text-[14px] leading-relaxed transition-all ${
                     msg.sender === 'user'
-                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-tr-xs shadow-md shadow-emerald-700/15 font-medium'
-                      : 'bg-white border border-slate-200 text-slate-800 rounded-tl-xs shadow-card'
+                      ? 'bg-emerald-700 text-white rounded-tr-xs shadow-2xs font-medium'
+                      : 'bg-white border border-slate-200 text-slate-800 rounded-tl-xs shadow-2xs'
                   }`}
                 >
                   {/* Copy button ẩn hiện khi hover */}
@@ -589,8 +598,8 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                   </span>
                 </div>
                 </div>
-                <RetrievalTrace trace={pendingTrace} summary={pendingReasoningSummary} live expanded />
                 </>}
+                {!registrationGuide && <RetrievalTrace trace={pendingTrace} summary={pendingReasoningSummary} live expanded />}
               </div>
             )}
             {!registrationGuide && !isTyping && progressSteps.length > 0 && messages[messages.length - 1]?.contextual && (
@@ -619,10 +628,10 @@ export const AIChatModal: React.FC<AIChatModalProps> = ({ isOpen, onClose, initi
                 type="submit"
                 aria-label="Gửi câu hỏi"
                 disabled={!inputVal.trim() || isTyping}
-                className="h-11 sm:h-10 px-3 sm:px-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 disabled:opacity-40 text-white font-semibold rounded-lg sm:rounded-xl transition-all shadow-md shadow-emerald-600/20 flex items-center gap-1 sm:gap-1.5 focus:outline-none text-[12px] sm:text-[13px]"
+                className="h-11 sm:h-10 px-3.5 sm:px-4 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 text-white font-semibold rounded-lg sm:rounded-xl transition-all shadow-xs flex items-center gap-1.5 focus:outline-none text-[12px] sm:text-[13px]"
               >
                 <span>Gửi</span>
-                <Send className="w-3 h-3 sm:w-3.5 sm:h-3.5" aria-hidden="true" />
+                <Send className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400" aria-hidden="true" />
               </button>
             </form>
             <div className="mt-1 sm:mt-2 text-center text-[10px] sm:text-[11px] text-slate-400 flex items-center justify-center gap-1">

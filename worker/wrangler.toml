@@ -22,17 +22,21 @@ INITIAL_FREE_CREDITS = 3
 VIP_CREDITS = 1000
 SEPAY_PATTERN = "SP-LIVE-TD295786"
 DECISION_MODE = "audit"
+REVIEW_BLOCKING = "off"
 MUSE_MODEL = "muse-spark-1.3-contributor"
+DISABLE_MUSE = "1"
+OPENAI_MODEL = "gpt-6.1-terra"
 VECTORIZE_ENABLED = "1"
 CASE_RECOGNITION_MODE = "shadow"
 STRICT_VERIFIED_EVIDENCE_ENABLED = "0"
 # Secrets — KHÔNG commit giá trị thật vào git. Cấu hình bằng:
 #   wrangler secret put MUSE_API_KEY
+#   wrangler secret put OPENAI_API_KEY
 #   wrangler secret put JEV_API_KEY
 #   wrangler secret put FPT_AI_KEY
 #   wrangler secret put SEPAY_API_KEY
 #   (tùy chọn) wrangler secret put VIP_PHONE
-# Đọc trong code qua env.MUSE_API_KEY / env.JEV_API_KEY / env.FPT_AI_KEY / env.SEPAY_API_KEY / env.VIP_PHONE.
+# Đọc trong code qua env.MUSE_API_KEY / env.OPENAI_API_KEY / env.JEV_API_KEY / env.FPT_AI_KEY / env.SEPAY_API_KEY / env.VIP_PHONE.
 
 [ai]
 binding = "AI"

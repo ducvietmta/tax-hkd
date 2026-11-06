@@ -1,3 +1,4 @@
+import { chatTransportError } from './chatTransportError';
 import { auth } from './firebase';
 import { CHAT_PROGRESS_LABELS, type ChatProgress } from '../../shared/chatProgress';
 import type { RegistrationPanelContext } from '../../shared/registrationAdvisor';
@@ -90,7 +91,7 @@ export const CloudflareApi = {
       });
       return await res.json();
     } catch {
-      return { success: true, remainingCredits: 99 };
+      return { success: false, error: 'Không thể xác nhận giao dịch. Vui lòng thử lại.' };
     }
   },
 
@@ -126,13 +127,15 @@ export const CloudflareApi = {
     onDelta: (textChunk: string) => void,
     onMeta?: (meta: { source?: string; citations?: string[]; retrieval?: { method: string; evidence: { title: string; conditional: boolean }[] }; remainingCredits?: number }) => void,
     onStatus?: (status: 'generating' | 'thinking') => void,
-    onReasoningSummary?: (textChunk: string) => void,
+    onReasoningSummary?: (textChunk: string, info?: { reset: boolean }) => void,
     onProgress?: (progress: ChatProgress) => void,
     workflow?: 'tax_registration',
     panelContext?: RegistrationPanelContext,
     signal?: AbortSignal,
   ): Promise<{ success: boolean; response: string; source?: string; error?: string; requireLogin?: boolean; requireDeposit?: boolean; remainingCredits?: number }> {
     let remainingCredits: number | undefined;
+    let transportPhase:'connect'|'read'='connect';
+    let requestReference='';
     try {
       const requestStarted = Date.now();
       onProgress?.({ stage: 'connecting' });
@@ -146,6 +149,8 @@ export const CloudflareApi = {
         signal,
       });
 
+      transportPhase='read';
+      requestReference=res.headers.get('CF-Ray')||'';
       console.debug('[CHAT_STREAM_CONNECTED] ' + JSON.stringify({ elapsedMs: Date.now() - requestStarted, serverTiming: res.headers.get('Server-Timing') }));
       if (!res.ok) {
         const errorBody = await res.json().catch(() => null);
@@ -196,7 +201,7 @@ export const CloudflareApi = {
         } else if (json.type === 'status' && json.status === 'generating') {
           onStatus?.('generating');
         } else if (json.type === 'reasoning_summary' && typeof json.delta === 'string') {
-          onReasoningSummary?.(json.delta);
+          onReasoningSummary?.(json.delta, { reset: json.reset === true });
         } else if (json.type === 'delta' && typeof json.delta === 'string') {
           if (workflow === 'tax_registration' && !firstRegistrationDelta && json.delta) {
             firstRegistrationDelta = true;
@@ -223,6 +228,7 @@ export const CloudflareApi = {
         while (!terminal) {
           const { done, value } = await reader.read();
           buffer += done ? decoder.decode() : decoder.decode(value, { stream: true });
+          if(buffer.length>131072)throw new Error('Dữ liệu luồng vượt giới hạn. Vui lòng thử lại.');
           const lines = buffer.split('\n');
           buffer = lines.pop() || '';
           for (const line of lines) acceptLine(line);
@@ -243,7 +249,7 @@ export const CloudflareApi = {
       }
       return { success: true, response: fullText, source, remainingCredits };
     } catch (err: any) {
-      return { success: false, response: '', error: err.message, remainingCredits };
+      return { success: false, response: '', error: chatTransportError(err,transportPhase,requestReference), remainingCredits };
     }
   },
 
@@ -258,6 +264,7 @@ export const CloudflareApi = {
 
       const res = await fetch(`${API_BASE}/api/files/upload`, {
         method: 'POST',
+        headers: await authorizationHeaders(),
         body: formData,
       });
       const data = await res.json();
@@ -292,9 +299,9 @@ export const CloudflareApi = {
   /**
    * Lấy lịch sử câu hỏi và câu trả lời của khách hàng từ Cloudflare D1
    */
-  async getChatHistory(phone: string): Promise<{ success: boolean; history?: ChatHistoryItem[]; error?: string }> {
+  async getChatHistory(phone: string, signal?: AbortSignal): Promise<{ success: boolean; history?: ChatHistoryItem[]; error?: string }> {
     try {
-      const res = await fetch(`${API_BASE}/api/user/chat-history?phone=${encodeURIComponent(phone)}`, { headers: await authorizationHeaders() });
+      const res = await fetch(`${API_BASE}/api/user/chat-history?phone=${encodeURIComponent(phone)}`, { headers: await authorizationHeaders(), signal });
       return await res.json();
     } catch {
       return { success: false, error: 'Không thể tải lịch sử câu hỏi từ máy chủ' };

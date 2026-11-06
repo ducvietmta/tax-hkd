@@ -70,7 +70,7 @@ export function parseTaxResponse(rawText: string): ParsedTaxResponse {
  */
 export async function checkBridgeStatus(): Promise<BridgeStatus> {
   try {
-    const res = await fetch('/api/bridge-status');
+    const res = await fetch('/api/bridge-status', { headers: { 'X-Tax-Dev-Bridge': 'local' } });
     if (!res.ok) return { connected: false };
     return await res.json();
   } catch {
@@ -93,6 +93,7 @@ export async function queryMuseAI(question: string, _target?: string): Promise<M
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-Tax-Dev-Bridge': 'local',
       },
       body: JSON.stringify({ question: check.clean }),
     });

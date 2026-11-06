@@ -48,7 +48,7 @@ assert.equal(requests.length,2);
 assert.notEqual(requests[0].id,requests[1].id);
 assert.throws(()=>validateScenarioPlan({scenarios:[{condition_quote:'Điều kiện hoàn toàn bịa',source:'question'},{condition_quote:'Kịch bản thay thế chưa thu tiền.',source:'question'}]},source,[]));
 const {PipelineBudget}=load('worker/src/decision/pipelineBudget.ts');
-const b=new PipelineBudget(1000);b.startGeneration(1000);const allocated=b.generation(1000);assert(allocated>0&&allocated<=105000,'Generation must reserve at least 15 seconds of the overall budget');assert.equal(b.generation(1000+allocated),1);b.startReview(1000+allocated);assert(b.review(1000+allocated)>=15000,'Review must retain its reserved budget');assert(b.canRepair(66000));b.startRepair(66000);assert.equal(b.repair(66000),20000);assert(!b.canRepair(100000));
+const b=new PipelineBudget(1000);b.startGeneration(1000);const allocated=b.generation(1000);assert(allocated>0&&allocated<=80000,'Generation must reserve 40 seconds for review and fallback');assert.equal(b.generation(1000+allocated),1);b.startReview(1000+allocated);assert.equal(b.review(1000+allocated),40000);const primary=b.primaryReview(true,1000+allocated);assert.equal(primary,25000);assert.equal(b.review(1000+allocated+primary),15000,'Primary timeout must leave a usable fallback');assert.equal(b.primaryReview(false,1000+allocated),40000);assert(b.canRepair(61000));b.startRepair(61000);assert.equal(b.repair(61000),20000);assert(!b.canRepair(66000));assert(!b.canRepair(100000));
 const {periodFits}=load('worker/src/kb/periodApplicability.ts');
 assert(!periodFits({applies_from_year:2026,effective_from:'2026-07-01'},{years:[2026],event_date:'2026-06-30'}));
 assert(periodFits({applies_from_year:2026,effective_from:'2026-07-01'},{years:[2026],event_date:'2026-07-01'}));
@@ -67,12 +67,14 @@ global.caches={default:{match:async()=>new Response('1000000000'),put:async()=>{
  const ctx={waitUntil:()=>{}};
  const spoofed=await handleChat(new Request('https://test/api/chat',{method:'POST',headers:{'Content-Type':'application/json','X-Internal-Caller':'mcp'},body:JSON.stringify({message:'Câu hỏi thử'})}),{},ctx,new Headers());
  assert.equal(spoofed.status,401);
- const limited=await handleChat(new Request('https://test/api/chatgpt/tax-qa',{method:'POST',headers:{'Content-Type':'application/json','X-Internal-Caller':'mcp'},body:JSON.stringify({message:'Câu hỏi thử'})}),{},ctx,new Headers());
+ const deniedRateDb={prepare(){return {bind(){return this;},first:async()=>null,run:async()=>({})};}};
+ const limited=await handleChat(new Request('https://test/api/chatgpt/tax-qa',{method:'POST',headers:{'Content-Type':'application/json','X-Internal-Caller':'mcp'},body:JSON.stringify({message:'Câu hỏi thử'})}),{DB:deniedRateDb},ctx,new Headers());
  assert.equal(limited.status,429);
  console.log('PASS: spoofed internal header requires login; public connector quota enforced before model calls.');
  authenticated='offline-user';
  let credits=1,reservations=0,release;const gate=new Promise(resolve=>{release=resolve;});
  const db={prepare(sql){const statement={bind(){return statement;},async first(){
+   if(sql.startsWith('INSERT INTO rate_limits'))return {id:1};
    if(sql.includes('FROM users'))return {id:'offline-user',phone:'offline-user',credits};
    if(sql.startsWith('UPDATE users SET credits = credits - 1')){
      reservations++;if(reservations===2)release();

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
-  Search, ArrowRight, CheckCircle2, Copy, BookOpen, Radio, Sparkles,
-  ShoppingBag, Home, Receipt, BrainCircuit, Check, Zap, PlusCircle,
+  Search, ArrowRight, CheckCircle2, Copy, BookOpen, Sparkles,
+  ShoppingBag, Home, Receipt, BrainCircuit, Check, Zap, PlusCircle, FileCheck2, Calculator,
 } from 'lucide-react';
 import { parseTaxResponse } from '../services/museBridge';
 import { CloudflareApi } from '../services/api';
@@ -83,9 +83,9 @@ function useTypingPlaceholder(list: string[], active: boolean) {
 }
 
 const FLOATING = [
-  { icon: ShoppingBag, label: 'Shopee · TikTok Shop', value: 'Đối soát thuế', pos: 'left-[-2%] top-[8%]', rot: '-6deg', delay: '0s', color: 'from-emerald-400 to-teal-500' },
-  { icon: Home, label: 'Cho thuê bất động sản', value: 'GTGT · TNCN', pos: 'right-[-1%] top-[2%]', rot: '5deg', delay: '1.2s', color: 'from-cyan-400 to-sky-500' },
-  { icon: Receipt, label: 'Hóa đơn điện tử', value: 'e-Invoice', pos: 'right-[3%] top-[62%]', rot: '-4deg', delay: '2.1s', color: 'from-indigo-400 to-violet-500' },
+  { icon: ShoppingBag, label: 'Shopee · TikTok Shop', value: 'Khấu trừ sàn TMĐT', pos: 'left-[-2%] top-[8%]', rot: '-4deg', delay: '0s' },
+  { icon: Home, label: 'Cho thuê bất động sản', value: 'Ngưỡng 100tr · GTGT/TNCN', pos: 'right-[-1%] top-[2%]', rot: '4deg', delay: '1.2s' },
+  { icon: Receipt, label: 'Hóa đơn điện tử', value: 'Khai mẫu 03-ĐKT', pos: 'right-[3%] top-[62%]', rot: '-3deg', delay: '2.1s' },
 ];
 
 export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat }) => {
@@ -190,9 +190,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           }
         },
         (status) => setModelStatus(status),
-        (delta) => setCurrentResult((prev) => ({
+        (delta, info) => setCurrentResult((prev) => ({
           ...prev,
-          reasoningSummary: (prev.reasoningSummary || '') + delta,
+          reasoningSummary: (info?.reset ? '' : prev.reasoningSummary || '') + delta,
         })),
         (progress) => setProgressSteps(prev => appendProgress(prev, progress)),
       );
@@ -250,8 +250,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const words = ['Tra cứu', '&', 'Tính', 'thuế'];
-
   return (
     <section id="ai-assistant" className="tax-home-hero relative pt-24 pb-6 md:pt-32 md:pb-20">
       <div className="relative max-w-[1000px] mx-auto px-3.5 sm:px-6 w-full">
@@ -261,21 +259,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           {FLOATING.map((f, i) => (
             <motion.div
               key={f.label}
-              initial={{ opacity: 0, scale: 0.7 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8 + i * 0.2, type: 'spring', stiffness: 120 }}
+              transition={{ delay: 0.6 + i * 0.15, type: 'spring', stiffness: 120 }}
               className={`absolute ${f.pos}`}
             >
               <div
-                className="glass flex items-center gap-2.5 rounded-2xl px-3.5 py-2.5 shadow-floating"
+                className="glass flex items-center gap-2.5 rounded-2xl px-3.5 py-2.5 shadow-xs border border-slate-200/90"
                 style={{ ['--r' as string]: f.rot, animation: `float-y 6s ease-in-out ${f.delay} infinite` }}
               >
-                <span className={`flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${f.color} text-white shadow-md`}>
-                  <f.icon className="h-4.5 w-4.5" />
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white shadow-2xs">
+                  <f.icon className="h-4.5 w-4.5 text-emerald-400" />
                 </span>
                 <span className="text-left leading-tight">
                   <span className="block text-[11px] font-medium text-slate-500">{f.label}</span>
-                  <span className="block text-[15px] font-extrabold text-slate-900">{f.value}</span>
+                  <span className="block text-[14.5px] font-bold text-slate-900">{f.value}</span>
                 </span>
               </div>
             </motion.div>
@@ -283,70 +281,86 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
         </div>
 
         {/* Header */}
-        <div className="relative text-left md:text-center max-w-2xl mx-auto mb-5 md:mb-10">
+        <div className="relative text-left md:text-center max-w-2xl mx-auto mb-6 md:mb-10">
           <div className="md:hidden mb-5 px-1">
-            <p className="text-xs font-semibold text-emerald-700 mb-1.5 uppercase tracking-wider">Trợ lý AI TaxHKD</p>
-            <h1 className="text-[27px] font-extrabold leading-tight tracking-tight text-slate-900">Tra cứu &amp; Tính thuế<br /><span className="text-emerald-700">Hộ kinh doanh</span></h1>
-            <p className="mt-2 text-sm text-slate-500">Hỏi điều bạn cần, xem căn cứ và chọn bước tiếp theo.</p>
+            <p className="text-xs font-semibold text-emerald-800 mb-1.5 uppercase tracking-wider">Trợ lý AI TaxHKD</p>
+            <h1 className="text-[28px] font-extrabold leading-tight tracking-tight text-slate-900">
+              Tra cứu &amp; Tính thuế<br /><span className="text-emerald-700">Hộ kinh doanh</span>
+            </h1>
+            <p className="mt-2 text-sm text-slate-600">Hỏi điều bạn cần, xem căn cứ và chọn bước tiếp theo.</p>
           </div>
+          
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass hidden md:inline-flex items-center gap-2 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 shadow-clean"
+            className="hidden md:inline-flex items-center gap-2 bg-slate-100/90 border border-slate-200/90 text-slate-800 px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide mb-6 shadow-2xs"
           >
-            <Radio className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" />
-            <span>Trợ lý tra cứu thuế HKD</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+            <span className="text-slate-700">Trợ lý AI Pháp lý &amp; Thuế HKD</span>
+            <span className="text-slate-300">·</span>
+            <span className="text-emerald-800 font-bold">Cập nhật Nghị định 141</span>
           </motion.div>
 
-          <h1 className="hidden md:block text-[56px] font-extrabold tracking-tight leading-[1.08] mb-5">
-            {words.map((w, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ delay: 0.1 + i * 0.09, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-block mr-1.5 sm:mr-3 text-slate-900"
-              >
-                {w}
-              </motion.span>
-            ))}
+          <h1 className="hidden md:block text-[54px] font-extrabold tracking-tight leading-[1.1] mb-5 text-slate-900">
+            Tra cứu &amp; Tính thuế
             <br />
-            <motion.span
-              initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ delay: 0.55, duration: 0.7 }}
-              className="text-shimmer inline-block pb-1"
-            >
-              Hộ & Cá nhân kinh doanh
-            </motion.span>
+            <span className="text-emerald-800">Hộ &amp; Cá nhân kinh doanh</span>
           </h1>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="hidden md:block text-[16px] text-slate-600 leading-relaxed"
+            transition={{ delay: 0.3 }}
+            className="hidden md:block text-[16.5px] text-slate-600 leading-relaxed max-w-xl mx-auto"
           >
-            Từ câu hỏi đầu tiên đến bước kê khai tiếp theo. Tra cứu với <strong className="text-slate-900">căn cứ pháp lý</strong>, tính thuế và chuẩn bị đăng ký trong cùng một nơi.
+            Từ câu hỏi đầu tiên đến bước kê khai tiếp theo. Tra cứu với <strong className="text-slate-900 font-semibold">căn cứ pháp lý</strong>, tính thuế và chuẩn bị đăng ký trong cùng một nơi.
           </motion.p>
         </div>
 
         <nav className="tax-task-grid" aria-label="Chọn việc bạn muốn làm">
-          <a href="#/dang-ky"><span className="tax-task-icon">01</span><span><strong>Đăng ký kinh doanh</strong><small>Hướng dẫn từng bước, chọn mã ngành</small></span><span aria-hidden="true">↗</span></a>
-          <a href="#tax-calculator"><span className="tax-task-icon">02</span><span><strong>Tính thuế của tôi</strong><small>Nhập số liệu, xem cách tính</small></span><span aria-hidden="true">↗</span></a>
-          <a href="#legal-base"><span className="tax-task-icon">03</span><span><strong>Tìm văn bản pháp luật</strong><small>Đọc và đối chiếu căn cứ</small></span><span aria-hidden="true">↗</span></a>
+          <a href="#/dang-ky">
+            <span className="tax-task-icon">
+              <FileCheck2 className="w-5 h-5 text-emerald-700" />
+            </span>
+            <span>
+              <strong>Đăng ký kinh doanh</strong>
+              <small>Mẫu 03-ĐKT · Khai trực tuyến eTax</small>
+            </span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a href="#tax-calculator">
+            <span className="tax-task-icon">
+              <Calculator className="w-5 h-5 text-emerald-700" />
+            </span>
+            <span>
+              <strong>Công cụ tính thuế</strong>
+              <small>Ngưỡng 1 tỷ · GTGT &amp; TNCN 2026</small>
+            </span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a href="#legal-base">
+            <span className="tax-task-icon">
+              <BookOpen className="w-5 h-5 text-emerald-700" />
+            </span>
+            <span>
+              <strong>Thư viện pháp luật</strong>
+              <small>Nghị định 141 · Luật 48/2024</small>
+            </span>
+            <span aria-hidden="true">↗</span>
+          </a>
         </nav>
         <p className="tax-question-label">Hoặc đặt câu hỏi cho trợ lý AI</p>
-        {/* Search with animated glow border */}
+
+        {/* Command bar input */}
         <motion.form
           onSubmit={handleSearch}
-          initial={{ opacity: 0, y: 30, scale: 0.97 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.1, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           className="glow-wrap mb-3.5 sm:mb-4 max-w-[820px] mx-auto"
         >
-          <div className="flex items-center gap-2 sm:gap-3 bg-white rounded-2xl sm:rounded-[1.1rem] pl-3 sm:pl-4 pr-1.5 sm:pr-2 py-1.5 sm:py-2">
-            <Search className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 flex-shrink-0" aria-hidden="true" />
+          <div className="flex items-center gap-2 sm:gap-3 bg-white rounded-2xl pl-3 sm:pl-4 pr-1.5 sm:pr-2 py-1.5 sm:py-2">
+            <Search className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 flex-shrink-0" aria-hidden="true" />
             <textarea
               ref={textareaRef}
               aria-label="Nhập câu hỏi tra cứu thuế"
@@ -363,7 +377,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
                 }
               }}
               placeholder={placeholder || 'Nhập câu hỏi về thuế (hỗ trợ nhập văn bản dài, nhiều kênh)...'}
-              className="w-full bg-transparent text-slate-900 placeholder-slate-400 text-[16px] focus:outline-none font-medium py-3 resize-none overflow-y-auto leading-relaxed"
+              className="w-full bg-transparent text-slate-900 placeholder-slate-400 text-[15px] sm:text-[16px] focus:outline-none font-normal py-3 resize-none overflow-y-auto leading-relaxed"
               style={{ minHeight: '40px', maxHeight: '160px' }}
             />
             {searchQuery.length > 200 && (
@@ -374,20 +388,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
             <motion.button
               type="submit"
               disabled={isSearching}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              className="relative min-h-11 overflow-hidden inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-bold text-[13px] sm:text-[14px] px-3.5 py-2 sm:px-6 sm:py-3 rounded-xl shadow-md sm:shadow-lg shadow-emerald-500/25 flex-shrink-0 disabled:opacity-80"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative min-h-11 overflow-hidden inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[13px] sm:text-[14px] px-4 py-2 sm:px-6 sm:py-3 rounded-xl shadow-xs flex-shrink-0 disabled:opacity-75 transition-all"
             >
               {isSearching ? (
                 <>
-                  <BrainCircuit className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse" />
-                  <span className="hidden xs:inline">Đang phân tích</span>
+                  <BrainCircuit className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-pulse text-emerald-400" />
+                  <span className="hidden xs:inline">Đang tra cứu</span>
                   <span className="xs:hidden">Đang tra</span>
                 </>
               ) : (
                 <>
                   <span>Tra cứu</span>
-                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
                 </>
               )}
             </motion.button>
@@ -438,9 +452,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
 
         {/* Result card */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           style={{ rotateX: rotX, rotateY: rotY, transformPerspective: 1200 }}
           onMouseMove={(e) => {
             const r = e.currentTarget.getBoundingClientRect();
@@ -451,37 +465,39 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
             mx.set(0);
             my.set(0);
           }}
-          className={`${currentResult.fresh || isSearching ? '' : 'hidden md:block'} glass rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 md:p-8 shadow-floating space-y-3.5 sm:space-y-5`}
+          className={`${currentResult.fresh || isSearching ? '' : 'hidden md:block'} bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-7 md:p-8 shadow-xs space-y-4 sm:space-y-6`}
         >
-          <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-slate-200/70">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-400 to-cyan-500 text-white">
-                <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200/80">
+                <BrainCircuit className="w-4 h-4 text-emerald-700" />
               </span>
-              <span className="font-bold text-[13px] sm:text-[14px] text-slate-800">Câu hỏi tra cứu</span>
+              <span className="font-bold text-[13.5px] sm:text-[14px] text-slate-900">Kết quả tra cứu pháp lý</span>
             </div>
             <button
               onClick={handleCopy}
-              className="text-[11.5px] sm:text-[12px] text-slate-600 hover:text-emerald-700 bg-white/70 hover:bg-white px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg border border-slate-200 transition-all flex items-center gap-1.5 font-semibold"
+              className="text-[12px] text-slate-600 hover:text-slate-950 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/80 transition-all flex items-center gap-1.5 font-semibold"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Đã sao chép' : 'Sao chép'}</span>
             </button>
           </div>
 
-          <h3 className="text-[15px] sm:text-[18px] md:text-[20px] font-bold text-slate-900 leading-snug">{currentResult.query}</h3>
+          <h3 className="text-[16px] sm:text-[19px] md:text-[21px] font-bold text-slate-900 leading-snug tracking-tight">
+            {currentResult.query}
+          </h3>
 
-          <div className="space-y-3 sm:space-y-4">
-            <div className="bg-white/80 border border-slate-200/80 p-3.5 sm:p-5 rounded-xl sm:rounded-2xl space-y-2 sm:space-y-2.5 transition-all">
+          <div className="space-y-3.5 sm:space-y-4">
+            <div className="bg-slate-50/70 border border-slate-200/80 p-4 sm:p-5 rounded-2xl space-y-2.5 transition-all">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-emerald-800 font-bold text-[12.5px] sm:text-[13px]">
-                  <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
-                  <span>Nội dung trả lời</span>
+                <div className="flex items-center gap-2 text-slate-900 font-bold text-[13px]">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>Nội dung giải đáp</span>
                 </div>
                 {isStreaming && (
-                  <span className="inline-flex items-center gap-1.5 text-[10.5px] sm:text-[11px] font-bold text-emerald-700 bg-emerald-100/90 px-2 py-0.5 rounded-full shadow-xs">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-100/80 px-2.5 py-0.5 rounded-full">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping" />
-                    <span>Realtime</span>
+                    <span>Thời gian thực</span>
                   </span>
                 )}
               </div>
@@ -489,18 +505,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
               {isSearching && !currentResult.answer && progressSteps.length > 0 ? (
                 <AnswerProgress steps={progressSteps} />
               ) : isSearching && !currentResult.answer ? (
-                <div className="py-3 flex items-center gap-2 text-[13px] sm:text-[14px]">
+                <div className="py-3 flex items-center gap-2.5 text-[13.5px] sm:text-[14px]">
                   <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping shrink-0" />
-                  <span className="font-semibold text-emerald-800">
+                  <span className="font-semibold text-slate-800">
                     {modelStatus === 'thinking'
-                      ? 'Model đang suy luận để tổng hợp câu trả lời...'
+                      ? 'AI đang suy luận & tổng hợp căn cứ...'
                       : modelStatus === 'generating'
-                        ? 'Model đang tạo câu trả lời...'
-                        : 'Đang tra cứu căn cứ pháp lý...'}
+                        ? 'AI đang soạn thảo câu trả lời...'
+                        : 'Đang tra cứu cơ sở dữ liệu pháp luật...'}
                   </span>
                 </div>
               ) : (
-                <div className="text-[13.5px] sm:text-[15px] text-slate-800 leading-relaxed whitespace-pre-line font-medium min-h-[40px]">
+                <div className="text-[14px] sm:text-[15.5px] text-slate-800 leading-relaxed whitespace-pre-line font-normal min-h-[40px]">
                   {currentResult.answer}
                   {isStreaming && (
                     <span className="inline-block w-2 h-4 ml-1 bg-emerald-600 animate-pulse align-middle rounded-xs" />
@@ -510,19 +526,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
             </div>
 
             {currentResult.legalBasis && !isSearching && (
-              <div className="bg-gradient-to-br from-emerald-50/80 to-cyan-50/60 border border-emerald-200/70 p-3.5 sm:p-5 rounded-xl sm:rounded-2xl space-y-1.5 sm:space-y-2 animate-in fade-in">
-                <div className="flex items-center gap-1.5 text-emerald-900 font-bold text-[12.5px] sm:text-[13px]">
-                  <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
-                  <span>Căn cứ pháp lý</span>
+              <div className="bg-emerald-50/40 border border-emerald-200/70 border-l-4 border-l-emerald-600 p-4 sm:p-5 rounded-2xl space-y-2 animate-in fade-in">
+                <div className="flex items-center gap-2 text-emerald-950 font-bold text-[13px]">
+                  <BookOpen className="w-4 h-4 text-emerald-700" />
+                  <span>Căn cứ pháp lý áp dụng</span>
                 </div>
-                <div className="text-[12.5px] sm:text-[13.5px] text-slate-700 leading-relaxed font-medium whitespace-pre-line">
+                <div className="text-[13px] sm:text-[14px] text-slate-700 leading-relaxed font-normal whitespace-pre-line">
                   {currentResult.legalBasis}
                 </div>
               </div>
             )}
             {!isSearching && currentResult.successful && progressSteps.length > 0 && (
               <details className="text-xs text-slate-500">
-                <summary className="cursor-pointer py-2">Xem các bước đã xử lý</summary>
+                <summary className="cursor-pointer py-2 hover:text-slate-800 font-medium">Xem các bước đã xử lý</summary>
                 <AnswerProgress steps={progressSteps} complete />
               </details>
             )}
@@ -534,20 +550,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
             />
           </div>
 
-          <div className="pt-2.5 sm:pt-3 border-t border-slate-200/70 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 text-[11.5px] sm:text-[12px]">
+          <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 text-[12px]">
             <span className="text-slate-500">Thông tin tham khảo theo quy định pháp luật hiện hành</span>
             <div className="flex items-center justify-between sm:justify-end gap-3 pt-1 sm:pt-0">
               {currentResult.successful && (
                 <button
                   onClick={() => onContinueAIChat(currentResult.query, currentResult.rawAnswer || currentResult.answer)}
-                  className="text-emerald-700 hover:text-emerald-800 font-bold"
+                  className="text-emerald-800 hover:text-emerald-950 font-bold"
                 >
                   Hỏi tiếp về câu này →
                 </button>
               )}
               <button
                 onClick={onOpenConsultation}
-                className="group text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1"
+                className="group text-slate-900 hover:text-emerald-800 font-bold flex items-center gap-1.5"
               >
                 <span>Tư vấn hồ sơ cụ thể</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />

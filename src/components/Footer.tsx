@@ -9,7 +9,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
   return (
-    <footer className="relative mt-10 sm:mt-20 border-t border-slate-200/80 bg-white/70 backdrop-blur-md text-[13px] sm:text-[14px] text-slate-600 py-8 sm:py-14">
+    <footer className="relative mt-12 sm:mt-24 border-t border-slate-200 bg-white text-[13.5px] text-slate-600 py-10 sm:py-16">
       <div className="max-w-[1240px] mx-auto px-3.5 sm:px-8 space-y-8 sm:space-y-12">
         
         {/* Main Grid: 5 Columns */}

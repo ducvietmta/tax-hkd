@@ -1,0 +1,1670 @@
+{
+  "schema": "taxhkd-vector-manifest-v1",
+  "model": "@cf/baai/bge-m3",
+  "dimensions": 1024,
+  "version": "tax-kb-bge-m3-6fa6083d36761b4e77fc",
+  "excluded_refs": [
+    "16.24"
+  ],
+  "entries": [
+    {
+      "id": "16.1",
+      "sha256": "71022d00fade3fb72b39d702ea22c517fbd796b369b0b2f82bbe69712ab075e7",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.2",
+      "sha256": "db64b022d865bc3ce8b2cc9c9ef841d084d7961901fad49bd24e03b41382a9b9",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.3",
+      "sha256": "b462057d8a0e4fde775c952538fdb2a49ecbacee56f0c3f6248e769b35800a81",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.4",
+      "sha256": "bdd70e295ef234d11e9a69dca3eab8718158e0af62ada19a42d32f2d86f8ba65",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.5",
+      "sha256": "8718b966505403398acca09cb20c19f0cc78c43aadad9a4b0c57fffdbdf01219",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.6",
+      "sha256": "41d4c2548a21aab11c38192e8c8f27a261e0b31a99370571e44c5373fb833c62",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.7",
+      "sha256": "494ffc647cab82cd66289f1bddf5bc66f0ca4ca057d888a1678f2343f29292e5",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.8",
+      "sha256": "727d2dfa8e522cde4e0ee0b090fd9147ff6eefcca325c8d47f03bc391287343a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.9",
+      "sha256": "cdc56f18b02446458a6a5143b66d04afa767f7e29c19f13bace5fafcb451554c",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.10",
+      "sha256": "42c0933b8c8cdc21c1ed1d95ab56f57aeb65b200a7cacc63a4e0c54533561099",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.11",
+      "sha256": "cedaeecb29da4ff0462431e4c258b4474147c0c215b5eccea22d5af6c4195aab",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.12",
+      "sha256": "c4f69ce3a63c6b8dcb0f48938839bba032f46e24a40d2f22c78b3b315e90781c",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.13",
+      "sha256": "123c9f1e8736f713daedf7ed1f69af76dabf9781c9529f79ad0edac5a773eb88",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.14",
+      "sha256": "3810c78f9c041b1160bbd3c7afd999a43cec304a7ffa288c900e7de3090a5d6b",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.15",
+      "sha256": "59d5d178cdbefaa5f56a46eeef60887524e8f1ba8c03e9c2695a0759f77b2df1",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.16",
+      "sha256": "e2947674f60623f52eb87a3212af1bb0b158b23332fe64c419ed3ca5b98683e4",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.17",
+      "sha256": "a3acc6c24ab8e26e629db75e13bad7881dd93be02ba10412a890a8b7656ffa7c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.18",
+      "sha256": "242b2cd8fd14b20f9cb74f374b7294c9596bc0252932d71aa6fc73467ce54262",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.19",
+      "sha256": "2498d678417fd99040bd30668f70562b715cf4b5d49ccf90adfddf3f2b3a59e8",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.20",
+      "sha256": "65bd197098d16a02ca6be0239193fae4aefddd364b9ce102d8e871d17a59613d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.21",
+      "sha256": "f37224801d669250aeceb25be448a2910049ae547e2ff93be975877388d5ef88",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.22",
+      "sha256": "aaf4afd0d6cfd6900f758658d35b1f9346a0caec4a574509d1f016dc5c631074",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.23",
+      "sha256": "d1b0af458efa741d60a1371e63bf19ac9c8f40a6dedcb826465702640bcf4b50",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.25",
+      "sha256": "c45dfba37abc27fdc03a179a20dd98df91ba462b648cb4ba845081c6e149591a",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.26",
+      "sha256": "75ed5c5920d042f2b3fea9d61404a041e7d534416ce728170380c5944aeac5e8",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.27",
+      "sha256": "438aa151526f4747aaef141bc614f81148b0d0f8caa25644dbb37784c57ac2cd",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.28",
+      "sha256": "9b8d06f84c7557e021a4959e2a53acfc8cdeeb7151111c2487edc2c23ac044fc",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.29",
+      "sha256": "13536acd0a99fe801892f2799aef53d5398c1bbed90b9066b8e8d5b507405c48",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.30",
+      "sha256": "13b5e3b8cbf646e77f98139c52357f1b5a411cf18dd788897b6b7d57b546b335",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.31",
+      "sha256": "3a5a774ae1990c18fb62401821f9cec6e3ecf3a029a6346eb9cecbc0d9a4504c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.32",
+      "sha256": "6b78cab58f775b18024e41eff6497997d1d55bc7fda3440b1e3ee0a5de48f3ed",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.33",
+      "sha256": "1f0cb24ba15f9801b8c67ae844eda51179b595a5eef42a15e147fb48b16ec428",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.34",
+      "sha256": "0efcd95c0b767dc9badadec31f8a9becae4ef3550617a77308a9b8a556ef2b9c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.35",
+      "sha256": "4d612d4490796a02d9f0fcad9f47351fdc191b80cdc696fd35f5f4189b742224",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.36",
+      "sha256": "4f90198791b1c47720363c52b96ec8d3880e62752301dc18e283a21208ac7fe8",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.37",
+      "sha256": "15b199b9a92a7ccdae594870f39112d1cf4b28d9a2ee2c04726f8e5c45b04dac",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.38",
+      "sha256": "32ef01e02caa6a4f5ba82ebba583f23a9d2c280f95e968cb7ab400645f2ea2ea",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.39",
+      "sha256": "b51e6f2baab876eba0f5ee8cb87f2dcb3348477ed1189f24df99ce5bb3a933c7",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.40",
+      "sha256": "1d7850296f6baea878efeaf58edcb185bee39fc0ddbf897e5e0e9e919721c9c1",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.41",
+      "sha256": "8a212398be809b29198e1c0e167a71a8009338f2ecccac59958f45b39686897e",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.42",
+      "sha256": "af3d8d46e1017a3c5e907dd3faf8262f086644e1b90a451713f30bb156a620e0",
+      "tier": "VERIFIED",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.43",
+      "sha256": "e643f354f8252925fadba0dd974282c8ba8983fc91b1ca952189653ed5fbfe42",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.44",
+      "sha256": "4476177b300dc6c9ef5da3b893f68267a45b75d6874c9716e5e4ef6b339badf1",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.45",
+      "sha256": "f7a24994f256c0f6f16c80e2943ce0c20a1f7596051bc31f584952efbddfb236",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.46",
+      "sha256": "2846ac7be32a2258db5723bd462e078bcc47871e327e132904411e82255b638b",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.48",
+      "sha256": "ee81c074d57b7a2f85005259b7af7daa3e9eb380d50ec34d3922728b58eea9a7",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.49",
+      "sha256": "9f9e5f4379e4d7939b0c72c2ba8e382e4935a84a62163adb6333b1eb76b7ef30",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.50",
+      "sha256": "515b930cc8871b678cb55e5d5c7c3d69b3822ff975eed6b0296bd3c63b944195",
+      "tier": "VERIFIED",
+      "from_year": 2025,
+      "to_year": 2026
+    },
+    {
+      "id": "16.51",
+      "sha256": "ab7b134ca74ef0fd0b240d031dcebab99186abf0b5742d54961b4cd8d8d9b01d",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.52",
+      "sha256": "7ae86a44ed8659b9891014951b6345af3f6a86bc793caae9ef97cb31f1b05a7f",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.53",
+      "sha256": "a397ae0df8b6c5141d2a24b76718b7d5692a53d4d7c9fd12afb4f5c9405bc5ab",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.54",
+      "sha256": "5179f18008130808028f3427a785077906976a7a5b920fc10bf2ba71a80cf3dd",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2021,
+      "to_year": 2025
+    },
+    {
+      "id": "16.55",
+      "sha256": "b88d51d5b473ffe5d74a9f525b0eed5f675e578476a5957b233d089f479e57fa",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.56",
+      "sha256": "2db304c8fca075d35e5cd689584846c96046f988bbe27c1f3d85d6c476323024",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.57",
+      "sha256": "ee3b1b560a9adfd6da8644a569070c1f05784decf28b6f6356ecae942c2f17b8",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.58",
+      "sha256": "68b2786999577ef15858a748ff0ae5e3329a56f1a62c4fbf148a5f346a86860c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.59",
+      "sha256": "84129e51aee1aa6d7ba58d94a99e213bc66785b4ac5151a6cf314f5339cb4d9f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.60",
+      "sha256": "1132748199d5fbf060e1fc951c0aebb41eeccc8d95da0b0c314eef49173ee697",
+      "tier": "VERIFIED",
+      "from_year": 2021,
+      "to_year": null
+    },
+    {
+      "id": "16.61",
+      "sha256": "6214e8261adabdb98ce08c2cad176351b1ba8aa380aa789b718fa59d3ef7abb4",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.62",
+      "sha256": "caa4bb8065276a2df9f8551735ed0e457d857456083289816bb3ea9fc2d09394",
+      "tier": "VERIFIED",
+      "from_year": 2021,
+      "to_year": 2021
+    },
+    {
+      "id": "16.63",
+      "sha256": "3269c46d1d7a24a3541247bc67101c7836907f7b1f3081ee378ed1bdd992dbb7",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.64",
+      "sha256": "30379acb157a76c46697a2e84755f9adde1e713621519b81511c8e5051480d4e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.65",
+      "sha256": "d8a71ba0166f6c0add3e689547f65a23df9216fc667a60b422c3076f9b2faf46",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.66",
+      "sha256": "09994c9a3b9e0d27e225c6136da38af7188a949446d09e1eff9fde6e504d9bf0",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.67",
+      "sha256": "b1a07491b39fe48276b7305ff40301ee53556a9c6b82d7a631b796c02828997f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.68",
+      "sha256": "7559a48f9344d3783ddb15f92a428794eb9ccc4fcbd1ec29822146570276a060",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.69",
+      "sha256": "0a5648a9bae24ecd30d5f552a71376cce617cb810352fce577bc747587c9168c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.70",
+      "sha256": "9bb1098bca747440ffc8d0b736e3b09de41a8ea4464f99d9fe4911c3f05ccf51",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.71",
+      "sha256": "bf5e071c28a27caaaf01adbb508328d79a16766b25ab28ae275c84de241fcf9d",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.72",
+      "sha256": "5599a8738fa112d8bd414850ea49659bd351adfb418c3b99b34ac92db7444bd2",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.73",
+      "sha256": "7f0c2bbf2511fbe4668c9454d535af4325aeed973be7563e4ec1fdc215087c3e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.74",
+      "sha256": "9c34fcfcd18665b380fe44c0b8452064a79e92f69748e61120ff760e8fc3bc93",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.75",
+      "sha256": "b53eeda1201362bf064388694a4acc4cf049df5de16d8da19ad0d34d4dbf1b5e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.77",
+      "sha256": "680bba830ecd432f69537074564cabed36b53f940634758cab8c3db2d55eb71b",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.78",
+      "sha256": "4fd61fa4702349f9f2191eddf9cd720a9baeee3cceaeab26fbb4355071825508",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.79",
+      "sha256": "88b5f3667a25e502e7b41ad2418148e883b62f471c6d8b721cb10d28c0a1524a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.81",
+      "sha256": "64842773e69aab7f499986b476f9379046da409c45777e70e4875ec5fcd2986b",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.82",
+      "sha256": "dacc6d467e7df07db00dab50cf27fdbc608dec22db7c068d680f8672e5f36c7c",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.83",
+      "sha256": "36117a868b6c5156c85c276f0e049fd9908079aa0ab9ca335957f85d22f9e41f",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.84",
+      "sha256": "5a12dd16bfe457362acad2522979161749a341d698e3e0a206d2924c305712bf",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.85",
+      "sha256": "7d80d134f1124fc566657fda5322f70030dd858335aab5db0ed807494e1ca67e",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.86",
+      "sha256": "89d093bea18ea63232e3479efdedc6af77e521100c50ef537370f8904c87227d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.87",
+      "sha256": "5d31f96cb45dfc6a5b1874046c0a6f8799e1ea90909686ef0961e3a3b353ea20",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.88",
+      "sha256": "c40abebe590b3596618c09f012a6bdc2e9ff49b922437dd05ee27dfdf20f12bd",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.89",
+      "sha256": "1d8e13cd0433ac56b864a069532b9f68512ca6f4196d624a2757c7ddf4246677",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.90",
+      "sha256": "a6cf1a0b2b1dc7af2a09c4f0060c2e6b213e6857986079cdd31fa13297f5f776",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.91",
+      "sha256": "82aa29674a091b49b4fbf93c449df2c2ebb781f8702b9f8b7ecbd9448b1255f9",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.93",
+      "sha256": "8df106c58a310661b96e3b286bc4c5b97a58f584ce9e549ac0d4961085f1fc19",
+      "tier": "VERIFIED",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.94",
+      "sha256": "04d5806c332a9c08602863aaa94e40c2ebf5d988393931de42390e6f153f8970",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.95",
+      "sha256": "cb222ae2ca22dbb2574461133ea711fefd9d4937f18281e9b5a4b55f55a2d0af",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.96",
+      "sha256": "9fbccdfc640ccf104ad6bda8a32c1088e7923c610e2e09ad6deb8e9606dc41b4",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.97",
+      "sha256": "0aba47773675f9f8141b8b3f7d6fddd67a823223cae7c414610924145982ca36",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.98",
+      "sha256": "dd4fad182c24ec6b51b274249e48af6395aba44143aa9daa24689703612bf2f8",
+      "tier": "VERIFIED",
+      "from_year": 2021,
+      "to_year": 2025
+    },
+    {
+      "id": "16.99",
+      "sha256": "10c6203266f90aadfd3d5432ede34eb85ed91aa8eff9c5ebf8b11824589c623a",
+      "tier": "VERIFIED",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.100",
+      "sha256": "7624f15dd1eda5bdc6b508527cf8cd7a451ef4f6e251733c33df70242e9069a4",
+      "tier": "VERIFIED",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.101",
+      "sha256": "ff29877c79594e6391435d66979cec59d8312b24a143c687852359a2c8d28039",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.102",
+      "sha256": "b7aaaaa6d0378f42372ce87fac671435f00b23c9e317f163f3cf6d310ca45ab9",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.103",
+      "sha256": "d059b78e05d94d304fef252c31634ab8c034a1c9175fb03d30f8c5e436002b6c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.104",
+      "sha256": "c927586f629a0aeb58dc2b8a64e202907d39ffe5157c41432ba75f54916befa9",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.105",
+      "sha256": "69960f078279fb9ac654caef2356e5383252e58d5d45caa9fc491165cbe1eb71",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.106",
+      "sha256": "69bc92e6230179dfeffd6be58c7639b95b2a5fd950e4a6258e7aa4e19c7d6211",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2026
+    },
+    {
+      "id": "16.107",
+      "sha256": "c16d0ed500187335457772813b7cec83f8df990e45df2f34d4a4d2d8663946aa",
+      "tier": "VERIFIED",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.108",
+      "sha256": "48e77f285ab003e348e9a8f41bd276c0bee7dba901300ad3b8179d0ceff03d67",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.109",
+      "sha256": "9db0a9afc9869dca006e9dbc876aafdad7f910f546b96120b1e49e87d5a457dc",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.80",
+      "sha256": "5cd57e9eed957179abdf81855ab6b0bedd47e8fabb1e125e31aed842891be11f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.110",
+      "sha256": "48e124810e30247adc8d69ab0043271354b157d54e0ae430a64ee5d18e48036c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.111",
+      "sha256": "fc71c5eb772aec6b63bd4444945ac774fdd4a0aad59634971dd5e89940cdda0c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.112",
+      "sha256": "bc417d7effb55aaffcbd19ccaf8ba2383348f5896a88b00288a7ef725f2ee6f9",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.113",
+      "sha256": "2a3ef218a4dac240cd51a80ee33ac30592f15e7d1600688d4f69e1c6cf5f98c0",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.114",
+      "sha256": "e1852a06fe7e9203a75c82104e7172c0e9c1be6311ef8c15624a8fa1ea50292d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.115",
+      "sha256": "06e0152b2a4aa9d51325d438c9f483e1c758b241fd33314c23ef34ea6e8ab65f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.116",
+      "sha256": "c49f0dc3243f6365871e57b114235e400fcf448101bff788a0e96e5877159565",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.117",
+      "sha256": "af26a200405850ec2a891e5fddbc584e5b372cae0483deb9496ec486a427d757",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.118",
+      "sha256": "2c4ef0344f8f3fabbafc471d94382190d31a1a31c98b7c52d2e139eee1e94d38",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.119",
+      "sha256": "c8160723ad7159e3cf63fa16b3a5f24e233d4b5f0df456fafbad0accb462f911",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.120",
+      "sha256": "d58554da6408a20a65738a7f83cbb78a953eb80e94d4ab08dece3a770f8a564d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.121",
+      "sha256": "095a956791e215eaa4c0bd43cf91d65130e1949075ea575816904d1a58ffb668",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.122",
+      "sha256": "a451d08a8925d5330b3f50ba3e4fadd44bc40b554ce1ac4278cb1bca6586ba55",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.123",
+      "sha256": "b08484c998dfccc1305eef224d37573696d0cf4687bf4aa816f034848ace3306",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2026
+    },
+    {
+      "id": "16.124",
+      "sha256": "80bea343f7c0c9ad697c7bb67449e0e70d90b86aa88d1a91287c4c31a74ae1c4",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.125",
+      "sha256": "2e3ac156cb44629f39e860cf912ffa84316ae3b47e3f6f61e9f6f1f998fa2176",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.126",
+      "sha256": "14bc0b904b20fb73ad0041eb8280fe4b051be0dfef139242793c55bb7df7fdf3",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.127",
+      "sha256": "16fbb4e3979250fcecad98a26ad397d9260a8e3f169c6f617efe14e5519cf143",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.128",
+      "sha256": "57e7524d58be9c7f7dfb6adb603c16e976f5286f3f9eaa2b2b4a1f46ff56849c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.129",
+      "sha256": "e5ea57bf28a366ccf68ed60c21de932a22fb54d7071042bb3b3e3b24d4ea2b2a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.130",
+      "sha256": "3c555d1600a1665bfe3018d9715d1f231aa4e54c48067ab6181624778dd76e51",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.131",
+      "sha256": "df4b94b20fd95ae63ed22b266a71df38190005de4c729d71915e22c78c3849a5",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.132",
+      "sha256": "d5df6b50b7382a61ce88e40ffc3cc989b514277a14cd4f0a7e2d9df67b9932dc",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.133",
+      "sha256": "18689f020a094deda393379fac4088877d9f2ac4a3425b1cdf909b3fd9ed5f80",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.134",
+      "sha256": "67e95a7b3859afd868e25cc42b04d65785dd94fb944296e83b1043b90b24ba39",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.135",
+      "sha256": "4a064dc0484507a9b1c19ca9b3b737aa81313423049bcac4a5bf6762a521a61d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.136",
+      "sha256": "96e0fbecf1eac8b258e0a5a7e8895f2164a5bfe8404d5c77da0bd33443cb6025",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.137",
+      "sha256": "8dcc999400ba3329559f2bfe84985cf0d72536afbdb800426ff63b154c72c82c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.138",
+      "sha256": "13dcac4d0b65cdb4b92c14908796f3c24de6fd45acc8df82a880b85da9dcf1e9",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.139",
+      "sha256": "8baac1d9cc5526c7168dfafb9f614c8fb9901dc8a1adf7ce1752a209cfeb0b39",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.140",
+      "sha256": "fa7be6b60ff7f88df623db8fae15352a00d3014d7331f0c4431e867f0c915f32",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.141",
+      "sha256": "e684a351a093ecd8f5278aee30ec6b7ae916480885f1feb2c741032531f0b1bd",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.142",
+      "sha256": "1d86220170083a0161cd6a8c320193696095dfa74fb7852ba22b7dfa8bfc60e7",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.143",
+      "sha256": "c824d1f7a842ecf3dbed2c06d31fe026a0bdf37cd38aa165c513e82b2dd41f05",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.144",
+      "sha256": "3087c4d2130e023cdf665ca1628778fea3f72a488b5fee84e4bcf725d787b018",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.145",
+      "sha256": "4f03f7294e17fbcabc0bbfacb6cf931fa8f28374752eee7bde674cda9b0bdc4c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.146",
+      "sha256": "66da17fbb6358f93b96f3f532d06cea5de49d60e8a70c91f6372313115f1cc4f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.147",
+      "sha256": "5c55d90eb1e988e0ae004954deb3468218dc81a14c189bcfbc59a4760c94d8ed",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.148",
+      "sha256": "6a72e203b9286986598666c8fd29a18833bbd58be7a7d51534318fb4d2a8b431",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.149",
+      "sha256": "35e1a80922649cd7a23726b33dfec959ebd7acf157a88e0129d15a3df5fbe718",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.150",
+      "sha256": "f61fb680f683e1fc7e89e4fbe07a60c7930fb6f46e033e1de857ac92529917cb",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.151",
+      "sha256": "a0d23fe6b5667e59661f58cb255e8e2ed3b135b9ae0ec179a17a963bd8216d3e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.152",
+      "sha256": "9c0b6c5b8ae076cbef60296b0a7f5ac938866bd83332548bf0453a8e391dc41d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.153",
+      "sha256": "86ec565c1cd81726bd091819d6ac41b0321607b6c4f4564c7f813459b3ad663d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.154",
+      "sha256": "1f9cb4a910395d75ffc452623d3d9d0e54fe5c84ff5b8236c9397d05c895b4fa",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.155",
+      "sha256": "60c6381d70f1a2a614fef523f150825c0a06cbabad70c814595d367a264c5c74",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.156",
+      "sha256": "1b984f913d86c1338df989ebda907fefb3e54ec4eac0870e280cebfbe800dc1e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.157",
+      "sha256": "88737351eec3a960ce8e8705c8ff793ab258f3970344fb2eb4cd6e4ee854a97f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.158",
+      "sha256": "665986be41d1c23fa1563cd6cee5b1d17a220d2711c11ce853ca80ea5679b759",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.159",
+      "sha256": "5424fb714fef7d63b76ad67ed05812ad2edf430024470a8fe40d22d0b00a5666",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.160",
+      "sha256": "f2d9f51bc21ad007d76ad243520f1b20366ad7bcf1f7c3f5195844a0ffcd348d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.161",
+      "sha256": "52be468ee45fc6ad4e7cf32c1ad44dbf7c5210d2a002d2010ab06d0d471c91c7",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.162",
+      "sha256": "5bd139ca48bd8752d2639c9c2aa37cca36bf7e02aafeafc857c38fdfabffe3aa",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.163",
+      "sha256": "dbd9001755f24385aa701cccbf011807ccf1e9fd040ed4c2f1ecbe9bcb98e402",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.164",
+      "sha256": "f38517354b6c485d449f7d2af9397a48f3b966dc0726763b4db823126b974d9d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.165",
+      "sha256": "ad795b9c56b69749f571b7986000fbb8d499e1a52c29a77f8beb031e4b1306ea",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.166",
+      "sha256": "9dc66fb0209351118af389c862d12ee41210d5af22cfa1a3ff659904308d30c3",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.167",
+      "sha256": "dfd5124f9b8d43739c758ded832c278507fa6b06505d100c5428c958c0f0ce96",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.168",
+      "sha256": "6658ffcd8c893b534873bd7eea7331f51da61e84cbb2ca41ea2b6ae87d9d7f16",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.169",
+      "sha256": "4f2cd5562af440f6816ab9c2eb6ee401355ea3e69b232b5add7f68b530f0056d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.170",
+      "sha256": "0fff6cc4be946dcd2f0fed65c8a3e3422b7e6373712fd164054a9518b33d42c3",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.171",
+      "sha256": "fe09f3e0442cce83f2f94549327371ae79b415a2c4c033cc936e787972d9a3ac",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.172",
+      "sha256": "98b95209fb3ed5103b4eb27d3424784f0dd6ea77d242ded555e64482b559014c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.173",
+      "sha256": "5e81b9d08f0cfa65c3d72ca8664a8aacb4dbe8f23e0cb675b37d585b39b391cd",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2026
+    },
+    {
+      "id": "16.174",
+      "sha256": "ec4199730c35adb55b3cf7d933eae0d302b6aac5056b4b996e09afbad17ca35b",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.175",
+      "sha256": "93c7cc38f23cb2d1a7bb856987b9b25b6a485b0129541fc774d5a385046b7c23",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.176",
+      "sha256": "e061f9838157d24e406ee2adc547b4ca33a1e3309949ddd012b5ee8e23463254",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.177",
+      "sha256": "1979e013837955e0cfc4347c4aecbd1d8a5f3b15f603a444c549846f53359a05",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.178",
+      "sha256": "9b5e9f625ca58f66b8484443860afcbb9ffdc9a591078d4b81583267fbde9b76",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.179",
+      "sha256": "9809b880c02afadd71b00e4b30239de9fec2c25ea2f2341a916bf592df80dc0e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.180",
+      "sha256": "be8a9285440b430816908a08d5cdda99c1e00ead061ebc613df8a9911e41d981",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.181",
+      "sha256": "770a7d35dd997017a324f356845fe86ad007d18e1a03c9de8766ea0de568ed50",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.182",
+      "sha256": "184326af4049bd8d9e6563a9d78357ce3429e1bf863410c45ded60720051557c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.183",
+      "sha256": "97e60059b4fa41c068f24b800ff6577a506c647a091720e5ad6dd969b88d1752",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.184",
+      "sha256": "37ff7d3f5fd14365daeb02d8562c05c0ee3219bc357580f187e8ef80b79a2888",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.185",
+      "sha256": "4e09f8ecb08d158c16e229ff4e5c3e89c5f7e331d3b11cb80755dd40f939cd47",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.186",
+      "sha256": "a31ca2fbe6965299a78e5dbeab8a8e430be6094d95c72c356e5db9250e4ed83f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.187",
+      "sha256": "72352f59e92f6dff9974563ac2766aa0f54bfef4a0870dac4401c37f2e95d9ff",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.188",
+      "sha256": "d79b11c438677059c959e08d860ef923c25b942e9c083ec2ddfb9900ae337a06",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.189",
+      "sha256": "7bcdf50655d0997bb063ad3a6e3d2e9f0c20187fc43f674ac60ed800b5735dec",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.190",
+      "sha256": "b69a0f5dda8adc21c41e2943bf83e17804766b00d8379a1df9620e7ee8ffcd0e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.191",
+      "sha256": "f3ab17534cd51ae147b52f6ed06fec03fbded85e8cda748ef654f44ada3d4108",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.192",
+      "sha256": "3bb4c753088cff2d61f8ca167db91b80f9885a82ab0f0358d5763c175dc15978",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.193",
+      "sha256": "4aa4b278bac3926745ed20d3ffe49f5e238b1224703394139286f14368c45ea4",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.194",
+      "sha256": "4fd154e185d755f7542f9f6e9fec00366e5d50f7909488430ee642b7f70cabc2",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.195",
+      "sha256": "eea7a8e2d98076ad762551d796fccd5b2ea64d21d721a6b960c3a884012ef76a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.196",
+      "sha256": "4a1d7a6bcafec5532ea30111b06aa426a0044d9b832c67973fff4d93abc52ed0",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.197",
+      "sha256": "a7383cc470d1075bf36036102895ac5de5276f6eda7607c3ed318a30d621ba43",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.198",
+      "sha256": "96ec5bce4053141d6c7d6661b3aadcbf439836ff6fd72bcf7fc04befd8f5b71a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2022,
+      "to_year": 2025
+    },
+    {
+      "id": "16.199",
+      "sha256": "c68e9cbf908b00d889a8461d382868300bea833dbf4012cbd10df469152ccf85",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2020,
+      "to_year": null
+    },
+    {
+      "id": "16.200",
+      "sha256": "ebf5f81eeef8bac284c6862a2150a48c49da9d4c37eedccf03f07d0f8a83d08a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2020,
+      "to_year": null
+    },
+    {
+      "id": "16.201",
+      "sha256": "a72107f8582ce695dc26c0029cb01767808bfdc498a00ee619924038ae29e82f",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.202",
+      "sha256": "62e206222dbcf629461ba733ac5ca7cc8ef4a0000fd952f38b12354dfad8df59",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.203",
+      "sha256": "86e4fc091909c26a54b7c90218ebb287fca328da8ff7e5b9501ffe6f423e3fc4",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.204",
+      "sha256": "6a6c11b7baaf8894ffdd941f00c29fbbc154940d6d06372087107fe2e5df47c1",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2026
+    },
+    {
+      "id": "16.205",
+      "sha256": "6cf09fb31dbdadb0e883a51f7d67873e7abc89b861ee3e06c979bca085a29042",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.206",
+      "sha256": "553a4425b01f4f04b2508b33abf3486fdeca3432d6018ff4150bb363591dbbca",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.207",
+      "sha256": "86ae76013ba392580bf04908f1147aaa1566669fe7364d941e3075ebbe53725d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.208",
+      "sha256": "6c86599bf0c612aa19c377c45bc94824f78726a4fc439273036823ba11e7a29c",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.209",
+      "sha256": "799c486dad12e82991ddd9cb2ca7a1394d7d32801af27914af01636df7c16664",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2022,
+      "to_year": 2025
+    },
+    {
+      "id": "16.210",
+      "sha256": "f611ed116970bf63f8dbc9684e6ba51db78d400b6d1cb826ad13dba75be68058",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2014,
+      "to_year": 2025
+    },
+    {
+      "id": "16.211",
+      "sha256": "417cd0d81b8e785e2934749f434bf60045e57fc7100f24b6b0e7c0050e3bb8ea",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.212",
+      "sha256": "40ad56da6d793fc9595797604016238c087e733708a943de4b9b61948713f157",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2013,
+      "to_year": 2025
+    },
+    {
+      "id": "16.213",
+      "sha256": "bd27c23fad09d314775387c6687a00e00652fb00386aaad3ff9722e200ed0765",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.214",
+      "sha256": "59b41f617404fd685bd4869bf6ab5001986c8e0f735071d33d3f0b74d409f32b",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.215",
+      "sha256": "cf5d0e6894f2b2c2005fd6320c007af080e5525095deaae12dba46b17c963756",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.216",
+      "sha256": "97d05e1086a041e6327f752177d469eff21ca3d85a90e9c2d51970cd629a2d15",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2021,
+      "to_year": 2025
+    },
+    {
+      "id": "16.217",
+      "sha256": "049e515985a8d4eb4324cb8498978e4c19e0fa88b0e6fe34742c894ba8e99f5b",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.218",
+      "sha256": "6304a34876166215a9177cba0e93f0ff278e67f6fb0c70d45860d51072faff3d",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2022,
+      "to_year": 2024
+    },
+    {
+      "id": "16.219",
+      "sha256": "278d06fe7e02349c12738a93f52b7121973cb693c3c7648995b2e1159704c650",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2025,
+      "to_year": 2025
+    },
+    {
+      "id": "16.220",
+      "sha256": "2167013cda40ad870b596f824ffaaeb0a56be48cadbdb3c58f9dd8e7341d541a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.221",
+      "sha256": "2210290ddba240ba40564ddbb46e5428d6d6e33c39f7bbbc628d54d02b5c5e09",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2022,
+      "to_year": 2025
+    },
+    {
+      "id": "16.222",
+      "sha256": "16328fd3d9b725d9d64979f1e79f665b757f054fccbb6d3f091ee770e64ff0da",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.223",
+      "sha256": "8ef959f7094ac104505bc1b29b049c0e05852dc2c5f50e6c0b8a2430673fb1d3",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.224",
+      "sha256": "c8f56965c450c1fb300eecd48245bf227e7323f527bbbe0940712e784e99c770",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.225",
+      "sha256": "b4e32543efd7b3a68821783f32967b4e20dacc953d628733c645f995c5784eae",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.226",
+      "sha256": "6cda81edfb767449e46036c85acec54b3467822dc4eba51caec23a16ddde109e",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.227",
+      "sha256": "9e2d858c85a3c45f653ebec1a3526ec5d4d095d2d24e32ea0da96eb27d3d223b",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2015,
+      "to_year": 2020
+    },
+    {
+      "id": "16.228",
+      "sha256": "00a52d96e3971a6c4721d745b735c5adcab7074b2d9f77932030c3d6b1fcf71a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.229",
+      "sha256": "1e1413682dc9aa7e8a95e2f45c4084903b230c89694a96d674a40ae1d443aa72",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.230",
+      "sha256": "8831dd87c6a7b9b88e332d1e12ffce771e2db0b3d02bdf292a864bde00772a63",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.231",
+      "sha256": "d553d24f1d0c25963bdf2c97941a0bf7a91dcaefbe6e2c6b14011fdd47f6c102",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.232",
+      "sha256": "28a256babb70af29c15f6cffd705ee9256ed2b57acfaadf2a9b02c6c43de3c67",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.233",
+      "sha256": "dd95d23d219e972c014214d28fdccc1f19418bc2d82272b9f5ff47823ad617e5",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.234",
+      "sha256": "a8526a8c8ee05b075f1ba79e08ab1ea2d571e14abab505c7f92606269c55fc79",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.235",
+      "sha256": "09543521e049174a8fa366d2bf249f2c07817118e8bfa226a0ce53f82976e092",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.236",
+      "sha256": "70182c1c4ce7bb9a127a3ce850916eb626858f9ff5dd2c96a4b21eb2d15440bf",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.237",
+      "sha256": "99b955a1b88c3979c50013103fcb829400f932a6ac1b63c24f5781a2ded897c8",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.238",
+      "sha256": "028ca6bb0a3f30891550c8a009d2ea718009a567727589e568e1ff69a7d94f0a",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": 2027
+    },
+    {
+      "id": "16.239",
+      "sha256": "b272ccf3dd0fd217f665d0b0706bc2878a899821f806f192c022f55114e7fde4",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.240",
+      "sha256": "35f685d3b98ada042e40d107c9891366dbcf30c9721259f7ed9281743e55c367",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2025,
+      "to_year": null
+    },
+    {
+      "id": "16.241",
+      "sha256": "3b6981133761fe4bca66b04603ffb3381780c06dc2e3fe884362480dcd7840e4",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    }
+  ]
+}

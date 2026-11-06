@@ -155,7 +155,7 @@ function evaluateUncheckedFrame(frame: TaxDecisionFrame): EvaluationResult {
       if(base.status==='ANSWERED'){
         let allowance=taxYear>=2026?exemptionThreshold:0;
         const relief=frame.facts.vat_relief_assumed&&taxYear<=(ruleset.relief_policies?.nq204_vat_last_year||2026)?ruleset.relief_policies?.nq204_vat_reduction_rate||0:0;
-        const rows=activities.map(a=>{const config=ruleset.rates[a.kind];return{id:a.id,revenue_vnd:a.revenueVnd,allowance_vnd:0,vat_rate:Math.round(config.vat_rate*(1-relief)*1e6)/1e6,vat_due_vnd:0,pit_rate:config.pit_rate,pit_before_relief_vnd:0};});
+        const rows=activities.map(a=>{const config=ruleset.rates[kindKey(a.kind)];return{id:a.id,revenue_vnd:a.revenueVnd,allowance_vnd:0,vat_rate:Math.round(config.vat_rate*(1-relief)*1e6)/1e6,vat_due_vnd:0,pit_rate:config.pit_rate,pit_before_relief_vnd:0};});
         for(const row of [...rows].sort((a,b)=>b.pit_rate-a.pit_rate)){
           row.allowance_vnd=base.method==='INCOME'?0:Math.min(allowance,row.revenue_vnd);allowance-=row.allowance_vnd;
           row.vat_due_vnd=Math.round(row.revenue_vnd*row.vat_rate);

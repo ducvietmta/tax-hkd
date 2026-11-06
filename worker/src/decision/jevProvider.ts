@@ -93,7 +93,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
         chunks.push(entries.slice(offset, offset + 32));
       }
       const batches = await Promise.all(
-        chunks.map(chunk => this.ask(state, Object.fromEntries(chunk)))
+        chunks.map(chunk => this.ask({ ...state, review_policy: (questions.evidence as any)?.instructions }, Object.fromEntries(chunk)))
       );
       if (batches.some(b => !b)) { this.failureCode ||= 'INCOMPLETE_DECISION_BATCH'; return null; }
       const combined: Record<string, any> = {};
@@ -192,6 +192,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
     };
     // Apply independently of topic: a mistaken registration label must not let
     // the reviewer certify an answer to a different procedure.
+    questions.coverage.instructions += '\nKiểm lại nguyên văn nguồn trước khi chấp nhận câu chưa đủ căn cứ: nguồn đã có ý được hỏi mà đáp án không nêu thì INCOMPLETE. Không bắt trả thêm sắc thuế/ý ngoài phạm vi hoặc viện một văn bản không còn đúng kỳ. Kiểm chiều so sánh với số đã tính; số đúng nhưng kết luận phương án lợi hơn bị đảo thì coverage là INCOMPLETE và evidence là CONTRADICTED.';
     questions.coverage.instructions += '\n' + REGISTRATION_SCOPE_POLICY + ' Nếu đáp án chỉ kết luận miễn đăng ký hộ mà chưa giải quyết đăng ký thuế cá nhân được hỏi thì INCOMPLETE. Tự gán tính chất hoạt động hoặc đổi thu nhập thành doanh thu là sai dữ kiện, không phải phần giải thích bổ sung.';
     questions.evidence.instructions+='\n'+SUBJECT_SCOPE_POLICY+' Kiểm viện dẫn nếu đáp án có nêu: đúng văn bản chưa đủ, phải đúng điều/khoản/điểm được viện dẫn. Không tự đổi hoặc bổ sung căn cứ để cứu bản nháp. Chỉ sử dụng bằng chứng được cung cấp.\n'+PROCEDURAL_EVIDENCE_POLICY;
     if(semantic?.answerPurpose==='DEFINITION'){
@@ -232,9 +233,23 @@ export class JevDecisionProvider implements DecisionModelProvider {
       INVOICE_CORRECTION: {
         correction_options: 'Đáp án có giữ đủ lựa chọn điều chỉnh/thay thế theo đúng nhánh nguồn và kỳ áp dụng không? Không chốt bắt buộc chỉ một cách khi nguồn cho lựa chọn và chưa có ngoại lệ.',
         filing_period: 'Nếu hỏi kỳ khai thuế, đáp án có trả lời kỳ theo đủ điều kiện hoặc chỉ rõ dữ kiện cần bổ sung không? Chỉ nói phụ thuộc quy định là chưa đủ.',
+        cancel_return_handling: 'Nếu tình huống là khách trả hàng/hủy giao dịch, đáp án phải trả lời riêng cách xử lý hóa đơn đã lập: không tự xóa hóa đơn cũ; chọn hóa đơn điều chỉnh/thay thế hoặc hóa đơn trả hàng theo thỏa thuận và theo kỳ của chứng từ trả hàng trong nguồn. Chỉ hỏi thêm loại hóa đơn mà không nêu hướng xử lý là INCOMPLETE.',
+      },
+      INVOICE_USAGE: {
+        multi_location_invoice: 'Nếu người hỏi có nhiều địa điểm/cửa hàng dùng chung một mã số thuế, đáp án phải nêu rõ: dùng MST chung cho các cửa hàng và ghi mã địa điểm kinh doanh trên hóa đơn theo nguồn (khoản 5 Điều 8 NĐ68 sửa bởi NĐ141). Kết luận không xin MST mới mà thiếu điểm mã địa điểm là INCOMPLETE.',
+        invoice_timing: 'Nếu hỏi thời điểm lập hóa đơn, phải chốt thời điểm theo sự kiện trong nguồn (chuyển giao hàng, hoàn thành/nghiệm thu dịch vụ, đối soát theo kỳ quy ước) và xử lý nhánh hủy/hoàn trả nếu giao dịch bị hủy, thay vì chỉ nói phụ thuộc quy định.',
+      },
+      TAXPAYER_RIGHTS: {
+        assessment_basis: 'Nếu hỏi cơ quan thuế ấn định doanh thu/thuế hoặc dùng dòng tiền ngân hàng, đáp án phải đối chiếu điều khoản ấn định trong nguồn (Điều 24) và nguyên tắc phân biệt dòng tiền không phải doanh thu như tiền vay, thu hộ. Kết luận đúng hướng nhưng thiếu căn cứ ấn định là INCOMPLETE.',
+      },
+      DECLARATION_FILING: {
+        supplementary_forms: 'Nếu hỏi khai bổ sung nhiều kỳ hoặc hồ sơ khai theo phương pháp, đáp án phải nêu mẫu tờ khai/phụ lục theo từng loại thuế, phương pháp và kỳ theo nguồn (gồm mẫu quyết toán theo phương pháp thu nhập khi thuộc nhánh đó), cùng thời hạn khai bổ sung của kỳ. Chỉ đưa khung rà soát chung mà không chốt mẫu/kỳ là INCOMPLETE.',
+        filing_forms_by_method: 'Nếu hỏi hộ dùng những mẫu tờ khai nào, phải phân biệt mẫu theo phương pháp tính thuế và loại hồ sơ (thông báo doanh thu khác tờ khai/quyết toán) theo nguồn; thiếu mẫu quyết toán của phương pháp thu nhập là INCOMPLETE.',
       },
     };
-    const checks = requirements[semantic?.topic || ''] || {};
+    const checks = { ...(requirements[semantic?.topic || ''] || {}),
+      // Intent-level coverage applies even when the semantic topic is broader.
+      ...(semantic?.primaryIntent === 'DECLARATION_FILING' ? requirements.DECLARATION_FILING : {}) };
     if (semantic) questions.missing_fact = { type: 'choice', instructions: 'Chỉ xét câu hỏi, lịch sử và bằng chứng: dữ kiện thực tế nào chưa được người dùng cung cấp nhưng cần để chốt kết quả? Không chọn dữ kiện người dùng đã xác nhận hoặc đã giả định hợp lệ. Không coi lỗi trong bản nháp là thiếu dữ kiện người dùng. Chọn NONE nếu đủ dữ kiện hoặc có thể trả lời đầy đủ theo các nhánh đã nêu; OTHER_EVIDENCE nếu thiếu nguồn pháp luật chứ không thiếu dữ kiện thực tế. Đây là phân loại câu hỏi làm rõ, không phải chấm đáp án.', criteria: {
       NONE: 'Không cần hỏi thêm dữ kiện thực tế để trả lời theo phạm vi câu hỏi.',
       CURRENT_METHOD: 'Chưa biết phương pháp tính thuế đang áp dụng hoặc năm bắt đầu, trong khi quy định chuyển tiếp/thời gian ổn định làm thay đổi phương pháp của kỳ hỏi.',
@@ -266,7 +281,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
     };
     // The reviewer must see the same evidence and conversation as generation.
     // Never silently certify a truncated answer or evidence set.
-    if (question.length > 6000 || answer.length > 12000 || evidence.length > 14000) {
+    if (question.length > 6000 || answer.length > 12000 || evidence.length > 20000) {
       this.failureCode=question.length>6000?'REVIEW_QUESTION_LIMIT':answer.length>12000?'REVIEW_ANSWER_LIMIT':'REVIEW_EVIDENCE_LIMIT';
       return null;
     }
@@ -292,7 +307,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
       if(!invalidClaims.has(claim.id)&&canReuseClaimReview(claim,prior,this.lastReviewContextKey!)){
         this.lastReviewClaims[claim.id]={choice:prior!.choice,confidence:prior!.confidence};continue;
       }
-      questions[`claim_${claim.id}`]={type:'choice',instructions:`Kiểm độc lập kết luận ${claim.id} trong grounding theo CHÍNH SÁCH CHUNG CHO TẤT CẢ claim_* ở questions.evidence.instructions. Trả phán quyết riêng cho claim này.`,criteria:{COMPLETE:'Trực tiếp giải quyết yêu cầu được hỏi; mọi khẳng định độc lập có căn cứ và đúng điều kiện/dữ kiện/kỳ.',IRRELEVANT:'Thông tin có thể đúng nhưng không giải quyết yêu cầu thực sự được hỏi.',CONTRADICTED:'Kết luận hoặc căn cứ trái nguồn/điều kiện/kỳ.',INVENTED:'Khẳng định dữ kiện thực không được cung cấp.',INCOMPLETE:'Không có mapping hợp lệ hoặc thiếu nguồn/điều kiện cần thiết.',UNCERTAIN:'Chưa đủ chắc chắn để xác minh.'}};
+      questions[`claim_${claim.id}`]={type:'choice',instructions:`Kiểm độc lập kết luận ${claim.id} trong grounding theo CHÍNH SÁCH CHUNG CHO TẤT CẢ claim_* ở state.review_policy hoặc questions.evidence.instructions. Trả phán quyết riêng cho claim này.`,criteria:{COMPLETE:'Trực tiếp giải quyết yêu cầu được hỏi; mọi khẳng định độc lập có căn cứ và đúng điều kiện/dữ kiện/kỳ.',IRRELEVANT:'Thông tin có thể đúng nhưng không giải quyết yêu cầu thực sự được hỏi.',CONTRADICTED:'Kết luận hoặc căn cứ trái nguồn/điều kiện/kỳ.',INVENTED:'Khẳng định dữ kiện thực không được cung cấp.',INCOMPLETE:'Không có mapping hợp lệ hoặc thiếu nguồn/điều kiện cần thiết.',UNCERTAIN:'Chưa đủ chắc chắn để xác minh.'}};
     }
     const answers = await this.ask({ ...this.state(question, history), answer, evidence,...(grounding?{grounding:reviewerPacket(grounding)}:{}) }, questions);
     if (!answers) return null;
