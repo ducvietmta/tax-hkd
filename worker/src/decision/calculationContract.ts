@@ -11,7 +11,7 @@ export function codeCalculationLedger(frame:TaxDecisionFrame,evaluation:Evaluati
     frame.semantic?.calculationShape==='SCENARIOS'||
     // A broad service label does not prove its VAT subgroup (e.g. repair,
     // transport, or a contract including materials). Prefer sourced arithmetic.
-    !frame.income_type.every(t=>['GOODS_SALES','FOOD_SERVICE'].includes(t.value))||
+    !frame.income_type.every(t=>['GOODS_SALES','FOOD_SERVICE'].includes(t.value)||(t.value==='SERVICE'&&(frame.facts.vat_rate_explicit!==undefined||!!frame.facts.multi_activities?.length||frame.semantic?.taxFocus==='pit')))||
     (frame.income_type.length>1&&!frame.facts.multi_activities?.length)||
     (frame.facts.vat_relief_assumed&&frame.tax_period.years[0]!==2026)||
     ['PROJECTED','PARTIAL_PERIOD','TRANSACTION'].includes(frame.semantic?.revenueContext||'')||

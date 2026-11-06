@@ -8,7 +8,7 @@ import { hasMcpTestAccess } from './mcpTestAccess';
 import { taxRegistrationInstructions } from '../../shared/taxRegistrationWorkflow';
 import type { RagChunk } from './ragEngine';
 import { verifiedFirebasePhone } from './firebaseAuth';
-import { retrieve, buildReviewContext, analyzeAmounts } from './retriever';
+import { retrieve, buildReviewContext, analyzeAmounts, extractLegalCitationsFromChunk } from './retriever';
 import { resolveAnswerScope, scopeInstructions, intentInstructions, OUT_OF_SCOPE_RESPONSE } from './answerScope';
 import { resolveTaxRelevance } from './taxRelevance';
 import { matchPendingTopics } from './pendingTopics';
@@ -21,13 +21,13 @@ import { resolveAbcCategory } from './decision/labels';
 import { JevDecisionProvider } from './decision/jevProvider';
 import { repairGroundedAnswer } from './decision/repairAnswer';
 import { retrieveSubrequests } from './decision/subrequests';
-import { groundingInstructions, parseGroundedAnswer, type GroundingPacket } from './decision/claimGrounding';
+import { groundingInstructions, parseGroundedAnswer, verifiedClaimSubset, type GroundingPacket } from './decision/claimGrounding';
 import { MuseEvidenceReviewer } from './decision/museEvidenceReviewer';
 import { calculationInstructions } from './decision/calculationContract';
 import { resolveCalculations } from './decision/arithmetic';
 import { canReleaseReviewedAnswer } from './decision/reviewIntegrity';
 import { answerContract, UNVERIFIED_ANSWER } from './decision/answerContract';
-import { groundedAnswerPolicy, reviewRepairGuidance } from './decision/answerPolicy';
+import { groundedAnswerPolicy, reviewRepairGuidance, reviewClarification } from './decision/answerPolicy';
 import { filterAndGateEvidence,isSubjectCompatible } from './decision/evidenceGate';
 import { evaluateDecisionFrame } from './rules/evaluator';
 import { validateAnswer } from './decision/answerValidator';
@@ -982,6 +982,7 @@ ${ragContextText}${fullContextNote}`;
     let semanticReviewIssues: string[] | null = null;
     let reviewFailureCode:string|undefined;
     let reviewMissingFact: string | undefined;
+    let reviewSafeFact: string | undefined;
 
     let repairTrace: {
       turn1Draft: string;
@@ -1034,6 +1035,7 @@ ${ragContextText}${fullContextNote}`;
       claimRoles=reviewer.lastReviewRoles;
       reviewRounds.push({provider:reviewer.name,failureCode:reviewer.failureCode,...('lastReviewReport' in reviewer?{report:{verdicts:reviewer.lastReviewReport,mappingResolutions:reviewer.lastMappingResolutions}}:{}),issues,checks:reviewer.lastReviewChecks,context_key:reviewer.lastReviewContextKey,integrity:reviewer.lastReviewIntegrity});
       reviewMissingFact = reviewer.lastReviewMissingFact;
+      reviewSafeFact = reviewer.lastReviewSafeFact;
 
       durationRev1Ms = Date.now() - t0Rev1;
       semanticReviewIssues = issues;
@@ -1058,7 +1060,7 @@ ${ragContextText}${fullContextNote}`;
           const repaired = await repairGroundedAnswer(repairInstructions, history, message, env,groundingPacket,issues!,claimVerdicts, budget.repair());
           durationRepairMs = Date.now() - t0Repair;
           {
-            const repairArithmetic=repaired?resolveCalculations(repaired.text,passages.map(p=>p.id)):null;
+            const repairArithmetic=repaired?resolveCalculations(repaired.text,passages.map((p:any)=>p.id)):null;
             const repairedText = repairArithmetic&&!repairArithmetic.issues.length?repairArithmetic.text:undefined;
             if (repaired && repairedText && repairedText.length > 15) {
               const t0Rev2 = Date.now();
@@ -1071,6 +1073,7 @@ ${ragContextText}${fullContextNote}`;
               reviewRounds.push({provider:secondReviewer.name,failureCode:secondReviewer.failureCode,...('lastReviewReport' in secondReviewer?{report:secondReviewer.lastReviewReport}:{}),issues:remainingIssues,checks:secondReviewer.lastReviewChecks,context_key:secondReviewer.lastReviewContextKey,integrity:secondReviewer.lastReviewIntegrity,changed_claims:repaired.changes});
               Object.assign(repairTrace,{changedClaims:repaired.changes,checksRound1:reviewer.lastReviewChecks,checksRound2:secondReviewer.lastReviewChecks});
               reviewMissingFact = secondReviewer.lastReviewMissingFact;
+              reviewSafeFact = secondReviewer.lastReviewSafeFact;
 
               durationRev2Ms = Date.now() - t0Rev2;
               semanticReviewIssues = remainingIssues;
@@ -1093,8 +1096,9 @@ ${ragContextText}${fullContextNote}`;
         } catch (e: any) { console.warn('[ANSWER_REPAIR_ERROR]', e?.name || 'request_failed'); }
       }
     }
-    // Only a fully reviewed LLM answer may be released as legal guidance.
-    let blockGate: 'NONE' | 'NO_EVIDENCE_CHUNKS' | 'ANSWER_VALIDATOR_DOWNGRADE' | 'SEMANTIC_REVIEW_FAILED' | 'REVIEW_PROVIDER_UNAVAILABLE' =
+    // Incomplete/uncertain reviews are not approvals. Keep verified independent
+    // claims instead of releasing the unverified whole answer.
+    let blockGate: 'NONE' | 'NO_EVIDENCE_CHUNKS' | 'ANSWER_VALIDATOR_DOWNGRADE' | 'SEMANTIC_REVIEW_FAILED' | 'REVIEW_PROVIDER_UNAVAILABLE' | 'CLARIFICATION_REQUIRED' | 'PARTIAL_ANSWER' =
       passages.length === 0 ? 'NO_EVIDENCE_CHUNKS' : 'NONE';
     if (reviewBlocking && requireReview && blockGate === 'NONE' && (!semanticReviewPassed || !validationPass) && !isSystemError) {
       if (semanticReviewIssues === null) {
@@ -1102,8 +1106,7 @@ ${ragContextText}${fullContextNote}`;
         // or a document name alone cannot certify applicability.
           aiText = UNVERIFIED_ANSWER;
           legalCitations = [];
-          source = 'Review provider unavailable';
-          aiText = 'Hệ thống kiểm chứng đang gián đoạn hoặc chưa xử lý được lượt này. Bạn vui lòng thử lại; lượt hỏi này không bị trừ.';
+          source = reviewFailureCode?.startsWith('REVIEW_') ? 'Review budget exceeded' : 'Review provider unavailable';
           if(reviewFailureCode && /LIMIT|RESOURCE/.test(reviewFailureCode))aiText='Câu trả lời cần kiểm tra vượt giới hạn xử lý của lượt này. Bạn có thể tách câu hỏi thành từng phần; lượt hỏi này không bị trừ.';
           blockGate = 'REVIEW_PROVIDER_UNAVAILABLE';
           if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
@@ -1143,12 +1146,22 @@ ${ragContextText}${fullContextNote}`;
             issues: semanticReviewIssues,
             abcCategory,
           }));
-          // Failed semantic review is an operational failure, never an assembled legal answer.
-          aiText = UNVERIFIED_ANSWER;
+          const definitionOnly=businessClassification.answerPurpose==='DEFINITION'&&groundingPacket.requests.length===1;
+          const clarification = definitionOnly?null:reviewClarification(reviewMissingFact);
+          // A true aside is not a partial definition. If the sole requested
+          // concept is still missing, never return revenue/procedure fragments.
+          const verifiedPartial=definitionOnly?'':verifiedClaimSubset(groundingPacket,claimVerdicts);
+          aiText = verifiedPartial ? definitionOnly?verifiedPartial:[verifiedPartial,clarification||'Phần còn lại chưa được kiểm chứng đầy đủ với căn cứ hiện có.'].join('\n\n') : clarification ? [reviewSafeFact,clarification].filter(Boolean).join('\n\n') : UNVERIFIED_ANSWER;
           legalCitations = [];
-          source = 'Answer review blocked';
-          blockGate = !finalValidationPass ? 'ANSWER_VALIDATOR_DOWNGRADE' : 'SEMANTIC_REVIEW_FAILED';
-          if (retrievalTrace.decision) retrievalTrace.decision.status = 'NEEDS_LEGAL_REVIEW';
+          if(verifiedPartial&&!definitionOnly){
+            const kept=groundingPacket.claims.filter(c=>c.mapping==='PROPOSED'&&claimVerdicts[c.id]?.choice==='COMPLETE'&&claimVerdicts[c.id]?.confidence>=.8);
+            const ids=new Set(kept.flatMap(c=>c.evidence_ids));
+            legalCitations=[...new Set(passages.filter((p:any)=>ids.has(p.id)).flatMap((p:any)=>extractLegalCitationsFromChunk({id:p.ref_id,file:'evidence',section:'',ref_id:p.ref_id,tier:'VERIFIED_CONDITIONAL',text:p.text})))];
+            if(legalCitations.length)aiText+='\n\nCăn cứ pháp lý:\n'+legalCitations.map(c=>'- '+c).join('\n');
+          }
+          source = verifiedPartial ? 'Verified partial answer' : clarification ? 'Needs clarification (review recovery)' : 'Answer review blocked';
+          blockGate = verifiedPartial ? 'PARTIAL_ANSWER' : clarification ? 'CLARIFICATION_REQUIRED' : !finalValidationPass ? 'ANSWER_VALIDATOR_DOWNGRADE' : 'SEMANTIC_REVIEW_FAILED';
+          if (retrievalTrace.decision) retrievalTrace.decision.status = clarification ? 'NEEDS_INFO' : 'NEEDS_LEGAL_REVIEW';
         }
       }
     }
@@ -1158,14 +1171,14 @@ ${ragContextText}${fullContextNote}`;
       aiText=UNVERIFIED_ANSWER;legalCitations=[];source='Verified source gate blocked';
       blockGate='ANSWER_VALIDATOR_DOWNGRADE';semanticReviewPassed=false;validationPass=false;
     }
-    const answerReviewStatus = blockGate === 'NO_EVIDENCE_CHUNKS' ? 'NO_EVIDENCE' : isSystemError
+    const answerReviewStatus = blockGate === 'NO_EVIDENCE_CHUNKS' ? 'NO_EVIDENCE' : blockGate === 'PARTIAL_ANSWER' ? 'PARTIAL_VERIFIED' : blockGate === 'CLARIFICATION_REQUIRED' ? 'NEEDS_CLARIFICATION' : isSystemError
       ? 'SKIPPED_GENERATION_ERROR'
       : semanticReviewIssues === null
         ? 'SKIPPED_PROVIDER_ERROR'
         : semanticReviewPassed
           ? 'PASS'
           : 'BLOCKED';
-    const answerReview = { status: answerReviewStatus, issues: semanticReviewIssues, ...(reviewFailureCode?{diagnosticCode:reviewFailureCode}:{}), ...(reviewMissingFact && reviewMissingFact !== 'NONE' ? { missingFact: reviewMissingFact } : {}) };
+    const answerReview = { status: answerReviewStatus, issues: semanticReviewIssues, ...(reviewFailureCode?{diagnosticCode:reviewFailureCode}:{}), ...(reviewMissingFact && reviewMissingFact !== 'NONE' ? { missingFact: reviewMissingFact } : {}), ...(blockGate === 'CLARIFICATION_REQUIRED' && reviewSafeFact ? { partialFactsReturned:true } : {}) };
     const timings = {
       classifyMs: durationClassifyMs,
       ragMs: durationRagMs,
@@ -1254,7 +1267,7 @@ ${ragContextText}${fullContextNote}`;
     if (env.DB && decisionFrame) {
       ctx.waitUntil(env.DB.prepare('INSERT INTO answer_grounding_traces (id,pipeline_version,trace_json) VALUES (?,?,?)').bind(
         `agt_${crypto.randomUUID()}`,PIPELINE_VERSION,JSON.stringify({requests:decisionFrame.requests,
-          evidence:passages.map(p=>({id:p.id,ref_id:p.ref_id,request_ids:p.request_ids,provenance:p.provenance})),
+          evidence:passages.map((p:any)=>({id:p.id,ref_id:p.ref_id,request_ids:p.request_ids,provenance:p.provenance})),
           claims:groundingPacket.claims,verdicts:claimVerdicts,roles:claimRoles,issues:semanticReviewIssues,reviewRounds,repair:repairTrace,
           requestId,question:message,blockGate,answerReviewStatus,reviewFailureCode,timings,generationRuns})
       ).run().catch((error:any)=>console.warn('[GROUNDING_TRACE_ERR]',error?.message)));

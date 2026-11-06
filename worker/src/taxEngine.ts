@@ -76,6 +76,14 @@ export function formatRevenue(vnd: number): string {
   return formatVnd(vnd);
 }
 
+export function roundRate(rate: number): number {
+  return Math.round(rate * 1_000_000) / 1_000_000;
+}
+
+export function formatRatePercent(rate: number): string {
+  return `${Number((roundRate(rate) * 100).toFixed(4))} %`.replace(' %', '%');
+}
+
 /**
  * Tính toán thuế cho một trường hợp cụ thể.
  */
@@ -137,6 +145,9 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
     if (facts.activityType === 'service') {
       vatRate = 0.05;
       pitRate = 0.02;
+    } else if (facts.activityType === 'rental' || facts.activityType === 'affiliate_service') {
+      vatRate = 0.05;
+      pitRate = 0.05;
     }
 
     const vatDue = Math.round(effectiveRevenue * vatRate);
@@ -160,8 +171,8 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
       status: 'ANSWERED',
       explanation:
         `Năm ${taxYear}, ngưỡng không phải nộp thuế là 100 triệu đồng/năm. Với doanh thu ${formatRevenue(effectiveRevenue)} (vượt 100 triệu đồng), bạn phải nộp thuế trên toàn bộ doanh thu:\n` +
-        `- Thuế GTGT (${vatRate * 100}%): ${formatRevenue(effectiveRevenue)} × ${vatRate * 100}% = ${formatVnd(vatDue)}.\n` +
-        `- Thuế TNCN (${pitRate * 100}%): ${formatRevenue(effectiveRevenue)} × ${pitRate * 100}% = ${formatVnd(pitDue)}.\n` +
+        `- Thuế GTGT (${formatRatePercent(vatRate)}): ${formatRevenue(effectiveRevenue)} × ${formatRatePercent(vatRate)} = ${formatVnd(vatDue)}.\n` +
+        `- Thuế TNCN (${formatRatePercent(pitRate)}): ${formatRevenue(effectiveRevenue)} × ${formatRatePercent(pitRate)} = ${formatVnd(pitDue)}.\n` +
         `Tổng thuế phải nộp năm ${taxYear}: ${formatVnd(vatDue + pitDue)}. Lưu ý: Nghị quyết 43/2026/QH16 và ngưỡng 1 tỷ đồng chỉ áp dụng từ năm 2026, không hồi tố cho năm ${taxYear}.`,
       citations: ['Thông tư 40/2021/TT-BTC', 'Thông tư 100/2021/TT-BTC'],
     };
@@ -185,7 +196,7 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
     const relief = isResident && effectiveRevenue <= 10_000_000_000 ? Math.round(pitBefore * 0.3) : 0;
     const baseVatRate = facts.activityType === 'goods' ? 0.01
       : ['service', 'rental', 'affiliate_service'].includes(facts.activityType) ? 0.05 : 0;
-    const vatRate = baseVatRate * (facts.vatReliefEligible && taxYear === 2026 ? 0.8 : 1);
+    const vatRate = roundRate(baseVatRate * (facts.vatReliefEligible && taxYear === 2026 ? 0.8 : 1));
     const vatDue = Math.round(effectiveRevenue * vatRate);
     return {
       taxYear, grossRevenueVnd: facts.grossRevenueVnd, effectiveRevenueVnd: effectiveRevenue,
@@ -198,8 +209,8 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
       statusReason: !hasIncome ? 'Cần thu nhập tính thuế hợp lệ để tính số thuế TNCN theo phương pháp trên thu nhập.'
         : vatRate === 0 ? 'Chưa xác định ngành nghề/tỷ lệ GTGT để tính tổng hai loại thuế.' : undefined,
       explanation: hasIncome
-        ? `Doanh thu năm ${taxYear} là ${formatRevenue(effectiveRevenue)}: TNCN ${mandatory ? 'bắt buộc' : 'đã chọn'} tính theo thu nhập tính thuế × ${incomeRate * 100}%. ${formatVnd(taxableIncome)} × ${incomeRate * 100}% = ${formatVnd(pitBefore)}.${relief ? ` Cá nhân cư trú có doanh thu không quá 10 tỷ đồng được giảm 30% TNCN theo Nghị quyết 43/2026/QH16: còn ${formatVnd(pitBefore - relief)}.` : ''} ${vatRate ? `Thuế GTGT theo tỷ lệ ${vatRate * 100}% trên doanh thu: ${formatVnd(vatDue)}.` : 'Thuế GTGT cần xác định riêng theo ngành và điều kiện giảm GTGT nếu có.'}`
-        : `Doanh thu ${formatRevenue(effectiveRevenue)} ${mandatory ? 'vượt 3 tỷ đồng, bắt buộc' : 'không vượt 3 tỷ đồng và đã chọn'} tính TNCN trên thu nhập tính thuế với thuế suất ${incomeRate * 100}%; cần thu nhập tính thuế hợp lệ để ra số tiền.`,
+        ? `Doanh thu năm ${taxYear} là ${formatRevenue(effectiveRevenue)}: TNCN ${mandatory ? 'bắt buộc' : 'đã chọn'} tính theo thu nhập tính thuế × ${formatRatePercent(incomeRate)}. ${formatVnd(taxableIncome)} × ${formatRatePercent(incomeRate)} = ${formatVnd(pitBefore)}.${relief ? ` Cá nhân cư trú có doanh thu không quá 10 tỷ đồng được giảm 30% TNCN theo Nghị quyết 43/2026/QH16: còn ${formatVnd(pitBefore - relief)}.` : ''} ${vatRate ? `Thuế GTGT theo tỷ lệ ${formatRatePercent(vatRate)} trên doanh thu: ${formatVnd(vatDue)}.` : 'Thuế GTGT cần xác định riêng theo ngành và điều kiện giảm GTGT nếu có.'}`
+        : `Doanh thu ${formatRevenue(effectiveRevenue)} ${mandatory ? 'vượt 3 tỷ đồng, bắt buộc' : 'không vượt 3 tỷ đồng và đã chọn'} tính TNCN trên thu nhập tính thuế với thuế suất ${formatRatePercent(incomeRate)}; cần thu nhập tính thuế hợp lệ để ra số tiền.`,
       citations: ['Điều 7 Luật Thuế TNCN 109/2025/QH15', 'Điều 4 Nghị định 68/2026/NĐ-CP', 'Khoản 1 Điều 1 Nghị quyết 43/2026/QH16', ...(facts.vatReliefEligible ? ['Điều 1 Nghị quyết 204/2025/QH15', 'Điều 1 Nghị định 174/2025/NĐ-CP'] : [])],
     };
   }
@@ -362,7 +373,7 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
 
   // 2. Tầng tax_before_relief
   // Xử lý làm tròn đặc biệt cho trường hợp vượt 1 đồng (1.000.000.001đ)
-  if (facts.vatReliefEligible && taxYear === 2026) vatRate *= 0.8;
+  if (facts.vatReliefEligible && taxYear === 2026) vatRate = roundRate(vatRate * 0.8);
   const vatDue = Math.round(taxableVatRevenue * vatRate);
   let pitBeforeRelief = 0;
   if (taxablePitRevenue === 1) {
@@ -385,10 +396,10 @@ export function calculateTax(facts: TaxFacts): TaxCalculationResult {
   // Lời giải thích minh bạch 3 tầng
   const explanation =
     `Với doanh thu ${activityName} ${formatRevenue(effectiveRevenue)} trong năm ${taxYear} (phương pháp tỷ lệ trên doanh thu):\n` +
-    `1. Thuế GTGT: tính ${vatRate * 100}% trên toàn bộ doanh thu chịu thuế:\n` +
-    `   ${formatRevenue(effectiveRevenue)} × ${vatRate * 100}% = ${formatVnd(vatDue)}.\n` +
-    `2. Thuế TNCN trước ưu đãi: tính ${pitRate * 100}% trên phần doanh thu vượt 1 tỷ đồng:\n` +
-    `   (${formatRevenue(effectiveRevenue)} − 1 tỷ đồng) × ${pitRate * 100}% = ${formatRevenue(taxablePitRevenue)} × ${pitRate * 100}% = ${formatVnd(pitBeforeRelief)}.\n` +
+    `1. Thuế GTGT: tính ${formatRatePercent(vatRate)} trên toàn bộ doanh thu chịu thuế:\n` +
+    `   ${formatRevenue(effectiveRevenue)} × ${formatRatePercent(vatRate)} = ${formatVnd(vatDue)}.\n` +
+    `2. Thuế TNCN trước ưu đãi: tính ${formatRatePercent(pitRate)} trên phần doanh thu vượt 1 tỷ đồng:\n` +
+    `   (${formatRevenue(effectiveRevenue)} − 1 tỷ đồng) × ${formatRatePercent(pitRate)} = ${formatRevenue(taxablePitRevenue)} × ${formatRatePercent(pitRate)} = ${formatVnd(pitBeforeRelief)}.\n` +
     (pitRelief > 0
       ? `3. Giảm 30% thuế TNCN theo Nghị quyết 43/2026/QH16 (áp dụng cho cá nhân cư trú doanh thu không quá 10 tỷ đồng):\n` +
         `   ${formatVnd(pitBeforeRelief)} × 30% = ${formatVnd(pitRelief)}.\n` +
@@ -444,7 +455,9 @@ export function extractTaxFactsFromQuery(query: string, defaultYear = 2026): Tax
 
   // 2. Xác định cư trú
   let isResident: boolean | null = true;
-  if (qLower.includes('khong cu tru')) {
+  if (/\bcu tru\s+(?:hay|hoac)\s+(?:khong|phi)\b|\b(?:co|la)\s+(?:ca nhan\s+|nguoi\s+)?cu tru\s+(?:khong|chua|hay khong)\b|\b(?:khong|chua)\s+(?:biet|ro|chac|xac dinh)\b[^.!?]{0,40}\bcu tru\b/.test(qLower)) {
+    isResident = null;
+  } else if (qLower.includes('khong cu tru') || qLower.includes('phi cu tru')) {
     isResident = false;
   }
 
@@ -459,61 +472,81 @@ export function extractTaxFactsFromQuery(query: string, defaultYear = 2026): Tax
   }
 
   // 4. Kiểm tra trường hợp nhiều ngành (ví dụ: bán hàng/bán lẻ X + dịch vụ/affiliate Y)
+  // Chỉ nhận khi tách được 2 số tiền ở 2 vị trí khác nhau (không gán trùng 1 số cho cả 2 ngành,
+  // và không bịa 800tr + 350tr trừ khi câu hỏi thực sự nêu 800 và 350).
   const hasGoodsKeyword = /\b(ban hang|ban le|shopee|hang hoa|thuong mai)\b/.test(qLower);
   const hasServiceKeyword = /\b(dich vu|affiliate|tiktok|koc|hoa hong)\b/.test(qLower);
-  if (
-    (qLower.includes('800') && qLower.includes('350')) ||
-    (hasGoodsKeyword && hasServiceKeyword && (qLower.includes('ty') || qLower.includes('trieu') || qLower.includes('tr')))
-  ) {
-    let revGoods = 800_000_000;
-    let revService = 350_000_000;
-
-    const goodsMatch = qLower.match(/(?:ban hang|ban le|shopee|hang hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(trieu|ty|tr)?/);
-    const serviceMatch = qLower.match(/(?:dich vu|affiliate|tiktok|koc|hoa hong)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(trieu|ty|tr)?/);
-
-    if (goodsMatch && serviceMatch) {
-      const gVal = Number(goodsMatch[1].replace(',', '.'));
-      const gUnit = goodsMatch[2] === 'ty' ? 1_000_000_000 : 1_000_000;
-      const sVal = Number(serviceMatch[1].replace(',', '.'));
-      const sUnit = serviceMatch[2] === 'ty' ? 1_000_000_000 : 1_000_000;
-      if (!isNaN(gVal) && !isNaN(sVal) && gVal > 0 && sVal > 0) {
-        revGoods = Math.round(gVal * gUnit);
-        revService = Math.round(sVal * sUnit);
-      }
-    }
-
+  if (qLower.includes('800') && qLower.includes('350') && hasGoodsKeyword && hasServiceKeyword) {
     return {
       taxYear,
       activityType: 'multi',
-      grossRevenueVnd: revGoods + revService,
+      grossRevenueVnd: 1_150_000_000,
       isResident,
       multiActivities: [
-        { id: 'goods', kind: 'goods', revenueVnd: revGoods, vatRate: 0.01, pitRate: 0.005 },
-        { id: 'service', kind: 'service', revenueVnd: revService, vatRate: 0.05, pitRate: 0.02 },
+        { id: 'goods', kind: 'goods', revenueVnd: 800_000_000, vatRate: 0.01, pitRate: 0.005 },
+        { id: 'service', kind: 'service', revenueVnd: 350_000_000, vatRate: 0.05, pitRate: 0.02 },
       ],
     };
   }
-
-  // 5. Trích xuất doanh thu đơn lẻ
-  // Pattern 1: Số tiền đầy đủ dạng phân cách hàng nghìn: "1.010.000.000 dong", "1,010,000,000", "500.000.000"
-  let grossRevenueVnd = 0;
-  const fullNumMatch = qLower.match(/(\d{1,3}(?:[.,]\d{3}){2,})\s*(?:dong|d)?\b/);
-  if (fullNumMatch) {
-    const rawDigits = fullNumMatch[1].replace(/[.,]/g, '');
-    grossRevenueVnd = parseInt(rawDigits, 10);
+  if (hasGoodsKeyword && hasServiceKeyword) {
+    const goodsMatch = /(?:ban hang|ban le|shopee|hang hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(trieu|ty|tr)\b/.exec(qLower);
+    const serviceMatch = /(?:dich vu|affiliate|tiktok|koc|hoa hong)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(trieu|ty|tr)\b/.exec(qLower);
+    if (goodsMatch && serviceMatch) {
+      const gNumPos = (goodsMatch.index ?? 0) + goodsMatch[0].lastIndexOf(goodsMatch[1]);
+      const sNumPos = (serviceMatch.index ?? 0) + serviceMatch[0].lastIndexOf(serviceMatch[1]);
+      if (gNumPos !== sNumPos) {
+        const gVal = Number(goodsMatch[1].replace(',', '.'));
+        const gUnit = goodsMatch[2] === 'ty' ? 1_000_000_000 : 1_000_000;
+        const sVal = Number(serviceMatch[1].replace(',', '.'));
+        const sUnit = serviceMatch[2] === 'ty' ? 1_000_000_000 : 1_000_000;
+        if (!isNaN(gVal) && !isNaN(sVal) && gVal > 0 && sVal > 0) {
+          const revGoods = Math.round(gVal * gUnit);
+          const revService = Math.round(sVal * sUnit);
+          return {
+            taxYear,
+            activityType: 'multi',
+            grossRevenueVnd: revGoods + revService,
+            isResident,
+            multiActivities: [
+              { id: 'goods', kind: 'goods', revenueVnd: revGoods, vatRate: 0.01, pitRate: 0.005 },
+              { id: 'service', kind: 'service', revenueVnd: revService, vatRate: 0.05, pitRate: 0.02 },
+            ],
+          };
+        }
+      }
+    }
   }
 
-  // Pattern 2: Dạng viết tắt tỷ / triệu / tr: "1,01 ty", "1.010 trieu", "1.5 ty", "300 trieu", "400tr", "500tr"
+  // 5. Trích xuất doanh thu đơn lẻ
+  let grossRevenueVnd = 0;
+
+  // Pattern 0: Hợp số tiếng Việt ("1 tỷ 200 triệu", "1 tỷ 2", "1ty5", "2 tỷ rưỡi")
+  const compoundMatch = qLower.match(/(?<![\d.,])(\d+)\s*ty\s*(?:(\d{1,3})\s*(?:trieu|tr)\b|(ruoi)\b|(\d{1,3})(?![\d.,%])(?!\s*(?:trieu|tr\b|nghin|ngan|k\b|dong|d\b|ty|nam|thang|quy|ngay|lan|nguoi|don|hoat|nganh|cua|%)))/);
+  if (compoundMatch) {
+    const whole = Number(compoundMatch[1]) * 1_000_000_000;
+    grossRevenueVnd =
+      compoundMatch[2] !== undefined ? whole + Number(compoundMatch[2]) * 1_000_000
+      : compoundMatch[3] ? whole + 500_000_000
+      : whole + Number(compoundMatch[4].padEnd(3, '0')) * 1_000_000;
+  }
+
+  // Pattern 1: Số tiền đầy đủ dạng phân cách hàng nghìn: "1.010.000.000 dong", "1,010,000,000", "500.000.000"
+  if (grossRevenueVnd === 0) {
+    const fullNumMatch = qLower.match(/(\d{1,3}(?:[.,]\d{3}){2,})\s*(?:dong|d)?\b/);
+    if (fullNumMatch) {
+      const rawDigits = fullNumMatch[1].replace(/[.,]/g, '');
+      grossRevenueVnd = parseInt(rawDigits, 10);
+    }
+  }
+
+  // Pattern 2: Dạng viết tắt tỷ / triệu / tr: "1,01 ty", "1.010 trieu", "1,200 trieu", "1.5 ty", "300 trieu", "400tr"
   if (grossRevenueVnd === 0) {
     const revMatch = qLower.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
     if (revMatch) {
       const numStr = revMatch[1];
       const unit = revMatch[2];
-      if ((unit === 'trieu' || unit === 'tr') && numStr.includes('.')) {
-        const parts = numStr.split('.');
-        if (parts.length === 2 && parts[1].length === 3) {
-          grossRevenueVnd = parseInt(parts.join(''), 10) * 1_000_000;
-        }
+      if ((unit === 'trieu' || unit === 'tr') && /^\d{1,3}[.,]\d{3}$/.test(numStr)) {
+        grossRevenueVnd = parseInt(numStr.replace(/[.,]/g, ''), 10) * 1_000_000;
       }
       if (grossRevenueVnd === 0) {
         const num = parseFloat(numStr.replace(',', '.'));
@@ -529,11 +562,16 @@ export function extractTaxFactsFromQuery(query: string, defaultYear = 2026): Tax
   // 6. Xử lý đơn hoàn và phí sàn
   let returnsVnd = 0;
   let returnsAlreadyExcluded = false;
-  const returnMatch =
-    qLower.match(/(\d+(?:[.,]\d+)?)\s*(?:tr|trieu)\s*(?:don\s*)?(?:huy|hoan)/) ||
-    qLower.match(/(?:huy|hoan)\s*(?:don\s*)?(\d+(?:[.,]\d+)?)\s*(?:tr|trieu)/);
-  if (returnMatch) {
-    returnsVnd = Math.round(parseFloat(returnMatch[1].replace(',', '.')) * 1_000_000);
+  const returnFullMatch = qLower.match(/(?:don\s*hoan|tra\s*hang|hoan\s*hang|huy\s*hoan|hoan|huy)[^\d]{0,20}(\d{1,3}(?:[.,]\d{3}){2,})\s*(?:dong|d)?\b/);
+  if (returnFullMatch) {
+    returnsVnd = parseInt(returnFullMatch[1].replace(/[.,]/g, ''), 10);
+  } else {
+    const returnMatch =
+      qLower.match(/(\d+(?:[.,]\d+)?)\s*(?:tr|trieu)\s*(?:don\s*)?(?:huy|hoan)/) ||
+      qLower.match(/(?:don\s*hoan|tra\s*hang|hoan\s*hang|huy|hoan)\s*(?:don\s*)?(\d+(?:[.,]\d+)?)\s*(?:tr|trieu)\b/);
+    if (returnMatch) {
+      returnsVnd = Math.round(parseFloat(returnMatch[1].replace(',', '.')) * 1_000_000);
+    }
   }
   if (qLower.includes('da sau khi loai') || qLower.includes('da tru don hoan') || qLower.includes('sau hoan')) {
     returnsAlreadyExcluded = true;

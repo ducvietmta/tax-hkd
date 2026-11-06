@@ -3,8 +3,7 @@ import type { DecisionModelProvider } from './types';
 import { TAXPAYER_TYPES, TAX_INTENTS, INCOME_TYPES, type TaxpayerType, type TaxIntent, type IncomeType } from './labels';
 import type { ConversationTurn } from '../conversation';
 import { reviewerPacket, type GroundingPacket } from './claimGrounding';
-import { REGISTRATION_SCOPE_POLICY,SUBJECT_SCOPE_POLICY } from './registrationScope';
-import { PROCEDURAL_EVIDENCE_POLICY } from './proceduralEvidencePolicy';
+import { REGISTRATION_SCOPE_POLICY, SUBJECT_SCOPE_POLICY, PROCEDURAL_EVIDENCE_POLICY } from './registrationScope';
 import { SCOPE_CHECKS, evaluateScopeAssessment, type ScopeAssessment } from './scopeAssessment';
 import { auditGrounding, canReuseClaimReview, reviewContextKey, type PriorClaimReview } from './reviewIntegrity';
 

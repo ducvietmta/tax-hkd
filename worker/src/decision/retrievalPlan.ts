@@ -11,6 +11,58 @@ import policyCatalog from '../kb/policyRetrievalIndex.json';
 import chunkPeriods from '../kb/chunkMeta.json';
 import { periodFits, type EffectiveInterval } from '../kb/periodApplicability';
 
+function foldLegacy(s: string): string {
+  return (s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9%\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export interface LegacyPin {
+  ref: string;
+  bonus: number;
+}
+
+export function legacyPinRefs(query: string, scope: { years: number[]; today: string }): LegacyPin[] {
+  const normalizedQuery = foldLegacy(query);
+  const currentYear = Number(String(scope.today).slice(0, 4)) || new Date().getFullYear();
+  const asksCurrentYear = scope.years.includes(currentYear);
+  const historicalOnly = scope.years.length > 0 && scope.years.every((year) => year < 2026);
+  const asksAboutAffiliate = /\b(affiliate|tiep thi lien ket|hoa hong|koc|kol)\b/.test(normalizedQuery);
+  const asksRefund = /\b(hoan thue|nop thua|lay lai tien thue)\b/.test(normalizedQuery) ||
+    (/\bthue\b/.test(normalizedQuery) && /\b(hoan lai|hoan tien|lay lai)\b/.test(normalizedQuery));
+
+  const asks888Registration =
+    /dang ky.*888|888.*(nhu the nao|cach|huong dan|thu tuc|lam sao)|(da co mst 10 so|co can dang ky 888)/.test(normalizedQuery);
+  const asksPercentageRate = /bao nhieu\s*(phan tram|%)/.test(normalizedQuery) ||
+    (/\b(thue suat|ty le)\b/.test(normalizedQuery) && /\b(bao nhieu|may %)\b/.test(normalizedQuery));
+  const mentionsSector = /\b(hang hoa|tap hoa|dich vu|an uong|van tai|xay dung|phan phoi|cat toc|spa|nha hang|quan an|ca phe)\b/.test(normalizedQuery);
+  const asksTaxCalculation2026 =
+    !historicalOnly &&
+    (/\b(1[,.]01\s*ty|1010\s*trieu|1[,.]5\s*ty|1500\s*trieu|1[.]000[.]000[.]001|tinh thue|nop thue|phai nop|nq43|30%)\b/.test(normalizedQuery) ||
+      (asksPercentageRate && mentionsSector) ||
+      (normalizedQuery.includes('doanh thu') && /\b(ty|trieu)\b/.test(normalizedQuery)));
+
+  const pins: LegacyPin[] = [];
+  if (asksPercentageRate && mentionsSector) pins.push({ ref: '16.77', bonus: 2 });
+  if (asksTaxCalculation2026) pins.push({ ref: '16.99', bonus: 1.2 });
+  if (asks888Registration) pins.push({ ref: '16.100', bonus: 3 });
+  if (!historicalOnly && (/\b888\b/.test(normalizedQuery) ||
+      (asksAboutAffiliate && /\b(1 ty|mot ty)\b/.test(normalizedQuery)))) pins.push({ ref: '16.96', bonus: 2 });
+  if (asksCurrentYear && (
+      (normalizedQuery.includes('doanh thu') && /\b(nop thue|mien thue|gtgt|tncn)\b/.test(normalizedQuery)) ||
+      (asksRefund && asksAboutAffiliate && /\b\d+\s*(trieu|ty)\b/.test(normalizedQuery))
+    )) pins.push({ ref: '16.60', bonus: 1 });
+  if (asksAboutAffiliate && !historicalOnly) pins.push({ ref: '16.95', bonus: 1 });
+  if (asksRefund) pins.push({ ref: '16.51', bonus: 1 });
+  if (historicalOnly && /\bdoanh thu\b/.test(normalizedQuery)) pins.push({ ref: '16.54', bonus: 1 });
+  return pins;
+}
+
 interface PolicyEvidenceEntry {ref_id:string;required?:boolean;required_intents?:string[];policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[];applies_from_year:number;applies_to_year:number|null;}
 /** Facets describing the taxpayer constrain a match; they are not a topic.
  * MULTIPLE is an umbrella label, never a wildcard for every policy in the KB. */
@@ -192,6 +244,18 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
       const i8 = refs.indexOf('16.8');
       if (i8 > 2) { refs.splice(i8, 1); refs.splice(2, 0, '16.8'); }
     }
+    const taxRegIdentityOrProcedure =
+      topic === 'TAX_REGISTRATION' &&
+      (frame.semantic?.answerPurpose === 'PROCEDURE' ||
+       frame.tax_intent.primary.value === 'TAX_ID_888' ||
+       frame.income_type.some(t => t.value === 'AFFILIATE_COMMISSION' || t.value === 'MARKETPLACE_SALES'));
+    if (taxRegIdentityOrProcedure) {
+      for (const ref of ['16.96', '16.113']) {
+        const idx = refs.indexOf(ref);
+        if (idx !== -1) refs.splice(idx, 1);
+        refs.unshift(ref);
+      }
+    }
     // Topic and intent are complementary, not mutually exclusive routes.
     // Keep the relief rule ahead of ownership evidence for per-person limits.
     const relief = frame.tax_intent.primary.value === 'RELIEF_REDUCTION' || frame.tax_intent.secondary.includes('RELIEF_REDUCTION');
@@ -203,8 +267,10 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     if (!isHistorical && refund && !refs.includes('16.51')) refs.push('16.51', '16.95');
     if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
     if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
+    const pinCount = taxRegIdentityOrProcedure ? 5
+      : topic === 'VAT_METHOD_CLASSIFICATION' || ['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(topic) ? 3 : 1;
     return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
-      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' || ['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(topic) ? 3 : 1), filter_years: years,
+      must_include_refs: refs.slice(0, pinCount), filter_years: years,
       filter_taxpayer_types: [frame.taxpayer_type.value], boost_keywords: [] };
   }
 

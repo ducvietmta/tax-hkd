@@ -23,12 +23,9 @@ export function parseMoneyWithUnit(numStr: string, unit: string): number {
   if (unit === 'ty') {
     return Math.round(normNum * 1_000_000_000);
   }
-  // trieu / tr
-  if (numStr.includes('.')) {
-    const parts = numStr.split('.');
-    if (parts.length === 2 && parts[1].length === 3) {
-      return parseInt(parts.join(''), 10) * 1_000_000;
-    }
+  // trieu / tr: "1.010 triệu" hoặc "1,200 triệu" (3 chữ số sau dấu phân cách) là hàng nghìn triệu (= tỷ)
+  if (/^\d{1,3}[.,]\d{3}$/.test(numStr)) {
+    return parseInt(numStr.replace(/[.,]/g, ''), 10) * 1_000_000;
   }
   return Math.round(normNum * 1_000_000);
 }
@@ -48,6 +45,30 @@ function compositeAmounts(q:string):ExtractedAmount[]{
 }
 
 /**
+ * Spoken Vietnamese compound amounts that must stay ONE number:
+ *   "1 tỷ 200 triệu" = 1.200.000.000; "1 tỷ 25 triệu" = 1.025.000.000;
+ *   a bare suffix after "tỷ" is read as decimal digits of tỷ, matching everyday usage:
+ *   "1 tỷ 2" / "1ty2" = 1,2 tỷ; "1 tỷ 25" = 1,25 tỷ; "1 tỷ 250" = 1,25 tỷ;
+ *   "2 tỷ rưỡi" = 2,5 tỷ; "300 triệu rưỡi" = 300,5 triệu.
+ * A bare suffix is only accepted when the leading number is an integer and the suffix is not
+ * followed by another unit/counter (năm, tháng, đơn, %, ...), so "1 tỷ 2 năm" is not merged.
+ */
+function compoundAmounts(q:string):ExtractedAmount[]{
+ const out:ExtractedAmount[]=[];
+ const re=/(?<![\d.,])(\d+)\s*ty\s*(?:(\d{1,3})\s*(?:trieu|tr)\b|(ruoi)\b|(\d{1,3})(?![\d.,%])(?!\s*(?:trieu|tr\b|nghin|ngan|k\b|dong|d\b|ty|nam|thang|quy|ngay|lan|nguoi|don|hoat|nganh|cua|%)))/g;
+ for(const m of q.matchAll(re)){
+  const whole=Number(m[1])*1_000_000_000;
+  const vnd=m[2]!==undefined?whole+Number(m[2])*1_000_000
+   :m[3]?whole+500_000_000
+   :whole+Number(m[4].padEnd(3,'0'))*1_000_000;
+  out.push({raw:m[0],vnd,index:m.index??0,unit:'ty'});
+ }
+ for(const m of q.matchAll(/(?<![\d.,])(\d+)\s*trieu\s*ruoi\b/g))
+  out.push({raw:m[0],vnd:Number(m[1])*1_000_000+500_000,index:m.index??0,unit:'trieu'});
+ return out;
+}
+
+/**
  * Trích xuất toàn bộ các số tiền xuất hiện trong câu hỏi
  */
 export function extractAllAmounts(text: string): ExtractedAmount[] {
@@ -56,6 +77,7 @@ export function extractAllAmounts(text: string): ExtractedAmount[] {
 
   // Keep the complete amount before shorter unit matches at the same position.
   results.push(...compositeAmounts(q));
+  results.push(...compoundAmounts(q));
 
   // 1. Số đầy đủ hàng nghìn: "1.010.000.000 dong", "500.000.000", "1,000,000,001"
   const exactMatches = q.matchAll(/(?<!\d)(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?/g);
@@ -88,15 +110,43 @@ export function extractAllAmounts(text: string): ExtractedAmount[] {
     }
   }
 
-  // Loại bỏ các khoản tiền trùng lặp theo vị trí index
-  const seenIndex = new Set<number>();
-  return results
-    .filter(item => {
-      if (seenIndex.has(item.index)) return false;
-      seenIndex.add(item.index);
-      return true;
-    })
-    .sort((a, b) => a.index - b.index);
+  // Loại bỏ các khoản tiền trùng lặp/chồng lấn: giữ khớp xuất hiện trước (composite/compound
+  // được push trước), bỏ mọi khớp ngắn hơn nằm trong span đã nhận.
+  const accepted: ExtractedAmount[] = [];
+  for (const item of results) {
+    const start = item.index, end = item.index + item.raw.length;
+    if (accepted.some(a => start < a.index + a.raw.length && a.index < end)) continue;
+    accepted.push(item);
+  }
+  return accepted.sort((a, b) => a.index - b.index);
+}
+
+/** First amount token that starts right after a label (≤25 non-digit chars between). */
+function amountAfterLabel(q: string, amounts: ExtractedAmount[], label: RegExp, gapReject?: RegExp): ExtractedAmount | undefined {
+  const re = new RegExp(label.source, 'g');
+  for (const m of q.matchAll(re)) {
+    const end = (m.index ?? 0) + m[0].length;
+    const next = amounts.find(a => a.index >= end);
+    if (!next) continue;
+    const gap = q.slice(end, next.index);
+    // Any digit in the gap means the nearest number is unitless/percent (e.g. "chiếm 5%"):
+    // never guess a unit for it.
+    if (gap.length <= 25 && !/\d/.test(gap) && !(gapReject && gapReject.test(gap))) return next;
+  }
+  return undefined;
+}
+
+/** Last amount token that ends right before a label ("800 triệu bán hàng"). */
+function amountBeforeLabel(q: string, amounts: ExtractedAmount[], label: RegExp): ExtractedAmount | undefined {
+  const re = new RegExp(label.source, 'g');
+  for (const m of q.matchAll(re)) {
+    const start = m.index ?? 0;
+    const prev = [...amounts].reverse().find(a => a.index + a.raw.length <= start);
+    if (!prev) continue;
+    const gap = q.slice(prev.index + prev.raw.length, start);
+    if (gap.length <= 25 && !/\d/.test(gap)) return prev;
+  }
+  return undefined;
 }
 
 /**
@@ -104,6 +154,11 @@ export function extractAllAmounts(text: string): ExtractedAmount[] {
  */
 export function extractResidency(text: string): { residency: Residency; isResident: boolean | null } {
   const q = fold(text);
+  // Asking about / unsure of residency is not a statement of residency. Checked first so that
+  // "cư trú hay không cư trú" is neither RESIDENT nor NON_RESIDENT.
+  if (/\bcu tru\s+(?:hay|hoac)\s+(?:khong|phi)\b|\b(?:co|la)\s+(?:ca nhan\s+|nguoi\s+)?cu tru\s+(?:khong|chua|hay khong)\b|\b(?:khong|chua)\s+(?:biet|ro|chac|xac dinh)\b[^.!?]{0,40}\bcu tru\b|\bcu tru\b[^.!?]{0,20}\b(?:chua ro|khong ro|chua xac dinh)\b/.test(q)) {
+    return { residency: 'UNKNOWN', isResident: null };
+  }
   if (/\b(khong cu tru|phi cu tru)\b/.test(q)) {
     return { residency: 'NON_RESIDENT', isResident: false };
   }
@@ -138,25 +193,15 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     specialRevenue = composite.vnd;
   }
 
-  // 3. Trích xuất đơn hoàn (refund) và chi phí
-  let refundDeductedVnd: number | undefined;
-  let platformFeeVnd: number | undefined;
-  let shippingCodVnd: number | undefined;
-
-  const refundMatch = q.match(/(?:don hoan|tra hang|hoan hang)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
-  if (refundMatch) {
-    refundDeductedVnd = parseMoneyWithUnit(refundMatch[1], refundMatch[2] || 'trieu');
-  }
-
-  const feeMatch = q.match(/(?:phi san|chi phi san|phi dich vu san)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
-  if (feeMatch) {
-    platformFeeVnd = parseMoneyWithUnit(feeMatch[1], feeMatch[2] || 'trieu');
-  }
-
-  const codMatch = q.match(/(?:ship|tien ship|cuoc van chuyen|thu ho|cod)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/);
-  if (codMatch) {
-    shippingCodVnd = parseMoneyWithUnit(codMatch[1], codMatch[2] || 'trieu');
-  }
+  // 3. Trích xuất đơn hoàn (refund) và chi phí — dùng chung bộ tách số tiền để
+  // "60.000.000 đồng" không bị đọc thành "60.000" × triệu, và "5%" không thành 5 triệu.
+  const amountTokens = extractAllAmounts(text);
+  const refundDeductedVnd: number | undefined =
+    amountAfterLabel(q, amountTokens, /(?:don hoan|tra hang|hoan hang)/)?.vnd;
+  const platformFeeVnd: number | undefined =
+    amountAfterLabel(q, amountTokens, /(?:phi san|chi phi san|phi dich vu san)/)?.vnd;
+  const shippingCodVnd: number | undefined =
+    amountAfterLabel(q, amountTokens, /(?:\bship|tien ship|cuoc van chuyen|thu ho|\bcod\b)/)?.vnd;
 
   // 4. Trích xuất thu nhập tính thuế / lợi nhuận và phân loại đại lượng đầu vào
   const pitMethodElected: 'REVENUE' | 'INCOME' | undefined =
@@ -166,75 +211,53 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
       ? 'REVENUE'
       : undefined;
 
-  let taxPaidVnd: number | undefined;
-  const paidMatch = q.match(/(?:da nop|da khau tru|da nop thay)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
-  if (paidMatch) {
-    taxPaidVnd = parseMoneyWithUnit(paidMatch[1], paidMatch[2]);
-  }
+  const taxPaidVnd: number | undefined =
+    amountAfterLabel(q, amountTokens, /(?:da nop|da khau tru|da nop thay)/)?.vnd;
 
-  let unverifiedBankBalanceVnd: number | undefined;
-  const bankMatch =
-    q.match(/(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
-    q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan/);
-  if (bankMatch) {
-    unverifiedBankBalanceVnd = parseMoneyWithUnit(bankMatch[1], bankMatch[2]);
-  }
+  const bankLabel = /(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan/;
+  const unverifiedBankBalanceVnd: number | undefined =
+    (amountAfterLabel(q, amountTokens, bankLabel) || amountBeforeLabel(q, amountTokens, bankLabel))?.vnd;
 
-  let reportedExpenseVnd: number | undefined;
-  const expMatch = q.match(/(?:chi phi(?:\s+bao)?|tong chi phi)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
-  if (expMatch) {
-    reportedExpenseVnd = parseMoneyWithUnit(expMatch[1], expMatch[2]);
-  }
+  const reportedExpenseVnd: number | undefined =
+    amountAfterLabel(q, amountTokens, /(?:chi phi(?:\s+bao)?|tong chi phi)/)?.vnd;
 
-  let duplicateExpenseVnd: number | undefined;
-  const dupMatch =
-    q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,30}(?:ghi hai lan|trung lap|tinh trung)/) ||
-    q.match(/(?:ghi hai lan|trung lap|tinh trung)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
-  if (dupMatch) {
-    duplicateExpenseVnd = parseMoneyWithUnit(dupMatch[1], dupMatch[2]);
-  }
+  const dupLabel = /(?:ghi hai lan|trung lap|tinh trung)/;
+  const duplicateExpenseVnd: number | undefined =
+    (amountBeforeLabel(q, amountTokens, dupLabel) || amountAfterLabel(q, amountTokens, dupLabel))?.vnd;
 
-  let gmvVnd: number | undefined;
-  const gmvMatch =
-    q.match(/\bgmv\b[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/) ||
-    q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,15}\bgmv\b/);
-  if (gmvMatch) {
-    gmvVnd = parseMoneyWithUnit(gmvMatch[1], gmvMatch[2]);
-  }
+  const gmvLabel = /\bgmv\b/;
+  const gmvVnd: number | undefined =
+    (amountAfterLabel(q, amountTokens, gmvLabel) || amountBeforeLabel(q, amountTokens, gmvLabel))?.vnd;
 
   let taxableIncomeVnd: number | undefined;
-  const incomeMatch = q.match(/(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b/);
+  const incomeTok = amountAfterLabel(q, amountTokens, /(?:thu nhap tinh thue|loi nhuan)(?:\s+hop le)?/);
   const hasUnverifiedOrDirtyCosts =
     /(?:khong|chua)\s+co\s+chung tu|co the coi|coi ngay|chi phi[^.!?]{0,40}(?:khong|chua)\s+hop le|ghi hai lan|trung lap|cho kiem chung tu|chua phai thu nhap tinh thue/.test(q);
-  if (incomeMatch && !hasUnverifiedOrDirtyCosts) {
-    taxableIncomeVnd = parseMoneyWithUnit(incomeMatch[1], incomeMatch[2]);
+  if (incomeTok && !hasUnverifiedOrDirtyCosts) {
+    taxableIncomeVnd = incomeTok.vnd;
   }
 
   // 5. Kiểm tra nhiều ngành kết hợp (ví dụ: bán hàng 800tr + dịch vụ 350tr)
-  const positiveActivityText = q.replace(/\b(?:khong|chua|chang)\s+(?:ban\s+le|ban\s+hang|kinh\s+doanh)\b(?:\s+(?:tap\s+hoa|hang\s+hoa))?/g, ' ');
+  // Length-preserving mask so token indexes stay aligned with q.
+  const positiveActivityText = q.replace(/\b(?:khong|chua|chang)\s+(?:ban\s+le|ban\s+hang|kinh\s+doanh)\b(?:\s+(?:tap\s+hoa|hang\s+hoa))?/g, s => ' '.repeat(s.length));
   const hasGoodsKeyword = semanticIncomeTypes ? semanticIncomeTypes.some(x => ['GOODS_SALES', 'MARKETPLACE_SALES'].includes(x))
     : /\b(ban hang|ban le|shopee|hang hoa|thuong mai|tap hoa)\b/.test(positiveActivityText);
   const hasServiceKeyword = semanticIncomeTypes ? semanticIncomeTypes.some(x => ['SERVICE', 'FREELANCE_SERVICE', 'AFFILIATE_COMMISSION', 'CONTENT_ADS', 'FOOD_SERVICE'].includes(x))
-    : /\b(dich vu|affiliate|tiktok|koc|hoa hong|sua chua)\b/.test(q);
-  const allAmounts = extractAllAmounts(text);
+    : /\b(dich vu|van tai|san xuat|affiliate|tiktok|koc|hoa hong|sua chua)\b/.test(q);
+  const allAmounts = amountTokens;
 
   if (hasGoodsKeyword && hasServiceKeyword && allAmounts.length >= 2) {
-    let revGoods: number | null = null;
-    let revService: number | null = null;
+    const goodsLabel = /(?:ban hang|ban le|shopee|hang hoa|tap hoa)/;
+    const serviceLabel = /(?:dich vu|van tai|san xuat|affiliate|tiktok|koc|hoa hong|sua chua)/;
+    const goodsTok = amountAfterLabel(positiveActivityText, allAmounts, goodsLabel) || amountBeforeLabel(positiveActivityText, allAmounts, goodsLabel);
+    const serviceTok = amountAfterLabel(q, allAmounts, serviceLabel) || amountBeforeLabel(q, allAmounts, serviceLabel);
 
-    const goodsMatch = positiveActivityText.match(/(?:ban hang|ban le|shopee|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/) ||
-      positiveActivityText.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:ban hang|ban le|shopee|hang hoa|tap hoa)/);
-    const serviceMatch = q.match(/(?:dich vu|van tai|san xuat|affiliate|tiktok|koc|hoa hong|sua chua)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/) ||
-      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:dich vu|van tai|san xuat|affiliate|tiktok|koc|hoa hong|sua chua)/);
-
-    if (goodsMatch && serviceMatch) {
-      revGoods = parseMoneyWithUnit(goodsMatch[1], goodsMatch[2] || (goodsMatch[1].includes('.') ? 'trieu' : 'ty'));
-      revService = parseMoneyWithUnit(serviceMatch[1], serviceMatch[2] || 'trieu');
-    }
-
-    if (revGoods && revService && revGoods > 0 && revService > 0) {
-      // Production/transport/goods-attached services use the 3%/1.5% group,
-      // not the general 5%/2% service group (rate table 16.77).
+    // One figure can never be both the goods and the service revenue
+    // ("bán hàng trên tiktok 1,5 tỷ" is ONE activity, not 1,5 tỷ + 1,5 tỷ).
+    const nonRevenueRoles = new Set([refundDeductedVnd, platformFeeVnd, shippingCodVnd].filter((v): v is number => v !== undefined));
+    if (goodsTok && serviceTok && goodsTok.index !== serviceTok.index &&
+        !nonRevenueRoles.has(goodsTok.vnd) && !nonRevenueRoles.has(serviceTok.vnd)) {
+      const revGoods = goodsTok.vnd, revService = serviceTok.vnd;
       const isProductionTransport = /\b(van tai|san xuat|bao thau)\b/.test(q);
       const multiActivities: MultiActivityItem[] = [
         { id: 'goods', kind: 'goods', revenueVnd: revGoods, vatRate: 0.01, pitRate: 0.005 },
@@ -267,15 +290,11 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
   let primaryRevenue: number | undefined = specialRevenue;
   if (!primaryRevenue && allAmounts.length > 0) {
     // Ưu tiên số tiền gắn liền với từ khóa "doanh thu", "ban duoc", "tong thu", "hoa hong" (loại trừ thu nhập tính thuế)
-    const revExplicitRegex = /(?:doanh thu|tong doanh thu|ban duoc|tong thu|kiem duoc|hoa hong)(?:\s+nam\s+(?:19|20)\d{2})?[^\d]{0,25}(?:(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?|(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b)/g;
-    const revCandidates = [...q.matchAll(revExplicitRegex)];
-    const revMatch = revCandidates.find(m => !/bao nhieu|\btax\b|khau tru|giu lai|thu nhap tinh thue|\b(tren|vuot|hon)\b/.test(m[0]));
-    if (revMatch) {
-      if (revMatch[1]) {
-        primaryRevenue = parseVndFromDigits(revMatch[1]);
-      } else if (revMatch[2]) {
-        primaryRevenue = parseMoneyWithUnit(revMatch[2], revMatch[3] || (Number(revMatch[2]) >= 10 ? 'trieu' : 'ty'));
-      }
+    const revTok = amountAfterLabel(q, allAmounts,
+      /(?:doanh thu|tong doanh thu|ban duoc|tong thu|kiem duoc|hoa hong)(?:\s+(?:ca\s+)?nam\s+(?:19|20)\d{2})?/,
+      /bao nhieu|\btax\b|khau tru|giu lai|thu nhap tinh thue|\b(tren|vuot|hon)\b/);
+    if (revTok) {
+      primaryRevenue = revTok.vnd;
     } else {
       const nonRevenueValues = new Set(
         [
