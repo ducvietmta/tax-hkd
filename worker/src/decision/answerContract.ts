@@ -1,6 +1,5 @@
 import type { BusinessClassification } from './jevProvider';
-import { REGISTRATION_SCOPE_POLICY,SUBJECT_SCOPE_POLICY } from './registrationScope';
-import { PROCEDURAL_EVIDENCE_POLICY } from './proceduralEvidencePolicy';
+import { REGISTRATION_SCOPE_POLICY,SUBJECT_SCOPE_POLICY,PROCEDURAL_EVIDENCE_POLICY } from './registrationScope';
 
 /** Coverage requirements by semantic topic, not question IDs or keyword matches.
  * Legal conclusions must still come from the retrieved, period-scoped evidence.

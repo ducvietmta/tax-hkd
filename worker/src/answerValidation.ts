@@ -203,7 +203,22 @@ export function validateLegalCitations(
 
   citations = citations.filter(isSupportedCitation);
 
-  // Never rewrite a legal claim or fabricate a replacement citation. The full
-  // original prose goes to semantic review and, if necessary, grounded repair.
+  // Strip unsupported citation lines from a trailing "Căn cứ pháp lý:" block so
+  // documents absent from retrieved evidence are never emitted in the final text.
+  const headingMatch = answer.match(/\n*(Căn cứ(?:\s+pháp\s+lý|\s+hướng\s+dẫn)?\s*:)\s*\n/i);
+  if (headingMatch && headingMatch.index !== undefined) {
+    const head = answer.slice(0, headingMatch.index).trimEnd();
+    const heading = headingMatch[1];
+    const tail = answer.slice(headingMatch.index + headingMatch[0].length);
+    const keptLines = tail
+      .split('\n')
+      .filter(rawLine => {
+        const line = rawLine.replace(/^[-*+•]\s*/, '').trim();
+        if (!line) return false;
+        return isSupportedCitation(line);
+      });
+    answer = keptLines.length ? `${head}\n\n${heading}\n${keptLines.join('\n')}` : head;
+  }
+
   return { answer, citations };
 }

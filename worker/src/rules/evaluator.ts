@@ -38,6 +38,12 @@ function evaluateUncheckedFrame(frame: TaxDecisionFrame): EvaluationResult {
   const ruleset: TaxRuleset = getRulesetForYear(taxYear);
 
   const grossRevenue = frame.facts.revenue_vnd || 0;
+  if (frame.facts.refund_deducted_vnd && frame.facts.refund_deducted_vnd > grossRevenue) {
+    return unresolvedEvaluation(
+      'NEEDS_INFO',
+      'Khoản đơn hoàn/trả hàng không thể lớn hơn tổng doanh thu cùng kỳ; cần xác nhận lại doanh thu gộp và số đơn hoàn hợp lệ.'
+    );
+  }
   let effectiveRevenue = grossRevenue;
   if (frame.facts.refund_deducted_vnd && frame.facts.refund_deducted_vnd > 0) {
     effectiveRevenue = Math.max(0, effectiveRevenue - frame.facts.refund_deducted_vnd);
@@ -66,16 +72,28 @@ function evaluateUncheckedFrame(frame: TaxDecisionFrame): EvaluationResult {
   }
 
   // A revenue-based PIT rate is never a substitute for the mandatory income
-  // method.  Keep the VAT calculation available, but do not finalize PIT.
+  // method.  Keep the VAT calculation available when sector is known, but do not finalize PIT.
   const mandatoryIncomeThreshold = ruleset.thresholds.income_method_mandatory_vnd;
   if (mandatoryIncomeThreshold && effectiveRevenue > mandatoryIncomeThreshold &&
       (frame.facts.taxable_income_vnd === undefined ||
        !Number.isSafeInteger(frame.facts.taxable_income_vnd) ||
        frame.facts.taxable_income_vnd < 0)) {
+    const knownType = frame.income_type[0]?.value;
+    const knownSector =
+      knownType === 'GOODS_SALES' || knownType === 'MARKETPLACE_SALES' ? 'goods'
+      : knownType === 'FOOD_SERVICE' ? 'food_service'
+      : knownType === 'SERVICE' || knownType === 'FREELANCE_SERVICE' ? 'service'
+      : knownType === 'PROPERTY_RENTAL' ? 'property_rental' : null;
+    const nq204 = ruleset.relief_policies?.nq204_vat_reduction_rate ?? 0;
+    const applyVatRelief = !!frame.facts.vat_relief_assumed && !!nq204 &&
+      taxYear <= (ruleset.relief_policies?.nq204_vat_last_year || 2026);
+    const baseVat = frame.facts.vat_rate_explicit ?? (knownSector ? ruleset.rates[knownSector]?.vat_rate ?? 0 : 0);
+    const prelimVatRate = applyVatRelief ? Math.round(baseVat * (1 - nq204) * 1e6) / 1e6 : baseVat;
+    const prelimVatDue = Math.round(effectiveRevenue * prelimVatRate);
     return {
       status: 'NEEDS_INFO', ruleset_version: ruleset.version,
       gross_revenue_vnd: grossRevenue, effective_revenue_vnd: effectiveRevenue,
-      taxable_vat_revenue_vnd: effectiveRevenue, vat_rate: 0, vat_due_vnd: 0,
+      taxable_vat_revenue_vnd: effectiveRevenue, vat_rate: prelimVatRate, vat_due_vnd: prelimVatDue,
       taxable_pit_revenue_vnd: 0, pit_rate: 0, pit_before_relief_vnd: 0,
       pit_relief_vnd: 0, pit_after_relief_vnd: 0, total_tax_payable_vnd: 0,
       rule_outcomes: [], citations: [ruleset.citations.pit_law?.name || ruleset.citations.exemption.name],
@@ -137,7 +155,7 @@ function evaluateUncheckedFrame(frame: TaxDecisionFrame): EvaluationResult {
       if(base.status==='ANSWERED'){
         let allowance=taxYear>=2026?exemptionThreshold:0;
         const relief=frame.facts.vat_relief_assumed&&taxYear<=(ruleset.relief_policies?.nq204_vat_last_year||2026)?ruleset.relief_policies?.nq204_vat_reduction_rate||0:0;
-        const rows=activities.map(a=>{const config=ruleset.rates[a.kind];return{id:a.id,revenue_vnd:a.revenueVnd,allowance_vnd:0,vat_rate:config.vat_rate*(1-relief),vat_due_vnd:0,pit_rate:config.pit_rate,pit_before_relief_vnd:0};});
+        const rows=activities.map(a=>{const config=ruleset.rates[a.kind];return{id:a.id,revenue_vnd:a.revenueVnd,allowance_vnd:0,vat_rate:Math.round(config.vat_rate*(1-relief)*1e6)/1e6,vat_due_vnd:0,pit_rate:config.pit_rate,pit_before_relief_vnd:0};});
         for(const row of [...rows].sort((a,b)=>b.pit_rate-a.pit_rate)){
           row.allowance_vnd=base.method==='INCOME'?0:Math.min(allowance,row.revenue_vnd);allowance-=row.allowance_vnd;
           row.vat_due_vnd=Math.round(row.revenue_vnd*row.vat_rate);

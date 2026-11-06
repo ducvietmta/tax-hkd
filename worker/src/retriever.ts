@@ -13,6 +13,7 @@ import { foldText as fold } from './utils/text';
 import { evidenceProvenance, type EvidenceProvenance } from './kb/provenance';
 import chunkPeriods from './kb/chunkMeta.json';
 import { periodFits, type EffectiveInterval } from './kb/periodApplicability';
+import { legacyPinRefs } from './decision/retrievalPlan';
 
 const STOP = new Set(
   ('la va cua cho co khong nhung cac mot nhu the nao bao nhieu thi duoc bi ma khi nay do de toi minh ban hay ' +
@@ -233,6 +234,14 @@ export function retrieve(query: string, limit = 4, scope: AnswerScope = resolveA
     selected = selected.slice(0, Math.max(limit,selected.filter(item=>item.required).length));
     return { results: withNamedPolicyEvidence(selected), routeId: plan.semantic_topic || route?.id || null, usedFallback };
   }
+  const topScore = selected[0]?.score || 0;
+  for (const pin of [...legacyPinRefs(query, scope)].reverse()) {
+    const evidence = idx.find((item) => item.chunk.ref_id === pin.ref);
+    if (!evidence) continue;
+    const existing = selected.findIndex((item) => item.chunk.ref_id === pin.ref);
+    if (existing >= 0) selected.splice(existing, 1);
+    selected.unshift({ chunk: evidence.chunk, score: topScore + pin.bonus, viaRoute: false });
+  }
   return {
     results: withNamedPolicyEvidence(selected),
     routeId: route?.id || null,
@@ -260,8 +269,9 @@ export function snippet(chunk: RagChunk, query: string, budget = 2200): string {
     // Ưu tiên dòng nêu điều kiện / ngoại lệ / lưu ý — thường là chỗ quyết định đúng-sai,
     // dễ bị loại khi chỉ chấm theo từ khóa câu hỏi (tương đương ~3 từ khóa khớp).
     if (/\b(ngoai tru|khong ap dung|dieu kien|truong hop|chi ap dung|mien|giam|luu y|chu y)\b/.test(fold(l))) s += 6;
-    // Bảo toàn các bước thao tác hướng dẫn (Nhóm A/B/C) không bị xé lẻ
+    // Bảo toàn các bước thao tác hướng dẫn (Nhóm A/B/C) và nhãn ranh giới chính sách/vai trò số liệu
     if (isStepLine(l)) s += 28;
+    if (/^\[(?:VAI TRÒ SỐ LIỆU|RANH GIỚI CHÍNH SÁCH|HIỆU LỰC|NQ43|GTGT)/.test(l.trim())) s += 45;
     if (chunk.ref_id === '16.60' && requestedYears.some((year) => new RegExp(`^\\s*-\\s*\\*\\*${year}:`).test(l))) s += 80;
     if (chunk.ref_id === '16.77' && (/^\s*\|/.test(l) || /Bảng tỷ lệ/i.test(l))) s += 50;
     for (const t of qset) if (lt.has(t)) s += 2;
@@ -425,10 +435,12 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
     // source. Never silently truncate an indivisible legal rule or synthesize
     // new law while compressing context. Invalid excerpts fall back to source.
     const excerptPeriod=r.chunk.context_passage_period;
-    const compact=(!excerptPeriod||scope.years.length>0&&scope.years.every(year=>periodFits(excerptPeriod,{years:[year]})))?r.chunk.context_passage:undefined;
+    const baseCompact=(!excerptPeriod||scope.years.length>0&&scope.years.every(year=>periodFits(excerptPeriod,{years:[year]})))?r.chunk.context_passage:undefined;
+    const boundaryIdx=r.chunk.text.indexOf('[RANH GIỚI CHÍNH SÁCH]');
+    const compact=baseCompact&&totalBudget>=9000&&boundaryIdx>=0?r.chunk.text.slice(boundaryIdx):baseCompact;
     const rawSnippet = purposeSnippet&&r.chunk.text.includes(purposeSnippet)?purposeSnippet:
       compact&&r.chunk.text.includes(compact)?compact:r.chunk.evidence_mode==='COMPLETE_RULE'||boundedRule || curatedParagraph || boundedTableRule ? r.chunk.text : snippet(r.chunk, `${query} ${scope.years.join(' ')}`, per);
-    const cleanedSnippet = rawSnippet
+    let cleanedSnippet = rawSnippet
       .replace(/^##?\s*16\.\d+.*?\n/gim, '')
       .replace(/^##?\s*\d+\.\d+.*?\n/gim, '')
       .replace(/^-\s*\*\*LEGAL_STATUS:\*\*.*?\n/gim, '')
@@ -439,9 +451,21 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
       ? ' — chỉ áp dụng khi đã xác minh đầy đủ điều kiện trong đoạn này'
       : '';
     const periodNote = scope.years.length ? '' : ' — chưa xác định kỳ thuế của người hỏi; các năm trong tài liệu không phải năm của người hỏi';
-    const passage:EvidencePassage={id:`E${passages.length+1}`,ref_id:r.chunk.ref_id||r.chunk.id,text:cleanedSnippet,provenance:evidenceProvenance(r.chunk),...(purposeSnippet&&r.chunk.text.includes(purposeSnippet)?{purpose}: {})};
-    const part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}${periodNote}; evidence_id=${passage.id}; ref_id=${passage.ref_id}]\n${passage.text}\n`;
-    if (text.length + part.length > totalBudget + 800) continue;
+    let passage:EvidencePassage={id:`E${passages.length+1}`,ref_id:r.chunk.ref_id||r.chunk.id,text:cleanedSnippet,provenance:evidenceProvenance(r.chunk),...(purposeSnippet&&r.chunk.text.includes(purposeSnippet)?{purpose}: {})};
+    let part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}${periodNote}; evidence_id=${passage.id}; ref_id=${passage.ref_id}]\n${passage.text}\n`;
+    if (text.length + part.length > totalBudget + 800) {
+      const remaining = totalBudget + 650 - text.length;
+      if (totalBudget >= 1000 && remaining >= 900) {
+        cleanedSnippet = snippet(r.chunk, `${query} ${scope.years.join(' ')}`, remaining)
+          .replace(/^##?\s*16\.\d+.*?\n/gim, '')
+          .replace(/^##?\s*\d+\.\d+.*?\n/gim, '')
+          .replace(/^-\s*\*\*LEGAL_STATUS:\*\*.*?\n/gim, '')
+          .replace(/^-\s*CROSS_REFERENCE:.*?\n/gim, '');
+        passage = { ...passage, text: cleanedSnippet };
+        part = `\n[Tri thức liên quan: ${r.chunk.file}${conditionNote}${periodNote}; evidence_id=${passage.id}; ref_id=${passage.ref_id}]\n${passage.text}\n`;
+      }
+      if (!cleanedSnippet.trim() || text.length + part.length > totalBudget + 800) continue;
+    }
     text += part;
     passages.push(passage);
     if (r.chunk.ref_id) includedRefs.push(r.chunk.ref_id);
@@ -462,6 +486,17 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
   const missingDocumentRefs=results.filter(r=>r.required==='DOCUMENT_REFERENCE'&&!includedRefs.includes(r.chunk.ref_id||r.chunk.id)).map(r=>r.chunk.ref_id||r.chunk.id);
   const missingRequiredRefs=results.filter(r=>r.required&&!includedRefs.includes(r.chunk.ref_id||r.chunk.id)).map(r=>r.chunk.ref_id||r.chunk.id);
   return { text, citations, includedRefs, passages,missingDocumentRefs,missingRequiredRefs };
+}
+
+export function buildReviewContext(
+  results: Retrieved[],
+  query: string,
+  totalBudget = 6500,
+  _maxContextBudget = totalBudget,
+  scope: AnswerScope = resolveAnswerScope([], query),
+  purpose?: string,
+) {
+  return buildContext(results, query, totalBudget, scope, purpose);
 }
 
 /**

@@ -16,7 +16,7 @@ function scopeFor(ip: string, windowId: number): string {
 }
 
 /** true khi vượt giới hạn và caller nên trả 429. */
-export async function isChatRateLimited(ip: string, env: Env, ctx: ExecutionContext): Promise<boolean> {
+export async function isChatRateLimited(ip: string, env: Env, ctx: ExecutionContext, _verifiedPhone?: string): Promise<boolean> {
   const windowId = Math.floor(Date.now() / (WINDOW_SECONDS * 1000));
   const scope = scopeFor(ip, windowId);
 
