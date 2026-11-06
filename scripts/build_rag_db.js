@@ -1,6 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
+import vectorManifestTools from './lib/vector_manifest.cjs';
+import legalCoverageTools from './lib/legal_coverage.cjs';
+import legalMarkdownInventoryTools from './lib/legal_markdown_inventory.cjs';
 
 const baseDir = path.resolve('rag_data/rag-kb-export-2026-10-12');
 const chunksPath = path.join(baseDir, 'chunks.jsonl');
@@ -128,7 +131,7 @@ export interface RagChunk {
   context_passage?: string;
   context_passage_period?: {applies_from_year?:number;applies_to_year?:number|null};
   evidence_mode?: 'COMPLETE_RULE';
-  retrieval_facets?: {policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[]};
+  retrieval_facets?: {required?:boolean;required_intents?:string[];policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[]};
   subject_scope?: string[];
 }
 
@@ -239,7 +242,20 @@ export function searchKnowledgeBase(query: string, limit = 4): RagChunk[] {
     return {ref_id:c.ref_id,...c.retrieval_facets,applies_from_year:period.applies_from_year,applies_to_year:period.applies_to_year??null};
   });
   fs.writeFileSync('worker/src/kb/policyRetrievalIndex.json',JSON.stringify(policyIndex,null,2)+'\n','utf8');
+  const vectorManifest=vectorManifestTools.buildVectorManifest(verifiedChunks,metadata,JSON.parse(fs.readFileSync('worker/src/recognition/sourcePolicy.json','utf8')));
+  fs.writeFileSync('worker/src/kb/vectorManifest.json',JSON.stringify(vectorManifest,null,2)+'\n','utf8');
+  const legalCatalog=JSON.parse(fs.readFileSync('src/data/legalDocuments.json','utf8'));
+  const legalMarkdownInventory=legalMarkdownInventoryTools.buildMarkdownProvisionInventory(legalCatalog,path.resolve('document_library'));
+  fs.writeFileSync('rag_data/legal-markdown-provision-inventory.json',JSON.stringify(legalMarkdownInventory,null,2)+'\n','utf8');
+  const legalCoverageLedger=legalCoverageTools.buildLegalCoverageLedger(
+    legalCatalog,
+    JSON.parse(fs.readFileSync('worker/src/kb/sourceDocuments.json','utf8')),
+    metadata,
+    JSON.parse(fs.readFileSync('rag_data/legal-coverage-targets.json','utf8')),
+    legalMarkdownInventory
+  );
+  fs.writeFileSync('worker/src/kb/legalCoverageLedger.json',JSON.stringify(legalCoverageLedger,null,2)+'\n','utf8');
   console.log('✅ Đã tạo engine RAG Cloudflare Worker: worker/src/ragEngine.ts');
 }
 
-main().catch(console.error);
+main().catch(error=>{console.error(error);process.exitCode=1;});

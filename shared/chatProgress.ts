@@ -12,4 +12,8 @@ export const CHAT_PROGRESS_LABELS = {
   cache: 'Đã tìm thấy đáp án đã kiểm tra',
 } as const;
 export type ChatProgressStage = keyof typeof CHAT_PROGRESS_LABELS;
-export interface ChatProgress { stage: ChatProgressStage; }
+export interface ChatProgress {
+  stage: ChatProgressStage;
+  /** Browser receipt time, used only to display elapsed waiting time. */
+  receivedAt?: number;
+}

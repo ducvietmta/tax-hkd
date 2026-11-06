@@ -14,8 +14,9 @@
 import { getChunksByRefs, type RagChunk } from './ragEngine';
 import type { Env } from './http';
 import chunkMetaRaw from './kb/chunkMeta.json';
+import vectorManifest from './kb/vectorManifest.json';
 
-export const VECTORIZE_INDEX_VERSION = 'tax-kb-v1-bge-m3-1024-kb-20261019-depth';
+export const VECTORIZE_INDEX_VERSION = vectorManifest.version;
 export const reciprocalRankScore=(rank:number,weight=1,k=60)=>rank>0?weight/(k+rank):0;
 
 const rawData: any = chunkMetaRaw;

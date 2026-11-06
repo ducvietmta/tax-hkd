@@ -140,6 +140,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
+    for(const key of Object.keys(localStorage)){if(/^tax_(active_chat|chat_history|document_chat|registration)/.test(key))localStorage.removeItem(key);}
     void signOut(auth);
     setUser(null);
   };
@@ -173,10 +174,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     try {
       const res = await CloudflareApi.consumeCredit(user.phone, amount, notes);
+      if (auth.currentUser?.uid !== user.uid) {
+        return { success: false, error: 'ACCOUNT_CHANGED' };
+      }
       if (res.success) {
         const remaining = res.remainingCredits ?? Math.max(0, user.credits - amount);
         setUser((prev) => {
-          if (!prev) return null;
+          if (!prev || prev.uid !== user.uid || prev.phone !== user.phone) return prev;
           const nextUnlocked = [...(prev.unlockedGuides || [])];
           if (notes?.startsWith('unlock_guide_')) {
             const guide = notes.replace('unlock_guide_', '').trim();
@@ -191,19 +195,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { success: false, error: res.error || 'Không thể trừ lượt hỏi' };
       }
     } catch {
-      const remaining = Math.max(0, user.credits - amount);
-      setUser((prev) => {
-        if (!prev) return null;
-        const nextUnlocked = [...(prev.unlockedGuides || [])];
-        if (notes?.startsWith('unlock_guide_')) {
-          const guide = notes.replace('unlock_guide_', '').trim();
-          if (guide && !nextUnlocked.includes(guide)) {
-            nextUnlocked.push(guide);
-          }
-        }
-        return { ...prev, credits: remaining, unlockedGuides: nextUnlocked };
-      });
-      return { success: true, remainingCredits: remaining };
+      return { success: false, error: 'Không thể xác nhận giao dịch. Vui lòng thử lại.' };
     }
   };
 

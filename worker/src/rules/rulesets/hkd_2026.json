@@ -4,8 +4,13 @@
   "name": "Chính sách thuế Hộ & Cá nhân kinh doanh năm 2026 - 2027",
   "effective_from": "2026-01-01",
   "effective_to": "2027-12-31",
-  "tax_year_range": [2026, 2027],
-  "supersedes": ["HKD_2025"],
+  "tax_year_range": [
+    2026,
+    2027
+  ],
+  "supersedes": [
+    "HKD_2025"
+  ],
   "thresholds": {
     "exemption_annual_vnd": 1000000000,
     "income_method_mandatory_vnd": 3000000000,
@@ -32,16 +37,26 @@
       "vat_rate": 0.05,
       "pit_rate": 0.05,
       "description": "Cho thuê tài sản"
+    },
+    "production_transport": {
+      "vat_rate": 0.03,
+      "pit_rate": 0.015,
+      "description": "Sản xuất, vận tải, dịch vụ gắn với hàng hóa, xây dựng có bao thầu nguyên vật liệu"
+    },
+    "other_business": {
+      "vat_rate": 0.02,
+      "pit_rate": 0.01,
+      "description": "Hoạt động kinh doanh khác"
     }
   },
   "pit_income_rates": {
     "tier1_voluntary": 0.15,
     "tier2_mandatory": 0.17,
-    "tier3_high": 0.20
+    "tier3_high": 0.2
   },
   "relief_policies": {
-    "nq43_pit_reduction_rate": 0.30,
-    "nq204_vat_reduction_rate": 0.20,
+    "nq43_pit_reduction_rate": 0.3,
+    "nq204_vat_reduction_rate": 0.2,
     "nq204_vat_last_year": 2026
   },
   "citations": {

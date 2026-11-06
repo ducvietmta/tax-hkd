@@ -11,12 +11,36 @@ const suite=JSON.parse(fs.readFileSync('tests/fixtures/tax-hkd-191.json','utf8')
 const base={taxpayer:'INDIVIDUAL_BUSINESS',primaryIntent:'EXEMPTION_ELIGIBILITY',secondaryIntents:[],incomeTypes:['UNKNOWN'],answerPurpose:'ELIGIBILITY',revenueContext:'UNSPECIFIED',taxFocus:'unspecified',calculationShape:'COMPOSITE',methodContext:'UNSPECIFIED'};
 const rows=[];
 function probe(message,sem){const scope=resolveAnswerScope([],message,new Date('2026-10-21T05:00:00+07:00'));const frame=understandClassifiedQuery(message,scope,[],sem);const plan=buildRetrievalPlan(frame);const found=retrieve(message,6,scope,plan);return {frame,plan,context:buildContext(found.results,message,9000,scope)};}
+// Check the evidence actually packed for the model, independently of editorial
+// headings or unrelated passages that could supply a missing legal condition.
+function assertPitReliefScope(text){
+ const conditions=[
+  ['resident business income',/cá nhân cư trú[^.\n]*thu nhập từ kinh doanh/i],
+  ['inclusive annual revenue ceiling',/doanh thu hằng năm[^.\n]*không quá\s+10\s+tỷ/i],
+  ['reduction of PIT payable',/giảm\s+30%[^.\n]*TNCN[^.\n]*phải nộp/i],
+  ['both annual tax periods',/từng kỳ[^.\n]*2026\s+và\s+2027/i],
+  ['tax amount rather than revenue or rate',/giảm trên số thuế[^.\n]*không trên doanh thu\/thuế suất/i],
+  ['VAT excluded',/không áp(?: dụng[^.\n]*)?\s+GTGT/i],
+  ['ceiling and rounding boundaries',/đúng trần[^.\n]*trên trần[^.\n]*không làm tròn/i],
+  ['same taxpayer and no double counting',/cùng cá nhân[^.\n]*không cộng trùng[^.\n]*(?:hay tự cộng|không tự cộng) người độc lập/i],
+  ['revenue alone does not establish eligibility',/đạt doanh thu chưa tự xác nhận cư trú\/loại thu nhập/i],
+  ['whole-period application',/áp dụng cả kỳ\s+2026\s+và\s+2027[^.\n]*không chỉ[^.\n]*sau hiệu lực/i],
+ ];
+ for(const [condition,pattern]of conditions)assert.match(text,pattern,`Packed PIT relief evidence missing ${condition}`);
+}
 for(const topic of ['REVENUE_THRESHOLD','REVENUE_OWNERSHIP','REVENUE_COMPOSITION','TAX_AMOUNT']){
  for(const primaryIntent of ['EXEMPTION_ELIGIBILITY','RELIEF_REDUCTION','OTHER_TAX']){
   const sem={...base,topic,primaryIntent,policyFocus:'PIT_RELIEF'};
   const x=probe(suite.cases.find(c=>c.id==='G163').input.message,sem);
   assert(x.context.includedRefs.includes('16.39'));
-  assert(x.context.text.includes('[RANH GIỚI CHÍNH SÁCH]'));
+  const relief=x.context.passages.find(p=>p.ref_id==='16.39');
+  assert(relief,'Packed context must contain the PIT relief passage');
+  assertPitReliefScope(relief.text);
+  // Renaming/removing a heading must pass; dropping an essential condition must fail.
+  assertPitReliefScope(relief.text.replace(/^\[[^\n]+\]\s*$/gm,''));
+  for(const missing of [/cá nhân cư trú/gi,/30%/g,/không áp GTGT/gi]){
+   assert.throws(()=>assertPitReliefScope(relief.text.replace(missing,'')),assert.AssertionError);
+  }
   assert(!canUseVerifiedAnswer('question','Fixed answer mentioning NQ43',undefined,sem,true));
   // Replace the entire catalog with arbitrary refs/labels: no source ID is coded.
   const f={...x.frame,semantic:{...x.frame.semantic,policyFocus:'A_NEW_POLICY'}};

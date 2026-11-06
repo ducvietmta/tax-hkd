@@ -5,6 +5,7 @@ import path from 'path'
 import { fileURLToPath } from 'node:url'
 import fs from 'fs'
 import http from 'http'
+import { allowDevBridgeRequest } from './scripts/devBridgeAccess'
 import {
   checkQuestion,
   buildSecurePrompt,
@@ -80,6 +81,11 @@ function aiChatBridgePlugin() {
     configureServer(server) {
       // 1. Health check endpoint (dev-only)
       server.middlewares.use('/api/bridge-status', async (req, res) => {
+        if (!allowDevBridgeRequest(req, false)) {
+          res.statusCode = 403
+          res.end()
+          return
+        }
         if (req.method !== 'GET') {
           res.statusCode = 405
           res.end()
@@ -129,6 +135,11 @@ function aiChatBridgePlugin() {
         sendJson(res, { success: false, error: 'AI Chat Bridge chưa cấu hình (thiếu mcp-token). Production dùng Worker /api/chat.' }, 503)
 
       server.middlewares.use('/api/bridge-query', async (req, res) => {
+        if (!allowDevBridgeRequest(req, true)) {
+          res.statusCode = 403
+          res.end()
+          return
+        }
         if (req.method !== 'POST') {
           res.statusCode = 405
           res.end()
@@ -232,8 +243,8 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    host: true,
-    allowedHosts: true,
+    host: '127.0.0.1',
+    allowedHosts: ['localhost'],
     watch: {
       ignored: ['**/public/videos/**', '**/.git/**'],
     },

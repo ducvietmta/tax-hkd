@@ -129,15 +129,16 @@ function evaluateUncheckedFrame(frame: TaxDecisionFrame): EvaluationResult {
 
   if(frame.facts.multi_activities?.length){
     const activities=frame.facts.multi_activities;
-    const valid=activities.every(a=>['goods','service'].includes(a.kind)&&Number.isSafeInteger(a.revenueVnd)&&a.revenueVnd>=0&&
-      (a.vatRate===undefined||a.vatRate===ruleset.rates[a.kind].vat_rate)&&(a.pitRate===undefined||a.pitRate===ruleset.rates[a.kind].pit_rate))&&
+    const kindKey=(kind:string)=>kind==='rental'?'property_rental':kind==='other'?'other_business':kind;
+    const valid=activities.every(a=>{const config=ruleset.rates[kindKey(a.kind)];return !!config&&Number.isSafeInteger(a.revenueVnd)&&a.revenueVnd>=0&&
+      (a.vatRate===undefined||a.vatRate===config.vat_rate)&&(a.pitRate===undefined||a.pitRate===config.pit_rate);})&&
       activities.reduce((n,a)=>n+a.revenueVnd,0)===effectiveRevenue&&!frame.facts.refund_deducted_vnd;
     if(valid){
       const base=evaluateDecisionFrame({...frame,income_type:[{value:activities[0].kind==='goods'?'GOODS_SALES':'SERVICE',source:'inferred',confidence:1}],facts:{...frame.facts,multi_activities:undefined}});
       if(base.status==='ANSWERED'){
         let allowance=taxYear>=2026?exemptionThreshold:0;
         const relief=frame.facts.vat_relief_assumed&&taxYear<=(ruleset.relief_policies?.nq204_vat_last_year||2026)?ruleset.relief_policies?.nq204_vat_reduction_rate||0:0;
-        const rows=activities.map(a=>{const config=ruleset.rates[a.kind];return{id:a.id,revenue_vnd:a.revenueVnd,allowance_vnd:0,vat_rate:config.vat_rate*(1-relief),vat_due_vnd:0,pit_rate:config.pit_rate,pit_before_relief_vnd:0};});
+        const rows=activities.map(a=>{const config=ruleset.rates[kindKey(a.kind)];return{id:a.id,revenue_vnd:a.revenueVnd,allowance_vnd:0,vat_rate:config.vat_rate*(1-relief),vat_due_vnd:0,pit_rate:config.pit_rate,pit_before_relief_vnd:0};});
         for(const row of [...rows].sort((a,b)=>b.pit_rate-a.pit_rate)){
           row.allowance_vnd=base.method==='INCOME'?0:Math.min(allowance,row.revenue_vnd);allowance-=row.allowance_vnd;
           row.vat_due_vnd=Math.round(row.revenue_vnd*row.vat_rate);

@@ -224,8 +224,8 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
 
     const goodsMatch = positiveActivityText.match(/(?:ban hang|ban le|shopee|hang hoa|tap hoa)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/) ||
       positiveActivityText.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:ban hang|ban le|shopee|hang hoa|tap hoa)/);
-    const serviceMatch = q.match(/(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/) ||
-      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua)/);
+    const serviceMatch = q.match(/(?:dich vu|van tai|san xuat|affiliate|tiktok|koc|hoa hong|sua chua)[^\d]{0,25}(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)?/) ||
+      q.match(/(\d+(?:[.,]\d+)?)\s*(ty|trieu|tr)\b[^\d]{0,25}(?:dich vu|van tai|san xuat|affiliate|tiktok|koc|hoa hong|sua chua)/);
 
     if (goodsMatch && serviceMatch) {
       revGoods = parseMoneyWithUnit(goodsMatch[1], goodsMatch[2] || (goodsMatch[1].includes('.') ? 'trieu' : 'ty'));
@@ -233,9 +233,14 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     }
 
     if (revGoods && revService && revGoods > 0 && revService > 0) {
+      // Production/transport/goods-attached services use the 3%/1.5% group,
+      // not the general 5%/2% service group (rate table 16.77).
+      const isProductionTransport = /\b(van tai|san xuat|bao thau)\b/.test(q);
       const multiActivities: MultiActivityItem[] = [
         { id: 'goods', kind: 'goods', revenueVnd: revGoods, vatRate: 0.01, pitRate: 0.005 },
-        { id: 'service', kind: 'service', revenueVnd: revService, vatRate: 0.05, pitRate: 0.02 },
+        isProductionTransport
+          ? { id: 'service', kind: 'production_transport', revenueVnd: revService, vatRate: 0.03, pitRate: 0.015 }
+          : { id: 'service', kind: 'service', revenueVnd: revService, vatRate: 0.05, pitRate: 0.02 },
       ];
       return {
         revenue_vnd: revGoods + revService,

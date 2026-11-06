@@ -24,7 +24,7 @@
         {
           "heading": "Bên tiếp nhận và bảo vệ dữ liệu",
           "paragraphs": [
-            "Dữ liệu cần thiết có thể được xử lý bởi Meta Muse, JEV/FPT, Google Firebase, Cloudflare, SePay và ngân hàng theo chức năng sử dụng; một số nhà cung cấp có thể xử lý ngoài Việt Nam. Thuế HKD không bán dữ liệu, giới hạn người được tiếp cận, áp dụng xác thực, phân quyền và bảo vệ đường truyền; cung cấp thông tin theo yêu cầu hợp pháp của cơ quan có thẩm quyền."
+            "Dữ liệu cần thiết có thể được xử lý bởi các đơn vị cung cấp dịch vụ AI, xác thực, hạ tầng công nghệ và thanh toán theo chức năng sử dụng; một số đơn vị có thể xử lý dữ liệu ngoài Việt Nam. Thuế HKD không bán dữ liệu, giới hạn người được tiếp cận và áp dụng biện pháp bảo mật phù hợp; chỉ cung cấp thông tin cho bên có thẩm quyền theo yêu cầu hợp pháp."
           ]
         },
         {
@@ -97,7 +97,7 @@
         {
           "heading": "Phương thức và quy trình",
           "paragraphs": [
-            "Chức năng nạp lượt hiện tạm khóa; không chuyển tiền ngoài luồng. Khi mở bán, đăng nhập, chọn gói, kiểm tra giá và thông tin nhận tiền, rồi chuyển khoản/quét VietQR trên ứng dụng ngân hàng; giữ đúng nội dung chuyển khoản và lưu biên nhận. Thuế HKD dùng SePay để đối soát, không yêu cầu mật khẩu/OTP ngân hàng."
+            "Chức năng nạp lượt hiện tạm khóa; không chuyển tiền ngoài luồng. Khi mở bán, đăng nhập, chọn gói, kiểm tra giá và thông tin nhận tiền, rồi chuyển khoản/quét VietQR trên ứng dụng ngân hàng; giữ đúng nội dung chuyển khoản và lưu biên nhận. Giao dịch được đối soát qua đơn vị cung cấp dịch vụ thanh toán; Thuế HKD không yêu cầu mật khẩu/OTP ngân hàng."
           ]
         },
         {

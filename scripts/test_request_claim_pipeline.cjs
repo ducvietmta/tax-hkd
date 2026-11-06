@@ -17,7 +17,7 @@ assert.equal(forged.packet.claims[0].mapping,'UNMAPPED');assert.equal(cg.verifie
 const financial={...frame,tax_intent:{...frame.tax_intent,secondary:['RELIEF_REDUCTION']}};
 const calc=ev.evaluateDecisionFrame(financial);assert.equal(calc.vat_due_vnd,160000000);assert.equal(calc.pit_before_relief_vnd,85000000);assert.equal(calc.pit_after_relief_vnd,59500000);
 const text=render.renderDeterministicAnswer(calc,financial).response;assert(text.includes('160 triệu')&&text.includes('85 triệu')&&/59,5 triệu|59[.,]500[.,]000/.test(text));
-const ledger=load('worker/src/decision/calculationContract.ts');assert(ledger.codeCalculationLedger(financial,calc));
+const ledger=load('worker/src/decision/calculationContract.ts');assert.equal(ledger.codeCalculationLedger(financial,calc),null,'Broad SERVICE must use sourced arithmetic, not a generic engine ledger');
 assert.equal(ledger.codeCalculationLedger({...financial,semantic:{...financial.semantic,calculationShape:'SCENARIOS'}},calc),null);
 assert.equal(ledger.codeCalculationLedger({...financial,residency:{...financial.residency,value:'UNKNOWN'}},calc),null);
 const multi={...financial,facts:{...financial.facts,revenue_vnd:1500000000,taxable_income_vnd:undefined,vat_relief_assumed:false,multi_activities:[{id:'A',kind:'goods',revenueVnd:600000000},{id:'B',kind:'service',revenueVnd:900000000}]}};

@@ -1,5 +1,29 @@
 [
   {
+    "ref_id": "16.12",
+    "required": false,
+    "topics": [
+      "SYSTEM_REGISTRATION",
+      "TAX_REGISTRATION"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.29",
+    "required": false,
+    "topics": [
+      "TAX_AMOUNT",
+      "REVENUE_THRESHOLD",
+      "REVENUE_COMPOSITION"
+    ],
+    "income_types": [
+      "PROPERTY_RENTAL"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
     "ref_id": "16.39",
     "policy_focus": [
       "PIT_RELIEF"
@@ -18,7 +42,8 @@
       "unspecified"
     ],
     "intents": [
-      "PLATFORM_WITHHOLDING"
+      "PLATFORM_WITHHOLDING",
+      "RELIEF_REDUCTION"
     ],
     "applies_from_year": 2026,
     "applies_to_year": 2027
@@ -69,6 +94,14 @@
     "policy_focus": [
       "VAT_RELIEF"
     ],
+    "intents": [
+      "RELIEF_REDUCTION"
+    ],
+    "tax_focuses": [
+      "vat",
+      "both",
+      "unspecified"
+    ],
     "applies_from_year": 2025,
     "applies_to_year": 2026
   },
@@ -115,6 +148,19 @@
     "applies_to_year": null
   },
   {
+    "ref_id": "16.61",
+    "required": false,
+    "topics": [
+      "DECLARATION_FILING",
+      "TAXPAYER_RIGHTS"
+    ],
+    "intents": [
+      "DECLARATION_FILING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
     "ref_id": "16.77",
     "topics": [
       "TAX_AMOUNT",
@@ -125,6 +171,37 @@
     ],
     "intents": [
       "PLATFORM_WITHHOLDING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.78",
+    "policy_focus": [
+      "PIT_RELIEF"
+    ],
+    "required_intents": [
+      "PROCEDURE_HOWTO",
+      "DECLARATION_FILING"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.91",
+    "required": false,
+    "topics": [
+      "TAX_AMOUNT",
+      "REVENUE_THRESHOLD",
+      "REVENUE_COMPOSITION"
+    ],
+    "income_types": [
+      "PROPERTY_RENTAL"
     ],
     "applies_from_year": 2026,
     "applies_to_year": null
@@ -149,13 +226,169 @@
   },
   {
     "ref_id": "16.97",
-    "policy_focus": [
-      "PIT_RELIEF"
+    "intents": [
+      "LICENSE_FEE"
     ],
-    "tax_focuses": [
-      "pit",
-      "both",
-      "unspecified"
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.99",
+    "topics": [
+      "TAX_AMOUNT"
+    ],
+    "intents": [
+      "TAX_CALCULATION"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.102",
+    "required": false,
+    "topics": [
+      "BUSINESS_EXPENSES"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.103",
+    "required": false,
+    "topics": [
+      "INVOICE_CORRECTION",
+      "INVOICE_USAGE"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.111",
+    "required": false,
+    "topics": [
+      "TAX_REGISTRATION_CHANGE"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.114",
+    "required": false,
+    "topics": [
+      "INVOICE_REGISTRATION",
+      "INVOICE_USAGE"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.116",
+    "required": false,
+    "topics": [
+      "INVOICE_USAGE",
+      "INVOICE_REGISTRATION"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.123",
+    "required": false,
+    "topics": [
+      "TAX_EXTENSION"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2026
+  },
+  {
+    "ref_id": "16.125",
+    "required": false,
+    "topics": [
+      "TAXPAYER_RIGHTS",
+      "REVENUE_OWNERSHIP"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.130",
+    "required": false,
+    "topics": [
+      "REVENUE_TIMING",
+      "INVOICE_USAGE"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.135",
+    "required": false,
+    "topics": [
+      "INVOICE_USAGE",
+      "TAX_SOFTWARE_SYSTEM"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.137",
+    "required": false,
+    "topics": [
+      "INVOICE_USAGE"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.139",
+    "required": false,
+    "topics": [
+      "BUSINESS_EXPENSES"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.140",
+    "required": false,
+    "topics": [
+      "BUSINESS_EXPENSES"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.141",
+    "required": false,
+    "topics": [
+      "BUSINESS_EXPENSES"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.142",
+    "required": false,
+    "topics": [
+      "BUSINESS_EXPENSES"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.143",
+    "required": false,
+    "topics": [
+      "BUSINESS_EXPENSES"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.144",
+    "required": false,
+    "topics": [
+      "BUSINESS_EXPENSES"
     ],
     "applies_from_year": 2026,
     "applies_to_year": null
@@ -186,6 +419,14 @@
       "ELIGIBILITY",
       "OTHER"
     ],
+    "topics": [
+      "BUSINESS_REGISTRATION",
+      "TAX_REGISTRATION",
+      "REGISTRATION_COMPARISON",
+      "REGISTRATION_REQUIREMENTS",
+      "TAX_REGISTRATION_CHANGE"
+    ],
+    "required": false,
     "applies_from_year": 2026,
     "applies_to_year": null
   },
@@ -205,12 +446,250 @@
     "applies_to_year": null
   },
   {
-    "ref_id": "16.99",
+    "ref_id": "16.159",
+    "required": false,
+    "topics": [
+      "PORTAL_TROUBLESHOOTING",
+      "SYSTEM_REGISTRATION"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.161",
+    "required": false,
+    "topics": [
+      "DECLARATION_FILING",
+      "TAX_SOFTWARE_SYSTEM"
+    ],
+    "intents": [
+      "DECLARATION_FILING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.163",
+    "required": false,
+    "topics": [
+      "PORTAL_TROUBLESHOOTING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.173",
+    "intents": [
+      "PENALTY"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2026
+  },
+  {
+    "ref_id": "16.176",
+    "required": false,
+    "topics": [
+      "DECLARATION_FILING"
+    ],
+    "intents": [
+      "DECLARATION_FILING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.229",
+    "required": false,
+    "topics": [
+      "TAX_SOFTWARE_SYSTEM"
+    ],
+    "intents": [
+      "DECLARATION_FILING"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.230",
+    "required": false,
+    "topics": [
+      "BUSINESS_REGISTRATION",
+      "REGISTRATION_REQUIREMENTS",
+      "TAX_REGISTRATION_CHANGE"
+    ],
+    "applies_from_year": 2025,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.231",
+    "required": false,
+    "topics": [
+      "TAX_AMOUNT",
+      "REVENUE_OWNERSHIP"
+    ],
+    "income_types": [
+      "FREELANCE_SERVICE",
+      "WAGE_SALARY"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.232",
+    "required": false,
+    "topics": [
+      "INVOICE_USAGE",
+      "INVOICE_REGISTRATION",
+      "TAX_SOFTWARE_SYSTEM"
+    ],
+    "intents": [
+      "E_INVOICE"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.233",
+    "policy_focus": [
+      "PIT_RELIEF"
+    ],
+    "intents": [
+      "RELIEF_REDUCTION"
+    ],
+    "required": false,
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.234",
+    "required": false,
+    "intents": [
+      "RELIEF_REDUCTION"
+    ],
+    "topics": [
+      "TAX_FILING"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.235",
+    "required": false,
+    "intents": [
+      "PLATFORM_WITHHOLDING",
+      "RELIEF_REDUCTION"
+    ],
+    "topics": [
+      "PLATFORM_WITHHOLDING"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.236",
+    "required": false,
+    "intents": [
+      "RELIEF_REDUCTION"
+    ],
+    "topics": [
+      "REVENUE_THRESHOLD"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.237",
+    "required": false,
+    "intents": [
+      "RELIEF_REDUCTION",
+      "REFUND"
+    ],
+    "topics": [
+      "REFUND"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.238",
+    "required": false,
+    "intents": [
+      "RELIEF_REDUCTION"
+    ],
+    "topics": [
+      "TAXPAYER_RIGHTS"
+    ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": 2027
+  },
+  {
+    "ref_id": "16.239",
+    "required": false,
     "topics": [
       "TAX_AMOUNT"
     ],
+    "tax_focuses": [
+      "pit",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.240",
+    "required": false,
+    "topics": [
+      "TAX_AMOUNT",
+      "VAT_METHOD_CLASSIFICATION"
+    ],
+    "tax_focuses": [
+      "vat",
+      "both",
+      "unspecified"
+    ],
+    "applies_from_year": 2025,
+    "applies_to_year": null
+  },
+  {
+    "ref_id": "16.241",
+    "required": false,
+    "topics": [
+      "INVOICE_REGISTRATION",
+      "INVOICE_USAGE"
+    ],
     "intents": [
-      "TAX_CALCULATION"
+      "E_INVOICE"
     ],
     "applies_from_year": 2026,
     "applies_to_year": null

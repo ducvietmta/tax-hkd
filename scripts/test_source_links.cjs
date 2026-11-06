@@ -6,10 +6,18 @@ const docs=[...JSON.parse(fs.readFileSync('src/data/legalDocuments.json','utf8')
 assert.equal(new Set(docs.map(d=>d.id)).size,docs.length,'No shadowing a catalogued source');
 const ids=new Map(docs.map(d=>[d.id,d]));
 const linked=chunks.filter(c=>meta[c.ref_id]?.source_links?.length);
-assert.equal(linked.length,42);
+const legalBatches=fs.readdirSync('rag_data').filter(name=>/^legal-card-review-\d{4}-\d{2}-\d{2}\.json$/.test(name)).map(name=>JSON.parse(fs.readFileSync('rag_data/'+name,'utf8')));
+const legalBatch={cards:legalBatches.flatMap(batch=>batch.cards)};
+assert.equal(new Set(legalBatch.cards.map(card=>card.ref_id)).size,legalBatch.cards.length,'Scoped card reviews must not duplicate card identities');
+
 const required='2 3 4 5 10 13 15 16 17 19 23 25 27 28 30 31 32 33 34 36 37 40 42 45 46 48 51 53 55 57 58 59 70 74 78 84 86 87 94 97 98'.split(' ').map(n=>'16.'+n);
 required.push('16.156');
-assert.deepEqual(linked.map(c=>c.ref_id).sort(),required.sort());
+required.push(...Array.from({length:24},(_,i)=>`16.${173+i}`));
+required.push(...legalBatch.cards.map(c=>c.ref_id));
+required.push(...legalBatches.flatMap(batch=>(batch.source_updates||[]).map(c=>c.ref_id)));
+const expectedRefs=[...new Set(required)].sort();
+assert.equal(linked.length,expectedRefs.length);
+assert.deepEqual(linked.map(c=>c.ref_id).sort(),expectedRefs);
 let count=0;
 for(const chunk of linked){
  const m=meta[chunk.ref_id],review=m.source_link_review;
@@ -17,11 +25,19 @@ for(const chunk of linked){
  assert.equal(review.coverage,'SCOPED_SUPPORT_NOT_EVERY_SENTENCE');
  assert.equal(review.status,'SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION');
  assert(review.checked_on&&review.limits);
+ if(m.original_source_status==='USER_SUPPLIED_DOCX_READ'){
+  assert.equal(m.legal_status,'VERIFIED_CONDITIONAL');
+  for(const link of m.source_links){
+   assert.equal(link.source_type,'USER_SUPPLIED_GUIDANCE_DOCX');
+   assert.equal(crypto.createHash('sha256').update(fs.readFileSync('public'+link.source_url)).digest('hex'),m.source_document_sha256);
+  }
+ }
  for(const link of m.source_links){
   assert(ids.has(link.doc_id));assert.equal(link.code,ids.get(link.doc_id).code);
   assert(link.locator&&link.scope&&link.source_type);
   if(link.source_url.startsWith('/documents/')){assert(!link.source_url.includes('..'));assert(fs.existsSync('public'+link.source_url));}
-  else {const u=new URL(link.source_url);assert.equal(u.protocol,'https:');assert(['chinhphu.vn','vbpl.moj.gov.vn','iras.gov.sg'].some(host=>u.hostname===host||u.hostname.endsWith('.'+host)),u.hostname);}
+  else {const u=new URL(link.source_url);assert.equal(u.protocol,'https:');
+   assert(['chinhphu.vn','vbpl.moj.gov.vn','iras.gov.sg'].some(host=>u.hostname===host||u.hostname.endsWith('.'+host)),u.hostname);}
   count++;
  }
 }

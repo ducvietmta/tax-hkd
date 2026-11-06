@@ -16,8 +16,9 @@
  * `wrangler secret`, KHÔNG commit vào worker/wrangler.toml.
  */
 
+import { isChatRateLimited, RateLimitUnavailable } from './rateLimit';
 import { handleCors, jsonResponse, type Env } from './http';
-import { handleHealth, handleOpenApi, handleTestAi, handleTestQuyet } from './routesInfra';
+import { handleHealth, handleLegalCoverage, handleOpenApi } from './routesInfra';
 import { handleMcp } from './routesMcp';
 import {
   guardUserRoute,
@@ -29,6 +30,7 @@ import {
 } from './routesAuth';
 import { handleSePayWebhook, handlePaymentCheck } from './routesPayments';
 import { handleChat } from './routeChat';
+import { handleDocumentChat } from './documentChat';
 import { handleRegistrationAdvisor } from './registrationAdvisor';
 import { handleRegistrationOffice } from './registrationOffice';
 import { handleRegistrationIndustry } from './registrationIndustry';
@@ -48,14 +50,15 @@ export default {
     const path = url.pathname;
 
     try {
+      const length=Number(request.headers.get('Content-Length')||0);
+      if(length>12*1024*1024)return jsonResponse({success:false,error:'Request too large.'},413,corsHeaders);
       // Guard chung: mọi /api/user/* yêu cầu Firebase ID token khớp phone.
       if (path.startsWith('/api/user/')) {
         const gate = await guardUserRoute(request, url, corsHeaders);
         if (typeof gate !== 'string') return gate;
       }
 
-      if (path === '/api/test-ai') return handleTestAi(request, env, corsHeaders, url);
-      if (path === '/api/test-quyet') return handleTestQuyet(env, corsHeaders, url);
+      if (path === '/api/test-ai' || path === '/api/test-quyet') return jsonResponse({success:false,error:'Not found.'},404,corsHeaders);
 
       if (path === '/api/etax-app' || path === '/app' || path === '/etax-app') {
         const ua = request.headers.get('User-Agent') || '';
@@ -69,6 +72,7 @@ export default {
       }
 
       if (path === '/' || path === '/api/health') return handleHealth(env, corsHeaders);
+      if (path === '/api/kb/coverage' && request.method === 'GET') return handleLegalCoverage(corsHeaders);
 
       if (path === '/openapi.json' || path === '/.well-known/openapi.json') {
         return handleOpenApi(corsHeaders);
@@ -108,36 +112,39 @@ export default {
         return handlePaymentCheck(request, env, corsHeaders, url);
       }
 
-      if (path === '/api/registration-guide/industry') return handleRegistrationIndustry(request, env, corsHeaders);
-      if (path === '/api/registration-guide/chat') return handleRegistrationAdvisor(request, env, ctx, corsHeaders);
-      if (path === '/api/registration-guide/office') return handleRegistrationOffice(request, env, ctx, corsHeaders);
+      if (path === '/api/document-chat') return await handleDocumentChat(request,env,ctx,corsHeaders);
+      if (path === '/api/registration-guide/industry') return await handleRegistrationIndustry(request, env, corsHeaders);
+      if (path === '/api/registration-guide/chat') return await handleRegistrationAdvisor(request, env, ctx, corsHeaders);
+      if (path === '/api/registration-guide/office') return await handleRegistrationOffice(request, env, ctx, corsHeaders);
 
       if ((path === '/api/chat' || path === '/api/chatgpt/tax-qa') && request.method === 'POST') {
-        return handleChat(request, env, ctx, corsHeaders);
+        return await handleChat(request, env, ctx, corsHeaders);
       }
       if (path === '/api/chat' || path === '/api/chatgpt/tax-qa') {
         return jsonResponse({ success: false, error: 'Method not allowed.' }, 405, corsHeaders);
       }
 
       if (path === '/api/consultations' && request.method === 'POST') {
-        return handleConsultation(request, env, corsHeaders);
+        if(await isChatRateLimited(request.headers.get('CF-Connecting-IP')||'unknown',env,ctx))return jsonResponse({success:false,error:'Too many requests.'},429,corsHeaders);
+        return await handleConsultation(request, env, corsHeaders);
       }
 
       if (path === '/api/files/upload' && request.method === 'POST') {
-        return handleFileUpload(request, env, corsHeaders, url);
+        return await handleFileUpload(request, env, corsHeaders, url);
       }
 
       if (path.startsWith('/api/files/') && request.method === 'GET') {
-        return handleFileGet(request, env, corsHeaders, path);
+        return await handleFileGet(request, env, corsHeaders, path);
       }
 
       return jsonResponse({ success: false, error: `Không tìm thấy endpoint: ${path}` }, 404, corsHeaders);
-    } catch (err: unknown) {
+    } catch(error) {
+      if(error instanceof RateLimitUnavailable)return jsonResponse({success:false,error:error.message,diagnostic_code:'RATE_LIMIT_UNAVAILABLE'},503,corsHeaders);
       return jsonResponse(
         {
           success: false,
           error: 'Lỗi máy chủ Cloudflare Workers',
-          details: (err as Error).message,
+
         },
         500,
         corsHeaders
@@ -151,6 +158,12 @@ export default {
         const result = await env.DB.prepare(
           `DELETE FROM chat_logs WHERE created_at < datetime('now', '-90 days')`
         ).run();
+        await env.DB.batch([
+          env.DB.prepare("DELETE FROM answer_cache WHERE created_at < datetime('now','-7 days')"),
+          env.DB.prepare("DELETE FROM answer_grounding_traces WHERE created_at < datetime('now','-30 days')"),
+          env.DB.prepare("DELETE FROM decision_traces WHERE created_at < datetime('now','-90 days')"),
+          env.DB.prepare("DELETE FROM rate_limits WHERE created_at < datetime('now','-2 hours')")
+        ]);
         console.log(`[SCHEDULED_CLEANUP_90D] Cleaned old chat logs: ${result.meta?.changes ?? 0} rows deleted.`);
       } catch (err: unknown) {
         console.error('[SCHEDULED_CLEANUP_90D_ERR]', (err as Error)?.message);

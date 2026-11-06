@@ -4,6 +4,7 @@ import { verifiedFirebasePhone } from './firebaseAuth';
 import { jsonResponse, type Env } from './http';
 import { isChatRateLimited } from './rateLimit';
 import { readRegistrationModelStream } from './registrationModelStream';
+import { callOpenAIStream } from './openAiRequest';
 
 const SOURCE = 'Trợ lý đăng ký riêng · Muse Spark 1.3';
 
@@ -36,9 +37,9 @@ export async function handleRegistrationAdvisor(request: Request, env: Env, ctx:
   if (body.phone && body.phone !== phone) return jsonResponse({ success: false, requireLogin: true, error: 'Thông tin xác thực không khớp.' }, 403, cors);
   const message = typeof body.message === 'string' ? body.message.trim() : '';
   if (!message || message.length > 2000 || body.fileKey) return jsonResponse({ success: false, error: 'Nhập câu hỏi bằng văn bản, tối đa 2.000 ký tự.' }, 400, cors);
-  if (!env.MUSE_API_KEY || !env.DB) return jsonResponse({ success: false, error: 'Trợ lý đăng ký tạm thời chưa sẵn sàng. Vui lòng thử lại.' }, 503, cors);
+  if ((!env.MUSE_API_KEY && !env.OPENAI_API_KEY) || !env.DB) return jsonResponse({ success: false, error: 'Trợ lý đăng ký tạm thời chưa sẵn sàng. Vui lòng thử lại.' }, 503, cors);
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-  if (await isChatRateLimited(ip, env, ctx)) return jsonResponse({ success: false, error: 'Bạn gửi quá nhanh, vui lòng thử lại sau.' }, 429, cors);
+  if (await isChatRateLimited(ip, env, ctx, phone)) return jsonResponse({ success: false, error: 'Bạn gửi quá nhanh, vui lòng thử lại sau.' }, 429, cors);
 
   // Reserve atomically, preventing concurrent requests spending the same last credit.
   const reserved = await env.DB.prepare(`UPDATE users SET credits = credits - 1, updated_at = CURRENT_TIMESTAMP WHERE phone = ? AND credits > 0 RETURNING credits`)
@@ -62,10 +63,11 @@ export async function handleRegistrationAdvisor(request: Request, env: Env, ctx:
   let controller!: ReadableStreamDefaultController<Uint8Array>, closed = false, consumed = false;
   let firstTextMs: number | null = null;
   const encoder = new TextEncoder();
+  let heartbeat:ReturnType<typeof setInterval>|undefined;
   const send = (event: unknown) => { if (!closed) controller.enqueue(encoder.encode(`data: ${JSON.stringify(event)}\n\n`)); };
   const stream = new ReadableStream<Uint8Array>({
     start(value) { controller = value; },
-    cancel() { closed = true; abort.abort(); },
+    cancel() { closed = true; abort.abort();if(heartbeat)clearInterval(heartbeat); },
   });
   const onDisconnect = () => abort.abort();
   request.signal.addEventListener('abort', onDisconnect, { once: true });
@@ -74,12 +76,14 @@ export async function handleRegistrationAdvisor(request: Request, env: Env, ctx:
   const task = (async () => {
     try {
       controller.enqueue(encoder.encode(`: registration-guide ${' '.repeat(16384)}\n\n`));
+      heartbeat=setInterval(()=>{if(!closed)controller.enqueue(encoder.encode(': keepalive\n\n'));},10000);
       send({ type: 'meta', source: SOURCE, remainingCredits: reserved.credits });
       send({ type: 'progress', stage: 'received' });
       send({ type: 'status', status: 'generating' });
 
       let answer = '';
-      {
+      const isMuseDisabled = env.DISABLE_MUSE === '1' || env.DISABLE_MUSE === 'true';
+      if (!isMuseDisabled && env.MUSE_API_KEY) {
         const upstream = await fetch('https://api.meta.ai/v1/responses', {
           method: 'POST',
           headers: { Authorization: `Bearer ${env.MUSE_API_KEY}`, 'Content-Type': 'application/json', Accept: 'text/event-stream' },
@@ -91,6 +95,26 @@ export async function handleRegistrationAdvisor(request: Request, env: Env, ctx:
           if (firstTextMs === null) firstTextMs = Date.now() - startedAt;
           send({ type: 'delta', delta });
         });
+      } else if (env.OPENAI_API_KEY) {
+        const model = env.OPENAI_MODEL || 'gpt-6.1-terra';
+        const userPrompt = input.map((item) => item.content).join('\n\n');
+        const openAiRes = await callOpenAIStream(
+          env.OPENAI_API_KEY,
+          registrationAdvisorInstructions(panel.section),
+          [],
+          userPrompt,
+          model,
+          delta => {
+            if (firstTextMs === null) firstTextMs = Date.now() - startedAt;
+            send({ type: 'delta', delta });
+          },
+          30000,
+          'low'
+        );
+        if (!openAiRes.ok || !openAiRes.text) throw new Error(openAiRes.error || 'OPENAI_ERROR');
+        answer = openAiRes.text;
+      } else {
+        throw new Error('NO_MODEL_CONFIGURED');
       }
       if (closed || abort.signal.aborted) throw new Error('REQUEST_CANCELLED');
       consumed = true;
@@ -108,6 +132,7 @@ export async function handleRegistrationAdvisor(request: Request, env: Env, ctx:
       send({ type: 'error', error: creditRestored ? 'Hướng dẫn bị gián đoạn. Lượt hỏi đã được hoàn lại; bạn có thể thử lại.' : 'Hướng dẫn bị gián đoạn. Chưa xác nhận được hoàn lượt; vui lòng kiểm tra số dư hoặc liên hệ hỗ trợ.' });
     } finally {
       clearTimeout(timer);
+      if(heartbeat)clearInterval(heartbeat);
       request.signal.removeEventListener('abort', onDisconnect);
       console.log('[REGISTRATION_ADVISOR_TIMING]', JSON.stringify({ firstTextMs, totalMs: Date.now() - startedAt, completed: consumed, section: panel.section }));
       if (!closed) { closed = true; controller.close(); }

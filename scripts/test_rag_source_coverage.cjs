@@ -4,7 +4,7 @@ const cache=new Map();function load(file){file=path.resolve(file);if(!fs.existsS
 global.fetch=()=>{throw Error('NETWORK_FORBIDDEN');};
 const {resolveAnswerScope}=load('shared/taxScope.ts'),{understandClassifiedQuery}=load('worker/src/decision/understandQuery.ts');
 const {selectPolicyEvidence,buildRetrievalPlan}=load('worker/src/decision/retrievalPlan.ts');
-const {retrieve,buildContext}=load('worker/src/retriever.ts'),{mergeVectorHits}=load('worker/src/vectorRetriever.ts');
+const {retrieve,buildContext,buildReviewContext}=load('worker/src/retriever.ts'),{mergeVectorHits}=load('worker/src/vectorRetriever.ts');
 const {filterAndGateEvidence}=load('worker/src/decision/evidenceGate.ts');
 const {CANONICAL_CHUNKS}=load('worker/src/ragEngine.ts');
 let checks=0;const check=(ok,msg)=>{assert(ok,msg);checks++;};
@@ -14,7 +14,7 @@ function context(message,labels){
  const plan=buildRetrievalPlan(f),initial=retrieve(message,4,scope,plan);
  const gate=filterAndGateEvidence(initial.results.map(r=>r.chunk),f);
  const results=mergeVectorHits(initial.results.filter(r=>gate.passedChunks.includes(r.chunk)),[{refId:'16.66',score:.99},{refId:'16.60',score:.98}],4,{query:message,years:scope.years,pinnedRefs:plan.must_include_refs,allowedRefs:plan.allowed_refs});
- return buildContext(results,message,12000,scope);
+ return buildReviewContext(results,message,12000,18000,scope);
 }
 const pit=['không quá 10 tỷ','30%','1 tỷ','17%','không đăng ký thuế cho hoạt động kinh doanh','PIT 5%','trạng thái thực nộp','Không tự trừ GTGT vào PIT'];
 for(const income of ['AFFILIATE_COMMISSION','CONTENT_ADS'])for(const topic of ['OTHER','TAX_AMOUNT'])for(const focus of ['pit','unspecified']){
@@ -29,7 +29,7 @@ for(const phrase of ['Doanh thu năm 2026 gồm hàng đã trả lại theo hồ
 }
 const cost=context('Năm 2026 doanh thu kinh doanh 4,17 tỷ, xác định chi phí được trừ và phương pháp ra sao?',{topic:'BUSINESS_EXPENSES',taxFocus:'pit'});
 check(cost.text.includes('thu nhập ×17%')&&cost.text.includes('không hồi tố 17%'),'Expense evidence retains method and transition');
-const relief=context('Năm 2026 cá nhân cư trú xét điều kiện giảm TNCN và có được lấy môn bài đối trừ không?',{topic:'REVENUE_OWNERSHIP',policyFocus:'PIT_RELIEF',taxFocus:'pit',primaryIntent:'RELIEF_REDUCTION'});
+const relief=context('Năm 2026 cá nhân cư trú xét điều kiện giảm TNCN và có được lấy môn bài đối trừ không?',{topic:'REVENUE_OWNERSHIP',policyFocus:'PIT_RELIEF',taxFocus:'pit',primaryIntent:'RELIEF_REDUCTION',secondaryIntents:['LICENSE_FEE']});
 check(relief.text.includes('chấm dứt thu/nộp lệ phí môn bài')&&relief.text.includes('không xóa nợ cũ'),'Discontinued levy has its own primary source');
 const old=context('Bán hàng năm 2025 có doanh thu 287 triệu; hỏi nghĩa vụ năm đó.',{topic:'TAX_AMOUNT',taxFocus:'pit'});
 check(!old.includedRefs.some(r=>['16.39','16.40','16.56','16.77','16.95','16.156'].includes(r)),'Current rules never replace historical sources');

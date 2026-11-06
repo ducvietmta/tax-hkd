@@ -61,9 +61,6 @@ export function filterAndGateEvidence(
       // Year-level metadata cannot establish day-level applicability. Keep the
       // evidence conditional so semantic review must read transition clauses.
       if(frame.tax_period.event_date&&!meta.effective_from)periodMatch='PARTIAL';
-      // Year-level metadata cannot establish day-level applicability. Keep the
-      // evidence conditional so semantic review must read transition clauses.
-      if(frame.tax_period.event_date&&!meta.effective_from)periodMatch='PARTIAL';
 
       // Kiểm tra khớp kỳ tính thuế
       if (queryYears.length && !periodFits(meta,frame.tax_period)) {

@@ -11,31 +11,38 @@ import policyCatalog from '../kb/policyRetrievalIndex.json';
 import chunkPeriods from '../kb/chunkMeta.json';
 import { periodFits, type EffectiveInterval } from '../kb/periodApplicability';
 
-interface PolicyEvidenceEntry {ref_id:string;policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[];applies_from_year:number;applies_to_year:number|null;}
-/** Pure metadata lookup: no document IDs, legal amounts or phrase matching. */
+interface PolicyEvidenceEntry {ref_id:string;required?:boolean;required_intents?:string[];policy_focus?:string[];eligibility_topics?:string[];revenue_contexts?:string[];topics?:string[];intents?:string[];subject_contexts?:string[];answer_purposes?:string[];income_types?:string[];tax_focuses?:string[];applies_from_year:number;applies_to_year:number|null;}
+/** Facets describing the taxpayer constrain a match; they are not a topic.
+ * MULTIPLE is an umbrella label, never a wildcard for every policy in the KB. */
+export function selectPolicyCandidates(frame:TaxDecisionFrame,catalog:PolicyEvidenceEntry[]=policyCatalog):PolicyEvidenceEntry[]{
+ const semantic=frame.semantic,focus=semantic?.policyFocus;
+ const unspecified=!focus||focus==='UNSPECIFIED';
+ const intents=[frame.tax_intent?.primary.value,...(frame.tax_intent?.secondary||[])];
+ return catalog.filter(entry=>periodFits(entry,frame.tax_period))
+  .filter(entry=>!entry.required_intents?.length||intents.some(intent=>!!intent&&entry.required_intents!.includes(intent)))
+  .filter(entry=>!entry.answer_purposes?.length||entry.answer_purposes.includes(semantic?.answerPurpose||'OTHER'))
+  .filter(entry=>!entry.income_types?.length||frame.income_type.some(t=>entry.income_types!.includes(t.value)))
+  .filter(entry=>!entry.subject_contexts?.length||!semantic?.subjectContext||semantic.subjectContext==='UNKNOWN'||entry.subject_contexts.includes(semantic.subjectContext))
+  .filter(entry=>!entry.tax_focuses?.length||entry.tax_focuses.includes(semantic?.taxFocus||'unspecified'))
+  .filter(entry=>(!unspecified&&focus!=='MULTIPLE'&&entry.policy_focus?.includes(focus))||
+   (unspecified&&semantic?.answerPurpose==='ELIGIBILITY'&&entry.eligibility_topics?.includes(semantic?.topic||''))||
+   entry.revenue_contexts?.includes(semantic?.revenueContext||'')||
+   entry.topics?.includes(semantic?.topic||'')||intents.some(intent=>!!intent&&entry.intents?.includes(intent)));
+}
+/** Only explicitly required dependencies may consume mandatory context space. */
 export function selectPolicyEvidence(frame:TaxDecisionFrame,catalog:PolicyEvidenceEntry[]=policyCatalog):string[]{
-  const focus=frame.semantic?.policyFocus;
-  const unspecified=!focus||focus==='UNSPECIFIED';
-  // A multi-period question needs each period's evidence. Requiring one source
-  // to govern every year discards both sides of a lawful comparison/transition.
-  return catalog.filter(entry=>periodFits(entry,frame.tax_period))
-    .filter(entry=>!entry.answer_purposes?.length||entry.answer_purposes.includes(frame.semantic?.answerPurpose||'OTHER'))
-    .filter(entry=>!entry.income_types?.length||frame.income_type.some(t=>entry.income_types!.includes(t.value)))
-    .filter(entry=>!entry.tax_focuses?.length||entry.tax_focuses.includes(frame.semantic?.taxFocus||'unspecified'))
-    .filter(entry=>(!unspecified&&(focus==='MULTIPLE'||entry.policy_focus?.includes(focus)))||
-      (unspecified&&frame.semantic?.answerPurpose==='ELIGIBILITY'&&entry.eligibility_topics?.includes(frame.semantic?.topic||''))||
-      entry.revenue_contexts?.includes(frame.semantic?.revenueContext||'')||
-      entry.topics?.includes(frame.semantic?.topic||'')||
-      [frame.tax_intent?.primary.value,...(frame.tax_intent?.secondary||[])].some(intent=>!!intent&&entry.intents?.includes(intent))||
-      entry.subject_contexts?.includes(frame.semantic?.subjectContext||''))
-    .map(entry=>entry.ref_id);
+ return [...new Set(selectPolicyCandidates(frame,catalog).filter(entry=>entry.required!==false).map(entry=>entry.ref_id))];
 }
 
 export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   const plan = topicRetrievalPlan(frame);
   const refs=selectPolicyEvidence(frame);
-  return alignPlanPeriod({...plan,must_include_refs:[...new Set([...refs,...plan.must_include_refs])],
-    ...(plan.allowed_refs?{allowed_refs:[...new Set([...refs,...plan.allowed_refs])]}:{})},frame.tax_period);
+  const preferred_refs=[...new Set(selectPolicyCandidates(frame).map(entry=>entry.ref_id))];
+  const guides=frame.semantic?.answerPurpose==='DEFINITION'?[]:Object.entries(chunkPeriods).filter(([,entry])=>
+    'guidance_topics' in entry && (entry.guidance_topics as string[]).includes(frame.semantic?.topic||'') && periodFits(entry,frame.tax_period)).map(([ref])=>ref);
+  if(plan.allowed_refs)plan.allowed_refs=[...new Set([...plan.allowed_refs,...guides])];
+  return alignPlanPeriod({...plan,preferred_refs,must_include_refs:[...new Set([...refs,...plan.must_include_refs])],
+    ...(plan.allowed_refs?{allowed_refs:[...new Set([...refs,...preferred_refs,...plan.allowed_refs])]}:{})},frame.tax_period);
 }
 
 /** A semantic topic is a search hint, not permission to search only the wrong
@@ -130,7 +137,7 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     REFUND:['16.51','16.86','16.145','16.35','16.42'],
     REVENUE_COMPOSITION: ['16.32', '16.37', '16.72', '16.101', '16.102'],
     REVENUE_TIMING: ['16.101', '16.30', '16.37', '16.72', '16.43', '16.102','16.130','16.131','16.132','16.133','16.134'],
-    REVENUE_OWNERSHIP: ['16.39', '16.75', '16.72', '16.8', '16.7', '16.9', '16.35', '16.37', '16.41', '16.105'],
+    REVENUE_OWNERSHIP: ['16.75', '16.72', '16.39', '16.8', '16.7', '16.9', '16.35', '16.37', '16.41', '16.105'],
     VAT_METHOD_CLASSIFICATION: ['16.104', '16.31', '16.50', '16.77', '16.16', '16.37'],
     BUSINESS_EXPENSES: ['16.102', '16.19', '16.52', '16.57', '16.56',...Array.from({length:6},(_,i)=>`16.${139+i}`)],
     INVOICE_CORRECTION: ['16.103', '16.106', '16.21', '16.18', '16.17', '16.42'],
@@ -197,7 +204,7 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
     if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
     return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
-      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' || relief || ['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(topic) ? 3 : 2), filter_years: years,
+      must_include_refs: refs.slice(0, topic === 'VAT_METHOD_CLASSIFICATION' || ['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(topic) ? 3 : 1), filter_years: years,
       filter_taxpayer_types: [frame.taxpayer_type.value], boost_keywords: [] };
   }
 

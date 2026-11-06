@@ -1,0 +1,762 @@
+{
+  "schema": "taxhkd-scoped-card-review-v1",
+  "reviewed_on": "2026-10-26",
+  "reviewer_type": "AI",
+  "scope": [
+    "HKD",
+    "CNKD"
+  ],
+  "baseline_missing_documents": [
+    "ND-118-2025-ND-CP",
+    "ND-123-2020-ND-CP",
+    "ND-125-2020-ND-CP",
+    "ND-144-2026-ND-CP",
+    "ND-168-2025-ND-CP",
+    "ND-245-2026-ND-CP",
+    "ND-248-2026-ND-CP",
+    "ND-254-2026-ND-CP",
+    "ND-291-2026-ND-CP",
+    "ND-310-2025-ND-CP",
+    "ND-320-2025-ND-CP",
+    "TT-100-2021-TT-BTC",
+    "TT-103-2014-TT-BTC",
+    "TT-110-2026-TT-BTC",
+    "TT-111-2013-TT-BTC",
+    "TT-121-2026-TT-BTC",
+    "TT-126-2026-TT-BTC",
+    "TT-152-2025-TT-BTC",
+    "TT-18-2026-TT-BTC",
+    "TT-19-2021-TT-BTC",
+    "TT-20-2026-TT-BTC",
+    "TT-50-2026-TT-BTC",
+    "TT-78-2021-TT-BTC",
+    "TT-86-2024-TT-BTC",
+    "TT-87-2026-TT-BTC",
+    "TT-88-2021-TT-BTC",
+    "TT-89-2026-TT-BTC",
+    "TT-90-2026-TT-BTC",
+    "TT-92-2015-TT-BTC",
+    "TT-94-2026-TT-BTC"
+  ],
+  "policy": "Scoped excerpt review only; no FULL coverage claim. No raw case evidence used.",
+  "cards": [
+    {
+      "doc_id": "ND-118-2025-ND-CP",
+      "sections": [
+        "S16",
+        "S17"
+      ],
+      "title": "Nộp hồ sơ một cửa và yêu cầu hướng dẫn bổ sung hồ sơ",
+      "summary": "Có các kênh trực tiếp, bưu chính/ủy quyền và trực tuyến theo thủ tục đã công bố; hướng dẫn hồ sơ thiếu phải đầy đủ, chính xác trong một lần.",
+      "limits": "Chỉ nguyên tắc một cửa cho HKD/CNKD; không tự suy mọi thủ tục thuế đều nộp được tại mọi bộ phận một cửa.",
+      "from": 2025,
+      "to": null,
+      "effective_from": "2025-07-01",
+      "ref_id": "16.197",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 15; Điều 16",
+      "source_file": "document_library/ND-118-2025-ND-CP.md",
+      "source_sha256": "194be4ee8132fcea50514744b583cfdbdb630c196da89d3a3791db5ea1003a0c",
+      "excerpt_sha256": "eb3682b7ee41145b387c01a9ffeaeb5df9eda8b98926abe83681c356f7b78a9a",
+      "quote": "Điều 15. Cách thức tổ chức, cá nhân nộp hồ sơ, nhận kết quả giải\nquyết thủ tục hành chính\n\nTổ chức, cá nhân có thê nộp hồ sơ, nhận kết quả giải quyết thủ tục hành\nchính thông qua các cách thức theo quy định tại văn bản quy phạm pháp luật\nquy định về thủ tục hành chính:\n\n\"1. Trực tiếp tại Bộ phận Một cửa; :\n\n2. Thông qua dịch vụ bưu chính công ích theo quy định của Thủ tướng\nChính phủ, qua thuê dịch vụ của doanh nghiệp, cá nhân hoặc qua ủy quyên theo\nquy định của pháp luật;\n\n3. Trực tuyến tại Cổng Dịch vụ công quốc gia.\n\nĐiều 16. Hướng dẫn chuẩn bị hỗ sơ thực hiện thủ tục hành chính\n\n1. Nội dung hướng dẫn bao gồm: `\n\na) Các hồ sơ, giấy tờ mà tổ chức, cá nhân phải nộp khi giải quyết thủ tục _\n\n¬. hành chỉnh;\n\nb) Thông tin về cơ quan có thẩm quyền giải quyết thủ tục hành chính;\n\nc) Quy trình, thời hạn giải quyết thủ tục hành chính;\n\n„ đ) Mức và cách thức nộp thuế, phí, lệ phí hoặc các nghĩa vụ tài chính khác\n(nêu có);\n\nđ) Cung cấp các thông tin, tài liệu liên quan đến việc thực hiện thủ tục\nhành chính khi tổ chức, cá nhân yêu câu theo quy định pháp luật.\n\nNội dung hướng dẫn phải bảo đảm chính xác, đầy đủ, cụ thể theo văn bản\nquy phạm pháp luật đang có hiệu lực, quyết định công bô thủ tục hành chính\ncủa cơ quan có thâm quyền công khai trên Cơ sở dữ liệu quốc gia về thủ tục\nhành chính và công khai tại nơi giải quyết thủ tục hành chính.\n\n\n[Trang 18]\n\nI\nI8 \"¬\n\n2. Việc hướng dẫn tổ chức, cá nhân thực hiện thông qua các cách thức sau: -\n\na) Hướng dẫn trực tiếp tại Bộ phận Một cửa;\n\nb) Hướng dẫn qua hệ thống tông đài hoặc số điện thoại chuyên dùng đã\ncông bô công khai;\n\nce) Hướng dẫn trực tuyến trên Công Dịch vụ công quốc gia hoặc qua mạng\nxã hội được cập có thâm quyên cho phép; .\n\n\\ Ỉ\n\nđ) Băng văn bản được gửi qua dịch vụ bưu chính; ị\n\nđ) Qua các bộ hồ sơ điền mẫu, qua các video hướng dẫn mẫu dựng sẵn\nhoặc băng các cách thức khác.\n\nNội dung hướng dẫn được lưu tại Bộ phận Một cửa.\n\n3. Trường hợp danh mục tài liệu trong hồ sơ giải quyết thủ tục hành chính\ncòn thiêu so với danh mục tài liệu được công bô công khai theo quy định tại\nkhoản 1 Điêu này hoặc tài liệu chưa cung cập đây đủ thông tin theo biểu mẫu\nhướng dẫn của cơ quan có thâm quyên thì cán bộ, công chức, viên chức, nhân\nviên tiếp nhận hỗ sơ thủ tục hành chính hướng dân đại diện tổ chức, cá nhân bố\nsung một lần đây đủ, chính xác. .",
+      "chunk_sha256": "f35698a5a6d2f397f796abe9d89229c64d9088a344f1b0ee061809ee8c1f0ce9"
+    },
+    {
+      "doc_id": "ND-123-2020-ND-CP",
+      "sections": [
+        "S8",
+        "S9"
+      ],
+      "title": "Lịch sử bảo quản và chuyển đổi hóa đơn điện tử thành giấy",
+      "summary": "Hóa đơn điện tử cần bảo đảm tính toàn vẹn, có thể tra cứu/in khi được yêu cầu; bản chuyển đổi giấy có giới hạn giá trị theo Điều 7.",
+      "limits": "Thẻ lịch sử cho giai đoạn trước NĐ254 có hiệu lực 01/07/2026. Phạm vi chỉ lưu trữ/chuyển đổi, không dùng thời điểm lập hoặc xử lý sai sót theo bản cũ.",
+      "from": 2022,
+      "to": 2025,
+      "effective_from": "2022-07-01",
+      "ref_id": "16.198",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 6; Điều 7",
+      "source_file": "document_library/ND-123-2020-ND-CP.md",
+      "source_sha256": "6c1f7e75758c4543c53852935fd1d25a5de6136c7331bbd284d536a6d4251138",
+      "excerpt_sha256": "0616cdede78e9a9e9bd9dd754d5ef3620060e1d2e60daf171351ef9070751665",
+      "quote": "Điều 6. Bảo quản, lưu trữ hóa đơn, chứng từ\n     1. Hóa đơn, chứng từ được bảo quản, lưu trữ đảm bảo:\n     a) Tính an toàn, bảo mật, toàn vẹn, đầy đủ, không bị thay đổi, sai lệch trong\nsuốt thời gian lưu trữ;\n     b) Lưu trữ đúng và đủ thời hạn theo quy định của pháp luật kế toán.\n     2. Hóa đơn điện tử, chứng từ điện tử được bảo quản, lưu trữ bằng phương tiện\nđiện tử. Cơ quan, tổ chức, cá nhân được quyền lựa chọn và áp dụng hình thức bảo\nquản, lưu trữ hóa đơn điện tử, chứng từ điện tử phù hợp với đặc thù hoạt động và\nkhả năng ứng dụng công nghệ. Hóa đơn điện tử, chứng từ điện tử phải sẵn sàng in\nđược ra giấy hoặc tra cứu được khi có yêu cầu.\n     3. Hóa đơn do cơ quan thuế đặt in, chứng từ đặt in, tự in phải bảo quản, lưu trữ\nđúng với yêu cầu sau:\n     a) Hóa đơn, chứng từ chưa lập được lưu trữ, bảo quản trong kho theo chế độ\nlưu trữ bảo quản chứng từ có giá.\n     b) Hóa đơn, chứng từ đã lập trong các đơn vị kế toán được lưu trữ theo quy\nđịnh lưu trữ, bảo quản chứng từ kế toán.\n     c) Hóa đơn, chứng từ đã lập trong các tổ chức, hộ, cá nhân không phải là đơn\nvị kế toán được lưu trữ và bảo quản như tài sản riêng của tổ chức, hộ, cá nhân đó.\n\nĐiều 7. Chuyển đổi hóa đơn điện tử, chứng từ điện tử thành hóa đơn,\nchứng từ giấy\n     1. Hóa đơn điện tử, chứng từ điện tử hợp pháp được chuyển đổi thành hóa đơn,\nchứng từ giấy khi có yêu cầu nghiệp vụ kinh tế, tài chính phát sinh hoặc theo yêu\n\n                  CÔNG BÁO/Số 1011 + 1012/Ngày 01-11-2020                         13\n\ncầu của cơ quan quản lý thuế, cơ quan kiểm toán, thanh tra, kiểm tra, điều tra và\ntheo quy định của pháp luật về thanh tra, kiểm tra và điều tra.\n\n    2. Việc chuyển đổi hóa đơn điện tử, chứng từ điện tử thành hóa đơn, chứng từ\ngiấy phải bảo đảm sự khớp đúng giữa nội dung của hóa đơn điện tử, chứng từ điện\ntử và hóa đơn, chứng từ giấy sau khi chuyển đổi.\n\n    3. Hóa đơn điện tử, chứng từ điện tử được chuyển đổi thành hóa đơn, chứng\ntừ giấy thì hóa đơn, chứng từ giấy chỉ có giá trị lưu giữ để ghi sổ, theo dõi theo\nquy định của pháp luật về kế toán, pháp luật về giao dịch điện tử, không có hiệu\nlực để giao dịch, thanh toán, trừ trường hợp hóa đơn được khởi tạo từ máy tính\ntiền có kết nối chuyển dữ liệu điện tử với cơ quan thuế theo quy định tại Nghị\nđịnh này.",
+      "chunk_sha256": "001d83f264bc09b88327715d0e7e722e494c61447e61f53b8f7c66db9da3a045"
+    },
+    {
+      "doc_id": "ND-125-2020-ND-CP",
+      "sections": [
+        "S7"
+      ],
+      "title": "Chỉ xử phạt thuế khi có hành vi được quy định",
+      "summary": "Tổ chức, cá nhân chỉ bị xử phạt hành chính về thuế, hóa đơn khi có hành vi vi phạm được quy định.",
+      "limits": "Chỉ khoản 2 Điều 5; không nhập các quy tắc gộp hành vi cũ đã bị NĐ310 sửa đổi. Không suy mọi thông báo doanh thu là hồ sơ khai thuế.",
+      "from": 2020,
+      "to": null,
+      "start": "2. Tổ chức, cá nhân chỉ bị xử phạt",
+      "end": "3. Tổ chức, cá nhân thực hiện",
+      "locator": "Khoản 2 Điều 5",
+      "effective_from": "2020-12-05",
+      "ref_id": "16.199",
+      "status": "APPROVED_SCOPED",
+      "source_file": "document_library/ND-125-2020-ND-CP.md",
+      "source_sha256": "f35b94c7452e26c462c0b3656cd26f6c819f9bbf4b56a100d2cdcbe2c1314958",
+      "excerpt_sha256": "77a06b250e647286467967e75cdc80ef18ed505a57f34bc62c052e276356a156",
+      "quote": "2. Tổ chức, cá nhân chỉ bị xử phạt vi phạm hành chính về thuế, hóa đơn khi có\nhành vi vi phạm hành chính về thuế, hóa đơn theo quy định tại Nghị định này.",
+      "chunk_sha256": "a46c618f672760b68122c74bab0101dba6a00a4240869fb10adf588ec76f3949"
+    },
+    {
+      "doc_id": "ND-125-2020-ND-CP",
+      "sections": [
+        "S9"
+      ],
+      "title": "Hộ kinh doanh áp dụng mức phạt như cá nhân",
+      "summary": "Đối với người nộp thuế là hộ gia đình, hộ kinh doanh, áp dụng mức phạt tiền như đối với cá nhân.",
+      "limits": "Chỉ quy tắc xác định đối tượng tại điểm a khoản 4 Điều 7; không cung cấp khung tiền phạt cũ, không tự chia đôi mọi chế tài.",
+      "from": 2020,
+      "to": null,
+      "start": "Đối với người nộp thuế là hộ gia đình",
+      "end": "b) Khi xác định mức phạt tiền",
+      "locator": "Điểm a khoản 4 Điều 7 (đoạn về hộ gia đình, hộ kinh doanh)",
+      "effective_from": "2020-12-05",
+      "ref_id": "16.200",
+      "status": "APPROVED_SCOPED",
+      "source_file": "document_library/ND-125-2020-ND-CP.md",
+      "source_sha256": "f35b94c7452e26c462c0b3656cd26f6c819f9bbf4b56a100d2cdcbe2c1314958",
+      "excerpt_sha256": "d74ab5be8af89d75fc6aea8b9b3a90349fc66b8403e1d2b6799993e2b41d25be",
+      "quote": "Đối với người nộp thuế là hộ gia đình, hộ kinh doanh áp dụng mức phạt tiền\nnhư đối với cá nhân.",
+      "chunk_sha256": "f89c4ae6683917a8e409de54aca76493f04f22f09b4bbd2ec4babdd47c4f0bfa"
+    },
+    {
+      "doc_id": "ND-144-2026-ND-CP",
+      "sections": [
+        "S3"
+      ],
+      "title": "Doanh thu đại lý và hoa hồng môi giới bảo hiểm trong GTGT",
+      "summary": "Điều 2 sửa điểm b khoản 1 Điều 9 NĐ181 về doanh thu hàng hóa, dịch vụ, hoa hồng đại lý hàng hóa/dịch vụ không chịu GTGT và hoa hồng môi giới bảo hiểm không chịu GTGT.",
+      "limits": "Phải xác định đúng loại hoạt động, tính chất hoa hồng và phương pháp GTGT; không suy mọi hoa hồng, đại lý đều không chịu thuế hoặc được khấu trừ đầu vào.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-06-20",
+      "ref_id": "16.201",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 2",
+      "source_file": "document_library/ND-144-2026-ND-CP.md",
+      "source_sha256": "1bd10902de99724622381327427b6a17d636a3065aaf8b3d794fb6f91d3805f8",
+      "excerpt_sha256": "1ceb8d62742bd0d5c7a69c8e25654a84144ce79c8e1aaa7491d34394fdba1d34",
+      "quote": "Điều 2. Sửa đỗi, bồ sung điểm b khoản 1 Điều 9\n\n“b) Doanh thu hàng hóa, dịch vụ và doanh thu hoa hồng đại lý được hướng\ntừ hoạt động đại lý bán hàng hóa, dịch vụ thuộc đối tượng không chịu thuế giá\n\nl trị gia tăng; doanh thu hoa hồng môi giới dịch vụ bảo hiểm thuộc đối tượng\nkhông chịu thuế giá trị gia tăng.”.",
+      "chunk_sha256": "b7dc45b6bd096c677d6d2e18e0f54a19381066ce4499aab50927876da72e16e8"
+    },
+    {
+      "doc_id": "ND-168-2025-ND-CP",
+      "sections": [
+        "S88"
+      ],
+      "title": "Trụ sở và hoạt động ngoài trụ sở của hộ kinh doanh",
+      "summary": "Trụ sở là nơi hoạt động và địa chỉ liên lạc đã đăng ký để cơ quan quản lý liên hệ; hộ có thể hoạt động ngoài trụ sở theo khoản 1 Điều 87.",
+      "limits": "Chỉ khoản 1 Điều 87. Không nhập khoản 2 bản gốc: khoản 5 Điều 19 NĐ296/2026 đã thay cụm từ về nơi đặt địa điểm bằng theo quy định pháp luật. Không kết luận nơi gửi thông báo từ bản cũ.",
+      "from": 2025,
+      "to": null,
+      "end": "2. Địa điểm kinh doanh",
+      "locator": "Khoản 1 Điều 87",
+      "effective_from": "2025-07-01",
+      "ref_id": "16.202",
+      "status": "APPROVED_SCOPED",
+      "source_file": "document_library/ND-168-2025-ND-CP.md",
+      "source_sha256": "dec8b8000e29832028f5da895c35027c4baa1993ba87baab92815815deb7f182",
+      "excerpt_sha256": "3f7698d60cc47e2ecf3bf859ef02eb45b62981781f74c3558a4631d8ce53d9ad",
+      "quote": "Điều 87. Trụ sở và địa điểm kinh doanh của hộ kinh doanh\n\n1. Trụ sở của hộ kinh doanh là nơi hộ kinh doanh thực hiện hoạt động\nkinh doanh và là địa chỉ liên lạc do hộ kinh doanh đăng ký để cơ quan quản lý\nnhà nước liên hệ, được xác định theo địa giới đơn vị hành chính trên lãnh thô\nViệt Nam. Hộ kinh doanh có thê hoạt động kinh doanh ngoài trụ sở.",
+      "chunk_sha256": "0de1e547e7e844ddce8d037a406fd0b19622c7be911b012a002145f55ad405a6"
+    },
+    {
+      "doc_id": "ND-168-2025-ND-CP",
+      "sections": [
+        "S94"
+      ],
+      "title": "Ủy quyền đăng ký hộ kinh doanh",
+      "summary": "Phân biệt ủy quyền cá nhân, tổ chức dịch vụ và đơn vị bưu chính; văn bản ủy quyền cá nhân thực hiện thủ tục không bắt buộc công chứng/chứng thực theo Điều 93.",
+      "limits": "Chỉ khoản 1–4 Điều 93. Ủy quyền làm thủ tục khác văn bản thành viên gia đình ủy quyền làm chủ hộ. Không nhập khoản 5 bản gốc: Điều 15 NĐ296/2026 đã sửa phạm vi xác thực điện tử.",
+      "from": 2025,
+      "to": null,
+      "end": "5. Người ủy quyền",
+      "locator": "Khoản 1 Điều 93; khoản 2 Điều 93; khoản 3 Điều 93; khoản 4 Điều 93",
+      "effective_from": "2025-07-01",
+      "ref_id": "16.203",
+      "status": "APPROVED_SCOPED",
+      "source_file": "document_library/ND-168-2025-ND-CP.md",
+      "source_sha256": "dec8b8000e29832028f5da895c35027c4baa1993ba87baab92815815deb7f182",
+      "excerpt_sha256": "22c00b1255d660b6ed185382da1886eb1caa4f672bd8db770a3438f049633ef3",
+      "quote": "Điều 93. Ủy quyền thực hiện thủ tục đăng ký hộ kinh doanh\n\nChủ hộ kinh doanh có thể ủy quyền cho tổ chức, cá nhân khác thực hiện\nthủ tục đăng ký hộ kinh doanh theo quy định sau đây:\n\n\n[Trang 95]\n\n95\n\n1. Trường hợp ủy quyền cho cá nhân thực hiện thủ tục đăng ký hộ kinh\ndoanh, kèm theo hô sơ đăng ký hộ kinh doanh phải có văn bản ủy quyên cho\ncá nhân thực hiện thủ tục liên quan đên đăng ký hộ kinh doanh. Văn bản ủy\nquyền này không bắt buộc phải công chứng, chứng thực.\n\n2. Trường hợp ủy quyền cho tổ chức thực hiện thủ tục đăng ký hộ kinh\ndoanh, kèm theo hô sơ đăng ký hộ kinh doanh phải có bản sao hợp đông cung\ncấp dịch vụ với tổ chức làm dịch vụ thực hiện thủ tục liên quan đến đăng ký\nhộ kinh doanh, giây giới thiệu của tổ chức đó cho cá nhân trực tiếp thực hiện\nthủ tục liên quan đến đăng ký hộ kinh doanh.\n\n3. Trường hợp ủy quyền cho đơn vị cung cấp dịch vụ bưu chính công ích\nthực hiện thủ tục đăng ký hộ kinh doanh thì khi thực hiện thủ tục đăng ký hộ\nkinh doanh, nhân viên bưu chính phải nộp bản sao phiêu gửi hỗ sơ theo mâu\ndo doanh nghiệp cung ứng dịch vụ bưu chính công ích phát hành có chữ ký\nxác nhận của nhân viên bưu chính và chủ hộ kinh doanh.\n\n4. Trường hợp ủy quyền cho đơn vị cung cấp dịch vụ bưu chính không\nphải là bưu chính công ích thực hiện thủ tục đăng ký hộ kinh doanh thì việc\nủy quyền thực hiện theo quy định tại khoản 2 Điều này.",
+      "chunk_sha256": "c5fd550b69e5b2638392f898d95e7aee48d9f1fd0278b79b05f79ebf6ee5c839"
+    },
+    {
+      "doc_id": "ND-245-2026-ND-CP",
+      "sections": [
+        "S2",
+        "S4"
+      ],
+      "title": "Điều kiện và hồ sơ gia hạn thuế cho HKD CNKD năm 2026",
+      "summary": "Phải thuộc đối tượng, ngành/lĩnh vực trong Điều 1 và Phụ lục I; vẫn khai thuế đúng quy định. Văn bản đề nghị gia hạn nộp một lần, hạn chậm nhất 02/11/2026 theo Điều 3.",
+      "limits": "Chỉ phần HKD/CNKD, không chuyển ưu đãi TNDN của doanh nghiệp sang hộ. Thẻ không chứa bảng kỳ hạn Điều 2 vì OCR nhầm nhãn quý; cần đối chiếu bản chính trước khi chốt từng ngày nộp.",
+      "from": 2026,
+      "to": 2026,
+      "ref_id": "16.204",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 1; Điều 3",
+      "source_file": "document_library/ND-245-2026-ND-CP.md",
+      "source_sha256": "fb32b8229a2a2afdbd532050cd02c1a876b0d8647c9b083f4bd0a54e2ee90fbe",
+      "excerpt_sha256": "6a7b980d4cdca322b84f9cdd2ad6aa1021bc3a04468137bbc32aaebbcc2d5898",
+      "quote": "Điều 1. Phạm vi điều chỉnh và đối tượng áp dụng\n\n1. Nghị định này quy định việc gia hạn thời hạn nộp thuế giá trị gia tăng, thuế thu\nnhập doanh nghiệp, thuế thu nhập cá nhân và tiên thuê đất trong năm 2026.\n\n2. Đối tượng áp dụng của Nghị định này bao gồm:\n\na) Doanh nghiệp, tổ chức (bao gồm cả chỉ nhánh, đơn vị trực thuộc thực hiện\nkhai thuế giá trị gia tăng riêng, khai thuế thu nhập doanh nghiệp riêng với cơ quan\nthuê quản lý trực tiếp), hộ gia đình, cá nhân, hộ kinh doanh, cá nhân kinh doanh,\nhoạt động sản xuất, kinh doanh trong các ngành kinh tê, lĩnh vực quy định tại Phụ\nlục ! ban hành kèm theo Nghị định này và có phát sinh số thuê giá trị gia tăng,\nthuế thu nhập doanh nghiệp, thuế thu nhập cá nhân hoặc tiền thuê đất thuộc các\nkỳ được gia hạn theo quy định tại Điều 2 Nghị định này;\n\nb) Doanh nghiệp nhỏ và siêu nhỏ được xác định theo quy định của Luật Hỗ\ntrợ doanh nghiệp nhỏ và vừa năm 2017 và Nghị định số 80/2021/NĐ-CP ngày\n26 tháng 8 năm 2021 của Chính phủ quy định chi tiết một số điều của Luật Hồ\ntrợ doanh nghiệp nhỏ và vừa, bao gồm cả chỉ nhánh, đơn vị trực thuộc thực hiện\nkhai thuế giá trị gia tăng riêng, khai thuế thu nhập doanh nghiệp riêng với cơ\nquan thuế quản lý trực tiếp, có phát sinh số thuê giá trị gia tăng, thuế thu nhập\ndoanh nghiệp hoặc tiên thuê đất thuộc các kỳ được gia hán theo quy định tại\nĐiều 2 Nghị định này.\n\nĐiều 3. Trình tự thực hiện gia hạn\n\n1. Người nộp thuế thực hiện kê khai, nộp Tờ khai thuế giá trị gia tăng, Tờ\nkhai thuế thu nhập cá nhân theo tháng, quý theo quy định của pháp luật về quản\nlý thuê hiện hành nhưng chưa phải nộp số thuế giá trị gia tăng, thuế thu nhập cá\nnhân phải nộp phát sinh của các kỳ được gia hạn theo quy định tại Điều 2 Nghị\nđịnh này.\n\n2. Người nộp thuế trực tiếp kê khai, nộp thuế với cơ quan thuế thuộc đối\ntượng được gia hạn gửi Văn bản để nghị gia hạn nộp thuế và tiền thuê đất (sau\nđây gọi là Văn bản đề nghị gia hạn) lần đầu hoặc thay thế khi phát hiện có sai\nsót (bằng phương thức điện tử; gửi bản giấy trực tiếp đến cơ quan thuế hoặc\ngửi qua dịch vụ bưu chính) theo Mẫu tại Phụ lục II ban hành kèm theo Nghị\nđịnh này cho cơ quan thuế quản lý trực tiếp một lần cho toàn bộ số thuế, tiền\nthuê đất phát sinh trong các kỳ tính thuế được gia hạn cùng với thời điểm nộp\nhồ sơ khai thuế theo tháng (hoặc theo quý) theo quy định pháp luật về quản lý\nthuế. Trường hợp Văn bản đề nghị gia hạn không nộp cùng với thời điểm nộp\nhồ sơ khai thuế tháng (hoặc theo quý) thì thời hạn nộp chậm nhất là ngày 02\ntháng l1 năm 2026.\n\nCơ quan thuế căn cứ Văn bản đề nghị gia hạn đã tiếp nhận để thực hiện gia\nhạn đối với toàn bộ số thuế, tiền thuê đất thuộc diện được gia hạn phát sinh trong\ncác kỳ tính thuế quy định tại Nghị định này, bao gồm cả các kỳ phát sinh trước\nthời điểm người nộp thuế nộp Văn bản đề nghị gia hạn.\n\nTrường hợp người nộp thuế có các khoản được gia hạn thuộc nhiều địa bàn\ncơ quan thuế quản lý khác nhau thì cơ quan thuế quản lý trực tiếp người Tiộp thuế\ncó trách nhiệm truyền thông tin Văn bản đề nghị gia hạn cho cơ quan thuế quản\nlý có liên quan.\n\n3. Trường hợp người nộp thuế gửi Văn bản đề nghị gia hạn cho cơ quan thuế\nsau ngày 02 tháng 11 năm 2026 thì không được gia hạn nộp thuế, tiền thuê đất\ntheo quy định tại Nghị định này.\n\n4. Người nộp thuế nộp số tiền thuế, tiền thuê đất được gia hạn vào ngân sách\nnhà nước chậm nhất theo thời hạn quy định tại Điêu 2 Nghị định này.\n\n3. Cơ quan thuế thông qua Hệ thống thông tin quản lý thuế tự động cập nhật\nthời hạn nộp thuế, tiền thuê đất được gia hạn đối với từng kỳ kê khai của người\nnộp thuế trên cơ sở dữ liệu đăng ký thuế, hồ sơ khai thuế, Văn bản đề nghị gia\nhạn, thông tin quản lý nghĩa vụ thuế và thông tin quản lý tiền thuê đất, bao gồm\n\n\n[Trang 4]\n\n\" LỊ\n\"¬ 4 |\ncả số thuế phải nộp tăng thêm do khai bổ sung thuộc trường hợp được gia hạn\ntheo khoản 4 Điều 2 Nghị định này. Cơ quan thuế không phải thông báo cho người\nnộp thuế về việc chấp nhận gia hạn nộp thuế và tiền thuê đất |\nTrường hợp trong thời gian gia hạn, cơ quan thuế có cơ sở xác định người,\nnộp thuế không thuộc đối tượng gia hạn thì cơ quan thuế có văn bản thông báo\ncho người nộp thuế về việc không gia hạn và người nộp thuế phải nộp đủ số tiền\nthuế, tiền thuê đất và tiền chậm nộp trong khoảng thời gian đã thực hiện gia hạn\nvào ngân sách nhà nước. Trường hợp sau khi hết thời gian gia hạn, qua thanh tra,\nkiểm tra cơ quan nhà nước có thẩm quyển phát hiện người nộp thuế không thuộc\nđối tượng được gia bạn nộp thuế, tiền thuê đất theo quy định tại Nghị định này thì\nngười nộp thuế phải nộp số tiền thuế còn thiếu, tiền phạt và tiền chậm nộp vào\nngân sách nhà nước. i |\n6. Chủ đầu tư các công trình, hạng mục công trình xây dựng cơ bản bằ hp\nnguồn vốn ngân sách nhà nước, các khoản thanh toán từ nguồn ngân sách nhà\nnước cho các công trình xây dựng cơ bản của các dự án sử dụng vốn ODA thuộc |\ndiện chịu thuế giá trị gia tăng khi làm thủ tục thanh toán với Kho bạc Nhà nước\nphải gửi kèm thông báo cơ quan thuế đã tiếp nhận Văn bản đề nghị gia hạn của\nnhà thầu thực hiện công trình hoặc Văn bản đề nghị gia hạn đã có dấu tiếp nhận\ncủa cơ quan thuế. Kho bạc Nhà nước căn cứ trên hồ sơ do chủ đầu tư gửi chựa |\nthực hiện khấu trừ thuế giá trị gia tăng trong thời gian gia hạn. Khi hết thời gia\ngia hạn, nhà thầu phải nộp đủ số thuế được gia hạn theo quy định. ự",
+      "chunk_sha256": "a6d511a77d5ad31420ba112e101245554ef2fdac6310f52e999afcf3fa0df623"
+    },
+    {
+      "doc_id": "ND-248-2026-ND-CP",
+      "sections": [
+        "S8",
+        "S15"
+      ],
+      "title": "Kênh khiếu nại và chính sách đổi trả của nền tảng TMĐT",
+      "summary": "Nền tảng công khai cách tiếp nhận, quy trình, thời gian xử lý phản ánh/khiếu nại và điều kiện, thời hạn, chi phí đổi trả/hoàn tiền.",
+      "limits": "Góc nhìn HKD/CNKD là người bán hoặc mua trên nền tảng. Nghĩa vụ công khai thuộc chủ quản nền tảng; không biến thành nghĩa vụ thuế riêng của mọi người bán.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.205",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 7; Điều 14",
+      "source_file": "document_library/ND-248-2026-ND-CP.md",
+      "source_sha256": "3fb485cc6d21310b88a10e2f5322ff9ddf832d5f077cef7700456285d7ba14a7",
+      "excerpt_sha256": "b3e44a625486bc3842ec67a17c8735b0258e89cb04b46614d460668519ba2a69",
+      "quote": "Điều 7. Phương thức tiếp nhận và giải quyết phản ánh, yêu cầu,\n\nkhiếu nại\n\nPhương thức tiếp nhận và xử lý phản ánh, yêu cầu, khiếu nại bao gồm ít\nnhất các nội đung sau đây: ¬\n\n1. Các phương thức tiếp nhận phản ánh, yêu cầu, khiếu nại, bao gồm ít\nnhất một phương thức liên hệ trực tuyến;\n\n2. Trình tự, thủ tục tiếp nhận và xử ly phản ánh, yêu cầu, khiếu nại, bao\ngồm các bước cụ thể mà các bên cần thực hiện; ;\n\n3. Thời hạn cụ thể phản hồi ban đầu và thời hạn dự kiến giải quyết cho\ntừng loại vấn đề phô biến;\n\n4. Các biện pháp, công cụ mà nền tảng áp dụng để hỗ trợ giải quyết phản\nánh, yêu cầu, khiếu nại.\n\nĐiều 14. Chính sách về đối trả hàng và hoàn tiền\nNền tảng thương mại điện tử có chức năng đặt hàng trực tuyến có hoạt\nđộng mua bán hàng hóa phải công khai chính sách về đổi trả hàng và hoàn tiền,\nbao gồm ít nhất cácnội dung sau đây:\n1. Điều kiện về hàng hóa được đổi trả hàng và hoàn tiền;\n2. Thời hạn yêu cầu đổi trả hàng và hoàn tiền;\n3. Quy trình tiếp nhận, xử lý yêu cầu đổi trả hàng và hoàn tiền;\n4. Phương thức đổi trả hàng và hoàn tiền;\n5. Chi phí hoàn trả của các bên.",
+      "chunk_sha256": "b37a3737ee4d603eb6a6696101938a631fa5234072ec0050e7b7427147b8e24f"
+    },
+    {
+      "doc_id": "ND-254-2026-ND-CP",
+      "sections": [
+        "S14"
+      ],
+      "title": "Xử lý sự cố hóa đơn điện tử có mã",
+      "summary": "Phân biệt lỗi của người bán, hệ thống cấp mã, nhà cung cấp dịch vụ và bất khả kháng; liên hệ cơ quan thuế/nhà cung cấp, lưu hồ sơ chứng minh theo Điều 14.",
+      "limits": "Chỉ nhánh người bán HKD/CNKD sử dụng đúng loại hóa đơn; thời hạn 02 ngày tại khoản 4 áp dụng chủ thể truyền dữ liệu nêu trong nguồn, không áp cho mọi hộ. Mốc 03 ngày có điều kiện bất khả kháng tại khoản 5.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.206",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 14",
+      "source_file": "document_library/ND-254-2026-ND-CP.md",
+      "source_sha256": "92e9b0e5e15afb6c4423bb194ab7f59326db55967892ec7a71d3dfb6243c0d01",
+      "excerpt_sha256": "f8ac21e637fbb58ae7603b32fd201beefaa46deae4fa20358dec28414fd2fca4",
+      "quote": "Điều 14. Xứ lý sự cố\n\n1. Trường hợp người bán hàng hóa, cung cấp dịch vụ sử dụng hóa đơn\n\n. điện tử có mã của cơ quan thuế nhưng gặp sự cô dẫn đên không sử dụng được\nhóa đơn điện tử có mã của cơ quan thuế thì liên hệ với cơ quan thuế hoặc tô\nchức cung cấp dịch vụ đề hỗ trợ xử lý sự cô. Trong thời gian xử lý sự cô, người\nbán hàng hóa, cung cấp dịch vụ có yêu câu sử dụng hóa đơn điện tử có mã của\ncơ quan thuế thì đên cơ quan thuế đê sử dụng hóa đơn điện tử có mã của cơ\n\n._ quan thuê.\n\n2. Trường hợp sự cố từ hệ thống cấp mã của cơ quan thuế\n\nTrường hợp hệ thống cấp mã hóa đơn điện tử của cơ quan thuế gặp sự cổ\nkỹ thuật dẫn đến gián đoạn việc cấp mã, Cục Thuế có trách nhiệm: kích hoạt\nhệ thông dự phòng để bảo đảm hoạt động cập mã, thông báo công khai trên\n\n-__ Trang thông tin điện tử của Cục Thuế về phạm vi ảnh hưởng, thời điểm bắt đầu\n\n\n[Trang 25]\n\n25\n\nvà dự kiến thời gian khắc phục; trường hợp cần thiết, ủy quyền cho tổ chức\ncung cấp dịch vụ hóa đơn điện tử đủ điều kiện thực hiện cấp mã theo quy định.\n\n. 3. Trường hợp do lỗi hệ thống hạ tầng kỹ thuật của tổ chức cung cấp dịch\nvụ hóa đơn điện tử thì tổ chức cung cập dịch vụ hóa đơn điện tử có trách nhiệm\nthông báo cho người bán được biết, phôi hợp với Cục Thuế đê được hồ trợ kịp\nthời. Tô chức cung cập dịch vụ hóa đơn điện tử phải khắc phục nhanh nhật sự\ncô, có biện pháp hỗ trợ người bán lập hóa đơn điện tử đề gửi cơ quan thuế cấp\nmã trong thời gian ngăn nhất.\n\n4. Trường hợp Hệ thống thông tin quản lý thuế gặp lỗi kỹ thuật chưa tiếp\nnhận được dữ liệu hóa đơn điện tử không có mã, Cục Thuế có trách nhiệm\nthông báo trên Trang thông tin điện tử của Cục Thuế. Trong thời gian này tô\nchức kinh tê, tổ chức khác, tổ chức cung cấp dịch vụ hoá đơn điện tử tạm thời\nchưa chuyên đữ liệu hóa đơn không có mã đên cơ quan thuế.\n\nTrong vòng 02 ngày làm việc kế từ ngày Cục Thuế có thông báo Hệ thống\nthông tin quản lý thuế hoạt động trở lại bình thường, tổ chức kinh tê, tổ chức\nkhác, tổ chức cung cập dịch vụ hoá đơn điện tử chuyên dữ liệu hoá đơn đên cơ\nquan thuê.\n\n5. Trong trường hợp bất khả kháng theo quy định tại khoản 2] Điều 4 Luật\nQuản lý thuê số 108/2025/QH15 gồm chiên tranh, bạo loạn, đình công phải\nngừng, nghỉ sản xuất, kinh doanh hoặc rủi ro không thuộc nguyên nhân, trách\nnhiệm chủ quan của người bán mà người bán hoặc cơ quan thuế không thề thực\nhiện việc lập, cập mã hoặc truyền đữ liệu hóa đơn điện tử đúng thời hạn:\n\na) Trong vòng 03 ngày làm việc kể từ ngày sự cố được khắc phục, người\nbán được thực hiện việc lập và gửi hóa đơn điện tử tới cơ quan thuế;\n\nb) Người bán có trách nhiệm ghi chép số sách kế toán về giao dịch mua\nbán, lưu giữ tài liệu chứng minh trường hợp bất khả kháng theo quy định.\n\n6. Việc lập, gửi hóa đơn, chuyển đữ liệu hóa đơn quá thời hạn do các\nnguyên nhân trên được xác định là trường hợp bất khả kháng theo quy định\npháp luật về quản lý thuế.",
+      "chunk_sha256": "f5dca0cfc67abeb0d07eb226a1ede16c068415f9d62931d6924346776035a126"
+    },
+    {
+      "doc_id": "ND-291-2026-ND-CP",
+      "sections": [
+        "S2"
+      ],
+      "title": "Phân biệt cung cấp thông tin trao đổi quốc tế với thông báo doanh thu",
+      "summary": "NĐ291 bổ sung nhánh vi phạm cung cấp thông tin phục vụ trao đổi thông tin theo điều ước/thỏa thuận thuế; khi thuộc Điều 19a thì không xử phạt theo Điều 14, 15, 19 cho cùng nhánh nêu tại nguồn.",
+      "limits": "Không dùng Điều 19a để tự phạt hành vi chậm thông báo doanh thu thông thường. Thẻ chỉ nhận diện phạm vi, không kết luận mọi trường hợp thông báo doanh thu được miễn chế tài.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-21",
+      "ref_id": "16.207",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 1",
+      "source_file": "document_library/ND-291-2026-ND-CP.md",
+      "source_sha256": "663d91dab9813495c79c97bb5b420c3e35fef26a531fc0548f6cb5e9eded8588",
+      "excerpt_sha256": "5a14272a983d34b876a102fa044b177f1d2445e40ea983658c99f2e2ce53978e",
+      "quote": "Điều 1. Sửa đổi, bỗ sung điểm d khoản 3 Điều 5\n\n“đ) Hành vi vi phạm về cung cấp thông tin phục vụ mục đích trao đổi\nthông tin theo quy định của pháp luật Việt Nam, điều ước quốc tê, thỏa thuận\nquốc tế về thuế mà nước Cộng hòa xã hội chủ nghĩa Việt Nam là thành viên\nhoặc là bên ký kết thuộc trường hợp bị xử phạt theo Điều 19a thì không bị xử\nphạt theo Điều 14, Điều 15, Điều 19 Nghị định này.”.",
+      "chunk_sha256": "ddc4a5d65e5b3ec42cd5b1df6331c4e499fc726f13e22974d782ff7e3224369d"
+    },
+    {
+      "doc_id": "ND-310-2025-ND-CP",
+      "sections": [],
+      "title": "Bất khả kháng trong xử phạt thuế, hóa đơn theo NĐ310",
+      "summary": "Sự kiện phải khách quan, không thể lường trước và người nộp thuế không thể khắc phục dù đã áp dụng mọi biện pháp cần thiết, khả năng cho phép.",
+      "limits": "Không tự động miễn phạt chỉ vì hệ thống lỗi, bệnh hoặc thiên tai; phải xét đủ điều kiện và chứng cứ. Dùng bản PDF chính thức, không dùng bản tóm tắt trong thư viện.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-01-16",
+      "official_file": "rag_data/sources/legal-cards-2026-10-26/ND-310-2025-official.pdf",
+      "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/12/310-cp.signed.pdf",
+      "locator": "Điểm b khoản 1 Điều 1 (bổ sung khoản 10 Điều 2 NĐ125); trang 2 PDF chính thức",
+      "transcription": "10. Các trường hợp bất khả kháng bao gồm: thiên tai, thảm họa, dịch bệnh, hỏa hoạn, tai nạn bất ngờ, chiến tranh, bạo loạn, đình công hoặc sự kiện xảy ra một cách khách quan không thể lường trước được và người nộp thuế không thể khắc phục được mặc dù đã áp dụng mọi biện pháp cần thiết và khả năng cho phép.",
+      "ref_id": "16.208",
+      "status": "APPROVED_SCOPED",
+      "source_file": "rag_data/sources/legal-cards-2026-10-26/ND-310-2025-official.pdf",
+      "source_sha256": "9c8a7f4ae823f42b396830912f82c65524b78081dbc6a8a604ba803f2b0d962d",
+      "excerpt_sha256": "95f1b61b6b1d3c42d6e9d271ca9335be3822ac9eff8050730b1ab33e4feab372",
+      "quote": "10. Các trường hợp bất khả kháng bao gồm: thiên tai, thảm họa, dịch bệnh, hỏa hoạn, tai nạn bất ngờ, chiến tranh, bạo loạn, đình công hoặc sự kiện xảy ra một cách khách quan không thể lường trước được và người nộp thuế không thể khắc phục được mặc dù đã áp dụng mọi biện pháp cần thiết và khả năng cho phép.",
+      "chunk_sha256": "5f84d3a36e3421548880f624f0c536cbe3593169c6fd1edce844910816ac52c0"
+    },
+    {
+      "doc_id": "TT-100-2021-TT-BTC",
+      "sections": [
+        "S2"
+      ],
+      "title": "Lịch sử thuế khoán, ủy quyền nộp thay và cho thuê tài sản",
+      "summary": "Bản sửa TT40 quy định riêng hộ khoán ngừng hoạt động, ủy quyền nộp thay và phân bổ tiền thuê trả trước theo năm.",
+      "limits": "Chỉ tra cứu giai đoạn cũ 2022–2025. TT18/2026 thay thế TT100; không dùng ngưỡng 100 triệu hoặc thuế khoán cho kỳ 2026.",
+      "from": 2022,
+      "to": 2025,
+      "effective_from": "2022-01-01",
+      "ref_id": "16.209",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 1",
+      "source_file": "document_library/TT-100-2021-TT-BTC.md",
+      "source_sha256": "c394647c92bfd8e18a60904b784c20ec03e96fdc33c01d64246ab5624fcbddaa",
+      "excerpt_sha256": "213328a592d18559b68ec6c24290ff501734ecf48a106c2b0bbdbfb76df57a98",
+      "quote": "Điều 1. Sửa đổi, bổ sung một số điều của Thông tư số 40/2021/TT-BTC\nngày 01/6/2021 của Bộ Tài chính\n    1. Sửa đổi khoản 3 Điều 7 như sau:\n    “3. Hộ khoán đã được cơ quan thuế thông báo số thuế khoán phải nộp từ đầu\nnăm thì hộ khoán thực hiện nộp thuế theo thông báo. Trường hợp hộ khoán đã\nđược thông báo số thuế từ đầu năm nhưng trong năm ngừng hoặc tạm ngừng\nkinh doanh thì cơ quan thuế thực hiện điều chỉnh số thuế phải nộp theo hướng\ndẫn tại điểm b.4, điểm b.5 khoản 4 Điều 13 Thông tư này. Trường hợp hộ khoán\nmới ra kinh doanh trong năm (kinh doanh không đủ 12 tháng trong năm dương\nlịch) thì hộ khoán thuộc diện phải nộp thuế GTGT, phải nộp thuế TNCN nếu có\ndoanh thu kinh doanh trong năm trên 100 triệu đồng; hoặc thuộc diện không\nphải nộp thuế GTGT, không phải nộp thuế TNCN nếu có doanh thu kinh doanh\ntrong năm từ 100 triệu đồng trở xuống.”\n    2. Sửa đổi điểm đ, điểm e khoản 1 Điều 8 như sau:\n    “đ) Tổ chức bao gồm cả chủ sở hữu Sàn giao dịch thương mại điện tử thực\nhiện việc khai thuế thay, nộp thuế thay cho cá nhân trên cơ sở ủy quyền theo quy\nđịnh của pháp luật dân sự;\n    e) Cá nhân khai thuế thay, nộp thuế thay cho cá nhân là người nộp thuế trên cơ\nsở ủy quyền theo quy định của pháp luật dân sự.”\n    3. Sửa đổi điểm c khoản 1 Điều 9 như sau:\n    “c) Cá nhân chỉ có hoạt động cho thuê tài sản và thời gian cho thuê không trọn\nnăm, nếu phát sinh doanh thu cho thuê từ 100 triệu đồng/năm trở xuống thì thuộc\ndiện không phải nộp thuế GTGT, không phải nộp thuế TNCN. Trường hợp bên\nthuê trả tiền thuê tài sản trước cho nhiều năm thì mức doanh thu để xác định cá\nnhân phải nộp thuế hay không phải nộp thuế là doanh thu trả tiền một lần được\nphân bổ theo năm dương lịch.”\n\n4                CÔNG BÁO/Số 1049 + 1050/Ngày 21-12-2021\n\n    4. Bổ sung khoản 5 Điều 17 như sau:\n    “5. Xây dựng giải pháp, lộ trình cung cấp thông tin theo hình thức điện tử từ\ncác Sàn giao dịch thương mại điện tử đến cơ quan thuế nhằm mục đích xây dựng\ncơ sở dữ liệu về quản lý thuế theo rủi ro, đảm bảo yêu cầu về bảo mật thông tin\ntheo quy định, tạo điều kiện thuận lợi cho hoạt động của Sàn giao dịch thương mại\nđiện tử. Tổng cục Thuế hướng dẫn về việc chia sẻ và cung cấp thông tin giữa cơ\nquan thuế và Sàn giao dịch thương mại điện tử.”\n    5. Bổ sung khoản 6 Điều 18 như sau:\n    “6. Trong trường hợp tổ chức là chủ sở hữu Sàn giao dịch thương mại điện tử\nkhông thực hiện khai thuế thay, nộp thuế thay cho cá nhân kinh doanh thông qua\nSàn trên cơ sở ủy quyền theo quy định của pháp luật dân sự thì Cục Thuế phối hợp\nvới Sàn giao dịch thương mại điện tử trong việc chia sẻ và cung cấp thông tin của\ncá nhân kinh doanh thông qua Sàn theo hướng dẫn của Tổng cục Thuế để quản lý\nthuế theo quy định của pháp luật.”",
+      "chunk_sha256": "082b7214847a4a9a8a867753fa14d2af256a9d9e7699be844e3e06aabe96c444"
+    },
+    {
+      "doc_id": "TT-103-2014-TT-BTC",
+      "sections": [
+        "S8"
+      ],
+      "title": "Lịch sử nhà thầu nước ngoài là cá nhân và loại thuế áp dụng",
+      "summary": "Nhà thầu nước ngoài là tổ chức và cá nhân có nhánh thuế khác nhau; cá nhân nước ngoài kinh doanh có GTGT và TNCN theo pháp luật tương ứng.",
+      "limits": "Chỉ lịch sử 2014–2025; TT89 bãi bỏ TT103 từ 01/07/2026. Không lấy tỷ lệ TNDN của tổ chức để tính cho cá nhân và không suy nhận tiền từ nước ngoài là nhà thầu.",
+      "from": 2014,
+      "to": 2025,
+      "effective_from": "2014-10-01",
+      "ref_id": "16.210",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 5",
+      "source_file": "document_library/TT-103-2014-TT-BTC.md",
+      "source_sha256": "8dfa455cff3b468824ae7d02f0d2e04279a2f587e210c7627ffe4339b76c84cc",
+      "excerpt_sha256": "079add39785aa72f2d02316cc66db78d15f1c1438b35f524422d248e8410db3c",
+      "quote": "Điều 5. Các loại thuế áp dụng\n    1. Nhà thầu nước ngoài, Nhà thầu phụ nước ngoài là tổ chức kinh doanh thực\nhiện nghĩa vụ thuế giá trị gia tăng (GTGT), thuế thu nhập doanh nghiệp (TNDN)\ntheo hướng dẫn tại Thông tư này.\n    2. Nhà thầu nước ngoài, Nhà thầu phụ nước ngoài là cá nhân nước ngoài kinh\ndoanh thực hiện nghĩa vụ thuế GTGT theo hướng dẫn tại Thông tư này, thuế thu\nnhập cá nhân (TNCN) theo pháp luật về thuế TNCN.\n    3. Đối với các loại thuế, phí và lệ phí khác, Nhà thầu nước ngoài, Nhà thầu\nphụ nước ngoài thực hiện theo các văn bản pháp luật về thuế, phí và lệ phí khác\nhiện hành.",
+      "chunk_sha256": "39807eb7efc71e7ce8c9075c53f4f5dca94165da27267f8ab844d2879999f444"
+    },
+    {
+      "doc_id": "TT-110-2026-TT-BTC",
+      "sections": [
+        "S2"
+      ],
+      "title": "Bãi bỏ hướng dẫn thuế cũ và xóa nợ hộ cá thể",
+      "summary": "Thông tư bãi bỏ 22 thông tư và 03 quyết định, trong đó có hướng dẫn xóa nợ thuế cho hộ/cá nhân theo TT02/2004. Phải kiểm tra đúng văn bản nằm trong danh sách.",
+      "limits": "Không suy mọi thông tư thuế cũ đều bị bãi bỏ hoặc mọi khoản nợ cũ của HKD được tự xóa. Chỉ tra danh mục và thời điểm hiệu lực 12/09/2026.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-09-12",
+      "ref_id": "16.211",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 1",
+      "source_file": "document_library/TT-110-2026-TT-BTC.md",
+      "source_sha256": "d3c3e3f24332b720797e00dfaa8baa068f2768bd0e81cf118be16dab54bd4928",
+      "excerpt_sha256": "081fe2c25ca3bafd1d86f619dc13928afb53da6597985e2a3b3a9bfb8992015c",
+      "quote": "Điều 1. Bãi bỏ toàn bộ các Thông tư và Quyết định của Bộ trưởng Bộ Tài\nchính trong lĩnh vực thuế\n      Bãi bỏ toàn bộ 22 Thông tư và 03 Quyết định sau đây:\n      1. Thông tư số 69-TC/TCT ngày 27 tháng 11 năm 1991 của Bộ trưởng Bộ Tài\nchính hướng dẫn việc chuyển chế độ thu tiền nuôi rừng sang thu thuế tài nguyên đối\nvới khai thác sản phẩm rừng tự nhiên.\n\n      2. Thông tư số 75A-TC/TCT ngày 31 tháng 8 năm 1993 của Bộ trưởng Bộ Tài\nchính hướng dẫn thi hành Nghị định số 57-CP ngày 28 tháng 8 năm 1993 của Chính\nphủ quy định chi tiết thi hành Luật thuế lợi tức và Luật sửa đổi, bổ sung một số điều\ncủa Luật thuế lợi tức.\n       3. Thông tư số 48/1998/TT-BTC ngày 11 tháng 4 năm 1998 của Bộ trưởng Bộ\nTài chính sửa đổi, bổ sung Thông tư số 75A-TC/TCT ngày 31 tháng 8 năm 1993 của\nBộ Tài chính hướng dẫn thi hành Nghị định số 57-CP ngày 28 tháng 8 năm 1993 của\nChính phủ quy định chi tiết thi hành Luật thuế lợi tức và Luật sửa đổi, bổ sung một số\nđiều của Luật thuế lợi tức.\n       4. Thông tư số 105/2000/TT-BTC ngày 23 tháng 10 năm 2000 của Bộ trưởng\nBộ Tài chính về hướng dẫn việc miễn nộp nợ thuế sử dụng đất nông nghiệp, thuế nhà\nđất từ năm 1999 trở về trước.\n       5. Thông tư số 24/2002/TT-BTC ngày 20 tháng 3 năm 2002 của Bộ trưởng Bộ\nTài chính hướng dẫn thực hiện nghĩa vụ thuế đối với các hoạt động cho thuê tài chính.\n       6. Thông tư số 02/2004/TT-BTC ngày 08 tháng 01 năm 2004 của Bộ trưởng Bộ\nTài chính về việc hướng dẫn xóa nợ thuế cho hộ gia đình, cá nhân kinh doanh có nợ\nthuế do nguyên nhân khách quan.\n       7. Thông tư số 95/2004/TT-BTC ngày 11 tháng 10 năm 2004 của Bộ trưởng Bộ\nTài chính hướng dẫn một số chính sách hỗ trợ tài chính và ưu đãi về thuế phát triển\nvùng nguyên liệu và công nghiệp chế biến nông, lâm, thủy sản, muối.\n      8. Thông tư số 123/2004/TT-BTC ngày 22 tháng 12 năm 2004 của Bộ trưởng\nBộ Tài chính về việc hướng dẫn thực hiện ưu đãi về thuế đối với doanh nghiệp phần\nmềm (đã được đính chính bởi công văn số 2101/TC-VP ngày 22 tháng 02 năm 2005\ncủa Bộ Tài chính).\n       9. Thông tư số 114/2007/TT-BTC ngày 25 tháng 9 năm 2007 của Bộ trưởng Bộ\nTài chính về việc sửa đổi, bổ sung Thông tư số 95/2004/TT-BTC ngày 11 tháng 10\nnăm 2004 của Bộ Tài chính hướng dẫn một số chính sách hỗ trợ tài chính và ưu đãi về\nthuế phát triển vùng nguyên liệu và công nghiệp chế biến nông, lâm, thủy sản, muối.\n      10. Thông tư số 160/2009/TT-BTC ngày 12 tháng 8 năm 2009 của Bộ trưởng\nBộ Tài chính hướng dẫn miễn thuế thu nhập cá nhân năm 2009 theo Nghị quyết số\n32/2009/QH12 ngày 19 tháng 6 năm 2009 của Quốc hội về việc điều chỉnh mục tiêu\ntổng quát, một số chỉ tiêu kinh tế, Ngân sách Nhà nước, phát hành bổ sung trái phiếu\nChính phủ năm 2009 và miễn, giảm thuế thu nhập cá nhân.\n      11. Thông tư số 175/2010/TT-BTC ngày 05 tháng 11 năm 2010 của Bộ trưởng\nBộ Tài chính về việc sửa đổi, bổ sung Thông tư số 84/2008/TT-BTC ngày 30 tháng 9\nnăm 2008 của Bộ Tài chính hướng dẫn thi hành một số điều của Luật Thuế thu nhập\ncá nhân và hướng dẫn thi hành Nghị định số 100/2008/NĐ-CP ngày 08 tháng 9 năm\n2008 của Chính phủ quy định chi tiết một số điều của Luật Thuế thu nhập cá nhân.\n       12. Thông tư số 35/2011/TT-BTC ngày 15 tháng 3 năm 2011 của Bộ trưởng Bộ\nTài chính hướng dẫn một số nội dung về thuế giá trị gia tăng đối với dịch vụ viễn\nthông.\n      13. Thông tư số 120/2011/TT-BTC ngày 16 tháng 8 năm 2011 của Bộ trưởng\nBộ Tài chính hướng dẫn Nghị định số 20/2011/NĐ-CP ngày 23 tháng 3 năm 2011 của\n\nChính phủ quy định chi tiết và hướng dẫn thi hành Nghị quyết số 55/2010/QH12 ngày\n24 tháng 11 năm 2010 của Quốc hội về việc miễn, giảm thuế sử dụng đất nông\nnghiệp.\n        14. Thông tư số 128/2011/TT-BTC ngày 12 tháng 9 năm 2011 của Bộ trưởng\nBộ Tài chính hướng dẫn thuế giá trị gia tăng và thuế thu nhập doanh nghiệp đối với cơ\nsở y tế công lập.\n       15. Thông tư số 83/2012/TT-BTC ngày 23 tháng 5 năm 2012 của Bộ trưởng Bộ\nTài chính hướng dẫn thực hiện việc miễn, giảm, gia hạn một số khoản thu ngân sách\nnhà nước theo Nghị quyết số 13/NQ-CP ngày 10 tháng 5 năm 2012 của Chính phủ về\nmột số giải pháp tháo gỡ khó khăn cho sản xuất kinh doanh, hỗ trợ thị trường.\n      16. Thông tư số 175/2012/TT-BTC ngày 22 tháng 10 năm 2012 của Bộ trưởng\nBộ Tài chính hướng dẫn gia hạn nộp thuế giá trị gia tăng theo Nghị quyết số 67/NQ-\nCP ngày 05 tháng 10 năm 2012 của Chính phủ.\n       17. Thông tư số 16/2013/TT-BTC ngày 08 tháng 02 năm 2013 của Bộ trưởng\nBộ Tài chính hướng dẫn thực hiện việc gia hạn, giảm một số khoản thu Ngân sách\nNhà nước theo Nghị quyết số 02/NQ-CP ngày 07 tháng 01 năm 2013 của Chính phủ\nvề một số giải pháp tháo gỡ khó khăn cho sản xuất kinh doanh, hỗ trợ thị trường, giải\nquyết nợ xấu.\n       18. Thông tư số 160/2013/TT-BTC ngày 14 tháng 11 năm 2013 của Bộ trưởng\nBộ Tài chính hướng dẫn Nghị định số 94/2012/NĐ-CP về in, phát hành, quản lý và sử\ndụng tem đối với sản phẩm rượu nhập khẩu và rượu sản xuất để tiêu thụ trong nước.\n      19. Thông tư số 215/2013/TT-BTC ngày 31 tháng 12 năm 2013 của Bộ trưởng\nBộ Tài chính hướng dẫn về cưỡng chế thi hành Quyết định hành chính thuế.\n       20. Thông tư số 127/2015/TT-BTC ngày 21 tháng 8 năm 2015 của Bộ trưởng\nBộ Tài chính hướng dẫn việc cấp mã số doanh nghiệp thành lập mới và phân công cơ\nquan thuế quản lý đối với doanh nghiệp.\n       21. Thông tư số 87/2018/TT-BTC ngày 27 tháng 9 năm 2018 của Bộ trưởng Bộ\nTài chính sửa đổi, bổ sung một số điều của Thông tư số 215/2013/TT-BTC ngày 31\ntháng 12 năm 2013 của Bộ Tài chính hướng dẫn về cưỡng chế thi hành quyết định\nhành chính thuế.\n       22. Thông tư số 43/2019/TT-BTC ngày 12 tháng 7 năm 2019 của Bộ trưởng Bộ\nTài chính hướng dẫn quy định tại khoản 4 Điều 24 Nghị định số 82/2018/NĐ-CP ngày\n22 tháng 5 năm 2018 của Chính phủ quy định về quản lý Khu công nghiệp và Khu\nkinh tế.\n      23. Quyết định số 1042/1998/QĐ-BTC ngày 15 tháng 8 năm 1998 của Bộ\ntrưởng Bộ Tài chính về việc ban hành mẫu biên lai thuế.\n      24. Quyết định số 18/2007/QĐ-BTC ngày 22 tháng 3 năm 2007 của Bộ trưởng\nBộ Tài chính về việc in, phát hành, sử dụng và quản lý vé máy bay điện tử.\n       25. Quyết định số 78/2007/QĐ-BTC ngày 18 tháng 9 năm 2007 của Bộ trưởng\nBộ Tài chính ban hành Quy chế hướng dẫn, giải đáp vướng mắc về chính sách thuế,\nquản lý thuế và giải quyết các thủ tục hành chính thuế của người nộp thuế theo cơ chế\n“một cửa”.",
+      "chunk_sha256": "12d5cb949cc9514b538ad3cb277037b14b8a0217d448c0b76994c0c8352c2197"
+    },
+    {
+      "doc_id": "TT-111-2013-TT-BTC",
+      "sections": [
+        "S3"
+      ],
+      "title": "Lịch sử xác định cá nhân cư trú và phạm vi thu nhập",
+      "summary": "Phân biệt cá nhân cư trú/không cư trú, ngày hiện diện, nơi ở thường xuyên và chứng minh cư trú theo Điều 1.",
+      "limits": "Chỉ lịch sử đến 2025 phục vụ phân loại CNKD. TT87 thay TT111 từ 01/07/2026; không dùng nội dung thuế kinh doanh cũ hoặc giảm trừ tiền lương cho kỳ 2026.",
+      "from": 2013,
+      "to": 2025,
+      "effective_from": "2013-10-01",
+      "ref_id": "16.212",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 1",
+      "source_file": "document_library/TT-111-2013-TT-BTC.md",
+      "source_sha256": "119090a1d3375c81f7f36ce07d27a3be75db07bbb8cf7c5373d0fc4b49b0a1d2",
+      "excerpt_sha256": "74d86147575006340ce113080f1e8356a4cf7f911ff5bf634bb4f38206a122a3",
+      "quote": "Điều 1. Người nộp thuế\nNgười nộp thuế là cá nhân cư trú và cá nhân không cư trú theo quy định tại Điều 2 Luật\nThuế thu nhập cá nhân, Điều 2 Nghị định số 65/2013/NĐ-CP ngày 27/6/2013 của Chính\nphủ quy định chi tiết một số điều của Luật Thuế thu nhập cá nhân và Luật sửa đổi, bổ\nsung một số điều của Luật thuế thu nhập cá nhân (sau đây gọi tắt là Nghị định số\n65/2013/NĐ-CP), có thu nhập chịu thuế theo quy định tại Điều 3 Luật Thuế thu nhập cá\nnhân và Điều 3 Nghị định số 65/2013/NĐ-CP.\n\nPhạm vi xác định thu nhập chịu thuế của người nộp thuế như sau:\nĐối với cá nhân cư trú, thu nhập chịu thuế là thu nhập phát sinh trong và ngoài lãnh thổ\nViệt Nam, không phân biệt nơi trả và nhận thu nhập.\nĐối với cá nhân không cư trú, thu nhập chịu thuế là thu nhập phát sinh tại Việt Nam,\nkhông phân biệt nơi trả và nhận thu nhập.\n1. Cá nhân cư trú là người đáp ứng một trong các điều kiện sau đây:\na) Có mặt tại Việt Nam từ 183 ngày trở lên tính trong một năm dương lịch hoặc trong 12\ntháng liên tục kể từ ngày đầu tiên có mặt tại Việt Nam, trong đó ngày đến và ngày đi\nđược tính là một (01) ngày. Ngày đến và ngày đi được căn cứ vào chứng thực của cơ\nquan quản lý xuất nhập cảnh trên hộ chiếu (hoặc giấy thông hành) của cá nhân khi đến và\nkhi rời Việt Nam. Trường hợp nhập cảnh và xuất cảnh trong cùng một ngày thì được tính\nchung là một ngày cư trú.\nCá nhân có mặt tại Việt Nam theo hướng dẫn tại điểm này là sự hiện diện của cá nhân đó\ntrên lãnh thổ Việt Nam.\nb) Có nơi ở thường xuyên tại Việt Nam theo một trong hai trường hợp sau:\nb.1) Có nơi ở thường xuyên theo quy định của pháp luật về cư trú:\nb.1.1) Đối với công dân Việt Nam: nơi ở thường xuyên là nơi cá nhân sinh sống thường\nxuyên, ổn định không có thời hạn tại một chỗ ở nhất định và đã đăng ký thường trú theo\nquy định của pháp luật về cư trú.\nb.1.2) Đối với người nước ngoài: nơi ở thường xuyên là nơi ở thường trú ghi trong Thẻ\nthường trú hoặc nơi ở tạm trú khi đăng ký cấp Thẻ tạm trú do cơ quan có thẩm quyền\nthuộc Bộ Công an cấp.\nb.2) Có nhà thuê để ở tại Việt Nam theo quy định của pháp luật về nhà ở, với thời hạn\ncủa các hợp đồng thuê từ 183 ngày trở lên trong năm tính thuế, cụ thể như sau:\nb.2.1) Cá nhân chưa hoặc không có nơi ở thường xuyên theo hướng dẫn tại điểm b.1,\nkhoản 1, Điều này nhưng có tổng số ngày thuê nhà để ở theo các hợp đồng thuê từ 183\nngày trở lên trong năm tính thuế cũng được xác định là cá nhân cư trú, kể cả trường hợp\nthuê nhà ở nhiều nơi.\nb.2.2) Nhà thuê để ở bao gồm cả trường hợp ở khách sạn, ở nhà khách, nhà nghỉ, nhà trọ,\nở nơi làm việc, ở trụ sở cơ quan,... không phân biệt cá nhân tự thuê hay người sử dụng lao\nđộng thuê cho người lao động.\nTrường hợp cá nhân có nơi ở thường xuyên tại Việt Nam theo quy định tại khoản này\nnhưng thực tế có mặt tại Việt Nam dưới 183 ngày trong năm tính thuế mà cá nhân không\nchứng minh được là cá nhân cư trú của nước nào thì cá nhân đó là cá nhân cư trú tại Việt\nNam.\nViệc chứng minh là đối tượng cư trú của nước khác được căn cứ vào Giấy chứng nhận cư\ntrú. Trường hợp cá nhân thuộc nước hoặc vùng lãnh thổ đã ký kết Hiệp định thuế với Việt\nNam không có quy định cấp Giấy chứng nhận cư trú thì cá nhân cung cấp bản chụp Hộ\nchiếu để chứng minh thời gian cư trú.\n2. Cá nhân không cư trú là người không đáp ứng điều kiện nêu tại khoản 1, Điều này.\n3. Người nộp thuế trong một số trường hợp cụ thể được xác định như sau:\na) Đối với cá nhân có thu nhập từ kinh doanh.\n\na.1) Trường hợp chỉ có một người đứng tên trong Giấy chứng nhận đăng ký kinh doanh\nthì người nộp thuế là cá nhân đứng tên trong Giấy chứng nhận đăng ký kinh doanh.\na.2) Trường hợp nhiều người cùng đứng tên trong Giấy chứng nhận đăng ký kinh doanh\n(nhóm cá nhân kinh doanh), cùng tham gia kinh doanh thì người nộp thuế là từng thành\nviên có tên trong Giấy chứng nhận đăng ký kinh doanh.\na.3) Trường hợp trong một hộ gia đình có nhiều người cùng tham gia kinh doanh nhưng\nchỉ có một người đứng tên trong Giấy chứng nhận đăng ký kinh doanh thì người nộp thuế\nlà cá nhân đứng tên trong Giấy chứng nhận đăng ký kinh doanh.\na.4) Trường hợp cá nhân, hộ gia đình thực tế có kinh doanh nhưng không có Giấy chứng\nnhận đăng ký kinh doanh (hoặc Chứng chỉ, Giấy phép hành nghề) thì người nộp thuế là\ncá nhân đang thực hiện hoạt động kinh doanh.\na.5) Đối với hoạt động cho thuê nhà, quyền sử dụng đất, mặt nước, tài sản khác không có\nđăng ký kinh doanh, người nộp thuế là cá nhân sở hữu nhà, quyền sử dụng đất, mặt nước,\ntài sản khác. Trường hợp nhiều cá nhân cùng sở hữu nhà, quyền sử dụng đất, mặt nước,\ntài sản khác thì người nộp thuế là từng cá nhân có quyền sở hữu, quyền sử dụng.\nb) Đối với cá nhân có thu nhập chịu thuế khác.\nb.1) Trường hợp chuyển nhượng bất động sản là đồng sở hữu, người nộp thuế là từng cá\nnhân đồng sở hữu bất động sản.\nb.2) Trường hợp uỷ quyền quản lý bất động sản mà cá nhân được uỷ quyền có quyền\nchuyển nhượng bất động sản hoặc có các quyền như đối với cá nhân sở hữu bất động sản\ntheo quy định của pháp luật thì người nộp thuế là cá nhân ủy quyền bất động sản.\nb.3) Trường hợp chuyển nhượng, chuyển giao quyền sở hữu, quyền sử dụng các đối\ntượng được bảo hộ theo quy định của Luật Sở hữu trí tuệ, Luật Chuyển giao công nghệ\nmà đối tượng chuyển giao, chuyển quyền là đồng sở hữu, đồng tác giả của nhiều cá nhân\n(nhiều tác giả) thì người nộp thuế là từng cá nhân có quyền sở hữu, quyền tác giả và\nhưởng thu nhập từ việc chuyển giao, chuyển quyền nêu trên.\nb.4) Trường hợp cá nhân nhượng quyền thương mại theo quy định của Luật Thương mại\nmà đối tượng nhượng quyền thương mại là nhiều cá nhân tham gia nhượng quyền thì\nngười nộp thuế là từng cá nhân được hưởng thu nhập từ nhượng quyền thương mại.\n4. Người nộp thuế theo hướng dẫn tại các khoản 1 và 2, Điều này bao gồm:\na) Cá nhân có quốc tịch Việt Nam kể cả cá nhân được cử đi công tác, lao động, học tập ở\nnước ngoài có thu nhập chịu thuế.\nb) Cá nhân là người không mang quốc tịch Việt Nam nhưng có thu nhập chịu thuế, bao\ngồm: người nước ngoài làm việc tại Việt Nam, người nước ngoài không hiện diện tại Việt\nNam nhưng có thu nhập chịu thuế phát sinh tại Việt Nam.",
+      "chunk_sha256": "349775836b30fa9d929780ef51ef9cc9bb40eb5858e2fed9515a5e1d51274e5a"
+    },
+    {
+      "doc_id": "TT-126-2026-TT-BTC",
+      "sections": [
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "title": "Chi phí yêu cầu cung cấp thông tin cho cá nhân kinh doanh",
+      "summary": "Phân biệt chi phí in/sao/chụp, gửi thông tin và trường hợp không phải trả chi phí; phải áp đúng quyền tiếp cận thông tin và bảng mức thu tương ứng.",
+      "limits": "Chỉ quyền yêu cầu thông tin của cá nhân, không phải thuế/phí kinh doanh. Không đưa mức tiền khi chưa đối chiếu phụ lục; không tự áp cho hồ sơ thuế thuộc cơ chế chuyên ngành.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-09-01",
+      "ref_id": "16.213",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 1; Điều 2; Điều 3",
+      "source_file": "document_library/TT-126-2026-TT-BTC.md",
+      "source_sha256": "856034c6b800665be6b57e2133f89b13192d96dc9e9a8d18ed9068b4798642ce",
+      "excerpt_sha256": "07da2e119d25a758719c9b62ea846614b70cfa2fdf2f3deb3c26054ef94e6a04",
+      "quote": "Điều 1. Phạm vi điều chỉnh\n     Thông tư này quy định chỉ tiết chi phí thực tế để in, sao, chụp và gửi\nthông tin theo quy định tại khoản 2 Điều 25 Luật Tiếp cận thông tin số\n01/2026/QH16.\n\nĐiều 2. Đối tượng áp đụng\n      1. Tổ chức, cá nhân có yêu cầu cung cấp thông tin.\n      2. Cơ quan nhà nước, đơn vị sự nghiệp công lập có nhiệm vụ cung ứng\ndịch vụ sự nghiệp công cơ bản, thiết yếu.\n      3. Các tổ chức, cá nhân khác có liên quan đến việc cung cấp thông tin.\n\nĐiều 3. Chi phí cung cấp thông tin\n      1. Chi phí in, sao, chụp thông tin thực hiện theo mức thu quy định tại Phụ\nlục ban hành kèm theo Thông tư này.\n      2. Chỉ phí gửi thông tin yêu cầu cung cấp: Mức thu chi phí thực hiện theo\nmức giá cước dịch vụ nhận, gửi hồ sơ so giải quyết thủ tục hành chính và dịch vụ\nchuyển trả kết quả giải quyết thủ tục hành chính qua dịch vụ bưu chính công ích\nhoặc theo mức chi phí gửi chuyển bưu phẩm, chuyển phát nhanh theo quy định\nhiện hành.\n       3. Trường hợp người yêu cầu cung cấp thông tin theo quy định tại điểm a\nvà điểm c khoản 1 Điều 23 Luật Tiếp cận thông tin số 01/2026/QH16 thì không\nphải trả chỉ phí.",
+      "chunk_sha256": "351985e2778b016b5a33e21d8cb3979c78ce6582d893ec7143404eef0d1963c3"
+    },
+    {
+      "doc_id": "TT-152-2025-TT-BTC",
+      "sections": [
+        "S4",
+        "S5"
+      ],
+      "title": "Bố trí người kế toán và lưu trữ tài liệu của HKD CNKD",
+      "summary": "Có thể tự ghi sổ, bố trí người hoặc thuê dịch vụ kế toán; cho phép lưu điện tử hoặc giấy. Tài liệu kế toán tối thiểu 05 năm, riêng hóa đơn theo pháp luật thuế.",
+      "limits": "Không biến mốc 05 năm thành thời hạn chung cho mọi hóa đơn/chứng từ. Thay thế TT88 từ 01/01/2026.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-01-01",
+      "ref_id": "16.214",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 2; Điều 3",
+      "source_file": "document_library/TT-152-2025-TT-BTC.md",
+      "source_sha256": "9bbe7ee7cc386fcbd31b207546d76e3707eb658940ad80a73229591e0465046d",
+      "excerpt_sha256": "d88e3b3a7069d11eccdf894809637a19ed3de76946a53ddec7d22d8d1d010f93",
+      "quote": "Điều 2. Tổ chức công tác kế toán\nNgười đại diện hộ kinh doanh, cá nhân kinh doanh tự ghỉ chép sổ sách kế\n\n\n[Trang 2]\n\n: 2\n\ntoán hoặc bố trí người làm kế toán hoặc thuê dịch vụ làm kế toán cho hộ kinh\ndoanh, cá nhân kinh doanh theo quy định của pháp luật. Người đại diện hộ kinh\ndoanh, cá nhân kinh doanh có thể bố trí cha đẻ, mẹ đẻ, cha nuôi, mẹ nuôi, vợ,\nchông, con đẻ, con nuôi, anh, chị, em ruột của mình làm kế toán cho hộ kinh\ndoanh, cá nhân kinh doanh hoặc bố trí người làm quản lý, điều hành, thủ kho,\nthủ quỹ, người được giao nhiệm vụ thường xuyên mua, bán tài sản kiêm nhiệm\nlàm kê toán cho hộ kinh doanh, cá nhân kinh doanh.\n\nĐiều 3. Về số kế toán và lưu trữ tài liệu kế toán\n\n1. Hộ kinh doanh, cá nhân kinh doanh được lựa chọn lưu trữ các tài liệu kế\ntoán (hóa đơn, chứng từ kế toán, sổ kế toán,...) trên phương tiện điện tử hoặc\nbăng bản giây.\n\n2. Thời hạn lưu trữ tài liệu kế toán của hộ kinh doanh, cá nhân kinh doanh\ntôi thiêu là 05 năm, đôi với thời hạn lưu trữ hóa đơn thì thực hiện theo quy định\ncủa pháp luật về thuế.\n\n3. Ngoài các số kế toán hướng dẫn tại Thông tư này, hộ kinh doanh, cá\nnhân kinh doanh có thể bổ sung thêm các số kế toán hoặc sửa đổi lại biểu mẫu\ncác số kế toán cho phù hợp với nhu cầu của đơn vị. Số kế toán được mở thêm\nhoặc sửa đổi lại biểu mẫu vẫn phải ghi rõ tên sổ; ngày, tháng, năm lập số; họ tên\nvà chữ ký, đóng dấu (nếu có) của người đại diện hộ kinh doanh, cá nhân kinh\ndoanh.\n\n4. Trường hợp hộ kinh doanh, cá nhân kinh doanh sử dụng hóa đơn điện tử\nmà được hệ thống thông tin quản lý thuế của cơ quan thuế hỗ trợ xác định số\nthuế giá trị gia tăng (GTGT), thuế thu nhập cá nhân (TNCN), các loại thuế khác\nphải nộp (nếu có) và thông báo cho người nộp thuế thì hộ kinh doanh, cá nhân\nkinh doanh sử dụng các mẫu số kế toán hướng dẫn tại Thông tư này đề theo dõi,\nđối chiếu với số thuế phải nộp theo thông báo của cơ quan thuế.\n\nChương HI\nQUY ĐỊNH CỤ THẺ\nMục 1\nKÉ TOÁN TẠI HỘ KINH DOANH, CÁ NHÂN KINH DOANH\nTHUỘC ĐÓI TƯỢNG KHÔNG CHỊU THUÉ GIÁ TRỊ GIA TĂNG,\nKHÔNG PHẢI NỘP THUẾ THU NHẬP CÁ NHÂN",
+      "chunk_sha256": "972a9cdcadf0d2ab4f2b1aea2744e36d4f38c30e998487e511896e37477207a0"
+    },
+    {
+      "doc_id": "TT-18-2026-TT-BTC",
+      "sections": [
+        "S4"
+      ],
+      "title": "Thông báo thành lập, thay đổi, tạm ngừng địa điểm kinh doanh",
+      "summary": "Gửi mẫu 01/TB-ĐĐKD đến cơ quan thuế quản lý trụ sở cho việc thành lập, thay đổi, tạm ngừng hoặc chấm dứt địa điểm kinh doanh; cơ quan thuế phản hồi mẫu 02/TB-ĐĐKD.",
+      "limits": "Địa điểm kinh doanh khác toàn bộ hộ; không thay thủ tục đăng ký kinh doanh bằng riêng thông báo thuế. Không dùng biểu mẫu hoàn thuế bản TT18 chưa sửa bởi TT50/TT89.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-03-05",
+      "ref_id": "16.215",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 3",
+      "source_file": "document_library/TT-18-2026-TT-BTC.md",
+      "source_sha256": "2281f83c26b1b5136fc9d1e3d6aa728e5e140f32faceebc5d906f584f1b2af5c",
+      "excerpt_sha256": "803fcd4073a04089951316793468aeaa10b6b7695d0f69d689ec12a82504e5ab",
+      "quote": "Điều 3. Thông báo địa điểm kinh doanh\n: 1. Hộ kinh doanh, cá nhân kinh doanh gửi Thông báo về việc thành lập địa\nđiểm kinh doanh, thay đổi thông tin, tạm ngừng kinh doanh, chấm dứt hoạt động\nđịa điểm kinh đoanh đến cơ quan thuế quản lý trụ sở kinh doanh quy định tại điểm :\nđ khoản 4 Điều 8 Nghị định số 68/2026/NĐ-CP theo Mẫu số 01/TB-ĐĐKD ban\nhành kèm theo Thông tư này. -\n2. Cơ quan thuế gửi thông báo cho người nộp thuế biết theo Mẫu số 02/TB-\nĐĐKD ban hành kèm theo Thông tư này. .",
+      "chunk_sha256": "39bc3340d23ebb99b36b6403d8bac68d27c54566aaf0d0a6fc368a0e52f80a8a"
+    },
+    {
+      "doc_id": "TT-19-2021-TT-BTC",
+      "sections": [
+        "S10"
+      ],
+      "title": "Lịch sử thời điểm nộp hồ sơ thuế điện tử",
+      "summary": "Phải phân biệt thông báo tiếp nhận và thông báo chấp nhận hồ sơ; giao dịch điện tử thực hiện 24/7 theo điều kiện của Điều 8.",
+      "limits": "Chỉ lịch sử đến 2025. TT89 bãi bỏ TT19 từ 01/07/2026; không dùng mẫu thông báo và mốc xác nhận cũ cho hồ sơ nộp hiện nay.",
+      "from": 2021,
+      "to": 2025,
+      "effective_from": "2021-05-03",
+      "ref_id": "16.216",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 8",
+      "source_file": "document_library/TT-19-2021-TT-BTC.md",
+      "source_sha256": "e0adebd758647454f9399e3881fc12c801d260b757fae90fb22e9881e39de3b2",
+      "excerpt_sha256": "878bca5dcd85395e9752913becf0a1a2ff64d7d6f522cc6513e97255bcdac403",
+      "quote": "Điều 8. Cách xác định thời gian nộp hồ sơ thuế điện tử, nộp thuế điện\ntử của người nộp thuế và thời gian cơ quan thuế gửi thông báo, quyết định,\nvăn bản cho người nộp thuế\n\n1. Thời gian nộp hồ sơ thuế điện tử, nộp thuế điện tử\n\na) Người nộp thuế được thực hiện các giao dịch thuế điện tử 24 giờ trong\nngày (kê từ 00:00:00 giờ đên 23:59:59 giờ) và 7 ngày trong tuân, bao gôm 2⁄⁄\n\n\n[Trang 13]\n\n- 13\nngày nghỉ, ngày lễ và ngày Tết. Thời gian người nộp thuế nộp hồ sơ được xác\nđịnh là trong ngày nêu hô sơ được ký gửi thành công trong khoảng thời gian từ\n00:00:00 giờ đên 23:59:59 giờ của ngày.\n\nb) Thời điểm xác nhận nộp hồ sơ thuế điện tử được xác định như sau:\n\n_ b.]) Đối với hồ sơ đăng ký thuế điện tử: là ngày hệ thống của cơ quan\nthuê nhận được hô sơ và được ghi trên Thông báo tiếp nhận hô sơ đăng ký thuê\nđiện tử của cơ quan thuế gửi cho người nộp thuế (theo mâu sô 01-1/TB-TĐT\nban hành kèm theo Thông tư này).\n\nb.2) Đối với hồ sơ khai thuế (trừ các hồ sơ khai thuế thuộc trường hợp cơ\nquan quản lý thuế tính thuế, thông báo nộp thuế theo quy định tại Điêu 13 Nghị\nđịnh sô 126/2020/NĐ-CP): là ngày hệ thông của cơ quan thuế nhận được hô sơ\nvà được ghi trên Thông báo tiếp nhận hô sơ khai thuế điện tử của cơ quan thuế\ngửi cho người nộp thuế (theo mâu sô 01-1/TB-TĐT ban hành kèm theo Thông\ntư này) nêu hô sơ khai thuế được cơ quan thuế chập nhận tại Thông báo chấp\nnhận hô sơ khai thuế điện tử của cơ quan thuế gửi cho người nộp thuế (theo mẫu\n\nl số 01-2/TB-TĐT ban hành kèm theo Thông tư này).\n\n___ Riêng đối với hồ sơ khai thuế có bao gồm tài liệu kèm theo được nộp trực\ntiếp hoặc gửi qua đường bưu chính: Thời điểm xác nhận nộp hồ sơ khai thuế\nđược tính theo ngày người nộp thuế hoàn thành việc nộp đây đủ hỗ sơ theo quy\nđịnh.\n\nb.3) Đối với các hồ sơ không thuộc quy định tại điểm b.1, b.2 nêu trên: là\nngày hệ thông của cơ quan thuế nhận được hô sơ và được ghi trên Thông báo\nchấp nhận hỗ sơ điện tử của cơ quan thuế gửi cho người nộp thuế (theo mẫu sô\n01-2/TB-TĐT ban hành kèm theo Thông tư này).\n\n_ b.4) Thời điểm xác nhận nộp hồ sơ thuế điện tử nêu tại khoản này là căn\ncứ đê cơ quan thuế xác định thời gian nộp hô sơ thuê; tính thời gian chậm nộp\nhô sơ thuê hoặc tính thời gian đề giải quyết hỗ sơ thuê theo quy định của Luật\nQuản lý thuê, các văn bản hướng dân thi hành và các quy định tại Thông tư này.\n\n©) Ngày nộp thuế điện tử được xác định theo quy định tại khoản Điều 58\nLuật Quản lý thuê.\n\n2. Thời gian cơ quan thuế gửi thông báo, quyết định, văn bản cho người\nnộp thuế được xác định là trong ngày nêu hô sơ được ký gửi thành công trong\nkhoảng thời gian từ 00:00:00 giờ đên 23:59:59 giờ của ngày.",
+      "chunk_sha256": "0b781bc3cf29e312998dc6ec76f29e773467d4848724fd1b1e8e5e4b58bfdbbf"
+    },
+    {
+      "doc_id": "TT-50-2026-TT-BTC",
+      "sections": [
+        "S2",
+        "S3"
+      ],
+      "title": "Hồ sơ hoàn thuế theo phương pháp thu nhập tính thuế",
+      "summary": "TT50 sửa phạm vi TT18 và hồ sơ hoàn nộp thừa đối với phương pháp thu nhập tính thuế nhân thuế suất: mẫu 02/CNKD-TNCN-QTT; có thay thế mẫu thông báo/kê khai.",
+      "limits": "Mẫu 01/TKN-CNKD và các mẫu thuộc khoản 5 Điều 99 TT89 phải đọc bản TT89 đã đính chính QĐ2551. Không coi mẫu cùng số là cùng chức năng, hoặc miễn kê khai các sắc thuế khác.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-05-13",
+      "ref_id": "16.217",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 1; Điều 2",
+      "source_file": "document_library/TT-50-2026-TT-BTC.md",
+      "source_sha256": "742ec4610f8fe04c7018d0a76bf274d12c32949f8e7e71892b0c9ce179448681",
+      "excerpt_sha256": "76fa7e8bddfc69eb37b987fefcc8ac5253c1217f45fb6b4f9b12c3c0f19ce9c1",
+      "quote": "Điều 1. Sửa đổi, bỗ sung Điều 1\n\n“Điều 1. Phạm vi điều chỉnh\n\nThông tư này quy định chỉ tiết về hồ sơ, thủ tục thông báo doanh thu, kê\nkhai thuế, nộp thuế, hoàn thuế, thông báo địa điểm kinh doanh, tạm ngừng, châm\ndứt hoạt động kinh doanh đôi với hộ kinh doanh, cá nhân kinh doanh tại khoản 6\nĐiêu 13 Luật Quản lý thuê số 108/2025/QH15, Điều 8, Điêu 11, Điều 12 Nghị\nđịnh sô 68/2026/NĐ-CP của Chính phủ quy định về chính sách thuế và quản lý\nthuê đôi với hộ kinh doanh, cá nhân kinh doanh.”\n\nĐiều 2. Sửa đỗi, bố sung khoản 2 Điều 5 :\n\n“2. Hồ sơ đề nghị hoàn thuế nộp thừa đối với hộ kinh doanh, cá nhân kinh\ndoanh nộp thuế thu nhập cá nhân theo phương pháp thu nhập tính thuế nhân (x)\n\n\n[Trang 2]\n\n¬ 2\nvới thuế suất là Tờ khai thuế theo Mẫu số 02/CNKD-TNCN-QTT ban hành kèm\ntheo Thông tư này.” .\n__— Điều 3. Thay thế mẫu biếu\n\nThay thế Mẫu số 01/TKN-CNKD, Mẫu số 01/CNKD, Mẫu số 01/BĐS,\nMẫu số 02/BK-KTBĐS theo danh mục mẫu biểu ban hành kèm theo Thông tư số\n18/2026/TT-BTC băng Mẫu sô 01/TKN-CNKD, Mẫu số 01/CNKD, Mẫu sô\n01/BĐS, Mẫu số 02/BK-KTBĐS ban hành kèm theo Thông tư này.",
+      "chunk_sha256": "f1b390f3f436dd39bb0aa4f48c3ef7b28bed8f5e5bfaaf5fbaa8a8f84cc7fa88"
+    },
+    {
+      "doc_id": "TT-78-2021-TT-BTC",
+      "sections": [
+        "S9"
+      ],
+      "title": "Lịch sử hóa đơn máy tính tiền theo TT78",
+      "summary": "Điều 8 quy định nhóm áp dụng, nội dung hóa đơn, cấp mã và trách nhiệm người bán theo chế độ cũ.",
+      "limits": "Chỉ lịch sử 2022–2024. Không dùng quyền lựa chọn trong bản cũ để phủ nhận nghĩa vụ hóa đơn năm 2026; TT32/2025 đã thay TT78 từ 01/06/2025.",
+      "from": 2022,
+      "to": 2024,
+      "effective_from": "2022-07-01",
+      "ref_id": "16.218",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 8",
+      "source_file": "document_library/TT-78-2021-TT-BTC.md",
+      "source_sha256": "774f6ef7555612dfd4169e2a089d90b88cf868c4043e4fa6b64201bbdb29b376",
+      "excerpt_sha256": "345457df1354f52c372402e95b9176a82b28671b3d3c6e088ba628e35bbe7936",
+      "quote": "Điều 8. Hóa đơn điện tử có mã của cơ quan thuế được khởi tạo từ máy\ntính tiền có kết nối chuyển dữ liệu điện tử với cơ quan thuế\n    1. Hóa đơn điện tử có mã của cơ quan thuế được khởi tạo từ máy tính tiền có kết\nnối chuyển dữ liệu điện tử với cơ quan thuế đảm bảo nguyên tắc quy định tại Điều 11\nNghị định số 123/2020/NĐ-CP.\n    2. Doanh nghiệp, hộ, cá nhân kinh doanh nộp thuế theo phương pháp kê khai\ncó hoạt động cung cấp hàng hoá, dịch vụ trực tiếp đến người tiêu dùng theo mô\nhình kinh doanh (trung tâm thương mại; siêu thị; bán lẻ hàng tiêu dùng; ăn uống;\nnhà hàng; khách sạn; bán lẻ thuốc tân dược; dịch vụ vui chơi, giải trí và các dịch\nvụ khác) được lựa chọn sử dụng hoá đơn điện tử được khởi tạo từ máy tính tiền có\nkết nối chuyển dữ liệu điện tử với cơ quan thuế hoặc hóa đơn điện tử có mã, hóa\nđơn điện tử không có mã.\n    3. Hóa đơn điện tử có mã của cơ quan thuế được khởi tạo từ máy tính tiền có\nkết nối chuyển dữ liệu điện tử với cơ quan thuế có các nội dung sau đây:\n    a) Tên, địa chỉ, mã số thuế người bán;\n    b) Thông tin người mua nếu người mua yêu cầu (mã số định danh cá nhân\nhoặc mã số thuế);\n    c) Tên hàng hóa, dịch vụ, đơn giá, số lượng, giá thanh toán. Trường hợp tổ\nchức, doanh nghiệp nộp thuế theo phương pháp khấu trừ phải ghi rõ giá bán chưa\nthuế GTGT, thuế suất thuế GTGT, tiền thuế GTGT, tổng tiền thanh toán có thuế\nGTGT;\n    d) Thời điểm lập hóa đơn;\n    đ) Mã của cơ quan thuế.\n\n    4. Giải pháp cấp mã của cơ quan thuế trên hóa đơn điện tử được khởi tạo từ\nmáy tính tiền có kết nối chuyển dữ liệu điện tử với cơ quan thuế: Mã của cơ quan\n\n28                 CÔNG BÁO/Số 849 + 850/Ngày 12-10-2021\n\nthuế được cấp tự động, theo dải ký tự cho từng cơ sở kinh doanh nêu tại khoản 2\nĐiều này khi đăng ký sử dụng hóa đơn điện tử có mã của cơ quan thuế được khởi\ntạo từ máy tính tiền có kết nối chuyển dữ liệu điện tử với cơ quan thuế và đảm bảo\nkhông trùng lắp.\n\n     5. Trách nhiệm của Tổng cục Thuế\n\n     a) Xây dựng, công bố thành phần dữ liệu hóa đơn điện tử có mã của cơ quan\nthuế được khởi tạo từ máy tính tiền có kết nối chuyển dữ liệu điện tử với cơ quan\nthuế, phương thức truyền, nhận với cơ quan thuế theo quy định tại Điều 12 Nghị định\nsố 123/2020/NĐ-CP và hướng dẫn người nộp thuế kết nối, chuyển dữ liệu hóa đơn\nđiện tử đến cơ quan thuế;\n\n     b) Chỉ đạo Cục Thuế các tỉnh, thành phố trực thuộc Trung ương căn cứ đối tượng\nthực tế trên địa bàn chủ trì phối hợp với các đơn vị liên quan xây dựng đề án triển\nkhai kết nối thông tin từ máy tính tiền để quản lý doanh thu bán lẻ của các hộ, cá nhân\nkinh doanh để báo cáo Tổng cục Thuế trình Bộ Tài chính phê duyệt sau khi thống\nnhất với Ủy ban nhân dân các tỉnh, thành phố để triển khai thực hiện;\n\n     c) Xây dựng lộ trình triển khai áp dụng hóa đơn điện tử có mã của cơ quan thuế\nđược khởi tạo từ máy tính tiền có kết nối chuyển dữ liệu điện tử với cơ quan thuế\ntheo quy định tại Điều này;\n\n     d) Hướng dẫn triển khai việc sử dụng mã của cơ quan thuế cấp đối với những\nhóa đơn điện tử có mã của cơ quan thuế được khởi tạo từ máy tính tiền có kết nối\nchuyển dữ liệu điện tử với cơ quan thuế để tham gia dự thưởng.\n\n     6. Trách nhiệm của người bán khi sử dụng hóa đơn điện tử có mã của cơ\nquan thuế được khởi tạo từ máy tính tiền có kết nối chuyển dữ liệu điện tử với\ncơ quan thuế:\n\n     a) Đăng ký sử dụng hóa đơn điện tử có mã của cơ quan thuế được khởi tạo từ\nmáy tính tiền có kết nối chuyển dữ liệu điện tử với cơ quan thuế theo quy định tại\nĐiều 15 Nghị định số 123/2020/NĐ-CP;\n\n                   CÔNG BÁO/Số 849 + 850/Ngày 12-10-2021                         29\n\n    b) Lập hóa đơn điện tử có mã của cơ quan thuế được khởi tạo từ máy tính tiền\ntheo quy định tại Điều 11 Nghị định số 123/2020/NĐ-CP và Điều này;\n    c) Có trách nhiệm sử dụng dải ký tự mã của cơ quan thuế cấp khi lập hóa đơn\nđiện tử có mã của cơ quan thuế được khởi tạo từ máy tính tiền có kết nối chuyển\ndữ liệu điện tử với cơ quan thuế để đảm bảo liên tục và duy nhất;\n    d) Chuyển dữ liệu hóa đơn điện tử có mã của cơ quan thuế đã khởi tạo từ máy\ntính tiền cho cơ quan thuế ngay trong ngày thông qua tổ chức cung cấp dịch vụ\nnhận, truyền, lưu trữ dữ liệu điện tử.",
+      "chunk_sha256": "603f950c125842b478fde62fb9fa9d55361aedfdfbeb346d34ef538ec1a8571c"
+    },
+    {
+      "doc_id": "TT-86-2024-TT-BTC",
+      "sections": [
+        "S31"
+      ],
+      "title": "Lịch sử thông báo tạm ngừng và khôi phục mã số thuế",
+      "summary": "Phân biệt CNKD không thuộc diện đăng ký kinh doanh gửi thông báo trực tiếp với hộ đã bị ghi nhận không hoạt động tại địa chỉ và phải khôi phục mã số trước.",
+      "limits": "Chỉ giai đoạn 2025. TT90 thay thế TT86 từ 01/07/2026; không dùng mẫu 23/ĐK-TCT cũ cho hồ sơ hiện hành.",
+      "from": 2025,
+      "to": 2025,
+      "effective_from": "2025-02-06",
+      "ref_id": "16.219",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 27",
+      "source_file": "document_library/TT-86-2024-TT-BTC.md",
+      "source_sha256": "94c070dec1448031466cb5a627f42a9e5454939098565d158fd2433e951bf2a3",
+      "excerpt_sha256": "bda552bfb16b15afec9ba86f9c4a05a715ce3cb4f6558dd8a946cf804f7a154d",
+      "quote": "Điều 27. Thông báo tạm ngừng hoạt động, kinh doanh hoặc tiếp tục hoạt động sau tạm ngừng\nhoạt động, kinh doanh trước thời hạn\nKhi tạm ngừng hoạt động, kinh doanh hoặc tiếp tục hoạt động, kinh doanh trước thời hạn, hộ kinh\ndoanh, hộ gia đình, cá nhân kinh doanh thực hiện thông báo theo quy định tại khoản 1, khoản 2 Điều\n37 Luật Quản lý thuế, Điều 4 Nghị định số 126/2020/NĐ-CP và các quy định sau đây:\n\n1. Hộ gia đình, cá nhân kinh doanh quy định tại điểm i khoản 2 Điều 4 Thông tư này không thuộc diện\nđăng ký kinh doanh thực hiện gửi Thông báo mẫu số 23/ĐK-TCT ban hành kèm theo Thông tư này\nđến cơ quan thuế quản lý trực tiếp, cơ quan thuế nơi có hoạt động kinh doanh theo thời hạn quy định\ntại điểm c khoản 1, khoản 3 và khoản 4 Điều 4 Nghị định số 126/2020/NĐ-CP.\n2. Sau khi cơ quan thuế đã ban hành Thông báo người nộp thuế không hoạt động tại địa chỉ đã đăng\nký, hộ kinh doanh phải thực hiện thủ tục khôi phục mã số thuế theo quy định tại khoản 2 Điều 33 và\nkhoản 2 Điều 34 Thông tư này trước khi đăng ký tạm ngừng hoạt động kinh doanh với cơ quan đăng\nký kinh doanh.\nTrường hợp hộ kinh doanh không thực hiện thủ tục khôi phục mã số thuế theo quy định tại khoản 2\nĐiều 33 và khoản 2 Điều 34 Thông tư này nhưng được cơ quan đăng ký kinh doanh chấp thuận tạm\nngừng kinh doanh theo quy định của pháp luật về đăng ký hộ kinh doanh, cơ quan thuế không cập\nnhật trạng thái tạm ngừng hoạt động kinh doanh của hộ kinh doanh trên Hệ thống ứng dụng đăng ký\nthuế.",
+      "chunk_sha256": "d7d6f157e78fd584084aa46447ca27e5797f6755658a8a6d4d0788de5f78d064"
+    },
+    {
+      "doc_id": "TT-87-2026-TT-BTC",
+      "sections": [
+        "S7"
+      ],
+      "title": "Chuyển tiếp TNCN và thay thế TT111",
+      "summary": "TT87 có hiệu lực 01/07/2026, thay TT111; nội dung liên quan thu nhập kinh doanh và tiền lương của cá nhân cư trú áp dụng từ kỳ 2026 theo khoản 1 Điều 6.",
+      "limits": "Chỉ quy tắc hiệu lực cho CNKD. Không nhập mức người phụ thuộc hoặc chứng khoán làm khoản giảm trừ thu nhập kinh doanh.",
+      "from": 2026,
+      "to": null,
+      "start": "Điều 6. Hiệu lực thi hành",
+      "end": "3. Bãi bỏ quy định tại:",
+      "locator": "Khoản 1 Điều 6; khoản 2 Điều 6",
+      "effective_from": "2026-07-01",
+      "ref_id": "16.220",
+      "status": "APPROVED_SCOPED",
+      "source_file": "document_library/TT-87-2026-TT-BTC.md",
+      "source_sha256": "598ef28d6712a5ecfbb7466550aea8530e2b174e3cee217d74619511fd6678ed",
+      "excerpt_sha256": "eab0cf7b2f7e81f350a1362a8af19d0fcd755fc0de2c2f54e09520e82ac1487d",
+      "quote": "Điều 6. Hiệu lực thi hành\n      1. Thông tư này có hiệu lực thi hành từ ngày 01 tháng 7 năm 2026. Các\nnội dung liên quan đến thu nhập từ kinh doanh, từ tiền lương, tiền công của cá\nnhân cư trú áp dụng từ kỳ tính thuế năm 2026.\n      2. Thông tư này thay thế Thông tư số 111/2013/TT-BTC ngày 15 tháng 8\nnăm 2013 của Bộ trưởng Bộ Tài chính hướng dẫn thực hiện Luật Thuế thu nhập\ncá nhân, Luật sửa đổi, bổ sung một số điều của Luật Thuế thụ nhập cá nhân và\nNghị định số 65/2013/NĐ-CP của Chính phủ quy định chỉ tiết một số điều của\nLuật Thuế thu nhập cá nhân và Luật sửa đổi, bố sung một số điều của Luật Thuế\nthu nhập cá nhân.",
+      "chunk_sha256": "3f270825ace93022f748ed6e22b151e99e4f0982596d19a60b1450bfb2245c2d"
+    },
+    {
+      "doc_id": "TT-88-2021-TT-BTC",
+      "sections": [
+        "S4"
+      ],
+      "title": "Lịch sử tổ chức kế toán hộ kinh doanh theo TT88",
+      "summary": "Người đại diện quyết định bố trí người kế toán; nguồn cho phép người thân hoặc người kiêm nhiệm trong những trường hợp nêu tại Điều 3.",
+      "limits": "Chỉ 2022–2025. TT152 thay thế TT88 từ 01/01/2026; dùng TT152 cho sổ sách kỳ 2026.",
+      "from": 2022,
+      "to": 2025,
+      "effective_from": "2022-01-01",
+      "ref_id": "16.221",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 3",
+      "source_file": "document_library/TT-88-2021-TT-BTC.md",
+      "source_sha256": "252416e2e73c1719e27d1bcc5e7ba3ab040df27645332dddb8baa60ac1bd2d19",
+      "excerpt_sha256": "9ab88512f9ae25f5749209817091d911a8ed4d750a27891ac2c94adf46b1e782",
+      "quote": "Điều 3. Tổ chức công tác kế toán\n1. Việc bố trí người làm kế toán của hộ kinh doanh, cá nhân kinh doanh do\nngười đại diện hộ kinh doanh, cá nhân kinh doanh quyết định. Người đại diện hộ\n\n\n[Trang 2]\n\n2\nkinh doanh, cá nhân kinh doanh có thê bố trí cha đẻ, mẹ đẻ, cha nuôi, mẹ nuôi,\nVỢ, chồng, con đẻ, con nuôi, anh, chị, em ruột của mình làm kế toán cho hộ kinh\ndoanh, cá nhân kinh doanh hoặc bố trí người làm quản lý, điều hành, thủ kho,\nthủ quỹ, người được giao nhiệm vụ thường xuyên mua, bán tài sản kiêm nhiệm\nlàm kế toán cho hộ kinh doanh, cá nhân kinh doanh.\n\n2. Hộ kinh doanh, cá nhân kinh doanh thực hiện chế độ kế toán hướng dẫn\ntại Thông tư này hoặc được lựa chọn áp dụng chế độ kế toán doanh nghiệp siêu\nnhỏ cho phù hợp với nhu cầu quản lý và đặc điểm hoạt động sản xuất kinh\ndoanh của hộ kinh doanh, cá nhân kinh doanh.\n\n3. Hộ kinh doanh, cá nhân kinh doanh được vận dụng các quy định tại Điều\n41 Luật Kế toán và các Điều 9, 10, 11, 12, 13, 14, 15, 16, 17 Nghị định số\n174/2016/NĐ-CP ngày 30/12/2016 để bảo quản, lưu trữ các tài liệu kế toán\nnhằm phục vụ cho việc xác định nghĩa vụ thuế của hộ kinh doanh, cá nhân kinh\ndoanh với ngân sách nhà nước và công tác quản lý hộ kinh doanh, cá nhân kinh\ndoanh của cơ quan thuế.",
+      "chunk_sha256": "fc25e9cae5abd438604803d8e6f469bb1b867fcb4723d989633b5d3f534dfaf3"
+    },
+    {
+      "doc_id": "TT-89-2026-TT-BTC",
+      "sections": [
+        "S15"
+      ],
+      "title": "Xác nhận thời điểm nộp hồ sơ thuế điện tử hiện hành",
+      "summary": "Ghi nhận gửi hồ sơ tự động khác thông báo tiếp nhận hồ sơ hợp lệ. Điều 11 phân biệt thời điểm xác nhận nộp và thời hạn cơ quan thuế phản hồi 01/03 ngày làm việc tùy hồ sơ.",
+      "limits": "Chỉ giao dịch thuế điện tử HKD/CNKD; không coi biên nhận gửi thành công là hồ sơ đã hợp lệ. QĐ2551 chỉ đính chính khoản 5 Điều 99, không sửa Điều 11.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.222",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 11",
+      "source_file": "document_library/TT-89-2026-TT-BTC.md",
+      "source_sha256": "838ce9eb1b19a92c71a13e9c2d60b0e1ce66afef67864a6d15291bf8260edd27",
+      "excerpt_sha256": "5e21a25da34491607513382509701986256605d25e39899c51bb8582553f9f7a",
+      "quote": "Điều 11. Xác định thời gian nộp hồ sơ thuế điện tử, nộp thuế điện tử\ncủa người nộp thuế; thời gian cơ quan thuế gửi thông báo, quyết định hành\nchính và các văn bản, quyết định khác cho người nộp thuế\n\n1. Thời gian nộp hồ sơ thuế điện tử, nộp thuế điện tử:\n\na) Người nộp thuế được thực hiện các giao dịch thuế điện tử 24 giờ trong\nngày (kể từ 00:00:00 giờ đến 23:59:59 giờ) và 07 ngày trong tuần, bao gồm cả\nngày nghỉ, ngày lễ và ngày Tết. Thời gian người nộp thuế nộp hồ sơ được xác\nđịnh là trong ngày nếu hồ sơ được ký gửi thành công trong khoảng thời gian từ\n00:00:00 giờ đên 23:59:59 giờ của ngày;\n\nb) Thời điểm xác nhận người nộp thuế nộp hồ sơ thuế điện tử là ngày Hệ\nthông thông tin quản lý thuế tiếp nhận đây đủ hồ sơ hợp lệ của người nộp thuế và\nđược ghi trên Thông báo tiếp nhận hồ sơ thuế điện tử gửi cho người nộp thuế. Cơ\nquan thuê căn cứ thời điểm xác nhận nộp hồ sơ thuế điện tử để xác định thời gian\nnộp hô sơ thuê, tính thời gian chậm nộp hô sơ thuê, tính thời gian đê giải quyết\nhồ sơ thuế cho người nộp thuế;\n\nc) Ngày nộp thuế điện tử được xác định theo quy định tại khoản 5 Điều 14\nLuật Quản lý thuế.\n\n2. Thời gian cơ quan thuế gửi văn bản, thông báo, quyết định hành chính\nthuế và các quyết định khác cho người nộp thuế được xác định là trong ngày nếu\nhồ sơ, chứng từ được ký gửi thành công trong khoảng thời gian từ 00:00:00 giờ\nđến 23:59:59 giờ của ngày.\n\n3. Hệ thống thông tin điện tử quy định tại khoản 2 Điều § Thông tư nảy\nphản hồi tự động cho người nộp thuế để ghi nhận việc thực hiện nộp hồ sơ, chứng\ntừ điện tử và chuyền thông tin cho cơ quan thuế.\n\n4. Cơ quan thuế thông báo cho người nộp thuế về việc tiếp nhận hoặc không\ntiếp nhận hồ sơ thuế điện tử theo mẫu số 01/TB-TĐT Phụ lục III ban hành kèm\ntheo Thông tư này như sau:\n\n\n[Trang 17]\n\n17\n\na) Chậm nhất 01 ngày làm việc kể từ ngày Hệ thống thông tin điện tử mà\nngười nộp thuế gửi hỗ sơ ghi nhận việc thực hiện nộp hỗ sơ, chứng từ điện tử của\nngười nộp thuế, trừ trường hợp quy định tại điểm b khoản này;\n\nb) Chậm nhất 03 ngày làm việc kẻ từ ngày Hệ thống thông tin điện tử mà\nngười nộp thuế gửi hồ sơ ghi nhận việc thực hiện nộp hỗ sơ, chứng từ điện tử của\nngười nộp thuế đối với hồ sơ hoàn thuế, miễn thuế, giảm thuế, hỗ sơ để nghị hủy\nhồ sơ hoàn thuế, bao gồm cả trường hợp hồ sơ khai thuế đồng thời là hồ sơ hoàn\nthuế;\n\nc) Thông báo về việc tiếp nhận hoặc không tiếp nhận hỗ sơ thuế điện tử\nđược gửi cho người nộp thuế qua Hệ thống thông tin điện tử mà người nộp thuế\ngửi hồ sơ quy định tại khoản 2 Điều 8 Thông tư này.\n\n5. Đối với hồ sơ thuế được nộp theo cơ chế một cửa liên thông, việc gửi\nthông báo cho người nộp thuế về việc tiếp nhận hoặc không tiếp nhận hồ sơ điện\ntử thực hiện theo quy định pháp luật về thực hiện thủ tục hành chính theo cơ chế\nmột cửa liên thông.",
+      "chunk_sha256": "0829bde83041d6f537de1af4dc17f724f5f3c4e2ef6f3406528c96689cd29d5b"
+    },
+    {
+      "doc_id": "TT-89-2026-TT-BTC",
+      "sections": [
+        "S76"
+      ],
+      "title": "Hồ sơ giảm TNCN khi thiên tai, tai nạn, bệnh hiểm nghèo",
+      "summary": "Điều 68 phân biệt hồ sơ theo nguyên nhân khó khăn; với HKD/CNKD có tờ khai 01/TKN-CNKD hoặc quyết toán 02/CNKD-TNCN-QTT khi chưa nộp hồ sơ của kỳ đề nghị.",
+      "limits": "Chỉ hồ sơ giảm do khó khăn theo điểm b.2 khoản 1 Điều 65; không dùng thay thủ tục giảm 30% theo NQ43. Không tự bảo đảm được giảm nếu chưa xác định mức thiệt hại, số thuế và điều kiện pháp luật.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.223",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 68",
+      "source_file": "document_library/TT-89-2026-TT-BTC.md",
+      "source_sha256": "838ce9eb1b19a92c71a13e9c2d60b0e1ce66afef67864a6d15291bf8260edd27",
+      "excerpt_sha256": "03aa37c2eef242e79f2a0145ca12c9bb82e6e25a3ffafb6d2c8d4ffa355b4433",
+      "quote": "Điều 68. Hồ sơ giảm thuế thu nhập cá nhân đối với hộ kinh doanh, cá\nnhân kinh doanh và cá nhân khác theo quy định tại điểm b.2 khoản 1 Điều\n65 Thông tư này\n\n1. Đối với người nộp thuế gặp khó khăn do thiên tai, dịch bệnh, hỏa hoạn,\nhô sơ gôm:\n\n\n[Trang 137]\n\n137\n\na) Văn bản đề nghị theo mẫu số 01/MGTH Phụ lục III ban hành kèm theo\nThông tư này;\n\nb) Bản sao văn bản xác định thời gian, địa điểm xảy ra thiên tai, dịch bệnh,\nhỏa hoạn của cơ quan nhà nước có thâm quyên nơi xảy ra thiên tai, dịch bệnh, hỏa\nhoạn theo mẫu số 02/MGTH Phụ lục III ban hành kèm theo Thông tư này và bản\nsao tài liệu xác định giá trị thiệt hại của người nộp thuế đã gửi cơ quan nhà nước\ncó thầm quyền;\n\nc) Bản sao Giấy tờ xác định việc bồi thường của cơ quan bảo hiểm hoặc\nthỏa thuận bồi thường của người gây hỏa hoạn (nếu có);\n\nd) Bản sao các chứng từ chỉ liên quan trực tiếp đến việc khắc phục thiên\ntai, dịch bệnh, hỏa hoạn (nếu có);\n\nđ) Tờ khai quyết toán thuế thu nhập cá nhân theo mẫu số 02/QTT-TNCN\nPhụ lục I ban hành kèm theo Thông tư này (nêu người nộp thuế chưa nộp hồ sơ\nquyết toán thuế của kỳ đề nghị giảm thuế);\n\ne) Tờ khai thuế theo mẫu số 01/TKN-CNKD hoặc Tờ khai quyết toán thuế\nthu nhập cá nhân theo mẫu số 02/CNKD-TNCN-QTT Phụ lục I ban hành kèm\ntheo Thông tư này (nếu hộ kinh doanh, cá nhân kinh doanh chưa nộp Tờ khai thuế\nnăm hoặc hồ sơ quyết toán thuế của kỳ đề nghị giảm thuế).\n\n2. Đối với người nộp thuế gặp khó khăn do bị tai nạn, hỗ sơ gồm:\n\na) Văn bản đề nghị theo mẫu số 01/MGTH Phụ lục III ban hành kèm theo\nThông tư này;\n\nb) Bản sao văn bản xác định thời gian, địa điểm xảy ra tai nạn của cơ quan\nnhà nước có thẩm quyển nơi xảy ra tai nạn theo mẫu số 02/MGTH Phụ lục III ban\nhành kèm theo Thông tư này hoặc văn bản xác nhận mức độ thương tật của cơ\nquan y tế;\n\nc) Bản sao giấy tờ xác định việc bồi thường của cơ quan bảo hiểm hoặc\nthỏa thuận bồi thường của người gây tai nạn (nếu có);\n\nđ) Bản sao điện tử chứng từ chỉ liên quan trực tiếp đến việc khắc phục tai\nnạn;\n\nđ) Tờ khai quyết toán thuế thu nhập cá nhân theo mẫu số 02/QTT-TNCN\nPhụ lục I ban hành kèm theo Thông tư này (nếu người nộp thuế chưa nộp hồ sơ\nquyết toán thuế của kỳ đề nghị giảm thuế);\n\ne) Tờ khai thuế theo mẫu số 01/TKN-CNKD hoặc Tờ khai quyết toán thuế\nthu nhập cá nhân theo mẫu só 02/CNKD-TNCN-QTT Phụ lục I ban hành kèm\ntheo Thông tư này (nếu hộ kinh doanh, cá nhân kinh doanh chưa nộp Tờ khai thuế\nnăm hoặc hỗ sơ quyết toán thuế của kỳ đề nghị giảm thuế).\n\n\n[Trang 138]\n\n138\n\n3. Đối với người nộp thuế mắc bệnh hiểm nghèo, hồ sơ gồm:\n\na) Văn bản để nghị theo mẫu số 01/MGTH Phụ lục III ban hành kèm theo\nThông tư này;\n\nb) Bản sao hồ sơ bệnh án hoặc bản tóm tắt hồ sơ bệnh án hoặc số khám\nbệnh theo quy định của pháp luật về khám bệnh, chữa bệnh;\n\nc) Bản sao chứng từ chứng minh chỉ phí khám chữa bệnh do cơ quan y tế\ncấp hoặc hóa đơn mua thuốc chữa bệnh kèm theo đơn thuốc của bác sỹ;\n\nd) Tờ khai quyết toán thuế thu nhập cá nhân theo mẫu số 02/QTT-TNCN\nPhụ lục I ban hành kèm theo Thông tư này (nếu người nộp thuế chưa nộp hỗ sơ\nquyết toán thuế của kỳ đề nghị giảm thuế);\n\nđ) Tờ khai thuế theo mẫu số 01/TKN-CNKD hoặc Tờ khai quyết toán thuế\nthu nhập cá nhân theo mẫu số 02/CNKD-TNCN-QTT Phụ lục I ban hành kèm\ntheo Thông tư này (nếu hộ kinh doanh, cá nhân kinh doanh chưa nộp Tờ khai thuế\nnăm hoặc hồ sơ quyết toán thuế của kỳ đề nghị giảm thuế).",
+      "chunk_sha256": "84ac74b5c3133140c1f7e3aa8780d24273ff2beb7b0a05c977ae315e9dfe0b7d"
+    },
+    {
+      "doc_id": "TT-90-2026-TT-BTC",
+      "sections": [
+        "S28"
+      ],
+      "title": "Tạm ngừng trực tiếp với cơ quan thuế cho CNKD",
+      "summary": "CNKD không thuộc diện đăng ký kinh doanh dùng mẫu 23/ĐKT; tạm ngừng địa điểm kinh doanh theo TT18. Hộ đã bị thông báo không hoạt động tại địa chỉ phải khôi phục mã số thuế trước.",
+      "limits": "Phân biệt luồng đăng ký hộ liên thông và CNKD đăng ký thuế trực tiếp; không lấy thời hạn đăng ký hộ áp cho mọi hồ sơ thuế.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.224",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 25",
+      "source_file": "document_library/TT-90-2026-TT-BTC.md",
+      "source_sha256": "ed414e3bc5d711420e2eb85e349efc836826c5ef77200361f97ed03329461444",
+      "excerpt_sha256": "fafd9ac85834b768f33ec219f1e1de8ecd06ae146e83062b572dff608510c5d2",
+      "quote": "Điều 25. Thông báo tạm ngừng hoạt động, kinh doanh hoặc tiếp tục\nhoạt động, kinh doanh trở lại trước thời hạn\n\n1. Hộ gia đình, cá nhân kinh đoanh quy định tại điểm k khoản 2 Điều 4\nThông tư này không thuộc diện đăng ký kinh doanh khi tạm ngừng hoạt động,\nkinh doanh hoặc tiếp tục hoạt động, kinh doanh trở lại trước thời hạn gửi thông\nbáo mẫu số 23/ĐKT ban hành kèm theo Thông tư này đến cơ quan thuế quản lý\ntrực tiếp theo thời hạn quy định tại điểm g.2 hoặc g.4 khoản 3 Điêu 6 Nghị định\n\n\n[Trang 61]\n\n6l\nsố 252/2026/NĐ-CP.\n\nTrường hợp hộ kinh doanh, cá nhân kinh doanh tạm ngừng hoạt động\nhoặc tiếp tục hoạt động của địa điểm kinh doanh thì thực hiện thông báo đên cơ\nquan thuê quản lý trực tiếp trụ sở của hộ kinh doanh, cá nhân kinh doanh theo\nquy định tại điểm đ khoản 4 Điêu 8 Nghị định sô 68/2026/NĐ-CP và khoản I\nĐiều 3 Thông tư số 18/2026/TT-BTC.\n\n2. Sau khi cơ quan thuế đã ban hành thông báo người nộp thuế không hoạt\nđộng tại địa chỉ đã đăng ký, hộ kinh doanh phải thực hiện thủ tục khôi phục mã\nsố thuế theo quy định tại khoản 3 Điều 31 và khoản 2 Điều 32 Thông tư này\ntrước khi đăng ký tạm ngừng hoạt động, kinh doanh với cơ quan đăng ký kinh\ndoanh.",
+      "chunk_sha256": "c05fe31ae1ce4ddd51f381d38df6efb0fe5c913807871a53b8d076c0de8dc0c3"
+    },
+    {
+      "doc_id": "TT-90-2026-TT-BTC",
+      "sections": [
+        "S31"
+      ],
+      "title": "Nghĩa vụ trước khi đóng mã số hoạt động kinh doanh",
+      "summary": "Hoàn thành nghĩa vụ hóa đơn, hồ sơ khai, tiền thuế, khoản nộp thừa theo từng trường hợp. Chấm dứt hiệu lực cho hoạt động kinh doanh không làm chấm dứt mã số cá nhân để thực hiện nghĩa vụ khác.",
+      "limits": "Không hứa xóa nợ hoặc đóng mã số ngay; chuyển lên doanh nghiệp có nhánh kế thừa nghĩa vụ riêng. Phân biệt đóng địa điểm với toàn bộ hoạt động.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.225",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 28",
+      "source_file": "document_library/TT-90-2026-TT-BTC.md",
+      "source_sha256": "ed414e3bc5d711420e2eb85e349efc836826c5ef77200361f97ed03329461444",
+      "excerpt_sha256": "46373b3fb95515bc3281098fdc237a2f16900423a2d6052a21c19ef608cc7c70",
+      "quote": "Điều 28. Các nghĩa vụ phải hoàn thành trước khi chấm dứt hiệu lực\nmã số thuế\n\n1. Hộ kinh doanh, hộ gia đình, cá nhân kinh doanh thuộc trường hợp quy\nđịnh tại điểm a, b, d khoản 1 Điêu 27 Thông tư này phải hoàn thành các nghĩa\nvụ phát sinh từ hoạt động kinh doanh trước khi châm dứt hiệu lực mã số thuê do\nchâm dứt hoạt động kinh doanh như sau:\n\n- Hoàn thành nghĩa vụ về hóa đơn theo quy định của pháp luật về hóa đơn\nnếu có sử dụng hóa đơn;\n\n- Hoàn thành nghĩa vụ nộp hỗ sơ khai thuế, nộp thuế và xử lý số tiền thuế\nnộp thừa theo quy định tại điểm d.1 khoản I1 Điêu 7 Nghị định sô 252/2026/NĐ-\nCP.\n\n2. Đối với hộ kinh doanh chuyên lên doanh nghiệp nhỏ và vừa theo quy\nđịnh tại Luật hỗ trợ doanh nghiệp nhỏ và vừa thì hộ kinh doanh phải hoàn thành\nnghĩa vụ thuê với cơ quan thuế quản lý trực tiệp hoặc có văn bản gửi cơ quan\nthuê cam kết doanh nghiệp nhỏ và vừa chuyên đôi từ hộ kinh doanh kê thừa toàn\nbộ nghĩa vụ thuê của hộ kinh doanh theo quy định của pháp luật về hỗ trợ doanh\nnghiệp nhỏ và vừa.\n\n3. Đối với trường hợp quy định tại điểm a khoản 2 Điều 27 Thông tư này,\ncơ quan thuế châm dứt hiệu lực mã sô thuê sau khi các nghĩa vụ nộp thuế và các\nnghĩa vụ có liên quan đên hô sơ thuế, xử lý số tiền thuế, khoản thu khác, tiên\nchậm nộp, tiên phạt nộp thừa của cá nhân được người thừa kế hoặc người được\ngiao quản lý di sản hoặc người quản lý tài sản hoàn thành theo quy định tại điểm\na khoản 3 Điều 27 Nghị định sô 252/2026/NĐ-CP, hoặc được xóa nợ theo quy\nđịnh tại Điêu 2I Luật sô 108/2025/QH15.\n\n4. Khi mã số thuế của hộ kinh doanh, hộ gia đình, cá nhân kinh doanh bị\nchấm dứt hiệu lực sử dụng đối với hoạt động kinh doanh thì mã số thuê của chủ\n\n\n[Trang 64]\n\n64\nhộ kinh doanh, chủ hộ gia đình, cá nhân không bị chấm dứt hiệu lực và tiếp tục\nđược sử dụng đề thực hiện các nghĩa vụ thuê khác của cá nhân đó.\n\n5. Hộ kinh doanh, cá nhân kinh doanh chịu trách nhiệm hoàn thành đầy\nđủ các nghĩa vụ thuê liên quan đên địa điểm kinh doanh khi châm dứt hoạt động\ncủa địa điểm kinh doanh.",
+      "chunk_sha256": "05027187d36e18f3ccfd700cc40a6ca428ae9232d5286d478c66eae4402c7449"
+    },
+    {
+      "doc_id": "TT-90-2026-TT-BTC",
+      "sections": [
+        "S40"
+      ],
+      "title": "Định danh cá nhân, nhiều mã số thuế và hồ sơ chuyển tiếp",
+      "summary": "Hồ sơ nộp trước hiệu lực tiếp tục xử lý theo luật lúc nộp; thông tin định danh chưa khớp phải cập nhật; nhiều mã số thuế cần tích hợp/hợp nhất theo Điều 37.",
+      "limits": "Không yêu cầu tự sửa toàn bộ hóa đơn cũ sau tích hợp mã số; không tự đoán trạng thái thuế khi chưa tra cứu tài khoản.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.226",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 37",
+      "source_file": "document_library/TT-90-2026-TT-BTC.md",
+      "source_sha256": "ed414e3bc5d711420e2eb85e349efc836826c5ef77200361f97ed03329461444",
+      "excerpt_sha256": "0b30b03b6c49dbc6419eec27a36f584f914fdeb22eabb21d70f6b46b4df2c010",
+      "quote": "Điều 37. Quy định chuyển tiếp\n\n1. Các hồ sơ đăng ký thuế, thông báo thay đổi thông tin đăng ký thuế,\nthông báo tạm ngừng hoạt động kinh doanh, chấm dứt hiệu lực mã số thuế, khôi\nphục mã số thuê đã nộp đến cơ quan thuế trước ngày Thông tư này có hiệu lực\nthi hành thì cơ quan thuế tiếp tục xử lý theo quy định của pháp luật về quản lý\n\n| thuế tại thời điểm nộp hồ sơ.\n\n2. Người nộp thuế đã được cấp mã số thuế trước ngày Thông tư này có\nhiệu lực thi hành thì tiếp tục sử dụng mã số thuế đã được cấp, riêng trường hợp\ncá nhân, hộ gia đình, hộ kinh doanh, cá nhân kinh doanh quy định tại khoản l\nĐiêu II Luật sô 108/2025/QHI5 thì sử dụng số định danh cá nhân làm mã số\nthuế.\n\n3. Trường hợp cá nhân, hộ gia đình, hộ kinh doanh, cá nhân kinh\ndoanh quy định tại khoản 1 Điều 11 Luật số 108/2025/QH15 đã được cấp mã số\nthuế trước ngày 01/7/2025 nhưng thông tin đăng ký thuế của cá nhân, chủ hộ gia\nđình, chủ hộ kinh doanh, cá nhân kinh doanh không khớp đúng với thông tin của\ncá nhân được lưu trữ trong Cơ sở dữ liệu quốc gia về dân cư hoặc không đầy đủ\n(được cơ quan thuế cập nhật mã số thuế sang trạng thái 10 “Mã số thuế chờ cập\nnhật thông tin số định danh cá nhân”), người nộp thuế phải thực hiện thủ tục\nthay đổi thông tin đăng ký thuế với cơ quan thuế theo quy định tại khoản 1,\nkhoản 4 Điều 23 Thông tư này để đảm bảo thông tin khớp đúng với Cơ sở dữ\nliệu quốc gia về dân cư trước khi sử dụng số định danh cá nhân làm mã số thuế.\n\n4. Trường hợp cá nhân đã được cấp nhiều hơn 01 (một) mã số thuế, người\nnộp thuế phải cập nhật thông tin số định danh cá nhân cho các mã số thuế đã\nđược cấp đề cơ quan thuế tích hợp các mã số thuế vào số định danh cá nhân, hợp\nnhất dữ liệu thuế của người nộp thuế theo số định danh cá nhân.\n\nKhi mã số thuế đã được tích hợp vào số định danh cá nhân thì các hóa\nđơn, chứng từ, hồ sơ thuế, giấy tờ có giá trị pháp lý khác đã lập có sử dụng\nthông tin mã số thuế của cá nhân tiếp tục được sử dụng để thực hiện các thủ tục\nhành chính về thuế, chứng mỉnh việc thực hiện nghĩa vụ thuê mà không phải\nđiều chỉnh thông tin mã số thuế trên hóa đơn, chứng từ, hồ sơ thuê sang sô định\ndanh cá nhân.\n\n| 5. Cá nhân, hộ gia đình, hộ kinh doanh, cá nhân kinh doanh thực hiện tra\n\n| cứu thông tin đăng ký thuế đã được cơ quan thuế đối chiếu khớp đúng hoặc\nkhông khớp đúng với Cơ sở dữ liệu quốc gia về dân cư trên Cổng Dịch vụ công\n|\n\n\n[Trang 73]\n\n| 73\nquốc gia hoặc Hệ thống thông tin quản lý thuế hoặc trên tài khoản giao dịch điện\ntử. Trường hợp thông tin có sai sót, người nộp thuế liên hệ với cơ quan thuế\nquản lý trực tiếp hoặc Thuê cơ sở nơi cá nhân cư trú đề cập nhật thông tin chính\nxác vào Hệ thống ứng dụng đăng ký thuế.\n\n6. Trường hợp doanh nghiệp, hợp tác xã, hộ kinh doanh đã được cấp giấy\n\n_ chứng nhận đăng ký kinh doanh nhưng chưa được cấp mã số thuế thì cơ quan\n\n| thuế hướng dẫn người nộp thuế nộp hồ sơ đăng ký thuế theo quy định tại Điều 7,\n\n| Điêu 21 Thông tư này để được cấp mã sô thuê và thực hiện thủ tục liên thông\ntheo quy định sau khi được cấp mã số thuế. Việc xử lý vi phạm đối với người\nnộp thuế thực hiện theo quy định tại Nghị định số 125/2020/NĐ-CP của Chính\nphủ quy định xử phạt vi phạm hành chính vẻ thuế, hóa đơn được sửa đổi, bổ\nsung bởi Nghị định số 310/2025/NĐ-CP của Chính phủ.\n\nTrường hợp thuộc diện thu hồi giấy chứng nhận đăng ký kinh doanh theo\nquy định của Luật Doanh nghiệp, Luật Hợp tác xã, cơ quan thuế gửi văn bản để\nnghị cơ quan đăng ký kinh doanh thực hiện thu hồi giấy chứng nhận theo quy\nđịnh của pháp luật.",
+      "chunk_sha256": "9d5fb95783fd1f38b6e13a2accdf5026eec1569f7f169aca00777e06dedc2646"
+    },
+    {
+      "doc_id": "TT-92-2015-TT-BTC",
+      "sections": [
+        "S3"
+      ],
+      "title": "Lịch sử người nộp thuế CNKD theo TT92",
+      "summary": "Điều 1 mô tả đối tượng cá nhân cư trú có hoạt động kinh doanh theo chế độ cũ.",
+      "limits": "Chỉ lịch sử 2015–2020, không dùng ngưỡng 100 triệu và quy định cũ cho kỳ 2026; TT40 đã thay các quy định kinh doanh liên quan, TT89/TT87 tiếp tục bãi bỏ theo phạm vi.",
+      "from": 2015,
+      "to": 2020,
+      "ref_id": "16.227",
+      "status": "APPROVED_HISTORICAL_SCOPED",
+      "locator": "Điều 1",
+      "source_file": "document_library/TT-92-2015-TT-BTC.md",
+      "source_sha256": "036e7e9964b8defcdfbfdbdf76310b375c46bc59d30aa5843998a485ab654d34",
+      "excerpt_sha256": "49d5f90e103008b15b4f899e0cdcfdf6d4f25a4afd80a275cf3b46a0dfdcaf29",
+      "quote": "Điều 1. Người nộp thuế\n    1. Người nộp thuế theo hướng dẫn tại Chương I Thông tư này là cá nhân cư trú\nbao gồm cá nhân, nhóm cá nhân và hộ gia đình có hoạt động sản xuất, kinh doanh\nhàng hóa, dịch vụ thuộc tất cả các lĩnh vực, ngành nghề sản xuất, kinh doanh theo\nquy định của pháp luật (sau đây gọi là cá nhân kinh doanh). Lĩnh vực, ngành nghề\nsản xuất, kinh doanh bao gồm cả một số trường hợp sau:\n    a) Hành nghề độc lập trong những lĩnh vực, ngành nghề được cấp giấy phép\nhoặc chứng chỉ hành nghề theo quy định của pháp luật;\n    b) Làm đại lý bán đúng giá đối với đại lý xổ số, đại lý bảo hiểm, bán hàng đa\ncấp của cá nhân trực tiếp ký hợp đồng với công ty xổ số kiến thiết, doanh nghiệp\nbảo hiểm, doanh nghiệp bán hàng đa cấp;\n    c) Hợp tác kinh doanh với tổ chức;\n    d) Sản xuất, kinh doanh nông nghiệp, lâm nghiệp, làm muối, nuôi trồng, đánh bắt\nthủy sản không đáp ứng điều kiện được miễn thuế hướng dẫn tại điểm e, khoản 1,\nĐiều 3 Thông tư số 111/2013/TT-BTC ngày 15/8/2013 của Bộ Tài chính.\n    2. Người nộp thuế nêu tại khoản 1 Điều này không bao gồm cá nhân kinh doanh có\ndoanh thu từ 100 triệu đồng/năm trở xuống.",
+      "chunk_sha256": "5fac89fcbb2b80c4efc1a3b80262a957007a755b659697152c2828c0d36fe93d"
+    },
+    {
+      "doc_id": "TT-94-2026-TT-BTC",
+      "sections": [
+        "S16"
+      ],
+      "title": "Rủi ro thuế trong thay đổi, tạm ngừng và khôi phục đăng ký",
+      "summary": "Biện pháp quản lý khác nhau theo mức rủi ro và thủ tục; có nhánh kiểm tra, giám sát, giải trình hoặc đôn đốc nghĩa vụ theo Điều 14.",
+      "limits": "Chỉ cơ chế quản lý liên quan HKD/CNKD, không tự phân loại người hỏi rủi ro cao hoặc suy bị phạt/trốn thuế từ một dấu hiệu.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-07-01",
+      "ref_id": "16.228",
+      "status": "APPROVED_SCOPED",
+      "locator": "Điều 14",
+      "source_file": "document_library/TT-94-2026-TT-BTC.md",
+      "source_sha256": "a4b573df2751a31bc88cbae4c4a2a30cb6caed1bc1eea35f308899a636285774",
+      "excerpt_sha256": "0c2267235017cebdeb57eff165ffd35f8f5d547f71fae870ade6cbc10eb900cc",
+      "quote": "Điều 14. Áp dụng quản lý rúi ro trong quản lý về đăng ký thuế\n\nCăn cứ danh sách người nộp thué phân loại theo các mức độ rủi ro trong\nquản lý về đăng ký thuế tại Điều 13 Thông tư này, cơ quan thuế áp dụng các biện\npháp quản lý thuế phù hợp trong giải quyết, xử lý hoặc phối hợp với cơ quan đăng\nký kinh doanh giải quyết, xử lý theo quy định của pháp luật đăng ký kinh doanh,\nđăng ký thuế.\n\n1. Thay đổi thông tin đăng ký thuế làm thay đổi cơ quan thuế quản lý trực\ntiếp\n\na) Rủi ro cao: Cơ quan thuế nơi chuyên đi thực hiện kiểm tra tại trụ sở của\nngười nộp thuế theo quy định;\n\nb) Rủi ro trung bình: Cơ quan thuế nơi chuyển đến thực hiện đưa vào giám\nsát, đề nghị người nộp thuế giải trình bỗ sung thông tin tài liệu khi có yêu cầu của\ncơ quan thuế;\n\n€) Rủi ro thấp: Chưa thực hiện việc kiểm tra, giám sát; thực hiện đánh giá,\nphân loại mức độ tuân thủ pháp luật thuế, mức độ rủi ro của người nộp thuế cho\nkỳ đánh giá tiếp theo.\n\n2. Trường hợp người nộp thuế thông báo tạm ngừng hoạt động, kinh doanh\n\na) Rủi ro cao: Tăng cường thực hiện các biện pháp quản lý thuế theo quy\nđịnh, phù hợp với tình hình thực hiện nghĩa vụ thuế của người nộp thuế đề xử lý\nkịp thời nợ thuế, hóa đơn, hành vi vi phạm (nếu có);\n\nb) Rủi ro trung bình, rủi ro thấp: Thực hiện các biện pháp quản lý thuế theo\nquy định; thực hiện đánh giá, phân loại mức độ tuân thủ pháp luật thuế, mức độ\nrủi ro của người nộp thuế cho kỳ đánh giá tiếp theo.\n\n\n[Trang 13]\n\ns E\n\n3. Trường hợp chấm dứt hiệu lực mã số thuế\n\na) Rủi ro cao: Thực hiện kiêm tra thuế tại trụ sở của người nộp thuế theo\nquy định.\n\nb) Rủi ro trung bình, rủi ro thấp: Áp dụng các biện pháp đôn đốc người nộp\nthuế hoàn thành nghĩa vụ thué trước khi giải thể, phá sản, ngừng hoạt động theo\nquy định.\n\n4. Khôi phục mã số thuế\n\na) Rúi ro cao: Thực hiện rà soát, kiểm tra theo quy định trước khi thực hiện\nkhôi phục mã só thuế cho người nộp thuế.\n\nb) Rủi ro trung bình, rủi ro thấp: Khôi phục mã só thuế cho người nộp thuế\ntheo quy định.\n\n5. Đối với trường hợp còn lại: Thường xuyên rà soát các trường hợp có dấu\nhiệu rủi ro cao để xác định danh sách cần rà soát, xác minh tình trạng hoạt động,\ntại trụ sở của người nộp thué.",
+      "chunk_sha256": "a1b8f2e772f789d4b87dcc0a7683a3e05fd76410454abe02b74f7a823625eda4"
+    },
+    {
+      "doc_id": "TT-89-2026-TT-BTC",
+      "sections": [],
+      "title": "Mẫu HKD CNKD theo TT89 đã đính chính bởi QĐ2551",
+      "summary": "QĐ2551/QĐ-BTC ngày 15/09/2026 đính chính khoản 5 Điều 99 TT89: tên mẫu mới có 01/XSBHĐCMG-CNKD và 01/BK-XSBHĐCMG. Không lấy ký hiệu mẫu trước đính chính làm mẫu hiện hành.",
+      "limits": "Chỉ danh tính sáu mẫu thay thế trong khoản 5 Điều 99; việc xác định đúng mẫu phụ thuộc phương pháp thuế, nguồn thu và mục đích hồ sơ. Không coi chung số mẫu là chung nghĩa vụ thông báo/kê khai.",
+      "from": 2026,
+      "to": null,
+      "effective_from": "2026-09-15",
+      "official_file": "rag_data/sources/legal-cards-2026-10-26/QD-2551-2026-BTC.pdf",
+      "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/9/dinh-chinh-tt-89-2026-btc.signed.pdf",
+      "locator": "Khoản 5 Điều 99 TT89, được đính chính tại Điều 1 QĐ2551/QĐ-BTC; trang 2 PDF quyết định (phần nội dung thay thế)",
+      "transcription": "5. Thông tư này thay thế mẫu số 01/TKN-CNKD kèm theo Thông tư số 50/2026/TT-BTC, mẫu số 02/CNKD-TNCN-QTT, mẫu số 01/XSBHĐC, mẫu số 01/BK-XSBHĐC, mẫu số 01/TCKT, mẫu số 01/BK-KTHTKD kèm theo Thông tư số 18/2026/TT-BTC bằng mẫu số 01/TKN-CNKD, mẫu số 02/CNKD-TNCN-QTT, mẫu số 01/XSBHĐCMG-CNKD, mẫu số 01/BK-XSBHĐCMG, mẫu số 01/TCKT, mẫu số 01/BK-KTHTKD Phụ lục I ban hành kèm theo Thông tư này.",
+      "ref_id": "16.229",
+      "status": "APPROVED_SCOPED",
+      "source_file": "rag_data/sources/legal-cards-2026-10-26/QD-2551-2026-BTC.pdf",
+      "source_sha256": "4f0c2c4f44783ead748b49786aecc5392936a9e4469acfc3e813387a601029d5",
+      "excerpt_sha256": "6a48ab830ea0919ca316f1aadd3ab8d0c5f7701c5c0ad2ba6bfd497d5b438f13",
+      "quote": "5. Thông tư này thay thế mẫu số 01/TKN-CNKD kèm theo Thông tư số 50/2026/TT-BTC, mẫu số 02/CNKD-TNCN-QTT, mẫu số 01/XSBHĐC, mẫu số 01/BK-XSBHĐC, mẫu số 01/TCKT, mẫu số 01/BK-KTHTKD kèm theo Thông tư số 18/2026/TT-BTC bằng mẫu số 01/TKN-CNKD, mẫu số 02/CNKD-TNCN-QTT, mẫu số 01/XSBHĐCMG-CNKD, mẫu số 01/BK-XSBHĐCMG, mẫu số 01/TCKT, mẫu số 01/BK-KTHTKD Phụ lục I ban hành kèm theo Thông tư này.",
+      "chunk_sha256": "196c3d1fbf60498d2099fbf87275eeaac1daaa8769c9ec6ff1a7c9184cffc5c6"
+    }
+  ],
+  "excluded": [
+    {
+      "doc_id": "ND-320-2025-ND-CP",
+      "status": "EXCLUDED_SUBJECT",
+      "sections": [
+        "S3",
+        "S4"
+      ],
+      "reason": "Điều 1–2 điều chỉnh TNDN và người nộp thuế doanh nghiệp; không sinh quy tắc chi phí/thuế suất TNDN thành nghĩa vụ HKD/CNKD.",
+      "source_file": "document_library/ND-320-2025-ND-CP.md",
+      "source_sha256": "363e85568ad9b11c155526dcefae5f143e27dc0e03a43f67d018cfce9d8a5fcd"
+    },
+    {
+      "doc_id": "TT-20-2026-TT-BTC",
+      "status": "EXCLUDED_SUBJECT",
+      "sections": [
+        "S2",
+        "S3"
+      ],
+      "reason": "Hướng dẫn TNDN/NĐ320; không dùng hồ sơ chi phí được trừ của doanh nghiệp áp cho cá nhân kinh doanh.",
+      "source_file": "document_library/TT-20-2026-TT-BTC.md",
+      "source_sha256": "dbe8f10db4e42fa2f70dc2df32edc20e261dd42fe17510d033f458fb79a70e91"
+    },
+    {
+      "doc_id": "TT-121-2026-TT-BTC",
+      "status": "EXCLUDED_SUBJECT",
+      "sections": [
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "reason": "Điều 1 chỉ thay/bãi bỏ mẫu Phụ lục I đăng ký doanh nghiệp; không sửa bộ mẫu đăng ký hộ chỉ từ tên chung TT68. Chuyển tiếp Điều 2 là cơ quan cấp tỉnh.",
+      "source_file": "document_library/TT-121-2026-TT-BTC.md",
+      "source_sha256": "cf75d7d46dc8912e22d4458a6bedf122c02af7d3dba34e6699cbc158c70a7d9b"
+    }
+  ],
+  "correction": {
+    "doc_id": "QD-2551-2026-BTC",
+    "source_file": "rag_data/sources/legal-cards-2026-10-26/QD-2551-2026-BTC.pdf",
+    "sha256": "4f0c2c4f44783ead748b49786aecc5392936a9e4469acfc3e813387a601029d5",
+    "review": "Visually read both pages. Corrects clause 5 article 99 TT89 form identifiers (01/XSBHĐCMG-CNKD and 01/BK-XSBHĐCMG); does not change article 11 or article 68 excerpts."
+  }
+}

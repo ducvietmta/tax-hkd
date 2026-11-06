@@ -1,23 +1,66 @@
 @import "tailwindcss";
 
-/* Homepage task navigation: shared desktop/mobile visual hierarchy. */
+/* Homepage task navigation: refined architectural grid */
 .tax-home-hero .tax-decorations { display: none; }
 .tax-home-hero h1 { text-wrap: balance; }
-.tax-task-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; max-width:900px; margin:0 auto 28px; }
-.tax-task-grid a { display:flex; align-items:center; gap:12px; min-width:0; padding:20px 16px; border:1px solid #dce8e6; border-radius:18px; background:#ffffffed; box-shadow:0 4px 20px #134d3905; transition:transform .18s,box-shadow .18s,border-color .18s; }
-.tax-task-grid a:hover { transform:translateY(-3px); border-color:#6fbda9; box-shadow:0 10px 28px #134d3910; }
-.tax-task-grid a:focus-visible { outline:3px solid #059669; outline-offset:3px; }
-.tax-task-grid strong { display:block; font-size:14px; color:#153f36; }
-.tax-task-grid small { display:block; margin-top:4px; font-size:11px; line-height:1.6; color:#647c77; }
-.tax-task-grid a>span:last-child { margin-left:auto; color:#07886b; }
-.tax-task-icon { display:grid; place-items:center; flex-shrink:0; width:36px; height:36px; border-radius:11px; background:#eef8f4; color:#08775b; font-size:12px; font-weight:750; }
-.tax-question-label { max-width:820px; margin:0 auto 10px; color:#62776f; font-size:12px; font-weight:600; }
-.tax-home-hero .glow-wrap { box-shadow:0 12px 42px #164d3810; }
+.tax-task-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; max-width:920px; margin:0 auto 28px; }
+.tax-task-grid a { 
+  display:flex; 
+  align-items:center; 
+  gap:14px; 
+  min-width:0; 
+  padding:18px 18px; 
+  border:1px solid rgba(226, 232, 240, 0.9); 
+  border-radius:18px; 
+  background:#ffffff; 
+  box-shadow:0 2px 8px -2px rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.02); 
+  transition:all .2s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+.tax-task-grid a:hover { 
+  transform:translateY(-2px); 
+  border-color:rgba(16, 185, 129, 0.4); 
+  box-shadow:0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.02); 
+}
+.tax-task-grid a:focus-visible { outline:2px solid #059669; outline-offset:2px; }
+.tax-task-grid strong { display:block; font-size:14.5px; font-weight:700; color:#0f172a; letter-spacing:-0.01em; }
+.tax-task-grid small { display:block; margin-top:3px; font-size:12px; line-height:1.5; color:#64748b; }
+.tax-task-grid a>span:last-child { margin-left:auto; color:#94a3b8; font-size:14px; transition:color .18s, transform .18s; }
+.tax-task-grid a:hover>span:last-child { color:#059669; transform:translateX(2px) translateY(-2px); }
+.tax-task-icon { 
+  display:grid; 
+  place-items:center; 
+  flex-shrink:0; 
+  width:40px; 
+  height:40px; 
+  border-radius:12px; 
+  background:#f1f5f9; 
+  color:#0f172a; 
+  font-size:13px; 
+  font-weight:700; 
+  border:1px solid rgba(226, 232, 240, 0.8);
+  transition:all .2s;
+}
+.tax-task-grid a:hover .tax-task-icon {
+  background:#ecfdf5;
+  color:#047857;
+  border-color:rgba(167, 243, 208, 0.8);
+}
+.tax-question-label { 
+  max-width:820px; 
+  margin:0 auto 12px; 
+  color:#64748b; 
+  font-size:12.5px; 
+  font-weight:600; 
+  letter-spacing:0.01em;
+}
+.tax-home-hero .glow-wrap { 
+  box-shadow:0 8px 30px -4px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.02); 
+}
 @media(max-width:767px) {
- .tax-task-grid { grid-template-columns:1fr; gap:8px; margin-bottom:22px; }
- .tax-task-grid a { padding:12px 14px; border-radius:14px; }
- .tax-task-grid strong { font-size:13px; }
- .tax-task-grid small { margin-top:1px; }
+ .tax-task-grid { grid-template-columns:1fr; gap:8px; margin-bottom:20px; }
+ .tax-task-grid a { padding:14px 14px; border-radius:14px; }
+ .tax-task-grid strong { font-size:13.5px; }
+ .tax-task-grid small { margin-top:1px; font-size:11.5px; }
  .tax-question-label { padding-left:4px; }
 }
 
@@ -86,7 +129,7 @@
   html, body {
     background-color: transparent;
     color: #0F172A;
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Albert Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     letter-spacing: -0.015em;
     -webkit-tap-highlight-color: transparent;
   }
@@ -135,76 +178,60 @@
   background: #94A3B8;
 }
 
-/* ============ MODERN FX ============ */
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes blob {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(60px, -40px) scale(1.15); }
-  66% { transform: translate(-40px, 40px) scale(0.92); }
-}
-@keyframes shimmer-text { to { background-position: 200% center; } }
-@keyframes rotate-angle { to { --angle: 360deg; } }
+/* ============ REFINED ARCHITECTURAL FX ============ */
 @keyframes float-y {
   0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
-  50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--r, 0deg)); }
 }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes skeleton { to { background-position: -200% 0; } }
 @keyframes caret { 50% { opacity: 0; } }
 @keyframes ping-soft {
   0% { transform: scale(1); opacity: 0.6; }
-  80%, 100% { transform: scale(2.4); opacity: 0; }
+  80%, 100% { transform: scale(2.2); opacity: 0; }
 }
 @keyframes draw-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+/* Luxury GovTech text treatment: deep slate with subtle emerald ink */
 .text-shimmer {
-  background: linear-gradient(90deg, #059669, #06b6d4, #6366f1, #d946ef, #059669);
-  background-size: 200% auto;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #047857 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: shimmer-text 6s linear infinite;
 }
 
+/* Command bar input wrapper */
 .glow-wrap {
   position: relative;
-  padding: 2px;
   border-radius: 1.25rem;
-  background: conic-gradient(from var(--angle), #34d399, #22d3ee, #818cf8, #e879f9, #34d399);
-  animation: rotate-angle 5s linear infinite;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 8px 30px -4px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.glow-wrap::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: inherit;
-  filter: blur(22px);
-  opacity: 0.35;
-  transition: opacity 0.3s;
+.glow-wrap:hover {
+  border-color: rgba(203, 213, 225, 1);
+  box-shadow: 0 12px 34px -6px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.02);
 }
-.glow-wrap:focus-within::after { opacity: 0.65; }
+.glow-wrap:focus-within {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12), 0 16px 40px -8px rgba(15, 23, 42, 0.09);
+}
 
 .glass {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
 }
 
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 100%);
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 30%, transparent 100%);
 }
 
 .skeleton {
@@ -216,7 +243,7 @@
 .caret::after {
   content: '\258D';
   margin-left: 2px;
-  color: #10b981;
+  color: #059669;
   animation: caret 0.9s steps(1) infinite;
 }
 

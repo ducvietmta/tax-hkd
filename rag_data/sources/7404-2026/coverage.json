@@ -1,0 +1,433 @@
+{
+  "scope": [
+    "HKD",
+    "CNKD"
+  ],
+  "reviewed_on": "2026-10-26",
+  "cards": [
+    {
+      "ref_id": "16.173",
+      "annex": 4,
+      "title": "Thông báo doanh thu và chế tài chậm nộp, không nộp",
+      "ranges": [
+        [
+          4,
+          5
+        ],
+        [
+          8,
+          19
+        ],
+        [
+          21,
+          41
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.174",
+      "annex": 1,
+      "title": "HKD CNKD không phải cung cấp lại thông tin và giá trị bản sao điện tử",
+      "ranges": [
+        [
+          9,
+          25
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.175",
+      "annex": 1,
+      "title": "Giao dịch thuế điện tử, xác nhận người ký và thông báo tiếp nhận",
+      "ranges": [
+        [
+          34,
+          53
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.176",
+      "annex": 1,
+      "title": "Khai bổ sung đúng kỳ và cá nhân hợp tác, đại lý, môi giới tự khai",
+      "ranges": [
+        [
+          115,
+          125
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.177",
+      "annex": 1,
+      "title": "Miễn khoản thuế phí phải nộp trong năm từ 50000 đồng trở xuống",
+      "ranges": [
+        [
+          126,
+          129
+        ],
+        [
+          417,
+          419
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.178",
+      "annex": 1,
+      "title": "Chứng từ nộp thuế theo ID, số tham chiếu và tra soát",
+      "ranges": [
+        [
+          182,
+          203
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.179",
+      "annex": 1,
+      "title": "Bù trừ nộp thừa, tiền chậm nộp và xác nhận nghĩa vụ HKD CNKD",
+      "ranges": [
+        [
+          204,
+          206
+        ],
+        [
+          208,
+          210
+        ],
+        [
+          215,
+          224
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.180",
+      "annex": 1,
+      "title": "Hoàn GTGT TNCN nộp thừa của HKD CNKD qua hồ sơ khai thuế",
+      "ranges": [
+        [
+          259,
+          266
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.181",
+      "annex": 1,
+      "title": "Hồ sơ gia hạn, không tính hoặc miễn tiền chậm nộp",
+      "ranges": [
+        [
+          211,
+          214
+        ],
+        [
+          443,
+          445
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.182",
+      "annex": 1,
+      "title": "HKD CNKD giảm thuế do thiên tai hỏa hoạn và nộp dần tiền thuế nợ",
+      "ranges": [
+        [
+          293,
+          296
+        ],
+        [
+          318,
+          321
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.183",
+      "annex": 2,
+      "title": "Tem điện tử rượu thuốc lá, mã QR và sử dụng tem cũ",
+      "ranges": [
+        [
+          13,
+          13
+        ],
+        [
+          21,
+          25
+        ],
+        [
+          32,
+          35
+        ],
+        [
+          43,
+          44
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.184",
+      "annex": 2,
+      "title": "Quét dữ liệu tem, sự cố hệ thống, mất cháy và hủy tem",
+      "ranges": [
+        [
+          26,
+          31
+        ],
+        [
+          38,
+          42
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.185",
+      "annex": 3,
+      "title": "HKD CNKD kinh doanh dịch vụ làm thủ tục thuế và đánh giá năng lực",
+      "ranges": [
+        [
+          43,
+          56
+        ],
+        [
+          110,
+          144
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.186",
+      "annex": 3,
+      "title": "Cập nhật kiến thức của người cung cấp dịch vụ làm thủ tục thuế",
+      "ranges": [
+        [
+          57,
+          63
+        ],
+        [
+          151,
+          174
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.187",
+      "annex": 3,
+      "title": "Kiểm tra và công bố kết quả hoạt động dịch vụ làm thủ tục thuế",
+      "ranges": [
+        [
+          64,
+          69
+        ],
+        [
+          175,
+          186
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.188",
+      "annex": 3,
+      "title": "Hiệu lực TT109, bảo lưu kết quả và chứng chỉ đã cấp",
+      "ranges": [
+        [
+          71,
+          73
+        ],
+        [
+          75,
+          76
+        ],
+        [
+          145,
+          150
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.189",
+      "annex": 5,
+      "title": "Đăng ký thuế, cộng doanh thu đa kênh và phần nền tảng nộp thay",
+      "ranges": [
+        [
+          65,
+          73
+        ],
+        [
+          105,
+          109
+        ],
+        [
+          221,
+          227
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.190",
+      "annex": 5,
+      "title": "Hóa đơn điện tử HKD CNKD, ủy nhiệm và xử lý hủy đổi trả",
+      "ranges": [
+        [
+          110,
+          118
+        ],
+        [
+          235,
+          238
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.191",
+      "annex": 5,
+      "title": "Phân loại nguồn thu kinh doanh nội dung số và giữ hồ sơ",
+      "ranges": [
+        [
+          127,
+          140
+        ],
+        [
+          158,
+          168
+        ],
+        [
+          229,
+          234
+        ],
+        [
+          239,
+          242
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.192",
+      "annex": 5,
+      "title": "Thông báo khấu trừ và điều chỉnh thuế đã nộp thay cho người bán",
+      "ranges": [
+        [
+          181,
+          194
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.193",
+      "annex": 5,
+      "title": "Phí vận chuyển là doanh thu hay thu hộ của HKD CNKD",
+      "ranges": [
+        [
+          485,
+          487
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.194",
+      "annex": 5,
+      "title": "Hàng hỏng trả lại, sàn bồi thường và hóa đơn đã lập",
+      "ranges": [
+        [
+          482,
+          482
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.195",
+      "annex": 5,
+      "title": "Tài khoản ngân hàng và ví điện tử của hộ kinh doanh bán nhiều kênh",
+      "ranges": [
+        [
+          521,
+          522
+        ]
+      ]
+    },
+    {
+      "ref_id": "16.196",
+      "annex": 1,
+      "title": "Kiểm tra thuế trực tuyến từ xa trên dữ liệu điện tử",
+      "ranges": [
+        [
+          479,
+          481
+        ]
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "annex": 1,
+      "ranges": [
+        [
+          54,
+          109
+        ],
+        [
+          130,
+          176
+        ],
+        [
+          230,
+          241
+        ],
+        [
+          267,
+          275
+        ],
+        [
+          289,
+          292
+        ],
+        [
+          297,
+          304
+        ]
+      ],
+      "reason": "Doanh nghiệp/TNDN, tiền lương riêng, đầu tư, bất động sản và thu nhập ngoài kinh doanh; đoạn P302-P303 mâu thuẫn không nhập."
+    },
+    {
+      "annex": 3,
+      "ranges": [
+        [
+          74,
+          74
+        ],
+        [
+          187,
+          192
+        ]
+      ],
+      "reason": "Chuyển tiếp riêng nhân viên đại lý thuế; không mở rộng cho mọi HKD/CNKD."
+    },
+    {
+      "annex": 5,
+      "ranges": [
+        [
+          30,
+          64
+        ],
+        [
+          74,
+          104
+        ],
+        [
+          141,
+          157
+        ],
+        [
+          169,
+          179
+        ],
+        [
+          245,
+          568
+        ]
+      ],
+      "reason": "Loại phần doanh nghiệp, NCCNN, bảng tỷ lệ/đăng ký thiếu điều kiện và hỏi đáp trùng lặp; chỉ ngoại lệ P482, P485-P487, P521-P522 được nạp theo các card. Không nhập P493 mốc 30 ngày khác P113; không nhập P469/P518 thuế suất 17% thiếu trần; không nhập P490 dự báo tự phát sinh nghĩa vụ."
+    }
+  ]
+}

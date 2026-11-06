@@ -98,12 +98,12 @@ export const TaxCalculatorInteractive: React.FC = () => {
       <div className="max-w-[1200px] mx-auto px-3.5 sm:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-12">
-          <div className="glass inline-flex items-center gap-1.5 sm:gap-2 text-emerald-700 text-[11px] sm:text-[12px] font-extrabold tracking-widest uppercase px-3 py-1 sm:px-4 sm:py-1.5 rounded-full mb-2.5 sm:mb-4">
-            <Calculator className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <div className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-800 text-[11px] sm:text-[12px] font-semibold tracking-wide uppercase px-3.5 py-1 rounded-full mb-3 shadow-2xs">
+            <Calculator className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
             <span>Mô phỏng thuế kinh doanh năm 2026</span>
           </div>
           <h2 className="text-[22px] sm:text-[38px] font-extrabold text-slate-900 tracking-tight leading-tight">
-            Mô phỏng <span className="text-shimmer">số thuế phải nộp</span> <br className="hidden sm:block" />
+            Mô phỏng <span className="text-emerald-800">số thuế phải nộp</span> <br className="hidden sm:block" />
             <span className="hidden md:inline">cho từng mô hình kinh doanh</span>
           </h2>
           <p className="hidden md:block mt-4 text-[15px] text-slate-600 leading-relaxed">
@@ -237,7 +237,7 @@ export const TaxCalculatorInteractive: React.FC = () => {
                     <motion.div
                       animate={{ width: `${meterFill}%` }}
                       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-                      className={`h-full rounded-full bg-gradient-to-r ${taxable ? 'from-amber-400 to-orange-500' : 'from-emerald-400 to-teal-500'}`}
+                      className={`h-full rounded-full ${taxable ? 'bg-amber-500' : 'bg-emerald-600'}`}
                     />
                     <div
                       className="absolute -top-1.5 h-5 sm:h-6 w-[2px] bg-slate-700"

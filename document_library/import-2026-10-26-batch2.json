@@ -1,0 +1,220 @@
+{
+  "date": "2026-10-26",
+  "source": "van-ban-thue-md-dot2-day-du (1).zip",
+  "archive_sha256": "59fa25435e25baaf9657410a0874f767cca0920b60c98c9df034e05d0ca5d607",
+  "scope": "independent document explanation only; not verified tax RAG cards",
+  "imported": 26,
+  "pending": 0,
+  "total_available": 59,
+  "catalog_without_markdown": [],
+  "files": [
+    {
+      "id": "1296-CT-NVT-2026-goc",
+      "source_file": "1296-CT-NVT-2026-goc.md",
+      "sha256": "9a29c1eb0c770b334c3ea0c6c2681989ad662d7369b6213250f94fcc5be22b2c",
+      "characters": 42200,
+      "status": "imported",
+      "destination": "document_library/1296-CT-NVT-2026-goc.md"
+    },
+    {
+      "id": "Luat-109-2025-QH15",
+      "source_file": "Luat-109-2025-QH15.md",
+      "sha256": "4ec742b33474841b6f62e1e705d656a9318e235de2f2478029747bd9a6f9f811",
+      "characters": 30199,
+      "status": "imported",
+      "destination": "document_library/Luat-109-2025-QH15.md"
+    },
+    {
+      "id": "ND-118-2025-ND-CP",
+      "source_file": "ND-118-2025-ND-CP.md",
+      "sha256": "194be4ee8132fcea50514744b583cfdbdb630c196da89d3a3791db5ea1003a0c",
+      "characters": 97135,
+      "status": "imported",
+      "destination": "document_library/ND-118-2025-ND-CP.md"
+    },
+    {
+      "id": "ND-141-2026-ND-CP",
+      "source_file": "ND-141-2026-ND-CP.md",
+      "sha256": "cda9abb3dd86cbb555213bf86c20658cf67b5b74874929797eb41e2d87dd4e17",
+      "characters": 8462,
+      "status": "imported",
+      "destination": "document_library/ND-141-2026-ND-CP.md"
+    },
+    {
+      "id": "ND-144-2026-ND-CP",
+      "source_file": "ND-144-2026-ND-CP.md",
+      "sha256": "1bd10902de99724622381327427b6a17d636a3065aaf8b3d794fb6f91d3805f8",
+      "characters": 29961,
+      "status": "imported",
+      "destination": "document_library/ND-144-2026-ND-CP.md"
+    },
+    {
+      "id": "ND-168-2025-ND-CP",
+      "source_file": "ND-168-2025-ND-CP.md",
+      "sha256": "dec8b8000e29832028f5da895c35027c4baa1993ba87baab92815815deb7f182",
+      "characters": 292232,
+      "status": "imported",
+      "destination": "document_library/ND-168-2025-ND-CP.md"
+    },
+    {
+      "id": "ND-174-2025-ND-CP",
+      "source_file": "ND-174-2025-ND-CP.md",
+      "sha256": "768a147d78d3cd1460dd2e0669e977466bd89f354e69e4dfa2bcbcf45efd4343",
+      "characters": 68586,
+      "status": "imported",
+      "destination": "document_library/ND-174-2025-ND-CP.md"
+    },
+    {
+      "id": "ND-181-2025-ND-CP",
+      "source_file": "ND-181-2025-ND-CP.md",
+      "sha256": "4c4ca853d45547ad4938a9ad0a9ae9d70f3711adc2113a6d0023ca4496b43513",
+      "characters": 129070,
+      "status": "imported",
+      "destination": "document_library/ND-181-2025-ND-CP.md"
+    },
+    {
+      "id": "ND-245-2026-ND-CP",
+      "source_file": "ND-245-2026-ND-CP.md",
+      "sha256": "fb32b8229a2a2afdbd532050cd02c1a876b0d8647c9b083f4bd0a54e2ee90fbe",
+      "characters": 20755,
+      "status": "imported",
+      "destination": "document_library/ND-245-2026-ND-CP.md"
+    },
+    {
+      "id": "ND-248-2026-ND-CP",
+      "source_file": "ND-248-2026-ND-CP.md",
+      "sha256": "3fb485cc6d21310b88a10e2f5322ff9ddf832d5f077cef7700456285d7ba14a7",
+      "characters": 156815,
+      "status": "imported",
+      "destination": "document_library/ND-248-2026-ND-CP.md"
+    },
+    {
+      "id": "ND-252-2026-ND-CP",
+      "source_file": "ND-252-2026-ND-CP.md",
+      "sha256": "74401fc2f4a23ed90fd9a5abe2d71d77011a6ef2bf000ec4b5a0e11ebe209c81",
+      "characters": 320229,
+      "status": "imported",
+      "destination": "document_library/ND-252-2026-ND-CP.md"
+    },
+    {
+      "id": "ND-253-2026-ND-CP",
+      "source_file": "ND-253-2026-ND-CP.md",
+      "sha256": "bbe4c3e1b58f9a04a9786a4ed4ca8417c604d0a12bb36bed45e61f5ab9307308",
+      "characters": 138583,
+      "status": "imported",
+      "destination": "document_library/ND-253-2026-ND-CP.md"
+    },
+    {
+      "id": "ND-254-2026-ND-CP",
+      "source_file": "ND-254-2026-ND-CP.md",
+      "sha256": "92e9b0e5e15afb6c4423bb194ab7f59326db55967892ec7a71d3dfb6243c0d01",
+      "characters": 126980,
+      "status": "imported",
+      "destination": "document_library/ND-254-2026-ND-CP.md"
+    },
+    {
+      "id": "ND-291-2026-ND-CP",
+      "source_file": "ND-291-2026-ND-CP.md",
+      "sha256": "663d91dab9813495c79c97bb5b420c3e35fef26a531fc0548f6cb5e9eded8588",
+      "characters": 4917,
+      "status": "imported",
+      "destination": "document_library/ND-291-2026-ND-CP.md"
+    },
+    {
+      "id": "NQ-204-2025-QH15",
+      "source_file": "NQ-204-2025-QH15.md",
+      "sha256": "329c605bf30033b28521f43d9b26a84b9bff7032fc993b0ba93ba6000fa5daf7",
+      "characters": 1616,
+      "status": "imported",
+      "destination": "document_library/NQ-204-2025-QH15.md"
+    },
+    {
+      "id": "NQ-43-2026-QH16",
+      "source_file": "NQ-43-2026-QH16.md",
+      "sha256": "a5f882dd552f8450ac91e8081f744ad1b77e83852333761a1de47114b4a0796b",
+      "characters": 2608,
+      "status": "imported",
+      "destination": "document_library/NQ-43-2026-QH16.md"
+    },
+    {
+      "id": "TT-152-2025-TT-BTC",
+      "source_file": "TT-152-2025-TT-BTC.md",
+      "sha256": "9bbe7ee7cc386fcbd31b207546d76e3707eb658940ad80a73229591e0465046d",
+      "characters": 22136,
+      "status": "imported",
+      "destination": "document_library/TT-152-2025-TT-BTC.md"
+    },
+    {
+      "id": "TT-18-2026-TT-BTC",
+      "source_file": "TT-18-2026-TT-BTC.md",
+      "sha256": "2281f83c26b1b5136fc9d1e3d6aa728e5e140f32faceebc5d906f584f1b2af5c",
+      "characters": 57790,
+      "status": "imported",
+      "destination": "document_library/TT-18-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-19-2021-TT-BTC",
+      "source_file": "TT-19-2021-TT-BTC.md",
+      "sha256": "e0adebd758647454f9399e3881fc12c801d260b757fae90fb22e9881e39de3b2",
+      "characters": 216783,
+      "status": "imported",
+      "destination": "document_library/TT-19-2021-TT-BTC.md"
+    },
+    {
+      "id": "TT-20-2026-TT-BTC",
+      "source_file": "TT-20-2026-TT-BTC.md",
+      "sha256": "dbe8f10db4e42fa2f70dc2df32edc20e261dd42fe17510d033f458fb79a70e91",
+      "characters": 55720,
+      "status": "imported",
+      "destination": "document_library/TT-20-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-50-2026-TT-BTC",
+      "source_file": "TT-50-2026-TT-BTC.md",
+      "sha256": "742ec4610f8fe04c7018d0a76bf274d12c32949f8e7e71892b0c9ce179448681",
+      "characters": 25473,
+      "status": "imported",
+      "destination": "document_library/TT-50-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-88-2021-TT-BTC",
+      "source_file": "TT-88-2021-TT-BTC.md",
+      "sha256": "252416e2e73c1719e27d1bcc5e7ba3ab040df27645332dddb8baa60ac1bd2d19",
+      "characters": 41894,
+      "status": "imported",
+      "destination": "document_library/TT-88-2021-TT-BTC.md"
+    },
+    {
+      "id": "TT-89-2026-TT-BTC",
+      "source_file": "TT-89-2026-TT-BTC.md",
+      "sha256": "838ce9eb1b19a92c71a13e9c2d60b0e1ce66afef67864a6d15291bf8260edd27",
+      "characters": 1451562,
+      "status": "imported",
+      "destination": "document_library/TT-89-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-90-2026-TT-BTC",
+      "source_file": "TT-90-2026-TT-BTC.md",
+      "sha256": "ed414e3bc5d711420e2eb85e349efc836826c5ef77200361f97ed03329461444",
+      "characters": 361289,
+      "status": "imported",
+      "destination": "document_library/TT-90-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-91-2026-TT-BTC",
+      "source_file": "TT-91-2026-TT-BTC.md",
+      "sha256": "1144d313f276e3ed24618377704ffac1a0fd476876a974b33f99ce8908be8f1b",
+      "characters": 154243,
+      "status": "imported",
+      "destination": "document_library/TT-91-2026-TT-BTC.md"
+    },
+    {
+      "id": "TT-94-2026-TT-BTC",
+      "source_file": "TT-94-2026-TT-BTC.md",
+      "sha256": "a4b573df2751a31bc88cbae4c4a2a30cb6caed1bc1eea35f308899a636285774",
+      "characters": 71553,
+      "status": "imported",
+      "destination": "document_library/TT-94-2026-TT-BTC.md"
+    }
+  ]
+}

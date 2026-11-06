@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { createPortal } from 'react-dom';
 import { X, ExternalLink, Download, FileText, Building2, CalendarDays, LoaderCircle, ArrowUpRight, Sparkles } from 'lucide-react';
 import legalDocsRaw from '../data/legalDocuments.json';
-const AIChatModal = React.lazy(() => import('./AIChatModal').then(m => ({ default: m.AIChatModal })));
+const DocumentChat = React.lazy(() => import('./DocumentChat'));
 
 const PdfDocumentViewer = React.lazy(() => import('./PdfDocumentViewer'));
 
@@ -209,12 +209,10 @@ export const PdfViewerModal: React.FC<PdfViewerModalProps> = ({
             </div>
             {chatStarted && (
               <div className={`${chatOpen ? '' : 'hidden'} absolute inset-0 z-20 lg:static lg:inset-auto lg:w-[390px] xl:w-[420px] lg:shrink-0 min-h-0 border-l border-slate-200 bg-white shadow-[-10px_0_30px_rgba(15,23,42,0.08)]`}>
-                <Suspense fallback={<p role="status" className="p-4 text-sm text-slate-500">Đang mở trợ lý…</p>}><AIChatModal
+                <Suspense fallback={<p role="status" className="p-4 text-sm text-slate-500">Đang mở trợ lý…</p>}><DocumentChat
                   key={viewingDoc.id}
-                  isOpen
                   onClose={() => setChatOpen(false)}
-                  initialQuery={`Tư vấn chi tiết các quy định của ${viewingDoc.code} đối với hộ kinh doanh`}
-                  embeddedDocument={{ id: viewingDoc.id, code: viewingDoc.code, title: viewingDoc.title }}
+                  document={{ id: viewingDoc.id, code: viewingDoc.code, title: viewingDoc.title }}
                 /></Suspense>
               </div>
             )}

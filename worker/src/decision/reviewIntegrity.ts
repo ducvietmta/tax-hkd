@@ -12,7 +12,7 @@ export function auditGrounding(packet:GroundingPacket):ClaimReviewIssue[]{
   const counts=new Map<string,number>();
   packet.claims.forEach(c=>counts.set(c.id,(counts.get(c.id)||0)+1));
   for(const claim of packet.claims){
-    if(claim.kind==='CITATIONS')continue;
+    if(claim.kind==='CITATIONS'||claim.kind==='CONTEXT')continue;
     const fail=(code:string)=>issues.push({claim_id:claim.id,code});
     if(duplicatePassages||duplicateRequests||counts.get(claim.id)!==1){fail('DUPLICATE_ID');continue;}
     if(claim.mapping!=='PROPOSED'||!claim.evidence_ids.length||!claim.request_ids.length){fail('UNMAPPED');continue;}

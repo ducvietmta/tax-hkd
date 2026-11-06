@@ -74,70 +74,68 @@ export const TechShowcase: React.FC = () => {
 
       <div className="max-w-[1100px] mx-auto px-3.5 sm:px-6 mt-8 sm:mt-16">
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {STATS.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              whileHover={{ y: -6 }}
-              className="glass rounded-2xl sm:rounded-3xl p-3 sm:p-6 shadow-card text-center"
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xs hover:border-slate-300 transition-all text-center"
             >
-              <div className="text-[22px] sm:text-[36px] font-extrabold text-shimmer leading-tight">
+              <div className="text-[26px] sm:text-[38px] font-extrabold text-slate-900 leading-tight tracking-tight">
                 <Counter value={s.value} suffix={s.suffix} decimals={s.decimals} />
               </div>
-              <p className="mt-1 text-[11px] sm:text-[13px] text-slate-600 font-medium leading-snug">{s.label}</p>
+              <p className="mt-2 text-[12px] sm:text-[13px] text-slate-600 font-medium leading-snug">{s.label}</p>
             </motion.div>
           ))}
         </div>
 
         {/* Pipeline */}
-        <div className="mt-10 sm:mt-16 text-center">
+        <div className="mt-12 sm:mt-20 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[20px] sm:text-[34px] font-extrabold tracking-tight text-slate-900 leading-tight"
+            className="text-[22px] sm:text-[34px] font-extrabold tracking-tight text-slate-900 leading-tight"
           >
-            Cách trợ lý AI <span className="text-shimmer">xử lý mỗi câu hỏi</span>
+            Cách trợ lý AI <span className="text-emerald-800">xử lý mỗi câu hỏi</span>
           </motion.h2>
-          <p className="mt-2 sm:mt-3 text-[13px] sm:text-[15px] text-slate-600">Bốn bước tự động, minh bạch và có kiểm soát.</p>
+          <p className="mt-2 sm:mt-3 text-[13.5px] sm:text-[15.5px] text-slate-600">Bốn bước tự động, minh bạch và có kiểm soát căn cứ pháp lý.</p>
         </div>
 
-        <div className="relative mt-6 sm:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5">
+        <div className="relative mt-8 sm:mt-14 grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5">
           {/* connecting line (desktop) */}
-          <div className="absolute left-[12%] right-[12%] top-[38px] hidden md:block h-[2px] bg-slate-200/80 overflow-hidden">
+          <div className="absolute left-[12%] right-[12%] top-[38px] hidden md:block h-[2px] bg-slate-200 overflow-hidden">
             <motion.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.6, ease: 'easeInOut' }}
-              className="h-full origin-left bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-500"
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+              className="h-full origin-left bg-emerald-600"
             />
           </div>
 
           {STEPS.map((s, i) => (
             <motion.div
               key={s.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ delay: 0.15 + i * 0.15, duration: 0.6 }}
+              transition={{ delay: 0.1 + i * 0.12, duration: 0.5 }}
               className="relative text-center p-2 sm:p-0"
             >
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 4 }}
-                className="relative mx-auto mb-2.5 sm:mb-4 flex h-[54px] w-[54px] sm:h-[76px] sm:w-[76px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white shadow-floating border border-slate-100"
+              <div
+                className="relative mx-auto mb-3 sm:mb-4 flex h-[56px] w-[56px] sm:h-[76px] sm:w-[76px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white shadow-2xs border border-slate-200/90"
               >
-                <span className="absolute -top-1.5 -right-1.5 sm:-top-2 sm:-right-2 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500 text-[10px] sm:text-[11px] font-bold text-white shadow">
+                <span className="absolute -top-1.5 -right-1.5 sm:-top-2 sm:-right-2 flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-slate-900 text-[10.5px] sm:text-[11px] font-bold text-emerald-400 shadow-xs border border-slate-700">
                   {i + 1}
                 </span>
-                <s.icon className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-600" />
-              </motion.div>
-              <h3 className="text-[13.5px] sm:text-[16px] font-bold text-slate-900">{s.title}</h3>
-              <p className="mt-1 sm:mt-1.5 text-[11.5px] sm:text-[13px] text-slate-600 leading-snug sm:leading-relaxed">{s.desc}</p>
+                <s.icon className="h-6 w-6 sm:h-8 sm:w-8 text-emerald-700" />
+              </div>
+              <h3 className="text-[14px] sm:text-[16px] font-bold text-slate-900">{s.title}</h3>
+              <p className="mt-1 sm:mt-1.5 text-[12px] sm:text-[13px] text-slate-600 leading-snug sm:leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>

@@ -1,0 +1,42 @@
+[
+  {
+    "annex": 1,
+    "filename": "Final. Phụ lục 1. Tài liệu tuyên truyền TT89.docx",
+    "sha256": "ec0321a000def662887ebab3aee4cc4b3f53ee3ff7aca5ba5bed006291dc6a7f",
+    "paragraph_count": 643,
+    "source_url": "/documents/CT-7404-2026-PL1.docx",
+    "extracted_path": "rag_data/sources/7404-2026/annex-1.txt"
+  },
+  {
+    "annex": 2,
+    "filename": "Final. Phụ lục 2. Tài liệu tuyên truyền TT93.docx",
+    "sha256": "e2a3d03a59690253564c3a9320c1abbbd84a2b23f860a6f5aa3cf0cbcba0ba09",
+    "paragraph_count": 123,
+    "source_url": "/documents/CT-7404-2026-PL2.docx",
+    "extracted_path": "rag_data/sources/7404-2026/annex-2.txt"
+  },
+  {
+    "annex": 3,
+    "filename": "Final. Phụ lục 3. Tài liệu tuyên truyền TT109.docx",
+    "sha256": "e42a1a9cc5e1fae011ef32d4e93aa581ad531b4d2a359f9179f157f883bbd42f",
+    "paragraph_count": 215,
+    "source_url": "/documents/CT-7404-2026-PL3.docx",
+    "extracted_path": "rag_data/sources/7404-2026/annex-3.txt"
+  },
+  {
+    "annex": 4,
+    "filename": "Final. Phụ lục 4. Tài liệu tuyên truyền chế tài xử phạt hành vi chậm nộp không nộp thông báo doanh thu.docx",
+    "sha256": "f97b5dae89f8f8303339f193ba64e80c69515bac1dc9816f2ce1ead754f2325a",
+    "paragraph_count": 83,
+    "source_url": "/documents/CT-7404-2026-PL4.docx",
+    "extracted_path": "rag_data/sources/7404-2026/annex-4.txt"
+  },
+  {
+    "annex": 5,
+    "filename": "Final. Phụ lục 5. Tài liệu tuyên truyền thuế và hóa đơn điện tử trong thương mại điện tử và bán hàng đa kênh.docx",
+    "sha256": "6924bfba605ac91f20dc171ff47f52c4dde78bd4dc0a96590197ec5095a9fb0c",
+    "paragraph_count": 568,
+    "source_url": "/documents/CT-7404-2026-PL5.docx",
+    "extracted_path": "rag_data/sources/7404-2026/annex-5.txt"
+  }
+]

@@ -1,6 +1,6 @@
 import type { TaxDecisionFrame } from './types';
 import type { EvaluationResult } from '../rules/evaluator';
-import { methodComparisonLedger, historicalCalculationLedger } from './methodComparison';
+import { methodComparisonLedger, historicalCalculationLedger, multiActivityLedger } from './methodComparison';
 import { ARITHMETIC_INSTRUCTIONS } from './arithmetic';
 
 /** Only a fully scoped engine evaluation is a ledger, never a loose numeric hint. */
@@ -24,11 +24,13 @@ export function codeCalculationLedger(frame:TaxDecisionFrame,evaluation:Evaluati
 }
 function ledgerInstructions(frame:TaxDecisionFrame,evaluation:EvaluationResult|null){
  const comparison=methodComparisonLedger(frame);
- if(comparison)return `LEDGER SO SÁNH CÓ ĐIỀU KIỆN DO CODE TÍNH: ${JSON.stringify(comparison)}. Giải thích cả hai phương pháp trên cùng dữ kiện. Giữ các điều kiện pháp lý và chi phí từ nguồn. Khi sector_known=false, không chọn ngành cho người hỏi: nêu công thức với tỷ lệ ngành và các ví dụ được đánh hypothetical, rồi hỏi ngành để chốt; vẫn trả số đã tính được của nhánh thu nhập. Kết quả sau giảm chỉ có điều kiện cư trú/NQ43, không biến thành dữ kiện đã biết. Reviewer vẫn phải đối chiếu nguồn cho từng phương pháp.`;
+ if(comparison)return `LEDGER SO SÁNH CÓ ĐIỀU KIỆN DO CODE TÍNH: ${JSON.stringify(comparison)}. Giải thích cả hai phương pháp trên cùng dữ kiện. Giữ các điều kiện pháp lý và chi phí từ nguồn. Kết luận bên nào thấp hơn phải khớp trường conclusion do code chốt (lower/difference_vnd), tuyệt đối không tự kết luận ngược số học. Khi sector_known=false, không chọn ngành cho người hỏi: nêu công thức với tỷ lệ ngành và các ví dụ được đánh hypothetical, rồi hỏi ngành để chốt; vẫn trả số đã tính được của nhánh thu nhập. Kết quả sau giảm chỉ có điều kiện cư trú/NQ43, không biến thành dữ kiện đã biết. Reviewer vẫn phải đối chiếu nguồn cho từng phương pháp.`;
+ const multi=multiActivityLedger(frame);
+ if(multi)return `LEDGER ĐA HOẠT ĐỘNG DO CODE TÍNH: ${JSON.stringify(multi)}. Trình bày đúng phân bổ mức trừ và số từng hoạt động trong ledger, không tự phân bổ lại hay cộng mức trừ nhiều lần. GTGT không dùng mức trừ. Giảm NQ43 chỉ theo relief_condition của ledger.`;
  const historical=historicalCalculationLedger(frame);
  if(historical)return `LEDGER KỲ LỊCH SỬ CÓ ĐIỀU KIỆN DO CODE TÍNH: ${JSON.stringify(historical)}. Trả phần nghĩa vụ và số tiền tính được theo tỷ lệ gốc dưới giả định hàng hóa/dịch vụ chịu thuế và phạm vi cá nhân cư trú của nguồn. Không dùng ngưỡng hiện tại hồi tố. Không lấy chi phí làm cơ sở TNCN của phương pháp tỷ lệ trong kỳ lịch sử. Số GTGT chưa giảm không phải số chốt cuối nếu chưa xét điều kiện giảm; giữ rõ trước đối trừ đã nộp. Reviewer phải đối chiếu nguồn lịch sử, không tự xác nhận điều kiện chưa biết.`;
  const ledger=codeCalculationLedger(frame,evaluation);
- return ledger?`SỐ THUẾ DO CODE TÍNH CÓ ĐIỀU KIỆN: ${JSON.stringify(ledger)}. Chỉ dùng kết quả nếu điều kiện, vai trò số liệu, giả định và kỳ trong ledger đúng câu hỏi. Những nhánh còn lại có đủ dữ kiện và nguồn thì dùng công cụ số học bên dưới; mapping căn cứ và reviewer vẫn bắt buộc. Không lấy tiền GTGT làm TNCN hay đổi cơ sở.`
+ return ledger?`SỐ THUẾ DO CODE TÍNH CÓ ĐIỀU KIỆN: ${JSON.stringify(ledger)}. Chỉ dùng kết quả nếu điều kiện, vai trò số liệu, giả định và kỳ trong ledger đúng câu hỏi. Những nhánh còn lại có đủ dữ kiện và nguồn thì dùng công cụ số học bên dưới; Khi ledger có cả GTGT và TNCN thì trình bày cả hai số tiền, kể cả khi câu hỏi nêu một sắc thuế trước; ý còn lại của câu hỏi (hóa đơn, thủ tục, thời hạn) trả lời riêng từ nguồn, không vì trình bày thuế mà bỏ ý đó. mapping căn cứ và reviewer vẫn bắt buộc. Không lấy tiền GTGT làm TNCN hay đổi cơ sở.`
  : 'Chưa có bảng tính engine phù hợp. Dùng công cụ số học dưới đây cho phần có đủ dữ kiện và nguồn; giữ phần còn thiếu có điều kiện.';
 }
 export function calculationInstructions(frame:TaxDecisionFrame,evaluation:EvaluationResult|null){

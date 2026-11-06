@@ -18,11 +18,11 @@ export const PENDING_TOPICS: PendingTopic[] = [
     id: 'rental_business_threshold_split',
     groups: [
       ['cho thue', 'thue nha', 'thue tai san'],
-      ['cong', 'gop', 'tach', 'rieng', 'chung', 'vua', 'ca phe', 'kinh doanh khac'],
+      ['cộng doanh thu', 'gộp doanh thu', 'tách doanh thu', 'kinh doanh khác', 'ca phe', 'cua hang'].map(normalize),
       ['nguong', '1 ty', '1ty', 'moi thu', '600 trieu'],
     ],
     minGroups: 2,
-    requiredGroups: [0],
+    requiredGroups: [0, 1],
     disclaimer:
       'Cách cộng/tách doanh thu cho thuê tài sản với doanh thu kinh doanh khác khi xét ngưỡng 1 tỷ ' +
       'hiện chưa có hướng dẫn chính thức rõ ràng trong tài liệu hệ thống.',

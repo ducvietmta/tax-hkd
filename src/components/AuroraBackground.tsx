@@ -1,11 +1,15 @@
 import React from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 
-/** Nền sáng: aurora blobs + lưới + vệt sáng đi theo con trỏ chuột */
+/**
+ * Architectural luxury canvas:
+ * Serene cool-grey ground (#F8FAFC) with subtle ambient emerald/slate glow,
+ * precision hairline grid, and smooth interactive cursor illumination.
+ */
 export const AuroraBackground: React.FC = () => {
   const x = useMotionValue(-500);
   const y = useMotionValue(-500);
-  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${x}px ${y}px, rgba(16,185,129,0.13), transparent 70%)`;
+  const spotlight = useMotionTemplate`radial-gradient(550px circle at ${x}px ${y}px, rgba(5, 150, 105, 0.05), transparent 70%)`;
 
   React.useEffect(() => {
     if (!window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
@@ -22,24 +26,22 @@ export const AuroraBackground: React.FC = () => {
   }, [x, y]);
 
   return (
-    <div className="tax-aurora pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#F7FAFC]" aria-hidden>
+    <div className="tax-aurora pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#F8FAFC]" aria-hidden>
+      {/* Subtle architectural ambient lights */}
       <div
-        className="absolute -top-40 -left-32 h-[520px] w-[520px] rounded-full bg-emerald-300/40 blur-[110px]"
-        style={{ animation: 'blob 18s ease-in-out infinite' }}
+        className="absolute -top-48 left-1/2 -translate-x-1/2 h-[500px] w-[900px] rounded-full bg-emerald-500/[0.04] blur-[120px]"
       />
       <div
-        className="absolute top-20 -right-40 h-[560px] w-[560px] rounded-full bg-cyan-300/40 blur-[120px]"
-        style={{ animation: 'blob 22s ease-in-out infinite reverse' }}
+        className="absolute top-1/4 -right-40 h-[480px] w-[480px] rounded-full bg-slate-400/[0.03] blur-[100px]"
       />
       <div
-        className="absolute top-[55%] left-[30%] h-[480px] w-[480px] rounded-full bg-indigo-300/30 blur-[120px]"
-        style={{ animation: 'blob 26s ease-in-out infinite' }}
+        className="absolute bottom-10 -left-20 h-[400px] w-[400px] rounded-full bg-teal-500/[0.03] blur-[100px]"
       />
-      <div
-        className="absolute bottom-0 -left-20 h-[420px] w-[420px] rounded-full bg-fuchsia-200/30 blur-[110px]"
-        style={{ animation: 'blob 20s ease-in-out infinite reverse' }}
-      />
+
+      {/* Precision architectural grid */}
       <div className="bg-grid absolute inset-0" />
+
+      {/* Cursor spotlight */}
       <motion.div className="absolute inset-0" style={{ background: spotlight }} />
     </div>
   );

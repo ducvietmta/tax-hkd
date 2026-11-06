@@ -38,7 +38,7 @@ export interface TaxPeriodFrame {
 
 export interface MultiActivityItem {
   id: string;
-  kind: 'goods' | 'service' | 'rental' | 'other';
+  kind: 'goods' | 'service' | 'rental' | 'other' | 'production_transport' | 'other_business';
   revenueVnd: number;
   vatRate?: number;
   pitRate?: number;
@@ -117,6 +117,7 @@ export interface RetrievalPlan {
   period_fallback?: boolean;
   semantic_topic?: string;
   allowed_refs?: string[];
+  preferred_refs?: string[]; // Ranked hints; never mandatory or legal evidence by themselves.
   strategy: RetrievalStrategy;
   must_include_refs: string[];     // Các ref_id bắt buộc theo rule
   filter_years: number[];          // Chỉ lấy tài liệu đúng kỳ này

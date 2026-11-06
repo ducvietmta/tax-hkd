@@ -1,0 +1,616 @@
+P001: Phụ lục 1
+P002: TÀI LIỆU TUYÊN TRUYỀN
+P003: NHỮNG QUY ĐỊNH NGƯỜI NỘP THUẾ CẦN BIẾT VÀ THỰC HIỆNTHEO THÔNG TƯ SỐ 89/2026/TT-BTC
+P004: Ngày 30/6/2026, Bộ trưởng Bộ Tài chính ban hành Thông tư số 89/2026/TT-BTC quy định chi tiết một số điều của Luật Quản lý thuế và Nghị định số 252/2026/NĐ-CP; Thông tư có hiệu lực thi hành từ ngày 01/7/2026.
+P005: Ngày 10/8/2026, Cục Thuế đã có công văn số 5746/CT-CS giới thiệu điểm mới của Thông tư số 89/2026/TT-BTC.
+P006: Thông tư quy định nhiều nội dung liên quan trực tiếp đến quá trình thực hiện nghĩa vụ thuế của người nộp thuế (NNT), từ giao dịch điện tử, khai thuế, nộp thuế, xử lý khoản nộp thừa, hoàn thuế, miễn, giảm thuế đến các thủ tục quản lý thuế khác.
+P007: Tài liệu này lựa chọn, hệ thống các nội dung NNT cần biết và thực hiện theo từng nhóm đối tượng, từng tình huống phát sinh, nhằm giúp NNT dễ tra cứu, dễ thực hiện và hạn chế sai sót.
+P008: PHẦN I. NHỮNG QUY ĐỊNH CHUNG NGƯỜI NỘP THUẾ CẦN BIẾT
+P009: 1. Không phải cung cấp lại thông tin, tài liệu cơ quan thuế đã có
+P010: Khi thực hiện thủ tục hành chính thuế, NNT không phải nộp lại chứng từ, tài liệu đã có trong hồ sơ thuế và không phải khai lại thông tin đã có trong Hệ thống thông tin quản lý thuế hoặc cơ quan thuế đã khai thác được từ cơ sở dữ liệu quốc gia, cơ sở dữ liệu của các bộ, ngành được chia sẻ thông qua Hệ thống thông tin quản lý thuế.
+P011: Trường hợp Hệ thống thông tin quản lý thuế đã có đầy đủ thông tin, tài liệu, chứng từ làm căn cứ xác định nghĩa vụ thuế, hệ thống có thể tự động tạo lập tờ khai để hỗ trợ NNT khai thuế, tính thuế.
+P012: NNT cần thực hiện: kiểm tra thông tin, dữ liệu được hệ thống hiển thị; trường hợp chưa đầy đủ hoặc chưa chính xác thì thực hiện bổ sung, điều chỉnh theo quy định.
+P013: 2. Hồ sơ, chứng từ thuế được điện tử hóa mạnh hơn
+P014: Trường hợp/đối tượng
+P015: NNT cần biết
+P016: NNT cần thực hiện
+P017: Căn cứ pháp lý
+P018: Hồ sơ có bản sao giấy tờ, tài liệu bằng giấy
+P019: Khi nộp hồ sơ điện tử, giấy tờ, tài liệu bằng giấy được chuyển sang bản sao điện tử theo quy định.
+P020: Chuẩn bị bản điện tử bảo đảm đúng hình thức và nội dung của giấy tờ gốc.
+P021: Điều 6 Thông tư số 89/2026/TT-BTC
+P022: Hồ sơ yêu cầu bản chính hoặc bản sao có chứng thực
+P023: Phải đáp ứng hình thức điện tử tương ứng theo pháp luật về giao dịch điện tử.
+P024: Không sử dụng bản scan thông thường nếu pháp luật yêu cầu hình thức điện tử có giá trị tương đương bản chính/bản sao chứng thực.
+P025: Điều 6 Thông tư số 89/2026/TT-BTC
+P026: 3. Quản lý NNT theo mức độ tuân thủ và rủi ro
+P027: NNT được phân nhóm trên cơ sở các tiêu chí như địa bàn hoạt động, loại NNT, quy mô, ngành nghề, lĩnh vực hoạt động, loại hình pháp lý, cơ cấu sở hữu, mức độ tuân thủ, lịch sử tuân thủ và mức độ rủi ro về thuế.
+P028: Lưu ý: Tình trạng hoạt động của người nộp thuế, thông tin của người đại điện theo pháp luật của người nộp thuế, tình hình kê khai và nộp hồ sơ khai tuế, tình hình chấp hành nghĩa vụ thuế với ngân sách nhà nước, tình hình sử dụng hóa đơn, mức độ vi phạm hành chính về thuế, tình hình nợ thuế, chỉ số hoạt động, người nộp thuế tự nguyện đăng ký tuân thủ pháp luật thuế, doanh nghiệp có gia dịch liên kết, đáng ngờ là là các yếu tố quan trọng trong quá trình đánh giá tuân thủ theo Thông tư số 94/2026/TT-BTC.
+P029: PHẦN II. NNT THỰC HIỆN GIAO DỊCH THUẾ ĐIỆN TỬ
+P030: Trường hợp/đối tượng
+P031: NNT cần biết
+P032: NNT cần thực hiện
+P033: Căn cứ pháp lý
+P034: Sử dụng tài khoản định danh điện tử
+P035: NNT thuộc đối tượng được cấp tài khoản định danh điện tử sử dụng tài khoản này để thực hiện giao dịch thuế điện tử theo quy định.
+P036: Bảo đảm tài khoản định danh còn hiệu lực và thông tin sử dụng phù hợp với hồ sơ thuế.
+P037: Điều 8; Điều 13 Thông tư số 89/2026/TT-BTC
+P038: Xác nhận người ký trên hồ sơ, chứng từ điện tử
+P039: NNT thực hiện ký điện tử bằng chữ ký điện tử (gồm chữ ký số công cộng, chữ ký số chuyên dùng công vụ) trên hồ sơ, chứng từ điện tử trước khi gửi cho cơ quan thuế. Trường hợp NNT chưa có chữ ký điện tử và thuộc trường hợp được sử dụng các hình thức xác nhận khác (xác nhận bằng mã xác thực giao dịch điện tử, sinh trắc học, các phương tiện điện tử khác) thì sử dụng các hình thức xác nhận khác để xác nhận trên hồ sơ, chứng từ điện tử trước khi gửi cho cơ quan thuế.
+P040: Thực hiện đúng phương thức xác nhận được hệ thống yêu cầu.
+P041: Điều 10 Thông tư số 89/2026/TT-BTC
+P042: Thay đổi thông tin đăng ký giao dịch điện tử
+P043: Thông tin thay đổi phải được cập nhật trong thời hạn 03 ngày làm việc kể từ ngày phát sinh thay đổi.
+P044: Rà soát thông tin liên hệ, tài khoản, người đại diện và các thông tin đăng ký khác; cập nhật kịp thời.
+P045: Điều 13 Thông tư số 89/2026/TT-BTC
+P046: Sau khi gửi hồ sơ điện tử
+P047: Hệ thống phản hồi tự động để ghi nhận việc gửi hồ sơ. Cơ quan thuế gửi thông báo tiếp nhận hoặc không tiếp nhận trong thời hạn 01 ngày làm việc kể từ thời điểm Hệ thống phản hồi tự động; đối với hồ sơ hoàn thuế, miễn thuế, giảm thuế, hồ sơ hủy hồ sơ hoàn thuế, hồ sơ khai thuế đồng thời là hồ sơ hoàn thuế thì cơ quan thuế sẽ thông báo trong thời hạn 03 ngày làm việc.
+P048: Tiếp tục theo dõi thông báo tiếp nhận, yêu cầu bổ sung, giải trình hoặc kết quả xử lý; không coi phản hồi tự động là kết quả giải quyết hồ sơ.
+P049: Điều 11 Thông tư số 89/2026/TT-BTC
+P050: Hệ thống của NNT gặp sự cố
+P051: Trường hợp không thể giao dịch điện tử do sự cố hạ tầng kỹ thuật của NNT, hồ sơ giấy được nộp tại bộ phận một cửa hoặc qua bưu chính theo quy định.
+P052: Lưu thông tin, chứng cứ về sự cố và thực hiện phương thức nộp thay thế đúng quy định.
+P053: Điều 12 Thông tư số 89/2026/TT-BTC
+P054: PHẦN III. DOANH NGHIỆP, TỔ CHỨC KHI KHAI THUẾ GTGT
+P055: Trường hợp/đối tượng
+P056: NNT cần biết
+P057: NNT cần thực hiện
+P058: Căn cứ pháp lý
+P059: Xác định kỳ khai thuế GTGT
+P060: NNT mới bắt đầu hoạt động, kinh doanh cần theo dõi doanh thu để xác định kỳ khai. Trường hợp doanh thu năm dương lịch mới bắt đầu hoạt động, kinh doanh trên 50 tỷ đồng, kể cả hoạt động chưa đủ 12 tháng, thực hiện khai theo tháng từ năm dương lịch liền kề tiếp theo.
+P061: Rà soát doanh thu và kỳ khai đang áp dụng; chuyển kỳ khai đúng thời điểm nếu không còn đủ điều kiện khai theo quý.
+P062: Điều 19 Thông tư số 89/2026/TT-BTC
+P063: Khai bổ sung
+P064: Khai bổ sung phải xác định đầy đủ ảnh hưởng đến số thuế phải nộp, số thuế GTGT còn được khấu trừ, số thuế đã đề nghị hoàn và các kỳ liên quan.
+P065: Không chỉ sửa số liệu kỳ sai sót; cần rà soát tác động đến kỳ phát hiện sau sót và kỳ đề nghị hoàn thuế nếu có.
+P066: Điều 17; Phụ lục II Thông tư số 89/2026/TT-BTC
+P067: Dự án đầu tư thuộc diện hoàn GTGT
+P068: Hồ sơ khai thuế GTGT của dự án đầu tư được nộp tại cơ quan thuế quản lý trực tiếp/cơ quan thuế nơi phát sinh dự án đầu tư tùy theo địa điểm thực hiện dự án cùng tỉnh hay khác tỉnh; đối với dự án nhiều tỉnh, cho cơ quan thuế quản lý trực tiếp đơn vị quản lý dự án phụ thuộc mô hình quản lý dự án. Riêng NNT do CCT DNL và CCT TMĐT quản lý có dự án đầu tư cùng tỉnh thì nộp hồ sơ cho Thuế tỉnh nơi có dự án đầu tư.
+P069: Xác định rõ dự án cùng tỉnh hay khác tỉnh hay nhiều tỉnh, có hay không Ban quản lý dự án, chi nhánh, tổ chức kinh tế mới trực tiếp quản lý dự án để nộp đúng nơi.
+P070: Điều 19 Thông tư số 89/2026/TT-BTC
+P071: Đơn vị phụ thuộc cùng tỉnh với trụ sở chính
+P072: Nếu đáp ứng các điều kiện về con dấu, tài khoản ngân hàng, trực tiếp bán hàng hóa/dịch vụ, sử dụng hóa đơn, hạch toán đầy đủ và có nhu cầu khai riêng thì được khai, nộp GTGT tại cơ quan thuế quản lý trực tiếp đơn vị phụ thuộc.
+P073: Rà soát điều kiện thực tế trước khi lựa chọn khai, nộp riêng.
+P074: Điều 19 Thông tư số 89/2026/TT-BTC
+P075: PHẦN IV. DOANH NGHIỆP KHI KHAI, QUYẾT TOÁN THUẾ TNDN
+P076: Trường hợp/đối tượng
+P077: NNT cần biết
+P078: NNT cần thực hiện
+P079: Căn cứ pháp lý
+P080: Tổ chức lại doanh nghiệp
+P081: Bỏ trường hợp doanh nghiệp bị tách phải khai quyết toán TNDN tại thời điểm tách. Trường hợp chuyển đổi loại hình doanh nghiệp theo Luật Doanh nghiệp thì doanh nghiệp cũng không phải quyết toán đến thời điểm chuyển đổi.
+P082: Xác định đúng trường hợp phải quyết toán tại thời điểm tổ chức lại; tránh nộp hồ sơ không cần thiết.
+P083: Điều 21 Thông tư số 89/2026/TT-BTC
+P084: Giao dịch liên kết
+P085: Báo cáo lợi nhuận liên quốc gia được tách khỏi hồ sơ khai quyết toán TNDN do có thời hạn nộp riêng.
+P086: Theo dõi và thực hiện nghĩa vụ báo cáo theo quy định quản lý thuế đối với giao dịch liên kết.
+P087: Điều 21 Thông tư số 89/2026/TT-BTC
+P088: Mẫu biểu TNDN
+P089: Một số tờ khai, phụ lục được sửa đổi, bổ sung hoặc hợp nhất, liên quan đến ưu đãi đầu tư, chuyển nhượng vốn, khai thay, và bù trừ số thuế TNDN bổ sung (thuế tối thiếu toàn cầu).
+P090: Sử dụng đúng mẫu áp dụng cho kỳ khai thuế, kỳ quyết toán theo Thông tư 89.
+P091: Điều 21; các mẫu, phụ lục kèm theo Thông tư số 89/2026/TT-BTC
+P092: PHẦN V. TỔ CHỨC TRẢ THU NHẬP VÀ CÁ NHÂN CÓ THU NHẬP TỪ TIỀN LƯƠNG, TIỀN CÔNG
+P093: Trường hợp/đối tượng
+P094: NNT cần biết
+P095: NNT cần thực hiện
+P096: Căn cứ pháp lý
+P097: Kỳ khai thuế TNCN
+P098: 1. Tổ chức, cá nhân trả thu nhập kê khai thuế TNCN theo Mẫu 05/KK-TNCN thì thực hiện khai thuế theo quý (không còn kỳ khai thuế theo tháng)
+P099: 2. Cá nhân có thu nhập từ tiền lương, tiền công kê khai trực tiếp với cơ quan thuế theo Mẫu 02/KK-TNCN thì thực hiện khai thuế theo quý (không còn kỳ khai thuế theo tháng), bao gồm cả cá nhân khi chuyển nhượng cổ phiếu thưởng, cổ phiếu mua với giá ưu đãi theo kế hoạch phát hành cổ phiếu theo chương trình lựa chọn cho người lao động (cổ phiếu ESOP)
+P100: Rà soát lại kỳ kê khai đang áp dụng và quy trình nội bộ để tránh tiếp tục khai theo cơ chế cũ.
+P101: Điều 22 Thông tư số 89/2026/TT-BTC
+P102: Người lao động tại đơn vị phụ thuộc/địa điểm kinh doanh khác tỉnh
+P103: Tổ chức trả thu nhập được lựa chọn khai tập trung tại trụ sở chính và xác định số thuế của từng địa điểm hoặc khai riêng cho từng địa điểm/đơn vị phụ thuộc.
+P104: Lựa chọn phương án phù hợp, bảo đảm theo dõi được số thuế phải nộp của từng địa bàn.
+P105: Điều 22 Thông tư số 89/2026/TT-BTC
+P106: Hồ sơ quyết toán TNCN
+P107: Thành phần hồ sơ và chỉ tiêu tờ khai được điều chỉnh; bổ sung chỉ tiêu phản ánh một số khoản thu nhập được miễn, số thuế được miễn.
+P108: Sử dụng đúng mẫu 02/KK-TNCN, 02/QTT-TNCN, 05/KK-TNCN, 05/QTT-TNCN và phụ lục liên quan.
+P109: Điều 22; các mẫu, phụ lục kèm theo Thông tư số 89/2026/TT-BTC
+P110: PHẦN VI. HỘ KINH DOANH, CÁ NHÂN KINH DOANH
+P111: Trường hợp/đối tượng
+P112: NNT cần biết
+P113: NNT cần thực hiện
+P114: Căn cứ pháp lý
+P115: Kê khai bổ sung
+P116: Hồ sơ khai bổ sung là hồ sơ khai thuế của kỳ tính thuế có sai, sót đã được bổ sung theo quy định áp dụng đối với HKD, CNKD.
+P117: Khi phát hiện sai, sót, sử dụng hồ sơ của chính kỳ tính thuế đó để khai bổ sung.
+P118: Điều 17 Thông tư số 89/2026/TT-BTC
+P119: Cá nhân hợp tác kinh doanh, đại lý, bán hàng đa cấp, môi giới
+P120: Bổ sung các trường hợp cá nhân tự khai khi chưa được tổ chức khấu trừ, khai thay, nộp thay, cụ thể:
+P121: (i) Cá nhân hợp tác kinh doanh với tổ chức thuộc trường hợp phải nộp thuế TNCN nhưng chưa được tổ chức khai thuế thay, nộp thuế thay trong năm; 
+P122: (ii) Cá nhân làm đại lý bán đúng giá đối với hoạt động bảo hiểm, xổ số, bán  hàng đa cấp thuộc trường hợp phải nộp thuế GTGT, TNCN nhưng chưa được tổ chức khấu trừ thuế, khai thuế thay, nộp thuế thay trong năm; 
+P123: (iii) Cá nhân thực hiện hoạt động môi giới thuộc trường hợp phải nộp thuế GTGT, TNCN nhưng chưa được tổ chức khấu trừ thuế, khai thuế thay, nộp thuế thay trong năm.
+P124: Xác định rõ tổ chức đã khấu trừ, khai thay, nộp thay hay chưa để tránh bỏ sót hoặc khai trùng nghĩa vụ.
+P125: Điều 22 Thông tư số 89/2026/TT-BTC
+P126: Miễn thuế
+P127: Bổ sung trường hợp miễn thuế GTGT, thuế TNCN, thuế TTĐB, thuế BVMT, thuế tài nguyên, phí bảo vệ môi trường đối với HKD, CNKD có số phải nộp trong năm trên hồ sơ khai/ quyết toán từ 50.000 đồng trở xuống
+P128: Đối chiếu số phải nộp và điều kiện áp dụng; không tự động hiểu rằng mọi khoản thuế dưới ngưỡng đều được miễn nếu không thuộc đúng trường hợp pháp luật quy định.
+P129: Điều 65 Thông tư số 89/2026/TT-BTC
+P130: PHẦN VII. CÁ NHÂN CÓ THU NHẬP TỪ BẤT ĐỘNG SẢN, CHUYỂN NHƯỢNG VỐN VÀ CÁC KHOẢN THU NHẬP KHÁC
+P131: Trường hợp/đối tượng
+P132: NNT cần biết
+P133: NNT cần thực hiện
+P134: Căn cứ pháp lý
+P135: Chuyển nhượng, thừa kế, quà tặng là bất động sản
+P136: Hồ sơ được bổ sung để bao quát các trường hợp phát sinh, trong đó có căn cứ xác định giá trị chuyển nhượng nhà ở, công trình xây dựng hình thành trong tương lai.
+P137: Chuẩn bị đúng giấy tờ phù hợp với loại tài sản và tình trạng pháp lý thực tế.
+P138: Điều 22 Thông tư số 89/2026/TT-BTC; Phụ lục kèm theo Thông tư số 89/2026/TT-BTC
+P139: Tổ chức khai thay, nộp thay cho cá nhân đối với thu nhập từ chuyển nhượng vốn
+P140: Tài liệu chứng minh giá chuyển nhượng, giá mua và chi phí liên quan được lưu tại tổ chức thay vì đều phải nộp kèm hồ sơ khai thuế.
+P141: Lưu trữ đầy đủ hồ sơ, chứng từ để xuất trình khi cơ quan thuế yêu cầu.
+P142: Điều 22 Thông tư số 89/2026/TT-BTC
+P143: Một số khoản thu nhập khác
+P144: Bổ sung nội dung khai thuế TNCN đối với chuyển nhượng tên miền quốc gia '.vn', kết quả giảm phát thải nhà kính, tín chỉ các-bon, tài sản số, biển số xe trúng đấu giá theo trường hợp quy định.
+P145: Xác định đúng loại thu nhập và mẫu hồ sơ tương ứng trước khi khai.
+P146: Điều 22 Thông tư số 89/2026/TT-BTC; Phụ lục kèm theo Thông tư số 89/2026/TT-BTC
+P147: PHẦN VIII. NHÀ THẦU NƯỚC NGOÀI, NHÀ CUNG CẤP NƯỚC NGOÀI VÀ HOẠT ĐỘNG TRÊN NỀN TẢNG SỐ
+P148: Trường hợp/đối tượng
+P149: NNT cần biết
+P150: NNT cần thực hiện
+P151: Căn cứ pháp lý
+P152: Nhà thầu nước ngoài
+P153: Một số trường hợp khai quyết toán và thành phần hồ sơ được điều chỉnh theo hướng giảm thủ tục, phù hợp cơ chế khai, nộp theo tỷ lệ trên doanh thu.
+P154: Rà soát phương pháp nộp thuế và tình trạng hợp đồng trước khi thực hiện quyết toán.
+P155: Điều 30 Thông tư số 89/2026/TT-BTC
+P156: Nhà cung cấp nước ngoài
+P157: Hồ sơ khai thuế có bổ sung bảng kê chi tiết khách hàng Việt Nam có giao dịch với nhà cung cấp nước ngoài theo trường hợp quy định.
+P158: Chuẩn hóa, lưu trữ thông tin giao dịch và thông tin định danh khách hàng để kê khai đầy đủ.
+P159: Điều 31 Thông tư số 89/2026/TT-BTC
+P160: Tổ chức Việt Nam mua hàng hóa, dịch vụ của NCCNN/cá nhân không cư trú trên nền tảng số
+P161: Trường hợp thuộc diện phải khấu trừ, khai thay, nộp thay thì tổ chức Việt Nam có trách nhiệm thực hiện theo quy định.
+P162: Xác định đúng trách nhiệm khấu trừ, khai thay, nộp thay trước khi thanh toán.
+P163: Điều 32 Thông tư số 89/2026/TT-BTC
+P164: PHẦN IX. NNT CÓ NGHĨA VỤ LIÊN QUAN ĐẾN ĐẤT ĐAI, LỆ PHÍ TRƯỚC BẠ
+P165: Trường hợp/đối tượng
+P166: NNT cần biết
+P167: NNT cần thực hiện
+P168: Căn cứ pháp lý
+P169: Thuế sử dụng đất/ nghĩa vụ tài chính về đất
+P170: Khi cơ quan thuế đã kết nối, chia sẻ và sử dụng được dữ liệu đủ căn cứ tính thuế, NNT thuộc trường hợp quy định không phải nộp lại hồ sơ; giấy chứng nhận quyền sử dụng đất có thể được khai thác từ cơ sở dữ liệu quốc gia về đất đai.
+P171: Chỉ cung cấp bổ sung khi dữ liệu chưa đủ hoặc cơ quan có thẩm quyền yêu cầu theo quy định.
+P172: Khoản 2, khoản 3 Điều 6, Điều 25, khoản 1 Điều 65, Phụ lục V Thông tư 89/2026/TT-BTC
+P173: Lệ phí trước bạ
+P174: Một số trường hợp không phải nộp hồ sơ khai lệ phí trước bạ khi cơ quan thuế đã có đầy đủ dữ liệu từ cơ sở dữ liệu quốc gia/cơ quan có thẩm quyền.
+P175: Kiểm tra thông tin dữ liệu trước khi chuẩn bị hồ sơ giấy để tránh nộp trùng, nộp thừa.
+P176: Khoản 2, khoản 3 Điều 6, Điều 26, Điều 74 Thông tư 89/2026/TT-BTC
+P177: PHẦN X. NỘP THUẾ, GIA HẠN NỘP THUẾ, KHOẢN THU KHÁC, TIỀN CHẬM NỘP, TIỀN PHẠT; XỬ LÝ KHOẢN NỘP THỪA, XỬ LÝ ĐỐI VỚI VIỆC CHẬM NỘP TIỀN THUẾ VÀ XÁC NHẬN VIỆC THỰC HIỆN NGHĨA VỤ NỘP THUẾ
+P178: Trường hợp/đối tượng
+P179: NNT cần biết
+P180: NNT cần thực hiện
+P181: Căn cứ pháp lý
+P182: Đồng tiền nộp thuế
+P183: - Đồng tiền nộp thuế, khoản thu khác là đồng tiền khai thuế, khoản thu khác. Đồng tiền nộp tiền chậm nộp đối với trường hợp người nộp thuế khai thuế, khoản thu khác là đồng tiền theo hồ sơ khai thuế, các khoản thu khác của người nộp thuế.
+P184: - Trường hợp cơ quan thuế, cơ quan nhà nước có thẩm quyền ban hành Thông báo, Quyết định thì đồng tiền nộp thuế, khoản thu khác, tiền chậm nộp, tiền phạt là đồng tiền theo Thông báo, Quyết định của cơ quan thuế, cơ quan nhà nước có thẩm quyền.
+P185: NNT xác định và sử dụng chính xác đồng tiền đã kê khai để nộp thuế, khoản thu khác, tính và nộp tiền chậm nộp phát sinh theo đồng tiền phù hợp.
+P186: Trường hợp cơ quan thuế, cơ quan nhà nước có thẩm quyền ban hành Thông báo, Quyết định thì thực hiện nộp tiền theo đồng tiền trên Thông báo, Quyết định.
+P187: Điều 35 Thông tư số 89/2026/TT-BTC
+P188: Thông tin trên chứng từ nộp thuế
+P189: - Trường hợp nộp cho khoản thuế, khoản thu khác, tiền chậm nộp, tiền phạt phải nộp đã được cơ quan quản lý thuế cung cấp mã định danh khoản phải nộp (ID) thì chứng từ nộp thuế phải thể hiện mã định danh khoản phải nộp (ID)
+P190: - Thông tin nộp thuế bao gồm thông tin trên mẫu chứng từ nộp thuế theo quy định và thông tin hỗ trợ người nộp thuế trong việc xác định nghĩa vụ thuế kịp thời, phục cho việc truyền nhận giữa các hệ thống của các bên liên quan, trong đó có thông tin: mã định danh khoản phải nộp (ID), số tham chiếu, “nơi lập chứng từ nộp thuế”
+P191: - Số tham chiếu là một dãy ký tự do hệ thống thanh toán nơi NNT lập chứng từ nộp thuế tự động tạo đảm bảo tính duy nhất theo từng đơn vị nơi NNT tạo lập chứng từ nộp thuế và không thay đổi trong suốt quá trình truyền nhận giữa các hệ thống.
+P192: Truy vấn thông tin khoản phải nộp trên Hệ thống thông tin quản lý thuế và thực hiện khai đầy đủ, chính xác các thông tin thuộc trách nhiệm người nộp thuế phải khai trên bảng kê nộp thuế hoặc chứng từ nộp thuế hoặc kiểm tra lại các thông tin trên chứng từ nộp thuế đã được Hệ thống ứng dụng của các cơ quan, tổ chức hỗ trợ tạo lập.
+P193: Điều 36 Thông tư số 89/2026/TT-BTC
+P194: Căn cứ và thời điểm cơ quan thuế thanh toán, bù trừ nghĩa vụ thuế, xác nhận hoàn thành nghĩa vụ nộp thuế
+P195: Cơ quan thuế sử dụng thông tin chứng từ nộp thuế trực tiếp trên Hệ thống thông tin quản lý thuế hoặc nhận từ tổ chức phối hợp thu, cơ quan nhà nước có thẩm quyền (bao gồm KBNN) (nơi người thuế thực hiện giao dịch nộp thuế và lập chứng từ nộp thuế, ngân hàng thương mại nơi KBNN mở tài khoản này để thực hiện thanh toán, bù trừ nghĩa vụ thuế, xác nhận hoàn thành nghĩa vụ nộp thuế
+P196: Theo dõi thông tin nộp tiền vào ngân sách nhà nước, thông tin nghĩa vụ thuế tại Hệ thống thông tin quản lý thuế theo tài khoản giao dịch đã được cấp
+P197: Điều 36 Thông tư số 89/2026/TT-BTC
+P198: Kết quả xử lý đề nghị tra soát
+P199: Kết quả xử lý đề nghị tra soát tương ứng với phạm vi thông tin được điều chỉnh:
+P200: - Thông báo điều chỉnh toàn bộ hoặc một phần thông tin đề nghị tra soát; 
+P201: - Thông báo không điều chỉnh toàn bộ thông tin đề nghị tra soát.
+P202: Tiếp nhận kết quả giải quyết theo quy định
+P203: Điều 37 Thông tư số 89/2026/TT-BTC
+P204: Thông báo nghĩa vụ thuế và xử lý tiền chậm nộp
+P205: - Định kỳ hàng tháng CQT thông báo về số tiền thuế nợ, tiền thuế còn phải nộp, nộp thừa qua qua tài khoản giao dịch thuế điện tử của người nộp thuế.
+P206: - Trường hợp người nộp thuế có khoản nộp thừa bù trừ với khoản nợ, khoản thu phát sinh thì NNT không bị tính tiền chậm nộp tương ứng với khoản tiền bù trừ trong khoảng thời gian từ ngày phát sinh khoản nộp thừa đến ngày cơ quan thuế thực hiện bù trừ. Ngày phát sinh khoản nộp thừa là ngày người nộp thuế đã nộp tiền vào ngân sách nhà nước. 
+P207: Trường hợp người nộp thuế là tổ chức, cá nhân trả thu nhập khai quyết toán thuế thu nhập cá nhân từ tiền lương, tiền công có phát sinh số thuế thu nhập cá nhân nộp thừa theo nghĩa vụ quyết toán thay cho cá nhân trên tờ khai quyết toán và đã hoàn thành nghĩa vụ nộp thuế của các kỳ kê khai của năm quyết toán thì ngày phát sinh khoản nộp thừa là ngày người nộp thuế nộp hồ sơ khai quyết toán thuế.
+P208: - Đăng ký tài khoản giao dịch thuế điện tử để được tiếp nhận kịp thời thông báo nghĩa vụ thuế hàng tháng.
+P209: - Khi lập đề nghị bù trừ khoản nộp thừa với khoản nợ, khoản thu phát sinh, NNT rà soát chính xác thời điểm phát sinh khoản nộp thừa để làm căn cứ xử lý không tính tiền chậm nộp tương ứng với khoản tiền bù trừ
+P210: Điều 39 Thông tư số 89/2026/TT-BTC
+P211: Gia hạn nộp thuế, khoản thu khác, tiền chậm nộp, tiền phạt/ không tính/miễn tiền chậm nộp
+P212: Thời hạn cơ quan thuế giải quyết được rút từ 10 ngày xuống còn 07 ngày
+P213: Chuẩn bị hồ sơ đầy đủ; theo dõi thời hạn giải quyết và phản hồi trên hệ thống.
+P214: Điều 38, Điều 40, Điều 41 Thông tư số 89/2026/TT-BTC
+P215: Bù trừ khoản nộp thừa
+P216: Khoản nộp theo mã định danh khoản phải nộp (ID) được hệ thống tự động bù trừ theo mã định danh khoản phải nộp (ID). Trường hợp không có mã định danh, NNT lựa chọn khoản nộp thừa bù trừ đích danh với khoản nợ, khoản thu phát sinh đã được cấp mã định danh khoản phải nộp (ID).
+P217: - Thực hiện nộp thuế theo mã định danh khoản phải nộp
+P218: - Theo dõi thông tin nghĩa vụ thuế để kịp thời xử lý bù trừ các khoản đã nộp/ nộp thừa không có mã định danh khoản phải nộp
+P219: Điều 42 Thông tư số 89/2026/TT-BTC
+P220: Xác nhận việc thực hiện nghĩa vụ nộp thuế
+P221: - Có thể đề nghị xác nhận số tiền còn phải nộp NSNN hoặc số thuế đã nộp NSNN. 
+P222: - Tổ chức, cá nhân khấu trừ, khai thuế thay, nộp thuế thay gửi Văn bản đề nghị xác nhận việc thực hiện nghĩa vụ nộp thuế với ngân sách nhà nước đối với nghĩa vụ nộp thuế đã khấu trừ, khai thuế thay, nộp thuế thay đến cơ quan thuế quản lý trực tiếp tổ chức, cá nhân khấu trừ thuế để xác nhận việc thực hiện nghĩa vụ nộp thuế cho cá nhân, hộ kinh doanh, cá nhân kinh doanh.
+P223: Xác định cụ thể trường hợp, phạm vi xác nhận việc thực hiện nghĩa vụ thuế để lập Văn bản đề nghị phù hợp.
+P224: Điều 44 Thông tư số 89/2026/TT-BTC
+P225: PHẦN XI. NNT CÓ HỒ SƠ HOÀN THUẾ
+P226: Trường hợp/đối tượng
+P227: NNT cần biết
+P228: NNT cần thực hiện
+P229: Căn cứ pháp lý
+P230: Hoàn GTGT đối với xuất khẩu
+P231: Đề nghị hoàn được thể hiện trên Tờ khai 01/GTGT có chỉ tiêu đề nghị hoàn và Phụ lục 01-8/GTGT.
+P232: Kê khai đầy đủ chỉ tiêu đề nghị hoàn và phụ lục, bảo đảm thống nhất với hóa đơn, chứng từ và dữ liệu liên quan.
+P233: Điều 46 Thông tư số 89/2026/TT-BTC
+P234: Hoàn GTGT đối với dự án đầu tư
+P235: Đề nghị hoàn được thể hiện trên Tờ khai 02/GTGT có chỉ tiêu đề nghị hoàn, Phụ lục 01-8/GTGT và giấy tờ liên quan của dự án đầu tư. Tài liệu dự án đã nộp ở lần hoàn đầu chỉ phải nộp lại khi có thay đổi, bổ sung.
+P236: Lập danh mục hồ sơ đã nộp và chỉ bổ sung tài liệu khi có thay đổi để giảm trùng lặp.
+P237: Điều 46 Thông tư số 89/2026/TT-BTC
+P238: Cơ sở sản xuất hàng hóa, cung cấp dịch vụ chịu thuế suất GTGT 5%
+P239: Bổ sung quy định hồ sơ hoàn thuế cho nhóm đối tượng này theo trường hợp pháp luật quy định.
+P240: Kiểm tra điều kiện hoàn và kê khai đúng mẫu 01/GTGT, 01-8/GTGT.
+P241: Điều 46 Thông tư số 89/2026/TT-BTC
+P242: Phân loại rủi ro hồ sơ hoàn
+P243: Hồ sơ có thể thuộc diện hoàn trước kiểm tra sau; trường hợp chỉ một phần số tiền đề nghị hoàn được xác định có rủi ro cao thì số tiền rủi ro cao đó được chuyển sang diện kiểm tra trước hoàn.
+P244: Bảo đảm hồ sơ, hóa đơn, chứng từ và dữ liệu giao dịch đầy đủ, nhất quán; giải trình kịp thời khi được yêu cầu.
+P245: Điều 48 Thông tư số 89/2026/TT-BTC
+P246: Giải quyết hoàn trên hệ thống
+P247: Hệ thống quản lý thuế hỗ trợ rà soát, đối chiếu, xác định phần đủ điều kiện, không đủ điều kiện hoặc chưa đủ điều kiện hoàn và hướng tới xử lý hoàn tự động theo trường hợp quy định và lộ trình cụ thể của cơ quan thuế.
+P248: Theo dõi trạng thái hồ sơ; phản hồi kịp thời các yêu cầu bổ sung, giải trình.
+P249: Điều 49 Thông tư số 89/2026/TT-BTC
+P250: Bù trừ số thuế được hoàn
+P251: NNT có thể đề nghị bù trừ số thuế được hoàn với số thuế phát sinh kỳ tiếp theo.
+P252: Gửi văn bản đề nghị và theo dõi kết quả bù trừ. Lưu ý phải chắc chắn có khoản phải nộp của kỳ tiếp theo mới đề nghị bù trừ để tránh ảnh hưởng đến việc bù trừ.
+P253: Điều 49 Thông tư số 89/2026/TT-BTC
+P254: PHẦN XII. HOÀN TRẢ KHOẢN NỘP THỪA
+P255: Trường hợp/đối tượng
+P256: NNT cần biết
+P257: NNT cần thực hiện
+P258: Căn cứ pháp lý
+P259: Hồ sơ hoàn nộp thừa
+P260: Một số trường hợp được đơn giản hóa, hồ sơ hoàn chỉ cần sử dụng Văn bản đề nghị xử lý số tiền nộp thừa mẫu 01/ĐNXLNT.
+P261: Sử dụng đúng mẫu và kê khai đầy đủ thông tin về khoản nộp thừa.
+P262: Điều 56 Thông tư số 89/2026/TT-BTC
+P263: HKD, CNKD có thuế GTGT/TNCN nộp thừa
+P264: Trường hợp HKD, CNKD có thuế GTGT, thuế TNCN nộp thừa, cơ quan thuế căn cứ thông tin trên hồ sơ khai thuế để thực hiện thủ tục hoàn nộp thừa theo quy định. HKD, CNKD không phải nộp hồ sơ hoàn nộp thừa đến cơ quan thuế.
+P265: Kiểm tra tính đầy đủ, chính xác của hồ sơ khai thuế và đối chiếu số thuế đã nộp, số thuế đã được chủ quản nền tảng khấu trừ, khai, nộp thay trên tài khoản thuế điện tử; thực hiện giải trình, bổ sung khi cơ quan thuế yêu cầu.
+P266: Điều 56 Thông tư số 89/2026/TT-BTC
+P267: Hoàn trả cho cá nhân thuộc trường hợp hoàn thuế, khoản thu khác, tiền chậm nộp, tiền phạt là người đã chết, người bị Tòa án tuyên bố là đã chết, mất tích hoặc mất năng lực hành vi dân sự
+P268: Bổ sung hồ sơ hoàn nộp thừa của người được thừa kế hoặc người được Tòa án giao quản lý tài sản của người đã chết, người bị tuyên bố là đã chết, mất tích, mất năng lực hành vi dân sự.
+P269: Chuẩn bị đầy đủ thành phần hồ sơ đề nghị hoàn thuế theo quy định
+P271: Điều 56 Thông tư số 89/2026/TT-BTC
+P272: Hoàn trả tiền thuế bảo vệ môi trường đã nộp tương ứng với lượng xăng dầu bán cho phương tiện vận tải của hãng nước ngoài trên tuyến đường qua cảng Việt Nam hoặc phương tiện vận tải của Việt Nam trên tuyến đường vận tải quốc tế
+P273: Bổ sung hồ sơ hoàn nộp thừa theo trường hợp quy định.
+P274: Kiểm tra điều kiện hoàn và kê khai đúng mẫu 01/TBVMT, 01-3/TBVMT 
+P275: Điều 56 Thông tư số 89/2026/TT-BTC
+P276: Hồ sơ thuộc diện hoàn trước
+P277: Nếu NNT không giải trình, bổ sung hoặc không chứng minh được số đã khai là đúng, cơ quan thuế xác định phần không được hoàn hoặc chưa đủ điều kiện hoàn thay vì chuyển toàn bộ hồ sơ sang kiểm tra trước như tr
+P278: Giải trình theo từng nội dung, chứng minh rõ phần số tiền đủ điều kiện hoàn đảm bảo quyền lợi hoàn thuế.
+P279: Điều 59 Thông tư số 89/2026/TT-BTC
+P280: Hồ sơ hoàn nộp nhầm
+P281: Không thuộc diện phân loại kiểm tra trước hoàn thuế
+P282: Sử dụng đúng mẫu và kê khai đầy đủ thông tin về khoản nộp thừa.
+P283: Điều 56, 58 Thông tư số 89/2026/TT-BTC
+P284: PHẦN XIII. NNT THỰC HIỆN THỦ TỤC MIỄN, GIẢM THUẾ
+P285: Trường hợp/đối tượng
+P286: NNT cần biết
+P287: NNT cần thực hiện
+P288: Căn cứ pháp lý
+P289: Chứng minh quan hệ gia đình để miễn lệ phí trước bạ
+P290: Cơ quan thuế có trách nhiệm khai thác thông tin từ Cơ sở dữ liệu quốc gia về dân cư; chỉ khi không khai thác được mới yêu cầu NNT cung cấp giấy tờ theo quy định.
+P291: Không tự động chuẩn bị nhiều giấy tờ nếu dữ liệu dân cư đã đủ; cung cấp bổ sung khi được yêu cầu.
+P292: Điều 74 Thông tư số 89/2026/TT-BTC
+P293: Giảm thuế do thiên tai, dịch bệnh, hỏa hoạn, tai nạn
+P294: Một số hồ sơ được đơn giản hóa, lược bỏ một số tài liệu giám định hoặc báo cáo, tùy sắc thuế và trường hợp cụ thể.
+P295: Kê khai trung thực mức độ, giá trị thiệt hại; chuẩn bị văn bản xác nhận của cơ quan có thẩm quyền theo phạm vi cần thiết.
+P296: Điều 68, Điều 69, Điều 72, Điều 73 Thông tư số 89/2026/TT-BTC
+P297: Miễn, giảm thuế sử dụng đất/tiền thuê đất
+P298: Tăng khai thác dữ liệu đất đai và điều chỉnh thành phần hồ sơ theo hướng giảm giấy tờ.
+P299: Kiểm tra trường hợp miễn, giảm và chỉ nộp các tài liệu còn cần thiết theo quy định.
+P300: Điều 71, Điều 72, Điều 73 Thông tư số 89/2026/TT-BTC
+P301: Thu hồi miễn, giảm thuế không đúng quy định
+P302: Trường hợp người nộp thuế tự xác định không còn đáp ứng điều kiện được miễn thuế, giảm thuế theo quy định của pháp luật thì người nộp thuế gửi văn bản đề nghị thu hồi số tiền đã được miễn thuế, giảm thuế cho cơ quan thuế đã ban hành quyết định miễn, giảm.
+P303: NNT khi xác định còn đáp ứng điều kiện được miễn thuế, giảm thuế theo quy định của pháp luật thì phải tự xác định số thu hồi và gửi văn bản cho cơ quan thuế.
+P304: Điều 86 Thông tư số 89/2026/TT-BTC
+P305: PHẦN XIV. NNT CÓ TIỀN THUẾ NỢ: KHOANH NỢ, NỘP DẦN, XÓA NỢ
+P306: Trường hợp/đối tượng
+P307: NNT cần biết
+P308: NNT cần thực hiện
+P309: Căn cứ pháp lý
+P310: Khoanh tiền thuế nợ
+P311: Bổ sung quy định về trình tự, thủ tục, hồ sơ đối với trường hợp khoanh nợ do người nộp thuế bị hạn chế trên thực tế quyền khai thác, sử dụng về đất đai, khoáng sản được cấp, được giao do nguyên nhân từ cơ quan nhà nước có thẩm quyền dẫn đến nợ nghĩa vụ tài chính về đất, khoáng sản quy định tại điểm e khoản 1 Điều 20 Luật Quản lý thuế số 108/2025/QH15
+P312: Gửi văn bản đề nghị cơ quan nhà nước có thẩm quyền xác nhận về việc bị hạn chế trên thực tế quyền khai thác, sử dụng về đất đai, khoáng sản được cấp, được giao do nguyên nhân từ cơ quan nhà nước có thẩm quyền dẫn đến nợ nghĩa vụ tài chính về đất, khoáng sản; theo dõi việc xử lý và trả kết quả của cơ quan thuế khi nhận được văn bản xác nhận của cơ quan nhà nước có thẩm quyền.
+P313: Điều 84 Thông tư số 89/2026/TT-BTC
+P314: Xóa nợ và phục hồi tiền thuế nợ đã được xóa
+P315: Bổ sung trường hợp phục hồi tiền thuế nợ đã được xóa, trình tự, hồ sơ phục hồi tiền thuế nợ đã được xóa
+P316: Theo dõi quyết định/thông báo của cơ quan thuế và thực hiện nghĩa vụ phát sinh sau khi có quyết định của cơ quan thuế về phục hồi tiền thuế nợ đã được xóa.
+P317: Điều 84 Thông tư số 89/2026/TT-BTC
+P318: Nộp dần tiền thuế nợ
+P319: Thời hạn giải quyết hồ sơ được rút từ 10 xuống 07 ngày làm việc. Trường hợp thư bảo lãnh có dấu hiệu bất hợp pháp, cơ quan thuế xác minh với bên bảo lãnh trước khi trả kết quả cho người nộp thuế.
+P320: Chuẩn bị đầy đủ hồ sơ theo quy định và theo dõi thời hạn giải quyết và phản hồi trên hệ thống
+P321: Điều 86 Thông tư số 89/2026/TT-BTC
+P322:  PHẦN XV. 10 VIỆC NNT CẦN RÀ SOÁT ĐỂ THỰC HIỆN ĐÚNG
+P323: 1. Kiểm tra thông tin đăng ký giao dịch điện tử và cập nhật thay đổi trong thời hạn 03 ngày làm việc kể từ ngày phát sinh thay đổi.
+P324: 2. Xác định đúng kỳ khai thuế, đặc biệt đối với thuế GTGT và thuế TNCN.
+P325: 3. Sử dụng đúng tờ khai, phụ lục và mẫu biểu mới áp dụng cho kỳ khai thuế, kỳ quyết toán.
+P326: 4. Không nộp lại giấy tờ, thông tin cơ quan thuế đã có hoặc khai thác được từ cơ sở dữ liệu trong trường hợp pháp luật quy định.
+P327: 5. Khi khai bổ sung, xác định đầy đủ ảnh hưởng đến số thuế phải nộp, số thuế được khấu trừ và số thuế đã đề nghị hoàn.
+P328: 6. Doanh nghiệp có dự án đầu tư, đơn vị phụ thuộc hoặc hoạt động ở nhiều địa bàn cần xác định đúng nơi nộp hồ sơ và nghĩa vụ khai, phân bổ.
+P329: 7. Tổ chức trả thu nhập cần rà soát cách khai thuế TNCN đối với người lao động tại đơn vị phụ thuộc, địa điểm kinh doanh khác tỉnh.
+P330: 8. NNT có khoản nộp thừa cần kiểm tra mã định danh khoản phải nộp, tiểu mục, địa bàn và cơ quan thuế trước khi đề nghị bù trừ hoặc hoàn trả.
+P331: 9. NNT đề nghị hoàn thuế cần kê khai chính xác chỉ tiêu đề nghị hoàn và bảo đảm dữ liệu hóa đơn, chứng từ thống nhất với thông tin trên hệ thống.
+P332: 10. Theo dõi thường xuyên thông báo của cơ quan thuế trên hệ thống điện tử để kịp thời bổ sung, giải trình hoặc thực hiện yêu cầu có liên quan.
+P334: THÔNG ĐIỆP TUYÊN TRUYỀN
+P335: Thông tư số 89/2026/TT-BTC đẩy mạnh sử dụng dữ liệu, giao dịch điện tử và tự động hóa trong quản lý thuế, đồng thời đơn giản hóa nhiều hồ sơ, thủ tục hành chính. NNT cần chủ động cập nhật thông tin, sử dụng đúng biểu mẫu, kiểm tra dữ liệu trên hệ thống và thực hiện đầy đủ, đúng thời hạn các nghĩa vụ thuế phát sinh.
+P336: Lưu ý: Tài liệu nhằm hỗ trợ NNT nhận diện các nội dung cần lưu ý khi thực hiện Thông tư số 89/2026/TT-BTC. Đối với từng trường hợp cụ thể, NNT thực hiện theo Luật Quản lý thuế, Nghị định số 252/2026/NĐ-CP, Thông tư số 89/2026/TT-BTC và pháp luật thuế có liên quan.
+P348: BỘ HỎI - ĐÁP
+P349: NHỮNG QUY ĐỊNH NGƯỜI NỘP THUẾ CẦN BIẾT VÀ THỰC HIỆN 
+P350: THEO THÔNG TƯ SỐ 89/2026/TT-BTC
+P351: I. GIAO DỊCH ĐIỆN TỬ VÀ HỒ SƠ THUẾ
+P352: Câu 1. Khi thực hiện thủ tục thuế, tôi có phải nộp lại giấy tờ mà cơ quan thuế đã có không?
+P353: Trả lời: Không. Người nộp thuế không phải nộp lại chứng từ, tài liệu đã có trong hồ sơ thuế và không phải khai lại thông tin đã có trong Hệ thống thông tin quản lý thuế hoặc cơ quan thuế đã khai thác được từ cơ sở dữ liệu quốc gia, cơ sở dữ liệu của các bộ, ngành được chia sẻ theo quy định. Trường hợp dữ liệu chưa đầy đủ hoặc chưa chính xác, người nộp thuế thực hiện bổ sung, điều chỉnh.
+P354: Căn cứ: Điều 6 Thông tư số 89/2026/TT-BTC.
+P355: Câu 2. Nếu hệ thống đã có đủ thông tin, cơ quan thuế có thể hỗ trợ lập tờ khai cho tôi không?
+P356: Trả lời: Có. Trường hợp Hệ thống thông tin quản lý thuế đã có đầy đủ thông tin, tài liệu, chứng từ bảo đảm căn cứ tính thuế, hệ thống có thể tự động tạo lập tờ khai để hỗ trợ người nộp thuế trong việc khai thuế, tính thuế.
+P357: Căn cứ: Điều 6 Thông tư số 89/2026/TT-BTC.
+P358: Câu 3. Tôi có thể dùng tài khoản định danh điện tử để thực hiện giao dịch thuế điện tử không?
+P359: Trả lời: Có. Người nộp thuế thuộc đối tượng được cấp tài khoản định danh điện tử sử dụng tài khoản định danh điện tử theo quy định để thực hiện giao dịch thuế điện tử.
+P360: Căn cứ: Điều 8 và Điều 13 Thông tư số 89/2026/TT-BTC.
+P361: Câu 4. Khi thay đổi thông tin đăng ký giao dịch điện tử, tôi phải cập nhật trong bao lâu?
+P362: Trả lời: Trong thời hạn 03 ngày làm việc kể từ ngày phát sinh thay đổi, người nộp thuế phải cập nhật, bổ sung thông tin đăng ký giao dịch điện tử với cơ quan thuế theo quy định.
+P363: Căn cứ: Điều 13 Thông tư số 89/2026/TT-BTC.
+P364: Câu 5. Sau khi gửi hồ sơ điện tử, phản hồi tự động của hệ thống có đồng nghĩa hồ sơ đã được chấp nhận không?
+P365: Trả lời: Không. Phản hồi tự động chỉ ghi nhận việc hệ thống đã nhận việc gửi hồ sơ, chứng từ. Người nộp thuế vẫn cần theo dõi thông báo tiếp nhận hoặc không tiếp nhận và các yêu cầu bổ sung, giải trình nếu có.
+P366: Căn cứ: Điều 11 Thông tư số 89/2026/TT-BTC.
+P367: Câu 6. Thời hạn thông báo tiếp nhận hồ sơ điện tử là bao lâu?
+P368: Trả lời: Thông thường, chậm nhất 01 ngày làm việc kể từ ngày hệ thống ghi nhận việc nộp hồ sơ, chứng từ điện tử. Đối với hồ sơ hoàn thuế, miễn thuế, giảm thuế, hồ sơ đề nghị hủy hồ sơ hoàn thuế và hồ sơ khai thuế đồng thời là hồ sơ hoàn thuế, thời hạn chậm nhất là 03 ngày làm việc.
+P369: Căn cứ: Điều 11 Thông tư số 89/2026/TT-BTC.
+P370: II. KHAI THUẾ ĐỐI VỚI DOANH NGHIỆP, TỔ CHỨC
+P371: Câu 7. Doanh nghiệp mới hoạt động phải xác định kỳ khai thuế GTGT như thế nào?
+P372: Trả lời: Doanh nghiệp cần theo dõi doanh thu năm dương lịch mới bắt đầu hoạt động, kinh doanh. Trường hợp doanh thu trên 50 tỷ đồng, kể cả trường hợp hoạt động chưa đủ 12 tháng, thì thực hiện khai theo tháng kể từ năm dương lịch liền kề tiếp theo năm mới bắt đầu hoạt động, kinh doanh.
+P373: Căn cứ: Điều 19 Thông tư số 89/2026/TT-BTC.
+P374: Câu 8. Nếu doanh nghiệp đang khai GTGT theo quý nhưng không còn đủ điều kiện thì xử lý thế nào?
+P375: Trả lời: Người nộp thuế phải chuyển sang khai theo tháng kể từ tháng đầu của quý tiếp theo và thực hiện khai lại các tháng của quý đã kê khai không đúng, xác định nghĩa vụ thuế, tiền chậm nộp (nếu có) theo quy định áp dụng cho trường hợp cụ thể.
+P376: Căn cứ: Điều 19 Thông tư số 89/2026/TT-BTC.
+P377: Câu 9. Khi khai bổ sung, doanh nghiệp chỉ cần sửa tờ khai của kỳ sai sót có đúng không?
+P378: Trả lời: Không. Doanh nghiệp phải căn cứ vào các tình huống phát hiện sai, sót để xác định có thuộc trường hợp khai bổ sung hay không. Nếu thuộc trường hợp khai bổ sung cần xác định đầy đủ ảnh hưởng của việc khai bổ sung đến số thuế phải nộp, số thuế GTGT còn được khấu trừ, số thuế đã đề nghị hoàn và nghĩa vụ của kỳ tính thuế phát hiện sai, sót để xác định thêm có phải kê khai vào kỳ phát hiện sai, sót hay không.
+P379: Căn cứ: Điều 17 và Phụ lục II Thông tư số 89/2026/TT-BTC.
+P380: Câu 10. Doanh nghiệp đang chuyển địa chỉ nhưng chưa hoàn tất thủ tục có phải tiếp tục khai thuế tại nơi chuyển đi không?
+P381: Trả lời: Có, nếu thuộc trường hợp thời hạn nộp hồ sơ khai thuế phát sinh trong thời gian doanh nghiệp chưa hoàn thành thủ tục thay đổi địa chỉ với cơ quan đăng ký kinh doanh hoặc cơ quan thuế nơi chuyển đến, thì vẫn phải nộp hồ sơ khai thuế cho cơ quan thuế nơi chuyển đi theo quy định.
+P382: Căn cứ: Điều 17 Thông tư số 89/2026/TT-BTC.
+P383: Câu 11. Dự án đầu tư thuộc diện hoàn GTGT nộp hồ sơ khai thuế ở đâu?
+P384: Trả lời: Người nộp thuế có dự án đầu tư thuộc trường hợp hoàn thuế giá trị gia tăng theo quy định pháp luật về thuế giá trị gia tăng và có nhu cầu hoàn thuế giá trị gia tăng đối với dự án đầu tư thì khai thuế GTGT của dự án đầu tư tại cơ quan thuế quản lý trực tiếp đối với dự án cùng tỉnh. Riêng người nộp thuế do Chi cục Thuế doanh nghiệp lớn, Chi cục Thuế thương mại điện tử quản lý thì nộp hồ sơ khai thuế đối với dự án đầu tư cho Thuế tỉnh, thành phố nơi có dự án đầu tư. 
+P385: Đối với dự án đầu tư tại địa bàn tỉnh khác nơi nộp hồ sơ khai thuế tại cơ quan thuế nơi có dự án đầu tư.
+P386: Đối với dự án đầu tư trên nhiều tỉnh, nơi nộp hồ sơ phụ thuộc việc có thành lập hoặc giao Ban quản lý dự án, chi nhánh, tổ chức kinh tế mới trực tiếp quản lý dự án hay không. 
+P387: Căn cứ: Điều 19 Thông tư số 89/2026/TT-BTC.
+P388: Câu 12. Đơn vị phụ thuộc cùng tỉnh với trụ sở chính có được khai GTGT riêng không?
+P389: Trả lời: Có thể, nếu đơn vị phụ thuộc đáp ứng các điều kiện theo quy định như có con dấu, tài khoản ngân hàng, trực tiếp bán hàng hóa, cung cấp dịch vụ, sử dụng hóa đơn đăng ký với cơ quan thuế quản lý đơn vị phụ thuộc, theo dõi hạch toán đầy đủ thuế GTGT đầu ra, đầu vào và có nhu cầu kê khai, nộp thuế riêng.
+P390: Căn cứ: Điều 19 Thông tư số 89/2026/TT-BTC.
+P391: III. THUẾ TNDN VÀ THUẾ TNCN
+P392: Câu 13. Doanh nghiệp bị tách có phải quyết toán thuế TNDN ngay tại thời điểm tách không?
+P393: Trả lời: Không còn áp dụng yêu cầu này theo nội dung sửa đổi tại Thông tư số 89/2026/TT-BTC.
+P394: Căn cứ: Điều 21 Thông tư số 89/2026/TT-BTC.
+P395: Câu 14. Doanh nghiệp chuyển đổi loại hình nhưng doanh nghiệp sau chuyển đổi kế thừa toàn bộ nghĩa vụ thuế có phải quyết toán ngay không?
+P396: Trả lời: Không phải khai quyết toán đến thời điểm chuyển đổi trong trường hợp doanh nghiệp sau chuyển đổi kế thừa toàn bộ nghĩa vụ thuế. Doanh nghiệp thực hiện quyết toán theo quy định khi kết thúc năm.
+P397: Căn cứ: Điều 21 Thông tư số 89/2026/TT-BTC.
+P398: Câu 15. Báo cáo lợi nhuận liên quốc gia có còn là thành phần của hồ sơ quyết toán thuế TNDN không?
+P399: Trả lời: Thông tư tách Báo cáo lợi nhuận liên quốc gia khỏi hồ sơ khai quyết toán thuế TNDN do thời hạn nộp hai loại hồ sơ khác nhau. Doanh nghiệp thuộc đối tượng phải lập báo cáo này thực hiện theo quy định riêng về giao dịch liên kết.
+P400: Căn cứ: Điều 21 Thông tư số 89/2026/TT-BTC.
+P401: Câu 16. Tổ chức trả thu nhập còn khai thuế TNCN theo tháng theo mẫu 05/KK-TNCN không?
+P402: Trả lời: Không. Theo nội dung sửa đổi, tờ khai 05/KK-TNCN đối với tổ chức, cá nhân trả thu nhập và tờ khai 02/KK-TNCN đối với cá nhân trực tiếp khai thuế không còn kỳ khai tháng.
+P403: Căn cứ: Điều 22 Thông tư số 89/2026/TT-BTC.
+P404: Câu 17. Tổ chức trả thu nhập có lao động ở đơn vị phụ thuộc khác tỉnh có bắt buộc phân bổ thuế TNCN không?
+P405: Trả lời: Không còn theo hướng bắt buộc như trước trong mọi trường hợp. Tổ chức, cá nhân trả thu nhập được chủ động lựa chọn khai tập trung tại trụ sở chính và xác định số thuế TNCN phải nộp của từng địa điểm hoặc khai riêng cho từng địa điểm kinh doanh, đơn vị phụ thuộc theo quy định.
+P406: Căn cứ: Điều 22 Thông tư số 89/2026/TT-BTC.
+P407: Câu 18. Cá nhân có thu nhập từ chuyển nhượng vốn mà tổ chức khai thay, nộp thay có phải nộp kèm toàn bộ tài liệu chứng minh giá vốn, chi phí không?
+P408: Trả lời: Trong trường hợp tổ chức khai thay, nộp thay, các tài liệu chứng minh giá chuyển nhượng, giá mua và chi phí liên quan được lưu tại tổ chức theo quy định, thay vì đều phải nộp kèm hồ sơ khai thuế như trước.
+P409: Căn cứ: Điều 22 Thông tư số 89/2026/TT-BTC.
+P410: IV. HỘ KINH DOANH, CÁ NHÂN KINH DOANH VÀ THƯƠNG MẠI ĐIỆN TỬ
+P411: Câu 19. HKD, CNKD khi khai bổ sung hồ sơ thuế phải lập hồ sơ như thế nào?
+P412: Trả lời: Hồ sơ khai bổ sung là hồ sơ khai thuế của kỳ tính thuế có sai, sót đã được bổ sung theo quy định áp dụng đối với HKD, CNKD.
+P413: Căn cứ: Điều 17 Thông tư số 89/2026/TT-BTC.
+P414: Câu 20. Cá nhân làm đại lý bảo hiểm, xổ số, bán hàng đa cấp hoặc môi giới khi nào phải tự khai?
+P415: Trả lời: Cá nhân thuộc trường hợp phải nộp thuế nhưng chưa được tổ chức khấu trừ, khai thay, nộp thay trong năm thì phải thực hiện khai thuế theo quy định. Việc xác định nghĩa vụ cần căn cứ đúng mô hình hợp tác và trách nhiệm của tổ chức chi trả.
+P416: Căn cứ: Điều 22 Thông tư số 89/2026/TT-BTC.
+P417: Câu 21. HKD, CNKD có số thuế phải nộp rất nhỏ có được miễn không?
+P418: Trả lời: Thông tư bổ sung trường hợp miễn một số sắc thuế, phí đối với HKD, CNKD có số thuế phải nộp trong năm trên hồ sơ khai thuế, hồ sơ quyết toán từ 50.000 đồng trở xuống, nếu thuộc đúng trường hợp quy định tại Nghị định số 252/2026/NĐ-CP. Không nên hiểu đây là quy tắc miễn tự động cho mọi khoản thuế dưới 50.000 đồng.
+P419: Căn cứ: Điều 65 Thông tư số 89/2026/TT-BTC.
+P420: Câu 22. Nhà cung cấp nước ngoài có phải kê khai chi tiết khách hàng Việt Nam không?
+P421: Trả lời: Có. Hồ sơ khai thuế của nhà cung cấp nước ngoài được bổ sung bảng kê chi tiết khách hàng Việt Nam có giao dịch với nhà cung cấp nước ngoài, trong đó có thông tin định danh của khách hàng Việt Nam.
+P422: Căn cứ: Điều 31 Thông tư số 89/2026/TT-BTC.
+P423: Câu 23. Tổ chức kinh doanh tại Việt Nam áp dụng phương pháp tính thuế GTGT là phương pháp khấu trừ thuế mua hàng hóa, dịch vụ của nhà cung cấp nước ngoài trên nền tảng thương mại điện tử, nền tảng số có thể phải khai thay, nộp thay không?
+P424: Trả lời: Có. Theo quy định tại Thông tư 89/2026/TT-BTC, tổ chức Việt Nam áp dụng phương pháp tính thuế GTGT là phương pháp khấu trừ thuế có trách nhiệm khấu trừ, khai thay và nộp thay thuế GTGT, TNDN, TNCN đã khấu trừ của nhà cung cấp nước ngoài hoặc cá nhân không cư trú có hoạt động kinh doanh trên nền tảng thương mại điện tử, nền tảng số.
+P425: Trường hợp tổ chức kinh doanh tại Việt Nam đã thực hiện khấu trừ, nộp thay thuế đối với giao dịch phát sinh trên nền tảng thương mại điện tử có chức năng thanh toán và chức năng đặt hàng trực tuyến thì có trách nhiệm thông báo bằng phương thức điện tử cho chủ quản nền tảng thương mại điện tử để không thực hiện khấu trừ thuế đối với cùng giao dịch đó 
+P426: Căn cứ: Điều 32 Thông tư số 89/2026/TT-BTC.
+P427: Câu 24. Chủ quản nền tảng thương mại điện tử, nền tảng số có chức năng đặt hàng và thanh toán phải nộp hồ sơ khai thuế ở đâu?
+P428: Trả lời: Thông tư quy định cơ quan tiếp nhận hồ sơ khai thuế của chủ quản nền tảng thuộc trường hợp khấu trừ, khai thay, nộp thay là Chi cục Thuế thương mại điện tử.
+P429: Căn cứ: Điều 33 Thông tư số 89/2026/TT-BTC.
+P430: V. NỘP THUẾ, BÙ TRỪ VÀ XÁC NHẬN NGHĨA VỤ THUẾ
+P431: Câu 25. Khi nộp thuế theo mã định danh khoản phải nộp, hệ thống xử lý bù trừ như thế nào?
+P432: Trả lời: Hệ thống thông tin quản lý thuế tự động bù trừ theo mã định danh khoản phải nộp (ID), bảo đảm khoản đã nộp được bù trù, thanh toán với đúng nghĩa vụ tương ứng.
+P433: Căn cứ: Điều 36 và Điều 42 Thông tư số 89/2026/TT-BTC.
+P434: Câu 26. Khoản nộp thừa không có mã định danh khoản phải nộp có tự động bù trừ không?
+P435: Trả lời: Không. Nếu khoản nộp thừa không có mã định danh khoản phải nộp, người nộp thuế thực hiện lựa chọn khoản nộp thừa để bù trừ đích danh với khoản nợ, khoản thu phát sinh đã được cấp mã định danh khoản phải nộp.
+P436: Căn cứ: Điều 42 Thông tư số 89/2026/TT-BTC.
+P437: Câu 27. Tôi có thể đề nghị cơ quan thuế xác nhận những nội dung nào về nghĩa vụ thuế?
+P438: Trả lời: Có hai phạm vi chính: xác nhận số tiền thuế còn phải nộp ngân sách nhà nước và xác nhận số thuế đã nộp ngân sách nhà nước.
+P439: Căn cứ: Điều 44 Thông tư số 89/2026/TT-BTC.
+P440: Câu 28. Nếu số liệu tôi đề nghị xác nhận khác với dữ liệu của cơ quan thuế thì xử lý thế nào?
+P441: Trả lời: Cơ quan thuế căn cứ dữ liệu trên Hệ thống thông tin quản lý thuế để thực hiện xác nhận hoặc không xác nhận, trong đó nêu rõ lý do nếu không xác nhận.
+P442: Căn cứ: Điều 44 Thông tư số 89/2026/TT-BTC.
+P443: Câu 29. Thời hạn giải quyết hồ sơ gia hạn nộp thuế, khoản thu khác, tiền chậm nộp, tiền phạt, không tính tiền chậm nộp hoặc miễn tiền chậm nộp có thay đổi không?
+P444: Trả lời: Có. Đối với các thủ tục tương ứng được sửa đổi tại Thông tư, thời hạn giải quyết của cơ quan thuế được rút từ 10 ngày xuống còn 07 ngày.
+P445: Căn cứ: Điều 38, Điều 40 và Điều 41 Thông tư số 89/2026/TT-BTC.
+P446: VI. HOÀN THUẾ VÀ HOÀN TRẢ KHOẢN NỘP THỪA
+P447: Câu 30. Hồ sơ hoàn thuế GTGT đối với xuất khẩu được thực hiện như thế nào?
+P448: Trả lời: Người nộp thuế sử dụng Tờ khai thuế GTGT mẫu 01/GTGT có kê khai chỉ tiêu đề nghị hoàn và Phụ lục đề nghị hoàn thuế GTGT mẫu 01-8/GTGT theo quy định kể từ thời điểm cơ quan thuế nâng cấp hệ thống đáp ứng mẫu biểu này.
+P449: Căn cứ: Điều 46 Thông tư số 89/2026/TT-BTC.
+P450: Câu 31. Hồ sơ hoàn thuế GTGT đối với dự án đầu tư gồm những gì?
+P451: Trả lời: Gồm Tờ khai thuế GTGT mẫu 02/GTGT có kê khai chỉ tiêu đề nghị hoàn, Phụ lục 01-8/GTGT kể từ thời điểm cơ quan thuế nâng cấp hệ thống đáp ứng mẫu biểu này và các giấy tờ liên quan của dự án đầu tư. Tài liệu của dự án đã nộp ở lần hoàn đầu chỉ phải nộp lại khi có thay đổi, bổ sung.
+P452: Căn cứ: Điều 46 Thông tư số 89/2026/TT-BTC.
+P453: Câu 32. Cơ sở sản xuất hàng hóa, cung cấp dịch vụ chịu thuế suất GTGT 5% có hồ sơ hoàn riêng không?
+P454: Trả lời: Thông tư bổ sung quy định hồ sơ hoàn thuế cho trường hợp này; hồ sơ gồm Tờ khai 01/GTGT có kê khai chỉ tiêu đề nghị hoàn và Phụ lục 01-8/GTGT theo quy định.
+P455: Căn cứ: Điều 46 Thông tư số 89/2026/TT-BTC.
+P456: Câu 33. Một phần số tiền đề nghị hoàn có rủi ro cao thì toàn bộ hồ sơ có bị chuyển sang kiểm tra trước hoàn không?
+P457: Trả lời: Thông tư quy định rõ hơn việc phân loại hồ sơ khi chỉ một phần số tiền đề nghị hoàn được xác định có rủi ro cao. Việc xử lý được thực hiện theo cơ chế phân loại tương ứng, không nên hiểu mặc nhiên toàn bộ số tiền đề nghị hoàn đều bị xử lý như phần có rủi ro.
+P458: Căn cứ: Điều 48 Thông tư số 89/2026/TT-BTC.
+P459: Câu 34. Nếu cơ quan thuế yêu cầu giải trình nhưng tôi không giải trình được toàn bộ số tiền đề nghị hoàn thì sao?
+P460: Trả lời: Đối với hồ sơ thuộc diện hoàn trước, nếu hết thời hạn mà người nộp thuế không giải trình, bổ sung hoặc giải trình nhưng không chứng minh được số đã khai là đúng, cơ quan thuế xác định phần không được hoàn hoặc chưa đủ điều kiện hoàn theo quy định; phần đủ điều kiện vẫn được xử lý theo cơ chế tương ứng.
+P461: Căn cứ: Điều 49 và Điều 59 Thông tư số 89/2026/TT-BTC.
+P462: Câu 35. Tôi có thể đề nghị bù trừ số thuế được hoàn với số thuế phát sinh kỳ tiếp theo không?
+P463: Trả lời: Có. Trường hợp người nộp thuế có đề nghị bù trừ giữa số thuế được hoàn với số thuế phát sinh của kỳ tính thuế tiếp theo, cơ quan thuế thực hiện bù trừ theo văn bản đề nghị của người nộp thuế và quy định có liên quan.
+P464: Căn cứ: Điều 49 Thông tư số 89/2026/TT-BTC.
+P465: Câu 36. HKD, CNKD có thuế GTGT hoặc TNCN nộp thừa có thể đề nghị hoàn không?
+P466: Trả lời: Có. Thông tư bổ sung quy định hồ sơ hoàn thuế GTGT, TNCN nộp thừa cho HKD, CNKD theo trường hợp quy định.
+P467: Căn cứ: Điều 56 Thông tư số 89/2026/TT-BTC.
+P468: VII. MIỄN, GIẢM THUẾ VÀ KHOANH TIỀN THUẾ NỢ; XÓA TIỀN THUẾ NỢ VÀ NỘP DẦN TIỀN THUẾ NỢ
+P469: Câu 37. Khi xin miễn lệ phí trước bạ vì quan hệ gia đình, tôi có phải nộp giấy tờ chứng minh ngay không?
+P470: Trả lời: Không nhất thiết. Cơ quan có trách nhiệm khai thác thông tin từ Cơ sở dữ liệu quốc gia về dân cư. Chỉ khi không thể khai thác được dữ liệu cần thiết thì người nộp thuế mới phải cung cấp giấy tờ chứng minh quan hệ theo quy định.
+P471: Căn cứ: Điều 74 Thông tư số 89/2026/TT-BTC.
+P472: Câu 38. Hồ sơ giảm thuế do thiên tai, dịch bệnh, hỏa hoạn, tai nạn có được đơn giản hóa không?
+P473: Trả lời: Có. Tùy sắc thuế và trường hợp cụ thể, Thông tư lược bỏ một số tài liệu như biên bản/chứng thư giám định hoặc báo cáo tài chính; người nộp thuế kê khai mức độ, giá trị thiệt hại và cung cấp văn bản xác nhận cần thiết theo quy định.
+P474: Căn cứ: Điều 68, Điều 69, Điều 70, Điều 72 và Điều 73 Thông tư số 89/2026/TT-BTC.
+P475: Câu 39. Thời hạn giải quyết hồ sơ nộp dần tiền thuế nợ là bao lâu?
+P476: Trả lời: Thời hạn được rút từ 10 ngày làm việc xuống còn 07 ngày làm việc theo quy định mới. 
+P477: Căn cứ: Điều 86 Thông tư số 89/2026/TT-BTC.
+P478: VIII. KIỂM TRA THUẾ VÀ QUY ĐỊNH CHUYỂN TIẾP
+P479: Câu 40. Thông tư 89 có quy định kiểm tra thuế trực tuyến, từ xa trên dữ liệu điện tử không?
+P480: Trả lời: Có. Thông tư bổ sung quy định về kiểm tra trực tuyến, từ xa trên dữ liệu điện tử. Quá trình có thể bao gồm mở cổng giao tiếp giữa đoàn kiểm tra và người nộp thuế, trao đổi và lưu trữ dữ liệu điện tử, ghi nhận log, đóng cổng khi kết thúc và chuyển sang kiểm tra trực tiếp khi cần xác minh thực tế. 
+P481: Căn cứ: Điều 89 Thông tư số 89/2026/TT-BTC.
+P482: LƯU Ý KHI SỬ DỤNG BỘ HỎI - ĐÁP
+P483: Bộ hỏi - đáp nhằm hỗ trợ người nộp thuế nhận diện nhanh các nội dung thường gặp. Đối với từng trường hợp cụ thể, người nộp thuế cần căn cứ Luật Quản lý thuế, Nghị định số 252/2026/NĐ-CP, Thông tư số 89/2026/TT-BTC và pháp luật thuế có liên quan để thực hiện.
+P492: BỘ NỘI DUNG INFOGRAPHIC VÀ KỊCH BẢN VIDEO CLIP
+P493: TUYÊN TRUYỀN THÔNG TƯ SỐ 89/2026/TT-BTC
+P494: PHẦN I. NỘI DUNG 04 INFOGRAPHIC
+P495: INFOGRAPHIC 01. 6 ĐIỂM NNT CẦN NHỚ KHI GIAO DỊCH THUẾ ĐIỆN TỬ
+P496: Đối tượng: Doanh nghiệp, tổ chức, hộ kinh doanh, cá nhân có giao dịch điện tử với cơ quan thuế.
+P497: NỘI DUNG
+P498: THÔNG TIN TRUYỀN THÔNG
+P499: 1. Không phải nộp lại thông tin cơ quan thuế đã có
+P500: Không phải nộp lại chứng từ, tài liệu đã có trong hồ sơ thuế; không phải khai lại thông tin đã có trong Hệ thống thông tin quản lý thuế hoặc cơ quan thuế đã khai thác được từ cơ sở dữ liệu được chia sẻ theo quy định.
+P501: 2. Có thể được hệ thống hỗ trợ tạo lập tờ khai
+P502: Khi hệ thống đã có đầy đủ thông tin, tài liệu, chứng từ làm căn cứ tính thuế, Hệ thống thông tin quản lý thuế có thể tự động tạo lập tờ khai để hỗ trợ NNT.
+P503: 3. Sử dụng tài khoản định danh điện tử
+P504: NNT thuộc đối tượng được cấp tài khoản định danh điện tử sử dụng tài khoản này theo quy định để thực hiện giao dịch thuế điện tử.
+P505: 4. Thay đổi thông tin? Cập nhật trong 03 ngày làm việc
+P506: Khi thông tin đăng ký giao dịch điện tử thay đổi, NNT cập nhật, bổ sung trong thời hạn 03 ngày làm việc kể từ ngày phát sinh thay đổi.
+P507: 5. “Hệ thống đã nhận” chưa phải là “hồ sơ đã được tiếp nhận”
+P508: Thông báo phản hồi tự động xác nhận việc gửi hồ sơ thành công không thay thế thông báo tiếp nhận hồ sơ. NNT cần tiếp tục theo dõi trạng thái xử lý.
+P509: 6. Theo dõi thông báo của cơ quan thuế
+P510: Thông thường, thông báo tiếp nhận/không tiếp nhận được gửi chậm nhất 01 ngày làm việc; riêng một số hồ sơ hoàn thuế, miễn, giảm thuế và hồ sơ liên quan: chậm nhất 03 ngày làm việc.
+P511: Thông điệp cuối: GIAO DỊCH ĐIỆN TỬ – GIẢM GIẤY TỜ, TẬN DỤNG DỮ LIỆU, CHỦ ĐỘNG THEO DÕI TRẠNG THÁI HỒ SƠ.
+P512: Căn cứ: Điều 6, Điều 8, Điều 11, Điều 13 Thông tư số 89/2026/TT-BTC.
+P513: INFOGRAPHIC 02
+P514: KHAI THUẾ – 6 TÌNH HUỐNG DOANH NGHIỆP CẦN RÀ SOÁT
+P515: Đối tượng: Doanh nghiệp, tổ chức, kế toán và người làm thủ tục về thuế.
+P516: NỘI DUNG
+P517: THÔNG TIN TRUYỀN THÔNG
+P518: 1. Doanh nghiệp mới hoạt động
+P519: Theo dõi doanh thu để xác định kỳ khai thuế GTGT. Trường hợp doanh thu trên 50 tỷ đồng thì thực hiện khai theo tháng kể từ năm dương lịch liền kề tiếp theo năm mới bắt đầu hoạt động, kinh doanh theo quy định.
+P520: 2. Đang khai theo quý nhưng không còn đủ điều kiện
+P521: Chuyển sang khai theo tháng kể từ tháng đầu của quý tiếp theo; rà soát nghĩa vụ khai lại và tiền chậm nộp (nếu có) theo trường hợp cụ thể.
+P522: 3. Khai bổ sung
+P523: Không chỉ sửa kỳ có sai sót. Cần xác định đầy đủ tác động đến số thuế phải nộp, số thuế còn được khấu trừ, số thuế đã đề nghị hoàn và các kỳ liên quan.
+P524: 4. Chuyển địa chỉ trụ sở
+P525: Nếu chưa hoàn tất thủ tục thay đổi địa chỉ và đến hạn nộp hồ sơ khai thuế, thực hiện nộp hồ sơ cho cơ quan thuế nơi chuyển đi theo quy định.
+P526: 5. Đơn vị phụ thuộc
+P527: Rà soát điều kiện để lựa chọn khai tập trung tại trụ sở chính hoặc khai riêng theo quy định đối với từng sắc thuế, từng đơn vị.
+P528: 6. Thuế TNCN
+P529: Tờ khai 05/KK-TNCN và 02/KK-TNCN không còn kỳ khai tháng theo nội dung sửa đổi của Thông tư.
+P530: Thông điệp cuối: ĐÚNG KỲ KHAI – ĐÚNG NƠI NỘP – ĐÚNG HỒ SƠ – RÀ SOÁT ẢNH HƯỞNG KHI KHAI BỔ SUNG.
+P531: Căn cứ: Điều 17, Điều 19, Điều 21, Điều 22 Thông tư số 89/2026/TT-BTC.
+P535: INFOGRAPHIC 03
+P536: TMĐT, NỀN TẢNG SỐ VÀ NHÀ CUNG CẤP NƯỚC NGOÀI – AI CẦN LÀM GÌ?
+P537: Đối tượng: Nhà cung cấp nước ngoài; tổ chức kinh doanh tại Việt Nam; chủ quản sàn TMĐT/nền tảng số; HKD, CNKD kinh doanh trên nền tảng.
+P538: NỘI DUNG
+P539: THÔNG TIN TRUYỀN THÔNG
+P540: NHÀ CUNG CẤP NƯỚC NGOÀI
+P541: Hồ sơ khai thuế được bổ sung bảng kê chi tiết khách hàng Việt Nam có giao dịch, bao gồm thông tin định danh theo quy định.
+P542: TỔ CHỨC KINH DOANH TẠI VIỆT NAM
+P543: Nếu thuộc trường hợp pháp luật quy định, thực hiện khấu trừ, khai thay, nộp thay thuế đối với nhà cung cấp nước ngoài hoặc cá nhân không cư trú kinh doanh trên nền tảng TMĐT, nền tảng số.
+P544: CHỦ QUẢN NỀN TẢNG THƯƠNG MẠI ĐIỆN TỬ, NỀN TẢNG SỐ KHÁC (TRONG NƯỚC HOẶC NƯỚC NGOÀI) CÓ CHỨC NĂNG ĐẶT HÀNG TRỰC TUYẾN VÀ CHỨC NĂNG THANH TOÁN
+P545: Thực hiện nghĩa vụ khấu trừ, khai thay, nộp thay theo trường hợp áp dụng; hồ sơ khai thuế thuộc trường hợp quy định tại Điều 33 được tiếp nhận tại Chi cục Thuế thương mại điện tử.
+P546: HỆ THỐNG THUẾ ĐIỆN TỬ
+P547: Thông tin số thuế đã được chủ quản nền tảng thương mại điện tử, nền tảng số khác (trong nước hoặc nước ngoài) có chức năng đặt hàng trực tuyến và chức năng thanh toán khấu trừ, khai và nộp thay được cập nhật trên tài khoản thuế điện tử của HKD, CNKD theo quy định.
+P548: NNT CẦN LÀM
+P549: Xác định đúng vai trò trong chuỗi giao dịch; đối chiếu khoản đã được khấu trừ/nộp thay; lưu trữ thông tin giao dịch và theo dõi dữ liệu trên tài khoản thuế điện tử.
+P550: Thông điệp cuối: KINH DOANH TRÊN NỀN TẢNG SỐ – XÁC ĐỊNH ĐÚNG CHỦ THỂ CÓ NGHĨA VỤ KHAI, KHẤU TRỪ VÀ NỘP THUẾ.
+P551: Căn cứ: Điều 31, Điều 32, Điều 33 Thông tư số 89/2026/TT-BTC.
+P553: INFOGRAPHIC 04
+P554: HOÀN THUẾ GTGT – 5 VIỆC NNT NÊN KIỂM TRA TRƯỚC KHI GỬI HỒ SƠ
+P555: Đối tượng: Doanh nghiệp có hoạt động xuất khẩu; dự án đầu tư; cơ sở kinh doanh thuộc trường hợp được hoàn thuế GTGT.
+P556: NỘI DUNG
+P557: THÔNG TIN TRUYỀN THÔNG
+P558: 1. Xác định đúng trường hợp hoàn
+P559: Phân biệt hoàn thuế đối với xuất khẩu, dự án đầu tư và các trường hợp hoàn khác theo pháp luật thuế GTGT.
+P560: 2. Sử dụng đúng tờ khai và phụ lục
+P561: Đối với các trường hợp tương ứng, rà soát chỉ tiêu đề nghị hoàn trên tờ khai GTGT và Phụ lục đề nghị hoàn thuế mẫu 01-8/GTGT.
+P562: 3. Hồ sơ dự án đầu tư: tránh nộp lặp
+P563: Tài liệu dự án đã nộp ở lần hoàn đầu không phải nộp lại nếu không có thay đổi, bổ sung theo quy định.
+P564: 4. Chủ động giải trình khi được yêu cầu
+P565: Nếu không giải trình, bổ sung hoặc không chứng minh được số đã khai là đúng, phần không đủ căn cứ/điều kiện được xử lý theo quy định; phần đủ điều kiện được xem xét theo cơ chế tương ứng.
+P566: 5. Có thể đề nghị bù trừ
+P567: NNT có thể đề nghị bù trừ số thuế được hoàn với số thuế phát sinh của kỳ tính thuế tiếp theo theo quy định.
+P568: Thông điệp cuối: HỒ SƠ ĐÚNG – TÀI LIỆU ĐỦ – GIẢI TRÌNH KỊP THỜI – THEO DÕI TỪNG PHẦN SỐ THUẾ ĐỀ NGHỊ HOÀN.
+P569: Căn cứ: Điều 46, Điều 48, Điều 49, Điều 56, Điều 59 Thông tư số 89/2026/TT-BTC.
+P571: PHẦN II. KỊCH BẢN 02 VIDEO CLIP TUYÊN TRUYỀN
+P572: VIDEO CLIP 01. THÔNG TƯ 89/2026/TT-BTC – 5 THAY ĐỔI NNT CẦN BIẾT KHI LÀM THỦ TỤC THUẾ
+P573: Thời lượng: Khoảng 100–120 giây
+P574: THỜI LƯỢNG
+P575: HÌNH ẢNH/GỢI Ý DỰNG
+P576: LỜI BÌNH
+P577: CHỮ TRÊN MÀN HÌNH
+P578: 0–8 giây
+P579: Mở đầu: điện thoại/máy tính, hồ sơ thuế chuyển từ giấy sang điện tử.
+P580: Làm thủ tục thuế đang thay đổi theo hướng số hóa, khai thác dữ liệu và giảm giấy tờ cho người nộp thuế.
+P581: THÔNG TƯ 89/2026/TT-BTC5 ĐIỂM NNT CẦN BIẾT
+P582: 8–28 giây
+P583: Biểu tượng dữ liệu đã có → dấu tick; giấy tờ trùng lặp biến mất.
+P584: Thứ nhất, người nộp thuế không phải nộp lại tài liệu đã có trong hồ sơ thuế và không phải khai lại thông tin cơ quan thuế đã có hoặc khai thác được từ cơ sở dữ liệu theo quy định.
+P585: 1. GIẢM KHAI LẠI – GIẢM NỘP LẠI
+P586: 28–45 giây
+P587: Hệ thống tự điền một số trường trên tờ khai.
+P588: Thứ hai, khi hệ thống có đầy đủ thông tin, chứng từ làm căn cứ tính thuế, Hệ thống thông tin quản lý thuế có thể tự động tạo lập tờ khai để hỗ trợ người nộp thuế.
+P589: 2. DỮ LIỆU HỖ TRỢ LẬP TỜ KHAI
+P590: 45–62 giây
+P591: Tài khoản định danh điện tử → cổng thuế điện tử.
+P592: Thứ ba, người nộp thuế thuộc đối tượng được cấp tài khoản định danh điện tử có thể sử dụng tài khoản này để thực hiện giao dịch thuế điện tử theo quy định.
+P593: 3. ĐỊNH DANH ĐIỆN TỬ
+P594: 62–79 giây
+P595: Đồng hồ 03 ngày; biểu tượng cập nhật email/số điện thoại.
+P596: Thứ tư, khi thông tin đăng ký giao dịch điện tử thay đổi, hãy cập nhật với cơ quan thuế trong 03 ngày làm việc kể từ ngày phát sinh thay đổi.
+P597: 4. THAY ĐỔI THÔNG TIN → CẬP NHẬT TRONG 03 NGÀY LÀM VIỆC
+P598: 79–101 giây
+P599: Hai trạng thái: 'Đã gửi' và 'Đã tiếp nhận'; NNT kiểm tra thông báo.
+P600: Thứ năm, thông báo hệ thống đã nhận hồ sơ chưa đồng nghĩa hồ sơ đã được tiếp nhận. Người nộp thuế cần tiếp tục theo dõi thông báo tiếp nhận, yêu cầu bổ sung hoặc kết quả xử lý trên hệ thống.
+P601: 5. ĐÃ GỬI ≠ ĐÃ TIẾP NHẬN
+P602: 101–115 giây
+P603: Tổng hợp 5 icon, kết thúc bằng màn hình cổng thuế.
+P604: Chủ động cập nhật thông tin, theo dõi trạng thái hồ sơ và tận dụng dữ liệu điện tử sẽ giúp thực hiện nghĩa vụ thuế thuận tiện, chính xác hơn.
+P605: THUẾ ĐIỆN TỬCHỦ ĐỘNG – THUẬN TIỆN – MINH BẠCH
+P606: Căn cứ pháp lý: Điều 6, Điều 8, Điều 11, Điều 13 Thông tư số 89/2026/TT-BTC.
+P607: Lưu ý biên tập: Khi sản xuất, không minh họa theo hướng mọi NNT đều thuộc cùng một trường hợp. Các cụm từ “nếu thuộc trường hợp pháp luật quy định”, “theo trường hợp áp dụng” cần được giữ khi nội dung phụ thuộc đối tượng/điều kiện.
+P608: VIDEO CLIP 02. KINH DOANH TRÊN NỀN TẢNG SỐ – AI KHAI? AI KHẤU TRỪ? AI NỘP THUẾ?
+P609: Thời lượng: Khoảng 100–120 giây
+P610: THỜI LƯỢNG
+P611: HÌNH ẢNH/GỢI Ý DỰNG
+P612: LỜI BÌNH
+P613: CHỮ TRÊN MÀN HÌNH
+P614: 0–10 giây
+P615: Một giao dịch online: người mua Việt Nam → nền tảng → người bán/nhà cung cấp nước ngoài.
+P616: Một giao dịch trên nền tảng số có thể có nhiều chủ thể. Điều quan trọng là xác định đúng ai có trách nhiệm khai, khấu trừ và nộp thuế.
+P617: KINH DOANH TRÊN NỀN TẢNG SỐAI CÓ NGHĨA VỤ THUẾ?
+P618: 10–32 giây
+P619: Nhà cung cấp nước ngoài; bảng kê khách hàng Việt Nam xuất hiện.
+P620: Với nhà cung cấp nước ngoài, hồ sơ khai thuế được bổ sung bảng kê chi tiết khách hàng Việt Nam có giao dịch, trong đó có thông tin định danh theo quy định.
+P621: NHÀ CUNG CẤP NƯỚC NGOÀIRÀ SOÁT THÔNG TIN KHÁCH HÀNG VIỆT NAM
+P622: 32–55 giây
+P623: Doanh nghiệp Việt Nam mua dịch vụ số; mũi tên 'khấu trừ – khai thay – nộp thay'.
+P624: Với tổ chức kinh doanh tại Việt Nam, nếu thuộc trường hợp pháp luật quy định, tổ chức có trách nhiệm khấu trừ, khai thay và nộp thay thuế của nhà cung cấp nước ngoài hoặc cá nhân không cư trú kinh doanh trên nền tảng.
+P625: TỔ CHỨC VIỆT NAMXÁC ĐỊNH TRÁCH NHIỆM KHẤU TRỪ, KHAI THAY, NỘP THAY
+P626: 55–78 giây
+P627: Sàn/nền tảng có nút đặt hàng và thanh toán; luồng dữ liệu sang cơ quan thuế.
+P628: Với chủ quản nền tảng thương mại điện tử, nền tảng số khác có chức năng đặt hàng trực tuyến và chức năng thanh toán, hồ sơ khai thuế đối với số thuế đã khấu trừ, khai thay, nộp thay được gửi bằng phương thức điện tử đến Chi cục Thuế thương mại điện tử để tiếp nhận, xử lý. Số thuế đã nộp được hệ thống phân chia theo từng tỉnh và cập nhật trên tài khoản thuế điện tử của từng hộ, cá nhân kinh doanh để theo dõi, đối chiếu.
+P629: CHỦ QUẢN NỀN TẢNGTHỰC HIỆN NGHĨA VỤ THEO TRƯỜNG HỢP ÁP DỤNG
+P630: 78–98 giây
+P631: Tài khoản thuế điện tử của HKD/CNKD hiển thị khoản đã khấu trừ/nộp thay.
+P632: Đối với hộ, cá nhân kinh doanh, thông tin số thuế đã được chủ quản nền tảng khấu trừ, khai và nộp thay được cập nhật trên tài khoản thuế điện tử theo quy định. Hãy đối chiếu để theo dõi nghĩa vụ của mình.
+P633: HKD, CNKDTHEO DÕI KHOẢN ĐÃ ĐƯỢC KHẤU TRỪ, NỘP THAY
+P634: 98–115 giây
+P635: Bốn chủ thể đứng trong một sơ đồ; từng nghĩa vụ sáng lên.
+P636: Kinh doanh số không có nghĩa mọi chủ thể đều thực hiện cùng một thủ tục. Hãy xác định đúng vai trò trong giao dịch, đúng nghĩa vụ và đúng nơi nộp hồ sơ.
+P637: ĐÚNG CHỦ THỂ – ĐÚNG NGHĨA VỤ – ĐÚNG HỒ SƠ
+P638: Căn cứ pháp lý: Điều 31, Điều 32, Điều 33 Thông tư số 89/2026/TT-BTC.
+P639: Lưu ý biên tập: Khi sản xuất, không minh họa theo hướng mọi NNT đều thuộc cùng một trường hợp. Các cụm từ “nếu thuộc trường hợp pháp luật quy định”, “theo trường hợp áp dụng” cần được giữ khi nội dung phụ thuộc đối tượng/điều kiện.
+P640: PHẦN III. ĐỀ XUẤT SỬ DỤNG BỘ SẢN PHẨM
+P641: 04 infographic nên được sử dụng như các sản phẩm tra cứu nhanh, mỗi infographic giải quyết một nhóm nhu cầu riêng của NNT; không đưa quá nhiều “điểm mới” vào một thiết kế. 02 video clip tập trung lần lượt vào (i) trải nghiệm thủ tục thuế điện tử của số đông NNT và (ii) nhóm giao dịch TMĐT, nền tảng số có nhiều chủ thể, là hai nội dung phù hợp hơn với hình thức video giải thích.
+P642: Thông tư số 89/2026/TT-BTC được Bộ Tài chính ban hành ngày 30/6/2026, có hiệu lực từ ngày 01/7/2026. Khi phát hành sản phẩm, nên dẫn đường tới toàn văn Thông tư hoặc chuyên trang chính sách để NNT có thể tra cứu trường hợp cụ thể.

@@ -280,7 +280,9 @@
         "hóa đơn"
       ],
       "refs": [
-        "16.47",
+        "16.34",
+        "16.37",
+        "16.79",
         "16.41"
       ],
       "expand": [
@@ -299,8 +301,9 @@
       ],
       "refs": [
         "16.34",
-        "16.47",
-        "16.49"
+        "16.37",
+        "16.49",
+        "16.79"
       ],
       "expand": [
         "business other revenue",
@@ -986,8 +989,9 @@
         "cho thuê"
       ],
       "refs": [
+        "16.29",
+        "16.79",
         "16.91",
-        "16.92",
         "16.77"
       ],
       "expand": [
@@ -1215,6 +1219,298 @@
         "hệ thống phần mềm cơ quan thuế eTax Mobile canhantmdt HTKK 01/CNKD"
       ],
       "priority": 72
+    },
+    {
+      "id": "REVENUE_NOTICE_7404",
+      "any": [
+        "thông báo doanh thu",
+        "7404/CT-PC",
+        "01/TKN-CNKD"
+      ],
+      "refs": [
+        "16.173"
+      ],
+      "priority": 98
+    },
+    {
+      "id": "GUIDANCE_7404_174",
+      "any": [
+        "nộp lại giấy tờ",
+        "bản sao điện tử",
+        "bản scan"
+      ],
+      "refs": [
+        "16.174"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_175",
+      "any": [
+        "thay đổi giao dịch điện tử",
+        "thông báo tiếp nhận",
+        "tài khoản định danh"
+      ],
+      "refs": [
+        "16.175"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_176",
+      "any": [
+        "khai bổ sung đúng kỳ",
+        "đại lý bảo hiểm",
+        "đại lý xổ số",
+        "môi giới chưa khấu trừ"
+      ],
+      "refs": [
+        "16.176"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_177",
+      "any": [
+        "50.000 đồng",
+        "50000 đồng",
+        "miễn thuế số nhỏ"
+      ],
+      "refs": [
+        "16.177"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_178",
+      "any": [
+        "mã định danh khoản phải nộp",
+        "số tham chiếu",
+        "tra soát chứng từ"
+      ],
+      "refs": [
+        "16.178"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_179",
+      "any": [
+        "bù trừ nộp thừa",
+        "xác nhận nghĩa vụ",
+        "tiền chậm nộp tương ứng"
+      ],
+      "refs": [
+        "16.179"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_180",
+      "any": [
+        "hoàn nộp thừa",
+        "không phải nộp hồ sơ hoàn",
+        "01/ĐNXLNT"
+      ],
+      "refs": [
+        "16.180"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_181",
+      "any": [
+        "gia hạn nộp thuế",
+        "miễn tiền chậm nộp",
+        "không tính tiền chậm nộp"
+      ],
+      "refs": [
+        "16.181"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_182",
+      "any": [
+        "giảm thuế thiên tai",
+        "nộp dần tiền thuế nợ",
+        "thư bảo lãnh"
+      ],
+      "refs": [
+        "16.182"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_183",
+      "any": [
+        "tem điện tử rượu",
+        "tem thuốc lá",
+        "tem cũ TT23",
+        "mua tem giấy phép rượu"
+      ],
+      "refs": [
+        "16.183"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_184",
+      "any": [
+        "mất cháy tem",
+        "hủy tem",
+        "dữ liệu tem",
+        "sự cố tem điện tử"
+      ],
+      "refs": [
+        "16.184"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_185",
+      "any": [
+        "dịch vụ làm thủ tục thuế",
+        "đánh giá năng lực",
+        "36 tháng công tác"
+      ],
+      "refs": [
+        "16.185"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_186",
+      "any": [
+        "cập nhật kiến thức",
+        "24 giờ",
+        "giấy xác nhận tham dự"
+      ],
+      "refs": [
+        "16.186"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_187",
+      "any": [
+        "kiểm tra dịch vụ làm thủ tục thuế",
+        "công bố kết quả kiểm tra đại lý"
+      ],
+      "refs": [
+        "16.187"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_188",
+      "any": [
+        "chứng chỉ hành nghề thuế",
+        "bảo lưu điểm",
+        "TT109"
+      ],
+      "refs": [
+        "16.188"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_189",
+      "any": [
+        "doanh thu đa kênh",
+        "sàn nộp thay",
+        "livestream bán hàng",
+        "nhiều gian hàng"
+      ],
+      "refs": [
+        "16.189"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_190",
+      "any": [
+        "ủy nhiệm lập hóa đơn",
+        "hóa đơn đa kênh",
+        "ngày sàn chuyển tiền",
+        "hủy đổi trả hóa đơn"
+      ],
+      "refs": [
+        "16.190"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_191",
+      "any": [
+        "KOL KOC",
+        "freelancer",
+        "streamer",
+        "hồ sơ đối soát",
+        "thu nhập nội dung số"
+      ],
+      "refs": [
+        "16.191"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_192",
+      "any": [
+        "thông báo số thuế khấu trừ",
+        "sàn hoàn thuế đơn hủy",
+        "khấu trừ trùng"
+      ],
+      "refs": [
+        "16.192"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_193",
+      "any": [
+        "phí vận chuyển thu hộ",
+        "tiền ship",
+        "cấn trừ COD"
+      ],
+      "refs": [
+        "16.193"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_194",
+      "any": [
+        "hàng hỏng sàn bồi thường",
+        "điều chỉnh giảm hóa đơn hàng trả"
+      ],
+      "refs": [
+        "16.194"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_195",
+      "any": [
+        "nhiều tài khoản ngân hàng",
+        "ví điện tử kinh doanh",
+        "tài khoản nhận tiền bán hàng"
+      ],
+      "refs": [
+        "16.195"
+      ],
+      "priority": 86
+    },
+    {
+      "id": "GUIDANCE_7404_196",
+      "any": [
+        "kiểm tra thuế trực tuyến",
+        "kiểm tra thuế từ xa"
+      ],
+      "refs": [
+        "16.196"
+      ],
+      "priority": 86
     }
   ],
   "route_priority_order": "descending",

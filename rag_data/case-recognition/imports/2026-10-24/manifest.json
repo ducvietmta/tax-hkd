@@ -1,0 +1,295 @@
+{
+  "counts": {
+    "approved": 829,
+    "rejected": 95
+  },
+  "cases": 935,
+  "descriptors": 829,
+  "links": 978,
+  "neutralized_phrases": 52,
+  "blocked_verified_refs": [
+    "16.24"
+  ],
+  "source_texts_modified": false,
+  "canonical_cards_modified": false,
+  "applied": true,
+  "production_enabled": false,
+  "activation_authorization": {
+    "id": "4fbac9c943297c204cb9a75a716d1fcf062f6a79c157854f462391af53f50513",
+    "source": "direct_user_message",
+    "instruction": "cứ kích hoạt đi",
+    "recorded_at": "2026-10-24T02:51:42.256Z",
+    "ai_review_provenance_preserved": true
+  },
+  "package_hashes": {
+    "update": "2a52272a6b8a11f458e66c413f72887b6347920099922022c9117f4443c5da0b",
+    "reviews": "8d4c99ace1a784ae3bff5f1b01b0edc10af2de98497ea502d753c69bdde235fe",
+    "audit": "195aa4c28e30beaaf01c4ab1dd4b602a1ff9e794afed231fac04a13cfd30e5b4"
+  },
+  "neutralizations": [
+    {
+      "phrase_id": "books:11",
+      "original": "sổ S1a khi vừa bán vừa sửa điện thoại",
+      "neutral": "sổ doanh thu khi vừa bán vừa sửa điện thoại"
+    },
+    {
+      "phrase_id": "books:13",
+      "original": "ghi sổ S2a khi bán lẻ cho nông dân",
+      "neutral": "ghi sổ doanh thu khi bán lẻ cho nông dân"
+    },
+    {
+      "phrase_id": "books:15",
+      "original": "phân loại lưu 5 năm 10 năm hay vĩnh viễn",
+      "neutral": "phân loại thời hạn lưu trữ chứng từ"
+    },
+    {
+      "phrase_id": "books:31",
+      "original": "thuê tư vấn kế toán cho cơ sở sản xuất dưới 1 tỷ",
+      "neutral": "thuê tư vấn kế toán cho cơ sở sản xuất"
+    },
+    {
+      "phrase_id": "cessation:13",
+      "original": "trạng thái 03 sau khi nộp hồ sơ",
+      "neutral": "trạng thái mã thuế sau khi nộp hồ sơ"
+    },
+    {
+      "phrase_id": "cessation:21",
+      "original": "mã thuế 03 chưa hoàn tất chấm dứt",
+      "neutral": "mã thuế chưa hoàn tất chấm dứt"
+    },
+    {
+      "phrase_id": "cessation:28",
+      "original": "phân biệt trạng thái mã thuế 03 05 06",
+      "neutral": "phân biệt các trạng thái mã thuế"
+    },
+    {
+      "phrase_id": "cessation:31",
+      "original": "đề nghị khôi phục khi đang trạng thái 03",
+      "neutral": "đề nghị khôi phục trạng thái mã thuế"
+    },
+    {
+      "phrase_id": "cessation:32",
+      "original": "thông báo 18 khác trạng thái hiển thị",
+      "neutral": "thông báo khác trạng thái hiển thị"
+    },
+    {
+      "phrase_id": "cessation:50",
+      "original": "hồ sơ đóng mã 888 bị trả lại",
+      "neutral": "hồ sơ đóng mã cá nhân kinh doanh bị trả lại"
+    },
+    {
+      "phrase_id": "cessation:54",
+      "original": "trạng thái 03 sau nộp hồ sơ chấm dứt",
+      "neutral": "trạng thái mã thuế sau nộp hồ sơ chấm dứt"
+    },
+    {
+      "phrase_id": "cessation:64",
+      "original": "đối soát mã 001 và 888 khi ngừng bán",
+      "neutral": "đối soát các mã thuế khi ngừng bán"
+    },
+    {
+      "phrase_id": "cessation:72",
+      "original": "chấm dứt mã thuế đang ở trạng thái 06",
+      "neutral": "chấm dứt mã thuế theo trạng thái hiện tại"
+    },
+    {
+      "phrase_id": "cessation:79",
+      "original": "chấm dứt mã 999 ở tỉnh cũ",
+      "neutral": "chấm dứt mã thuế ở tỉnh cũ"
+    },
+    {
+      "phrase_id": "cessation:87",
+      "original": "hỏi có cần chấm dứt hộ mã 001",
+      "neutral": "hỏi có cần chấm dứt mã hộ"
+    },
+    {
+      "phrase_id": "cessation:88",
+      "original": "mã kinh doanh 888 bị đóng khi vẫn nộp thuế",
+      "neutral": "mã cá nhân kinh doanh bị đóng khi vẫn nộp thuế"
+    },
+    {
+      "phrase_id": "filing:10",
+      "original": "mẫu thông báo doanh thu 01/TKN-CNKD",
+      "neutral": "mẫu thông báo doanh thu"
+    },
+    {
+      "phrase_id": "filing:11",
+      "original": "đã khai doanh thu 0 nhưng có doanh thu thực",
+      "neutral": "đã khai không phát sinh nhưng có doanh thu thực"
+    },
+    {
+      "phrase_id": "filing:28",
+      "original": "kê khai doanh thu các kênh năm 2024–2025",
+      "neutral": "kê khai doanh thu các kênh những năm cũ"
+    },
+    {
+      "phrase_id": "filing:31",
+      "original": "tra cứu biểu mẫu thay thế từ tháng 7/2026",
+      "neutral": "tra cứu biểu mẫu thay thế theo thời điểm"
+    },
+    {
+      "phrase_id": "income:14",
+      "original": "nội dung giảm 30% số thuế TNCN",
+      "neutral": "tra cứu chính sách giảm thuế tncn"
+    },
+    {
+      "phrase_id": "income:15",
+      "original": "phương pháp thuế khi doanh thu trên 3 tỷ",
+      "neutral": "phương pháp thuế theo quy mô doanh thu"
+    },
+    {
+      "phrase_id": "invoice:14",
+      "original": "xử lý thuế suất 8% và 10%",
+      "neutral": "xử lý hóa đơn có các thuế suất khác nhau"
+    },
+    {
+      "phrase_id": "invoice:38",
+      "original": "hóa đơn có cả thuế suất 8% và 10%",
+      "neutral": "hóa đơn có nhiều thuế suất"
+    },
+    {
+      "phrase_id": "invoice:40",
+      "original": "hóa đơn cho người tiêu dùng dưới 5 triệu",
+      "neutral": "hóa đơn cho người tiêu dùng theo giá trị giao dịch"
+    },
+    {
+      "phrase_id": "other_tax:34",
+      "original": "nghĩa vụ khi mã số thuế mang trạng thái 03 hoặc 06",
+      "neutral": "nghĩa vụ theo trạng thái mã số thuế"
+    },
+    {
+      "phrase_id": "other_tax:35",
+      "original": "tra cứu tạm hoãn xuất cảnh khi mang trạng thái 06",
+      "neutral": "tra cứu tạm hoãn xuất cảnh theo trạng thái mã thuế"
+    },
+    {
+      "phrase_id": "other_tax:41",
+      "original": "quy trình kiểm tra thuế theo QĐ 1161",
+      "neutral": "tra cứu quy trình kiểm tra thuế"
+    },
+    {
+      "phrase_id": "other_tax:44",
+      "original": "đề xuất tháo gỡ cho trạng thái 03 và 06",
+      "neutral": "đề xuất tháo gỡ vướng mắc trạng thái mã thuế"
+    },
+    {
+      "phrase_id": "other_tax:45",
+      "original": "tra cứu công văn 6480 về trạng thái thuế",
+      "neutral": "tra cứu công văn về trạng thái thuế"
+    },
+    {
+      "phrase_id": "other_tax:50",
+      "original": "tra cứu hiệu lực văn bản thuế năm 2026",
+      "neutral": "tra cứu hiệu lực văn bản thuế"
+    },
+    {
+      "phrase_id": "other_tax:76",
+      "original": "nghĩa vụ bảo hiểm xã hội khi có mã 888",
+      "neutral": "nghĩa vụ bảo hiểm xã hội khi có mã cá nhân kinh doanh"
+    },
+    {
+      "phrase_id": "other_tax:79",
+      "original": "thuế năm 2022 của hoạt động bán thức ăn chăn nuôi",
+      "neutral": "thuế các năm cũ của hoạt động bán thức ăn chăn nuôi"
+    },
+    {
+      "phrase_id": "portal:19",
+      "original": "tra cứu công khai trạng thái 03/05/06",
+      "neutral": "tra cứu công khai các trạng thái mã thuế"
+    },
+    {
+      "phrase_id": "portal:22",
+      "original": "ký mẫu 24/ĐKT khi không có chỗ đính kèm",
+      "neutral": "ký mẫu đăng ký thuế khi không có chỗ đính kèm"
+    },
+    {
+      "phrase_id": "portal:38",
+      "original": "dịch vụ công chỉ cho chọn mã hộ 002",
+      "neutral": "dịch vụ công chỉ cho chọn mã hộ"
+    },
+    {
+      "phrase_id": "portal:46",
+      "original": "đăng ký hóa đơn báo mã lỗi 9991",
+      "neutral": "đăng ký hóa đơn báo mã lỗi"
+    },
+    {
+      "phrase_id": "registration:32",
+      "original": "mã 888 khác giấy đăng ký hộ kinh doanh",
+      "neutral": "mã cá nhân kinh doanh khác giấy đăng ký hộ kinh doanh"
+    },
+    {
+      "phrase_id": "registration:36",
+      "original": "phân biệt trạng thái mã số thuế 03 và 06",
+      "neutral": "phân biệt các trạng thái mã số thuế"
+    },
+    {
+      "phrase_id": "registration:38",
+      "original": "tra cứu thay đổi biểu mẫu theo TT 121",
+      "neutral": "tra cứu thay đổi biểu mẫu đăng ký thuế"
+    },
+    {
+      "phrase_id": "registration:40",
+      "original": "rà soát hồ sơ thuế mang trạng thái 03 hoặc 06",
+      "neutral": "rà soát hồ sơ theo trạng thái mã thuế"
+    },
+    {
+      "phrase_id": "registration:45",
+      "original": "xử lý trạng thái 03/06 sau hoàn thành nghĩa vụ",
+      "neutral": "xử lý trạng thái mã thuế sau hoàn thành nghĩa vụ"
+    },
+    {
+      "phrase_id": "registration:53",
+      "original": "liên hệ cơ quan thuế về trạng thái 06",
+      "neutral": "liên hệ cơ quan thuế về trạng thái mã thuế"
+    },
+    {
+      "phrase_id": "registration:55",
+      "original": "đối soát trạng thái các mã 001/003/888",
+      "neutral": "đối soát trạng thái các mã thuế"
+    },
+    {
+      "phrase_id": "registration:61",
+      "original": "đăng ký mã 888 trên cổng thương mại điện tử",
+      "neutral": "đăng ký mã cá nhân kinh doanh trên cổng thương mại điện tử"
+    },
+    {
+      "phrase_id": "registration:73",
+      "original": "đã đóng mã kinh doanh 888 và muốn hoạt động lại",
+      "neutral": "đã đóng mã cá nhân kinh doanh và muốn hoạt động lại"
+    },
+    {
+      "phrase_id": "registration:76",
+      "original": "đồng thời có mã 888 và hộ mã 001",
+      "neutral": "đồng thời có mã cá nhân kinh doanh và mã hộ"
+    },
+    {
+      "phrase_id": "registration:78",
+      "original": "có mã 888 và đăng ký hộ mã 001 ở địa chỉ khác",
+      "neutral": "có mã cá nhân kinh doanh và đăng ký hộ ở địa chỉ khác"
+    },
+    {
+      "phrase_id": "registration:80",
+      "original": "mã 888 đã dùng khai thuế nhưng không hiện trên cổng khác",
+      "neutral": "mã cá nhân kinh doanh đã dùng khai thuế nhưng không hiện trên cổng khác"
+    },
+    {
+      "phrase_id": "registration:87",
+      "original": "thông báo tài khoản khi có mã 001 và 888",
+      "neutral": "thông báo tài khoản khi có nhiều mã thuế"
+    },
+    {
+      "phrase_id": "revenue:8",
+      "original": "ngưỡng doanh thu khi chuyển quy định năm 2021",
+      "neutral": "ngưỡng doanh thu khi chuyển quy định các năm cũ"
+    },
+    {
+      "phrase_id": "revenue:17",
+      "original": "đề xuất nâng ngưỡng thuế lên 3 tỷ",
+      "neutral": "đề xuất thay đổi ngưỡng thuế"
+    }
+  ],
+  "source_reviewers": [
+    "ChatGPT (AI) — rà soát mô tả và liên kết"
+  ],
+  "validation": "Structural checks only; no claim of legal revalidation or live accuracy."
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, History, MessageSquare, Clock, Trash2, Copy, Check, ExternalLink,
@@ -14,6 +14,14 @@ interface HistoryModalProps {
 }
 
 export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onSelectQuery }) => {
+  const { user, isAuthenticated } = useAuth();
+  // A different identity gets fresh state before its first render, including
+  // selected details; effects alone would leave a frame of the previous owner.
+  const accountKey = JSON.stringify([isAuthenticated, user?.uid, user?.phone]);
+  return <HistoryModalSession key={accountKey} isOpen={isOpen} onClose={onClose} onSelectQuery={onSelectQuery} />;
+};
+
+const HistoryModalSession: React.FC<HistoryModalProps> = ({ isOpen, onClose, onSelectQuery }) => {
   const { user, isAuthenticated, openAuthModal } = useAuth();
   const [history, setHistory] = useState<ChatHistoryItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,10 +29,23 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isDeletingAll, setIsDeletingAll] = useState<boolean>(false);
+  const mounted = useRef(false);
+  const historyRequest = useRef<AbortController | null>(null);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      historyRequest.current?.abort();
+    };
+  }, []);
 
   // Tải lịch sử khi mở modal hoặc đổi user từ Cloudflare D1
   const fetchHistory = async () => {
     if (!user) return;
+    historyRequest.current?.abort();
+    const controller = new AbortController();
+    historyRequest.current = controller;
+    const isCurrent = () => mounted.current && !controller.signal.aborted;
     setLoading(true);
     try {
       const userKey = user.phone || user.uid || 'guest';
@@ -38,8 +59,8 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
 
       // Tải từ Cloudflare D1
       if (user.phone) {
-        const res = await CloudflareApi.getChatHistory(user.phone);
-        if (res.success && res.history) {
+        const res = await CloudflareApi.getChatHistory(user.phone, controller.signal);
+        if (isCurrent() && res.success && res.history) {
           setHistory(res.history);
           localStorage.setItem(cacheKey, JSON.stringify(res.history));
         }
@@ -47,7 +68,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
     } catch {
       // Giữ cache cũ
     } finally {
-      setLoading(false);
+      if (isCurrent()) setLoading(false);
     }
   };
 
@@ -60,6 +81,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
       }
       setSelectedItem(null);
     }
+    return () => historyRequest.current?.abort();
   }, [isOpen, isAuthenticated, user]);
 
   const handleCopy = (id: string, text: string) => {
@@ -73,7 +95,10 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
     if (!user?.phone) return;
     setDeletingId(id);
     try {
-      await CloudflareApi.deleteChatHistory(user.phone, id);
+      const result = await CloudflareApi.deleteChatHistory(user.phone, id);
+      if (!mounted.current || !result.success) return;
+      historyRequest.current?.abort();
+      setLoading(false);
       setHistory((prev) => {
         const next = prev.filter((item) => item.id !== id);
         localStorage.setItem(`tax_chat_history_${user.phone}`, JSON.stringify(next));
@@ -85,7 +110,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
     } catch {
       // ignore
     } finally {
-      setDeletingId(null);
+      if (mounted.current) setDeletingId(null);
     }
   };
 
@@ -94,14 +119,17 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
     if (!window.confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử câu hỏi không?')) return;
     setIsDeletingAll(true);
     try {
-      await CloudflareApi.deleteChatHistory(user.phone);
+      const result = await CloudflareApi.deleteChatHistory(user.phone);
+      if (!mounted.current || !result.success) return;
+      historyRequest.current?.abort();
+      setLoading(false);
       setHistory([]);
       setSelectedItem(null);
       localStorage.removeItem(`tax_chat_history_${user.phone}`);
     } catch {
       // ignore
     } finally {
-      setIsDeletingAll(false);
+      if (mounted.current) setIsDeletingAll(false);
     }
   };
 

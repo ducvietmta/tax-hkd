@@ -16,4 +16,6 @@ outputs/
 scratch/
 __pycache__/
 *.pyc
+.taste-skill/
+graphify-out/cache/
 

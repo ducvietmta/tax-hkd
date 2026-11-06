@@ -27,23 +27,38 @@ function decimalText(v:Fraction):string{
  return (negative?'-':'')+whole.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(tail?','+tail+(remainder?'…':''):'');
 }
 export interface CalculationRecord {expression:string;evidence_ids:string[];numerator:string;denominator:string;display:string;}
+export interface ComparisonRecord {left:CalculationRecord;right:CalculationRecord;relation:'LT'|'EQ'|'GT';}
 export function resolveCalculations(text:string,evidenceIds:string[]){
- const records:CalculationRecord[]=[],issues:string[]=[],known=new Set(evidenceIds);
- const rendered=text.replace(/\[\[CALC:(\{[^\r\n]*?\})\]\]/g,(marker,json)=>{
+ const records:CalculationRecord[]=[],comparisons:ComparisonRecord[]=[],issues:string[]=[],known=new Set(evidenceIds);
+ const evidence=(spec:any):string[]=>{
+  if(spec.unit!=='VND'||!Array.isArray(spec.evidence_ids)||!spec.evidence_ids.length||spec.evidence_ids.some((id:unknown)=>typeof id!=='string'||!known.has(id)))throw Error('CALCULATION_EVIDENCE_REQUIRED');
+  return [...new Set<string>(spec.evidence_ids)];
+ };
+ const calculate=(expression:string,ids:string[]):CalculationRecord=>{
+  const value=exactArithmetic(expression);
+  return {expression,evidence_ids:ids,numerator:value.n.toString(),denominator:value.d.toString(),display:decimalText(value)+' đồng'};
+ };
+ const rendered=text.replace(/\[\[(CALC|COMPARE):(\{[^\r\n]*?\})\]\]/g,(marker,kind,json)=>{
   try{
-   if(records.length>=48)throw Error('CALCULATION_LIMIT');const spec=JSON.parse(json);
-   if(spec.unit!=='VND'||!Array.isArray(spec.evidence_ids)||!spec.evidence_ids.length||spec.evidence_ids.some((id:unknown)=>typeof id!=='string'||!known.has(id)))throw Error('CALCULATION_EVIDENCE_REQUIRED');
-   const value=exactArithmetic(spec.expression),display=decimalText(value)+' đồng';
-   records.push({expression:spec.expression,evidence_ids:[...new Set<string>(spec.evidence_ids)],numerator:value.n.toString(),denominator:value.d.toString(),display});return display;
+   if(records.length+comparisons.length>=48)throw Error('CALCULATION_LIMIT');
+   const spec=JSON.parse(json),ids=evidence(spec);
+   if(kind==='CALC'){const record=calculate(spec.expression,ids);records.push(record);return record.display;}
+   const validLabel=(value:unknown):value is string=>typeof value==='string'&&/^[\p{L}\p{N} ()/.,%_-]{1,80}$/u.test(value);
+   if(!validLabel(spec.left?.label)||!validLabel(spec.right?.label))throw Error('COMPARISON_LABEL_REQUIRED');
+   const left=calculate(spec.left.expression,ids),right=calculate(spec.right.expression,ids);
+   const delta=BigInt(left.numerator)*BigInt(right.denominator)-BigInt(right.numerator)*BigInt(left.denominator);
+   const relation=delta<0n?'LT':delta>0n?'GT':'EQ';
+   comparisons.push({left,right,relation});
+   return `${spec.left.label}: ${left.display} ${relation==='LT'?'nhỏ hơn':relation==='GT'?'lớn hơn':'bằng'} ${spec.right.label}: ${right.display}`;
   }catch(error){issues.push(error instanceof Error?error.message:'INVALID_CALCULATION');return marker;}
  });
- if(rendered.includes('[[CALC:'))issues.push('UNRESOLVED_CALCULATION');
- return {text:rendered,records,issues:[...new Set(issues)]};
+ if(rendered.includes('[[CALC:')||rendered.includes('[[COMPARE:'))issues.push('UNRESOLVED_CALCULATION');
+ return {text:rendered,records,comparisons,issues:[...new Set(issues)]};
 }
 export const ARITHMETIC_INSTRUCTIONS=`TÍNH SỐ HỌC CÓ NGUỒN:
 - Bảng tính từ engine, nếu có, là dữ liệu có điều kiện: chỉ dùng khi đúng chủ thể, vai trò số liệu, phương pháp và nhóm hoạt động của câu hỏi. Không dùng nhãn tổng quát để gán tỷ lệ sai.
 - Thiếu bảng tính engine không phải thiếu luật hay dữ kiện người hỏi. Khi câu hỏi và nguồn đủ cho một phép tính/nhánh giả định, phải trả cả kết quả, không dừng ở công thức hoặc xin lại dữ kiện đã có.
 - Với mỗi số tiền mới cần tính, xuất trực tiếp tại vị trí kết quả bằng cú pháp [[CALC:{"expression":"(120 - 20) * 3 / 100","unit":"VND","evidence_ids":["E1"]}]]. Code sẽ thay bằng giá trị chính xác trước khi hiển thị và kiểm chứng. Expression chỉ có chữ số, dấu chấm thập phân, + - * / %, ngoặc; không dấu phân cách hàng nghìn, không tên biến. Dùng evidence_id THỰC trong nguồn cho tiền đề pháp lý. Đây chỉ là công cụ số học, không tự xác nhận nguồn hoặc đủ điều kiện.
 - Nêu công thức/cơ sở dễ đọc, dùng thẻ cho kết quả cuối; không tự chép lại kết quả đã tính ngoài thẻ. Mỗi sắc thuế và mỗi phương pháp/kịch bản có kết quả riêng. Nếu số lẻ dưới đồng, giữ biểu thức chính xác và phân biệt với quy tắc làm tròn kê khai; không làm tròn doanh thu để so ngưỡng.
-- Phương pháp chưa rõ thì tính các nhánh có điều kiện đủ dữ kiện, không chốt một nhánh là nghĩa vụ duy nhất. Khoản nộp thay chỉ đối trừ khi loại thuế/chủ thể/kỳ/chứng từ đã được xác nhận; thiếu điều kiện đó không ngăn tính phần nghĩa vụ trước đối trừ.
+- Khi so sánh hai kết quả, dùng [[COMPARE:{"left":{"label":"Phương án A","expression":"120-20"},"right":{"label":"Phương án B","expression":"80+10"},"unit":"VND","evidence_ids":["E1"]}]]. Code tính hai vế và chiều so sánh; không tự viết ngược kết luận trong phần mở đầu/kết luận. Chỉ so sánh các phương án thực sự được phép và cùng kỳ/điều kiện theo nguồn.\n- Phương pháp chưa rõ thì tính các nhánh có điều kiện đủ dữ kiện, không chốt một nhánh là nghĩa vụ duy nhất. Khoản nộp thay chỉ đối trừ khi loại thuế/chủ thể/kỳ/chứng từ đã được xác nhận; thiếu điều kiện đó không ngăn tính phần nghĩa vụ trước đối trừ.
 - Giữ dấu nguồn [[E:...;R:...]] cho kết luận và phép tính. Không dùng công cụ để bịa tỷ lệ/luật hoặc tự hợp thức hóa một khoản thuế chưa rõ.`;

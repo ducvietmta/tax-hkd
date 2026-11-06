@@ -8,7 +8,7 @@ async function main(){
  let release,finished=false;
  const gate=new Promise(r=>release=r);
  const response=await stream(async notify=>{
-   notify({stage:'classifying'});await gate;
+   notify({stage:'classifying'});notify({type:'reasoning_summary',delta:'Public model summary',reset:true});await gate;
    notify({stage:'reviewing'});finished=true;
    return Response.json({success:true,response:'Đáp án đã kiểm tra.',source:'test',remainingCredits:7});
  },ctx,cors);
@@ -17,7 +17,9 @@ async function main(){
  while(!first.includes('"type":"progress"'))first+=new TextDecoder().decode((await reader.read()).value);
  assert.match(first,/: connected/);assert.ok(first.indexOf('data: ')>=16384,'Initial SSE comment must cross intermediary sniffing buffers');assert.equal(response.headers.get('Content-Encoding'),'identity');
  assert.match(first,/"stage":"classifying"/);assert.equal(finished,false,'Must deliver progress before generation completes');
- assert.doesNotMatch(first,/delta|done|Đáp án/,'Never expose unreviewed drafts');
+ assert.doesNotMatch(first,/"type":"delta"|"type":"done"|Đáp án/,'Never expose unreviewed drafts');
+ while(!first.includes('Public model summary'))first+=new TextDecoder().decode((await reader.read()).value);
+ assert.match(first,/"type":"reasoning_summary"/);assert.match(first,/"reset":true/);assert.equal(finished,false,'Public summary must arrive while the answer is pending');
  release();let rest='';for(;;){const r=await reader.read();if(r.done)break;rest+=new TextDecoder().decode(r.value);}
  assert.ok(rest.indexOf('reviewing')<rest.indexOf('"type":"delta"'));
  assert.match(rest,/"type":"done","fullText":"Đáp án đã kiểm tra\."/);

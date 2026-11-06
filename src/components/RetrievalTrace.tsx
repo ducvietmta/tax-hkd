@@ -2,6 +2,7 @@ import React from 'react';
 import { BookOpen, ChevronDown, Sparkles } from 'lucide-react';
 
 export interface RetrievalTraceData {
+  supportDirectory?:{status:string;message:string;offices:{id:string;name:string;unit:string;contacts:{email?:string|null;phone?:string|null}[]}[]};
   method: string;
   evidence: { title: string; conditional: boolean }[];
   decision?: {
@@ -46,8 +47,14 @@ function formatIncomeLabel(val?: string) {
 export const RetrievalTrace: React.FC<{ trace?: RetrievalTraceData; summary?: string; live?: boolean; expanded?: boolean }> = ({ trace, summary, live, expanded }) => {
   if (!trace && !summary) return null;
 
-  return (
-    <details open={expanded ? true : undefined} className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-[13px] text-slate-700">
+  return (<>
+    {summary && <section className="mb-3 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 text-[13px] text-slate-700">
+      <div className="mb-2 flex items-center gap-2 font-semibold text-emerald-900"><Sparkles aria-hidden className="h-4 w-4" />Tóm tắt suy luận từ GPT</div>
+      <p className="whitespace-pre-wrap leading-relaxed">{summary}</p>
+      <p className="mt-2 text-[11px] text-slate-500">Bản tóm tắt do model cung cấp{live ? ', đang cập nhật' : ''}; có thể thay đổi khi kiểm chứng. Căn cứ và kết luận nằm trong đáp án cuối.</p>
+    </section>}
+    {trace?.supportDirectory&&<section className="mb-3 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-slate-700"><strong>Đầu mối hỗ trợ hồ sơ</strong><p className="mt-1 text-xs">{trace.supportDirectory.message}</p>{trace.supportDirectory.offices.map(office=><div key={office.id} className="mt-2 text-xs"><strong>{office.name}</strong><p>{office.unit}</p>{office.contacts.map((contact,index)=><p key={index}>{contact.email&&<span className="mr-2 select-all">{contact.email}</span>}{contact.phone&&<span className="select-all">{contact.phone}</span>}</p>)}</div>)}</section>}
+    {trace && <details open={expanded ? true : undefined} className="rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-[13px] text-slate-700">
       <summary className="flex cursor-pointer list-none items-center gap-2 font-semibold text-slate-800 [&::-webkit-details-marker]:hidden">
         <BookOpen className="h-4 w-4 text-emerald-600" />
         Quá trình xử lý & Phân loại Decision Model
@@ -106,9 +113,8 @@ export const RetrievalTrace: React.FC<{ trace?: RetrievalTraceData; summary?: st
         ) : trace ? (
           <p>Chưa tìm thấy đoạn căn cứ đủ liên quan.</p>
         ) : null}
-        {summary && <p aria-live={live ? 'polite' : 'off'}><strong>Tóm tắt suy luận từ model:</strong> {summary}</p>}
         <p className="text-[11px] text-slate-400">Nội dung trên là dấu vết phân loại của Quyết V1.0 Large và trích lục pháp lý đối chiếu, không phải suy luận nội bộ nguyên văn.</p>
       </div>
-    </details>
+    </details>}</>
   );
 };

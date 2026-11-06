@@ -1,0 +1,211 @@
+P002: Phụ lục 3
+P003: TÀI LIỆU TUYÊN TRUYỀN
+P004: NHỮNG QUY ĐỊNH MỚI CẦN BIẾT VÀ THỰC HIỆNVỀ QUẢN LÝ HOẠT ĐỘNG KINH DOANH DỊCH VỤ LÀM THỦ TỤC VỀ THUẾ THEO THÔNG TƯ SỐ 109/2026/TT-BTC
+P006: PHẦN I. MỘT SỐ NỘI DUNG CẦN BIẾT VỀ THÔNG TƯ SỐ 109/2026/TT-BTC
+P007: 1. Sự cần thiết ban hành Thông tư
+P008: Luật Quản lý thuế số 108/2025/QH15 và Nghị định số 252/2026/NĐ-CP đã quy định nhiều nội dung mới về quản lý hoạt động kinh doanh dịch vụ làm thủ tục về thuế, trong đó có các quy định về người tham gia hoạt động kinh doanh dịch vụ làm thủ tục về thuế, đánh giá năng lực nghiệp vụ chuyên môn, cập nhật kiến thức và kiểm tra hoạt động.
+P009: Để hướng dẫn thực hiện thống nhất các quy định của Luật và Nghị định, ngày 24/7/2026, Bộ trưởng Bộ Tài chính đã ban hành Thông tư số 109/2026/TT-BTC quy định quản lý hoạt động kinh doanh dịch vụ làm thủ tục về thuế.
+P010: Thông tư được xây dựng theo hướng đơn giản hóa thủ tục hành chính, đổi mới phương thức quản lý, nâng cao năng lực chuyên môn và trách nhiệm của các chủ thể tham gia hoạt động; đồng thời bảo đảm tính thống nhất với Luật Quản lý thuế và Nghị định số 252/2026/NĐ-CP.
+P011: 2. Phạm vi điều chỉnh
+P012: Thông tư số 109/2026/TT-BTC quy định quản lý hoạt động kinh doanh dịch vụ làm thủ tục về thuế, tập trung vào ba nhóm nội dung:
+P013: - Đánh giá năng lực nghiệp vụ chuyên môn về thuế;
+P014: - Cập nhật kiến thức của người tham gia hoạt động kinh doanh dịch vụ làm thủ tục về thuế;
+P015: - Kiểm tra hoạt động kinh doanh dịch vụ làm thủ tục về thuế.
+P016: Thông tư không quy định lại các nội dung đã được Luật Quản lý thuế và Nghị định số 252/2026/NĐ-CP điều chỉnh, qua đó hạn chế trùng lặp và tạo thuận lợi trong tổ chức thực hiện.
+P017: 3. Đối tượng áp dụng
+P018: Thông tư áp dụng đối với:
+P019: - Đại lý thuế;
+P020: - Hộ kinh doanh, cá nhân kinh doanh dịch vụ làm thủ tục về thuế;
+P021: - Người tham gia đánh giá năng lực nghiệp vụ chuyên môn về thuế;
+P022: - Người nộp thuế sử dụng dịch vụ làm thủ tục về thuế;
+P023: - Người tham gia hoạt động kinh doanh dịch vụ làm thủ tục về thuế;
+P024: - Công chức thuế, cơ quan thuế các cấp;
+P025: - Tổ chức xã hội nghề nghiệp về đại lý thuế và các tổ chức, cá nhân khác có liên quan.
+P026: Điểm đáng chú ý là hộ kinh doanh và cá nhân kinh doanh dịch vụ làm thủ tục về thuế được xác định rõ là đối tượng áp dụng của Thông tư.
+P027: 4. Những điểm đổi mới nổi bật
+P028: Nhóm nội dung
+P029: Điểm mới nổi bật
+P030: Phương thức quản lý
+P031: Tập trung vào đánh giá năng lực nghiệp vụ chuyên môn, cập nhật kiến thức và kiểm tra hoạt động.
+P032: Đối tượng áp dụng
+P033: Bổ sung, làm rõ hộ kinh doanh và cá nhân kinh doanh dịch vụ làm thủ tục về thuế.
+P034: Đánh giá năng lực
+P035: Bỏ điều kiện 36 tháng công tác thực tế; đơn giản hóa hồ sơ; tổ chức đánh giá bởi tổ chức xã hội nghề nghiệp về đại lý thuế.
+P036: Cập nhật kiến thức
+P037: Giấy xác nhận đã tham dự cập nhật kiến thức được cấp bằng bản giấy hoặc bản điện tử
+P038: Kiểm tra hoạt động
+P039: Kiểm tra cùng với kiểm tra thuế trên cơ sở quản lý rủi ro; công bố và cập nhật kết quả kiểm tra.
+P040: Chuyển tiếp
+P041: Bảo lưu kết quả, công nhận chứng chỉ đã cấp và quy định lộ trình cập nhật kiến thức đối với nhân viên đại lý thuế đang hoạt động.
+P042: PHẦN II. NHỮNG ĐIỂM MỚI CẦN BIẾT
+P043: 1. Những thay đổi về phương thức quản lý và đối tượng áp dụng
+P044: Thông tư tập trung hướng dẫn ba nội dung cốt lõi: đánh giá năng lực nghiệp vụ chuyên môn về thuế, cập nhật kiến thức và kiểm tra hoạt động kinh doanh dịch vụ làm thủ tục về thuế. Đồng thời, Thông tư thống nhất khái niệm dịch vụ làm thủ tục về thuế và xác định người tham gia hoạt động gồm nhân viên đại lý thuế, hộ kinh doanh và cá nhân kinh doanh đủ tiêu chuẩn theo quy định.
+P045: Rà soát điều kiện, tiêu chuẩn trước khi tham gia hoặc tiếp tục hoạt động;
+P046: Thực hiện thống nhất các quy định tại Luật Quản lý thuế, Nghị định số 252/2026/NĐ-CP và Thông tư số 109/2026/TT-BTC;
+P047: Chủ động cập nhật quy định mới trong quá trình cung cấp dịch vụ.
+P048: 2. Quy định mới về đánh giá năng lực nghiệp vụ chuyên môn về thuế
+P049: Thông tư chuyển từ cơ chế thi lấy chứng chỉ hành nghề sang đánh giá năng lực nghiệp vụ chuyên môn về thuế. Người tham gia phải có năng lực hành vi dân sự đầy đủ và đáp ứng điều kiện về trình độ đào tạo theo Điều 4.
+P050: Bỏ điều kiện phải có tối thiểu 36 tháng công tác thực tế;
+P051: Hồ sơ gồm đơn đăng ký, bằng tốt nghiệp và bảng điểm trong trường hợp phải xác định tỷ lệ môn học; người nước ngoài nộp hộ chiếu còn hiệu lực kèm bản dịch công chứng;
+P052: Hồ sơ được nộp bằng phương thức điện tử hoặc bản giấy theo hướng dẫn của Hội đồng đánh giá năng lực;
+P053: Nội dung đánh giá gồm môn pháp luật về thuế và môn kế toán; có thể thực hiện trên giấy hoặc máy tính, theo hình thức tự luận hoặc trắc nghiệm bằng tiếng Việt;
+P054: Đơn vị tổ chức là tổ chức xã hội nghề nghiệp về đại lý thuế; kết quả đạt yêu cầu từ 50/100 điểm hoặc 5/10 điểm; kết quả môn đạt được bảo lưu 36 tháng;
+P055: Quy định cụ thể các trường hợp miễn môn pháp luật về thuế, miễn môn kế toán hoặc miễn cả hai môn tại Điều 9.
+P056: Lưu ý: Người đạt kết quả theo Điều 8 và thực hiện cập nhật kiến thức theo Chương III được xác định đáp ứng tiêu chuẩn chuyên môn theo điểm a khoản 2 Điều 64 Nghị định số 252/2026/NĐ-CP.
+P057: 3. Những điểm cần lưu ý về cập nhật kiến thức
+P058: Người tham gia hoạt động kinh doanh dịch vụ làm thủ tục về thuế phải cập nhật kiến thức hằng năm, trừ năm tham gia đánh giá năng lực nghiệp vụ chuyên môn về thuế.
+P059: Nội dung gồm pháp luật về thuế, phí, lệ phí, quản lý thuế và pháp luật về kế toán doanh nghiệp, hộ kinh doanh, cá nhân kinh doanh;
+P060: Thời lượng tối thiểu 24 giờ/năm, tính từ ngày 01/01 đến ngày 31/12; không quá 04 giờ/buổi và 08 giờ/ngày;
+P061: Có thể học trực tiếp hoặc trực tuyến tại đơn vị được phép tổ chức theo Điều 13;
+P062: Giấy xác nhận tham dự cập nhật kiến thức được cấp bằng bản giấy hoặc bản điện tử;
+P063: Đơn vị tổ chức phải theo dõi, điểm danh, lưu trữ hồ sơ và công bố danh sách người tham gia.
+P064: 4. Quy định mới về kiểm tra hoạt động kinh doanh dịch vụ làm thủ tục về thuế
+P065: Cơ quan thuế quản lý trực tiếp kiểm tra hoạt động kinh doanh dịch vụ làm thủ tục về thuế của đại lý thuế, hộ kinh doanh và cá nhân kinh doanh cùng với việc kiểm tra thuế. Việc kiểm tra được thực hiện trên cơ sở quản lý rủi ro.
+P066: Trình tự, thủ tục kiểm tra và xử lý kết quả thực hiện theo Luật Quản lý thuế và văn bản hướng dẫn về kiểm tra thuế;
+P067: Kết quả kiểm tra được công bố trong 05 ngày làm việc kể từ ngày ban hành kết luận kiểm tra;
+P068: Trong 03 ngày làm việc kể từ khi đối tượng đã khắc phục theo kết luận kiểm tra, cơ quan thuế cập nhật hoặc gỡ bỏ thông tin công bố;
+P069: Thông tin công bố có sai sót phải được đính chính, cập nhật hoặc gỡ bỏ trong 03 ngày làm việc kể từ ngày phát hiện.
+P070: 5. Quy định chuyển tiếp và tổ chức thực hiện
+P071: Thông tư có hiệu lực từ ngày 24/7/2026 và thay thế Thông tư số 10/2021/TT-BTC;
+P072: Giấy chứng nhận điểm thi, điểm phúc khảo đã cấp được bảo lưu 36 tháng tính từ tháng công bố kết quả;
+P073: Chứng chỉ hành nghề đã cấp theo Thông tư số 117/2012/TT-BTC và Thông tư số 10/2021/TT-BTC có giá trị như đủ năng lực nghiệp vụ chuyên môn theo Thông tư mới;
+P074: Nhân viên đại lý thuế đang hoạt động trước ngày Thông tư có hiệu lực được tiếp tục hoạt động đến hết ngày 31/12/2026 mà không phải chứng minh số giờ cập nhật kiến thức; từ năm 2027 thực hiện cập nhật theo Chương III;
+P075: Giấy xác nhận cập nhật kiến thức đã cấp theo Thông tư số 10/2021/TT-BTC tiếp tục có giá trị;
+P076: Cục Thuế ban hành quy chế đánh giá năng lực, quy chế cập nhật kiến thức và hướng dẫn tổ chức thực hiện.
+P077: PHẦN III. NHỮNG NỘI DUNG TỔ CHỨC, CÁ NHÂN CẦN LƯU Ý KHI THỰC HIỆN
+P078: 1. Nghiên cứu đồng bộ hệ thống văn bản
+P079: Cần nghiên cứu đồng thời Luật Quản lý thuế số 108/2025/QH15, Nghị định số 252/2026/NĐ-CP và Thông tư số 109/2026/TT-BTC; không chỉ căn cứ riêng vào Thông tư để xác định đầy đủ điều kiện, quyền và nghĩa vụ.
+P080: 2. Rà soát tiêu chuẩn trước và trong quá trình hoạt động
+P081: Người trực tiếp tham gia hoạt động cần bảo đảm đáp ứng tiêu chuẩn theo quy định; đại lý thuế, hộ kinh doanh và cá nhân kinh doanh cần thường xuyên rà soát việc duy trì các điều kiện có liên quan.
+P082: 3. Chuẩn bị đúng hồ sơ và theo dõi thông báo đánh giá năng lực
+P083: Người đăng ký cần sử dụng đúng mẫu biểu, nộp hồ sơ theo hướng dẫn của Hội đồng đánh giá năng lực và theo dõi các mốc công bố, phúc khảo, bảo lưu kết quả.
+P084: 4. Thực hiện đầy đủ cập nhật kiến thức
+P085: Chủ động bố trí thời gian hoàn thành tối thiểu 24 giờ trong năm; lựa chọn đơn vị tổ chức theo Điều 13; kiểm tra, lưu giữ Giấy xác nhận và thông tin công bố.
+P086: 5. Phối hợp trong quá trình kiểm tra
+P087: Cung cấp đầy đủ, trung thực, kịp thời hồ sơ, tài liệu; thực hiện kết luận kiểm tra và cung cấp căn cứ chứng minh việc khắc phục để cơ quan thuế cập nhật thông tin.
+P088: 6. Theo dõi quy định chuyển tiếp và thông tin chính thức
+P089: Các trường hợp đã có chứng chỉ, kết quả thi, giấy xác nhận hoặc đang hoạt động cần thực hiện đúng Điều 17 và theo dõi hướng dẫn chính thức của Cục Thuế, cơ quan thuế quản lý trực tiếp và đơn vị tổ chức.
+P090: Lưu ý: Thông tư số 109/2026/TT-BTC là cơ sở pháp lý để triển khai thống nhất việc đánh giá năng lực, cập nhật kiến thức và kiểm tra hoạt động kinh doanh dịch vụ làm thủ tục về thuế. Việc chủ động tuân thủ góp phần nâng cao chất lượng dịch vụ và bảo vệ quyền, lợi ích hợp pháp của người nộp thuế.
+P092: BỘ CÂU HỎI - ĐÁP
+P093: THÔNG TƯ SỐ 109/2026/TT-BTC QUY ĐỊNH QUẢN LÝ HOẠT ĐỘNG KINH DOANH DỊCH VỤ LÀM THỦ TỤC VỀ THUẾ
+P094: Câu 1. Vì sao Bộ Tài chính ban hành Thông tư số 109/2026/TT-BTC?
+P095: Trả lời
+P096: Thông tư được ban hành để hướng dẫn thực hiện thống nhất các quy định của Luật Quản lý thuế số 108/2025/QH15 và Nghị định số 252/2026/NĐ-CP về quản lý hoạt động kinh doanh dịch vụ làm thủ tục về thuế.
+P097: Thông tư tập trung vào ba nội dung: đánh giá năng lực nghiệp vụ chuyên môn về thuế; cập nhật kiến thức; kiểm tra hoạt động kinh doanh dịch vụ làm thủ tục về thuế.
+P098: Lưu ý: Thông tư không quy định lại toàn bộ điều kiện và hoạt động kinh doanh dịch vụ làm thủ tục về thuế; các nội dung đã được Luật và Nghị định điều chỉnh tiếp tục thực hiện theo các văn bản đó.
+P099: Căn cứ pháp lý: Điều 1 Thông tư số 109/2026/TT-BTC.
+P100: Câu 2. Tôi là hộ kinh doanh hoặc cá nhân kinh doanh dịch vụ làm thủ tục về thuế thì có thuộc đối tượng áp dụng của Thông tư không?
+P101: Trả lời
+P102: Có. Thông tư áp dụng đối với đại lý thuế, hộ kinh doanh, cá nhân kinh doanh dịch vụ làm thủ tục về thuế; người tham gia đánh giá năng lực; người nộp thuế sử dụng dịch vụ; người tham gia hoạt động; công chức thuế, cơ quan thuế và các tổ chức, cá nhân có liên quan.
+P103: Lưu ý: Người tham gia hoạt động kinh doanh dịch vụ làm thủ tục về thuế gồm nhân viên đại lý thuế, hộ kinh doanh và cá nhân kinh doanh đủ tiêu chuẩn theo Điều 64 Nghị định số 252/2026/NĐ-CP.
+P104: Căn cứ pháp lý: Điều 2 và khoản 2 Điều 3 Thông tư số 109/2026/TT-BTC.
+P105: Câu 3. Tôi đang tham gia hoạt động kinh doanh dịch vụ làm thủ tục về thuế thì cần quan tâm những nội dung nào của Thông tư?
+P106: Trả lời
+P107: Cần tập trung vào năm nhóm nội dung: phạm vi và đối tượng áp dụng; đánh giá năng lực nghiệp vụ chuyên môn; cập nhật kiến thức; kiểm tra hoạt động; quy định chuyển tiếp và tổ chức thực hiện.
+P108: Lưu ý: Để xác định đầy đủ điều kiện, tiêu chuẩn và trách nhiệm, cần nghiên cứu đồng thời Luật Quản lý thuế, Nghị định số 252/2026/NĐ-CP và Thông tư số 109/2026/TT-BTC.
+P109: Căn cứ pháp lý: Điều 1 đến Điều 18 Thông tư số 109/2026/TT-BTC.
+P110: Câu 4. Tôi muốn tham gia đánh giá năng lực nghiệp vụ chuyên môn về thuế thì phải đáp ứng tiêu chuẩn nào?
+P111: Trả lời
+P112: Người tham gia là người Việt Nam hoặc người nước ngoài được phép cư trú tại Việt Nam từ 12 tháng trở lên; có năng lực hành vi dân sự đầy đủ; có bằng tốt nghiệp đại học trở lên thuộc ngành, chuyên ngành kinh tế, thuế, tài chính, kế toán, kiểm toán, luật hoặc ngành khác có các môn học liên quan chiếm từ 7% trở lên trên tổng chương trình khóa học.
+P113: Người có nhu cầu phải nộp đầy đủ hồ sơ cho Hội đồng đánh giá năng lực.
+P114: Lưu ý: Thông tư không còn yêu cầu phải có tối thiểu 36 tháng công tác thực tế về thuế, tài chính, kế toán hoặc kiểm toán.
+P115: Căn cứ pháp lý: Điều 4 Thông tư số 109/2026/TT-BTC.
+P116: Câu 5. Tôi có còn phải đáp ứng điều kiện có ít nhất 36 tháng công tác thực tế để đăng ký đánh giá năng lực không?
+P117: Trả lời
+P118: Không. Điều 4 chỉ quy định điều kiện về cư trú, năng lực hành vi dân sự và trình độ đào tạo; không quy định điều kiện tối thiểu 36 tháng công tác thực tế.
+P119: Lưu ý: Việc bỏ điều kiện thời gian công tác không làm thay đổi yêu cầu phải đáp ứng tiêu chuẩn về trình độ và tham gia đánh giá năng lực theo quy định.
+P120: Căn cứ pháp lý: Điều 4 Thông tư số 109/2026/TT-BTC.
+P121: Câu 6. Khi đăng ký đánh giá năng lực, tôi cần chuẩn bị hồ sơ như thế nào?
+P122: Trả lời
+P123: Hồ sơ gồm: đơn đăng ký theo Mẫu 1.1; bằng tốt nghiệp đại học hoặc sau đại học; trường hợp bằng không thuộc ngành, chuyên ngành quy định thì nộp kèm bảng điểm thể hiện số đơn vị học trình, tín chỉ hoặc tiết học; người nước ngoài nộp hộ chiếu còn hiệu lực kèm bản sao có dịch thuật công chứng.
+P124: Hồ sơ được nộp bằng phương thức điện tử hoặc bản giấy theo hướng dẫn của Hội đồng đánh giá năng lực.
+P125: Lưu ý: Không phải nộp giấy xác nhận 36 tháng công tác thực tế trong hồ sơ đăng ký thông thường.
+P126: Căn cứ pháp lý: Điều 5 Thông tư số 109/2026/TT-BTC.
+P127: Câu 7. Tôi đăng ký tham gia đánh giá năng lực ở đâu và cần theo dõi thông tin nào?
+P128: Trả lời
+P129: Người đăng ký gửi hồ sơ đến Hội đồng đánh giá năng lực do đơn vị tổ chức đánh giá năng lực thành lập. Đơn vị tổ chức là tổ chức xã hội nghề nghiệp về đại lý thuế được cơ quan nhà nước có thẩm quyền cho phép thành lập.
+P130: Hội đồng phải thông báo chính thức trên trang thông tin điện tử về tiêu chuẩn, thời gian, địa điểm và thông tin liên quan ít nhất 45 ngày trước ngày đánh giá; đăng tải danh sách người tham gia ít nhất 15 ngày trước ngày đánh giá.
+P131: Lưu ý: Người tham gia nên theo dõi thông báo chính thức của đơn vị tổ chức, không đăng ký qua các nguồn không được xác thực.
+P132: Căn cứ pháp lý: Khoản 1, điểm a và điểm b.1, b.2 khoản 2 Điều 8 Thông tư số 109/2026/TT-BTC.
+P133: Câu 8. Nội dung, hình thức và mức điểm đạt yêu cầu của đánh giá năng lực được quy định như thế nào?
+P134: Trả lời
+P135: Đánh giá gồm hai môn: pháp luật về thuế và kế toán. Bài đánh giá có thể thực hiện trên giấy hoặc máy tính, theo hình thức tự luận hoặc trắc nghiệm bằng tiếng Việt; thời gian mỗi môn từ 60 đến 180 phút.
+P136: Môn đạt yêu cầu khi đạt từ 50 điểm trở lên theo thang điểm 100 hoặc từ 5 điểm trở lên theo thang điểm 10. Kết quả môn đạt được bảo lưu 36 tháng tính từ tháng công bố kết quả hoặc kết quả phúc khảo.
+P137: Lưu ý: Người tham gia có quyền đề nghị phúc khảo trong 15 ngày kể từ ngày công bố kết quả.
+P138: Căn cứ pháp lý: Điều 7; điểm b.4, b.5, điểm c và điểm d khoản 2 Điều 8 Thông tư số 109/2026/TT-BTC.
+P139: Câu 9. Tôi từng công tác trong ngành Thuế hoặc có chứng chỉ kế toán viên, kiểm toán viên thì có được miễn môn không?
+P140: Trả lời
+P141: Có thể, nếu đáp ứng đúng điều kiện tại Điều 9.
+P142: Người đã làm việc trong ngành Thuế có thể được miễn môn pháp luật về thuế hoặc miễn cả hai môn khi đáp ứng điều kiện về thời gian công tác, ngạch công chức, thời gian làm công tác quản lý thuế, kỷ luật và thời hạn đăng ký. Người có chứng chỉ kế toán viên hoặc kiểm toán viên do cơ quan nhà nước có thẩm quyền cấp được miễn cả hai môn. Người có trình độ và kinh nghiệm kế toán, kiểm toán hoặc có kết quả môn thi liên quan còn được bảo lưu có thể được miễn môn kế toán.
+P143: Lưu ý: Việc miễn môn chỉ được xem xét trên cơ sở hồ sơ chứng minh đầy đủ theo từng trường hợp; không phải mọi người từng công tác trong ngành Thuế đều mặc nhiên được miễn.
+P144: Căn cứ pháp lý: Điều 9 Thông tư số 109/2026/TT-BTC.
+P145: Câu 10. Tôi đã được cấp chứng chỉ hành nghề hoặc giấy chứng nhận điểm thi theo quy định trước đây thì có phải đánh giá lại không?
+P146: Trả lời
+P147: Không phải đánh giá lại chỉ vì Thông tư mới có hiệu lực. Chứng chỉ hành nghề được cấp theo Thông tư số 117/2012/TT-BTC và Thông tư số 10/2021/TT-BTC có giá trị như đủ năng lực nghiệp vụ chuyên môn theo Thông tư số 109/2026/TT-BTC.
+P148: Giấy chứng nhận điểm thi và giấy chứng nhận điểm phúc khảo đã cấp theo Thông tư số 10/2021/TT-BTC được bảo lưu 36 tháng tính từ tháng công bố kết quả thi hoặc phúc khảo.
+P149: Lưu ý: Người đã có chứng chỉ vẫn phải thực hiện các nghĩa vụ khác có liên quan, trong đó có cập nhật kiến thức theo quy định chuyển tiếp và Chương III.
+P150: Căn cứ pháp lý: Khoản 1 và khoản 2 Điều 17 Thông tư số 109/2026/TT-BTC.
+P151: Câu 11. Những đối tượng nào phải cập nhật kiến thức và có trường hợp nào được miễn trong năm không?
+P152: Trả lời
+P153: Đối tượng cập nhật kiến thức là người tham gia hoạt động kinh doanh dịch vụ làm thủ tục về thuế. Việc cập nhật được thực hiện hằng năm.
+P154: Người tham gia đánh giá năng lực nghiệp vụ chuyên môn về thuế trong năm không phải cập nhật kiến thức trong chính năm đó.
+P155: Lưu ý: Từ năm tiếp theo, nếu tiếp tục tham gia hoạt động thì phải cập nhật kiến thức theo quy định.
+P156: Căn cứ pháp lý: Điều 10 Thông tư số 109/2026/TT-BTC.
+P157: Câu 12. Nội dung cập nhật kiến thức gồm những gì?
+P158: Trả lời
+P159: Nội dung gồm: pháp luật về thuế, phí, lệ phí và quản lý thuế; pháp luật về kế toán doanh nghiệp, kế toán hộ kinh doanh và cá nhân kinh doanh.
+P160: Cục Thuế xây dựng chương trình khung hằng năm và ban hành trước ngày 31/01; tài liệu cập nhật phải chứa nội dung theo chương trình và có thể trình bày dưới dạng văn bản hoặc dữ liệu điện tử.
+P161: Lưu ý: Người tham gia cần lựa chọn chương trình phù hợp với chương trình khung do Cục Thuế ban hành.
+P162: Căn cứ pháp lý: Điều 11 Thông tư số 109/2026/TT-BTC.
+P163: Câu 13. Tôi phải cập nhật kiến thức bao nhiêu giờ và có thể học trực tuyến không?
+P164: Trả lời
+P165: Thời lượng cập nhật tối thiểu là 24 giờ, tương đương 03 ngày học, trong một năm; số giờ được cộng dồn từ ngày 01/01 đến ngày 31/12. Thời lượng được tính không quá 04 giờ/buổi và không quá 08 giờ/ngày.
+P166: Người tham gia có thể học trực tiếp hoặc trực tuyến tại các lớp do đơn vị quy định tại Điều 13 tổ chức.
+P167: Lưu ý: Giấy xác nhận đã tham dự cập nhật kiến thức là tài liệu chứng minh số giờ cập nhật và có thể được cấp bằng bản giấy hoặc bản điện tử.
+P168: Căn cứ pháp lý: Điều 12 Thông tư số 109/2026/TT-BTC.
+P169: Câu 14. Sau khi hoàn thành cập nhật kiến thức, tôi cần kiểm tra và lưu giữ tài liệu gì?
+P170: Trả lời
+P171: Người tham gia được cấp Giấy xác nhận đã tham dự cập nhật kiến thức theo Mẫu 1.4. Cần kiểm tra các thông tin về họ tên, số CCCD/Hộ chiếu, mã lớp, chuyên đề, thời gian, hình thức tổ chức, địa điểm và số giờ học thực tế; đồng thời lưu giữ bản giấy hoặc bản điện tử để chứng minh việc hoàn thành cập nhật kiến thức.
+P172: Đơn vị tổ chức có trách nhiệm theo dõi, điểm danh, cấp giấy xác nhận, lưu trữ hồ sơ và công bố danh sách người tham gia.
+P173: Lưu ý: Nếu phát hiện thông tin trên giấy xác nhận chưa chính xác, cần liên hệ ngay đơn vị cấp để xử lý.
+P174: Căn cứ pháp lý: Điểm b, c khoản 3 và khoản 5 Điều 13; điểm c khoản 1 Điều 12 Thông tư số 109/2026/TT-BTC.
+P175: Câu 15. Cơ quan thuế kiểm tra hoạt động kinh doanh dịch vụ làm thủ tục về thuế theo nguyên tắc nào?
+P176: Trả lời
+P177: Cơ quan thuế quản lý trực tiếp kiểm tra hoạt động của đại lý thuế, hộ kinh doanh và cá nhân kinh doanh cùng với việc kiểm tra thuế.
+P178: Việc kiểm tra được thực hiện trên cơ sở áp dụng quản lý rủi ro. Trình tự, thủ tục kiểm tra và xử lý kết quả vi phạm thực hiện theo Luật Quản lý thuế và các văn bản hướng dẫn về kiểm tra thuế.
+P179: Lưu ý: Thông tư không quy định một tần suất kiểm tra định kỳ riêng đối với hoạt động này.
+P180: Căn cứ pháp lý: Điều 14 Thông tư số 109/2026/TT-BTC.
+P181: Câu 16. Kết quả kiểm tra được công bố và cập nhật như thế nào?
+P182: Trả lời
+P183: Cơ quan thuế quản lý trực tiếp công bố kết quả kiểm tra trong 05 ngày làm việc kể từ ngày ban hành kết luận kiểm tra. Thông tin công bố gồm tên, mã số thuế, người đại diện theo pháp luật, địa chỉ trụ sở và kết quả kiểm tra.
+P184: Trong 03 ngày làm việc kể từ khi đại lý thuế, hộ kinh doanh, cá nhân kinh doanh và người tham gia hoạt động đã khắc phục theo kết luận kiểm tra, cơ quan thuế cập nhật hoặc gỡ bỏ thông tin. Nếu thông tin công bố có sai sót, cơ quan thuế phải đính chính, cập nhật hoặc gỡ bỏ trong 03 ngày làm việc kể từ ngày phát hiện.
+P185: Lưu ý: Sau khi khắc phục, tổ chức, cá nhân nên cung cấp đầy đủ tài liệu chứng minh để cơ quan thuế có căn cứ cập nhật thông tin.
+P186: Căn cứ pháp lý: Điều 15 Thông tư số 109/2026/TT-BTC.
+P187: Câu 17. Tôi là nhân viên đại lý thuế đang hoạt động trước ngày Thông tư có hiệu lực thì cần lưu ý gì?
+P188: Trả lời
+P189: Nhân viên đại lý thuế đang hoạt động trước ngày 24/7/2026 được tiếp tục hoạt động đến hết ngày 31/12/2026 mà không phải chứng minh số giờ cập nhật kiến thức.
+P190: Nếu tiếp tục hoạt động từ năm 2027 trở đi, phải cập nhật kiến thức theo Chương III. Giấy xác nhận cập nhật kiến thức đã được cấp theo Thông tư số 10/2021/TT-BTC tiếp tục có giá trị như giấy xác nhận theo Thông tư mới.
+P191: Lưu ý: Quy định chuyển tiếp chỉ miễn việc chứng minh số giờ đến hết năm 2026; không loại trừ nghĩa vụ cập nhật kiến thức từ năm 2027.
+P192: Căn cứ pháp lý: Khoản 3 và khoản 4 Điều 17 Thông tư số 109/2026/TT-BTC.
+P193: Câu 18. Trong quá trình thực hiện Thông tư, tổ chức và cá nhân cần theo dõi hướng dẫn và phản ánh vướng mắc như thế nào?
+P194: Trả lời
+P195: Cục Thuế có trách nhiệm ban hành quy chế cập nhật kiến thức, quy chế đánh giá năng lực và hướng dẫn, kiểm tra việc tổ chức thực hiện. Cơ quan thuế quản lý trực tiếp thực hiện kiểm tra hoạt động trên địa bàn.
+P196: Tổ chức, cá nhân cần theo dõi thông tin chính thức của Cục Thuế, cơ quan thuế quản lý trực tiếp và đơn vị tổ chức đánh giá hoặc cập nhật kiến thức. Khi có khó khăn, vướng mắc, phản ánh về Bộ Tài chính để được nghiên cứu, giải quyết.
+P197: Lưu ý: Chỉ sử dụng thông tin từ kênh chính thức; không căn cứ vào nội dung quảng bá của đơn vị không có thẩm quyền.
+P198: Căn cứ pháp lý: Điều 18 Thông tư số 109/2026/TT-BTC.
+P200: NỘI DUNG ĐỀ XUẤT CHO 02 INFOGRAPHIC
+P201: INFOGRAPHIC 01. 05 ĐIỂM ĐỔI MỚI CẦN BIẾT
+P202: Tập trung quản lý qua đánh giá năng lực, cập nhật kiến thức và kiểm tra hoạt động.
+P203: Mở rộng, làm rõ đối tượng áp dụng đối với hộ kinh doanh và cá nhân kinh doanh dịch vụ làm thủ tục về thuế.
+P204: Bỏ điều kiện 36 tháng công tác thực tế; đơn giản hóa hồ sơ; tổ chức đánh giá bởi tổ chức xã hội nghề nghiệp về đại lý thuế.
+P205: Cập nhật kiến thức tối thiểu 24 giờ/năm, học trực tiếp hoặc trực tuyến, có giấy xác nhận.
+P206: Kiểm tra trên cơ sở quản lý rủi ro; công bố, cập nhật và đính chính kết quả theo thời hạn cụ thể.
+P207: Thông điệp: Đơn giản hóa thủ tục - Nâng cao năng lực - Minh bạch hoạt động - Đồng hành cùng người nộp thuế.
+P208: INFOGRAPHIC 02. NGƯỜI THAM GIA HOẠT ĐỘNG CẦN LÀM GÌ?
+P209: Rà soát tiêu chuẩn theo Nghị định số 252/2026/NĐ-CP và Thông tư số 109/2026/TT-BTC.
+P210: Đăng ký đánh giá năng lực hoặc chuẩn bị hồ sơ đề nghị miễn môn theo đúng trường hợp.
+P211: Cập nhật kiến thức hằng năm, tối thiểu 24 giờ; lưu giữ Giấy xác nhận.
+P212: Tuân thủ quy định trong quá trình cung cấp dịch vụ; lưu giữ hồ sơ, tài liệu.
+P213: Phối hợp khi cơ quan thuế kiểm tra; khắc phục đầy đủ theo kết luận kiểm tra.
+P214: Theo dõi quy định chuyển tiếp, thông báo chính thức và hướng dẫn của Cục Thuế.
+P215: Thông điệp: Hiểu đúng quy định - Thực hiện đúng pháp luật - Nâng cao chất lượng dịch vụ - Bảo vệ quyền lợi người nộp thuế.
