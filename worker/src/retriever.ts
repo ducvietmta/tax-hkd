@@ -504,8 +504,30 @@ export function buildReviewContext(
  * đồng thời chạy Deterministic Tax Engine để đưa kết quả tính toán chính xác vào prompt.
  */
 export function analyzeAmounts(query: string): string {
-  const facts = extractAllAmounts(query).map(amount =>
+  const allAmounts = extractAllAmounts(query);
+  const facts = allAmounts.map(amount =>
     `- Số "${amount.raw}" = ${amount.vnd.toLocaleString('vi-VN')} đồng (giữ chính xác đến 1 đồng).`);
+
+  const q = fold(query);
+  // Phát hiện hoàn hàng / giảm trừ GMV
+  const gmvMatch = q.match(/\bgmv[^\d]{0,25}(\d{1,3}(?:[.,]\d{3})*|\d+(?:[.,]\d+)?\s*(?:ty|ti|trieu|tr)?)/);
+  const returnMatch = q.match(/(?:tra lai|hoan tra|hoan hang)[^\d]{0,25}(\d{1,3}(?:[.,]\d{3})*|\d+(?:[.,]\d+)?\s*(?:ty|ti|trieu|tr)?)/);
+  if (gmvMatch && returnMatch && allAmounts.length >= 2) {
+    const gmvVnd = allAmounts[0].vnd;
+    const returnVnd = allAmounts[1].vnd;
+    if (gmvVnd > returnVnd) {
+      facts.push(`- Doanh thu thuần sau trừ hàng trả lại: ${gmvVnd.toLocaleString('vi-VN')} - ${returnVnd.toLocaleString('vi-VN')} = ${(gmvVnd - returnVnd).toLocaleString('vi-VN')} đồng.`);
+    }
+  }
+
+  // Phát hiện nhiều điểm kinh doanh / cửa hàng cùng doanh thu
+  const multiLocMatch = q.match(/(?:(?:hai|2)\s+(?:diem ban|cua hang|dia diem)|(?:diem ban|cua hang|dia diem)[^.!?]{0,30}(?:hai|2))\b/);
+  const perLocMatch = q.match(/(?:tung|moi)\s+(?:diem|noi|cua hang|dia diem)[^\d]{0,30}?(\d+(?:[.,]\d+)?\s*(?:ty|ti|trieu|tr)\b)/);
+  if (multiLocMatch && perLocMatch && allAmounts.length >= 1) {
+    const locRev = allAmounts[0].vnd;
+    facts.push(`- Tổng doanh thu cộng gộp toàn hộ (2 điểm bán x ${locRev.toLocaleString('vi-VN')} đồng): ${(locRev * 2).toLocaleString('vi-VN')} đồng.`);
+  }
+
   return facts.length
     ? `QUY ĐỔI ĐƠN VỊ (chưa xác định kỳ tính thuế hoặc tính chất doanh thu):\n${facts.join('\n')}\nChỉ kết luận nghĩa vụ thuế sau khi xác định năm/kỳ, loại thu nhập và căn cứ phù hợp.\n`
     : '';

@@ -28,6 +28,11 @@
       "pit_rate": 0.015,
       "description": "Dịch vụ ăn uống"
     },
+    "manufacturing": {
+      "vat_rate": 0.03,
+      "pit_rate": 0.015,
+      "description": "Sản xuất, vận tải, dịch vụ có gắn với hàng hóa, xây dựng có bao thầu nguyên vật liệu"
+    },
     "property_rental": {
       "vat_rate": 0.05,
       "pit_rate": 0.05,

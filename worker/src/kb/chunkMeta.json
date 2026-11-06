@@ -480,7 +480,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "cf1eb2ec930531c3a26e4b7230b9c5f783cce1d0ef7493e6f1cedc55116d24d3",
+    "content_sha256": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm"
     ],
@@ -1260,7 +1260,7 @@
     "applies_to_year": null,
     "source_link_review": {
       "checked_on": "2026-10-20",
-      "content_sha256": "fbfaa67030a18544589c48d9108d66179679dbf52561405ecbea20e5a0ac42f7",
+      "content_sha256": "515d539aa58219060cca2a5c0a90fda62f16a21dea96db77b31a52cd7e580b02",
       "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
       "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
       "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
@@ -1509,7 +1509,7 @@
     "applies_to_year": null,
     "source_link_review": {
       "checked_on": "2026-10-20",
-      "content_sha256": "9e533efb233156317637cfe219a37bef022bc27befb292dc4cefb662c5abe17c",
+      "content_sha256": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
       "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
       "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
       "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
@@ -1668,7 +1668,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "41f4f79a0a7d4052aa40a16b1d496fc89afe7808bd8540f67ae3f813fdf7c478",
+    "content_sha256": "9c3c8eed33236e77354b9fea7bba4a00b30708f935abafcdb4aada48780115d0",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm",
       "https://xaydungchinhsach.chinhphu.vn/ban-hang-da-kenh-hieu-dung-de-thuc-hien-dung-nghia-vu-thue-119260727151911181.htm"
@@ -2026,7 +2026,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-22",
-    "content_sha256": "bf0e3d9ded136c1fedd703dbc428e1f484f5b9d897b61cc34bc02125231f24c3",
+    "content_sha256": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
     "reviewed_local_sources": [
       "public/documents/7403-CT-TMDT-2026.docx",
       "public/documents/Luat-122-2025-QH15.pdf"
@@ -2040,7 +2040,7 @@
     "section": "16.96. Mã đuôi888 và số định danh cá nhân: phân biệt mã quản lý với nghĩa vụ thuế",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED_CONDITIONAL",
-    "applies_from_year": 2026,
+    "applies_from_year": 2025,
     "applies_to_year": null
   },
   "16.97": {
@@ -2053,7 +2053,7 @@
     "applies_to_year": null,
     "source_link_review": {
       "checked_on": "2026-10-22",
-      "content_sha256": "6153949eb3867e17d6dc401292df0c66b66b017adf0403fbbd9ac7e7e55bf7fc",
+      "content_sha256": "cee1c7551dc2f2759dec8a3e6a633ab9c1ac7045847e4203a3e409bc90e6053e",
       "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
       "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
       "limits": "Áp dụng đúng kỳ và điều kiện; không tự nâng trạng thái pháp lý của chunk."
@@ -2239,7 +2239,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "b932410db19f7417c6cf3002fd0321d12a76169f780e1eeadd91e955b5f0a827",
+    "content_sha256": "9b46bebf1f4bed682403bf04fba839098f740f1e38af63e26727b1398b48a44b",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
     ]
@@ -2279,7 +2279,7 @@
     "applies_to_year": null,
     "effective_from_date": "2026-07-01",
     "content_reviewed_at": "2026-10-21",
-    "content_sha256": "edfb4040e8835334d36fb093e912f38b93e376e140cd2de2bb1e2d40a2a95152",
+    "content_sha256": "584427020e23d03d44c1d58ca7fa5967aa8a9fc468693a306bb301dab2b62698",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm",
       "https://baochinhphu.vn/ke-khai-thue-doi-voi-ca-nhan-kinh-doanh-da-linh-vuc-102260929171744114.htm",

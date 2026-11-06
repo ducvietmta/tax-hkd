@@ -1,6 +1,6 @@
 import type { TaxDecisionFrame } from './types';
 import type { EvaluationResult } from '../rules/evaluator';
-import { methodComparisonLedger, historicalCalculationLedger } from './methodComparison';
+import { methodComparisonLedger, historicalCalculationLedger, conditionalTurnoverLedger } from './methodComparison';
 import { ARITHMETIC_INSTRUCTIONS } from './arithmetic';
 
 /** Only a fully scoped engine evaluation is a ledger, never a loose numeric hint. */
@@ -28,8 +28,10 @@ function ledgerInstructions(frame:TaxDecisionFrame,evaluation:EvaluationResult|n
  const historical=historicalCalculationLedger(frame);
  if(historical)return `LEDGER KỲ LỊCH SỬ CÓ ĐIỀU KIỆN DO CODE TÍNH: ${JSON.stringify(historical)}. Trả phần nghĩa vụ và số tiền tính được theo tỷ lệ gốc dưới giả định hàng hóa/dịch vụ chịu thuế và phạm vi cá nhân cư trú của nguồn. Không dùng ngưỡng hiện tại hồi tố. Không lấy chi phí làm cơ sở TNCN của phương pháp tỷ lệ trong kỳ lịch sử. Số GTGT chưa giảm không phải số chốt cuối nếu chưa xét điều kiện giảm; giữ rõ trước đối trừ đã nộp. Reviewer phải đối chiếu nguồn lịch sử, không tự xác nhận điều kiện chưa biết.`;
  const ledger=codeCalculationLedger(frame,evaluation);
- return ledger?`SỐ THUẾ DO CODE TÍNH CÓ ĐIỀU KIỆN: ${JSON.stringify(ledger)}. Chỉ dùng kết quả nếu điều kiện, vai trò số liệu, giả định và kỳ trong ledger đúng câu hỏi. Những nhánh còn lại có đủ dữ kiện và nguồn thì dùng công cụ số học bên dưới; mapping căn cứ và reviewer vẫn bắt buộc. Không lấy tiền GTGT làm TNCN hay đổi cơ sở.`
- : 'Chưa có bảng tính engine phù hợp. Dùng công cụ số học dưới đây cho phần có đủ dữ kiện và nguồn; giữ phần còn thiếu có điều kiện.';
+ if(ledger)return `SỐ THUẾ DO CODE TÍNH CÓ ĐIỀU KIỆN: ${JSON.stringify(ledger)}. Chỉ dùng kết quả nếu điều kiện, vai trò số liệu, giả định và kỳ trong ledger đúng câu hỏi. Những nhánh còn lại có đủ dữ kiện và nguồn thì dùng công cụ số học bên dưới; mapping căn cứ và reviewer vẫn bắt buộc. Không lấy tiền GTGT làm TNCN hay đổi cơ sở.`;
+ const cond=conditionalTurnoverLedger(frame);
+ if(cond)return `LEDGER TÍNH THUẾ CÓ ĐIỀU KIỆN DO CODE TÍNH: ${JSON.stringify(cond)}. Nêu đầy đủ số tiền trước giảm và sau giảm 30% TNCN (theo NQ 43/2026 & NĐ 398/2026 kèm điều kiện cá nhân cư trú, tổng doanh thu năm <= 10 tỷ đồng) cũng như nghĩa vụ GTGT trên toàn bộ doanh thu chịu thuế (trừ trường hợp người dùng nói rõ không tính GTGT) và các nhánh kịch bản trong ledger.`;
+ return 'Chưa có bảng tính engine phù hợp. Dùng công cụ số học dưới đây cho phần có đủ dữ kiện và nguồn; giữ phần còn thiếu có điều kiện.';
 }
 export function calculationInstructions(frame:TaxDecisionFrame,evaluation:EvaluationResult|null){
  return ledgerInstructions(frame,evaluation)+'\n'+ARITHMETIC_INSTRUCTIONS;

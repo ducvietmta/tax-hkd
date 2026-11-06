@@ -79,8 +79,8 @@ export function extractAllAmounts(text: string): ExtractedAmount[] {
   results.push(...compositeAmounts(q));
   results.push(...compoundAmounts(q));
 
-  // 1. Số đầy đủ hàng nghìn: "1.010.000.000 dong", "500.000.000", "1,000,000,001"
-  const exactMatches = q.matchAll(/(?<!\d)(\d{1,3}(?:[.,]\d{3}){2,})(?!\d)\s*(?:dong|d)?/g);
+  // 1. Số đầy đủ hàng nghìn: "1.010.000.000 dong", "500.000.000", "1,000,000,001" hoặc số hàng nghìn kèm đơn vị tiền ("1.000 đồng")
+  const exactMatches = q.matchAll(/(?<!\d)(\d{1,3}(?:[.,]\d{3}){2,}|\d{1,3}[.,]\d{3}(?=\s*(?:dong|d|vnd)\b))(?!\d)\s*(?:dong|d|vnd)?/g);
   for (const m of exactMatches) {
     const val = parseVndFromDigits(m[1]);
     if (val > 0) {
@@ -197,7 +197,7 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
   // "60.000.000 đồng" không bị đọc thành "60.000" × triệu, và "5%" không thành 5 triệu.
   const amountTokens = extractAllAmounts(text);
   const refundDeductedVnd: number | undefined =
-    amountAfterLabel(q, amountTokens, /(?:don hoan|tra hang|hoan hang)/)?.vnd;
+    amountAfterLabel(q, amountTokens, /(?:don hoan|tra hang|hang tra lai|hoan hang|hoan tra)(?:\s+hop\s+le)?/)?.vnd;
   const platformFeeVnd: number | undefined =
     amountAfterLabel(q, amountTokens, /(?:phi san|chi phi san|phi dich vu san)/)?.vnd;
   const shippingCodVnd: number | undefined =
@@ -237,20 +237,22 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     taxableIncomeVnd = incomeTok.vnd;
   }
 
-  // 5. Kiểm tra nhiều ngành kết hợp (ví dụ: bán hàng 800tr + dịch vụ 350tr)
+  // 5. Kiểm tra nhiều ngành kết hợp (ví dụ: bán hàng 800tr + dịch vụ 350tr, hoặc bán tạp hóa 800tr + vận tải 500tr)
   // Length-preserving mask so token indexes stay aligned with q.
   const positiveActivityText = q.replace(/\b(?:khong|chua|chang)\s+(?:ban\s+le|ban\s+hang|kinh\s+doanh)\b(?:\s+(?:tap\s+hoa|hang\s+hoa))?/g, s => ' '.repeat(s.length));
   const hasGoodsKeyword = semanticIncomeTypes ? semanticIncomeTypes.some(x => ['GOODS_SALES', 'MARKETPLACE_SALES'].includes(x))
     : /\b(ban hang|ban le|shopee|hang hoa|thuong mai|tap hoa)\b/.test(positiveActivityText);
   const hasServiceKeyword = semanticIncomeTypes ? semanticIncomeTypes.some(x => ['SERVICE', 'FREELANCE_SERVICE', 'AFFILIATE_COMMISSION', 'CONTENT_ADS', 'FOOD_SERVICE'].includes(x))
-    : /\b(dich vu|affiliate|tiktok|koc|hoa hong|sua chua)\b/.test(q);
+    : /\b(dich vu|affiliate|tiktok|koc|hoa hong|sua chua|van tai|van chuyen|san xuat|gia cong)\b/.test(q);
   const allAmounts = amountTokens;
 
   if (hasGoodsKeyword && hasServiceKeyword && allAmounts.length >= 2) {
     const goodsLabel = /(?:ban hang|ban le|shopee|hang hoa|tap hoa)/;
-    const serviceLabel = /(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua)/;
+    const transportLabel = /(?:dich vu\s+van tai|van tai|van chuyen|cho hang|san xuat|gia cong|xay dung\s+(?:co\s+)?bao\s+thau)/;
+    const serviceLabel = /(?:dich vu|affiliate|tiktok|koc|hoa hong|sua chua|van tai|van chuyen|san xuat|gia cong)/;
     const goodsTok = amountAfterLabel(positiveActivityText, allAmounts, goodsLabel) || amountBeforeLabel(positiveActivityText, allAmounts, goodsLabel);
-    const serviceTok = amountAfterLabel(q, allAmounts, serviceLabel) || amountBeforeLabel(q, allAmounts, serviceLabel);
+    const transportTok = amountAfterLabel(q, allAmounts, transportLabel) || amountBeforeLabel(q, allAmounts, transportLabel);
+    const serviceTok = transportTok || amountAfterLabel(q, allAmounts, serviceLabel) || amountBeforeLabel(q, allAmounts, serviceLabel);
 
     // One figure can never be both the goods and the service revenue
     // ("bán hàng trên tiktok 1,5 tỷ" is ONE activity, not 1,5 tỷ + 1,5 tỷ).
@@ -258,9 +260,12 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
     if (goodsTok && serviceTok && goodsTok.index !== serviceTok.index &&
         !nonRevenueRoles.has(goodsTok.vnd) && !nonRevenueRoles.has(serviceTok.vnd)) {
       const revGoods = goodsTok.vnd, revService = serviceTok.vnd;
+      const isTransportOrMfg = !!transportTok && transportTok.index === serviceTok.index;
       const multiActivities: MultiActivityItem[] = [
         { id: 'goods', kind: 'goods', revenueVnd: revGoods, vatRate: 0.01, pitRate: 0.005 },
-        { id: 'service', kind: 'service', revenueVnd: revService, vatRate: 0.05, pitRate: 0.02 },
+        isTransportOrMfg
+          ? { id: 'manufacturing', kind: 'manufacturing', revenueVnd: revService, vatRate: 0.03, pitRate: 0.015 }
+          : { id: 'service', kind: 'service', revenueVnd: revService, vatRate: 0.05, pitRate: 0.02 },
       ];
       return {
         revenue_vnd: revGoods + revService,
@@ -286,8 +291,10 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
   // Lọc ra các số tiền không phải là đơn hoàn, phí sàn, tiền ship, thu nhập tính thuế, số dư TK, GMV, chi phí hay thuế đã nộp
   let primaryRevenue: number | undefined = specialRevenue;
   if (!primaryRevenue && allAmounts.length > 0) {
+    // Ưu tiên số tiền điều chỉnh (ví dụ: ban đầu dự kiến 960 triệu, sau điều chỉnh thành 1,08 tỷ)
+    const revAdjusted = amountAfterLabel(q, allAmounts, /(?:dieu chinh thanh|tang len(?: thanh)?|thay doi thanh)/);
     // Ưu tiên số tiền gắn liền với từ khóa "doanh thu", "ban duoc", "tong thu", "hoa hong" (loại trừ thu nhập tính thuế)
-    const revTok = amountAfterLabel(q, allAmounts,
+    const revTok = revAdjusted || amountAfterLabel(q, allAmounts,
       /(?:doanh thu|tong doanh thu|ban duoc|tong thu|kiem duoc|hoa hong)(?:\s+(?:ca\s+)?nam\s+(?:19|20)\d{2})?/,
       /bao nhieu|\btax\b|khau tru|giu lai|thu nhap tinh thue|\b(tren|vuot|hon)\b/);
     if (revTok) {

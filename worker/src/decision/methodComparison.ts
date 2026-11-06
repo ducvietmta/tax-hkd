@@ -52,3 +52,173 @@ export function historicalCalculationLedger(frame:TaxDecisionFrame){
    citations:[rules.citations.exemption,rules.citations.vat_rates,rules.citations.pit_rates].filter(Boolean),
  };
 }
+
+/** Conditional 2026 turnover/rental/multi-activity ledger when residency or scenario branching prevents a single unconditional ledger. */
+export function conditionalTurnoverLedger(frame: TaxDecisionFrame) {
+  if (
+    frame.tax_period.years.length !== 1 ||
+    frame.tax_period.years[0] < 2026 ||
+    frame.facts.revenue_basis !== 'ANNUAL' ||
+    ['PROJECTED', 'PARTIAL_PERIOD', 'TRANSACTION'].includes(frame.semantic?.revenueContext || '') ||
+    frame.residency.value === 'NON_RESIDENT'
+  ) {
+    return null;
+  }
+  const year = frame.tax_period.years[0];
+  const r = getRulesetForYear(year);
+  const revenue = frame.facts.revenue_vnd;
+  if (revenue === undefined || !Number.isSafeInteger(revenue) || revenue <= r.thresholds.exemption_annual_vnd) {
+    return null;
+  }
+  const reliefRate = r.relief_policies?.nq43_pit_reduction_rate || 0.3;
+  const eligibleNq43 = revenue <= (r.thresholds.relief_max_revenue_vnd || 10_000_000_000);
+
+  if (frame.income_type.some(t => t.value === 'PROPERTY_RENTAL')) {
+    const vatRate = r.rates.property_rental?.vat_rate ?? 0.05;
+    const pitRate = r.rates.property_rental?.pit_rate ?? 0.05;
+    const vatBefore = Math.round(revenue * vatRate);
+    const pitBase = Math.max(0, revenue - r.thresholds.exemption_annual_vnd);
+    const pitBefore = Math.round(pitBase * pitRate);
+    const pitAfter = eligibleNq43 ? Math.round(pitBefore * (1 - reliefRate)) : pitBefore;
+    return {
+      kind: 'CONDITIONAL_PROPERTY_RENTAL_LEDGER',
+      year,
+      revenue_vnd: revenue,
+      threshold_vnd: r.thresholds.exemption_annual_vnd,
+      single_year_branch: {
+        condition: 'Nếu toàn bộ số tiền này là doanh thu cho thuê tài sản của đúng 01 năm tính thuế (năm dương lịch 2026)',
+        vat_base_vnd: revenue,
+        vat_rate: vatRate,
+        vat_due_before_relief_vnd: vatBefore,
+        vat_note: 'GTGT tính trên toàn bộ doanh thu cho thuê chịu thuế (không trừ 1 tỷ đồng)',
+        pit_base_after_1b_deduction_vnd: pitBase,
+        pit_rate: pitRate,
+        pit_before_relief_vnd: pitBefore,
+        pit_after_nq43_30pct_relief_vnd: eligibleNq43 ? pitAfter : null,
+        nq43_condition: 'Giảm 30% TNCN theo NQ 43/2026/QH16 và NĐ 398/2026/NĐ-CP chỉ áp dụng khi là cá nhân cư trú và tổng doanh thu kinh doanh năm <= 10 tỷ đồng',
+      },
+      multi_year_prepaid_branch: {
+        condition: 'Nếu là tiền thuê nhận trước của nhiều năm',
+        rule: 'Phải xác định/phân bổ doanh thu theo từng năm tính thuế (12 tháng dương lịch) để xét ngưỡng 1 tỷ đồng/năm và tính thuế cho từng năm; không lấy tổng tiền nhận trước của nhiều năm trừ 1 tỷ một lần như doanh thu của một năm đơn lẻ.',
+      },
+    };
+  }
+
+  if (frame.facts.multi_activities && frame.facts.multi_activities.length >= 2) {
+    const acts = frame.facts.multi_activities.map(a => {
+      const rateEntry = r.rates[a.kind] || r.rates.other;
+      const vatBefore = Math.round(a.revenueVnd * rateEntry.vat_rate);
+      return {
+        id: a.id,
+        kind: a.kind,
+        description: rateEntry.description,
+        revenue_vnd: a.revenueVnd,
+        vat_rate: rateEntry.vat_rate,
+        pit_rate: rateEntry.pit_rate,
+        vat_before_relief_vnd: vatBefore,
+        vat_after_nq204_20pct_relief_vnd: Math.round(vatBefore * 0.8),
+      };
+    });
+    const sortedOptimal = [...acts].sort((a, b) => b.pit_rate - a.pit_rate);
+    let remOpt = r.thresholds.exemption_annual_vnd;
+    const optimalBreakdown = sortedOptimal.map(a => {
+      const ded = Math.min(a.revenue_vnd, remOpt);
+      remOpt -= ded;
+      const pitTaxable = a.revenue_vnd - ded;
+      const pitBefore = Math.round(pitTaxable * a.pit_rate);
+      return {
+        id: a.id,
+        kind: a.kind,
+        pit_rate: a.pit_rate,
+        deduction_allocated_vnd: ded,
+        pit_taxable_revenue_vnd: pitTaxable,
+        pit_before_relief_vnd: pitBefore,
+        pit_after_nq43_30pct_relief_vnd: eligibleNq43 ? Math.round(pitBefore * (1 - reliefRate)) : pitBefore,
+      };
+    });
+    const sortedReverse = [...acts].sort((a, b) => a.pit_rate - b.pit_rate);
+    let remRev = r.thresholds.exemption_annual_vnd;
+    const reverseBreakdown = sortedReverse.map(a => {
+      const ded = Math.min(a.revenue_vnd, remRev);
+      remRev -= ded;
+      const pitTaxable = a.revenue_vnd - ded;
+      const pitBefore = Math.round(pitTaxable * a.pit_rate);
+      return {
+        id: a.id,
+        kind: a.kind,
+        pit_rate: a.pit_rate,
+        deduction_allocated_vnd: ded,
+        pit_taxable_revenue_vnd: pitTaxable,
+        pit_before_relief_vnd: pitBefore,
+        pit_after_nq43_30pct_relief_vnd: eligibleNq43 ? Math.round(pitBefore * (1 - reliefRate)) : pitBefore,
+      };
+    });
+    const totalVatBefore = acts.reduce((s, a) => s + a.vat_before_relief_vnd, 0);
+    const totalVatAfterNq204 = acts.reduce((s, a) => s + a.vat_after_nq204_20pct_relief_vnd, 0);
+    const totalPitOptBefore = optimalBreakdown.reduce((s, a) => s + a.pit_before_relief_vnd, 0);
+    const totalPitOptAfter = optimalBreakdown.reduce((s, a) => s + a.pit_after_nq43_30pct_relief_vnd, 0);
+    const totalPitRevBefore = reverseBreakdown.reduce((s, a) => s + a.pit_before_relief_vnd, 0);
+    const totalPitRevAfter = reverseBreakdown.reduce((s, a) => s + a.pit_after_nq43_30pct_relief_vnd, 0);
+    return {
+      kind: 'CONDITIONAL_MULTI_ACTIVITY_TURNOVER_LEDGER',
+      year,
+      total_revenue_vnd: revenue,
+      threshold_vnd: r.thresholds.exemption_annual_vnd,
+      activities: acts,
+      vat_total_before_relief_vnd: totalVatBefore,
+      vat_total_after_nq204_20pct_relief_vnd: totalVatAfterNq204,
+      pit_optimal_allocation: {
+        rule: 'Ưu tiên trừ mức 1 tỷ đồng vào ngành/hoạt động có thuế suất TNCN cao hơn trước (Khoản 3 Điều 4 NĐ 68/2026 sửa bởi NĐ 141/2026)',
+        breakdown: optimalBreakdown,
+        pit_total_before_relief_vnd: totalPitOptBefore,
+        pit_total_after_nq43_30pct_relief_vnd: totalPitOptAfter,
+      },
+      pit_alternative_allocation: {
+        rule: 'Nếu trừ mức 1 tỷ đồng vào ngành có thuế suất thấp hơn trước',
+        breakdown: reverseBreakdown,
+        pit_total_before_relief_vnd: totalPitRevBefore,
+        pit_total_after_nq43_30pct_relief_vnd: totalPitRevAfter,
+      },
+      conditions: [
+        'Tổng doanh thu từ trên 1 tỷ đến 3 tỷ đồng/năm được lựa chọn phương pháp tỷ lệ % trên doanh thu hoặc phương pháp thu nhập tính thuế (15% trên thu nhập tính thuế)',
+        'Thuế GTGT tính trên toàn bộ doanh thu chịu thuế của từng ngành (không được trừ 1 tỷ đồng); giảm 20% mức tỷ lệ % GTGT theo NQ 204/2025/QH15 & NĐ 174/2025/NĐ-CP nếu hàng hóa, dịch vụ không thuộc Phụ lục I, II, III NĐ 174/2025/NĐ-CP',
+        'Giảm 30% thuế TNCN theo NQ 43/2026/QH16 & NĐ 398/2026/NĐ-CP áp dụng cho cá nhân cư trú có tổng doanh thu kinh doanh năm <= 10 tỷ đồng',
+      ],
+    };
+  }
+
+  if (revenue <= (r.thresholds.income_method_mandatory_vnd || 3_000_000_000)) {
+    const known = frame.income_type.length === 1
+      ? { GOODS_SALES: 'goods', MARKETPLACE_SALES: 'goods', SERVICE: 'service', FREELANCE_SERVICE: 'service', FOOD_SERVICE: 'food_service' }[frame.income_type[0].value as string]
+      : undefined;
+    if (!known) return null;
+    const rateEntry = r.rates[known];
+    const vatBefore = Math.round(revenue * rateEntry.vat_rate);
+    const vatAfterNq204 = Math.round(vatBefore * 0.8);
+    const pitBase = Math.max(0, revenue - r.thresholds.exemption_annual_vnd);
+    const pitBefore = Math.round(pitBase * rateEntry.pit_rate);
+    const pitAfter = eligibleNq43 ? Math.round(pitBefore * (1 - reliefRate)) : pitBefore;
+    return {
+      kind: 'CONDITIONAL_TURNOVER_LEDGER',
+      year,
+      sector: known,
+      description: rateEntry.description,
+      revenue_vnd: revenue,
+      threshold_vnd: r.thresholds.exemption_annual_vnd,
+      vat_base_vnd: revenue,
+      vat_rate: rateEntry.vat_rate,
+      vat_due_before_relief_vnd: vatBefore,
+      vat_due_after_nq204_20pct_relief_vnd: vatAfterNq204,
+      pit_base_after_1b_deduction_vnd: pitBase,
+      pit_rate: rateEntry.pit_rate,
+      pit_before_relief_vnd: pitBefore,
+      pit_after_nq43_30pct_relief_vnd: eligibleNq43 ? pitAfter : null,
+      conditions: [
+        'Doanh thu năm trên 1 tỷ đến 3 tỷ đồng được chọn phương pháp tỷ lệ % trên doanh thu hoặc phương pháp thu nhập tính thuế (15% thu nhập tính thuế)',
+        'GTGT tính trên toàn bộ doanh thu chịu thuế (không trừ 1 tỷ đồng); giảm 20% mức tỷ lệ GTGT theo NQ 204/2025 & NĐ 174/2025 nếu đủ điều kiện',
+        'Giảm 30% TNCN theo NQ 43/2026 & NĐ 398/2026 áp dụng khi là cá nhân cư trú có doanh thu kinh doanh năm <= 10 tỷ đồng',
+      ],
+    };
+  }
+  return null;
+}

@@ -488,7 +488,7 @@ Bước 2: Đối trừ số thuế đã được nền tảng khấu trừ, n�
   const targetOverRevenue = overFifty || revenue || (/3\s*ty\s*(?:(?:\+|cong\s*them|them|le)\s*)?(?:1|mot)\s*dong/.test(q) ? 3_000_000_001 : 0);
   const asksThreeBillionMethod = /thu nhap tinh thue|0[.,]5\s*%|17\s*%|20\s*%|phuong phap|thue suat/.test(q) ||
     (/tncn/.test(q) && /tinh|bao nhieu|phai nop/.test(q));
-  if (targetOverRevenue && asksThreeBillionMethod && /so voi|so sanh|mot ca nhan khac|nguoi thu hai|khong cu tru|phi cu tru/.test(q)) return null;
+  if (targetOverRevenue && asksThreeBillionMethod && (/so voi|so sanh|mot ca nhan khac|nguoi thu hai|khong cu tru|phi cu tru/.test(q) || /dich vu|sua chua|van tai|xay dung|an uong|nha hang|ca phe/.test(q))) return null;
   if (targetOverRevenue && asksThreeBillionMethod) {
     const isOverFifty = targetOverRevenue > 50_000_000_000;
     const pitRateNumber = isOverFifty ? 0.20 : 0.17;

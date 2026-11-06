@@ -38,7 +38,7 @@ export interface TaxPeriodFrame {
 
 export interface MultiActivityItem {
   id: string;
-  kind: 'goods' | 'service' | 'rental' | 'other';
+  kind: 'goods' | 'service' | 'manufacturing' | 'food_service' | 'rental' | 'other';
   revenueVnd: number;
   vatRate?: number;
   pitRate?: number;

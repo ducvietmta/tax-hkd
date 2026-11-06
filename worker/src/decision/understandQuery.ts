@@ -13,7 +13,7 @@ import type {
   TaxSubrequest,
 } from './types';
 import type { TaxpayerType, Residency, IncomeType, TaxIntent, TaxCategory, ConversationAct, JurisdictionType } from './labels';
-import { extractTaxFacts, extractResidency, fold } from './factExtractor';
+import { extractAllAmounts, extractTaxFacts, extractResidency, fold } from './factExtractor';
 import type { BusinessClassification } from './jevProvider';
 
 /** Only semantic labels and extracted facts are used; no question keywords. */
@@ -165,7 +165,7 @@ export function understandQuery(
   let inferredTopic: string | undefined = classification?.topic;
 
   if (!classification) {
-    const isAskingTaxAmount = /\b(tinh thue|nop thue bao nhieu|bao nhieu tien thue|thue suat bao nhieu)\b/.test(q);
+    const isAskingTaxAmount = /\b(tinh thue|nop thue bao nhieu|bao nhieu tien thue|thue suat bao nhieu|phai nop.*bao nhieu|nop bao nhieu|phai nop la\s*\d+)\b/.test(q);
     const hasTroubleshootingSignal =
       /\b(bi loi|gap loi|bao loi|ma loi|khong dang nhap duoc|khong vao duoc|khong nop duoc|khong ky duoc|khong nhan|khong tiep nhan|khong chap nhan ho so|tu nhay|nhay so|sai so thue|nop trung|treo no|bao no thue|khoa mst|khoa ma so thue|sap cong|sap mang|qua tai|vang app|treo app|loi chu ky so|loi usb token|loi esigner|loi xml|loi dinh dang|loi xac thuc|loi ket noi|mat ket noi|quen mat khau|mat mat khau|sai sot hoa don|hoa don sai|sai ma so thue|sai tien thue|04\/ss-hddt)\b/.test(q) ||
       (/\b(loi|su co|khac phuc|xu ly|sua the nao)\b/.test(q) && /\b(etax|htkk|itaxviewer|thuedientu|canhantmdt|dichvucong|vneid|cong thue|to khai|hoa don|chu ky so|token|nop thue|pos|may tinh tien)\b/.test(q));
@@ -216,6 +216,9 @@ export function understandQuery(
         : /\b(thue|mst|ma so thue)\b/.test(q)
         ? 'TAX_REGISTRATION'
         : 'BUSINESS_REGISTRATION';
+    } else if (/\b(mon bai|le phi mon bai)\b/.test(q)) {
+      primaryIntent = 'LICENSE_FEE';
+      inferredTopic = 'LE_PHI_MON_BAI';
     } else if (hasSoftwareSystemSignal) {
       primaryIntent = 'TAX_SOFTWARE_SYSTEM';
       inferredTopic = 'TAX_SOFTWARE_SYSTEM';
@@ -226,8 +229,6 @@ export function understandQuery(
       primaryIntent = 'DECLARATION_FILING';
     } else if (/\b(phat|cham nop|xu phat|truy thu)\b/.test(q)) {
       primaryIntent = 'PENALTY';
-    } else if (/\b(mon bai|le phi mon bai)\b/.test(q)) {
-      primaryIntent = 'LICENSE_FEE';
     } else if (/\b(so sach|chung tu|ke toan)\b/.test(q)) {
       primaryIntent = 'ACCOUNTING_BOOKS';
     } else if (/\b(mien thue|nguong|duoi 1 ty|duoi 100|duoi 500|co phai nop)\b/.test(q)) {
@@ -331,8 +332,20 @@ export function understandClassifiedQuery(
 ): TaxDecisionFrame {
   if (!classification) throw new Error('Quyet business classification is required');
   const normalized = { ...classification };
-  if(normalized.answerPurpose==='DEFINITION'){
+  const hasAmounts = extractAllAmounts(query).length > 0;
+  if(normalized.answerPurpose==='DEFINITION' && !hasAmounts){
     normalized.primaryIntent='LEGAL_TEXT_LOOKUP';normalized.topic='CONCEPT_EXPLANATION';
+  } else if (normalized.answerPurpose === 'DEFINITION' && hasAmounts) {
+    normalized.answerPurpose = 'ELIGIBILITY';
+    if (!normalized.topic || normalized.topic === 'CONCEPT_EXPLANATION' || normalized.topic === 'OTHER') {
+      normalized.topic = 'REVENUE_THRESHOLD';
+    }
+    if (!normalized.primaryIntent || normalized.primaryIntent === 'LEGAL_TEXT_LOOKUP' || normalized.primaryIntent === 'OTHER_TAX') {
+      normalized.primaryIntent = 'EXEMPTION_ELIGIBILITY';
+    }
+    if (/\bthang\s*(?:[1-9]|1[01])\b/.test(fold(query)) && (!normalized.revenueContext || normalized.revenueContext === 'UNSPECIFIED')) {
+      normalized.revenueContext = 'PARTIAL_PERIOD';
+    }
   } else if (['BUSINESS_CESSATION','BUSINESS_SUSPENSION','TAX_REGISTRATION_CHANGE','TAX_STATUS_RESTORATION'].includes(normalized.topic || '')) {
     normalized.primaryIntent = 'STATUS_CHANGE';
   } else if (['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(normalized.topic || '')) {

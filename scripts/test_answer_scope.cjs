@@ -3,6 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const ts = require('typescript');
 const modules = new Map();
+modules.set(path.resolve(__dirname, '../worker/src/firebaseAuth.ts'), { verifiedFirebasePhone: async () => '0900000000' });
 function load(relativePath) {
   const file = path.resolve(__dirname, '..', relativePath);
   if (modules.has(file)) return modules.get(file);

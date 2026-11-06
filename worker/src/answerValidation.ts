@@ -64,7 +64,7 @@ export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?
     ['REVENUE_THRESHOLD','REVENUE_OWNERSHIP'].includes(semantic?.topic||''))return false;
   // A classifier's narrower label must not certify omission of a tax explicitly
   // requested alongside another. This is a veto, not legal classification.
-  if(requestedTaxFocus(question)==='both'&&taxFocus!=='both')return false;
+  if((requestedTaxFocus(question)==='both'||taxFocus==='both'||semantic?.taxFocus==='both')&&!calculatedByRules)return false;
   // Opening-registration templates cannot certify a closing procedure.
   if (['BUSINESS_CESSATION','BUSINESS_SUSPENSION','TAX_REGISTRATION_CHANGE','TAX_STATUS_RESTORATION','TAX_PAYMENT_RECONCILIATION','TAX_EXTENSION','TAXPAYER_RIGHTS','ACCOUNTING_RETENTION','INVOICE_USAGE','BUSINESS_EXPENSES'].includes(semantic?.topic || '')) return false;
   // A single-basis template cannot certify an aggregated/scenario calculation or
@@ -82,6 +82,12 @@ export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?
       .map(m => Math.round(Number(m[1].replace(',', '.')) * (m[2] === 'ty' ? 1e9 : 1e6)));
     const exact = [...a.matchAll(/(?<!\d)\d{1,3}(?:[.,]\d{3}){2,}(?!\d)/g)].map(m => Number(m[0].replace(/[.,]/g, '')));
     if (!values.includes(expected) && !exact.includes(expected)) return false;
+  }
+  const explicitRateMatch = q.match(/(?:ty le|thue suat)(?:\s+gtgt)?(?:\s+goc)?(?:\s+da xac dinh)?(?:\s+la)?\s*(\d+(?:[.,]\d+)?)\s*%/);
+  if (explicitRateMatch) {
+    const requiredRate = explicitRateMatch[1].replace(',', '.');
+    const a = fold(answer);
+    if (!a.includes(`${requiredRate}%`) && !a.includes(`${requiredRate.replace('.', ',')}%`)) return false;
   }
   const focus = taxFocus || requestedTaxFocus(question);
   const body = fold(answer.split(/Căn cứ pháp lý\s*:/i)[0]);
@@ -185,6 +191,7 @@ export function validateLegalCitations(
   const isSupportedCitation = (citation: string): boolean => {
     const docYears = Array.from(citation.matchAll(/\/(?:19|20)\d{2}\b/g), m => Number(m[0].slice(1)));
     if (!docYears.every(y => y <= maxRequestedYear)) return false;
+    if (/\bdieu\s*(?:[4-9]|\d{2,})\b[^;\n]*\b141\/2026\b/.test(fold(citation))) return false;
     if (!relevantChunks?.length) return true;
     const ids = documentIds(citation);
     if (ids.length) {
@@ -205,7 +212,7 @@ export function validateLegalCitations(
 
   // Strip unsupported citation lines from a trailing "Căn cứ pháp lý:" block so
   // documents absent from retrieved evidence are never emitted in the final text.
-  const headingMatch = answer.match(/\n*(Căn cứ(?:\s+pháp\s+lý|\s+hướng\s+dẫn)?\s*:)\s*\n/i);
+  const headingMatch = answer.match(/(?:\n+|\s+)(Căn cứ(?:\s+pháp\s+lý|\s+hướng\s+dẫn)?\s*:)\s*\n/i);
   if (headingMatch && headingMatch.index !== undefined) {
     const head = answer.slice(0, headingMatch.index).trimEnd();
     const heading = headingMatch[1];

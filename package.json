@@ -26,6 +26,7 @@
     "test:request-claims": "node scripts/test_request_claim_pipeline.cjs",
     "test:upgrade:offline": "npm run test:offline:191 && node scripts/test_upgrade_regression_offline.cjs",
     "test:scope": "node scripts/test_answer_scope.cjs",
+    "test:round2": "node scripts/test_20_cases_round2.cjs",
     "test:abc": "node scripts/test_abc_groups.cjs",
     "test:decision": "node scripts/lint_rules.cjs && node scripts/test_chunk_meta.cjs && node scripts/test_decision_frame.cjs && node scripts/test_l2_gate.cjs && node scripts/test_rules_equivalence.cjs && node scripts/test_validator.cjs && node scripts/test_transport_parity.cjs && node scripts/test_42_cases.cjs && node scripts/test_retrieval_parity.cjs && node scripts/test_classification_floors.cjs && node scripts/test_answer_tone.cjs && node scripts/test_abc_groups.cjs",
     "test:scope:live": "node scripts/test_chat_scope_live.cjs",

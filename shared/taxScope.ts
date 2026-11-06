@@ -53,7 +53,7 @@ export function userPeriodYears(text: string, currentYear: number): number[] {
     // dates elsewhere in the sentence, including explicit multi-year questions.
     .replace(/\b(?:bay gio|gio|hien tai|hien|hom nay|luc nay)\s*(?:(?:moi\s+)?la\s*)?(?:(?:thang\s*)?\d{1,2}[/.])?(?:nam\s*)?(?:19|20)\d{2}\b/g, '')
     .replace(/\b(?:bai(?: viet)? dang|ngay dang bai|anh huong dan thue|ban hanh)(?:\s+(?:vao|nam|cuoi|dau|tu|trong))*\s*(?:19|20)\d{2}\b/g, '')
-    .replace(/\bnam\s+(\d{2})\b(?!\s*(?:thang|ngay|tuoi))/g, (_, short: string) => {
+    .replace(/(?<!\b(?:ca|moi|hang|suot|tron|1|mot|hai|ba)\s)\bnam\s+(\d{2})\b(?![.,]\d)(?!\s*(?:ty|ti|trieu|tr|cu|nghin|ngan|k|dong|d|vnd|%|phan tram|thang|ngay|tuoi|lan|diem|cua hang|ho|nguoi|don)\b)/g, (_, short: string) => {
       const candidate = Math.floor(currentYear / 100) * 100 + Number(short);
       return `nam ${candidate > currentYear + 20 ? candidate - 100 : candidate}`;
     });
@@ -128,7 +128,7 @@ const TAX_KEYWORDS = [
   'ho kinh doanh', 'ca nhan kinh doanh', 'hkd', 'cnkd',
   'dang ky thue', 'bao cao thue', 'mien thue', 'giam thue',
   'hoan thue', 'vi pham', ' an dinh thue',
-  'ban hang', 'cua hang', 'hoa hong', 'tiktok', 'thu nhap', 'luong',
+  'ban hang', 'cua hang', 'hoa hong', 'tiktok', 'shopee', 'lazada', 'gmv', 'hang tra lai', 'hoan hang', 'xet nguong', 'thu nhap', 'luong',
   'kinh doanh', 'gian hang',
   'thong bao doanh thu', 'to khai',
   'nghi dinh', 'nghi quyet', 'thong tu', 'luat', 'van ban', 'dieu khoan', 'cong van', 'nd-cp', 'tt-btc',

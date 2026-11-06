@@ -146,11 +146,11 @@ export class JevDecisionProvider implements DecisionModelProvider {
 
   async classifyTaxRelevance(message: string, history: ConversationTurn[] = []): Promise<TaxRelevance> {
     const answers = await this.ask(this.state(message, history), { scope: {
-      type: 'choice', instructions: 'Xác định mục đích thực tế của câu hỏi trong trợ lý thuế Việt Nam. Phạm vi bao gồm: (1) nghĩa vụ pháp luật và tính thuế; (2) mọi thủ tục đăng ký trên hệ thống (đăng ký HKD, đăng ký thuế/MST/mã 888, đăng ký tài khoản thuế điện tử thuedientu.gdt.gov.vn, đăng ký hóa đơn điện tử, đăng ký người phụ thuộc, thông báo tài khoản ngân hàng); (3) gỡ lỗi khi dùng web/app thuế (lỗi đăng nhập VNeID/tài khoản thuế, lỗi chữ ký số/USB Token/eSigner, lỗi nộp tờ khai XML, lỗi trên eTax Mobile, cổng thuế điện tử); (4) giải đáp về phần mềm/hệ thống cơ quan thuế (thuedientu, canhan, canhantmdt, hoadondientu, dichvucong, eTax Mobile, HTKK, iTaxViewer, sổ kế toán điện tử/Excel). Không yêu cầu câu phải có chữ thuế hoặc hộ kinh doanh. Lịch sử chỉ để hiểu câu nối tiếp; ưu tiên câu mới và đính chính.',
+      type: 'choice', instructions: 'Xác định mục đích thực tế của câu hỏi trong trợ lý thuế Việt Nam. Phạm vi bao gồm: (1) nghĩa vụ pháp luật, tính thuế, xét ngưỡng (miễn thuế, giảm thuế, phương pháp tính, hóa đơn) và xác định doanh thu/cơ sở tính thuế trên sàn TMĐT (GMV, báo cáo tiền về, hàng trả lại/hoàn hàng, phí sàn, voucher trên Shopee/TikTok/Lazada); (2) mọi thủ tục đăng ký trên hệ thống (đăng ký HKD, đăng ký thuế/MST/mã 888, đăng ký tài khoản thuế điện tử thuedientu.gdt.gov.vn, đăng ký hóa đơn điện tử, đăng ký người phụ thuộc, thông báo tài khoản ngân hàng); (3) gỡ lỗi khi dùng web/app thuế (lỗi đăng nhập VNeID/tài khoản thuế, lỗi chữ ký số/USB Token/eSigner, lỗi nộp tờ khai XML, lỗi trên eTax Mobile, cổng thuế điện tử); (4) giải đáp về phần mềm/hệ thống cơ quan thuế (thuedientu, canhan, canhantmdt, hoadondientu, dichvucong, eTax Mobile, HTKK, iTaxViewer, sổ kế toán điện tử/Excel). Không yêu cầu câu phải có chữ thuế hoặc hộ kinh doanh. Lịch sử chỉ để hiểu câu nối tiếp; ưu tiên câu mới và đính chính.',
       criteria: {
-        IN_SCOPE: 'Liên quan nghĩa vụ thuế, phân loại hoạt động/thu nhập, doanh thu, chi phí, hóa đơn, kê khai, đăng ký kinh doanh/thuế/hệ thống điện tử, gỡ lỗi thao tác cổng thuế/eTax Mobile/HTKK/chữ ký số, phần mềm hệ thống thuế hoặc văn bản pháp luật thuế. Thiếu dữ kiện để chốt kết luận không làm câu hỏi ra ngoài phạm vi.',
+        IN_SCOPE: 'Liên quan nghĩa vụ thuế, xét ngưỡng (kể cả chỉ ghi "xét ngưỡng sao?" cùng số liệu GMV/doanh thu/hàng trả lại/báo cáo tiền về trên Shopee/TikTok/Lazada), phân loại hoạt động/thu nhập, doanh thu, chi phí, hóa đơn, kê khai, đăng ký kinh doanh/thuế/hệ thống điện tử, gỡ lỗi thao tác cổng thuế/eTax Mobile/HTKK/chữ ký số, phần mềm hệ thống thuế hoặc văn bản pháp luật thuế. Thiếu dữ kiện để chốt kết luận không làm câu hỏi ra ngoài phạm vi.',
         OUT_OF_SCOPE: 'Mục đích hoàn toàn không liên quan nghiệp vụ thuế, đăng ký kinh doanh hay hệ thống/phần mềm thuế: thời tiết, sửa phần cứng máy tính thông thường, sáng tác bài hát kể cả có nhắc chữ thuế, tạo tài khoản mạng xã hội giải trí hay hướng dẫn tăng lượt xem/bán hàng.',
-        UNCERTAIN: 'Không đủ bối cảnh để xác định có liên quan thuế.',
+        UNCERTAIN: 'Không đủ bối cảnh để xác định có liên quan thuế (hoàn toàn không có số liệu kinh doanh/GMV/ngưỡng hay nghiệp vụ thuế/hệ thống thuế).',
       },
     } });
     const value = answers?.scope;
@@ -442,7 +442,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
       criteria: { true: `Câu hỏi khẳng định có nguồn thu từ ${incomeDescriptions[i]}.`,
         false: `Không nêu nguồn thu từ ${incomeDescriptions[i]}, hoặc phủ định nguồn thu này. Nhắc sàn không có nghĩa bán hàng; nhắc lương công ty không làm công ty thành người hỏi; dịch vụ sửa chữa kèm phụ tùng vẫn là dịch vụ.` },
     }; });
-    questions.answer_purpose={type:'choice',instructions:'Người dùng thực sự muốn nhận dạng câu trả lời nào? Phân loại theo mục đích, không theo từ xuất hiện. Chỉ hỏi ý nghĩa một thuật ngữ/chủ thể thì DEFINITION, không tự chuyển thành thủ tục hay tính doanh thu. Thiếu dữ kiện tính thuế không biến phép tính thành định nghĩa.',criteria:{DEFINITION:'Giải thích khái niệm, ý nghĩa, phạm vi hoặc nhận biết một chủ thể/thuật ngữ.',COMPARISON:'Phân biệt từ hai khái niệm, phương pháp hoặc trường hợp.',CALCULATION:'Tính số tiền, tỷ lệ hoặc công thức cho trường hợp cụ thể.',ELIGIBILITY:'Xác định có phải thực hiện nghĩa vụ hoặc được hưởng điều kiện nào.',PROCEDURE:'Hướng dẫn hồ sơ, nơi nộp, thời hạn hoặc thao tác thực hiện.',LEGAL_REFERENCE:'Tra cứu văn bản hoặc điều khoản cụ thể.',TROUBLESHOOTING:'Xử lý lỗi hoặc sự cố trong hệ thống.',OTHER:'Mục đích khác hoặc chưa rõ.'}};
+    questions.answer_purpose={type:'choice',instructions:'Người dùng thực sự muốn nhận dạng câu trả lời nào? Phân loại theo mục đích, không theo từ xuất hiện. Chỉ chọn DEFINITION khi câu hỏi thuần túy hỏi ý nghĩa/định nghĩa của một thuật ngữ/chủ thể pháp lý mà KHÔNG kèm số liệu doanh thu/thu nhập cụ thể cần xét nghĩa vụ hay xác định kỳ tính thuế. Nếu câu hỏi có nêu mức doanh thu cụ thể (như 950 triệu vào tháng 10/2026) và hỏi năm tính thuế/nghĩa vụ thì chọn ELIGIBILITY hoặc CALCULATION, không chọn DEFINITION. Thiếu dữ kiện tính thuế không biến phép tính thành định nghĩa.',criteria:{DEFINITION:'Giải thích khái niệm, ý nghĩa, phạm vi hoặc nhận biết một chủ thể/thuật ngữ (không kèm bài toán doanh thu/kỳ tính thuế cụ thể).',COMPARISON:'Phân biệt từ hai khái niệm, phương pháp hoặc trường hợp.',CALCULATION:'Tính số tiền, tỷ lệ hoặc công thức cho trường hợp cụ thể.',ELIGIBILITY:'Xác định có phải thực hiện nghĩa vụ, kỳ tính thuế áp dụng hoặc được hưởng điều kiện nào.',PROCEDURE:'Hướng dẫn hồ sơ, nơi nộp, thời hạn hoặc thao tác thực hiện.',LEGAL_REFERENCE:'Tra cứu văn bản hoặc điều khoản cụ thể.',TROUBLESHOOTING:'Xử lý lỗi hoặc sự cố trong hệ thống.',OTHER:'Mục đích khác hoặc chưa rõ.'}};
     const answers = await this.ask(this.state(message, history), questions);
     const registration = answers?.business_registration;
     const operation = answers?.operational_topic;
@@ -470,7 +470,8 @@ export class JevDecisionProvider implements DecisionModelProvider {
     // ghim evidence theo topic hay mở khóa template mạo hiểm, mà hạ về trung tính.
     // ACTUAL_YEAR là nhãn duy nhất mở khóa template lịch sử (2022–2025); các nhãn
     // an toàn sẵn (PROJECTED/TRANSACTION/PARTIAL_PERIOD) giữ nguyên mọi mức tin cậy.
-    const isDefinition=answers.answer_purpose?.choice==='DEFINITION'&&answers.answer_purpose.confidence>=.8;
+    const hasMoneyFigure = /\b\d+(?:[.,]\d+)?\s*(?:ty|trieu|tr|nghin|ngan|dong)\b/i.test(message);
+    const isDefinition=answers.answer_purpose?.choice==='DEFINITION'&&answers.answer_purpose.confidence>=.8&&!hasMoneyFigure;
     const isMethodComparison=answers.calculation_shape?.choice==='METHOD_COMPARISON'&&answers.calculation_shape.confidence>=.8;
     const resolvedTopic = isDefinition ? 'CONCEPT_EXPLANATION' : isMethodComparison ? 'TAX_AMOUNT' : operation.choice !== 'NOT_APPLICABLE' && operation.confidence >= .8 ? operation.choice
       : registration.choice !== 'NOT_APPLICABLE' && registration.confidence >= 0.8 ? registration.choice
@@ -493,7 +494,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
       ...(answers.obligation_date?.confidence>=.8&&validDates.includes(answers.obligation_date.choice)?{obligationDate:answers.obligation_date.choice}:{}),
       revenueContext: revenueContext.choice === 'ACTUAL_YEAR' && revenueContext.confidence < 0.6
         ? 'UNSPECIFIED' : revenueContext.choice,
-      answerPurpose:answers.answer_purpose?.confidence>=.8?answers.answer_purpose.choice:'OTHER',
+      answerPurpose:isDefinition?'DEFINITION':answers.answer_purpose?.confidence>=.8&&answers.answer_purpose.choice!=='DEFINITION'?answers.answer_purpose.choice:'OTHER',
       ...Object.fromEntries([['subjectContext','subject_context'],['registrationStatus','registration_status']].flatMap(([field,key])=>{
         const value=answers[key];return value?.type==='choice'&&value.confidence>=.8&&value.choice!=='UNKNOWN'&&Object.hasOwn((questions[key] as any).criteria,value.choice)?[[field,value.choice]]:[];
       })),
