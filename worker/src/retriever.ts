@@ -469,7 +469,8 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
     const sourceYears=scope.years.filter(year=>periodFits(sourcePeriod,{years:[year]}));
     const baseCompact=(!excerptPeriod||sourceYears.length>0&&sourceYears.every(year=>periodFits(excerptPeriod,{years:[year]})))?r.chunk.context_passage:undefined;
     const boundaryIdx=r.chunk.text.indexOf('[RANH GIỚI CHÍNH SÁCH]');
-    const compact=baseCompact&&totalBudget>=9000&&boundaryIdx>=0?r.chunk.text.slice(boundaryIdx):baseCompact;
+    const asksProjectedOrCumulative=/\b(du kien|luy ke)\b/.test(fold(query));
+    const compact=baseCompact&&totalBudget>=9000&&boundaryIdx>=0&&asksProjectedOrCumulative?r.chunk.text.slice(boundaryIdx):baseCompact;
     const rawSnippet = purposeSnippet&&r.chunk.text.includes(purposeSnippet)?purposeSnippet:
       compact&&r.chunk.text.includes(compact)?compact:r.chunk.evidence_mode==='COMPLETE_RULE'||boundedRule || curatedParagraph || boundedTableRule ? r.chunk.text : snippet(r.chunk, `${query} ${scope.years.join(' ')}`, per);
     let cleanedSnippet = rawSnippet
@@ -487,7 +488,7 @@ export function buildContext(results: Retrieved[], query: string, totalBudget = 
     // A required source must not vanish only because its full rule exceeds the
     // pack budget: fall back to the query-matched excerpt of the same source.
     // Optional hits keep the old skip behaviour so they cannot crowd out rules.
-    if (r.required && text.length + passageText.length > totalBudget + 800) {
+    if (r.required && r.chunk.evidence_mode !== 'COMPLETE_RULE' && text.length + passageText.length > totalBudget + 800) {
       const room = Math.max(600, totalBudget + 800 - text.length - 160);
       const excerpt = snippet(r.chunk, `${query} ${scope.years.join(' ')}`, room)
         .replace(/^##?\s*16\.\d+.*?\n/gim, '').replace(/^##?\s*\d+\.\d+.*?\n/gim, '')

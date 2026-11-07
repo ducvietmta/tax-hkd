@@ -160,7 +160,8 @@ export async function handleMcp(
                 diagnostic_code: chatData.diagnostic_code,
                 answerReview: chatData.answerReview,
               },
-              isError: false
+              isError: Boolean(env.CASE_RECOGNITION_MODE || env.STRICT_VERIFIED_EVIDENCE_ENABLED) &&
+                (['SKIPPED_PROVIDER_ERROR','SKIPPED_GENERATION_ERROR','BLOCKED','NO_EVIDENCE'].includes(chatData.answerReview?.status) || !!chatData.diagnostic_code)
             }
           }, 200, corsHeaders);
         } catch (callErr: any) {

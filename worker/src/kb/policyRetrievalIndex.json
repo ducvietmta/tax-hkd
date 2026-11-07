@@ -234,6 +234,7 @@
   },
   {
     "ref_id": "16.99",
+    "required": false,
     "topics": [
       "TAX_AMOUNT"
     ],

@@ -969,12 +969,12 @@
         "applies_to_year": 2027
       }
     ],
-    "content_sha256": "7cd682b8da34ec8f321ff70f486f0f0353f3271c599d77592f01df397b8c49e0",
+    "content_sha256": "7949388248ef494eb63b353abefcd2925a064c7c7ca69ff87b443fc6c17f98cc",
     "content_reviewed_at": "2026-11-04",
     "reviewer_type": "AI",
     "source_link_review": {
       "checked_on": "2026-11-04",
-      "content_sha256": "cb5e6a973b95a5ae9030045c1928b949d693bda356b4cd3eb9ff0f88f08af9bf",
+      "content_sha256": "7949388248ef494eb63b353abefcd2925a064c7c7ca69ff87b443fc6c17f98cc",
       "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
       "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
       "limits": "Rà soát AI Điều 2,4 và danh mục Mẫu 01–03 PDF NĐ398; thay ghi chú thủ tục chờ hướng dẫn, không chứng nhận mọi câu của thẻ phối hợp hoặc mọi chỉ tiêu biểu mẫu."

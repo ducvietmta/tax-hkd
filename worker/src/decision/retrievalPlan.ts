@@ -307,7 +307,7 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
       frame.tax_intent.primary.value === 'RELIEF_REDUCTION')) {
     mustIncludeRefs.push('16.77');
     mustIncludeRefs.push('16.56');
-
+    if (topic === 'TAX_AMOUNT') mustIncludeRefs.push('16.99');
   }
 
   // 1. Ghim các ref bắt buộc theo quy định thời kỳ
