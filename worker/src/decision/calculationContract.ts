@@ -1,6 +1,6 @@
 import type { TaxDecisionFrame } from './types';
 import type { EvaluationResult } from '../rules/evaluator';
-import { methodComparisonLedger, historicalCalculationLedger, conditionalTurnoverLedger } from './methodComparison';
+import { methodComparisonLedger, historicalCalculationLedger, conditionalTurnoverLedger, multiActivityLedger } from './methodComparison';
 import { ARITHMETIC_INSTRUCTIONS } from './arithmetic';
 
 /** Only a fully scoped engine evaluation is a ledger, never a loose numeric hint. */

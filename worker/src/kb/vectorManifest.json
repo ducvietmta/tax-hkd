@@ -2,7 +2,7 @@
   "schema": "taxhkd-vector-manifest-v1",
   "model": "@cf/baai/bge-m3",
   "dimensions": 1024,
-  "version": "tax-kb-bge-m3-6fa6083d36761b4e77fc",
+  "version": "tax-kb-bge-m3-248bd394914e03178055",
   "excluded_refs": [
     "16.24"
   ],
@@ -51,7 +51,7 @@
     },
     {
       "id": "16.7",
-      "sha256": "494ffc647cab82cd66289f1bddf5bc66f0ca4ca057d888a1678f2343f29292e5",
+      "sha256": "d8f3ca872ee80a910a0720df366e59fb5d5ce9f04429841cf67185073f9e11c0",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -128,7 +128,7 @@
     },
     {
       "id": "16.18",
-      "sha256": "242b2cd8fd14b20f9cb74f374b7294c9596bc0252932d71aa6fc73467ce54262",
+      "sha256": "2763eec306d7f8e54b99f049a3d29a84859025b6efa994295810b5524cab18db",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -268,7 +268,7 @@
     },
     {
       "id": "16.39",
-      "sha256": "b51e6f2baab876eba0f5ee8cb87f2dcb3348477ed1189f24df99ce5bb3a933c7",
+      "sha256": "3483a227c0e6f5b798e44774d04cdba5567f8bf90da69d628823e6c203ee2d8d",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": 2027
@@ -345,7 +345,7 @@
     },
     {
       "id": "16.51",
-      "sha256": "ab7b134ca74ef0fd0b240d031dcebab99186abf0b5742d54961b4cd8d8d9b01d",
+      "sha256": "3faae351340381cb143011a18296919ffe88ee3f570651f4de221001d2f43984",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -366,7 +366,7 @@
     },
     {
       "id": "16.54",
-      "sha256": "5179f18008130808028f3427a785077906976a7a5b920fc10bf2ba71a80cf3dd",
+      "sha256": "3e117ef07219c97e71df3d1768ceb2f0812fbb3683525838a4cc7908ea7e5a37",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2021,
       "to_year": 2025
@@ -401,7 +401,7 @@
     },
     {
       "id": "16.59",
-      "sha256": "84129e51aee1aa6d7ba58d94a99e213bc66785b4ac5151a6cf314f5339cb4d9f",
+      "sha256": "5fb0114ba1b69e0f1e0d3c27ccfedb56437574f1e6809dc0b246d40cbb1f4ec2",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null
@@ -513,7 +513,7 @@
     },
     {
       "id": "16.75",
-      "sha256": "b53eeda1201362bf064388694a4acc4cf049df5de16d8da19ad0d34d4dbf1b5e",
+      "sha256": "ce66bf7765a3f67abd018a96fc257e08985d03addcb6369860cbdc59775ab9dc",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null
@@ -611,7 +611,7 @@
     },
     {
       "id": "16.91",
-      "sha256": "82aa29674a091b49b4fbf93c449df2c2ebb781f8702b9f8b7ecbd9448b1255f9",
+      "sha256": "ddd18b4c1abb723f2c41edc126e716ca6b34a3774fd5f6d7065ec866f6ed18b3",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -632,7 +632,7 @@
     },
     {
       "id": "16.95",
-      "sha256": "cb222ae2ca22dbb2574461133ea711fefd9d4937f18281e9b5a4b55f55a2d0af",
+      "sha256": "01d4984b077893ad16b9df69eb1c45195abbe024fdad3272653312acc00b74dd",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -646,7 +646,7 @@
     },
     {
       "id": "16.97",
-      "sha256": "0aba47773675f9f8141b8b3f7d6fddd67a823223cae7c414610924145982ca36",
+      "sha256": "297423f1aac77c116845a67ef666e2e8066eafea9bcd20a9531b82720b3e0d9d",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -667,7 +667,7 @@
     },
     {
       "id": "16.100",
-      "sha256": "7624f15dd1eda5bdc6b508527cf8cd7a451ef4f6e251733c33df70242e9069a4",
+      "sha256": "e219344b8a6c80716a73f4235d2c12edcc7d9c7060ecf6d4fbefb754e57c7e31",
       "tier": "VERIFIED",
       "from_year": 2025,
       "to_year": null
@@ -709,7 +709,7 @@
     },
     {
       "id": "16.106",
-      "sha256": "69bc92e6230179dfeffd6be58c7639b95b2a5fd950e4a6258e7aa4e19c7d6211",
+      "sha256": "6d2ae3d8470af071bda0f391fc6ff4bf7453a1c3108ed4c2af05f370403526c8",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": 2026
@@ -723,7 +723,7 @@
     },
     {
       "id": "16.108",
-      "sha256": "48e77f285ab003e348e9a8f41bd276c0bee7dba901300ad3b8179d0ceff03d67",
+      "sha256": "20146afb491e469051b5eab83f30e986f0bae827a34def668ee6aa232787fcef",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null

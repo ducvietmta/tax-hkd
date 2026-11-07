@@ -480,7 +480,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+    "content_sha256": "cf1eb2ec930531c3a26e4b7230b9c5f783cce1d0ef7493e6f1cedc55116d24d3",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/lam-tiep-thi-lien-ket-ban-hang-huong-hoa-hong-tren-san-tmdt-can-khai-thue-nhu-the-nao-119260723160309548.htm"
     ],
@@ -974,7 +974,7 @@
     "reviewer_type": "AI",
     "source_link_review": {
       "checked_on": "2026-11-04",
-      "content_sha256": "7cd682b8da34ec8f321ff70f486f0f0353f3271c599d77592f01df397b8c49e0",
+      "content_sha256": "cb5e6a973b95a5ae9030045c1928b949d693bda356b4cd3eb9ff0f88f08af9bf",
       "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
       "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
       "limits": "Rà soát AI Điều 2,4 và danh mục Mẫu 01–03 PDF NĐ398; thay ghi chú thủ tục chờ hướng dẫn, không chứng nhận mọi câu của thẻ phối hợp hoặc mọi chỉ tiêu biểu mẫu."
@@ -1700,7 +1700,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "9c3c8eed33236e77354b9fea7bba4a00b30708f935abafcdb4aada48780115d0",
+    "content_sha256": "41f4f79a0a7d4052aa40a16b1d496fc89afe7808bd8540f67ae3f813fdf7c478",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/doanh-thu-de-xac-dinh-thue-thu-nhap-ca-nhan-cuaho-kinh-doanh-la-gi-11926040709525945.htm",
       "https://xaydungchinhsach.chinhphu.vn/ban-hang-da-kenh-hieu-dung-de-thuc-hien-dung-nghia-vu-thue-119260727151911181.htm"
@@ -2072,7 +2072,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-22",
-    "content_sha256": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+    "content_sha256": "bf0e3d9ded136c1fedd703dbc428e1f484f5b9d897b61cc34bc02125231f24c3",
     "reviewed_local_sources": [
       "public/documents/7403-CT-TMDT-2026.docx",
       "public/documents/Luat-122-2025-QH15.pdf"
@@ -2086,7 +2086,7 @@
     "section": "16.96. Mã đuôi888 và số định danh cá nhân: phân biệt mã quản lý với nghĩa vụ thuế",
     "tier": "VERIFIED",
     "legal_status": "VERIFIED_CONDITIONAL",
-    "applies_from_year": 2025,
+    "applies_from_year": 2026,
     "applies_to_year": null
   },
   "16.97": {
@@ -2286,7 +2286,7 @@
     "applies_from_year": 2026,
     "applies_to_year": null,
     "content_reviewed_at": "2026-10-16",
-    "content_sha256": "9b46bebf1f4bed682403bf04fba839098f740f1e38af63e26727b1398b48a44b",
+    "content_sha256": "b932410db19f7417c6cf3002fd0321d12a76169f780e1eeadd91e955b5f0a827",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-so-141-2026-nd-cp-nang-nguong-doanh-thu-khong-phai-chiu-thue-len-1-ty-dong-119260504154326455.htm"
     ]
@@ -2327,7 +2327,7 @@
     "applies_to_year": null,
     "effective_from_date": "2026-07-01",
     "content_reviewed_at": "2026-10-21",
-    "content_sha256": "584427020e23d03d44c1d58ca7fa5967aa8a9fc468693a306bb301dab2b62698",
+    "content_sha256": "edfb4040e8835334d36fb093e912f38b93e376e140cd2de2bb1e2d40a2a95152",
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2025-nd-cp-ve-dang-ky-doanh-nghiep-119250702175708554.htm",
       "https://baochinhphu.vn/ke-khai-thue-doi-voi-ca-nhan-kinh-doanh-da-linh-vuc-102260929171744114.htm",
@@ -3097,7 +3097,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "c700d2e1d31426ae8cab737b8525744b6128498856a8d3c0b8d352548fe16437"
     },
     "reviewed_source_urls": []
   },
@@ -3120,7 +3121,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "4c46fba385c70b4ea47f55bdd8f340c3d2c36a07dbded8c3c4e8c213e27e0739"
     },
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/huong-dan-mot-so-noi-dung-ve-su-dung-so-dinh-danh-ca-nhan-thay-cho-ma-so-thue-tu-1-7-119250621104848381.htm",
@@ -3146,7 +3148,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "673558d8e8816943d80fdee62ac178cede5c12f1873ec7770cdff859d5c61b41"
     },
     "reviewed_source_urls": [
       "https://caman.khanhhoa.gov.vn/vi/tin-noi-bat/huong-dan-su-dung-ung-dung-etax-mobile"
@@ -3171,7 +3174,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "90098895ecb4006e40e5bcd8a9185525e9e5456e59fa2bcb84937339aa8c0156"
     },
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/huong-dan-mot-so-noi-dung-ve-su-dung-so-dinh-danh-ca-nhan-thay-cho-ma-so-thue-tu-1-7-119250621104848381.htm"
@@ -3197,7 +3201,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "8172bff31dbccb912ef210b78d9750b9c7558b1dcf89e06ecb385ba90c2c315c"
     },
     "reviewed_source_urls": [
       "https://caman.khanhhoa.gov.vn/vi/tin-noi-bat/huong-dan-su-dung-ung-dung-etax-mobile"
@@ -3222,7 +3227,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "d1d67accce5c463207da8674071492f73106563e7b430f2a0a92f31c2228bf0c"
     },
     "reviewed_source_urls": []
   },
@@ -3245,7 +3251,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "4bddd9904be12d5a20cf3f56c73491edbe68af91a083ebc715981528f8dedbaa"
     },
     "reviewed_source_urls": []
   },
@@ -3269,7 +3276,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "b16d2f793be1c14799ed41a29d3e8b613952033a138754ec857b5cd00329ec98"
     },
     "reviewed_source_urls": [
       "https://caman.khanhhoa.gov.vn/vi/tin-noi-bat/huong-dan-su-dung-ung-dung-etax-mobile"
@@ -3294,7 +3302,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "c9f5ba83b0b4ac7a83ab8c98ad155c03886c38b71ed3ac8ae5872e9884796b19"
     },
     "reviewed_source_urls": [
       "https://caman.khanhhoa.gov.vn/vi/tin-noi-bat/huong-dan-su-dung-ung-dung-etax-mobile"
@@ -3319,7 +3328,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "73ff80aecea67cdb9ab3904504a93345d0f4250c64042d5f697e15f562f90836"
     },
     "reviewed_source_urls": [
       "https://caman.khanhhoa.gov.vn/vi/tin-noi-bat/huong-dan-su-dung-ung-dung-etax-mobile"
@@ -3344,7 +3354,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "55ae546598d61f98b43793be8907ef881c9abc2307e3b058d0d14b356525ff73"
     },
     "reviewed_source_urls": []
   },
@@ -3367,7 +3378,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "4884b5006298b9fad5e2a09fdf24e82ed1855358d4b92716a5fd933026f36bf0"
     },
     "reviewed_source_urls": []
   },
@@ -3390,7 +3402,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "1d0fa2e0364ca97cbc4536246c69ae73dddb7b729a62fab9a7b16b7407639ab6"
     },
     "reviewed_source_urls": []
   },
@@ -3413,7 +3426,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "d27c50d67a8ef934d2dd48cda144f11ba41143ff8dffbb61025eb302f57a4b26"
     },
     "reviewed_source_urls": [
       "https://xaydungchinhsach.chinhphu.vn/huong-dan-su-dung-tro-ly-ao-tren-ung-dung-etax-mobile-119261007170939559.htm"
@@ -3438,7 +3452,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "06b635c848311d53d9855534b654171796106181cff3cc93cacb447a78943a8e"
     },
     "reviewed_source_urls": [
       "https://caman.khanhhoa.gov.vn/vi/tin-noi-bat/huong-dan-su-dung-ung-dung-etax-mobile"
@@ -3463,7 +3478,8 @@
       "checked_on": "2026-10-23",
       "status": "OPERATIONAL_GUIDANCE_NOT_LEGAL_CERTIFICATION",
       "coverage": "CHECKLIST_AND_SCOPED_SOURCE_SUPPORT",
-      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence."
+      "limits": "No live portal validation; screenshots are user-supplied, not exemption evidence.",
+      "content_sha256": "8300700abfb274f8fb94b7f7681f5065a90763da4002496e5c4f5e344d03136a"
     },
     "reviewed_source_urls": [
       "https://caman.khanhhoa.gov.vn/vi/tin-noi-bat/huong-dan-su-dung-ung-dung-etax-mobile"

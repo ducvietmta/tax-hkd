@@ -46,7 +46,7 @@ const db = {
             if (sql.startsWith('SELECT payload FROM answer_cache')) {
               return rows.has(values[0]) ? { payload: rows.get(values[0]) } : null;
             }
-            if (sql.startsWith('SELECT COUNT(*) AS n FROM rate_limits')) return { n: 0 };
+            if (sql.includes('rate_limits')) return { n: 0, id: 1 };
             throw new Error(`Unexpected SELECT: ${sql}`);
           },
           async run() {

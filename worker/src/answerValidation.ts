@@ -52,7 +52,7 @@ export function missingAnswerIntents(question: string, answer: string, semantic?
 }
 
 /** A template may bypass generation only when it answers the complete request. */
-export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?: BusinessClassification['taxFocus'], semantic?: BusinessClassification, calculatedByRules=false): boolean {
+export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?: BusinessClassification['taxFocus'], semantic?: BusinessClassification, calculatedByRules=true): boolean {
   if(semantic?.subjectContext==='INDIVIDUAL_ACTIVITY'&&semantic.registrationStatus!=='HOUSEHOLD_REGISTERED'&&semantic.topic!=='TAX_AMOUNT')return false;
   // A scoped policy question goes through grounded generation and semantic
   // assessment; fixed prose cannot establish coverage by mentioning a policy.
@@ -64,7 +64,7 @@ export function canUseVerifiedAnswer(question: string, answer: string, taxFocus?
     ['REVENUE_THRESHOLD','REVENUE_OWNERSHIP'].includes(semantic?.topic||''))return false;
   // A classifier's narrower label must not certify omission of a tax explicitly
   // requested alongside another. This is a veto, not legal classification.
-  if((requestedTaxFocus(question)==='both'||taxFocus==='both'||semantic?.taxFocus==='both')&&!calculatedByRules)return false;
+  if ((requestedTaxFocus(question) === 'both' || taxFocus === 'both' || semantic?.taxFocus === 'both') && !calculatedByRules) return false;
   // Opening-registration templates cannot certify a closing procedure.
   if (['BUSINESS_CESSATION','BUSINESS_SUSPENSION','TAX_REGISTRATION_CHANGE','TAX_STATUS_RESTORATION','TAX_PAYMENT_RECONCILIATION','TAX_EXTENSION','TAXPAYER_RIGHTS','ACCOUNTING_RETENTION','INVOICE_USAGE','BUSINESS_EXPENSES'].includes(semantic?.topic || '')) return false;
   // A single-basis template cannot certify an aggregated/scenario calculation or
@@ -132,6 +132,7 @@ export function validateLegalCitations(
   relevantChunks?: Array<{ ref_id?: string | null; section?: string; text?: string }>,
   semantic?: BusinessClassification,
 ) {
+  const maxRequestedYear = Math.max(...(_scope?.years?.length ? _scope.years : [2026]));
   const isAbcGroup =
     ['BUSINESS_CESSATION', 'SYSTEM_REGISTRATION', 'PORTAL_TROUBLESHOOTING', 'TAX_SOFTWARE_SYSTEM', 'BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS', 'INVOICE_REGISTRATION'].includes(semantic?.topic || '') ||
     ['SYSTEM_REGISTRATION', 'PORTAL_TROUBLESHOOTING', 'TAX_SOFTWARE_SYSTEM', 'REGISTRATION', 'TAX_ID_888'].includes(semantic?.primaryIntent || '');

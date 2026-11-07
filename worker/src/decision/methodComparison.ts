@@ -231,3 +231,101 @@ export function conditionalTurnoverLedger(frame: TaxDecisionFrame) {
   }
   return null;
 }
+
+/**
+ * Multi-activity turnover ledger: the single annual allowance is allocated
+ * deterministically to the highest PIT rate first (the optimal legal use),
+ * VAT stays per activity. Mirrors the evaluator so the LLM path and the
+ * deterministic path never produce two different allocations.
+ */
+export function multiActivityLedger(frame: TaxDecisionFrame) {
+  const items = frame.facts.multi_activities;
+  if (
+    !items?.length ||
+    items.length < 2 ||
+    frame.tax_period.years.length !== 1 ||
+    !['HOUSEHOLD_BUSINESS', 'INDIVIDUAL_BUSINESS'].includes(frame.taxpayer_type.value) ||
+    frame.facts.revenue_basis !== 'ANNUAL' ||
+    frame.facts.taxable_income_vnd !== undefined ||
+    ['PROJECTED', 'PARTIAL_PERIOD', 'TRANSACTION'].includes(frame.semantic?.revenueContext || '')
+  )
+    return null;
+  const year = frame.tax_period.years[0],
+    r = getRulesetForYear(year);
+  if (year < r.tax_year_range[0] || year > r.tax_year_range[1]) return null;
+  const kindKey: Record<string, string> = {
+    goods: 'goods',
+    service: 'service',
+    food_service: 'food_service',
+    rental: 'property_rental',
+    property_rental: 'property_rental',
+    production_transport: 'production_transport',
+    manufacturing: 'manufacturing',
+    other: 'other_business',
+    other_business: 'other_business',
+  };
+  const rows = [];
+  for (const item of items) {
+    const key = kindKey[item.kind];
+    if (!key || !r.rates[key]) return null;
+    if (!Number.isSafeInteger(item.revenueVnd) || item.revenueVnd < 0) return null;
+    const vatRate = item.vatRate ?? r.rates[key].vat_rate,
+      pitRate = item.pitRate ?? r.rates[key].pit_rate;
+    if (vatRate !== r.rates[key].vat_rate || pitRate !== r.rates[key].pit_rate) return null;
+    rows.push({
+      id: item.id,
+      kind: key,
+      revenue_vnd: item.revenueVnd,
+      vat_rate: vatRate,
+      pit_rate: pitRate,
+      allowance_vnd: 0,
+      vat_due_vnd: 0,
+      pit_before_relief_vnd: 0,
+    });
+  }
+  const totalRevenue = rows.reduce((n, a) => n + a.revenue_vnd, 0);
+  if (frame.facts.revenue_vnd !== undefined && frame.facts.revenue_vnd !== totalRevenue) return null;
+  const exemption = r.thresholds.exemption_annual_vnd;
+  const vatRelief =
+    frame.facts.vat_relief_assumed && year <= (r.relief_policies?.nq204_vat_last_year || 2026)
+      ? r.relief_policies?.nq204_vat_reduction_rate || 0
+      : 0;
+  let allowance = year >= 2026 && totalRevenue > exemption ? exemption : 0;
+  for (const row of [...rows].sort((a, b) => b.pit_rate - a.pit_rate)) {
+    row.allowance_vnd = Math.min(allowance, row.revenue_vnd);
+    allowance -= row.allowance_vnd;
+    row.vat_due_vnd =
+      totalRevenue <= exemption && year >= 2026
+        ? 0
+        : Math.round(row.revenue_vnd * row.vat_rate * (1 - vatRelief));
+    row.pit_before_relief_vnd =
+      totalRevenue <= exemption && year >= 2026
+        ? 0
+        : Math.round((row.revenue_vnd - row.allowance_vnd) * row.pit_rate);
+  }
+  const vatDue = rows.reduce((n, a) => n + a.vat_due_vnd, 0),
+    before = rows.reduce((n, a) => n + a.pit_before_relief_vnd, 0);
+  const reliefRate = r.relief_policies?.nq43_pit_reduction_rate || 0;
+  const reliefApplies =
+    frame.residency.value === 'RESIDENT' &&
+    reliefRate > 0 &&
+    totalRevenue <= (r.thresholds.relief_max_revenue_vnd || 0);
+  const reliefAmount = reliefApplies ? Math.round(before * reliefRate) : 0;
+  return {
+    kind: 'MULTI_ACTIVITY_LEDGER',
+    year,
+    total_revenue_vnd: totalRevenue,
+    exemption_vnd: exemption,
+    allocation_rule:
+      'Phân bổ mức trừ một lần cho hoạt động có tỷ lệ TNCN cao hơn trước; GTGT tính riêng từng hoạt động, không dùng mức trừ.',
+    rows,
+    vat_due_vnd: vatDue,
+    pit_before_relief_vnd: before,
+    pit_relief_vnd: reliefAmount,
+    pit_after_relief_vnd: before - reliefAmount,
+    relief_condition: reliefApplies
+      ? 'Đã áp giảm theo giả định cá nhân cư trú đủ điều kiện NQ43.'
+      : 'Chưa áp giảm NQ43 (chưa xác nhận cư trú/điều kiện hoặc vượt trần doanh thu).',
+    citations: [r.citations.pit_law, r.citations.exemption, r.citations.pit_relief].filter(Boolean),
+  };
+}

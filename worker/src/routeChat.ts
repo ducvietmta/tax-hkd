@@ -534,7 +534,7 @@ export async function handleChat(
     // provider returns a broad topic such as OTHER. Preserve review's reserve.
     const contextBudget = registrationGuide ? 4500 : businessClassification.topic === 'TAX_AMOUNT'||results.some(r=>r.required)
       ? Math.min(12000, Math.max(6500, 14000 - reviewOverhead - 800)) : retrievalPlan?.semantic_topic ? 9000 : 6500;
-    const maxContextBudget=Math.max(contextBudget,20000-reviewOverhead-800);
+    const maxContextBudget = registrationGuide ? contextBudget : Math.max(contextBudget, 20000 - reviewOverhead - 800);
     const { text: ragContextText, citations: retrievedCitations, includedRefs, passages,missingDocumentRefs,missingRequiredRefs } = buildReviewContext(results, retrievalQuery, contextBudget, maxContextBudget, answerScope,businessClassification.answerPurpose==='DEFINITION'?'DEFINITION':undefined);
     if(strictSources&&passages.some(p=>!passageTrusted(p)))return respondWithAnswer({success:true,response:UNVERIFIED_ANSWER,source:'untrusted_passage',citations:[],diagnostic_code:'UNTRUSTED_PASSAGE'},userRecord?.credits??99);
     if(missingRequiredRefs.length)console.warn('[REQUIRED_CONTEXT_OMITTED]',JSON.stringify({refs:missingRequiredRefs,contextBudget}));
@@ -588,7 +588,7 @@ export async function handleChat(
       answerPriorityTax(message, answerScope),
       answerVerifiedReliefEligibility(message, answerScope),
       answerVerifiedBusinessTax(message, answerScope),
-    ].find(answer => answer && canUseVerifiedAnswer(message, answer.response, businessClassification.taxFocus, businessClassification)) || null;
+    ].find(answer => answer && canUseVerifiedAnswer(message, answer.response, businessClassification.taxFocus, businessClassification, false)) || null;
     let legalCitations = verifiedTaxAnswer?.citations || retrievedCitations;
     const decisionStatus = verifiedTaxAnswer && structuredDecision?.decision_status !== 'NEEDS_LEGAL_REVIEW'
       ? 'ANSWERABLE_VERIFIED' : structuredDecision?.decision_status || 'NO_BASIS';
@@ -889,6 +889,11 @@ ${ragContextText}${fullContextNote}`;
                     }
                   })
                   .catch((err) => {
+                    const msg = String(err?.message || '');
+                    const httpMatch = msg.match(/\bMODEL_HTTP_\d+\b/);
+                    if (httpMatch) generationFailure = httpMatch[0];
+                    else if (['TimeoutError', 'AbortError'].includes(err?.name)) generationFailure = 'MODEL_TIMEOUT';
+                    else if (!generationFailure) generationFailure = 'MODEL_REQUEST_ERROR';
                     console.warn(
                       '[PARALLEL_PROVIDER_ERROR]',
                       JSON.stringify({ attempt, error: err?.name || 'Error', message: err?.message })
