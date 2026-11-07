@@ -147,8 +147,9 @@ function evaluateUncheckedFrame(frame: TaxDecisionFrame): EvaluationResult {
 
   if(frame.facts.multi_activities?.length){
     const activities=frame.facts.multi_activities;
-    const valid=activities.every(a=>['goods','service','manufacturing','food_service'].includes(a.kind)&&Number.isSafeInteger(a.revenueVnd)&&a.revenueVnd>=0&&
-      (a.vatRate===undefined||a.vatRate===ruleset.rates[a.kind].vat_rate)&&(a.pitRate===undefined||a.pitRate===ruleset.rates[a.kind].pit_rate))&&
+    const kindKey=(kind:string)=>kind==='rental'?'property_rental':kind==='other'?'other_business':kind;
+    const valid=activities.every(a=>{const config=ruleset.rates[kindKey(a.kind)];return !!config&&Number.isSafeInteger(a.revenueVnd)&&a.revenueVnd>=0&&
+      (a.vatRate===undefined||a.vatRate===config.vat_rate)&&(a.pitRate===undefined||a.pitRate===config.pit_rate);})&&
       activities.reduce((n,a)=>n+a.revenueVnd,0)===effectiveRevenue&&!frame.facts.refund_deducted_vnd;
     if(valid){
       const base=evaluateDecisionFrame({...frame,income_type:[{value:activities[0].kind==='goods'?'GOODS_SALES':'SERVICE',source:'inferred',confidence:1}],facts:{...frame.facts,multi_activities:undefined}});

@@ -14,6 +14,7 @@ import { resolveTaxRelevance } from './taxRelevance';
 import { matchPendingTopics } from './pendingTopics';
 import { buildConversationRetrievalQuery, normalizeConversationHistory } from './conversation';
 import { buildMuseRequest } from './museRequest';
+import { callOpenAIStream } from './openAiRequest';
 import { validateLegalCitations, canUseVerifiedAnswer } from './answerValidation';
 import { answerPriorityTax } from './priorityTaxAnswer';
 import { answerVerifiedReliefEligibility } from './reliefEligibilityAnswer';
