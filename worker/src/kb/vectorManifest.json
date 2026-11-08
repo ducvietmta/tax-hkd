@@ -2,7 +2,7 @@
   "schema": "taxhkd-vector-manifest-v1",
   "model": "@cf/baai/bge-m3",
   "dimensions": 1024,
-  "version": "tax-kb-bge-m3-d8c83c1b07ca16bfcde8",
+  "version": "tax-kb-bge-m3-090381eafd95bd0889eb",
   "excluded_refs": [
     "16.24"
   ],
@@ -86,7 +86,7 @@
     },
     {
       "id": "16.12",
-      "sha256": "c4f69ce3a63c6b8dcb0f48938839bba032f46e24a40d2f22c78b3b315e90781c",
+      "sha256": "961bbe49da82a22adc170c2f00d4a98de4c6c7e7ad866003fd59074b8e0fe66f",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -142,7 +142,7 @@
     },
     {
       "id": "16.20",
-      "sha256": "65bd197098d16a02ca6be0239193fae4aefddd364b9ce102d8e871d17a59613d",
+      "sha256": "37999d3b3fadf52fcba2fd72dc5a729c546eb5bc013cbd9fb8136d45bf242903",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null
@@ -275,7 +275,7 @@
     },
     {
       "id": "16.40",
-      "sha256": "1d7850296f6baea878efeaf58edcb185bee39fc0ddbf897e5e0e9e919721c9c1",
+      "sha256": "c67bf2379995b85996aa7206a69482ad2f96c159fc24358dc250589ce7995be3",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -401,7 +401,7 @@
     },
     {
       "id": "16.59",
-      "sha256": "5fb0114ba1b69e0f1e0d3c27ccfedb56437574f1e6809dc0b246d40cbb1f4ec2",
+      "sha256": "46cfbbf5afc33ecf09c7608061d345e25242df09917bcb4597138436e216c129",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null
@@ -632,7 +632,7 @@
     },
     {
       "id": "16.95",
-      "sha256": "01d4984b077893ad16b9df69eb1c45195abbe024fdad3272653312acc00b74dd",
+      "sha256": "78c12070cbd2a10028a1575043c5746df9d8ab09671bfeb1fcf5d5854282ad60",
       "tier": "VERIFIED",
       "from_year": 2026,
       "to_year": null
@@ -674,7 +674,7 @@
     },
     {
       "id": "16.101",
-      "sha256": "ff29877c79594e6391435d66979cec59d8312b24a143c687852359a2c8d28039",
+      "sha256": "877aed84df92338070fc37af2eab73273ef38b9aad702825c139835fe319247a",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null
@@ -688,7 +688,7 @@
     },
     {
       "id": "16.103",
-      "sha256": "d059b78e05d94d304fef252c31634ab8c034a1c9175fb03d30f8c5e436002b6c",
+      "sha256": "42dc6d07ddee9e8b56df6d7e0e3f80205089572a7b70e76336de86409822546b",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null
@@ -709,7 +709,7 @@
     },
     {
       "id": "16.106",
-      "sha256": "6d2ae3d8470af071bda0f391fc6ff4bf7453a1c3108ed4c2af05f370403526c8",
+      "sha256": "ae57af0120a9291e33611379d2010d19bd9c8535ef647a9ad98eef1d9dcfcb99",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": 2026

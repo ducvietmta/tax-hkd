@@ -331,8 +331,35 @@ export function understandClassifiedQuery(
   classification: BusinessClassification,
 ): TaxDecisionFrame {
   if (!classification) throw new Error('Quyet business classification is required');
-  const normalized = { ...classification };
+  const normalized = { ...classification, secondaryIntents: [...(classification.secondaryIntents || [])] };
+  const q = fold(query);
   const hasAmounts = extractAllAmounts(query).length > 0;
+  const prevPrimary = normalized.primaryIntent;
+  const preservePrevPrimary = () => {
+    if (prevPrimary && prevPrimary !== 'OTHER_TAX' && prevPrimary !== normalized.primaryIntent && !normalized.secondaryIntents.includes(prevPrimary)) {
+      normalized.secondaryIntents.unshift(prevPrimary);
+    }
+  };
+  if (/\b(hoadondientu\.gdt\.gov\.vn|dichvucong\.gdt\.gov\.vn)\b/.test(q)) {
+    normalized.topic = 'TAX_SOFTWARE_SYSTEM';
+    if (/hoadondientu\.gdt\.gov\.vn/.test(q) && !normalized.secondaryIntents.includes('E_INVOICE')) {
+      normalized.secondaryIntents.unshift('E_INVOICE');
+    }
+  } else if (/\b(?:phai|can|co phai)\s+dang ky kinh doanh\b/.test(q) && (!normalized.topic || normalized.topic === 'OTHER')) {
+    normalized.topic = 'BUSINESS_REGISTRATION';
+  } else if (/\b(sua|sai|nham|dieu chinh|thay the)\b/.test(q) && /\b(may tinh tien|bill)\b/.test(q) && !/\b(tra lai|hoan hang|tra hang)\b/.test(q)) {
+    normalized.topic = 'INVOICE_CORRECTION';
+    if (!/\bthang\s*[1-6]\b/.test(q) && scope.years.length === 1 && scope.years[0] === 2026) {
+      normalized.invoicePeriod = 'H2_2026';
+    }
+  }
+  if (
+    normalized.taxFocus === 'pit' &&
+    (normalized.secondaryIntents.includes('E_INVOICE') || /\bhoa don dien tu\b/.test(q)) &&
+    !/\b(khong tinh|bo qua|chi tinh)\b/.test(q)
+  ) {
+    normalized.taxFocus = 'both';
+  }
   if(normalized.answerPurpose==='DEFINITION' && !hasAmounts){
     normalized.primaryIntent='LEGAL_TEXT_LOOKUP';normalized.topic='CONCEPT_EXPLANATION';
   } else if (normalized.answerPurpose === 'DEFINITION' && hasAmounts) {
@@ -343,20 +370,26 @@ export function understandClassifiedQuery(
     if (!normalized.primaryIntent || normalized.primaryIntent === 'LEGAL_TEXT_LOOKUP' || normalized.primaryIntent === 'OTHER_TAX') {
       normalized.primaryIntent = 'EXEMPTION_ELIGIBILITY';
     }
-    if (/\bthang\s*(?:[1-9]|1[01])\b/.test(fold(query)) && (!normalized.revenueContext || normalized.revenueContext === 'UNSPECIFIED')) {
+    if (/\bthang\s*(?:[1-9]|1[01])\b/.test(q) && (!normalized.revenueContext || normalized.revenueContext === 'UNSPECIFIED')) {
       normalized.revenueContext = 'PARTIAL_PERIOD';
     }
   } else if (['BUSINESS_CESSATION','BUSINESS_SUSPENSION','TAX_REGISTRATION_CHANGE','TAX_STATUS_RESTORATION'].includes(normalized.topic || '')) {
     normalized.primaryIntent = 'STATUS_CHANGE';
+    preservePrevPrimary();
   } else if (['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(normalized.topic || '')) {
     normalized.primaryIntent = 'REGISTRATION';
+    preservePrevPrimary();
   } else if (normalized.topic === 'SYSTEM_REGISTRATION' && normalized.primaryIntent !== 'TAX_ID_888') {
     normalized.primaryIntent = 'SYSTEM_REGISTRATION';
+    preservePrevPrimary();
   } else if (normalized.topic === 'PORTAL_TROUBLESHOOTING') {
     normalized.primaryIntent = 'PORTAL_TROUBLESHOOTING';
+    preservePrevPrimary();
   } else if (normalized.topic === 'TAX_SOFTWARE_SYSTEM') {
     normalized.primaryIntent = 'TAX_SOFTWARE_SYSTEM';
+    preservePrevPrimary();
   }
+  Object.assign(classification, normalized);
   const frame=understandQuery(query, scope, history, normalized);
   if(normalized.obligationDate&&frame.tax_period.years.includes(Number(normalized.obligationDate.slice(0,4)))){
     frame.tax_period.event_date=normalized.obligationDate;

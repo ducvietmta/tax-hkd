@@ -1,6 +1,6 @@
 {
   "schema": "taxhkd-case-proposals-v1",
-  "corpus_hash": "979e807087e196a04610950b41f6ed95115a074b6d8a052d40cf5ef054bff690",
+  "corpus_hash": "af5fef88d10c53289f0d28cbee2635e5867bf0992e94da279ac8f324c5530b8c",
   "vocabulary_hash": "2d7900a03a9bacb7443bc9568814cb895b8ea0a035e7f2d4095226c69925ceaa",
   "rows": [
     {
@@ -36,7 +36,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -55,7 +55,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "41f577ac4f3abd8a9ed9ec26e887a0b4254c70a482145ee42d654c5fa1176dca"
+      "proposal_hash": "e84317b2c5f36f052fc76ef518ee759d73e95d0fecfd3d3c6c1e9e29bf92e3d7"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#66",
@@ -91,7 +91,7 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 3
         },
         {
@@ -100,7 +100,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "4d5fbca68f5028dbf1d5a02c756cda59729150d3ee6cc92c72be437fe26adc2f"
+      "proposal_hash": "16d53d8ad1743d84ddcd4e701378acd844a290dd53fc16203992889b26310195"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#67",
@@ -196,7 +196,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -205,7 +205,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "47e6c1304706e3b032c0b1990db4c3959a0bf319b148818a0c046080097b05f7"
+      "proposal_hash": "a24a88d366ddaf4a515491a1de74661a9460cf3bd08b9d6639114327665321be"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#70",
@@ -228,7 +228,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 4
         },
         {
@@ -247,7 +247,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "77196aa7e531f87efb2f6a67f080d741615c6c4debb070f3e71a73aa586f1060"
+      "proposal_hash": "3b70b6f64789189cb85687cbf461f152f1fefe399ab9db8ad2440e1d599a4c0e"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#71",
@@ -357,7 +357,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -371,7 +371,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "771e527aeb392fa98fbc3956d00d8c869a4ab193e43bac0e5276a74e46c35ae4"
+      "proposal_hash": "c7aa7f39406977954dfc24eb458d4c658f57acd548cdf6f469c4edd9c4826a1c"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#74",
@@ -399,7 +399,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -413,7 +413,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "dd1c001770872856ab213ce4445847e12fc9c06ec06dbb3a5288787679805ab8"
+      "proposal_hash": "d46fa0bcfda379bc5b88ddc4022d671b0e9197375dff926c7a1011c4ee3f3258"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#75",
@@ -446,7 +446,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -455,7 +455,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "2e3a8fc74ea46bac863d95147ac18187b9ced3cc06e5eef8fbc87e491b1409b9"
+      "proposal_hash": "705c53999792b71c4c301c9d8cffc980de1795cb06da8588a534de205bd4b383"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#76",
@@ -478,7 +478,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -497,7 +497,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "7d0d0c9d3ea1c6f95a7dacde099688d2288fa9612685dac83101960f388d8d51"
+      "proposal_hash": "06665a100cc0a7b3dbbe3fe0914525230789694df0b1379b23a5858060f30e64"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#77",
@@ -529,7 +529,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -538,7 +538,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "8975c8a56e1ca227af8deca38e9a84b4f20d81e5b764ef5da7a48abcf4da5fbe"
+      "proposal_hash": "9ccd32bdbf5f1ee8e1bf0ac3da04701585db5c0939dac33c59bf5d1076b07751"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#78",
@@ -609,7 +609,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -618,7 +618,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "829cae71bc3c42139170b1ef6c6904df266ed809525174d86967dd04b86afa09"
+      "proposal_hash": "7d930365b42b1f1d2bee69f9275e5761165b9c4e8d9714a9f7757d1cdfba6f03"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#80",
@@ -693,7 +693,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -702,7 +702,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "0edb3e481de9feed158918516336b46796b498c4340c3c75419536c2b689c6df"
+      "proposal_hash": "1a3d29959d31561381fe8bf81862e7b38b6008826e9a89aeed2928ad2f83330b"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#82",
@@ -823,7 +823,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -832,7 +832,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "c994f7bfbf7230a714c30f4da9bc8428354d146f6343f6958ac449950915339c"
+      "proposal_hash": "82bd0eac6e6456e69d9fca02ab96aaaf12bc4ea0359a668a7a92a5ebe4818836"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#85",
@@ -1235,7 +1235,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -1254,7 +1254,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "c0608b0492c0b5df9370e2c93e31c4556d3ce1c27967d773f8a94029729740c7"
+      "proposal_hash": "543e38887fb5cb4b9f7cbbc6d62a0067850faa3719f07f95e5207eac63a5e8ba"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#95",
@@ -1589,7 +1589,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 4
         },
         {
@@ -1613,7 +1613,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "36b9399a0234873cb7a093f473188311461e2e47d4ea2bfc3e76e23251a0c3ed"
+      "proposal_hash": "6628e98bea50643ab37ff811ca8076f31e7178de2ebdb8b0a117a0067aa3a245"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#104",
@@ -1641,7 +1641,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -1655,7 +1655,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "f6a715aa2bc72aad620a93fb4a9981a99e418df5baed1f3a3923b97cf6aa5a4b"
+      "proposal_hash": "6c73f5846f5a8ebbe1ce8f8d395630af1c52cba614464b5cbd07a16c390cb181"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#105",
@@ -1762,7 +1762,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -1781,7 +1781,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "a6a193178eb3010359fc72ef37eeb51115468b8d386a8d1c3217e1072c6042ea"
+      "proposal_hash": "4fec50939da7b9f49513f483c83d1dcd25e6a46f6612621bd24bbb5f1e5972b0"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#108",
@@ -1805,7 +1805,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -1824,7 +1824,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "1804226d5b36748c932966ca18ccd798ef0d3a4bb7912c9edac080eaa3c05dbd"
+      "proposal_hash": "6aae9e5568e756d1c38989db1bd7d65abff753f2e57659a4b2d314b18910cf3c"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#109",
@@ -1882,7 +1882,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -1901,7 +1901,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "fdcf25c616cd5d5ca857239115c63eb4252aaaa59d02c09fb9c11e0c9f5290cf"
+      "proposal_hash": "fa3232f9203cce9480ed43e0fad51ee476691ffe157cb9d77c3b80452b5a7a8e"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#111",
@@ -1983,11 +1983,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 2
         }
       ],
-      "proposal_hash": "4c37f27de1eba1e482805b1d5a44c834dd2afe28032f44a0ba4ee5a27cc18c8c"
+      "proposal_hash": "59520f09feedbb5d5eb6aabd022e170eeebd968de5de79065b5dbb9f19927215"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#113",
@@ -2022,7 +2022,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 3
         },
         {
@@ -2031,7 +2031,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "8cd0dc8b0005c9e7551603e53a37364583f33529197f354721c7396daff1d99d"
+      "proposal_hash": "7aa3e08e452ba50dc776e7ac1c15bbd02bcc5f199b8b847401d80fc3e3d34735"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#114",
@@ -2094,7 +2094,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -2113,7 +2113,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "d2acb8492bf908da1815a62faf014454093f79799879390b4509eff49b276a18"
+      "proposal_hash": "7a1d41e6ca3d3d780bb67476b975df35b94c2bd5e1a647753446c38a14a87dec"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#116",
@@ -2183,7 +2183,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -2197,7 +2197,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "06b89d2080dd5787ef36cb45fd12b4cdb4f305343663998aa6acf2fc671b549e"
+      "proposal_hash": "284a3ae5ab46190faf46f2d4cb092ea366def450a28ba95fbe4809d33694495e"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#118",
@@ -2230,7 +2230,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -2239,7 +2239,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "2101367f84de414c65db8ef82af92b0114b6d698fc954a49e2c037caade42e4d"
+      "proposal_hash": "dcb9423bc2fd0bb58792ed97964ef558fc4fe55baf38e5a8cf923c1344c91397"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#119",
@@ -2327,7 +2327,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 4
         },
         {
@@ -2337,7 +2337,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 4
         },
         {
@@ -2351,7 +2351,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "31452d84b38cfd08eb4af3ea2e77884e24edbf25495032c4c216d146f68c61ed"
+      "proposal_hash": "67b839850c5b5d99e3b20e3297a40b7937acd18bcf77f0c2d43ddf0e7b79ac24"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#122",
@@ -2372,7 +2372,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -2391,7 +2391,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "17f168416fce821e2a6fbd6f5efd4419ae066ead3360322b9c2fc189b7f94949"
+      "proposal_hash": "20404b6864ac77a1a8a72cab2838296231a6d36f58cbf2faa462f044ba12434a"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#123",
@@ -2712,11 +2712,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "c01c7898325561aa00cb58c94e6caa7ac726f81381bb31863f70090538a48742"
+      "proposal_hash": "12966ddee8fd216d6d05966997b13b56dfc9fa8e7e89214581a4fc601df29d03"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#132",
@@ -2796,11 +2796,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         }
       ],
-      "proposal_hash": "8df4860adc0972ec80186f4608c1bd72d832a287e76dd85f0ed30cfa4da0fe4f"
+      "proposal_hash": "86bc830a0890d9f4c1f47fe434b0dc8e401de0acb4e44508f66d096bc87b49ce"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#134",
@@ -2959,7 +2959,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -2968,7 +2968,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "c0c690afd1cd95cffb60c2d070a7e070647ca070f777d6cefa2244969c468d50"
+      "proposal_hash": "482dc4f2a459c1d09aa5404c678c893915bfceb51cd8b9ea093dc35f5a55e2dd"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#138",
@@ -3039,7 +3039,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -3053,7 +3053,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "071ff97bbe6291d313c7ad318abc3f5e4ef98dc4afdb9319bae596e233d48508"
+      "proposal_hash": "1b425d3abab567fc219c98a6d09ec1f90501feae8308cbe653b1e0a56580cf35"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#140",
@@ -3125,7 +3125,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -3139,7 +3139,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "fe7b152cbc5df0d8bd6be08eb826ddf3003da3e76b360fc57ff1f81cf4de36b5"
+      "proposal_hash": "d08e745155ac26440d8d7b767210e3a6099852cec3d590219bb2ab4d90f5f033"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#142",
@@ -3164,7 +3164,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -3183,7 +3183,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "263f69616cbb043bdb3d34f8011006b8ea4b6fd6f50c5973b88555d52f83b410"
+      "proposal_hash": "15e4c0cf9320126beceac7f09076ec2bcae1e45f693429ca2d3f73e50c2f8436"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#143",
@@ -3262,7 +3262,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -3271,7 +3271,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "24176d5f05f2a7dcbae7d17695ac024b5af6dc62106a51f931740d3355ad37ca"
+      "proposal_hash": "cac21feaab10537fd299d3daa01769ad7f8dc56c8605c52001e318474ada29f2"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#145",
@@ -3292,7 +3292,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -3311,7 +3311,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "6f013be8d7f74dea67f3453ee8ee5319df1150c0426ad85ee3c5db2bbf5063f9"
+      "proposal_hash": "c40b2316789c0dab2c341e29cdf4caadcd5982c27519cf13cdf23479074e1a15"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#146",
@@ -3332,7 +3332,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -3351,7 +3351,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "df0feed030036fc7b24b553804420795dad5d5487bd7e13b4c1197699a76f3ee"
+      "proposal_hash": "3dea8c7c24aa5130d38676e10b650586fc47f5cda56867eebf4471b905d0c147"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#147",
@@ -3382,7 +3382,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -3396,7 +3396,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "2002f2f91a797173a2321ae75c0f9599959320a801da5a8f09ee37f420b6646f"
+      "proposal_hash": "c44ad5c892b2f94b75a4f8a3c9d8ffd58371dc9f4427f7f99d8a1fb9df4f832e"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#148",
@@ -3527,7 +3527,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -3541,7 +3541,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "426d43911533c3b340f6db162b385bab361db79a1767bb7606bb9cbcb1d6e7b9"
+      "proposal_hash": "967171522f4f89c7b784e7d228b6b75f8a5de07f6834c9f85446c3032a365797"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#152",
@@ -3717,7 +3717,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -3736,7 +3736,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "7885751acad7fa6ff080824356d498588b34d8b824a7ceb91e55388830498dfc"
+      "proposal_hash": "030f8c1db0d51d85fee10134f1d77ab86631b2e6d44e319d70a4004a6a397b16"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#157",
@@ -3845,7 +3845,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 4
         },
         {
@@ -3864,7 +3864,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "674b65f721d8b88732e41a481c4f13ae1dbac42375a3b251e89466005930c369"
+      "proposal_hash": "fd7803e8e1736a866bc163df3cec6c92d79354aeee765cf9083a227b5127934c"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#160",
@@ -3908,7 +3908,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -3922,7 +3922,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "90722b7c21eb228689fac18057fa6c6fdebabcf847cb63acde6d01f2144a66b9"
+      "proposal_hash": "801aa5941897e3ab70a0e5b9b59a78f919d9cc8692a5a595c1232d1954456365"
     },
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#162",
@@ -4039,7 +4039,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 4
         },
         {
@@ -4058,7 +4058,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "9302d223e68b7a9bb663add56e98583a170870401879c071edaa35a1d325ca6c"
+      "proposal_hash": "b9854f5a7ddbc340ac6b5e25311eeb0d466d9dbf4609a2fa919d21000763ae81"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#166",
@@ -4076,7 +4076,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 2
         },
         {
@@ -4100,7 +4100,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "77f02214102bf27e6010d5d2a11f7ceb286d48ade0d467eb66dbb89f56173bad"
+      "proposal_hash": "f2f7d343b7077e60309ac46d626a59fd685240a0c6bab4d1dc58973a3dcac954"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#167",
@@ -4118,7 +4118,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 2
         },
         {
@@ -4142,7 +4142,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "e53bd8e77d47a9c7a3cc635a73e4f1b2ba27564213abeb326d10566a19aface4"
+      "proposal_hash": "72482387004910a8a5ed0c1b8de7a4df1ffc38066e330dc394123b2e93802201"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#168",
@@ -4170,7 +4170,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 2
         },
         {
@@ -4184,7 +4184,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "6d6c74199a1436c2f3374b55678235116ed0cb32ce0c0aa226bd1079726b13ec"
+      "proposal_hash": "31ff2f0b3f45690e02d5511e970343d5238491250d7bf78769fcd7dddba1ee28"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#169",
@@ -4215,7 +4215,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -4224,7 +4224,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "c5a49ddfd1291fe6ad6997b7ad00ab2d147d829c4113d3ac3f8959f0ae45dfb7"
+      "proposal_hash": "0a5ac8bcd64a4a568e83fbbc016540ce1a1798e087f9d00db97efcb1633f4e8d"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#170",
@@ -4323,11 +4323,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "de91b31e4304448e13446c22320b3bff8772ac7afeec21800abd44bf25a7b4dd"
+      "proposal_hash": "b39ebb807672b09d334aa777fba9c01a005bc1e51347ead6f04e535e5d57ba2f"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#173",
@@ -4360,7 +4360,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -4369,7 +4369,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "1fd3ed9f1c2f041c93b604ab7022ffa0985273235171243206864d5b4635303e"
+      "proposal_hash": "2808d0316e60f0f3443736c83334f612c879583357f004493e80aa251a53c7da"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#174",
@@ -4441,7 +4441,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 3
         },
         {
@@ -4455,7 +4455,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "962d44e4c554c5efbf9b0e38a76c867c3e3b0462a6e6937241a5de54b36968d7"
+      "proposal_hash": "9d23d268119d1ba676e73df35c49ea3232b6f7748136204da245ebf402377c03"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#176",
@@ -4476,7 +4476,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -4495,7 +4495,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "d36d6636c272ec4bf455e95c12cd7b1e5164f237bcded713d99f9f1aab8a5b16"
+      "proposal_hash": "8e378a5bf698d8c8ead287e8833978c79a21758860c80e67793fa0818076e00c"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#177",
@@ -4539,12 +4539,12 @@
       "candidate_cards": [
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 5
         },
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 4
         },
         {
@@ -4563,7 +4563,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "cb71146dada748905f04d7e2ce0ea7e9b9212d2f1742f890fb7150378c065311"
+      "proposal_hash": "653ea8a7e1a32cd3f3795251d999dc26bbffc7ed14b7b49b2a8b52df6b380673"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#179",
@@ -4713,7 +4713,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -4723,11 +4723,11 @@
         },
         {
           "ref_id": "16.106",
-          "card_hash": "b8f86564c9d36af13a0b29872ba82997df63155be456ab02bc5b232ea4153f04",
+          "card_hash": "ae49238423fbde9dbb173289a6d8d8968bec066e47e4a6af5a6ceed3d098e92b",
           "score": 1
         }
       ],
-      "proposal_hash": "30d50cd8ad5e2bd3c0f0213399c678afef0115b33af815e49c244d458bf4044f"
+      "proposal_hash": "8b92edc2fda7c77e8398d64e74e1a34b92f3d36acaf193a3afd0fb6be85b1ac7"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#183",
@@ -4753,7 +4753,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -4763,11 +4763,11 @@
         },
         {
           "ref_id": "16.106",
-          "card_hash": "b8f86564c9d36af13a0b29872ba82997df63155be456ab02bc5b232ea4153f04",
+          "card_hash": "ae49238423fbde9dbb173289a6d8d8968bec066e47e4a6af5a6ceed3d098e92b",
           "score": 1
         }
       ],
-      "proposal_hash": "205b19a241f61d6d695f83def41a4a7e1a17ddd92708721a3763909700fee346"
+      "proposal_hash": "88032b37623a4c9d4fb4ab53fe4ea93b76154e08b70163f64ac0f875adf435b1"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#184",
@@ -4905,11 +4905,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "2caeb160e6128d1ac61b1c7cc327d85842717c1733d6aaeac47f1b6253bb2917"
+      "proposal_hash": "9b8ed84f4f172f759e2529179c42aaa7ad53a47cc9e3a131253fe4b033ef5bda"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#188",
@@ -5020,7 +5020,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 0
         },
         {
@@ -5034,7 +5034,7 @@
           "score": 0
         }
       ],
-      "proposal_hash": "70dab30e6118cd5a92de8045ab38775fd651ccbc809d5de9aa173ea6e5c5a866"
+      "proposal_hash": "e0171854a98bb6d6b841922f15bfb9213d8fca12f8a70eac12fb7e432d4678de"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#192",
@@ -5072,7 +5072,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -5091,7 +5091,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "f9fb64879cce15889ced650aa841bc43afd1f954f66765a322b8df7fac6f285a"
+      "proposal_hash": "d3af8d6bc518f95890d5dacacc32872821a352c961dfb4de5394690c3635dd13"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#194",
@@ -5113,11 +5113,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 0
         }
       ],
-      "proposal_hash": "342c5e77ffb41eabc07fd705b170707731ac0f254103a044a591b4d2bfbc0ea5"
+      "proposal_hash": "77422f22267a30e11a78a54cca1c592ce6db11fb767839130e33dd52841d001c"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#195",
@@ -5143,7 +5143,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -5153,11 +5153,11 @@
         },
         {
           "ref_id": "16.106",
-          "card_hash": "b8f86564c9d36af13a0b29872ba82997df63155be456ab02bc5b232ea4153f04",
+          "card_hash": "ae49238423fbde9dbb173289a6d8d8968bec066e47e4a6af5a6ceed3d098e92b",
           "score": 1
         }
       ],
-      "proposal_hash": "83332bb65a2e7b8e9fedd0a2ff8080fadb8d08232fa46ca748e9c64d57be7190"
+      "proposal_hash": "5eef27646d72511fa1292bfbe1293d04621751493988e6aee0a524eb906666b5"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#196",
@@ -5353,7 +5353,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 2
         },
         {
@@ -5368,11 +5368,11 @@
         },
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 1
         }
       ],
-      "proposal_hash": "66b2164fbf0f2d52b3e1c93b8eb699fc9613439027d2d008e2fe7fd2f8a3ba7d"
+      "proposal_hash": "bf027f555fe10ce80cf9c71da6d329d2ac848435498dd0ff374f531f658a1b0a"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#202",
@@ -5398,7 +5398,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -5408,11 +5408,11 @@
         },
         {
           "ref_id": "16.106",
-          "card_hash": "b8f86564c9d36af13a0b29872ba82997df63155be456ab02bc5b232ea4153f04",
+          "card_hash": "ae49238423fbde9dbb173289a6d8d8968bec066e47e4a6af5a6ceed3d098e92b",
           "score": 1
         }
       ],
-      "proposal_hash": "696e7eb7e54b8ad7d4ae30117cfce87516a2d5e983b9fa5fb8cd54528c63eed8"
+      "proposal_hash": "ecb639d8a4c58f1277b2b9bdcda04c1cb8a61c1e27bc558daee964aa496cf017"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#203",
@@ -5705,11 +5705,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 0
         }
       ],
-      "proposal_hash": "3262f170dd37d72e8ca4ec95efca24eafe8dc833359affac09c4eedeee489642"
+      "proposal_hash": "bc4371bfe29f739a56e07bc220399934e87c4a721c987525a837cd3a3bd3da3d"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#211",
@@ -5745,11 +5745,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "80ac69d12da31dea5e18bf62235ae075746210181a8a5f3d3b7662a67abcc730"
+      "proposal_hash": "7531f361a1bd766ac409e80020ec1235255ba7dc7c3c0d88d3be96f70205598c"
     },
     {
       "case_id": "KB/02-hoa-don-dien-tu.md#212",
@@ -6084,7 +6084,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -6093,7 +6093,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "825a6f01d8d239719fa3afa22248d1a69fede6281c8e72ae5cbcdfba18d578db"
+      "proposal_hash": "23eb9cfb74304e5b9a539efe92b7c010bf46c377215d606f3a52898327ea2b0c"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#223",
@@ -6244,7 +6244,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -6263,7 +6263,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "b694b2accfc10cdb075b25dc3044f3e7b06466892649da5a658b390839132aae"
+      "proposal_hash": "aca5d4553a360802e5a83c749cc8a55680edc19f0af5d57901f9c56958c8d04e"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#227",
@@ -6393,7 +6393,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 5
         },
         {
@@ -6403,7 +6403,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 5
         },
         {
@@ -6417,7 +6417,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "73e2e2d1132816ac018af5a7c44be9dfd03d1db7606ff8571bbd71eca2639a1d"
+      "proposal_hash": "4514bb032805306b7c6d8662dc1769418e1ac2242ea84c204f0211a9f4931a8f"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#231",
@@ -6441,16 +6441,16 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 0
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "87cf66c6c87b9cdc785c879df1953ef44eac14675c2f7e2c3d63cbda9ef9078e"
+      "proposal_hash": "aca17e6bc4c33284f3f0655871714b4af7b8b4e317e6c1a6621e813ef7bb1b66"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#232",
@@ -6540,7 +6540,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -6559,7 +6559,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "28d9ec7fb1794c985b823223229701229d02f4ae55c9e8124969beba6fc146e0"
+      "proposal_hash": "4adc08f055ea398fac46ba0d023ab0b9002732a814bec6cef7d7e910ed61b4bc"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#235",
@@ -6672,7 +6672,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -6686,7 +6686,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "d7ea03619874b63948d685923080f174c28d48b1e0c9424a7114978ca1e1b83e"
+      "proposal_hash": "7e10228d7f431afc19ece93fd137ef07acea81a4b1d090ef9a5c5864b3faec0f"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#238",
@@ -6797,7 +6797,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 4
         },
         {
@@ -6816,7 +6816,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "ea3fabe63aadd6f5f6fa8c059d5bf2c347b8a9a16a942ad846b0a488138c1e85"
+      "proposal_hash": "bdf727884d368bc3d7bf9640067e277a6873063a89523779d2a22e7c6ab5ed5c"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#241",
@@ -6876,7 +6876,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 3
         },
         {
@@ -6890,7 +6890,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "a8d8768c1f2ec7fe0cefd3009f9fc2742676c4efa4a0dda36db2e0c9dad28e83"
+      "proposal_hash": "5864a3d396df07fafeb0a9de29c14ba52809d7b0ae459f628f6ac4e41dd07ca5"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#243",
@@ -6958,7 +6958,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -6972,7 +6972,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "2066079e3426850b4a73ef10945e88ee9b55ac7bb3b6e5398cfcab1ce450081d"
+      "proposal_hash": "220fbe4efada3a4128e22723abc42c185dcb592eb793597f97c4473a119baedc"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#245",
@@ -6998,7 +6998,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -7012,7 +7012,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "6bb6e94bcaf2adad8998623aba6a9837ce5c2c8c687c9683f6b1eb77c7a14648"
+      "proposal_hash": "0245ab524d137fb9a8ba7436409cec683906656faa9f1ac7792aaa0a21a0ccf9"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#246",
@@ -7049,11 +7049,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 2
         }
       ],
-      "proposal_hash": "e6a79ebe79eef9904b8273bc694ef3d47810117c3c679ffdb93370a64985c983"
+      "proposal_hash": "7b1da7675f5cd6f604795c0995d64e27f35a188ecaa1dfbcec83920d585b54df"
     },
     {
       "case_id": "KB/03-thue-suat-theo-nganh.md#247",
@@ -7079,7 +7079,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -7093,7 +7093,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "c1249dcd8e18145d87e93388dda9874a511bd50eccd02513076252a3582b09e8"
+      "proposal_hash": "e40abde2916ccd5abe69f40ad54d132925dab205802b15a9b040eb440773d350"
     },
     {
       "case_id": "KB/04-dang-ky-hkd-va-mst.md#248",
@@ -7172,21 +7172,21 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 2
         },
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 2
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 2
         }
       ],
-      "proposal_hash": "a3a72b6b5abaff9d397bf878eace33fb8c11a8cac5d7d5a09c9d7322431ecacd"
+      "proposal_hash": "edb01792b99d42ca45199b2e8805ebfcaafc141154f8f4377bff06ac667ab599"
     },
     {
       "case_id": "KB/04-dang-ky-hkd-va-mst.md#251",
@@ -7519,7 +7519,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -7528,7 +7528,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "3fd9c42f3067392412f1c0e290c6dddd002b292a18aae330b3dc2df586ad9ed8"
+      "proposal_hash": "19ca41922a2ae4a4593ba2ca77072a32c2f7bb2f8418d845bb23e0aa136cbab6"
     },
     {
       "case_id": "KB/04-dang-ky-hkd-va-mst.md#261",
@@ -7554,7 +7554,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -7568,7 +7568,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "3d9f0536083a60f1d8e971a6cda36791fca96f81c0b2ee974c6a1f827ddc9300"
+      "proposal_hash": "58eef594c072034fd58177085a67933ee43c8c168119d1ce0bf2bd6b5cc3e466"
     },
     {
       "case_id": "KB/04-dang-ky-hkd-va-mst.md#262",
@@ -7867,7 +7867,7 @@
         },
         {
           "ref_id": "16.40",
-          "card_hash": "fa91286d79f34d52cdbbadd0a14a3ed52894e78532a33b935c94a8ad20ea1ff9",
+          "card_hash": "e16486ef92b3af0b4d2a0346a9eeee00d2c9ba28ff949f46aeaff41346fb03ba",
           "score": 1
         },
         {
@@ -7881,7 +7881,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "a363f83858ba600ef4897dd4c040c41c5893313b312eb660a8017130e6eaffdc"
+      "proposal_hash": "aef5b73ee1e896827c319832fe659ed1602cc92f015641139791e8f4151a5e1c"
     },
     {
       "case_id": "KB/04-dang-ky-hkd-va-mst.md#272",
@@ -7985,7 +7985,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -7994,7 +7994,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "1a68458ee8ed4f1438b8adebc7a1a2685b061340e980be53689edd91d542098f"
+      "proposal_hash": "ecdb2c13456ee0248b1b93e39004932b65abf36a5256c652b56a49cfe994c587"
     },
     {
       "case_id": "KB/04-dang-ky-hkd-va-mst.md#276",
@@ -9016,7 +9016,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -9035,7 +9035,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "dd157473fdf1fa10d1bf33963e7e2b7dcd7a1a04d1d83abb670c72fa1b5eebee"
+      "proposal_hash": "4aabe6e399f04a0590318264d8294c2f625f1fcf48f3e48a73f1a62ecf892910"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#310",
@@ -9099,7 +9099,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -9118,7 +9118,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "ab5ab1285a39ae5357c92cf2d2c82970bb4524996a06dbb981957862bf812a79"
+      "proposal_hash": "ef2c3e4fe4e5c1ae64f04210bab3d706ad653fe5159c9556b88db503c615ca3b"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#313",
@@ -9156,11 +9156,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "774303f235a0285dad12c56703e98f75b81fb290fc110f36037b96f4d99ba54a"
+      "proposal_hash": "6354dc65403ad7809b89fa2c5db0440cd695f3964b76c559f3a7675c3e1e1765"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#314",
@@ -9286,7 +9286,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 3
         },
         {
@@ -9301,11 +9301,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         }
       ],
-      "proposal_hash": "38fdf0ff7bd2e5bba6eb0abd6e91f52ab24cc621f59f9af89e706bc982f8fe61"
+      "proposal_hash": "a5c96a0e66259b0f0c85b0a66caf2c8ae088cd3caa8d3df630b0ec5b829acf87"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#318",
@@ -9341,11 +9341,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "6c25c69d6c463b0009609934f6f3ef035abcb514ae16dd716efb0b2b60e25208"
+      "proposal_hash": "368e4c2c3171715a427e0007beef0fcd897ba512275c94342854da4874a6be80"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#319",
@@ -9393,7 +9393,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -9412,7 +9412,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "9f49867e7cce624f3b866cdaa66cc60a16e279adececbbb51b24d2842d74f199"
+      "proposal_hash": "1fbc75696c55d2e3aae2ccae484e7c9068fc8310198f35eacbf9f84ccebd10ef"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#321",
@@ -9433,7 +9433,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -9452,7 +9452,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "2f7abe4484e086e2b80cf5400f70e2828c69accdfad6e518c9457ac2b741b37b"
+      "proposal_hash": "6c8f5e7c553b4e621ef76e5dd88d55fa6a097037c6181d52fcb356bc3d4303f7"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#322",
@@ -9542,7 +9542,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -9561,7 +9561,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "a296f52ec4df768628c81878817d47ce39b683493da80996fb55460213cc7d52"
+      "proposal_hash": "acef6c862e1569d3cddc6093475f70e65f05ca0858537113a5bdaa54bf692a8e"
     },
     {
       "case_id": "KB/05-so-sach-chung-tu.md#325",
@@ -9675,7 +9675,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -9684,7 +9684,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "cd3fe43d4791f59ff56d0772afec962584074786b602071546bb1b5580dbf458"
+      "proposal_hash": "722f1bcdd70679616d326fde18fcabc29f6408882093fc216c6e410dd000190d"
     },
     {
       "case_id": "KB/06-chuyen-doi-giai-the-tam-ngung.md#329",
@@ -10017,7 +10017,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -10026,7 +10026,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "d267755583ac19553601ef6543a69279be6fd52e7f8ccc4c6decafffe9f531fd"
+      "proposal_hash": "7cfeebb24535f83f746af41a437244e35ed6f99d0e0053aad5ebe6f78acc9400"
     },
     {
       "case_id": "KB/06-chuyen-doi-giai-the-tam-ngung.md#341",
@@ -10200,7 +10200,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -10219,7 +10219,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "0151f029e1b7dbbe7c71fd55d684d78b85cc55fb7d75fa1cc5fdc4fe231b2820"
+      "proposal_hash": "a8a42d0d062b8870c55a6876a9f77cd5340a14c293694f83ea5983fbeb06e209"
     },
     {
       "case_id": "KB/06-chuyen-doi-giai-the-tam-ngung.md#346",
@@ -10886,7 +10886,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -10905,7 +10905,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "8fdcaf703cdb7ab55f42909de1ff0031ccb59c63a92dd8b857da4356380ada04"
+      "proposal_hash": "491ea5301fcbb3c169ba5ae032a35bf78bbbc3cf7a580b4faae5989b1c9f939f"
     },
     {
       "case_id": "KB/07-rui-ro-no-thue-va-che-tai.md#366",
@@ -10933,7 +10933,7 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 3
         },
         {
@@ -10947,7 +10947,7 @@
           "score": 2
         }
       ],
-      "proposal_hash": "c37f3c028fa456b187e8d4b36d4513c33a430425d01e2435c47e317bcc03eedf"
+      "proposal_hash": "be3cb11a88360d548f9dd6e63289dc5690e1735dfe944479f2bc5d4d9552ee0d"
     },
     {
       "case_id": "KB/07-rui-ro-no-thue-va-che-tai.md#367",
@@ -10986,11 +10986,11 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "7f124282a6f1516a7a361cfdda270c1cd9c9e873e02dbe9862375074413fee8e"
+      "proposal_hash": "fc0571ce789c50e8d3ded2f57fd087e262451893883b04d64965da1ffe4616cb"
     },
     {
       "case_id": "KB/07-rui-ro-no-thue-va-che-tai.md#369",
@@ -11517,7 +11517,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -11536,7 +11536,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "ddf27a8dfcd5d8de2e681c145a09ccd8effbd4a02ee378b486b92dca4a177ff0"
+      "proposal_hash": "6b9fa9fa096af234fe35c15b6c7c85a0f2b5fd7238e151173bd97b25def2cc39"
     },
     {
       "case_id": "KB/07-rui-ro-no-thue-va-che-tai.md#388",
@@ -11609,7 +11609,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -11628,7 +11628,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "31e5040e0014a2435f0f897ebe40dc2f055531712b28aa906415476c689aa9f3"
+      "proposal_hash": "505763e109800b16227deb8343e7e5021a677114b8bf90c2c4a53ecc18a9b2eb"
     },
     {
       "case_id": "KB/07-rui-ro-no-thue-va-che-tai.md#391",
@@ -12418,7 +12418,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -12427,7 +12427,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "58c4155ec0b3528c0ffa8e985cf1ddc9a4b2aadf6d9fa21b10b125fcadff8d49"
+      "proposal_hash": "c75257d63f20036612bc4619d6eadc79679c93fa63b9c01e252809d864d00970"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#417",
@@ -12455,7 +12455,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -12469,7 +12469,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "7b6c722343a04fece5d4b0edf15ab306dacb3fcec4df50e25fa568f5995b0d87"
+      "proposal_hash": "512fb3ad853f59fab26cb261e10df8fb41e0b1636ad13cc43bb87e493686c846"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#418",
@@ -12490,7 +12490,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -12509,7 +12509,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "988504721487c2034d9ee6ca4ac31b6479b9c781035512a323c6574b7dc67f16"
+      "proposal_hash": "a364b70fec52d979aa557853ea37d030e14db4c2d9f982c6922f7d042f889d98"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#419",
@@ -12535,7 +12535,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -12549,7 +12549,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "ac4bbea229e7f23697ece42dd5c7d29edc7c28b719f9e2d96cbd773021f106da"
+      "proposal_hash": "a7029e2646fc50676961b8bcbf83b77e7d80479a6dc064c1a8ded7b0c109001b"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#420",
@@ -13072,7 +13072,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -13081,7 +13081,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "b873c261fdd61ba40aed8aa8b30eb9c76b6bb61e3d8581735967f644bf307138"
+      "proposal_hash": "c0b8e3780dc87c7e21c2fe0fd2ccb4e82d7d68f73c963d727073e64d41add6da"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#438",
@@ -13228,7 +13228,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -13237,7 +13237,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "e1f0caa1ce968d55bf970aa2c79af35ebeed31a2359546c2dc288c5d925cdfe1"
+      "proposal_hash": "f349af2f0675277002f54b9b9c7d49a57d5b1da51fe9a4bfa45676776edf8110"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#444",
@@ -13285,11 +13285,11 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "261809f7506993a86352165952f7180d78869d3f424b0454cab5f21d5f311278"
+      "proposal_hash": "ea70a6cd1fa5f6b2a6097bffdbfb827b27401f7d4e3ba9c612c3527340c76f10"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#446",
@@ -13336,7 +13336,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -13346,11 +13346,11 @@
         },
         {
           "ref_id": "16.106",
-          "card_hash": "b8f86564c9d36af13a0b29872ba82997df63155be456ab02bc5b232ea4153f04",
+          "card_hash": "ae49238423fbde9dbb173289a6d8d8968bec066e47e4a6af5a6ceed3d098e92b",
           "score": 1
         }
       ],
-      "proposal_hash": "d6b3dbb8f0f7aa508cecf8ec0884e1c9d91a775ffa5f7293fd5be5950e2caece"
+      "proposal_hash": "c3e1724f1ec715a8059089519381c2ffd454210b2ca1c419bfbe1df16fb8d5d9"
     },
     {
       "case_id": "KB/08-chinh-sach-moi.md#448",
@@ -13940,7 +13940,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -13959,7 +13959,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "69e5b85c650fd34cd42ab9b15dfd95608e0612b68b9c5a97954074e1f69533be"
+      "proposal_hash": "7059d2e176519b27983020762c9b12ef13632bfecec1e2fbcb8404dae6656624"
     },
     {
       "case_id": "KB/09-kinh-nghiem-thuc-te.md#466",
@@ -14010,7 +14010,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -14024,7 +14024,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "6d24c14d9ed25dbc1d68d3665b42b91c97e6a5247630edf75b83cf5a467e8c58"
+      "proposal_hash": "8b61565cb06d1e9209ebc940dd2132f286b1ae20e325397fbbf42fa1cf3c01b4"
     },
     {
       "case_id": "KB/09-kinh-nghiem-thuc-te.md#469",
@@ -14272,7 +14272,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 3
         },
         {
@@ -14291,7 +14291,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "5da6de714b6ba9d81cc9bca1bd15aa030c4cbc8543ab12df1c9970a33570ff5f"
+      "proposal_hash": "1cc3eade7bf17b74441699d833bde08e3bdca682d9b272eff2b0c8cf9bbc1fa6"
     },
     {
       "case_id": "KB/09-kinh-nghiem-thuc-te.md#476",
@@ -14525,7 +14525,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 4
         },
         {
@@ -14549,7 +14549,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "376fc6be8a2cd38b95d3afd9e0b3ab7f6a784e0a4d2dd41c4ae1706c8b001d15"
+      "proposal_hash": "5a6944f9af8a075b4c941fd2fa739961462498cf023c6aeb5d03e7f95ebf5b26"
     },
     {
       "case_id": "KB/09-kinh-nghiem-thuc-te.md#485",
@@ -15156,11 +15156,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "ce751f1cb2b9a2a4e73f5f2cb4eb23df478ecb605b85093c0660829d1c2f700b"
+      "proposal_hash": "ab64830d6e27a2443c984f26ed4c78dab6cb226f8a68f5c2e2ce44c51f521e23"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#501",
@@ -15536,7 +15536,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -15545,7 +15545,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "038cbe44bd7540231aeebbb34c84d6e3d8903023990dd3b80d8eccba0c2864b7"
+      "proposal_hash": "cda41b7bebda928c547be7f4666a0a78444004357fb77847190075f98051b5a7"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#512",
@@ -15750,11 +15750,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 2
         }
       ],
-      "proposal_hash": "334bddcbdf24967647a511fc236ad190c98933ff77e1e6076e59d9f353af17f6"
+      "proposal_hash": "143d82108a0fb147c2ff62edc5ad8dc28009fee43100b5f6107a403a9b2ea75c"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#517",
@@ -15999,11 +15999,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         }
       ],
-      "proposal_hash": "bfff24f80db0e212e87098a71c29e171288d6c3bf6f9f2fb1780031e931f5296"
+      "proposal_hash": "4d5017db6122ef8c142bd23e82056b3971df8a2f5f62881d66296a0d5a1d3f50"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#524",
@@ -16074,7 +16074,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -16083,7 +16083,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "bd6bca98b4e146604e2e083432973f1744bd2966896c722539d923788621efed"
+      "proposal_hash": "f5ce3580b96e42f009f151572b20009fb6cec682d3ea51a727b8b3bc82344f4e"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#526",
@@ -16276,7 +16276,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 3
         },
         {
@@ -16295,7 +16295,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "bf5bcd6c0d98cdef51edfd5601c0df266e3c6e1a99b23c21484cb8feb822d843"
+      "proposal_hash": "4c916bec485dff2054a1c0e3e4f279c1ab5a4a772a1f2cb4c923efede7bb0bb1"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#531",
@@ -16545,11 +16545,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 2
         }
       ],
-      "proposal_hash": "714b862781d3417e4311f6cf06c50189f5d866b434a582b6fcba955200007659"
+      "proposal_hash": "b7efe3ea67dab2d540066bfa1cf83f95bc9e3aeb27c297600d67d522b814d572"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#537",
@@ -16826,11 +16826,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "7b31aa310908d2b5e433a30432c493cada3713b1e81285bf28d116f36596d747"
+      "proposal_hash": "b85444b82b5dafacca47e3da1ed4da44e58ebfa14aaba4df935ae8fa2f234800"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#544",
@@ -16918,11 +16918,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 2
         }
       ],
-      "proposal_hash": "402266591079c3c15bfd1e391ba991a677d21454ec3ad9a2b47031a038cd7c04"
+      "proposal_hash": "a8176a234488eb1642bc73cecdfb65581abaceb24d6031617f02b7835dba4396"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#547",
@@ -16953,7 +16953,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -16962,7 +16962,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "223a902da50fce9aa4cf30b3ecb188792e01b100ee83840dde6f7b536edcb796"
+      "proposal_hash": "2ceeca2eacd4eb502c37e87c094b579e514cd25e981e6b37f6a2f13dc0fa3739"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#548",
@@ -17041,11 +17041,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 2
         }
       ],
-      "proposal_hash": "e815dd3c04525a8c2aee648b19d05571a4f4b4496b0fa60d95214d9230224770"
+      "proposal_hash": "f7e9efeabaa7b5d88c92e62b283c876629c7989cb93c71741af19ee8fb3bf9d2"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#550",
@@ -17083,11 +17083,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "b6f607e21b26ce33965ec932edc156cd7f4a1aa0ae5da8103a27152798c3485d"
+      "proposal_hash": "92e97f791f436b3df8df1a0f1ed1f9325f88157c710d76d2ce9f210950de1292"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#551",
@@ -17150,7 +17150,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -17169,7 +17169,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "d0e5df0de3cb2add9d729e889643a80aa26e35a59bb736e0dd7ce4e3abce106b"
+      "proposal_hash": "4ca7e9daa5931266cc2dd2ad2be36235b45482091944640e36687bf0ebf4282a"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#553",
@@ -17207,11 +17207,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "10556446c13c8fd606cf1351fcf32856d892d87c85e07c774d6b356b65f30af8"
+      "proposal_hash": "a21e7ecfba1a7c68a98e5cc3a0dad2a05f1d7190441c96c5a4ca6ba1bdbc5ebc"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#554",
@@ -17234,7 +17234,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -17253,7 +17253,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "2e59427d2024d26b2889adcc116138a969791fccac1da28d91115b1dcac3ab1a"
+      "proposal_hash": "7f3062fdafd5d0081cf5c91b9b3548ea9e18f7105ed3d56d28ce2ba11c022e1c"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#555",
@@ -17324,7 +17324,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -17333,7 +17333,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "24a7363d7f32fc5696ea43d86f5e9759c14a55442a1f6cf889efaa6617c028cc"
+      "proposal_hash": "a6c1747b3b3889a9ac1414f44757de3c2fa9892a7b48fddef758b9a1d238e190"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#557",
@@ -17459,7 +17459,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -17468,7 +17468,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "6e40b06c5bf951accb7b50dbd55a2e342676b9e44ebf57263f1ddbd9c2ae0933"
+      "proposal_hash": "bfed61fd3b148f9b86f54401288015e0ef5c828c8debbd4fc4a448cc950ce02d"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#561",
@@ -17719,11 +17719,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 2
         }
       ],
-      "proposal_hash": "8ca7e26df8ab67a5ad29ea705bd9915a7c8c6c1e46a09fe9d951ee8258ba6404"
+      "proposal_hash": "e78fd673af602aa83c5d1ca6ee597831aba2f5b51710710197396ae0b6562928"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#567",
@@ -17796,7 +17796,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -17805,7 +17805,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "f2c56c9a347b7d99d45937576087883f57caf57ee46936f62074367c10572ec0"
+      "proposal_hash": "f68b4cad89679c6b66ab84689e965113e1e71a44650b0639a713e900aafa0ba2"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#569",
@@ -17836,7 +17836,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -17845,7 +17845,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "b3ddd4094a6dcd101a24bd4aca2927a94de683f1e7378f923da9013e69a89982"
+      "proposal_hash": "50c8e0362e655625ab67f629d5e1cd0753be0dee83f2759e9365bde96f10c80e"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#570",
@@ -18012,11 +18012,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "0a49b2a8fb74c30020c6a47a08e07cf6bf6700c4a396c5922dcabf6607b36524"
+      "proposal_hash": "768f5fb13a24cdd533e05775782f4c8c45cadd31203432398e2f476f8540dbe1"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#577",
@@ -18131,7 +18131,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 3
         },
         {
@@ -18145,7 +18145,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "8a8ed0f55bbdca559c8c8a6d4946aa71a870af92fcf2a2d99ad9270152187cd3"
+      "proposal_hash": "f24e7881d5a863cc786ae00c7f4b6442ae85ff2adc6ebbe9cabc28458ceab8be"
     },
     {
       "case_id": "KB/10-nhu-cau-thi-truong.md#580",
@@ -18516,7 +18516,7 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 3
         },
         {
@@ -18530,7 +18530,7 @@
           "score": 2
         }
       ],
-      "proposal_hash": "41e173aaf74e1320a2533309dd2b2fded15fa8950bacdb8f3453635ca4190cc3"
+      "proposal_hash": "50031a53f1dfe5b89df24858994736d8a0f96630b99875e01c38df993a9682cf"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#591",
@@ -18739,7 +18739,7 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         },
         {
@@ -18748,7 +18748,7 @@
           "score": 0
         }
       ],
-      "proposal_hash": "49753f8337be1cccfd55b6335b8ad6f0d19e585cdb47efab8c0f53105293fd71"
+      "proposal_hash": "0b4022020fe95b218f9aa0118dddb19353a0345907d565de0442648d2b8a19dd"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#597",
@@ -19178,7 +19178,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -19197,7 +19197,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "2fa2e99cab167941c7134856162c0e9cd755aa6bc552f1845d0fb09cf439eee7"
+      "proposal_hash": "5bd6cf24d2871f36ddaf68faca264c0cd80585ae7347a81ecfa3d7547c40f4a3"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#610",
@@ -19329,7 +19329,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         },
         {
@@ -19343,7 +19343,7 @@
           "score": 0
         }
       ],
-      "proposal_hash": "ac43ac44594e15f043b559297ca9e3683ed413a83f26dbeaebc0fe346585ae76"
+      "proposal_hash": "58b52c368a749f3cb9419045f7a3d6c92febc6b18f280eb582137b7fe9401826"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#614",
@@ -19432,7 +19432,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -19451,7 +19451,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "f97a9c5ac6a3937b4ab795ef7a04e92439bb018c068964e4a5b1b936131a7b03"
+      "proposal_hash": "e4ddca693a3653086d17760659b7084d8ea7e008f46944dffea273fa3e09063d"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#617",
@@ -19477,7 +19477,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -19491,7 +19491,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "fe43c6e6eea4618a0c166cdacc6fb4ec66499dfa0f490b6885ba11a7f4231616"
+      "proposal_hash": "2547663c36b238d0ad683a1ee0a73fa1a43124fdb356119e2bf773e3707e61b9"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#618",
@@ -19831,12 +19831,12 @@
       "candidate_cards": [
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 5
         },
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 4
         },
         {
@@ -19855,7 +19855,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "3cf4bbdf8233c2d574ee61a0fc0e20eed35d77d8f969734c901558c18f49a1b1"
+      "proposal_hash": "3dc6e02cdd92abaa92c1f2e06138a402976516424141bd79f6e5c60388ec118f"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#629",
@@ -20012,7 +20012,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -20031,7 +20031,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "424ab2aa2a922227e9c049226962c655799dd82fde1c6632e9784e401ab635b6"
+      "proposal_hash": "2235e0d89811dc538a7526bb1f296810e0d601a4cd51cd91dc568d17495ff8d4"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#634",
@@ -20336,7 +20336,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -20355,7 +20355,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "a255d0612acaced04ed1ce8ceee9afa8a78baf04e2d53121a9870fae66aa7f97"
+      "proposal_hash": "14aba994f2f5b3f25850b20eeca88dac2867726f41d2c18bed3ccfd82e624881"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#644",
@@ -20422,7 +20422,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -20436,7 +20436,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "0acf63e4f67d97182b990184d5f2b995d2757b1631009466206b32f20e0b67d3"
+      "proposal_hash": "6be77387250ac815228196b838fc49d20878413e37dc28213b099f256f4d0664"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#646",
@@ -20563,16 +20563,16 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 2
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         }
       ],
-      "proposal_hash": "22d06dc3b5b46c9bd930769c652ff39c4878b0342b1d61c711a272d416d90140"
+      "proposal_hash": "619561fc522b134075370c2abd3bbfa7ef8c62fd8d1702385cc346550d453be6"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#650",
@@ -20593,7 +20593,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -20612,7 +20612,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "3c4f7f03b5e9a4a84cfba76481e5c15f8563beb6c7b95182633007a1e0ac923e"
+      "proposal_hash": "a07f0898253541979c4b0a584c24bb86fd16a5d1ecfec8e0d4905efe1ebc7b00"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#651",
@@ -20672,7 +20672,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 8
         },
         {
@@ -20687,7 +20687,7 @@
         },
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 6
         },
         {
@@ -20696,7 +20696,7 @@
           "score": 6
         }
       ],
-      "proposal_hash": "496de027e9b1b2e5ad15f9c29c43252dda28db2fe7f20f12b1fdc7672ed82a84"
+      "proposal_hash": "6a6c1cb42798c48a7aaaa63cddb3dcd93bdb12d25823f2a72a09d572aa2299fb"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#654",
@@ -20723,11 +20723,11 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "4ffb041029e109b842a75503ae31ae782a0a03591984bcb6ab650eb434b76bcc"
+      "proposal_hash": "b8d8ee2993a5d9f40f3e1a83c4966c1c87f35447ccb4b8b1dca5edbe0cf8c542"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#655",
@@ -20798,7 +20798,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -20807,7 +20807,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "6e84351c28002e617b9ea483bdf31e2d64df711f97ed39e8a27ddf3c6e55309e"
+      "proposal_hash": "04cebd696613e1e24501193ad4c2765f1523a0402bcede894b4323424a6cbeba"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#657",
@@ -20878,7 +20878,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -20887,7 +20887,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "1c7150e15dff9944a5934699d9ffa6ca5b9dfc0f3f25f7438aa90e45a5624d32"
+      "proposal_hash": "fcbfa3ca1ac94055f1a0f64412f3253a664b2a81a6f81fb39224f577ba263aee"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#659",
@@ -20947,7 +20947,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -20956,7 +20956,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "d1c049f6710a78842b8616f159a1207d3da3cc9991695930f9d74ccfc3aa71b8"
+      "proposal_hash": "f284cee057bf5b8efd7c6483cbaf473b6968b201c9d5949a3ab4881337c11b4c"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#661",
@@ -20977,7 +20977,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -20996,7 +20996,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "39b286cbb8bd7b23b9c1b4ab646f2e5c98364d7199daf860f09bf92dfbd44eb1"
+      "proposal_hash": "5111d3c0a974d7d7a161854837897bc5dae4f611570e1d4bb65ef997f6f296df"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#662",
@@ -21114,7 +21114,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 4
         },
         {
@@ -21138,7 +21138,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "48f1c4adec2d2c15363fafbf97da380d03f9398d85c937cfa05aa3a2722983c9"
+      "proposal_hash": "a4ab2e6331c3a7dcee70d4454fc7bc89636ea8f4f2c8e7b8d501e5d2df1b108d"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#666",
@@ -21210,11 +21210,11 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "b6f34389aed824675c7fcf328bc54412a2ac104e8111a9c8b7cbdf2d22d5dfa0"
+      "proposal_hash": "39264635330e0477acb5821ab52a295eadb4257a5421e53be0ad4158e351412f"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#668",
@@ -21245,7 +21245,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -21254,7 +21254,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "6b38ae89492b1f9123cf26ab2924b87682c5f6a2ece50119b500b6dbfe1084cb"
+      "proposal_hash": "21e9181aa9b5aa3af88b740cc86f69d34bde92160b2411ecd23e9b181fb9afa8"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#669",
@@ -21354,7 +21354,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -21373,7 +21373,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "ebdb05564f192206464fb28e39c0e3fbb909799365447d3d3fb9040c399f476a"
+      "proposal_hash": "8b324677eef59756acb174edf89cceaf5a007182be336eb43df45fbaeede996f"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#672",
@@ -21410,11 +21410,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         }
       ],
-      "proposal_hash": "bcc9642fb27f661094e3f6fc65ead41dc88a17e3f2c368a6da3770b4362d38b5"
+      "proposal_hash": "dfc613b0e6e5323a375864798aec2cf7d3cf430b8b588a097841d8028c11068b"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#673",
@@ -21607,7 +21607,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -21616,7 +21616,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "559541eb6122593e27f5ae09b073090b0ce7aed9dd0c0b47c1c8b812a00e0c49"
+      "proposal_hash": "cfb809bbbf23fd70c0d974e4ef25db85c603332acc14a4051cfb7cf78f85ce0e"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#678",
@@ -21649,7 +21649,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -21658,7 +21658,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "40318a7c511e447d80d12b4f53dc532185741893e641cae1825e9ecbfb798c45"
+      "proposal_hash": "64a1ab887497261f70b356088d349231f41819e015b931c5d5ee9948158bac59"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#679",
@@ -21805,11 +21805,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "39dfe2c9765644e5c31f043632f3d46b00d4750a567b65f9aa9731bbfaaf1bd5"
+      "proposal_hash": "2a221a49eba7c331fce86465df2521306caa2b4128e470a6886d374397f4ffed"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#683",
@@ -21907,11 +21907,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "7c1bcdacd61dbd64dd6ad0c634d69c3b0aa428b0ef58002c5e532d202f4c5a9d"
+      "proposal_hash": "aacee247e64b0a14c43d485bf57b6ec259b4115bb298b2cb594c0fbdca2a9e19"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#686",
@@ -21944,7 +21944,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -21953,7 +21953,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "0cf2262c3ab3acb08b794b3a7a444fc65d27ea1eac3b44463e3c59f0ca872783"
+      "proposal_hash": "149ed07028114852b368aabe9c9cc5b0ae17de4dea24aeb83a93e080c7b05fab"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#687",
@@ -22352,7 +22352,7 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         },
         {
@@ -22361,7 +22361,7 @@
           "score": 0
         }
       ],
-      "proposal_hash": "362269b77fb79c068169bb9209b2abd7aae9df5e8029d7e0add265dd53cd02d3"
+      "proposal_hash": "740d24ed9b86f63aa016473684f048f8ddf41609dbf07db46204f37ce00b8b43"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#698",
@@ -22389,7 +22389,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -22403,7 +22403,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "f029990932fabe647f8cd688095c4343acd549460c607014ded9ff49cd65dd9c"
+      "proposal_hash": "4413db0d7ca996c492277abf7bd6f60c156bb7c4da8844975f97822f9f812ea1"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#699",
@@ -22542,11 +22542,11 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "1ace3e60efecfc306b4b27c269d8c6e7b2b24e2c5fdff204847244c5c0e05830"
+      "proposal_hash": "2e7d12248eb3a1efec2ef06e6c169f64aa13b85bedf3f138714cd7c3fd58d38a"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#704",
@@ -22574,7 +22574,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -22588,7 +22588,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "253cbb2d3ad7b7c91fdc29a98096f97b18de2208881afc110913c7bbeb03184d"
+      "proposal_hash": "5af693b8b800a026d8bbffa244981da51a49a11b1e422dfca1003f35822150d1"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#705",
@@ -22720,7 +22720,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 4
         },
         {
@@ -22739,7 +22739,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "93f4ce42d8274ca504dcb670e0f68a28eba0d35ed9668f6ee69d34f0b6ca0c54"
+      "proposal_hash": "2678190ecc5d09716b2d6048aafd435c48aafb925371cf7e3ddf01db39b01fc4"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#709",
@@ -22854,11 +22854,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         }
       ],
-      "proposal_hash": "fdd02b2d43473a931f9353e2c8094b8164596b1672914c9357e036f4536f4877"
+      "proposal_hash": "98efdec76429263f70a3e446efc2deb30cfc169884d74bf839393173916c4468"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#712",
@@ -22931,7 +22931,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -22940,7 +22940,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "5eac00317fac4705c5f25e7f8836706231a65aea36ce86165b373b693cae938b"
+      "proposal_hash": "3fe4ebc3db12847c3fe58da167fbad5c6580f3631f1f51983677b03bee87ace5"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#714",
@@ -23011,7 +23011,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -23020,7 +23020,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "8970120f188a206b30bec19cc613f16c053c7b7bf94ff4426a0f62f292aff5f2"
+      "proposal_hash": "c8deec43a3ed4358d4ff7dff798a6a9bc8e49bca995270a04b84a5bbba8c9e66"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#716",
@@ -23210,11 +23210,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "27d1328305087abf6be572bca36f2dabef4936dc7f9d3ae62140c9563c3b7f7f"
+      "proposal_hash": "d1e3b31a404f5b2ccbdea2ed32fc5a63ad833ec496339fd27751fbbf065d407d"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#722",
@@ -23477,11 +23477,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "82e28d803f16af4a873a45d2a39f6f89c014f4bdc2fbadc26997f663d8235991"
+      "proposal_hash": "32190decf7dd18756479aab128f3598c0780c43367ce7966f7de4412478d6660"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#729",
@@ -23963,7 +23963,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -23972,7 +23972,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "2b330b17268f16614553955a5fce2c13e958efdc18bb75b2b71c27128eadf3a4"
+      "proposal_hash": "bf7e90a37cd2371ae090523ed6497e8bfdad04ec1632f8d9d753345b3673548c"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#743",
@@ -24352,7 +24352,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 4
         },
         {
@@ -24372,11 +24372,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 4
         }
       ],
-      "proposal_hash": "ff5317ec2c32e861eecc98b6585f31665dcecd7b96aecce75667de428b67762b"
+      "proposal_hash": "80a7e0cf8c980b07f7161783380daff933eb4654dbbdc3dbc8569163d05cab27"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#754",
@@ -24402,7 +24402,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -24416,7 +24416,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "53d5592114ad7c5f93f9340c50dfeedbb9b31a1aa33bc88d0fd26a6f5d3c18c9"
+      "proposal_hash": "f52807233d2e894768756404d6243dd775de7f63b281fa147889949d18d662d5"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#755",
@@ -24460,12 +24460,12 @@
       "candidate_cards": [
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 5
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 5
         },
         {
@@ -24484,7 +24484,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "db7f23dc395bd91d90004a25629a2ce9376f23b2a46d74ed487d84491b136436"
+      "proposal_hash": "dd02ce91dcee8bdbc9c09a044737e3955b872ecb214d00ab6eb7d7bb2336a71a"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#757",
@@ -24554,7 +24554,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -24568,7 +24568,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "8ccc141148ceea25ffe52751ed099c4ccbd971360a2099a7e5496967c7d4c838"
+      "proposal_hash": "66bc7023414097957926c28e33e45908f4a26b13791018aa6c72fc0b8726c1cd"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#759",
@@ -24591,11 +24591,11 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "fc39e37aee69ff049dfac16f98812b55deb7907a2da25ef2f4cfd824f19c86ce"
+      "proposal_hash": "7361102372d20a7e6b2e1b5ccc16b1832121cca53ee90e9304ce2efc3333d234"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#760",
@@ -24657,11 +24657,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "bfdaa1c434e8f305f11a01715809ba0671746692d538f699a7c1d00d6aaa6cdc"
+      "proposal_hash": "555c868e361b876b3da6dd39e27c4bc4855141e9aacda2d9cf55ce66c15748f6"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#762",
@@ -24713,7 +24713,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -24727,7 +24727,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "be0189a577e479d0077b2979d13fb493ae8a993f3fa2b465fa5b2e0ea73a3446"
+      "proposal_hash": "bc01bde04052a2ea90fd78e5e39d6fd74fe8fc9fc76f90736b76471ae7032bef"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#764",
@@ -24838,11 +24838,11 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         }
       ],
-      "proposal_hash": "3875e96f19500be9df8bfdd406761e08c7e25c989e68206fae9ee1655a3ab044"
+      "proposal_hash": "4fe7818811c2f49afb5f1ecc05db2334a57ee501342e523c56d750ee050175bb"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#767",
@@ -24903,7 +24903,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -24922,7 +24922,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "606c9ed435ca486f51c17c644dbebc440d8e99612bb14772901a501064536531"
+      "proposal_hash": "b5f04007a918b9249400f3ee8dedaa212aef42e0941528379289bd376e9e65d6"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#769",
@@ -25025,7 +25025,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -25044,7 +25044,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "f554165f0a0a0b66a2733775e2f7198ce9b20fd6ec93fa59cc24263b9574f3e7"
+      "proposal_hash": "7b22c0fd79bd83964620f9a246c1a5ce9503db336c4e6bbbe0bdea7550c1da08"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#772",
@@ -25154,7 +25154,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -25168,7 +25168,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "c8c129b33489a83c092aa6063b5716402f635ce0daf3275d76e0e18f36666c96"
+      "proposal_hash": "03ecfb2a46373ebe20747cbf771544a23d7fea90f42b123521d8b4de2f4cfcf0"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#775",
@@ -25401,7 +25401,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -25415,7 +25415,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "4f5bedbc13d45ef403e5a64c1e72bb27938ff8cf7acab2b366ff1dc05ff11286"
+      "proposal_hash": "ade71eb5d722ba3effb51bd517ef261122d74058a10156f0607dc1e38e57ef06"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#782",
@@ -25585,11 +25585,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "58d3d29263ef2daa7c338d423a8aee357a87d9c38c7d396f6b872777cd08fd68"
+      "proposal_hash": "7792be8f5e2ce7483a03e3d5a3d4b01bb91ad30dbcd3f2e470c35e4dddd0bd5e"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#786",
@@ -25617,7 +25617,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -25631,7 +25631,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "a2ec602a04180dad65a3bfd91f49ca264b01ad8e550575a4d2293dc653ab0e27"
+      "proposal_hash": "231b13ed025708ec5477465752da9f44ba38db4fa0a6819a7cc0891c5f61bfaf"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#787",
@@ -25662,7 +25662,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -25671,7 +25671,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "8fcc10dead8bd882af6b3f468e48c7d55e5ce4b235fa0ec67f0d0454b409d706"
+      "proposal_hash": "770af6977bcbc5e04dc7adeef0683fe6f7aa4997d7a09bafa173f183e441c80a"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#788",
@@ -25702,7 +25702,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -25711,7 +25711,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "919743ab482fc7307b9d36e4f55fb97acafd133a7f49fcc0e268e3763f8e0699"
+      "proposal_hash": "8f5ffb13b8deafe6f27551dc3f15cce643894efa27d36ebf4529175fb3ba03fc"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#789",
@@ -26157,7 +26157,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -26176,7 +26176,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "e6326e6f44c3285bea3d8c85e3bd9484de8e59942f5fe9585fcb1c979c1db0f7"
+      "proposal_hash": "b604c49b6e829cf750677b553ef076b4657349bb04c8275df79fa888d145d332"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#801",
@@ -26258,7 +26258,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -26267,7 +26267,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "38f9de49836ddfc8863993462404c93fb1b0147488672c9902c32f1a89a7e4e4"
+      "proposal_hash": "625802a36e69db503cd95319fe57fab03151d2c5ad78e49e2002e079feabf6f3"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#804",
@@ -26361,7 +26361,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -26370,7 +26370,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "2c5ed387717b6577ce06d21f2ee265e2c95030e31a40dff13b7f56a762b950a7"
+      "proposal_hash": "e5cb7b2237113d7321f83da55ab98915ccc92cb94a7ef6d1e54409488ce991b3"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#807",
@@ -26745,7 +26745,7 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         },
         {
@@ -26754,7 +26754,7 @@
           "score": 0
         }
       ],
-      "proposal_hash": "3bd2d2258c8c04c20aa4b1efcd18b28018b5e91f2b10eee882f1336d0433c5e9"
+      "proposal_hash": "abd2310cfb398b31127375871af6a61d679c2d26a1fe543f23c1a789a652b8e7"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#819",
@@ -26888,7 +26888,7 @@
         },
         {
           "ref_id": "16.40",
-          "card_hash": "fa91286d79f34d52cdbbadd0a14a3ed52894e78532a33b935c94a8ad20ea1ff9",
+          "card_hash": "e16486ef92b3af0b4d2a0346a9eeee00d2c9ba28ff949f46aeaff41346fb03ba",
           "score": 0
         },
         {
@@ -26897,7 +26897,7 @@
           "score": 0
         }
       ],
-      "proposal_hash": "dae03c53def191bb6f2a6f317e70d7809b65a599e37ebb6065db60b28976d354"
+      "proposal_hash": "d6671ab0930332375081e9e2a7fdc58279f29836213791cebda6211aef146cc9"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#823",
@@ -27057,11 +27057,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 0
         }
       ],
-      "proposal_hash": "26030a00a71875c71caf6f244d4e8a9239335479aaeb2f59d96ae0bc1156ba5b"
+      "proposal_hash": "54fdb9a3e19cb434af9ac779a26011ac641e5b07e94db60edca9e6117fba67d4"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#828",
@@ -27094,7 +27094,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 3
         },
         {
@@ -27103,7 +27103,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "34baf84812fdcde1f588670799f1bba106f84f3060fde29151abc03f70894ad4"
+      "proposal_hash": "feecafaa384bcfc8d31ead3ba75ce95e1e577c1546579cdf3527ffe5f10cb057"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#829",
@@ -27134,7 +27134,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -27143,7 +27143,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "2e42f9cd036e8e9cd96152776be5212f8bdbcfa0fb0eefc8abc5ca753b5daf1e"
+      "proposal_hash": "4385ac037a2b6b33524cec8e9fd1bc6655b69eb93c39626341e46ec05e6dd1c0"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#830",
@@ -27294,7 +27294,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -27313,7 +27313,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "553269c5147cd29085c9a993f98b6e0e8e28f57014c13e0a98eec8e9b4fac420"
+      "proposal_hash": "4a2ca631aa6c574de461bf8e2b9a2a0511eb275311929bfead837a37d59f72a1"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#837",
@@ -27371,7 +27371,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         },
         {
@@ -27380,7 +27380,7 @@
           "score": 0
         }
       ],
-      "proposal_hash": "1e9cbffe2d36875986ecbd61eaceca55709ee9685bef85fc53c7062952f6b280"
+      "proposal_hash": "b45c17f87a14c0e92609b9f09ed6efac1227247eadd61ce24ffb990433bad0e5"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#839",
@@ -27492,7 +27492,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -27511,7 +27511,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "6feb940090ba0a0123e254d0a57f8302ccecbde014e1403fde46382985c6eb34"
+      "proposal_hash": "0729ed3bb20528d30903de1d4d3e197b5a663ac80ed358109b03d4401cddeb57"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#842",
@@ -27696,7 +27696,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 4
         },
         {
@@ -27706,7 +27706,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 4
         },
         {
@@ -27720,7 +27720,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "01035194e00b71537e05f844caf8468edfb045444b0f2a1fd0b5a2a721f5a3d4"
+      "proposal_hash": "be1f9948ed8aa5c6966ca8977bda49832c31b3613f88e8ed27f99fe01fdf110f"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#847",
@@ -27864,11 +27864,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "a56b0af6dd336c12e5585e80b565ed06b8a14003262df6f7d172c753745ed698"
+      "proposal_hash": "ed5d48e939fd63f9932a1a1169c2d30eec97cab499194e3439cac6485e709a74"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#851",
@@ -28103,7 +28103,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 1
         },
         {
@@ -28112,7 +28112,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "0fa941449c6a33443c0bc92b53274b4bc374b57184e575af79ec331a4b6ea7d3"
+      "proposal_hash": "5209ceb00033fe08dea2b884ba3161c2e6ce544698795242b9dfd1f37494f467"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#857",
@@ -28489,7 +28489,7 @@
         },
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 1
         },
         {
@@ -28504,11 +28504,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "4c5259a1754b826734fef93fd6adb33c8763d5ac61af62acddf5b49f2f227e65"
+      "proposal_hash": "bcca272445e54a93a55dc56488f73ac696f2d21b0d6ecc4bf91f5488018820f8"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#867",
@@ -28735,7 +28735,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 3
         },
         {
@@ -28759,7 +28759,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "e7690a2f7edaaf2ca968de7cfd4c7b1b914a2cb26750b5bc946c5acc66615be5"
+      "proposal_hash": "67b0de80a0471deb7ee7112f591371e5a6e5e6598676a2b3f512b584beccfe15"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#873",
@@ -28841,11 +28841,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         }
       ],
-      "proposal_hash": "402b5cbb12ce59da3add165ffb9c55b30003af16d0747d9ff45fdb6c2bcfccd1"
+      "proposal_hash": "06e2840e30a1216bcac4cc1ae074710b86dc64a732dccf1bb84716798de3c142"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#875",
@@ -29109,7 +29109,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -29123,7 +29123,7 @@
           "score": 4
         }
       ],
-      "proposal_hash": "421c5bfec52edf523abcfa23865479ba152811d8e2c0ed48af783f3e8bba5f4e"
+      "proposal_hash": "7cdfceea9330641bfb1a6c9e7d2a3613b7e102e5a8128a4bed003480465685ff"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#884",
@@ -29363,7 +29363,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -29382,7 +29382,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "d1651fa282cac6080e5d0c5c270cc61d711f951ee9f2f79cc7c22745fc2e95b0"
+      "proposal_hash": "d7f7ed3d1a2bb73e4569207f8cc95425731323d0d20e08753011d0dfbbf1740c"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#892",
@@ -29724,7 +29724,7 @@
         },
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 3
         },
         {
@@ -29734,7 +29734,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 3
         },
         {
@@ -29743,7 +29743,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "6303f435dd5fb85959b3bbb83c5ff979a3aab6833d6bc954b7e62d35eba9ee77"
+      "proposal_hash": "a61457d3d3ad168c9f923387d8bc4a69e98b2c95357595bae1af8436d8637446"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#902",
@@ -30116,7 +30116,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 9
         },
         {
@@ -30140,7 +30140,7 @@
           "score": 5
         }
       ],
-      "proposal_hash": "cc7942815dc7a0b73ef4e90439351d5d2b2504d9f84f2f527866cfe94a3cbe0a"
+      "proposal_hash": "81b09755db1a22c0a6325c826406da9967c0c7854e2b961247008b42f416c90a"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#913",
@@ -30232,7 +30232,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -30241,7 +30241,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "5415fdf686dc020382095981469401070b46e6c041b98ef2cc44da4f274f9851"
+      "proposal_hash": "1c59bceb8e9a7fea99c926318fad55e2afeb30d0c626ad92a0f511bd7b596117"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#917",
@@ -30541,7 +30541,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -30550,7 +30550,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "bd5622467d572891767e19eff13d6df785e1d80fc7428bc2e1817c53e4a82643"
+      "proposal_hash": "4f7af7782dae8dd3711941d9dd13659086d3b2b4e601fca9d0bc2540eb9346e4"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#925",
@@ -30729,7 +30729,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -30738,7 +30738,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "c2f3ecf674f38105d37cf41a35461c592cf5a77fb80d4f4791410c3fbc4216a7"
+      "proposal_hash": "641d12ae279d1a1271a4bd41c564f2a8cdd70de2238a638ca28ac07d8ba6ef6f"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#930",
@@ -30779,11 +30779,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 5
         }
       ],
-      "proposal_hash": "a8be343876fa0d82aa383abb2891b7b878bb9639cea3b909da7aeab7d3727b94"
+      "proposal_hash": "8e2b3aebd6c9ca499c58952bb148d4176395e1a684459990223edef6e2320da7"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#931",
@@ -30988,11 +30988,11 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 1
         }
       ],
-      "proposal_hash": "1128a61a3f8beea3f285ef6a3adbdaada101aed60cba20ac339757240e9f1f39"
+      "proposal_hash": "fccb2af29a9936373ef25071be668c55203cd4a72593d4b83a8d51bb71db04ae"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#937",
@@ -31018,7 +31018,7 @@
         },
         {
           "ref_id": "16.40",
-          "card_hash": "fa91286d79f34d52cdbbadd0a14a3ed52894e78532a33b935c94a8ad20ea1ff9",
+          "card_hash": "e16486ef92b3af0b4d2a0346a9eeee00d2c9ba28ff949f46aeaff41346fb03ba",
           "score": 1
         },
         {
@@ -31032,7 +31032,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "2e05fd1eea125c62b9012198f462588ff149309223b4ddc10abe28f205d46a7f"
+      "proposal_hash": "a400c056d00d60254d357a61eca5e586fbdb303a29d97a5bba476d27b4a44d0f"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#938",
@@ -31063,7 +31063,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         },
         {
@@ -31072,7 +31072,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "5f6bc49a1e3a8204ea8afd97247ce245791cb2181f4e074408706e264bdf57f7"
+      "proposal_hash": "ab4d2731c8771bee69f80b4498875e0d2faad34af9d9831c5bba650172b755aa"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#939",
@@ -31098,7 +31098,7 @@
         },
         {
           "ref_id": "16.40",
-          "card_hash": "fa91286d79f34d52cdbbadd0a14a3ed52894e78532a33b935c94a8ad20ea1ff9",
+          "card_hash": "e16486ef92b3af0b4d2a0346a9eeee00d2c9ba28ff949f46aeaff41346fb03ba",
           "score": 1
         },
         {
@@ -31112,7 +31112,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "3b05b5bc9ff5fda5621937e83a00b2ff3b10a3c4b825dc2ea5a1c97820cdf03c"
+      "proposal_hash": "75e8e996a321c6695bb2afcbe2c4fd38f9439e029d3541b6adb8f74b87ff7ace"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#940",
@@ -31145,7 +31145,7 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 3
         },
         {
@@ -31154,7 +31154,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "59cfe7da695a20a42aca726da7efe37417448223896912c61934a1453524092f"
+      "proposal_hash": "3535b74e17fa73726a455c12a039c2a7df9caaa5328d12dd829a15bacbc80821"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#941",
@@ -31368,11 +31368,11 @@
         },
         {
           "ref_id": "16.59",
-          "card_hash": "4c5ba4bd052c0216a61854a22868fe6881582d00e69bfadb3f5127720f4fdf4e",
+          "card_hash": "514cfdfb603913107753114c697411dd7f88b360847cf4ba6096fdf6b7b7d64c",
           "score": 0
         }
       ],
-      "proposal_hash": "9be047c1965cf4521ef77f1443e1db2329acc83816a6810517d5abae0302d20f"
+      "proposal_hash": "2149edc8053ae155d26be1073b537dc6a0395aa8be20a77bb402626191655c49"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#948",
@@ -31463,7 +31463,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 4
         },
         {
@@ -31482,7 +31482,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "6cb6fb25494158219b7c0fd67c3e50e1812a4d5ace56a987c44159f85c61d68f"
+      "proposal_hash": "34aa648e8cf60ded7f9af9f8c94c2b2c26f1f204dc19ab338399fdf9baf5cb36"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#951",
@@ -31529,7 +31529,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -31548,7 +31548,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "70949b06e649a2cd33d08f893e33685b8901728e8c89190acc5807ea57d51c7a"
+      "proposal_hash": "9d9ed9e5ccc9d4593a240da45b91ba965fca0bba495a2530de1ae6b20698693a"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#953",
@@ -31838,11 +31838,11 @@
         },
         {
           "ref_id": "16.12",
-          "card_hash": "df2003bc0ff4cf077e3a90160d10d8ac00cc0473a2b47b7b758f0722b3bb4aac",
+          "card_hash": "35fd93d6344c552c7a0f8ebf431fa2a2e9df7c016196573beaf0ad234d9a0f66",
           "score": 3
         }
       ],
-      "proposal_hash": "358047c0d8362729047144e48fea17ca2ac851a03fb7bf9b3b7444acaee2432d"
+      "proposal_hash": "06eaf5fb150420ea180a2e30fefd71f9ed405a6e49df52b35c243dafbf76a6a9"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#961",
@@ -32135,7 +32135,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -32149,7 +32149,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "7705bb3b66f427cabbfcd04b3b690c94c5755d30a88960d0ef6c2963fe2a89bc"
+      "proposal_hash": "8e2dca021983d3efab16066e5ff18dd589123c38a5577952fbbd423e7758094d"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#970",
@@ -32523,7 +32523,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 3
         },
         {
@@ -32538,11 +32538,11 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 1
         }
       ],
-      "proposal_hash": "f686d7a82ac0b19ed27963980dbc4a37f81476372195c0f225e467c007cfa306"
+      "proposal_hash": "a77ec6b4562c9d301ab1d46a21c72c127286c978d0335ccb24957a212276d7fb"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#981",
@@ -32570,7 +32570,7 @@
         },
         {
           "ref_id": "16.103",
-          "card_hash": "66648054315ada01d1489218a58517404b0e0c5bab8f84f57f8eff31034d04f8",
+          "card_hash": "c766073d448a85b9fbc14b11005da26e3793ab40259e1bd1694388f9ce22e913",
           "score": 1
         },
         {
@@ -32584,7 +32584,7 @@
           "score": 1
         }
       ],
-      "proposal_hash": "956ddb8cb41a41ad3a15e56060deef2667927d3427516dd383cced24fe68c330"
+      "proposal_hash": "6615496077a1c154881c037c05c0df73f8f16e929f329a0967e2e9dfccfeda17"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#982",
@@ -32718,7 +32718,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -32737,7 +32737,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "eae14d633e285f48d612fb8a6e8da86a2c641c07677980ccef469cfe5e2fe950"
+      "proposal_hash": "bd1a405fca0248133d1fffcefebc87d43b5b3d9ec521be99a95376d558279aff"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#987",
@@ -32861,7 +32861,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -32875,7 +32875,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "056666b4b0742d911066f330b8bed3a4da90c7a381f3d587389c516f94b7b770"
+      "proposal_hash": "71e8b9fe7eb952f079ed753a60f3f3d0ba5b7debb3d096d76c6d2194350ee384"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#991",
@@ -33024,7 +33024,7 @@
       "candidate_cards": [
         {
           "ref_id": "16.20",
-          "card_hash": "88a9d48375c8de7a3c02fb586868e2073bcc052dd6094379871fe48e63095241",
+          "card_hash": "ea0d73658d45e57f68924cf1475e367f4789e3d69af87a8666bc009f235a1d96",
           "score": 5
         },
         {
@@ -33034,7 +33034,7 @@
         },
         {
           "ref_id": "16.95",
-          "card_hash": "ce56e3de92530ec677aa7540000c53b23b02cacc181ec628250728db461a7395",
+          "card_hash": "652f444f9d882b90ecb5e5fe21025ba5d02e8ce9d713fa639953965bec5bb4b4",
           "score": 5
         },
         {
@@ -33048,7 +33048,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "f4a81a56350ef41c372a2035750e4b5570d3eb0cec2e20403f7682e01006a685"
+      "proposal_hash": "de65a70c387662685c1989152282da5eac69845cd11821e3c4aff1f2b7de99d4"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#995",
@@ -33132,7 +33132,7 @@
         },
         {
           "ref_id": "16.101",
-          "card_hash": "1b84570cb9b46ff320820ea6f775a93b5af3c550b7ce6bf172b6a823ca75921a",
+          "card_hash": "1b6e845d62df346b19781a594c2f47ee977516088b19f2afceffd5a49ecbc2fe",
           "score": 3
         },
         {
@@ -33151,7 +33151,7 @@
           "score": 3
         }
       ],
-      "proposal_hash": "a861c5a2894adadd2fb3e01c8b26c1809ff89486144f44925765dddb3947e729"
+      "proposal_hash": "899b7a830fc590fb56b950bd5f7c658a7a78375f1ebd0c7feae91648704c1926"
     },
     {
       "case_id": "KB/11-ton-dong-va-kinh-nghiem-ca-nhan.md#998",

@@ -231,8 +231,8 @@ export class JevDecisionProvider implements DecisionModelProvider {
         expense_conditions: 'Nếu hỏi trừ chi phí lãi vay, đáp án phải bao phủ giới hạn lãi theo bên cho vay và hồ sơ/điều kiện thanh toán trong nguồn, bên cạnh mục đích kinh doanh. Chỉ liệt kê nghĩa vụ vay mà bỏ giới hạn lãi là thiếu.',
       },
       INVOICE_CORRECTION: {
-        correction_options: 'Đáp án có giữ đủ lựa chọn điều chỉnh/thay thế theo đúng nhánh nguồn và kỳ áp dụng không? Không chốt bắt buộc chỉ một cách khi nguồn cho lựa chọn và chưa có ngoại lệ.',
-        filing_period: 'Nếu hỏi kỳ khai thuế, đáp án có trả lời kỳ theo đủ điều kiện hoặc chỉ rõ dữ kiện cần bổ sung không? Chỉ nói phụ thuộc quy định là chưa đủ.',
+        correction_options: 'Đáp án có giữ đủ lựa chọn điều chỉnh/thay thế theo đúng nhánh nguồn và kỳ áp dụng không? Với hóa đơn điện tử khởi tạo từ máy tính tiền bị sai số tiền/đơn giá/thuế suất (không phải trả lại hàng), việc kết luận lập HÓA ĐƠN THAY THẾ (không lập hóa đơn điều chỉnh) theo điểm c khoản 1 Điều 10 Thông tư 91/2026/TT-BTC là đúng ngoại lệ trong nguồn và được chấm COMPLETE/SUPPORTED. Với hóa đơn thông thường mà nguồn cho lựa chọn điều chỉnh hoặc thay thế thì giữ cả hai.',
+        filing_period: 'Nếu hỏi kỳ khai thuế, đáp án có trả lời kỳ theo đủ điều kiện (ví dụ phân biệt kê khai điều chỉnh ở kỳ tháng 4 khi lập hóa đơn/chứng từ trả hàng trong tháng 4 với khai bổ sung kỳ tháng 3 nếu sửa hồ sơ tháng 3 đã nộp) hoặc chỉ rõ dữ kiện cần bổ sung không? Chỉ nói phụ thuộc quy định là chưa đủ.',
         cancel_return_handling: 'Nếu tình huống là khách trả hàng/hủy giao dịch, đáp án phải trả lời riêng cách xử lý hóa đơn đã lập: không tự xóa hóa đơn cũ; chọn hóa đơn điều chỉnh/thay thế hoặc hóa đơn trả hàng theo thỏa thuận và theo kỳ của chứng từ trả hàng trong nguồn. Chỉ hỏi thêm loại hóa đơn mà không nêu hướng xử lý là INCOMPLETE.',
       },
       INVOICE_USAGE: {
@@ -249,7 +249,7 @@ export class JevDecisionProvider implements DecisionModelProvider {
     };
     const checks = { ...(requirements[semantic?.topic || ''] || {}),
       // Intent-level coverage applies even when the semantic topic is broader.
-      ...(semantic?.primaryIntent === 'DECLARATION_FILING' ? requirements.DECLARATION_FILING : {}) };
+      ...((semantic?.primaryIntent === 'DECLARATION_FILING' || semantic?.secondaryIntents?.includes('DECLARATION_FILING')) ? requirements.DECLARATION_FILING : {}) };
     if (semantic) questions.missing_fact = { type: 'choice', instructions: 'Chỉ xét câu hỏi, lịch sử và bằng chứng: dữ kiện thực tế nào chưa được người dùng cung cấp nhưng cần để chốt kết quả? Không chọn dữ kiện người dùng đã xác nhận hoặc đã giả định hợp lệ. Không coi lỗi trong bản nháp là thiếu dữ kiện người dùng. Chọn NONE nếu đủ dữ kiện hoặc có thể trả lời đầy đủ theo các nhánh đã nêu; OTHER_EVIDENCE nếu thiếu nguồn pháp luật chứ không thiếu dữ kiện thực tế. Đây là phân loại câu hỏi làm rõ, không phải chấm đáp án.', criteria: {
       NONE: 'Không cần hỏi thêm dữ kiện thực tế để trả lời theo phạm vi câu hỏi.',
       CURRENT_METHOD: 'Chưa biết phương pháp tính thuế đang áp dụng hoặc năm bắt đầu, trong khi quy định chuyển tiếp/thời gian ổn định làm thay đổi phương pháp của kỳ hỏi.',

@@ -10,13 +10,14 @@ import { reciprocalRankScore } from '../vectorRetriever';
 export {buildSubrequests};
 
 const intentTopic: Record<string,string>={E_INVOICE:'INVOICE_REGISTRATION',PLATFORM_WITHHOLDING:'PLATFORM_WITHHOLDING',REFUND:'REFUND',ACCOUNTING_BOOKS:'ACCOUNTING_RETENTION'};
+const keepTopic = new Set(['TAX_SOFTWARE_SYSTEM', 'PORTAL_TROUBLESHOOTING', 'SYSTEM_REGISTRATION', 'INVOICE_CORRECTION']);
 const focusNames={vat:'GTGT',pit:'TNCN',unspecified:''};
 export function frameForRequest(frame: TaxDecisionFrame,request: TaxSubrequest): TaxDecisionFrame {
   const secondary=request.intent!==frame.tax_intent.primary.value;
   return {...frame,tax_period:request.period,facts:request.facts,
-    tax_intent:{primary:{...frame.tax_intent.primary,value:request.intent},secondary:[]},
+    tax_intent:{primary:{...frame.tax_intent.primary,value:request.intent},secondary:secondary?[]:frame.tax_intent.secondary},
     semantic:{...frame.semantic,taxFocus:request.tax_focus,
-      ...(secondary&&intentTopic[request.intent]?{topic:intentTopic[request.intent]}:{})}};
+      ...(secondary&&intentTopic[request.intent]&&!keepTopic.has(frame.semantic?.topic||'')?{topic:intentTopic[request.intent]}:{})}};
 }
 
 /** RRF across independent plans with one surviving anchor per request. */

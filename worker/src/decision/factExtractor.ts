@@ -212,7 +212,7 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
       : undefined;
 
   const taxPaidVnd: number | undefined =
-    amountAfterLabel(q, amountTokens, /(?:da nop|da khau tru|da nop thay)/)?.vnd;
+    amountAfterLabel(q, amountTokens, /(?:da nop|da khau tru|da nop thay|nen tang giu|san giu|bi giu|giu lai)(?:\s+\d+(?:[.,]\d+)?\s*%\s*(?:=|la)?)?/)?.vnd;
 
   const bankLabel = /(?:tien mat|so du)(?:\s+con)?\s+trong tai khoan/;
   const unverifiedBankBalanceVnd: number | undefined =
@@ -318,6 +318,14 @@ export function extractTaxFacts(text: string, _defaultYear = 2026, semanticIncom
       // Never promote an expense, balance or GMV to revenue just because it is the only number.
       primaryRevenue = nonTaxableIncome.length > 0 ? nonTaxableIncome[0].vnd : undefined;
     }
+  }
+  if (
+    primaryRevenue &&
+    allAmounts.length === 1 &&
+    /(?:(?:hai|2)\s+(?:diem ban|cua hang|dia diem)|(?:diem ban|cua hang|dia diem)[^.!?]{0,30}(?:hai|2))\b/.test(q) &&
+    /(?:tung|moi)\s+(?:diem|noi|cua hang|dia diem)/.test(q)
+  ) {
+    primaryRevenue = primaryRevenue * 2;
   }
 
   // 7. Giả định giảm thuế VAT (NQ 204/2025 hoặc NĐ 174/2025)

@@ -93,7 +93,9 @@ export function buildRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   const guides=frame.semantic?.answerPurpose==='DEFINITION'?[]:Object.entries(chunkPeriods).filter(([,entry])=>
     'guidance_topics' in entry && (entry.guidance_topics as string[]).includes(frame.semantic?.topic||'') && periodFits(entry,frame.tax_period)).map(([ref])=>ref);
   if(plan.allowed_refs)plan.allowed_refs=[...new Set([...plan.allowed_refs,...guides])];
-  return alignPlanPeriod({...plan,preferred_refs,must_include_refs:[...new Set([...refs,...plan.must_include_refs])],
+  const topicFirst = ['REFUND', 'PLATFORM_WITHHOLDING'].includes(frame.semantic?.topic || '');
+  const orderedMust = topicFirst ? [...new Set([...plan.must_include_refs, ...refs])] : [...new Set([...refs, ...plan.must_include_refs])];
+  return alignPlanPeriod({...plan,preferred_refs,must_include_refs:orderedMust,
     ...(plan.allowed_refs?{allowed_refs:[...new Set([...refs,...preferred_refs,...plan.allowed_refs])]}:{})},frame.tax_period);
 }
 
@@ -124,7 +126,7 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     const relief=years.includes(2025)&&(frame.facts.vat_relief_assumed||frame.tax_intent.primary.value==='RELIEF_REDUCTION'||frame.tax_intent.secondary.includes('RELIEF_REDUCTION'));
     const has888=frame.tax_intent.primary.value==='TAX_ID_888'||frame.tax_intent.secondary.includes('TAX_ID_888');
     const hasInvoice=frame.tax_intent.primary.value==='E_INVOICE'||frame.tax_intent.secondary.includes('E_INVOICE');
-    const extraMust=[...(relief?['16.50']:[]),...(has888?['16.96','16.100']:[]),...(hasInvoice?['16.106']:[])];
+    const extraMust=[...(relief?['16.50']:[]),...(has888?['16.96','16.100','16.106']:[]),...(hasInvoice?['16.106']:[])];
     const extraAllowed=[...(relief?['16.50']:[]),...(has888||hasInvoice?['16.96','16.100','16.106']:[])];
     return {
     strategy:'PINNED_REFS',semantic_topic:topic,must_include_refs:[...new Set(['16.54','16.60',...extraMust])],
@@ -144,7 +146,7 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     TAX_EXTENSION:['16.123','16.146'],
     TAXPAYER_RIGHTS:['16.122','16.125','16.126','16.127','16.128','16.145','16.147','16.148','16.149','16.150','16.151','16.152','16.153'],
     ACCOUNTING_RETENTION:['16.124','16.52','16.71','16.127'],
-    INVOICE_USAGE:['16.80','16.103','16.114','16.115','16.116','16.117','16.118','16.119','16.38','16.41','16.105',...Array.from({length:10},(_,i)=>`16.${129+i}`)],
+    INVOICE_USAGE:['16.80','16.100','16.103','16.114','16.115','16.116','16.117','16.118','16.119','16.38','16.41','16.105',...Array.from({length:10},(_,i)=>`16.${129+i}`)],
   };
   if (!isHistorical && topic && operationalEvidence[topic]) {
     const refs=operationalEvidence[topic];
@@ -194,22 +196,22 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
       filter_taxpayer_types: [frame.taxpayer_type.value], boost_keywords: [] };
   }
   const topicEvidence: Record<string, string[]> = {
-    PLATFORM_WITHHOLDING:['16.35','16.42','16.95','16.48','16.57','16.60','16.44','16.51'],
-    REFUND:['16.51','16.86','16.145','16.35','16.42','16.95','16.60','16.44'],
+    PLATFORM_WITHHOLDING:['16.35','16.42','16.95','16.60','16.48','16.57','16.44','16.51'],
+    REFUND:['16.51','16.86','16.60','16.95','16.145','16.35','16.42','16.44'],
     REVENUE_COMPOSITION: ['16.32', '16.37', '16.72', '16.101', '16.102'],
     REVENUE_TIMING: ['16.101', '16.30', '16.37', '16.72', '16.43', '16.102','16.106','16.156','16.18','16.103','16.60','16.53','16.130','16.131','16.132','16.133','16.134'],
     REVENUE_OWNERSHIP: ['16.39', '16.75', '16.72', '16.8', '16.7', '16.9', '16.35', '16.37', '16.41', '16.105'],
     VAT_METHOD_CLASSIFICATION: ['16.104', '16.31', '16.50', '16.77', '16.16', '16.37'],
     BUSINESS_EXPENSES: ['16.102', '16.19', '16.52', '16.57', '16.56',...Array.from({length:6},(_,i)=>`16.${139+i}`)],
     INVOICE_CORRECTION: ['16.103', '16.106', '16.21', '16.18', '16.17', '16.42'],
-    INVOICE_REGISTRATION: ['16.41', '16.105', '16.103', '16.80', '16.38', '16.58', '16.79', '16.24','16.138'],
+    INVOICE_REGISTRATION: ['16.41', '16.105', '16.103', '16.80', '16.100', '16.38', '16.58', '16.79', '16.24','16.138'],
     BUSINESS_REGISTRATION: ['16.107', '16.73', '16.20', '16.7', '16.8', '16.75'],
     TAX_REGISTRATION: ['16.113', '16.96', '16.108', '16.64', '16.107', '16.65', '16.9', '16.25', '16.75', '16.91'],
     REGISTRATION_COMPARISON: ['16.108', '16.64', '16.107', '16.7'],
     REGISTRATION_REQUIREMENTS: ['16.108', '16.107', '16.64', '16.73', '16.20'],
     SYSTEM_REGISTRATION: ['16.100', '16.96', '16.12', '16.9', '16.108', '16.64', '16.65', '16.25', '16.41', '16.105', '16.58', '16.7', '16.8', '16.107', '16.29', '16.91', '16.38'],
-    PORTAL_TROUBLESHOOTING: ['16.24', '16.55', '16.59', '16.61', '16.120', '16.105', '16.103', '16.106', '16.25', '16.100', '16.12', '16.9', '16.96', '16.41', '16.21','16.137'],
-    TAX_SOFTWARE_SYSTEM: ['16.100', '16.12', '16.9', '16.55', '16.52', '16.40', '16.24', '16.96', '16.44', '16.71', '16.51', '16.41', '16.38', '16.105', '16.80', '16.137', '16.59', '16.61'],
+    PORTAL_TROUBLESHOOTING: ['16.24', '16.55', '16.59', '16.51', '16.61', '16.40', '16.120', '16.105', '16.103', '16.106', '16.25', '16.100', '16.12', '16.9', '16.96', '16.41', '16.21','16.137'],
+    TAX_SOFTWARE_SYSTEM: ['16.100', '16.51', '16.40', '16.80', '16.12', '16.9', '16.55', '16.52', '16.24', '16.96', '16.44', '16.71', '16.41', '16.38', '16.105', '16.137', '16.59', '16.61'],
     REVENUE_THRESHOLD: ['16.60', '16.72', '16.44', '16.23', '16.53', '16.41', '16.105', '16.38', '16.39', '16.40', '16.77', '16.75', '16.91', '16.108', '16.101'],
   };
   if (topic && topicEvidence[topic]) {
@@ -222,11 +224,11 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
         if (frame.tax_intent.primary.value === 'TAX_ID_888') dynamicPins.push('16.100', '16.96');
         else if (frame.tax_intent.secondary.includes('E_INVOICE')) dynamicPins.push('16.41', '16.105');
         else if (frame.income_type.some(t => t.value === 'PROPERTY_RENTAL')) dynamicPins.push('16.108', '16.29');
-        else if (frame.income_type.some(t => t.value === 'WAGE_SALARY') || frame.taxpayer_type.value === 'INDIVIDUAL_EMPLOYEE') dynamicPins.push('16.12', '16.100');
+        else if (frame.income_type.some(t => t.value === 'WAGE_SALARY') || frame.taxpayer_type.value === 'INDIVIDUAL_EMPLOYEE' || selectPolicyCandidates(frame).some(e => e.ref_id === '16.12')) dynamicPins.push('16.12', '16.100');
         else dynamicPins.push('16.100', '16.64', '16.108');
       } else if (topic === 'PORTAL_TROUBLESHOOTING') {
         if (frame.tax_intent.secondary.includes('E_INVOICE')) dynamicPins.push('16.103', '16.105', '16.24');
-        else if (frame.tax_intent.primary.value === 'DECLARATION_FILING' || frame.tax_intent.secondary.includes('DECLARATION_FILING') || frame.tax_intent.primary.value === 'PENALTY' || frame.tax_intent.secondary.includes('PENALTY')) dynamicPins.push('16.59', '16.61', '16.24');
+        else if (frame.tax_intent.primary.value === 'DECLARATION_FILING' || frame.tax_intent.secondary.includes('DECLARATION_FILING') || frame.tax_intent.primary.value === 'PENALTY' || frame.tax_intent.secondary.includes('PENALTY')) dynamicPins.push('16.59', '16.51', '16.61', '16.24');
         else dynamicPins.push('16.24', '16.55');
       } else if (topic === 'TAX_SOFTWARE_SYSTEM') {
         if (frame.tax_intent.secondary.includes('ACCOUNTING_BOOKS')) dynamicPins.push('16.52', '16.71');
@@ -294,9 +296,32 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
     if (!isHistorical && refund && !refs.includes('16.51')) refs.push('16.51', '16.95');
     if (topic === 'REVENUE_THRESHOLD' && frame.semantic?.revenueContext === 'PARTIAL_PERIOD') refs.unshift('16.101');
     if (topic === 'REVENUE_TIMING' && frame.income_type.some(x => x.value === 'WAGE_SALARY')) refs.push('16.93');
+    const timingWithInvoiceOrFiling = topic === 'REVENUE_TIMING' && (
+      frame.semantic?.invoicePeriod === 'H1_2026' ||
+      frame.tax_intent.primary.value === 'DECLARATION_FILING' ||
+      frame.tax_intent.secondary.includes('DECLARATION_FILING')
+    );
+    if (timingWithInvoiceOrFiling) {
+      for (const ref of ['16.18', '16.106']) {
+        const idx = refs.indexOf(ref);
+        if (idx !== -1) refs.splice(idx, 1);
+        refs.splice(2, 0, ref);
+      }
+    }
+    const refundWithRevenueOrAffiliate = topic === 'REFUND' && (
+      frame.facts.revenue_vnd !== undefined ||
+      frame.income_type.some(t => t.value === 'AFFILIATE_COMMISSION')
+    );
+    if (refundWithRevenueOrAffiliate) {
+      for (const ref of ['16.95', '16.60', '16.51']) {
+        const idx = refs.indexOf(ref);
+        if (idx !== -1) refs.splice(idx, 1);
+      }
+      refs.unshift('16.51', '16.95', '16.60');
+    }
     const hasMulti = topic === 'REVENUE_THRESHOLD' && Boolean(frame.facts.multi_activities && frame.facts.multi_activities.length >= 2);
     const pinCount = taxRegIdentityOrProcedure ? 5
-      : hasMulti ? 4
+      : hasMulti || timingWithInvoiceOrFiling || refundWithRevenueOrAffiliate ? 4
       : topic === 'VAT_METHOD_CLASSIFICATION' || relief || ['BUSINESS_REGISTRATION', 'TAX_REGISTRATION', 'REGISTRATION_COMPARISON', 'REGISTRATION_REQUIREMENTS'].includes(topic) ? 3 : 2;
     return { strategy: 'PINNED_REFS', semantic_topic: topic, allowed_refs: refs,
       must_include_refs: refs.slice(0, pinCount), filter_years: years,
@@ -337,6 +362,11 @@ function topicRetrievalPlan(frame: TaxDecisionFrame): RetrievalPlan {
   // 5b. Lệ phí môn bài + cộng gộp nhiều điểm kinh doanh
   if (frame.tax_intent.primary.value === 'LICENSE_FEE' || frame.tax_intent.secondary.includes('LICENSE_FEE')) {
     mustIncludeRefs.push('16.97', '16.75', '16.41');
+  }
+
+  // 5c. Kê khai / khai bổ sung / biểu mẫu tờ khai
+  if (frame.tax_intent.primary.value === 'DECLARATION_FILING' || frame.tax_intent.secondary.includes('DECLARATION_FILING')) {
+    mustIncludeRefs.push('16.59', '16.51', '16.61', '16.40');
   }
 
   // 6. Keywords bổ trợ

@@ -491,7 +491,7 @@ export async function handleChat(
       retrieved.results = mergeVectorHits(retrieved.results, vectorHits, Math.max(topK + 2,subretrieval?.plans.filter(p=>p.refs.length).length||0), {
         query: retrievalQuery,
         years: answerScope.years,
-        pinnedRefs: subretrieval ? subretrieval.plans.flatMap(p=>p.refs.slice(0,1)) : retrievalPlan?.must_include_refs,
+        pinnedRefs: subretrieval ? [...new Set([...(retrievalPlan?.must_include_refs || []), ...subretrieval.plans.flatMap(p => [...(p.plan.must_include_refs || []), ...p.refs.slice(0, 1)])])] : retrievalPlan?.must_include_refs,
         allowedRefs: subretrieval ? [...new Set(subretrieval.plans.flatMap(p=>p.refs))] : retrievalPlan?.allowed_refs,
         rrfK: 60,
         wBm25: 1.0,

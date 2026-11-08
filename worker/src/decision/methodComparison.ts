@@ -76,7 +76,32 @@ export function conditionalTurnoverLedger(frame: TaxDecisionFrame) {
   const year = frame.tax_period.years[0];
   const r = getRulesetForYear(year);
   const revenue = frame.facts.revenue_vnd;
-  if (revenue === undefined || !Number.isSafeInteger(revenue) || revenue <= r.thresholds.exemption_annual_vnd) {
+  if (revenue === undefined || !Number.isSafeInteger(revenue) || revenue <= 0) {
+    return null;
+  }
+  if (revenue <= r.thresholds.exemption_annual_vnd) {
+    if (
+      frame.facts.tax_paid_vnd !== undefined ||
+      frame.tax_intent.primary.value === 'REFUND' ||
+      frame.tax_intent.secondary.includes('REFUND') ||
+      frame.tax_intent.primary.value === 'PLATFORM_WITHHOLDING' ||
+      frame.tax_intent.secondary.includes('PLATFORM_WITHHOLDING')
+    ) {
+      return {
+        kind: 'CONDITIONAL_EXEMPT_REFUND_LEDGER',
+        year,
+        revenue_vnd: revenue,
+        threshold_vnd: r.thresholds.exemption_annual_vnd,
+        vat_business_due_vnd: 0,
+        pit_business_due_vnd: 0,
+        tax_retained_or_paid_vnd: frame.facts.tax_paid_vnd ?? null,
+        conclusion: `Nếu bạn là cá nhân cư trú và ${revenue.toLocaleString('vi-VN')} đồng là toàn bộ doanh thu hoạt động kinh doanh cả năm ${year} (không quá ngưỡng 1 tỷ đồng/năm), thì thuế TNCN từ hoạt động kinh doanh phải nộp bằng 0 đồng (TNCN kinh doanh = 0 đồng) và thuế GTGT kinh doanh phải nộp bằng 0 đồng (không nhân tỷ lệ 5% trên 600 triệu khi tổng doanh thu cả năm <= 1 tỷ đồng).`,
+        refund_conditions: [
+          'Phải xác minh khoản tiền nền tảng giữ lại (như 10%) là phí dịch vụ sàn, thuế GTGT/TNCN kinh doanh nộp thay hay khấu trừ 10% TNCN từ tiền lương, tiền công (theo điểm c khoản 2 Điều 8 Nghị định 253/2026/NĐ-CP nếu chưa đăng ký kinh doanh/đăng ký thuế kinh doanh; nếu là tiền lương, tiền công thì áp chế độ quyết toán tiền lương, tiền công riêng).',
+          'Chỉ sau khi có chứng từ khấu trừ/nộp thay hợp lệ và đối chiếu khớp đúng người nộp thuế, kỳ tính thuế, loại thuế và số tiền đã thực nộp vào ngân sách nhà nước lớn hơn nghĩa vụ thuế phải nộp mới thực hiện thủ tục hoàn thuế/bù trừ khoản nộp thừa theo Điều 29–31 Nghị định 252/2026/NĐ-CP; không hứa hoàn tự động ngay toàn bộ.',
+        ],
+      };
+    }
     return null;
   }
   const reliefRate = r.relief_policies?.nq43_pit_reduction_rate || 0.3;
