@@ -70,9 +70,11 @@
     "kb:cases:compile": "node scripts/build_case_recognition.cjs compile",
     "kb:cases:check": "node scripts/build_case_recognition.cjs check",
     "eval:case-recognition": "node scripts/eval_case_recognition.cjs",
-    "test:systematic": "node scripts/test_systematic_fixes.cjs && node scripts/test_systematic_legal_cards.cjs && node scripts/test_context_packing.cjs && node scripts/test_case_recognition_pipeline.cjs && node scripts/test_nd398.cjs && node scripts/test_reviewed_42_knowledge.cjs",
+    "test:systematic": "node scripts/test_systematic_fixes.cjs && node scripts/test_systematic_legal_cards.cjs && node scripts/test_context_packing.cjs && node scripts/test_case_recognition_pipeline.cjs && node scripts/test_nd398.cjs && node scripts/test_reviewed_42_knowledge.cjs && node scripts/test_answer_coverage_regressions.cjs && node scripts/test_rental_registration_context.cjs",
     "test:nd398": "node scripts/test_nd398.cjs",
-    "test:reviewed-42": "node scripts/test_reviewed_42_knowledge.cjs"
+    "test:reviewed-42": "node scripts/test_reviewed_42_knowledge.cjs",
+    "test:answer-coverage": "node scripts/test_answer_coverage_regressions.cjs",
+    "test:rental-registration-context": "node scripts/test_rental_registration_context.cjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

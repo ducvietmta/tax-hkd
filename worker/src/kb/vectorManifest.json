@@ -2,7 +2,7 @@
   "schema": "taxhkd-vector-manifest-v1",
   "model": "@cf/baai/bge-m3",
   "dimensions": 1024,
-  "version": "tax-kb-bge-m3-090381eafd95bd0889eb",
+  "version": "tax-kb-bge-m3-28e2b78a6a3961b09582",
   "excluded_refs": [
     "16.24"
   ],
@@ -1662,6 +1662,13 @@
     {
       "id": "16.241",
       "sha256": "3b6981133761fe4bca66b04603ffb3381780c06dc2e3fe884362480dcd7840e4",
+      "tier": "VERIFIED_CONDITIONAL",
+      "from_year": 2026,
+      "to_year": null
+    },
+    {
+      "id": "16.242",
+      "sha256": "0a1c933d5a3edcfa2b69d0f8ee56810bf2e6f555a5165992d9aea92d2888a39c",
       "tier": "VERIFIED_CONDITIONAL",
       "from_year": 2026,
       "to_year": null

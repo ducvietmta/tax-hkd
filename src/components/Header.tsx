@@ -198,7 +198,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenAIChat
 
           <button
             onClick={onOpenConsultation}
-            className="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-[13px] font-semibold px-4 py-2 rounded-xl transition-all shadow-sm"
+            className="inline-flex items-center gap-1.5 bg-brand-700 hover:bg-brand-800 text-white text-[13px] font-semibold px-4 py-2 rounded-xl transition-all shadow-sm"
           >
             <span>Tư vấn 1-1</span>
             <ArrowRight className="w-3.5 h-3.5" />

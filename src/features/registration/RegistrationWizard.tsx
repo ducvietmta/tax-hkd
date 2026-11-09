@@ -239,7 +239,7 @@ export default function RegistrationWizard({
               <span className="sm:hidden">Hướng dẫn đăng ký</span>
               <span className="hidden sm:inline">
               Từng bước,{' '}
-              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+              <span>
                 đến đúng hồ sơ.
               </span>
               </span>

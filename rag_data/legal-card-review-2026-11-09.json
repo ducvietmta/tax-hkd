@@ -1,0 +1,23 @@
+{
+  "schema": "taxhkd-scoped-card-review-v1",
+  "reviewed_on": "2026-11-09",
+  "reviewer_type": "AI",
+  "cards": [
+    {
+      "doc_id": "TT-89-2026-TT-BTC",
+      "reviewer_type": "AI",
+      "source_file": "document_library/TT-89-2026-TT-BTC.md",
+      "source_sha256": "838ce9eb1b19a92c71a13e9c2d60b0e1ce66afef67864a6d15291bf8260edd27",
+      "quotes": [
+        "a) Có tài khoản giao dịch thuế điện tử là tài khoản định danh điện tử theo\nquy định của pháp luật về định danh và xác thực điện tử hoặc tài khoản giao dịch\nthuế điện tử do Hệ thống thông tin quản lý thuế cấp đối với các trường hợp không\nbắt buộc hoặc không thuộc đối tượng được cấp tài khoản định danh điện tử theo\nquy định của pháp luật về định danh và xác thực điện tử;",
+        "Điều 13. Đăng ký, thay đổi, bỗ sung thông tin và ngừng giao dịch thuế\nđiện tử\n\n1. Người nộp thuế thuộc đối tượng được định danh điện tử theo quy định\npháp luật về định danh, xác thực điện tử đăng nhập vào Cổng Dịch vụ công quốc\ngia bằng tài khoản định danh điện tử mức độ 02 (đối với công dân Việt Nam) hoặc\n\n\n[Trang 19]\n\n19\ntài khoản định danh điện tử (đối với người nước ngoài) đề giao dịch thuế điện tử\nvới cơ quan thuế. Trường hợp có thay đổi, bỗ sung thông tin thì người nộp thuế\ntruy cập vào Cổng Dịch vụ công quốc gia để thực hiện theo hướng dẫn của chủ\nquản hệ thống thông tin.\n\n2. Trường hợp người nộp thuế đăng ký giao dịch thuế điện tử thông qua tổ\nchức cung cấp dịch vụ T-VAN, người nộp thuế thực hiện đăng ký, thay đổi, bổ\nsung thông tin và ngừng giao dịch theo quy định tại Điều 16 Thông tư này.\n\n3. Trường hợp người nộp thuế đăng ký giao dịch thuế điện tử thông qua Hệ\nthống thông tin quản lý thuế:\n\na) Người nộp thuế thực hiện kê khai theo mẫu số 01/ĐK-TĐT Phụ lục II\n\n| ban hành kèm theo Thông tư này. Người nộp thuế cung cấp số điện thoại, một địa\nchỉ thư điện tử chính thức, đang hoạt động và thuộc quyền sử dụng của người nộp\nthuế, để nhận thông báo của cơ quan thuế. Đồng thời, người nộp thuế có thể đăng\nký số điện thoại hoặc tài khoản điện tử khác để đảm bảo các thông báo bằng hình\nthức điện tử của cơ quan thuế được người nộp thuế tiếp nhận kịp thời.\n\nChậm nhất 15 phút kể từ khi nhận được hồ sơ, cơ quan thuế thông báo chấp\nnhận kèm tài khoản giao dịch thuế điện tử hoặc không chấp nhận theo mẫu số\n04/TB-TĐT Phụ lục III ban hành kèm theo Thông tư này qua Hệ thống thông tin\nquản lý thuế và địa chỉ thư điện tử chính thức đã đăng ký;"
+      ],
+      "quote_sha256": [
+        "7d493c8bc9b9f7eaba7d41855e7d5ba6774cf28cf9f3c8a6a27da63f271cccce",
+        "368668d57cd6ac49c5a6fdd83b84754f49ffec3d9ba738e11e2e7786acb0143d"
+      ],
+      "ref_id": "16.242",
+      "limits": "Chỉ phần tài khoản áp dụng HKD/CNKD từ 01/07/2026. Không suy VNeID thay mọi chữ ký số. Không xác nhận tên nút giao diện hiện hành; không đồng nhất đăng ký tài khoản với đăng ký thuế. Kiểm duyệt AI theo đoạn Markdown người dùng cung cấp, chưa đối chiếu ảnh PDF, không chứng nhận toàn văn."
+    }
+  ]
+}

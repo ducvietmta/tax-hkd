@@ -11,7 +11,7 @@
     "MISSING": 4,
     "UNMEASURED": 0
   },
-  "ledger_sha256": "763598b5dded0503f6336b08bd1fb4de34bcd4726392c6ef43f198e166e01002",
+  "ledger_sha256": "2ceec8ae8b338ea4d4dce66d3e0442b204b1a629816d92369de1972332afdac2",
   "documents": [
     {
       "doc_id": "ND-118-2025-ND-CP",
@@ -1194,7 +1194,7 @@
       "source_registered": true,
       "provenance_registry_registered": false,
       "local_markdown_registered": true,
-      "linked_chunk_count": 8,
+      "linked_chunk_count": 9,
       "linked_chunk_refs": [
         "16.42",
         "16.46",
@@ -1203,9 +1203,11 @@
         "16.57",
         "16.222",
         "16.223",
-        "16.229"
+        "16.229",
+        "16.242"
       ],
       "locators": [
+        "Điểm a khoản 1 Điều 8; khoản 1, 2, 3 Điều 13",
         "Điều 11",
         "Điều 68",
         "Khoản 5 Điều 99 TT89, được đính chính tại Điều 1 QĐ2551/QĐ-BTC; trang 2 PDF quyết định (phần nội dung thay thế)",
@@ -1213,14 +1215,18 @@
       ],
       "observed_provisions": [
         "article:1",
+        "article:8",
+        "article:8/clause:1",
+        "article:8/clause:1/point:a",
         "article:11",
+        "article:13",
         "article:68",
         "article:99",
         "article:99/clause:5"
       ],
       "expected_provision_count": 1191,
-      "covered_expected_count": 5,
-      "coverage_percent": 0.42,
+      "covered_expected_count": 9,
+      "coverage_percent": 0.76,
       "coverage_status": "PARTIAL",
       "inventory_status": "MARKDOWN_STRUCTURE_EXTRACTED",
       "inventory_basis": "document_library/TT-89-2026-TT-BTC.md",

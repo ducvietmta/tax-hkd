@@ -1,8 +1,8 @@
 {
   "schema": "taxhkd-recognition-index-v1",
-  "version": "e71b2d8a56cfbbd1290e8bd901ac47162eaf1b2f38556e9817f4e867c3c21211",
-  "corpus_hash": "af5fef88d10c53289f0d28cbee2635e5867bf0992e94da279ac8f324c5530b8c",
-  "canonical_hash": "a05fc3df7b5c279a49c59988d8def3cadb5405a7dfff29f2f421e5d389e4238d",
+  "version": "e7d7d1ef9b4e94e93c60a77898b8dc4390678d22312818614bb253e51375721f",
+  "corpus_hash": "9042d5ab9b8036c934f72d46c5c09b980e672c02687518c942007f3ac1f22491",
+  "canonical_hash": "9bc2a6baf9ad0c4cd1c06da5da73a2d6f8d878fb1a67ab18152aebe54385c5bc",
   "entries": [
     {
       "case_id": "KB/01-ke-khai-nop-thue.md#65",

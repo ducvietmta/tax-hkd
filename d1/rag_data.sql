@@ -12763,3 +12763,47 @@ doanh, cá nhân kinh doanh quy định tại khoản 1 Điều này được đ
 đối thông tin đăng ký sử dụng hóa đơn điện tử qua Hệ thông thông tin quản lý
 thuê theo quy định của Bộ trưởng Bộ Tài chính.
 Nguồn chính thức: https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/7/254-ndcp.signed.pdf');
+INSERT OR REPLACE INTO rag_chunks (id, file, section, ref_id, tier, text) VALUES ('KB/legal-cards-2026-11-09#16.242', 'KB/legal-cards-2026-11-09', '16.242. Tài khoản giao dịch thuế điện tử và nhánh ngoài diện định danh', '16.242', 'VERIFIED_CONDITIONAL', 'Tài khoản giao dịch thuế điện tử: phân biệt đối tượng được định danh và đối tượng không bắt buộc/không thuộc diện được cấp theo điểm a khoản 1 Điều 8 và Điều 13 Thông tư 89/2026/TT-BTC. Nhóm thứ hai dùng tài khoản do Hệ thống thông tin quản lý thuế cấp; nhánh đăng ký qua hệ thống tại khoản 3 Điều 13 có mẫu 01/ĐK-TĐT.
+[GIỚI HẠN] Chỉ phần tài khoản áp dụng HKD/CNKD từ 01/07/2026. Không suy VNeID thay mọi chữ ký số. Không xác nhận tên nút giao diện hiện hành; không đồng nhất đăng ký tài khoản với đăng ký thuế. Kiểm duyệt AI theo đoạn Markdown người dùng cung cấp, chưa đối chiếu ảnh PDF, không chứng nhận toàn văn.
+[TRÍCH NGUYÊN VĂN]
+a) Có tài khoản giao dịch thuế điện tử là tài khoản định danh điện tử theo
+quy định của pháp luật về định danh và xác thực điện tử hoặc tài khoản giao dịch
+thuế điện tử do Hệ thống thông tin quản lý thuế cấp đối với các trường hợp không
+bắt buộc hoặc không thuộc đối tượng được cấp tài khoản định danh điện tử theo
+quy định của pháp luật về định danh và xác thực điện tử;
+
+Điều 13. Đăng ký, thay đổi, bỗ sung thông tin và ngừng giao dịch thuế
+điện tử
+
+1. Người nộp thuế thuộc đối tượng được định danh điện tử theo quy định
+pháp luật về định danh, xác thực điện tử đăng nhập vào Cổng Dịch vụ công quốc
+gia bằng tài khoản định danh điện tử mức độ 02 (đối với công dân Việt Nam) hoặc
+
+
+[Trang 19]
+
+19
+tài khoản định danh điện tử (đối với người nước ngoài) đề giao dịch thuế điện tử
+với cơ quan thuế. Trường hợp có thay đổi, bỗ sung thông tin thì người nộp thuế
+truy cập vào Cổng Dịch vụ công quốc gia để thực hiện theo hướng dẫn của chủ
+quản hệ thống thông tin.
+
+2. Trường hợp người nộp thuế đăng ký giao dịch thuế điện tử thông qua tổ
+chức cung cấp dịch vụ T-VAN, người nộp thuế thực hiện đăng ký, thay đổi, bổ
+sung thông tin và ngừng giao dịch theo quy định tại Điều 16 Thông tư này.
+
+3. Trường hợp người nộp thuế đăng ký giao dịch thuế điện tử thông qua Hệ
+thống thông tin quản lý thuế:
+
+a) Người nộp thuế thực hiện kê khai theo mẫu số 01/ĐK-TĐT Phụ lục II
+
+| ban hành kèm theo Thông tư này. Người nộp thuế cung cấp số điện thoại, một địa
+chỉ thư điện tử chính thức, đang hoạt động và thuộc quyền sử dụng của người nộp
+thuế, để nhận thông báo của cơ quan thuế. Đồng thời, người nộp thuế có thể đăng
+ký số điện thoại hoặc tài khoản điện tử khác để đảm bảo các thông báo bằng hình
+thức điện tử của cơ quan thuế được người nộp thuế tiếp nhận kịp thời.
+
+Chậm nhất 15 phút kể từ khi nhận được hồ sơ, cơ quan thuế thông báo chấp
+nhận kèm tài khoản giao dịch thuế điện tử hoặc không chấp nhận theo mẫu số
+04/TB-TĐT Phụ lục III ban hành kèm theo Thông tư này qua Hệ thống thông tin
+quản lý thuế và địa chỉ thư điện tử chính thức đã đăng ký;');

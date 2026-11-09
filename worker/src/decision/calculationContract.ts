@@ -3,6 +3,25 @@ import type { EvaluationResult } from '../rules/evaluator';
 import { methodComparisonLedger, historicalCalculationLedger, conditionalTurnoverLedger, multiActivityLedger } from './methodComparison';
 import { ARITHMETIC_INSTRUCTIONS } from './arithmetic';
 
+export function calculationReviewEvidence(frame:TaxDecisionFrame):string {
+ const ledger=multiActivityLedger(frame);
+ return ledger?'BAO PHỦ KẾT QUẢ TÍNH: '+JSON.stringify(ledger)+'. Đối chiếu tổng TNCN trước/sau giảm với đáp án; chưa rõ cư trú thì kiểm tra nhánh sau giảm có điều kiện. Phân bổ đúng nhưng thiếu số tiền vẫn là thiếu câu trả lời. Ledger không thay căn cứ pháp luật.':'';
+}
+
+/** Coverage is derived from the ledger, independent of question wording or IDs. */
+export function calculationCoverageIssues(text:string,frame:TaxDecisionFrame):string[]{
+ const ledger=multiActivityLedger(frame);
+ if(!ledger||frame.semantic?.taxFocus==='vat'||!['TAX_AMOUNT','REVENUE_THRESHOLD'].includes(frame.semantic?.topic||''))return [];
+ if(ledger.pit_before_relief_vnd===0&&/không (?:phải )?nộp/i.test(text))return [];
+ const amounts=[...text.matchAll(/(\d[\d.,\s]*\d|\d)\s*(tỷ|triệu|nghìn|ngàn|đồng|vnd|₫)/giu)].map(m=>{
+   const raw=m[1].replace(/\s/g,'');
+   const n=Number(/^(?:đồng|vnd|₫)$/i.test(m[2])&&/^(?:\d{1,3})(?:[.,]\d{3})+$/.test(raw)?raw.replace(/[.,]/g,''):raw.replace(',','.'));
+   return Math.round(n*({tỷ:1e9,triệu:1e6,nghìn:1e3,ngàn:1e3}[m[2].toLowerCase()]||1));
+ });
+ const required=[ledger.pit_before_relief_vnd,ledger.pit_after_if_eligible_vnd??ledger.pit_after_relief_vnd];
+ return required.every(v=>amounts.includes(v))?[]:['CALCULATION_TOTALS_MISSING'];
+}
+
 /** Only a fully scoped engine evaluation is a ledger, never a loose numeric hint. */
 export function codeCalculationLedger(frame:TaxDecisionFrame,evaluation:EvaluationResult|null){
   if(!evaluation||evaluation.status!=='ANSWERED'||frame.tax_period.years.length!==1||frame.facts.revenue_basis!=='ANNUAL'||
@@ -26,7 +45,7 @@ function ledgerInstructions(frame:TaxDecisionFrame,evaluation:EvaluationResult|n
  const comparison=methodComparisonLedger(frame);
  if(comparison)return `LEDGER SO SÁNH CÓ ĐIỀU KIỆN DO CODE TÍNH: ${JSON.stringify(comparison)}. Giải thích cả hai phương pháp trên cùng dữ kiện. Giữ các điều kiện pháp lý và chi phí từ nguồn. Kết luận bên nào thấp hơn phải khớp trường conclusion do code chốt (lower/difference_vnd), tuyệt đối không tự kết luận ngược số học. Khi sector_known=false, không chọn ngành cho người hỏi: nêu công thức với tỷ lệ ngành và các ví dụ được đánh hypothetical, rồi hỏi ngành để chốt; vẫn trả số đã tính được của nhánh thu nhập. Kết quả sau giảm chỉ có điều kiện cư trú/NQ43, không biến thành dữ kiện đã biết. Reviewer vẫn phải đối chiếu nguồn cho từng phương pháp.`;
  const multi=multiActivityLedger(frame);
- if(multi)return `LEDGER ĐA HOẠT ĐỘNG DO CODE TÍNH: ${JSON.stringify(multi)}. Trình bày đúng phân bổ mức trừ và số từng hoạt động trong ledger, không tự phân bổ lại hay cộng mức trừ nhiều lần. GTGT không dùng mức trừ. Giảm NQ43 chỉ theo relief_condition của ledger.`;
+ if(multi)return `LEDGER ĐA HOẠT ĐỘNG DO CODE TÍNH: ${JSON.stringify(multi)}. Nêu đủ tổng số tiền TNCN trước giảm và sau giảm; nếu chưa rõ cư trú thì trình bày pit_after_if_eligible_vnd kèm điều kiện. Không dừng ở cách phân bổ hoặc công thức. Trình bày đúng phân bổ mức trừ và số từng hoạt động trong ledger, không tự phân bổ lại hay cộng mức trừ nhiều lần. GTGT không dùng mức trừ. Giảm NQ43 chỉ theo relief_condition của ledger.`;
  const historical=historicalCalculationLedger(frame);
  if(historical)return `LEDGER KỲ LỊCH SỬ CÓ ĐIỀU KIỆN DO CODE TÍNH: ${JSON.stringify(historical)}. Trả phần nghĩa vụ và số tiền tính được theo tỷ lệ gốc dưới giả định hàng hóa/dịch vụ chịu thuế và phạm vi cá nhân cư trú của nguồn. Không dùng ngưỡng hiện tại hồi tố. Không lấy chi phí làm cơ sở TNCN của phương pháp tỷ lệ trong kỳ lịch sử. Số GTGT chưa giảm không phải số chốt cuối nếu chưa xét điều kiện giảm; giữ rõ trước đối trừ đã nộp. Reviewer phải đối chiếu nguồn lịch sử, không tự xác nhận điều kiện chưa biết.`;
  const ledger=codeCalculationLedger(frame,evaluation);

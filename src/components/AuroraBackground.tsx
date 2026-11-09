@@ -3,13 +3,13 @@ import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 
 /**
  * Architectural luxury canvas:
- * Serene cool-grey ground (#F8FAFC) with subtle ambient emerald/slate glow,
+ * Serene cool-grey ground (#F8FAFC) with the logo's blue/turquoise glow,
  * precision hairline grid, and smooth interactive cursor illumination.
  */
 export const AuroraBackground: React.FC = () => {
   const x = useMotionValue(-500);
   const y = useMotionValue(-500);
-  const spotlight = useMotionTemplate`radial-gradient(550px circle at ${x}px ${y}px, rgba(5, 150, 105, 0.05), transparent 70%)`;
+  const spotlight = useMotionTemplate`radial-gradient(550px circle at ${x}px ${y}px, color-mix(in srgb, var(--color-brand-500) 5%, transparent), transparent 70%)`;
 
   React.useEffect(() => {
     if (!window.matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;

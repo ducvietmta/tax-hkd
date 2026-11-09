@@ -264,6 +264,21 @@
     "applies_to_year": null
   },
   {
+    "ref_id": "16.108",
+    "required": true,
+    "intents": [
+      "REGISTRATION"
+    ],
+    "income_types": [
+      "PROPERTY_RENTAL"
+    ],
+    "answer_purposes": [
+      "PROCEDURE"
+    ],
+    "applies_from_year": 2026,
+    "applies_to_year": null
+  },
+  {
     "ref_id": "16.111",
     "required": false,
     "topics": [

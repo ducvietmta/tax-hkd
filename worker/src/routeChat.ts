@@ -26,7 +26,7 @@ import { repairGroundedAnswer } from './decision/repairAnswer';
 import { retrieveSubrequests } from './decision/subrequests';
 import { groundingInstructions, parseGroundedAnswer, verifiedClaimSubset, type GroundingPacket } from './decision/claimGrounding';
 import { MuseEvidenceReviewer } from './decision/museEvidenceReviewer';
-import { calculationInstructions } from './decision/calculationContract';
+import { calculationInstructions, calculationCoverageIssues, calculationReviewEvidence } from './decision/calculationContract';
 import { resolveCalculations } from './decision/arithmetic';
 import { canReleaseReviewedAnswer } from './decision/reviewIntegrity';
 import { answerContract, UNVERIFIED_ANSWER } from './decision/answerContract';
@@ -70,17 +70,11 @@ function knowledgeVersion(): Promise<string> {
 
 export function selectReasoningEffort(
   _message: string,
-  classification?: any,
-  decisionFrame?: any,
-): 'low' | 'medium' | 'high' {
-  // Allocate by semantic task structure, never by memorized test amounts/phrases.
-  const complex=['METHOD_COMPARISON','MULTI_ACTIVITY','SCENARIOS'].includes(classification?.calculationShape||'')||
-    (decisionFrame?.requests?.length||0)>1||
-    (decisionFrame?.facts?.multi_activities?.length||0)>1||
-    (classification?.secondaryIntents?.length||0)>1;
-  if(complex)return 'high';
-  if(['PORTAL_TROUBLESHOOTING','TAX_SOFTWARE_SYSTEM'].includes(classification?.topic||''))return 'low';
-  return 'medium';
+  _classification?: any,
+  _decisionFrame?: any,
+): 'high' {
+  // Use the configured product policy consistently for every tax-chat request.
+  return 'high';
 }
 
 export async function handleChat(
@@ -499,7 +493,8 @@ export async function handleChat(
         minScore: 0.35,
       });
     }
-    if(strictSources){
+    {
+      // Quarantined evidence is never input to generation, including audit mode.
       const quarantine=quarantineCandidates(retrieved.results,retrievalPlan?.must_include_refs||[]);
       if(quarantine.removed_refs.length||quarantine.required_refs.length)console.warn('[VERIFIED_SOURCE_QUARANTINE]',JSON.stringify({requestId,removed_refs:quarantine.removed_refs,required_refs:quarantine.required_refs,case_ids:recognition.packet.matched_case_ids}));
       if(quarantine.required_refs.length)return respondWithAnswer({success:true,response:UNVERIFIED_ANSWER,source:'quarantined_required_evidence',citations:[],diagnostic_code:'QUARANTINED_REQUIRED_EVIDENCE'},userRecord?.credits??99);
@@ -1023,7 +1018,7 @@ ${ragContextText}${fullContextNote}`;
         workflowEvidence,
         supportHint,
         analyzeAmounts(message),
-        "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)
+        "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification) + "\n" + calculationReviewEvidence(decisionFrame)
       ].filter(Boolean).join('\n\n');
 
       const t0Rev1 = Date.now();
@@ -1044,7 +1039,7 @@ ${ragContextText}${fullContextNote}`;
         // overhead, so a slow full-context review does not become SKIPPED.
         // Still never an approval on failure — null stays blocked downstream.
         reviewRounds.push({provider:reviewer.name,issues:null,failureCode:reviewer.failureCode,budgetMs:primaryReviewBudget,durationMs:Date.now()-t0Rev1,checks:reviewer.lastReviewChecks,integrity:reviewer.lastReviewIntegrity});
-        const compactEvidence=[`KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')}.`,ragContextText,"YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)].filter(Boolean).join('\n\n');
+        const compactEvidence=[`KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')}.`,ragContextText,"YÊU CẦU BAO PHỦ: " + answerContract(businessClassification) + "\n" + calculationReviewEvidence(decisionFrame)].filter(Boolean).join('\n\n');
         reviewer=new JevDecisionProvider(decisionApiKey,decisionEndpoint,budget.review(),decisionModel);
         issues=await reviewer.reviewAnswer(message,aiText,compactEvidence,history,businessClassification,groundingPacket);
       }
@@ -1058,6 +1053,8 @@ ${ragContextText}${fullContextNote}`;
 
       durationRev1Ms = Date.now() - t0Rev1;
       semanticReviewIssues = issues;
+      if(issues!==null)issues=[...issues,...calculationCoverageIssues(aiText,decisionFrame)];
+      semanticReviewIssues=issues;
       semanticReviewPassed = canReleaseReviewedAnswer(issues);
       console.log('[ANSWER_SEMANTIC_REVIEW]', JSON.stringify({ requestId, failureCode:reviewFailureCode, model: reviewer.name, available: issues !== null, issues, durationMs: durationRev1Ms }));
       // A rewrite cannot fix the reviewer's confidence when every selected
@@ -1086,7 +1083,8 @@ ${ragContextText}${fullContextNote}`;
               budget.startReview();
               const secondReviewer = useMuseReview?new MuseEvidenceReviewer(env.MUSE_API_KEY!,reviewBudget()):new JevDecisionProvider(decisionApiKey, decisionEndpoint,reviewBudget(), decisionModel);
               const priorClaims=Object.fromEntries(groundingPacket.claims.map(c=>[c.id,{text:c.text,evidence_ids:c.evidence_ids,request_ids:c.request_ids,context_key:reviewer.lastReviewContextKey,...claimVerdicts[c.id]}]));
-              const remainingIssues = await secondReviewer.reviewAnswer(message, repairedText, fullReviewEvidence, history, businessClassification,repaired.packet,priorClaims);
+              const reviewedIssues = await secondReviewer.reviewAnswer(message, repairedText, fullReviewEvidence, history, businessClassification,repaired.packet,priorClaims);
+              const remainingIssues=reviewedIssues===null?null:[...reviewedIssues,...calculationCoverageIssues(repairedText,decisionFrame)];
               reviewFailureCode=secondReviewer.failureCode;
               groundingPacket='lastReviewedPacket' in secondReviewer&&secondReviewer.lastReviewedPacket?secondReviewer.lastReviewedPacket:repaired.packet;claimVerdicts=secondReviewer.lastReviewClaims;claimRoles=secondReviewer.lastReviewRoles;
               reviewRounds.push({provider:secondReviewer.name,failureCode:secondReviewer.failureCode,...('lastReviewReport' in secondReviewer?{report:secondReviewer.lastReviewReport}:{}),issues:remainingIssues,checks:secondReviewer.lastReviewChecks,context_key:secondReviewer.lastReviewContextKey,integrity:secondReviewer.lastReviewIntegrity,changed_claims:repaired.changes});
@@ -1138,11 +1136,12 @@ ${ragContextText}${fullContextNote}`;
         // recorded instead of a blanket refusal. Soft issues never confirm.
         if (hasFatalViolation && decisionApiKey && budget.review() > 1500) {
           try {
-            const confirmEvidence = [`KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')}.`, ragContextText, "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification)].filter(Boolean).join('\n\n');
+            const confirmEvidence = [`KỲ TÍNH THUẾ XÉT NGHĨA VỤ: Năm ${answerScope.years.join(', ')}.`, ragContextText, "YÊU CẦU BAO PHỦ: " + answerContract(businessClassification) + "\n" + calculationReviewEvidence(decisionFrame)].filter(Boolean).join('\n\n');
             // Fresh Jev instance: independent of a Muse primary review, and a
             // second sample when the primary was also Jev (flip = unstable).
             const confirmer = new JevDecisionProvider(decisionApiKey, decisionEndpoint, budget.review(), decisionModel);
-            const confirmIssues = await confirmer.reviewAnswer(message, aiText, confirmEvidence, history, businessClassification, groundingPacket);
+            const confirmedIssues = await confirmer.reviewAnswer(message, aiText, confirmEvidence, history, businessClassification, groundingPacket);
+            const confirmIssues=confirmedIssues===null?null:[...confirmedIssues,...calculationCoverageIssues(aiText,decisionFrame)];
             reviewRounds.push({ provider: confirmer.name, issues: confirmIssues, failureCode: confirmer.failureCode, checks: confirmer.lastReviewChecks, integrity: confirmer.lastReviewIntegrity });
             const confirmHard = confirmIssues?.some(i => i.endsWith(':CONTRADICTED') || i.endsWith(':INVENTED'));
             if (confirmIssues !== null && confirmIssues.length === 0 && !confirmHard) {

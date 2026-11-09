@@ -348,6 +348,8 @@ export function multiActivityLedger(frame: TaxDecisionFrame) {
     pit_before_relief_vnd: before,
     pit_relief_vnd: reliefAmount,
     pit_after_relief_vnd: before - reliefAmount,
+    pit_after_if_eligible_vnd: frame.residency.value !== 'NON_RESIDENT' && reliefRate > 0 && totalRevenue <= (r.thresholds.relief_max_revenue_vnd || 0)
+      ? before - Math.round(before * reliefRate) : undefined,
     relief_condition: reliefApplies
       ? 'Đã áp giảm theo giả định cá nhân cư trú đủ điều kiện NQ43.'
       : 'Chưa áp giảm NQ43 (chưa xác nhận cư trú/điều kiện hoặc vượt trần doanh thu).',

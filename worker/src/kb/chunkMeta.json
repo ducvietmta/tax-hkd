@@ -6225,5 +6225,41 @@
         "applies_from_year": 2026
       }
     ]
+  },
+  "16.242": {
+    "id": "KB/legal-cards-2026-11-09#16.242",
+    "ref_id": "16.242",
+    "section": "16.242. Tài khoản giao dịch thuế điện tử và nhánh ngoài diện định danh",
+    "tier": "VERIFIED_CONDITIONAL",
+    "legal_status": "VERIFIED_CONDITIONAL",
+    "applies_from_year": 2026,
+    "applies_to_year": null,
+    "effective_from": "2026-07-01",
+    "content_reviewed_at": "2026-11-09",
+    "content_sha256": "26acb3f0884e4ca0fd823ab4c258945ebbac1033f18f8e4e5f68cf2c038d10ab",
+    "source_document_sha256": "838ce9eb1b19a92c71a13e9c2d60b0e1ce66afef67864a6d15291bf8260edd27",
+    "source_sections": [
+      "S12",
+      "S17"
+    ],
+    "reviewer_type": "AI",
+    "source_link_review": {
+      "checked_on": "2026-11-09",
+      "content_sha256": "26acb3f0884e4ca0fd823ab4c258945ebbac1033f18f8e4e5f68cf2c038d10ab",
+      "status": "SOURCE_LINKED_SCOPED_NOT_FULL_LEGAL_CERTIFICATION",
+      "coverage": "SCOPED_SUPPORT_NOT_EVERY_SENTENCE",
+      "limits": "Chỉ phần tài khoản áp dụng HKD/CNKD từ 01/07/2026. Không suy VNeID thay mọi chữ ký số. Không xác nhận tên nút giao diện hiện hành; không đồng nhất đăng ký tài khoản với đăng ký thuế. Kiểm duyệt AI theo đoạn Markdown người dùng cung cấp, chưa đối chiếu ảnh PDF, không chứng nhận toàn văn."
+    },
+    "source_links": [
+      {
+        "doc_id": "TT-89-2026-TT-BTC",
+        "code": "Thông tư 89/2026/TT-BTC",
+        "locator": "Điểm a khoản 1 Điều 8; khoản 1, 2, 3 Điều 13",
+        "scope": "Chỉ phần tài khoản áp dụng HKD/CNKD từ 01/07/2026. Không suy VNeID thay mọi chữ ký số. Không xác nhận tên nút giao diện hiện hành; không đồng nhất đăng ký tài khoản với đăng ký thuế. Kiểm duyệt AI theo đoạn Markdown người dùng cung cấp, chưa đối chiếu ảnh PDF, không chứng nhận toàn văn.",
+        "source_url": "/documents/TT-89-2026-TT-BTC.pdf",
+        "source_type": "USER_SUPPLIED_MARKDOWN_SCOPED_REVIEW",
+        "applies_from_year": 2026
+      }
+    ]
   }
 }

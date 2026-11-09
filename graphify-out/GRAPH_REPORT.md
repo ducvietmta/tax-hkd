@@ -1,24 +1,24 @@
-# Graph Report - Website  (2026-11-06)
+# Graph Report - Website  (2026-11-09)
 
 ## Corpus Check
-- 519 files · ~4,443,586 words
+- 524 files · ~4,461,126 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 18 file(s) not represented in the graph (top: (none) 4, .jsonl 3, .zip 2)
 
 ## Summary
-- 3531 nodes · 5729 edges · 274 communities (184 shown, 90 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 106 edges (avg confidence: 0.85)
+- 3596 nodes · 5832 edges · 274 communities (184 shown, 90 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 107 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `55f00d6b`
+- Built from commit: `a983095a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - src/index.ts
 - RegistrationWizard.tsx
-- recognizer.ts
+- retriever.ts
 - test_period_evidence_recovery.cjs
 - scripts
 - routeChat.ts
@@ -28,14 +28,14 @@
 - businessTaxAnswer.ts
 - test_7404_hkd_cnkd.cjs
 - react
-- ref_node_fs
+- update_semantic_scope_kb.mjs
 - test_offline_191.cjs
 - App.tsx
 - shared/registrationIndustry.ts
 - registration/types.ts
 - evaluator.ts
 - test_rounds_84_100.cjs
-- ref_node_assert
+- ref_node_fs
 - test_retrieval_parity.cjs
 - import_case_recognition_update.cjs
 - AIChatModal.tsx
@@ -56,7 +56,7 @@
 - build_rag_expansion.mjs
 - eval_rag_baseline.cjs
 - test_abc_groups.cjs
-- src/conversation.ts
+- src/registrationAdvisor.ts
 - link_reviewed_sources_20261020.cjs
 - PhoneMockup/index.ts
 - cloudflare-env.d.ts
@@ -65,7 +65,7 @@
 - eval_case_recognition_live.cjs
 - audit_architecture_20261021.cjs
 - test_registration_wizard.cjs
-- AuthContext.tsx
+- dependencies
 - vis-network.min.js
 - compilerOptions
 - HƯỚNG DẪN TRIỂN KHAI HỆ SINH THÁI CLOUDFLARE TOÀN DIỆN
@@ -87,7 +87,7 @@
 - test_systematic_fixes.cjs
 - test_legal_assurance.cjs
 - test_tax_office_directory.cjs
-- PdfViewerModal.tsx
+- RegistrationPage.tsx
 - build_rag_expansion.mjs
 - A
 - ref_node_crypto
@@ -98,7 +98,7 @@
 - test_42_cases.cjs
 - test_answer_tone.cjs
 - test_business_cessation.cjs
-- test_case_recognition.cjs
+- RegistrationPage.tsx
 - typescript
 - test_rag_expansion.cjs
 - taxOfficeLookup.ts
@@ -108,7 +108,7 @@
 - B — 12 ca (giữ mã gốc; xem nhóm cần bao phủ từng ca)
 - C — 12 ca (giữ mã gốc; xem nhóm cần bao phủ từng ca)
 - LEGAL — 12 ca (giữ mã gốc; xem nhóm cần bao phủ từng ca)
-- factExtractor.ts
+- import_account_knowledge.cjs
 - test_document_chat.cjs
 - test_revenue_notice_7404.cjs
 - test_classification_floors.cjs
@@ -119,10 +119,10 @@
 - audit_case_coverage.cjs
 - export_85_previous_questions.cjs
 - patch_rag_source_coverage.mjs
-- jevProvider.ts
+- test_20_cases_round2.cjs
 - import_legal_cards_20261026.cjs
 - review_case_recognition.cjs
-- patch_grounded_recovery_kb.mjs
+- test_case_recognition.cjs
 - routesInfra.ts
 - capture_prompt_replay_210.cjs
 - test_legal_cards_20261026.cjs
@@ -145,9 +145,9 @@
 - Wizard đăng ký kinh doanh và đăng ký thuế
 - RAG Knowledge Export — 2026-10-12
 - test_legal_coverage_ledger.cjs
-- test_validator.cjs
-- museEvidenceReviewer.ts
-- update_semantic_scope_kb.mjs
+- test_rental_registration_context.cjs
+- jevProvider.ts
+- audit_test_rag_inventory.cjs
 - verify_group_a_b.cjs
 - Khắc phục câu tổng hợp bị chặn
 - TaxHKD v2.8: evidence provenance and review integrity
@@ -170,7 +170,7 @@
 - test_live.cjs
 - offline/README.md
 - test_tax_cli.js
-- JevDecisionProvider
+- test_decision_frame.cjs
 - Bb
 - import_7404_hkd_cnkd.cjs
 - expansion-depth-2026-10-19.mjs
@@ -182,10 +182,10 @@
 - Security remediation — 2026-10-26
 - compare_source_coverage_bundle.cjs
 - TT-91-2026-TT-BTC.md
-- recognizer.ts
+- answerScope.ts
 - TaxCalculatorInteractive.tsx
 - 1296-CT-NVT-2026-goc.md
-- review_663_report.cjs
+- test_answer_coverage_regressions.cjs
 - ref_node_path
 - 1241-CTCBA-TTHT-2024-goc.md
 - 2792-BHXH-QLT-2026-goc.md
@@ -246,45 +246,45 @@
 - TT-94-2026-TT-BTC.md
 - test_firebase_auth.mjs
 - test_registration_scope.cjs
-- evidenceGate.ts
+- test_homepage_tax.cjs
 - ref_path
 - test_chat_client.cjs
-- RegistrationPage.tsx
+- test_rag_maintenance.cjs
 - guard.ts
 - legal-coverage.md
 - review-fallback-2026-10-27.md
 - loadRecursive
-- retrievalPlan.ts
+- AICompanion.tsx
 - legal-card-review-2026-10-26.md
 - test_operational_rag.cjs
 - test_grounding_live_regression.mjs
-- audit_test_rag_inventory.cjs
+- http.ts
 - RegFAQ.tsx
 - test_question_purpose.cjs
 - build_rag_db.js
 - report_learning_queue.cjs
-- calculationContract.ts
+- legal_coverage.cjs
 - update_cessation_kb.cjs
 - test_document_library_ingest.cjs
 - ref_node_child_process
-- taxRegistrationWorkflow.ts
-- http.ts
+- export_question_set_200.mjs
+- import_systematic_legal_cards.cjs
 - test_l2_gate.cjs
 - import_case_recognition_reviews.cjs
-- freeze_prompt_retest.cjs
 - patch_source_routing_kb.mjs
+- check_registration_mobile.cjs
 - review-42-knowledge-2026-11-04.md
-- check_business_subject_live.mjs
+- retest_g163_live.mjs
 - report_request_claim_upgrade.cjs
-- retest_historical_live.mjs
-- LiveComment.tsx
+- test_legal_markdown_search.cjs
+- check_generated_explanations_live.mjs
 - Nghị định 398/2026/NĐ-CP — trích phạm vi CNKD/HKD
 - nd398-rag-2026-11-04.md
 
 ## God Nodes (most connected - your core abstractions)
-1. `handleChat()` - 79 edges
-2. `typescript` - 73 edges
-3. `scripts` - 69 edges
+1. `handleChat()` - 86 edges
+2. `typescript` - 74 edges
+3. `scripts` - 72 edges
 4. `react` - 58 edges
 5. `lucide-react` - 50 edges
 6. `jsonResponse()` - 35 edges
@@ -311,16 +311,16 @@
 ## Communities (274 total, 90 thin omitted)
 
 ### Community 0 - "src/index.ts"
-Cohesion: 0.24
-Nodes (21): decodeBase64Url(), FirebaseClaims, verifiedFirebasePhone(), handleCors(), jsonResponse(), fetch(), handleRegistrationOffice(), guardUserRoute() (+13 more)
+Cohesion: 0.27
+Nodes (18): decodeBase64Url(), FirebaseClaims, verifiedFirebasePhone(), handleCors(), jsonResponse(), fetch(), guardUserRoute(), handleAuthSession() (+10 more)
 
 ### Community 1 - "RegistrationWizard.tsx"
-Cohesion: 0.06
-Nodes (61): ETaxAppModal(), Props, TAX_APP_MEDIA, TAX_APP_STEPS, TAX_ONLINE_MEDIA, TAX_ONLINE_STEPS, taxAppStepIndex(), taxOnlineStepIndex() (+53 more)
+Cohesion: 0.05
+Nodes (72): INDUSTRY_REFERENCE, REGISTRATION_PROMPTS, REGISTRATION_SOURCES, REGISTRATION_WELCOME, TAX_FORM_FIELDS, taxRegistrationInstructions(), ETaxAppModal(), Props (+64 more)
 
-### Community 2 - "recognizer.ts"
-Cohesion: 0.16
-Nodes (21): isSubjectCompatible(), evidenceProvenance, BridgeTrace, bridgeVerifiedCandidates(), UnderstandingPacket, blocked, isBlockedVerifiedRef(), quarantineCandidates() (+13 more)
+### Community 2 - "retriever.ts"
+Cohesion: 0.10
+Nodes (33): Legal-source review and retained limits, RAG maintenance 26 October 2026, qs, alignPlanPeriod(), buildRetrievalPlan(), foldLegacy(), LegacyPin, legacyPinRefs() (+25 more)
 
 ### Community 3 - "test_period_evidence_recovery.cjs"
 Cohesion: 0.14
@@ -328,39 +328,39 @@ Nodes (13): {buildRetrievalPlan,alignPlanPeriod}, cache, cases, {filterAndGateEv
 
 ### Community 4 - "scripts"
 Cohesion: 0.03
-Nodes (69): scripts, build, d1:migrate, d1:migrate:local, d1:seed, d1:seed:local, db:prepare:security, deploy:all (+61 more)
+Nodes (72): scripts, build, d1:migrate, d1:migrate:local, d1:seed, d1:seed:local, db:prepare:security, deploy:all (+64 more)
 
 ### Community 5 - "routeChat.ts"
-Cohesion: 0.09
-Nodes (22): Question purpose and partial-answer relevance, BANNED_OPENERS, TONE_GUIDANCE, GROUNDED_ANSWER_POLICY, groundedAnswerPolicy(), reviewClarification(), reviewRepairGuidance(), validateAnswer() (+14 more)
+Cohesion: 0.06
+Nodes (44): Question purpose and partial-answer relevance, BANNED_OPENERS, TONE_GUIDANCE, ChatStreamEvent, streamChatProgress(), GROUNDED_ANSWER_POLICY, groundedAnswerPolicy(), reviewClarification() (+36 more)
 
 ### Community 6 - "decision/types.ts"
-Cohesion: 0.08
-Nodes (39): ABC_REGISTRATION_TOPICS, AbcCategory, CONVERSATION_ACTS, ConversationAct, DECISION_STATUSES, DecisionStatus, EVIDENCE_RELATIONS, EvidenceRelation (+31 more)
+Cohesion: 0.07
+Nodes (55): amountAfterLabel(), amountBeforeLabel(), compositeAmounts(), compoundAmounts(), extractAllAmounts(), ExtractedAmount, extractResidency(), extractTaxFacts() (+47 more)
 
 ### Community 7 - "retriever.ts"
-Cohesion: 0.15
-Nodes (20): Legal-source review and retained limits, RAG maintenance 26 October 2026, qs, LegalMarkdownHit, searchIndex(), searchLegalMarkdown(), STOP, build() (+12 more)
+Cohesion: 0.07
+Nodes (47): ChunkMetaEntry, EvidenceGateResult, isSubjectCompatible(), ConflictEvent, evidenceProvenance, ScopedSourceLink, CANONICAL_CHUNKS, foldRouteKey() (+39 more)
 
 ### Community 8 - "export_website_policies.py"
 Cohesion: 0.08
 Nodes (9): household(), main(), replace(), save(), text(), format_size(), main(), main() (+1 more)
 
 ### Community 9 - "businessTaxAnswer.ts"
-Cohesion: 0.12
-Nodes (35): AnswerScope, ConversationTurn, canUseVerifiedAnswer(), fold(), KNOWN_EFFECTIVE_DOC_PATTERNS, MANUAL_PORTAL_MARKERS, missingAnswerIntents(), requestedTaxFocus() (+27 more)
+Cohesion: 0.18
+Nodes (23): answerVerifiedBusinessTax(), extractVerifiedBusinessFacts(), moneyToVnd(), VerifiedBusinessAnswer, answerPriorityTax(), exact(), fold(), money() (+15 more)
 
 ### Community 10 - "test_7404_hkd_cnkd.cjs"
 Cohesion: 0.15
 Nodes (12): {buildRetrievalPlan}, {CANONICAL_CHUNKS,matchRoute}, cases, imported, load(), manifest, meta, modules (+4 more)
 
 ### Community 11 - "react"
-Cohesion: 0.06
-Nodes (28): lucide-react, react, CTASectionProps, FeaturedCaseStudyProps, ServiceItem, Services, AuditCheck, SAMPLE_HKD_CHECKS (+20 more)
-
-### Community 12 - "ref_node_fs"
 Cohesion: 0.07
-Nodes (17): cases, start, start, cases, paragraphs, start, probes, cases (+9 more)
+Nodes (24): lucide-react, react, CTASectionProps, FeaturedCaseStudyProps, CommentItem, LiveCommentProps, RegistrationConfirmModalProps, ServiceItem (+16 more)
+
+### Community 12 - "update_semantic_scope_kb.mjs"
+Cohesion: 0.10
+Nodes (13): c, {cases}, result, start, result, start, suite, test (+5 more)
 
 ### Community 13 - "test_offline_191.cjs"
 Cohesion: 0.06
@@ -368,7 +368,7 @@ Nodes (30): convo, esc(), evaluator, gateMod, kb, load(), main(), modules (+22 m
 
 ### Community 14 - "App.tsx"
 Cohesion: 0.09
-Nodes (31): framer-motion, AIChatModal, App(), ConsultationModal, HistoryModal, MainApp(), OnDemand(), PolicyModal (+23 more)
+Nodes (28): framer-motion, AIChatModal, App(), ConsultationModal, HistoryModal, MainApp(), OnDemand(), PolicyModal (+20 more)
 
 ### Community 15 - "shared/registrationIndustry.ts"
 Cohesion: 0.24
@@ -379,16 +379,16 @@ Cohesion: 0.11
 Nodes (24): PATH_ICONS, PathResultProps, AdvisorAnswers, MessageItem, RegistrationChatAdvisorProps, UserSelectionModel, ICON_MAP, SituationQuiz() (+16 more)
 
 ### Community 17 - "evaluator.ts"
-Cohesion: 0.13
-Nodes (19): formatVnd(), renderDeterministicAnswer(), renderMultiYearComparison(), RuleOutcome, cite(), evaluateDecisionFrame(), evaluateMultiYear(), evaluateUncheckedFrame() (+11 more)
+Cohesion: 0.09
+Nodes (32): inspectAnswer(), validateAnswer(), ValidationReport, calculationCoverageIssues(), calculationInstructions(), calculationReviewEvidence(), codeCalculationLedger(), ledgerInstructions() (+24 more)
 
 ### Community 18 - "test_rounds_84_100.cjs"
 Cohesion: 0.06
 Nodes (30): aggregateMethod, citationCheck, citedSource, conversation, duplicateCitation, engine, g004, g005 (+22 more)
 
-### Community 19 - "ref_node_assert"
-Cohesion: 0.05
-Nodes (24): result, sites, result, result, result, sites, results, result (+16 more)
+### Community 19 - "ref_node_fs"
+Cohesion: 0.04
+Nodes (34): result, sites, cases, start, result, start, result, result (+26 more)
 
 ### Community 20 - "test_retrieval_parity.cjs"
 Cohesion: 0.10
@@ -399,8 +399,8 @@ Cohesion: 0.06
 Nodes (29): additions, apply, audit, auditMap, authorization, base, baseMap, cardMap (+21 more)
 
 ### Community 22 - "AIChatModal.tsx"
-Cohesion: 0.09
-Nodes (33): CHAT_PROGRESS_LABELS, ChatProgress, ChatProgressStage, AIChatModal(), keepConversation(), Message, QUICK_PROMPTS, WELCOME_MESSAGE (+25 more)
+Cohesion: 0.11
+Nodes (29): CHAT_PROGRESS_LABELS, ChatProgress, ChatProgressStage, AIChatModal(), keepConversation(), Message, QUICK_PROMPTS, WELCOME_MESSAGE (+21 more)
 
 ### Community 23 - "update_business_subject_kb.mjs"
 Cohesion: 0.15
@@ -443,12 +443,12 @@ Cohesion: 0.08
 Nodes (25): L01, L02, L03, L04, L05, L06, L07, L08 (+17 more)
 
 ### Community 33 - "package.json"
-Cohesion: 0.09
-Nodes (28): clsx@^2.1.1, tailwind-merge@^3.0.1, devDependencies, firebase-tools@^15.33.0, tailwindcss@^4.0.6, @tailwindcss/vite@^4.0.6, @types/node@^22.13.4, @types/react@^19.0.10 (+20 more)
+Cohesion: 0.11
+Nodes (24): devDependencies, firebase-tools@^15.33.0, tailwindcss@^4.0.6, @tailwindcss/vite@^4.0.6, @types/node@^22.13.4, @types/react@^19.0.10, @types/react-dom@^19.0.4, typescript@~5.7.2 (+16 more)
 
 ### Community 34 - "build_legal_graph.cjs"
-Cohesion: 0.06
-Nodes (27): value(), addEdge(), catalogue, docs, documentNodes, edges, graph, identities (+19 more)
+Cohesion: 0.09
+Nodes (19): addEdge(), catalogue, docs, documentNodes, edges, graph, identities, impact (+11 more)
 
 ### Community 35 - "test_rag_source_coverage.cjs"
 Cohesion: 0.09
@@ -470,9 +470,9 @@ Nodes (20): chunkDocMap, chunkMetaJson, engine, ensureVectorCache(), evaluateRan
 Cohesion: 0.10
 Nodes (20): ABC_SAMPLE_QUESTIONS, allEvalCases, { answerPriorityTax }, { buildRetrievalPlan }, { CANONICAL_CHUNKS }, { isOutOfScope }, labels, LEGAL_CONTROL_QUESTIONS (+12 more)
 
-### Community 40 - "src/conversation.ts"
-Cohesion: 0.11
-Nodes (25): HistoryTurn, MAX_HISTORY_CHARACTERS, buildConversationRetrievalQuery(), isContextualFollowUp(), ARITHMETIC_INSTRUCTIONS, CalculationRecord, ComparisonRecord, decimalText() (+17 more)
+### Community 40 - "src/registrationAdvisor.ts"
+Cohesion: 0.20
+Nodes (12): completeHistory(), HistoryTurn, MAX_HISTORY_CHARACTERS, REGISTRATION_PANEL_TITLES, registrationAdvisorInstructions(), registrationPanelContext, ContextMessage, ConversationTurn (+4 more)
 
 ### Community 41 - "link_reviewed_sources_20261020.cjs"
 Cohesion: 0.15
@@ -503,12 +503,12 @@ Cohesion: 0.10
 Nodes (18): cache, context, conversation, definition, findings, frame, {JevDecisionProvider}, load() (+10 more)
 
 ### Community 48 - "test_registration_wizard.cjs"
-Cohesion: 0.09
-Nodes (18): fflate@^0.8.3, fflate, appGuide, back, cases, changed, data, escaped (+10 more)
+Cohesion: 0.10
+Nodes (16): appGuide, back, cases, changed, data, escaped, exporter, industryContext (+8 more)
 
-### Community 49 - "AuthContext.tsx"
-Cohesion: 0.11
-Nodes (20): AIChatModalProps, BANK_CONFIG, IS_PAYMENT_LOCKED, PACKAGES, PricingPackage, HistoryModal(), HistoryModalProps, HistoryModalSession() (+12 more)
+### Community 49 - "dependencies"
+Cohesion: 0.14
+Nodes (14): dependencies, clsx@^2.1.1, fflate@^0.8.3, firebase@^13.0.0, framer-motion@^12.4.7, lucide-react@^0.475.0, pdfjs-dist@^5.4.296, react@^19.0.0 (+6 more)
 
 ### Community 50 - "vis-network.min.js"
 Cohesion: 0.06
@@ -594,9 +594,9 @@ Nodes (13): {auditEvaluation}, cache, {evaluateDecisionFrame}, frame, grounding,
 Cohesion: 0.14
 Nodes (13): alternatives, cache, directory, duplicate, fold(), {handleRegistrationOffice:handle}, hn, load() (+5 more)
 
-### Community 71 - "PdfViewerModal.tsx"
-Cohesion: 0.19
-Nodes (10): LEGAL_DOCS, LegalKnowledgeBaseProps, QUICK_SEARCH_CHIPS, PdfDocumentViewerProps, ALL_DOCS, DocumentChat, LegalDoc, PdfDocumentViewer (+2 more)
+### Community 71 - "RegistrationPage.tsx"
+Cohesion: 0.15
+Nodes (13): Info, Turn, LEGAL_DOCS, LegalKnowledgeBase(), LegalKnowledgeBaseProps, QUICK_SEARCH_CHIPS, PdfDocumentViewerProps, ALL_DOCS (+5 more)
 
 ### Community 72 - "build_rag_expansion.mjs"
 Cohesion: 0.14
@@ -607,8 +607,8 @@ Cohesion: 0.17
 Nodes (28): _A(), b(), F(), m(), N(), P(), R(), A() (+20 more)
 
 ### Community 74 - "ref_node_crypto"
-Cohesion: 0.07
-Nodes (18): docs, entries, files, paths, report, authored, files, m (+10 more)
+Cohesion: 0.05
+Nodes (28): docs, entries, files, paths, report, authored, files, m (+20 more)
 
 ### Community 75 - "eval_case_recognition.cjs"
 Cohesion: 0.14
@@ -627,8 +627,8 @@ Cohesion: 0.15
 Nodes (11): answers, data, esc(), freeze, grades, html, manifest, previous (+3 more)
 
 ### Community 79 - "test_42_cases.cjs"
-Cohesion: 0.14
-Nodes (11): conversation, engine, pendingTopics, resultsReport, retrievalPlan, { retrieve, buildContext, analyzeAmounts }, scope, sectorIntent (+3 more)
+Cohesion: 0.13
+Nodes (12): conversation, engine, legalMarkdownSearch, pendingTopics, resultsReport, retrievalPlan, { retrieve, buildContext, analyzeAmounts }, scope (+4 more)
 
 ### Community 80 - "test_answer_tone.cjs"
 Cohesion: 0.14
@@ -638,13 +638,13 @@ Nodes (12): answerValidation, { answerVerifiedBusinessTax }, biz, contractSrc, f
 Cohesion: 0.14
 Nodes (13): {answerContract}, {buildRetrievalPlan}, cache, {canUseVerifiedAnswer}, cases, labels, load(), {mergeVectorHits} (+5 more)
 
-### Community 82 - "test_case_recognition.cjs"
-Cohesion: 0.10
-Nodes (17): bridge, {CANONICAL_CHUNKS:cards}, card, claim, frame, load, packet, passage (+9 more)
+### Community 82 - "RegistrationPage.tsx"
+Cohesion: 0.24
+Nodes (13): buildRegistrationGuide(), GUIDE_STORAGE_KEY, GuideProfile, GuideSaved, GuideStep, GuideTask, readGuideSaved(), RegistrationGoal (+5 more)
 
 ### Community 83 - "typescript"
-Cohesion: 0.06
-Nodes (20): typescript, m, {chatTransportError}, {streamChatProgress}, m, source, factExtractor, labels (+12 more)
+Cohesion: 0.09
+Nodes (14): typescript, m, {chatTransportError}, {streamChatProgress}, m, source, { buildRetrievalPlan }, { CANONICAL_CHUNKS } (+6 more)
 
 ### Community 84 - "test_rag_expansion.cjs"
 Cohesion: 0.14
@@ -678,9 +678,9 @@ Nodes (13): C01, C02, C03, C04, C05, C06, C07, C08 (+5 more)
 Cohesion: 0.15
 Nodes (13): L01, L02, L03, L04, L05, L06, L07, L08 (+5 more)
 
-### Community 93 - "factExtractor.ts"
-Cohesion: 0.21
-Nodes (17): amountAfterLabel(), amountBeforeLabel(), compositeAmounts(), compoundAmounts(), extractAllAmounts(), ExtractedAmount, extractResidency(), extractTaxFacts() (+9 more)
+### Community 93 - "import_account_knowledge.cjs"
+Cohesion: 0.14
+Nodes (10): catalog, chunk, chunks, doc, library, meta, old, quotes (+2 more)
 
 ### Community 94 - "test_document_chat.cjs"
 Cohesion: 0.15
@@ -695,8 +695,8 @@ Cohesion: 0.18
 Nodes (10): assertOptionBounds(), claimGrounding, { JevDecisionProvider, QuyetDecisionProvider }, labels, loadModule(), main(), overridesGeneric, overridesLabelled (+2 more)
 
 ### Community 97 - "src/registrationAdvisor.ts"
-Cohesion: 0.23
-Nodes (15): completeHistory(), REGISTRATION_PANEL_TITLES, registrationAdvisorInstructions(), registrationPanelContext, handleDocumentChat(), readBody(), documentContext(), documentInstructions() (+7 more)
+Cohesion: 0.22
+Nodes (11): handleDocumentChat(), readBody(), documentContext(), documentInstructions(), DocumentSection, libraryDocument, isChatRateLimited(), RateLimitUnavailable (+3 more)
 
 ### Community 98 - "test_source_routing_regressions.cjs"
 Cohesion: 0.11
@@ -722,9 +722,9 @@ Nodes (9): cases, files, first, result, saved, second, source, stringProperty() 
 Cohesion: 0.22
 Nodes (10): all, base, changed, compact(), extra, facet(), meta, pit (+2 more)
 
-### Community 104 - "jevProvider.ts"
-Cohesion: 0.13
-Nodes (18): answerContract(), UNVERIFIED_ANSWER, BusinessClassification, incomeDescriptions, intentDescriptions, JevClassificationResult, QuyetClassificationResult, QuyetDecisionProvider (+10 more)
+### Community 104 - "test_20_cases_round2.cjs"
+Cohesion: 0.14
+Nodes (12): { answerContract }, { buildRetrievalPlan }, { conditionalTurnoverLedger }, { evaluateDecisionFrame }, { extractDeterministicScenarios }, { isOutOfScope }, load(), modules (+4 more)
 
 ### Community 105 - "import_legal_cards_20261026.cjs"
 Cohesion: 0.13
@@ -734,13 +734,13 @@ Nodes (10): baseline, catalog, chunks, excluded, library, meta, reviewRows, revi
 Cohesion: 0.20
 Nodes (9): {CANONICAL_CHUNKS:cards}, data, load, original, payload, phrases, proposals, raw (+1 more)
 
-### Community 107 - "patch_grounded_recovery_kb.mjs"
-Cohesion: 0.22
-Nodes (7): affiliate, all, base, changed, extra, historicalInvoice, meta
+### Community 107 - "test_case_recognition.cjs"
+Cohesion: 0.10
+Nodes (17): bridge, {CANONICAL_CHUNKS:cards}, card, claim, frame, load, packet, passage (+9 more)
 
 ### Community 108 - "routesInfra.ts"
-Cohesion: 0.19
-Nodes (12): ASSURANCE_CAPABILITIES, PIPELINE_VERSION, legalCorpusGuardInstruction(), legalCoverageDocuments(), LegalCoverageStatus, legalCoverageSummary(), caseRecognizer, recognitionConfig (+4 more)
+Cohesion: 0.18
+Nodes (12): ASSURANCE_CAPABILITIES, PIPELINE_VERSION, legalCorpusGuardInstruction(), legalCoverageDocuments(), LegalCoverageStatus, legalCoverageSummary(), recognitionConfig, handleHealth() (+4 more)
 
 ### Community 109 - "capture_prompt_replay_210.cjs"
 Cohesion: 0.20
@@ -755,8 +755,8 @@ Cohesion: 0.20
 Nodes (7): imported, offices, raw, report, retained, rows, skipped
 
 ### Community 113 - "test_registration_guide.cjs"
-Cohesion: 0.10
-Nodes (18): dependencies, firebase@^13.0.0, framer-motion@^12.4.7, lucide-react@^0.475.0, pdfjs-dist@^5.4.296, react@^19.0.0, react-dom@^19.0.0, firebase (+10 more)
+Cohesion: 0.15
+Nodes (10): react-dom@^19.0.0, react-dom, icons, legalIds, mod, page, pageMod, restore (+2 more)
 
 ### Community 115 - "test_evidence_review_integrity.cjs"
 Cohesion: 0.14
@@ -779,8 +779,8 @@ Cohesion: 0.20
 Nodes (9): {JevDecisionProvider}, load(), {matchPendingTopics}, meta, modules, {MuseEvidenceReviewer}, {parseGroundedAnswer}, {periodFits} (+1 more)
 
 ### Community 121 - "test_pipeline_audit.cjs"
-Cohesion: 0.18
-Nodes (7): operationalTopics, cache, {JevDecisionProvider}, load(), results, root, semantic
+Cohesion: 0.22
+Nodes (6): cache, {JevDecisionProvider}, load(), results, root, semantic
 
 ### Community 122 - "ref_fs"
 Cohesion: 0.20
@@ -791,8 +791,8 @@ Cohesion: 0.22
 Nodes (6): arithmetic, causes, checks, next, old, summary
 
 ### Community 124 - "DocumentChat.tsx"
-Cohesion: 0.13
-Nodes (12): DocumentChat(), render(), source(), Info, Turn, AttachmentRejectionGuide(), issues, normalize() (+4 more)
+Cohesion: 0.08
+Nodes (26): RegistrationPage, AIChatModalProps, AuthModal(), BANK_CONFIG, DepositModal(), IS_PAYMENT_LOCKED, PACKAGES, PricingPackage (+18 more)
 
 ### Community 125 - "test_reasoning_summary.cjs"
 Cohesion: 0.40
@@ -811,20 +811,20 @@ Cohesion: 0.29
 Nodes (6): Gợi ý pipeline trên backend, Nội dung gói, Phiên bản, RAG Knowledge Export — 2026-10-12, Schema chunks.jsonl, Tier contract (bắt buộc khi build)
 
 ### Community 129 - "test_legal_coverage_ledger.cjs"
+Cohesion: 0.25
+Nodes (8): buildMarkdownProvisionInventory(), extractMarkdownProvisions(), sortProvisionIds(), catalog, expected, markdownInventory, ROOT, saved
+
+### Community 131 - "test_rental_registration_context.cjs"
 Cohesion: 0.14
-Nodes (18): catalog, ledger, markdownInventory, ROOT, assertTargets(), buildLegalCoverageLedger(), extractProvisionIds(), normalizeText() (+10 more)
+Nodes (13): {answerContract}, {buildRetrievalPlan}, {buildReviewContext}, {filterAndGateEvidence}, load, {mergeVectorHits}, other, {quarantineCandidates} (+5 more)
 
-### Community 131 - "test_validator.cjs"
-Cohesion: 0.18
-Nodes (8): { buildRetrievalPlan }, { CANONICAL_CHUNKS }, chunkMetaJson, { decide }, factExtractor, { filterAndGateEvidence }, labels, { validateAnswer }
+### Community 132 - "jevProvider.ts"
+Cohesion: 0.07
+Nodes (40): ConversationTurn, answerContract(), UNVERIFIED_ANSWER, GroundedClaim, groundingInstructions(), GroundingPacket, parseGroundedAnswer(), reviewerPacket() (+32 more)
 
-### Community 132 - "museEvidenceReviewer.ts"
-Cohesion: 0.19
-Nodes (14): GroundedClaim, GroundingPacket, reviewerPacket(), verifiedClaimSubset(), MuseEvidenceReviewer, normalize(), probability(), Verdict (+6 more)
-
-### Community 133 - "update_semantic_scope_kb.mjs"
-Cohesion: 0.29
-Nodes (5): chunks, invoice, meta, relief, threshold
+### Community 133 - "audit_test_rag_inventory.cjs"
+Cohesion: 0.20
+Nodes (9): cache, counts, hits, load(), raw, result, rows, suite (+1 more)
 
 ### Community 134 - "verify_group_a_b.cjs"
 Cohesion: 0.33
@@ -839,8 +839,8 @@ Cohesion: 0.33
 Nodes (5): Offline graph, Runtime changes, TaxHKD v2.8: evidence provenance and review integrity, v2.8.1: scoped links for the 41 gaps, Validation and operations
 
 ### Community 137 - "backfill_vectorize.mjs"
-Cohesion: 0.09
-Nodes (23): allowed, args, byId, INDEX_VERSION, load, main(), manifest, out (+15 more)
+Cohesion: 0.13
+Nodes (14): allowed, args, byId, INDEX_VERSION, load, main(), manifest, out (+6 more)
 
 ### Community 138 - "test_systematic_legal_cards.cjs"
 Cohesion: 0.17
@@ -848,7 +848,7 @@ Nodes (10): {buildRetrievalPlan}, load, meta, {periodFits}, probes, {resolveAnsw
 
 ### Community 139 - "subrequests.ts"
 Cohesion: 0.14
-Nodes (18): filterAndGateEvidence(), focusNames, frameForRequest(), intentTopic, retrieveSubrequests(), getChunksByRefs(), Retrieved, chunkMeta (+10 more)
+Nodes (18): filterAndGateEvidence(), focusNames, frameForRequest(), intentTopic, keepTopic, retrieveSubrequests(), getChunksByRefs(), chunkMeta (+10 more)
 
 ### Community 140 - "v2.11 — Bảo toàn dữ kiện và kiểm chứng theo yêu cầu"
 Cohesion: 0.40
@@ -866,9 +866,9 @@ Nodes (3): record(), results, runSecurityAudit()
 Cohesion: 0.83
 Nodes (3): main(), testConcurrency(), testSSE()
 
-### Community 162 - "JevDecisionProvider"
-Cohesion: 0.27
-Nodes (5): ConversationTurn, JevDecisionProvider, TaxRelevance, validProbability(), resolveTaxRelevance()
+### Community 162 - "test_decision_frame.cjs"
+Cohesion: 0.25
+Nodes (5): factExtractor, labels, scope2025, scope2026, understandQueryModule
 
 ### Community 164 - "Bb"
 Cohesion: 0.23
@@ -910,21 +910,21 @@ Nodes (5): Development AI bridge, Guide purchases and concurrent spending, Histo
 Cohesion: 0.29
 Nodes (5): [a,b], changes, paths, result, texts
 
-### Community 175 - "recognizer.ts"
-Cohesion: 0.14
-Nodes (14): allowedIntents, createRecognizer(), emptyPacket(), expansionPhraseIds(), phraseCatalog, phraseIdsByText, RECOGNITION_POLICY_VERSION, RecognitionEntry (+6 more)
+### Community 175 - "answerScope.ts"
+Cohesion: 0.26
+Nodes (11): AnswerScope, canUseVerifiedAnswer(), fold(), KNOWN_EFFECTIVE_DOC_PATTERNS, MANUAL_PORTAL_MARKERS, missingAnswerIntents(), requestedTaxFocus(), validateLegalCitations() (+3 more)
 
 ### Community 176 - "TaxCalculatorInteractive.tsx"
 Cohesion: 0.43
 Nodes (6): AnimatedMoney(), formatVND(), TabKey, TABS, TaxCalculatorInteractive(), estimateHomepageTax()
 
-### Community 178 - "review_663_report.cjs"
-Cohesion: 0.18
-Nodes (7): annotations, grades, indexed, provenance, retest, rows, summary
+### Community 178 - "test_answer_coverage_regressions.cjs"
+Cohesion: 0.15
+Nodes (12): base, {buildRetrievalPlan}, {calculationCoverageIssues,calculationInstructions}, {filterAndGateEvidence}, frame, load, {multiActivityLedger}, raw (+4 more)
 
 ### Community 179 - "ref_node_path"
-Cohesion: 0.10
-Nodes (14): bundled, {chromium}, {account}, sections, load(), files, knownDocuments, legalDocuments (+6 more)
+Cohesion: 0.09
+Nodes (16): {account}, sections, authored, files, m, manifest, rows, load() (+8 more)
 
 ### Community 215 - "test_nd398.cjs"
 Cohesion: 0.11
@@ -942,9 +942,9 @@ Nodes (5): base64url(), claims, jwk, now, tokenFor()
 Cohesion: 0.18
 Nodes (10): {answerContract}, base, {buildRetrievalPlan}, cache, cases, load(), {QuyetDecisionProvider}, {REGISTRATION_SCOPE_POLICY:policy} (+2 more)
 
-### Community 240 - "evidenceGate.ts"
-Cohesion: 0.17
-Nodes (11): ChunkMetaEntry, EvidenceGateResult, ConflictEvent, ScopedSourceLink, CANONICAL_CHUNKS, foldRouteKey(), matchRoute(), QUERY_ROUTES (+3 more)
+### Community 240 - "test_homepage_tax.cjs"
+Cohesion: 0.20
+Nodes (8): value(), above, docs, m, rental, repair, retail, source
 
 ### Community 241 - "ref_path"
 Cohesion: 0.50
@@ -954,17 +954,17 @@ Nodes (3): callMcp(), runRegression(), TEST_CASES
 Cohesion: 0.26
 Nodes (12): {appendProgress}, componentCase(), componentHarness(), componentProgressCase(), event(), load(), main(), parser (+4 more)
 
-### Community 243 - "RegistrationPage.tsx"
-Cohesion: 0.24
-Nodes (13): buildRegistrationGuide(), GUIDE_STORAGE_KEY, GuideProfile, GuideSaved, GuideStep, GuideTask, readGuideSaved(), RegistrationGoal (+5 more)
+### Community 243 - "test_rag_maintenance.cjs"
+Cohesion: 0.20
+Nodes (9): {CANONICAL_CHUNKS:cards,QUERY_ROUTES:routes}, changed, importer, load, manifest, metadata, policy, refs (+1 more)
 
 ### Community 244 - "guard.ts"
 Cohesion: 0.07
-Nodes (40): allowDevBridgeRequest(), loopback(), intentInstructions(), isContextualFollowUp(), isOutOfScope(), normalizeText(), OUT_OF_SCOPE_RESPONSE, resolveAnswerScope() (+32 more)
+Nodes (41): allowDevBridgeRequest(), loopback(), ConversationTurn, intentInstructions(), isContextualFollowUp(), isOutOfScope(), normalizeText(), OUT_OF_SCOPE_RESPONSE (+33 more)
 
-### Community 248 - "retrievalPlan.ts"
-Cohesion: 0.24
-Nodes (12): alignPlanPeriod(), buildRetrievalPlan(), foldLegacy(), LegacyPin, legacyPinRefs(), PolicyEvidenceEntry, selectPolicyCandidates(), selectPolicyEvidence() (+4 more)
+### Community 248 - "AICompanion.tsx"
+Cohesion: 0.27
+Nodes (7): AICompanion(), AICompanionProps, AIMascotAvatar(), STEP_TIPS, StepCardProps, StepRailProps, RegStep
 
 ### Community 250 - "test_operational_rag.cjs"
 Cohesion: 0.18
@@ -974,9 +974,9 @@ Nodes (10): {buildRetrievalPlan}, {CANONICAL_CHUNKS}, cases, directory, load(), 
 Cohesion: 0.31
 Nodes (8): answer(), args, cases, judge(), paths, read(), results, summary
 
-### Community 252 - "audit_test_rag_inventory.cjs"
-Cohesion: 0.20
-Nodes (9): cache, counts, hits, load(), raw, result, rows, suite (+1 more)
+### Community 252 - "http.ts"
+Cohesion: 0.43
+Nodes (3): Env, hasMcpTestAccess(), handleMcp()
 
 ### Community 253 - "RegFAQ.tsx"
 Cohesion: 0.47
@@ -994,9 +994,9 @@ Nodes (4): baseDir, chunksPath, main(), queryMapPath
 Cohesion: 0.22
 Nodes (7): classifiedPath, groups, lines, manifestPath, outPath, root, sorted
 
-### Community 257 - "calculationContract.ts"
-Cohesion: 0.53
-Nodes (7): calculationInstructions(), codeCalculationLedger(), ledgerInstructions(), historicalCalculationLedger(), methodComparisonLedger(), multiActivityLedger(), getRulesetForYear()
+### Community 257 - "legal_coverage.cjs"
+Cohesion: 0.26
+Nodes (10): catalog, ledger, markdownInventory, ROOT, assertTargets(), buildLegalCoverageLedger(), extractProvisionIds(), normalizeText() (+2 more)
 
 ### Community 258 - "update_cessation_kb.cjs"
 Cohesion: 0.33
@@ -1010,41 +1010,41 @@ Nodes (6): batch2, docs, large, library, m, manifest
 Cohesion: 0.22
 Nodes (6): names, r, rows, commands, r, rows
 
-### Community 261 - "taxRegistrationWorkflow.ts"
-Cohesion: 0.25
-Nodes (6): INDUSTRY_REFERENCE, REGISTRATION_PROMPTS, REGISTRATION_SOURCES, REGISTRATION_WELCOME, TAX_FORM_FIELDS, taxRegistrationInstructions()
+### Community 261 - "export_question_set_200.mjs"
+Cohesion: 0.29
+Nodes (6): archived, blocks, current, original, reread, retained
 
-### Community 262 - "http.ts"
-Cohesion: 0.23
-Nodes (5): Env, hasMcpTestAccess(), RateLimitUnavailable, logRetrieval(), RetrievalStat
+### Community 262 - "import_systematic_legal_cards.cjs"
+Cohesion: 0.29
+Nodes (4): chunks, library, manifest, meta
 
 ### Community 263 - "test_l2_gate.cjs"
-Cohesion: 0.33
-Nodes (6): facts, labels, load(), main(), scope, { understandQuery, refineQueryWithL2, understandClassifiedQuery }
+Cohesion: 0.25
+Nodes (7): operationalTopics, facts, labels, load(), main(), scope, { understandQuery, refineQueryWithL2, understandClassifiedQuery }
 
 ### Community 264 - "import_case_recognition_reviews.cjs"
 Cohesion: 0.25
 Nodes (6): incoming, merged, old, previous, priorIndex, target
 
-### Community 265 - "freeze_prompt_retest.cjs"
-Cohesion: 0.33
-Nodes (5): authored, files, m, manifest, rows
-
-### Community 266 - "patch_source_routing_kb.mjs"
+### Community 265 - "patch_source_routing_kb.mjs"
 Cohesion: 0.33
 Nodes (4): chunks, extra, historical, invoice
 
-### Community 268 - "check_business_subject_live.mjs"
+### Community 268 - "retest_g163_live.mjs"
 Cohesion: 0.40
-Nodes (4): c, {cases}, result, start
+Nodes (4): result, start, suite, test
 
 ### Community 269 - "report_request_claim_upgrade.cjs"
 Cohesion: 0.40
 Nodes (5): changes, esc(), offline, result, rows
 
-### Community 270 - "retest_historical_live.mjs"
+### Community 270 - "test_legal_markdown_search.cjs"
 Cohesion: 0.40
-Nodes (4): result, start, suite, test
+Nodes (4): load, nd68, registration, { searchLegalMarkdown }
+
+### Community 271 - "check_generated_explanations_live.mjs"
+Cohesion: 0.50
+Nodes (3): cases, paragraphs, start
 
 ## Knowledge Gaps
 - **90 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
@@ -1052,17 +1052,17 @@ Nodes (4): result, start, suite, test
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `react` to `package.json`, `RegistrationWizard.tsx`, `PdfViewerModal.tsx`, `PhoneMockup/index.ts`, `App.tsx`, `LiveComment.tsx`, `test_registration_wizard.cjs`, `test_registration_guide.cjs`, `AuthContext.tsx`, `TaxCalculatorInteractive.tsx`, `registration/types.ts`, `RegistrationPage.tsx`, `test_registration_industry.cjs`, `AIChatModal.tsx`, `DocumentChat.tsx`, `RegFAQ.tsx`?**
-  _High betweenness centrality (0.125) - this node is a cross-community bridge._
+- **Why does `typescript` connect `typescript` to `test_document_library_ingest.cjs`, `test_period_evidence_recovery.cjs`, `audit_test_rag_inventory.cjs`, `test_l2_gate.cjs`, `test_7404_hkd_cnkd.cjs`, `test_offline_191.cjs`, `test_rounds_84_100.cjs`, `ref_node_fs`, `test_retrieval_parity.cjs`, `test_architecture_integrity.cjs`, `test_answer_scope.cjs`, `test_spec_upgrades.cjs`, `package.json`, `build_legal_graph.cjs`, `test_decision_frame.cjs`, `test_rag_source_coverage.cjs`, `build_rag_expansion.mjs`, `eval_rag_baseline.cjs`, `test_abc_groups.cjs`, `test_request_claim_pipeline.cjs`, `link_reviewed_sources_20261020.cjs`, `test_rules_equivalence.cjs`, `test_upgrade_regression_offline.cjs`, `audit_architecture_20261021.cjs`, `test_registration_wizard.cjs`, `ref_node_path`, `test_grounded_calculation_recovery.cjs`, `test_registration_industry.cjs`, `test_required_evidence.cjs`, `test_scenario_recovery.cjs`, `test_registration_advisor.cjs`, `test_semantic_scope_regressions.cjs`, `test_transport_parity.cjs`, `test_business_subject_boundary.cjs`, `test_rag.cjs`, `test_rounds_41_60.cjs`, `test_legal_assurance.cjs`, `test_tax_office_directory.cjs`, `ref_node_crypto`, `test_42_cases.cjs`, `test_answer_tone.cjs`, `test_business_cessation.cjs`, `test_rag_expansion.cjs`, `verify_kb_sync.cjs`, `test_source_links.cjs`, `test_document_chat.cjs`, `test_revenue_notice_7404.cjs`, `test_classification_floors.cjs`, `test_source_routing_regressions.cjs`, `test_security_remediation.cjs`, `audit_case_coverage.cjs`, `export_85_previous_questions.cjs`, `test_20_cases_round2.cjs`, `capture_prompt_replay_210.cjs`, `test_registration_scope.cjs`, `test_homepage_tax.cjs`, `test_registration_guide.cjs`, `test_chat_client.cjs`, `test_evidence_review_integrity.cjs`, `test_audit_fixes.cjs`, `test_pipeline_audit.cjs`, `test_operational_rag.cjs`, `test_reasoning_summary.cjs`, `test_question_purpose.cjs`?**
+  _High betweenness centrality (0.127) - this node is a cross-community bridge._
 - **Are the 12 inferred relationships involving `handleChat()` (e.g. with `Question purpose and partial-answer relevance` and `.assessAnswerScope()`) actually correct?**
   _`handleChat()` has 12 INFERRED edges - model-reasoned connections that need verification._
 - **Should `RegistrationWizard.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.06468797564687975 - nodes in this community are weakly interconnected._
-- **Why does `typescript` connect `typescript` to `test_document_library_ingest.cjs`, `test_period_evidence_recovery.cjs`, `test_validator.cjs`, `test_l2_gate.cjs`, `freeze_prompt_retest.cjs`, `test_7404_hkd_cnkd.cjs`, `test_offline_191.cjs`, `test_rounds_84_100.cjs`, `test_retrieval_parity.cjs`, `test_architecture_integrity.cjs`, `test_answer_scope.cjs`, `test_spec_upgrades.cjs`, `package.json`, `build_legal_graph.cjs`, `test_rag_source_coverage.cjs`, `test_request_claim_pipeline.cjs`, `build_rag_expansion.mjs`, `eval_rag_baseline.cjs`, `test_abc_groups.cjs`, `test_rules_equivalence.cjs`, `link_reviewed_sources_20261020.cjs`, `test_upgrade_regression_offline.cjs`, `audit_architecture_20261021.cjs`, `test_registration_wizard.cjs`, `ref_node_path`, `test_grounded_calculation_recovery.cjs`, `test_registration_industry.cjs`, `test_required_evidence.cjs`, `test_scenario_recovery.cjs`, `test_registration_advisor.cjs`, `test_semantic_scope_regressions.cjs`, `test_transport_parity.cjs`, `test_business_subject_boundary.cjs`, `test_rag.cjs`, `test_rounds_41_60.cjs`, `test_legal_assurance.cjs`, `test_tax_office_directory.cjs`, `ref_node_crypto`, `test_42_cases.cjs`, `test_answer_tone.cjs`, `test_business_cessation.cjs`, `test_rag_expansion.cjs`, `verify_kb_sync.cjs`, `test_source_links.cjs`, `test_document_chat.cjs`, `test_revenue_notice_7404.cjs`, `test_classification_floors.cjs`, `test_source_routing_regressions.cjs`, `test_security_remediation.cjs`, `audit_case_coverage.cjs`, `export_85_previous_questions.cjs`, `capture_prompt_replay_210.cjs`, `test_registration_scope.cjs`, `test_registration_guide.cjs`, `test_chat_client.cjs`, `test_evidence_review_integrity.cjs`, `test_audit_fixes.cjs`, `test_pipeline_audit.cjs`, `test_operational_rag.cjs`, `audit_test_rag_inventory.cjs`, `test_reasoning_summary.cjs`, `test_question_purpose.cjs`?**
-  _High betweenness centrality (0.125) - this node is a cross-community bridge._
+  _Cohesion score 0.05041797283176593 - nodes in this community are weakly interconnected._
+- **Why does `react` connect `react` to `package.json`, `RegistrationWizard.tsx`, `RegistrationPage.tsx`, `PhoneMockup/index.ts`, `App.tsx`, `test_registration_wizard.cjs`, `test_registration_guide.cjs`, `dependencies`, `TaxCalculatorInteractive.tsx`, `registration/types.ts`, `RegistrationPage.tsx`, `test_registration_industry.cjs`, `AIChatModal.tsx`, `AICompanion.tsx`, `DocumentChat.tsx`, `RegFAQ.tsx`?**
+  _High betweenness centrality (0.127) - this node is a cross-community bridge._
+- **Should `retriever.ts` be split into smaller, more focused modules?**
+  _Cohesion score 0.10365853658536585 - nodes in this community are weakly interconnected._
+- **Why does `verifiedFirebasePhone()` connect `src/index.ts` to `src/registrationAdvisor.ts`, `src/registrationAdvisor.ts`, `routeChat.ts`, `test_firebase_auth.mjs`?**
+  _High betweenness centrality (0.043) - this node is a cross-community bridge._
 - **Should `test_period_evidence_recovery.cjs` be split into smaller, more focused modules?**
   _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._
-- **Why does `verifiedFirebasePhone()` connect `src/index.ts` to `src/registrationAdvisor.ts`, `routeChat.ts`, `test_firebase_auth.mjs`, `http.ts`?**
-  _High betweenness centrality (0.037) - this node is a cross-community bridge._
-- **Should `scripts` be split into smaller, more focused modules?**
-  _Cohesion score 0.028985507246376812 - nodes in this community are weakly interconnected._

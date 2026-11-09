@@ -285,7 +285,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           <div className="md:hidden mb-5 px-1">
             <p className="text-xs font-semibold text-emerald-800 mb-1.5 uppercase tracking-wider">Trợ lý AI TaxHKD</p>
             <h1 className="text-[28px] font-extrabold leading-tight tracking-tight text-slate-900">
-              Tra cứu &amp; Tính thuế<br /><span className="text-emerald-700">Hộ kinh doanh</span>
+              Tra cứu &amp; Tính thuế<br /><span>Hộ kinh doanh</span>
             </h1>
             <p className="mt-2 text-sm text-slate-600">Hỏi điều bạn cần, xem căn cứ và chọn bước tiếp theo.</p>
           </div>
@@ -304,7 +304,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
           <h1 className="hidden md:block text-[54px] font-extrabold tracking-tight leading-[1.1] mb-5 text-slate-900">
             Tra cứu &amp; Tính thuế
             <br />
-            <span className="text-emerald-800">Hộ &amp; Cá nhân kinh doanh</span>
+            <span>Hộ &amp; Cá nhân kinh doanh</span>
           </h1>
 
           <motion.p
@@ -390,7 +390,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenConsultation, onContinueAIChat
               disabled={isSearching}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="relative min-h-11 overflow-hidden inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-[13px] sm:text-[14px] px-4 py-2 sm:px-6 sm:py-3 rounded-xl shadow-xs flex-shrink-0 disabled:opacity-75 transition-all"
+              className="relative min-h-11 overflow-hidden inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-brand-700 hover:bg-brand-800 text-white font-semibold text-[13px] sm:text-[14px] px-4 py-2 sm:px-6 sm:py-3 rounded-xl shadow-xs flex-shrink-0 disabled:opacity-75 transition-all"
             >
               {isSearching ? (
                 <>
